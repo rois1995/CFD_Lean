@@ -38,6 +38,8 @@ This incremental command is not the complete fresh-checkout bootstrap; use the s
 
 ## Review status
 
-The independent decision is **accept with conditions** for the frozen M1 commit. The reviewer verified the mathematical statements and proof dependencies and accepted the standard classical foundations for M1. [Follow-up changes](reviews/M1/README.md) publish the tested reproduction procedure, provide the original approval-exchange record and correct reference locators. Confirmation that the conditions are closed remains with the reviewer/scientific approver.
+The independent decision is **Accept M1**, with both original review conditions closed. The accepted mathematical revision is `0a88e36b3810cd5adc3881db526ca8a35f81afbb`; documentation follow-up `180ff1be1aa95d943574efd9c05cd4de320a88b6` closed the conditions. See the supplied [final acceptance record](reviews/M1/CFD_Lean_M1_Acceptance.md). The original conditional report and evidence remain intact as review history.
+
+Acceptance covers the exact-real M1 state algebra and oriented physical flux only. The [next-step handoff](reviews/M1/START_HERE_Agent_A.md) requests an original 3D Roe-flux proposal. M2 mathematical statements, implementation and any additional authoritative sources require Andrea's approval. Broader declaration inventory and duplicate-audit rejection must be addressed before relying on verification at M2 scale.
 
 The approved private remote is [rois1995/CFD_Lean](https://github.com/rois1995/CFD_Lean). Later milestones are Roe flux, node-centered assembly, selected boundary algorithms and explicit time update. Books and papers remain in the external reference collection; repository reference records contain metadata and source locators only.

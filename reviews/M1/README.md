@@ -1,3 +1,13 @@
+# M1 final status: accepted
+
+The supplied [final acceptance](CFD_Lean_M1_Acceptance.md) supersedes the original conditional verdict: mathematical candidate `0a88e36b3810cd5adc3881db526ca8a35f81afbb` is accepted, and follow-up `180ff1be1aa95d943574efd9c05cd4de320a88b6` closes both conditions. The acceptance and [next-step handoff](START_HERE_Agent_A.md) were preserved byte-for-byte from the user's new archive. Its nested evidence exactly matches all 45 previously preserved files, so no evidence was reimported.
+
+The recommendation to harden declaration inventory before M2 remains. M1 acceptance does not extend to Roe flux or compiled SU2. The verifier reports machine proof checks and links to this independent decision; it does not decide scientific acceptance.
+
+The following worker response records the preceding conditional-review stage. Its pending-status language is historical and is superseded by the final acceptance above.
+
+## Historical follow-up response
+
 # M1 review follow-up
 
 ## Frozen review and preserved evidence

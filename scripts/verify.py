@@ -62,6 +62,6 @@ for directory in ["CFDLean", "references", "specifications", "scripts"]:
     "project_theorems": len(declared),
     "transitive_axioms": {name: sorted(deps) for name, deps in sorted(axioms.items())},
     "dependency_revisions_checked": len(manifest["packages"]),
-    "independent_review": "pending"
+    "independent_review_record": "reviews/M1/CFD_Lean_M1_Acceptance.md"
 }, indent=2) + "\n")
 print(f"Verified build, all {len(declared)} project theorem axiom lists, and all pinned dependencies.")
