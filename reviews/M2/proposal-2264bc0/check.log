@@ -1,0 +1,13 @@
+PASS physical Jacobian, arbitrary normal
+PASS det B
+PASS Roe matrix times B equals C
+PASS U exact midpoint jump
+PASS F exact midpoint jump
+PASS receding-state intermediate vector
+PASS negative intermediate density
+PASS oblique complete eigenframe actions
+oblique eigenframe determinant: 2*c**3/(g - 1)
+PASS minus projector in eigenframe
+PASS plus projector in eigenframe
+PASS convective projector in eigenframe
+PASS normal reversal
