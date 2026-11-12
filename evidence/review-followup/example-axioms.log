@@ -1,0 +1,5 @@
+'ReviewerCopy.domainInThreeDimensions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerCopy.zeroArea' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerCopy.moving1D' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerCopy.zeroPrimitiveDensity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerCopy.pressureGammaOne' depends on axioms: [propext, Classical.choice, Quot.sound]

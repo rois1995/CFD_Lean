@@ -1,26 +1,43 @@
 # CFD_Lean
 
-Independent exact-real Lean 4 contracts for compressible CFD. M1 specifies ideal-gas Euler states, conditional primitive/conservative conversion identities, admissibility and physical flux for oriented area vectors in arbitrary finite dimension. See [the contract](specifications/M1.md) and [source/proof map](references/M1.md).
+Independent exact-real Lean 4 contracts for compressible CFD. M1 specifies ideal-gas Euler states, conditional primitive/conservative conversion identities, admissibility and physical flux for oriented area vectors in arbitrary finite dimension. See [the contract](specifications/M1.md), [source/proof map](references/M1.md) and [approval record](specifications/M0-approval.md).
 
-The library imports mathlib only. It does not import SU2, its specifications or implementation. A future SU2 verification package may depend on an immutable CFD_Lean revision. The two projects must use separate working trees and build directories.
+The library imports mathlib only. A future SU2 verification package may depend on an immutable CFD_Lean revision, using separate working trees and build directories.
 
-## Build and audit
+## Reproduce the independently reviewed M1 candidate
+
+Frozen mathematical candidate: `0a88e36b3810cd5adc3881db526ca8a35f81afbb`.
+
+Use a fresh, clean, detached checkout of that commit with no `.lake`. Put Lean/Lake 4.19.0, Git, Python 3, Node, npm, sha256sum and realpath on PATH. Keep a separate copy of [the published review bundle](reviews/M1/) outside the fresh checkout. Its scripts and logs are preserved byte-for-byte from the submitted reviewer evidence, with their original SHA256SUMS.
+
+From the fresh candidate checkout, replace `/absolute/path/to/published-review` below with that separate `reviews/M1` directory, and choose log directories outside the checkout:
+
+```bash
+git checkout --detach 0a88e36b3810cd5adc3881db526ca8a35f81afbb
+sha256sum -c evidence/SHA256SUMS
+bash /absolute/path/to/published-review/reviewer/ReproduceM1.sh ../M1-replay-logs
+bash /absolute/path/to/published-review/reviewer/RunReviewerChecks.sh ../M1-independent-checks
+```
+
+The tested reproduction script checks the frozen snapshot, fetches all nine manifest-pinned source trees, disables both binary-cache mechanisms (`LAKE_NO_CACHE=1` and `MATHLIB_NO_CACHE_ON_UPDATE=1`), builds pinned ProofWidgets JavaScript locally using its npm lockfile, and runs the original verifier. The widget bootstrap is necessary: the pinned mathlib blocks a missing widget asset build during the normal downstream build. Setting only the mathlib update-hook variable is insufficient for a fresh source-only reproduction.
+
+Check the committed hashes **before** verification: the verifier regenerates evidence/SHA256SUMS. The frozen Git commit remains the baseline. The reviewer independently completed and replayed the source-only procedure; detailed commands and results are in [the report](reviews/M1/CFD_Lean_M1_Independent_Review.md).
+
+## Development verification
 
 Lean: `leanprover/lean4:v4.19.0`. Mathlib: `c44e0c8ee63ca166450922a373c7409c5d26b00b`. Transitive dependencies are pinned in lake-manifest.json.
 
-With this Lean/Lake toolchain on PATH, run:
+After the pinned dependency sources and widget assets have been bootstrapped, run:
 
 ```bash
-python3 scripts/verify.py
 sha256sum -c evidence/SHA256SUMS
+LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py
 ```
 
-For an evaluator's source-only build, use a fresh checkout, retain the committed manifest, and do not fetch compiled proof caches. Set `MATHLIB_NO_CACHE_ON_UPDATE=1` for any dependency resolution. No shared `.lake` tree is needed. Proof tactic execution produces terms checked by Lean's kernel; no `native_decide` acceptance shortcut is used.
-
-The initial dependency sources were cloned into independent working trees from already available local Git objects, checked out at the manifest revisions, and assigned their canonical upstream URLs. No dependency build artifacts were copied. The compiler executable is an existing Lean 4.19.0 installation, not a project build directory.
+This incremental command is not the complete fresh-checkout bootstrap; use the source-only procedure above for the frozen M1 candidate. Project proof terms are checked by Lean's kernel. The original verifier inventories the 15 hand-written theorem declarations in M1; before a larger milestone relies on it, address the review's broader declaration-inventory and duplicate-record recommendations.
 
 ## Review status
 
-The user approved the M1 plan on 2026-11-12. The candidate is not independently accepted. Read the domain limits and foundation policy in specifications/M1.md. Later milestones are Roe flux, node-centered assembly, selected boundary algorithms and explicit time update; none is included in M1.
+The independent decision is **accept with conditions** for the frozen M1 commit. The reviewer verified the mathematical statements and proof dependencies and accepted the standard classical foundations for M1. [Follow-up changes](reviews/M1/README.md) publish the tested reproduction procedure, provide the original approval-exchange record and correct reference locators. Confirmation that the conditions are closed remains with the reviewer/scientific approver.
 
-PDFs stay in the external read-only reference collection. Only bibliography, source locators and mathematical statements in our notation belong in this repository. The user approved the private GitHub repository [rois1995/CFD_Lean](https://github.com/rois1995/CFD_Lean). The initial M1 candidate is frozen by its Git commit; scientific acceptance remains pending.
+The approved private remote is [rois1995/CFD_Lean](https://github.com/rois1995/CFD_Lean). Later milestones are Roe flux, node-centered assembly, selected boundary algorithms and explicit time update. Books and papers remain in the external reference collection; repository reference records contain metadata and source locators only.

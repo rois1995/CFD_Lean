@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/e87e5b190f05/review/checkout/scripts/verify.py", line 30, in <module>
+    subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lake', 'build']' returned non-zero exit status 1.

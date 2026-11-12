@@ -1,0 +1,4 @@
+https://doi.org/10.1007/978-3-540-49834-6 -> 404 https://doi.org/10.1007/978-3-540-49834-6
+https://doi.org/10.1007/b79761 -> 200 https://link.springer.com/book/10.1007/b79761
+https://api.crossref.org/works/10.1007/978-3-540-49834-6 -> 404 https://api.crossref.org/works/10.1007/978-3-540-49834-6
+https://api.crossref.org/works/10.1007/b79761 -> 200 https://api.crossref.org/works/10.1007/b79761

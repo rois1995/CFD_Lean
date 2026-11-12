@@ -1,0 +1,83 @@
+{
+  "lean": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+  "project_theorems": 15,
+  "transitive_axioms": {
+    "admissible_exists": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "admissible_iff_internalEnergy_pos": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "conservative_admissible_toPrimitive": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "conservative_roundTrip": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "dot_add": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "dot_mul": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "physicalFlux_add": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "physicalFlux_mul": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "physicalFlux_reverse": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "physicalFlux_zero": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "pressure_toConservative": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "primitive_admissible_toConservative": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "primitive_roundTrip": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "squareSum_div": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "squareSum_mul": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "dependency_revisions_checked": 9,
+  "independent_review": "pending"
+}

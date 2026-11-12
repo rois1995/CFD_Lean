@@ -1,0 +1,4 @@
+'ReviewerM1.primitiveFlux' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerM1.conservativeZeroDensity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerM1.gammaOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerM1.belowOneExample' depends on axioms: [propext, Classical.choice, Quot.sound]

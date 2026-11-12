@@ -1,0 +1,5 @@
+CONTROL | Finset.sum._at.M1Control.lengthSquared._spec_1 | unsafe=true
+CONTROL | Finset.sum._at.M1Control.productSum._spec_1 | unsafe=true
+CONTROL | Multiset.sum._at.M1Control.lengthSquared._spec_2 | unsafe=true
+'M1Control.lengthSquared' depends on axioms: [propext, Classical.choice, Quot.sound]
+'M1Control.productSum' depends on axioms: [propext, Classical.choice, Quot.sound]

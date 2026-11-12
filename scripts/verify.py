@@ -14,6 +14,7 @@ PATTERN = re.compile(
 
 
 def parse_axioms(output):
+    # shortcut: M1 has unique theorem rows; reject duplicates and inventory modules before later milestones.
     return {name: set(filter(None, (x.strip() for x in (axioms or "").split(","))))
             for name, axioms in PATTERN.findall(output)}
 

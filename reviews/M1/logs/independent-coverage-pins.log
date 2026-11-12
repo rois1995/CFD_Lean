@@ -1,0 +1,22 @@
+Named contracts in the independent kernel theorem inventory: 15
+All kernel theorem declarations in project modules: 29
+Generated theorem declarations beyond hand-authored names: CFDLean.Conservative.Admissible.eq_1, CFDLean.Conservative.mk.inj, CFDLean.Conservative.mk.injEq, CFDLean.Conservative.mk.sizeOf_spec, CFDLean.Conservative.pressure._proof_1, CFDLean.Conservative.pressure.eq_1, CFDLean.Conservative.toPrimitive.eq_1, CFDLean.Primitive.mk.inj, CFDLean.Primitive.mk.injEq, CFDLean.Primitive.mk.sizeOf_spec, CFDLean.Primitive.toConservative.eq_1, CFDLean.dot.eq_1, CFDLean.physicalFlux.eq_1, CFDLean.squareSum.eq_1
+CFDLean.lean imports: CFDLean.Core.PhysicalFlux
+CFDLean/Core/State.lean imports: Mathlib.Data.Real.Basic, Mathlib.Algebra.BigOperators.Field, Mathlib.Tactic.FieldSimp, Mathlib.Tactic.Ring.Basic
+CFDLean/Core/PhysicalFlux.lean imports: CFDLean.Core.State
+Integrity.lean imports: CFDLean
+Forbidden proof/source-token search: no matches in the four project Lean files; complemented by kernel checks and full manual inspection.
+Frozen HEAD: 0a88e36b3810cd5adc3881db526ca8a35f81afbb
+mathlib c44e0c8ee63ca166450922a373c7409c5d26b00b tracked-clean
+plausible 77e08eddc486491d7b9e470926b3dbe50319451a tracked-clean
+LeanSearchClient 25078369972d295301f5a1e53c3e5850cf6d9d4c tracked-clean
+importGraph e6a9f0f5ee3ccf7443a0070f92b62f8db12ae82b tracked-clean
+proofwidgets c4919189477c3221e6a204008998b0d724f49904 tracked-clean
+aesop 5d50b08dedd7d69b3d9b3176e0d58a23af228884 tracked-clean
+Qq fa4f7f15d97591a9cf3aa7724ba371c7fc6dda02 tracked-clean
+batteries f5d04a9c4973d401c8c92500711518f7c656f034 tracked-clean
+Cli 02dbd02bc00ec4916e99b04b2245b30200e200d0 tracked-clean
+lake-manifest.json byte-identical to frozen Git
+evidence/SHA256SUMS byte-identical to frozen Git
+evidence/axioms.log byte-identical to frozen Git
+evidence/verification.json byte-identical to frozen Git

@@ -1,0 +1,303 @@
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.mk._flat_ctor | unsafe=false
+AXIOM_DECL | CFDLean.Core.State | Multiset.sum._at.CFDLean.squareSum._spec_2 | unsafe=true
+AUX | CFDLean.Core.State | axiom | Multiset.sum._at.CFDLean.squareSum._spec_2 | unsafe=true
+AUX | CFDLean.Core.PhysicalFlux | definition | CFDLean.dot._lambda_1._cstage2 | unsafe=true
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.noConfusionType | unsafe=false
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.pressure._proof_1 | unsafe=false | axioms=[] | direct=[]
+DECL | CFDLean.Core.State | inductive | CFDLean.Conservative | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.mk]
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.toPrimitive.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive,
+ CFDLean.Primitive.mk,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure,
+ CFDLean.Conservative.toPrimitive]
+DECL | CFDLean.Core.State | theorem | CFDLean.squareSum.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.squareSum, CFDLean.Vector]
+DECL | CFDLean.Core.State | theorem | CFDLean.Primitive.mk.sizeOf_spec | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive, CFDLean.Primitive.mk, CFDLean.Primitive._sizeOf_inst, CFDLean.Vector]
+DECL | CFDLean.Core.State | definition | CFDLean.Primitive.Admissible | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive, CFDLean.Primitive.density, CFDLean.Primitive.pressure]
+DECL | CFDLean.Core.State | theorem | CFDLean.Primitive.toConservative.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.toConservative,
+ CFDLean.squareSum,
+ CFDLean.Primitive,
+ CFDLean.Conservative.mk,
+ CFDLean.Primitive.density,
+ CFDLean.Primitive.velocity,
+ CFDLean.Primitive.pressure,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative]
+AUX | CFDLean.Core.State | definition | CFDLean.squareSum._cstage1 | unsafe=true
+AUX | CFDLean.Core.State | recursor | CFDLean.Conservative.rec | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative._sizeOf_inst | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive._sizeOf_inst | unsafe=false
+AUX | CFDLean.Core.PhysicalFlux | definition | CFDLean.dot._cstage1 | unsafe=true
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.mk._flat_ctor | unsafe=false
+DECL | CFDLean.Core.State | theorem | CFDLean.conservative_admissible_toPrimitive | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.Admissible,
+ CFDLean.Conservative.Admissible,
+ CFDLean.Conservative,
+ CFDLean.Conservative.toPrimitive]
+DECL | CFDLean.Core.State | theorem | CFDLean.primitive_admissible_toConservative | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.Admissible,
+ CFDLean.Primitive.toConservative,
+ CFDLean.Conservative.Admissible,
+ CFDLean.Primitive,
+ CFDLean.Primitive.density,
+ CFDLean.Conservative.density,
+ CFDLean.pressure_toConservative,
+ CFDLean.Primitive.pressure,
+ CFDLean.Conservative.pressure]
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.casesOn | unsafe=false
+DECL | CFDLean.Core.State | theorem | CFDLean.admissible_iff_internalEnergy_pos | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.Conservative.Admissible,
+ CFDLean.squareSum,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative]
+DECL | CFDLean.Core.State | definition | CFDLean.squareSum | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Vector]
+DECL | CFDLean.Core.State | theorem | CFDLean.Primitive.mk.injEq | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive, CFDLean.Primitive.mk, CFDLean.Primitive.noConfusion, CFDLean.Vector]
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.Admissible.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.Admissible,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+DECL | CFDLean.Core.State | definition | CFDLean.Primitive.toConservative | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.squareSum,
+ CFDLean.Primitive,
+ CFDLean.Conservative.mk,
+ CFDLean.Primitive.density,
+ CFDLean.Primitive.velocity,
+ CFDLean.Primitive.pressure,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative]
+AUX | CFDLean.Core.State | definition | Finset.sum._at.CFDLean.squareSum._spec_1._cstage2 | unsafe=true
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.pressure | unsafe=false
+AUX | CFDLean.Core.State | constructor | CFDLean.Primitive.mk | unsafe=false
+DECL | CFDLean.Core.PhysicalFlux | definition | CFDLean.dot | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Vector]
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.density | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.squareSum._closed_1._cstage2 | unsafe=true
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.noConfusion | unsafe=false
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.mk.sizeOf_spec | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.mk, CFDLean.Conservative._sizeOf_inst, CFDLean.Vector, CFDLean.Conservative]
+DECL | CFDLean.Core.PhysicalFlux | definition | CFDLean.physicalFlux | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.Conservative.mk,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.dot,
+ CFDLean.Vector,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+DECL | CFDLean.Core.State | theorem | CFDLean.squareSum_mul | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.squareSum, CFDLean.Vector]
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.recOn | unsafe=false
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.dot.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.dot, CFDLean.Vector]
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.physicalFlux_reverse | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.physicalFlux,
+ CFDLean.Conservative.mk,
+ CFDLean.physicalFlux_mul,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Vector,
+ CFDLean.Conservative]
+DECL | CFDLean.Core.State | theorem | CFDLean.conservative_roundTrip | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.toConservative,
+ CFDLean.squareSum,
+ CFDLean.Conservative.mk,
+ CFDLean.squareSum_div,
+ CFDLean.Conservative.density,
+ CFDLean.Vector,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative,
+ CFDLean.Conservative.toPrimitive,
+ CFDLean.Conservative.casesOn]
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.physicalFlux_mul | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.physicalFlux,
+ CFDLean.Conservative.mk,
+ CFDLean.dot_mul,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.dot,
+ CFDLean.Vector,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+AXIOM_DECL | CFDLean.Core.State | Finset.sum._at.CFDLean.squareSum._spec_1 | unsafe=true
+AUX | CFDLean.Core.State | axiom | Finset.sum._at.CFDLean.squareSum._spec_1 | unsafe=true
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.pressure.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.squareSum,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative._sizeOf_1 | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.noConfusion | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.squareSum._cstage2 | unsafe=true
+DECL | CFDLean.Core.State | theorem | CFDLean.admissible_exists | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.toConservative,
+ CFDLean.Conservative.Admissible,
+ CFDLean.Primitive.mk,
+ CFDLean.Primitive.density,
+ CFDLean.primitive_admissible_toConservative,
+ CFDLean.Primitive.pressure,
+ CFDLean.Conservative]
+AUX | CFDLean.Core.State | definition | Multiset.sum._at.CFDLean.squareSum._spec_2._cstage2 | unsafe=true
+AUX | CFDLean.Core.State | constructor | CFDLean.Conservative.mk | unsafe=false
+DECL | CFDLean.Core.State | inductive | CFDLean.Primitive | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.mk]
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.noConfusionType | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.recOn | unsafe=false
+DECL | CFDLean.Core.State | definition | CFDLean.Conservative.Admissible | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.density, CFDLean.Conservative, CFDLean.Conservative.pressure]
+DECL | CFDLean.Core.State | theorem | CFDLean.squareSum_div | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.squareSum, CFDLean.Vector]
+AUX | CFDLean.Core.State | recursor | CFDLean.Primitive.rec | unsafe=false
+DECL | CFDLean.Core.State | definition | CFDLean.Conservative.toPrimitive | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive,
+ CFDLean.Primitive.mk,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.physicalFlux_zero | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.physicalFlux,
+ CFDLean.Conservative.mk,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Vector,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.mk.injEq | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.noConfusion, CFDLean.Conservative.mk, CFDLean.Vector, CFDLean.Conservative]
+AUX | CFDLean.Core.State | definition | CFDLean.squareSum._lambda_1._cstage2 | unsafe=true
+DECL | CFDLean.Core.State | definition | CFDLean.Conservative.pressure | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.squareSum,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative]
+AUX | CFDLean.Core.PhysicalFlux | definition | CFDLean.dot._cstage2 | unsafe=true
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.energy | unsafe=false
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.dot_mul | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.dot, CFDLean.Vector]
+AUX | CFDLean.Core.PhysicalFlux | definition | Finset.sum._at.CFDLean.dot._spec_1._rarg._cstage2 | unsafe=true
+DECL | CFDLean.Core.State | theorem | CFDLean.Primitive.mk.inj | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive, CFDLean.Primitive.mk, CFDLean.Primitive.noConfusion, CFDLean.Vector]
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.density | unsafe=false
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.casesOn | unsafe=false
+AUX | CFDLean.Core.State | definition | Multiset.sum._at.CFDLean.squareSum._spec_2._closed_1._cstage2 | unsafe=true
+AUX | CFDLean.Core.PhysicalFlux | definition | Finset.sum._at.CFDLean.dot._spec_1._cstage2 | unsafe=true
+AUX | CFDLean.Core.PhysicalFlux | definition | CFDLean.dot._closed_1._cstage2 | unsafe=true
+AUX | CFDLean.Core.State | definition | Finset.sum._at.CFDLean.squareSum._spec_1._rarg._cstage2 | unsafe=true
+DECL | CFDLean.Core.State | theorem | CFDLean.primitive_roundTrip | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.toConservative,
+ CFDLean.squareSum,
+ CFDLean.Primitive,
+ CFDLean.Conservative.mk,
+ CFDLean.Primitive.mk,
+ CFDLean.Primitive.density,
+ CFDLean.Primitive.casesOn,
+ CFDLean.pressure_toConservative,
+ CFDLean.Vector,
+ CFDLean.Primitive.pressure,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.Conservative.pressure,
+ CFDLean.Conservative.toPrimitive]
+AXIOM_DECL | CFDLean.Core.PhysicalFlux | Finset.sum._at.CFDLean.dot._spec_1 | unsafe=true
+AUX | CFDLean.Core.PhysicalFlux | axiom | Finset.sum._at.CFDLean.dot._spec_1 | unsafe=true
+AUX | CFDLean.Core.PhysicalFlux | definition | Finset.sum._at.CFDLean.dot._spec_1._rarg._closed_1._cstage2 | unsafe=true
+DECL | CFDLean.Core.State | theorem | CFDLean.pressure_toConservative | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Primitive.toConservative,
+ CFDLean.squareSum,
+ CFDLean.Primitive,
+ CFDLean.Primitive.density,
+ CFDLean.Primitive.velocity,
+ CFDLean.Primitive.pressure,
+ CFDLean.Conservative.pressure._proof_1,
+ CFDLean.squareSum_mul,
+ CFDLean.Conservative.pressure]
+AUX | CFDLean.Core.State | definition | CFDLean.Conservative.momentum | unsafe=false
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.physicalFlux_add | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.physicalFlux,
+ CFDLean.Conservative.mk,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.dot,
+ CFDLean.Vector,
+ CFDLean.dot_add,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.dot_add | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.dot, CFDLean.Vector]
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive.velocity | unsafe=false
+DECL | CFDLean.Core.State | theorem | CFDLean.Conservative.mk.inj | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.noConfusion, CFDLean.Conservative.mk, CFDLean.Vector, CFDLean.Conservative]
+DECL | CFDLean.Core.PhysicalFlux | theorem | CFDLean.physicalFlux.eq_1 | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[CFDLean.Conservative.energy,
+ CFDLean.physicalFlux,
+ CFDLean.Conservative.mk,
+ CFDLean.Conservative.density,
+ CFDLean.Conservative.momentum,
+ CFDLean.dot,
+ CFDLean.Vector,
+ CFDLean.Conservative,
+ CFDLean.Conservative.pressure]
+AUX | CFDLean.Core.State | definition | CFDLean.Primitive._sizeOf_1 | unsafe=false
+DECL | CFDLean.Core.State | definition | CFDLean.Vector | unsafe=false | axioms=[propext,
+ Classical.choice,
+ Quot.sound] | direct=[]
+CLOSURE | roots=40 | visited=5612 | axioms=[propext, Classical.choice, Quot.sound] | unsafe=[]
