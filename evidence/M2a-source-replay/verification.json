@@ -1,0 +1,2939 @@
+{
+  "lean": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+  "stage": "M2a",
+  "promised_theorems": [
+    "CFDLean.Coordinates.decode_encode",
+    "CFDLean.Coordinates.encode_decode",
+    "CFDLean.Coordinates.unitNormal_dot_self",
+    "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
+    "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux",
+    "CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea",
+    "CFDLean.PhysicalJacobian.isOpen_admissible",
+    "CFDLean.PhysicalJacobian.jacobian_action"
+  ],
+  "modules": [
+    "CFDLean",
+    "CFDLean.Core.Coordinates",
+    "CFDLean.Core.PhysicalFlux",
+    "CFDLean.Core.PhysicalJacobian",
+    "CFDLean.Core.State",
+    "Integrity"
+  ],
+  "closure": {
+    "visited": 13897,
+    "unsafe_reached": [],
+    "roots": 118,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_modules": {
+    "CFDLean": {
+      "path": "CFDLean.lean",
+      "sha256": "4a99d9a348a16f817d4d30a10e4f46ec14519fa8b44388eea55fb96c84064fb9"
+    },
+    "CFDLean.Core.Coordinates": {
+      "path": "CFDLean/Core/Coordinates.lean",
+      "sha256": "510f312dd2a195563dde52af73440e12255c501486fe2250f474e9451a5ef27f"
+    },
+    "CFDLean.Core.PhysicalFlux": {
+      "path": "CFDLean/Core/PhysicalFlux.lean",
+      "sha256": "3945b15244ffc0a4c28c74e70e7d71b42323d88ab4422edf15d9978d9e7b8874"
+    },
+    "CFDLean.Core.PhysicalJacobian": {
+      "path": "CFDLean/Core/PhysicalJacobian.lean",
+      "sha256": "7757fbb4200b34b707155e41b93002a8b026437e6839cf302845c254d4e6b76c"
+    },
+    "CFDLean.Core.State": {
+      "path": "CFDLean/Core/State.lean",
+      "sha256": "6533e5aa85d97e65312f4c71fdf4a5281aec4a87e201d5457c6eb7e59a608b5f"
+    },
+    "Integrity": {
+      "path": "Integrity.lean",
+      "sha256": "f7f1522aa62cf05bf9d1f8bf53db556b7d805ebf89c20250608feaa115dbe045"
+    }
+  },
+  "declarations": {
+    "CFDLean.Conservative": {
+      "unsafe": false,
+      "type": "\u2115 \u2192 Type",
+      "root": true,
+      "name": "CFDLean.Conservative",
+      "module": "CFDLean.Core.State",
+      "kind": "inductive",
+      "direct": [
+        "CFDLean.Conservative.mk"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.Admissible": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Conservative d \u2192 Prop",
+      "root": true,
+      "name": "CFDLean.Conservative.Admissible",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.Admissible.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  CFDLean.Conservative.Admissible \u03b3 U = (0 < U.density \u2227 0 < CFDLean.Conservative.pressure \u03b3 U)",
+      "root": true,
+      "name": "CFDLean.Conservative.Admissible.eq_1",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative._sizeOf_1": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Conservative d \u2192 \u2115",
+      "root": true,
+      "name": "CFDLean.Conservative._sizeOf_1",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.rec"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative._sizeOf_inst": {
+      "unsafe": false,
+      "type": "(d : \u2115) \u2192 SizeOf (CFDLean.Conservative d)",
+      "root": true,
+      "name": "CFDLean.Conservative._sizeOf_inst",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative._sizeOf_1",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.casesOn": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192\n  {motive : CFDLean.Conservative d \u2192 Sort u} \u2192\n    (t : CFDLean.Conservative d) \u2192\n      ((density : \u211d) \u2192\n          (momentum : CFDLean.Vector d) \u2192\n            (energy : \u211d) \u2192 motive { density := density, momentum := momentum, energy := energy }) \u2192\n        motive t",
+      "root": true,
+      "name": "CFDLean.Conservative.casesOn",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.rec"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.density": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Conservative d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Conservative.density",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.energy": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Conservative d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Conservative.energy",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.mk": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Vector d \u2192 \u211d \u2192 CFDLean.Conservative d",
+      "root": true,
+      "name": "CFDLean.Conservative.mk",
+      "module": "CFDLean.Core.State",
+      "kind": "constructor",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.mk._flat_ctor": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Vector d \u2192 \u211d \u2192 CFDLean.Conservative d",
+      "root": true,
+      "name": "CFDLean.Conservative.mk._flat_ctor",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.mk.inj": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} {density : \u211d} {momentum : CFDLean.Vector d} {energy density_1 : \u211d} {momentum_1 : CFDLean.Vector d}\n  {energy_1 : \u211d},\n  { density := density, momentum := momentum, energy := energy } =\n      { density := density_1, momentum := momentum_1, energy := energy_1 } \u2192\n    density = density_1 \u2227 momentum = momentum_1 \u2227 energy = energy_1",
+      "root": true,
+      "name": "CFDLean.Conservative.mk.inj",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.noConfusion",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.mk.injEq": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (density : \u211d) (momentum : CFDLean.Vector d) (energy density_1 : \u211d) (momentum_1 : CFDLean.Vector d)\n  (energy_1 : \u211d),\n  ({ density := density, momentum := momentum, energy := energy } =\n      { density := density_1, momentum := momentum_1, energy := energy_1 }) =\n    (density = density_1 \u2227 momentum = momentum_1 \u2227 energy = energy_1)",
+      "root": true,
+      "name": "CFDLean.Conservative.mk.injEq",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.noConfusion",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.mk.sizeOf_spec": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (density : \u211d) (momentum : CFDLean.Vector d) (energy : \u211d),\n  sizeOf { density := density, momentum := momentum, energy := energy } = 1 + sizeOf density + sizeOf energy",
+      "root": true,
+      "name": "CFDLean.Conservative.mk.sizeOf_spec",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative._sizeOf_inst",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.momentum": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Conservative d \u2192 CFDLean.Vector d",
+      "root": true,
+      "name": "CFDLean.Conservative.momentum",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.noConfusion": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 {P : Sort u} \u2192 {v1 v2 : CFDLean.Conservative d} \u2192 v1 = v2 \u2192 CFDLean.Conservative.noConfusionType P v1 v2",
+      "root": true,
+      "name": "CFDLean.Conservative.noConfusion",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.noConfusionType",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.casesOn"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.noConfusionType": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 Sort u \u2192 CFDLean.Conservative d \u2192 CFDLean.Conservative d \u2192 Sort u",
+      "root": true,
+      "name": "CFDLean.Conservative.noConfusionType",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.casesOn"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.pressure": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Conservative d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Conservative.pressure",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.squareSum",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.pressure._proof_1": {
+      "unsafe": false,
+      "type": "(0 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Conservative.pressure._proof_1",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Conservative.pressure.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  CFDLean.Conservative.pressure \u03b3 U = (\u03b3 - 1) * (U.energy - CFDLean.squareSum U.momentum / (2 * U.density))",
+      "root": true,
+      "name": "CFDLean.Conservative.pressure.eq_1",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.squareSum",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.rec": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192\n  {motive : CFDLean.Conservative d \u2192 Sort u} \u2192\n    ((density : \u211d) \u2192\n        (momentum : CFDLean.Vector d) \u2192\n          (energy : \u211d) \u2192 motive { density := density, momentum := momentum, energy := energy }) \u2192\n      (t : CFDLean.Conservative d) \u2192 motive t",
+      "root": true,
+      "name": "CFDLean.Conservative.rec",
+      "module": "CFDLean.Core.State",
+      "kind": "recursor",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.recOn": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192\n  {motive : CFDLean.Conservative d \u2192 Sort u} \u2192\n    (t : CFDLean.Conservative d) \u2192\n      ((density : \u211d) \u2192\n          (momentum : CFDLean.Vector d) \u2192\n            (energy : \u211d) \u2192 motive { density := density, momentum := momentum, energy := energy }) \u2192\n        motive t",
+      "root": true,
+      "name": "CFDLean.Conservative.recOn",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.rec"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.toPrimitive": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Conservative d \u2192 CFDLean.Primitive d",
+      "root": true,
+      "name": "CFDLean.Conservative.toPrimitive",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Conservative.toPrimitive.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  CFDLean.Conservative.toPrimitive \u03b3 U =\n    { density := U.density, velocity := fun i => U.momentum i / U.density,\n      pressure := CFDLean.Conservative.pressure \u03b3 U }",
+      "root": true,
+      "name": "CFDLean.Conservative.toPrimitive.eq_1",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Conservative.toPrimitive"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.StateCoordinates": {
+      "unsafe": false,
+      "type": "Type",
+      "root": true,
+      "name": "CFDLean.Coordinates.StateCoordinates",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.area": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Coordinates.area",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.area.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), CFDLean.Coordinates.area S = \u221a(CFDLean.squareSum S)",
+      "root": true,
+      "name": "CFDLean.Coordinates.area.eq_1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.area_oblique": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.area ![2, 3, 0] = \u221a13",
+      "root": true,
+      "name": "CFDLean.Coordinates.area_oblique",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.squareSum",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Coordinates.area.eq_1"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.area_pos": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), S \u2260 0 \u2192 0 < CFDLean.Coordinates.area S",
+      "root": true,
+      "name": "CFDLean.Coordinates.area_pos",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.squareSum",
+        "CFDLean.Coordinates.squareSum_pos",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.area_zero": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.area 0 = 0",
+      "root": true,
+      "name": "CFDLean.Coordinates.area_zero",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.decode": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Coordinates.decode",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.decode._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Conservative 3",
+      "root": false,
+      "name": "CFDLean.Coordinates.decode._cstage1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode._elambda_1",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.decode._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Coordinates.decode._cstage2",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode._elambda_1",
+        "CFDLean.Conservative.mk"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.decode._elambda_1": {
+      "unsafe": true,
+      "type": "\u211d \u2192 (Fin (Nat.succ 1) \u2192 \u211d) \u2192 (a : Fin (Nat.succ 2)) \u2192 (fun x => (fun a => \u211d) x) a",
+      "root": false,
+      "name": "CFDLean.Coordinates.decode._elambda_1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.decode._elambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Coordinates.decode._elambda_1._boxed",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.decode._elambda_1._cstage1": {
+      "unsafe": true,
+      "type": "\u211d \u2192 (Fin (Nat.succ 1) \u2192 \u211d) \u2192 (a : Fin (Nat.succ 2)) \u2192 (fun x => (fun a => \u211d) x) a",
+      "root": false,
+      "name": "CFDLean.Coordinates.decode._elambda_1._cstage1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.decode._elambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Coordinates.decode._elambda_1._cstage2",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.decode._proof_2": {
+      "unsafe": false,
+      "type": "NeZero (4 + 1)",
+      "root": true,
+      "name": "CFDLean.Coordinates.decode._proof_2",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Coordinates.decode.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.Coordinates.decode x = { density := x 0, momentum := ![x 1, x 2, x 3], energy := x 4 }",
+      "root": true,
+      "name": "CFDLean.Coordinates.decode.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.decode_encode": {
+      "unsafe": false,
+      "type": "\u2200 (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U",
+      "root": true,
+      "name": "CFDLean.Coordinates.decode_encode",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.casesOn"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.dot_three": {
+      "unsafe": false,
+      "type": "\u2200 (v w : CFDLean.Vector 3), CFDLean.dot v w = v 0 * w 0 + v 1 * w 1 + v 2 * w 2",
+      "root": true,
+      "name": "CFDLean.Coordinates.dot_three",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.encode": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative 3 \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Coordinates.encode",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.encode._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Coordinates.encode._boxed",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.encode._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Coordinates.encode._closed_1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.encode._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Coordinates.encode._closed_1._cstage2",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.encode._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Conservative 3 \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": false,
+      "name": "CFDLean.Coordinates.encode._cstage1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.encode._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Coordinates.encode._cstage2",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Coordinates.encode._proof_1": {
+      "unsafe": false,
+      "type": "NeZero (2 + 1)",
+      "root": true,
+      "name": "CFDLean.Coordinates.encode._proof_1",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Coordinates.encode.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (U : CFDLean.Conservative 3),\n  CFDLean.Coordinates.encode U = ![U.density, U.momentum 0, U.momentum 1, U.momentum 2, U.energy]",
+      "root": true,
+      "name": "CFDLean.Coordinates.encode.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.encode_decode": {
+      "unsafe": false,
+      "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates), CFDLean.Coordinates.encode (CFDLean.Coordinates.decode x) = x",
+      "root": true,
+      "name": "CFDLean.Coordinates.encode_decode",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.reconstruct_area": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), S \u2260 0 \u2192 S = fun i => CFDLean.Coordinates.area S * CFDLean.Coordinates.unitNormal S i",
+      "root": true,
+      "name": "CFDLean.Coordinates.reconstruct_area",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.area_pos"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.squareSum_nonneg": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), 0 \u2264 CFDLean.squareSum S",
+      "root": true,
+      "name": "CFDLean.Coordinates.squareSum_nonneg",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.squareSum_pos": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), S \u2260 0 \u2192 0 < CFDLean.squareSum S",
+      "root": true,
+      "name": "CFDLean.Coordinates.squareSum_pos",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.squareSum_three": {
+      "unsafe": false,
+      "type": "\u2200 (v : CFDLean.Vector 3), CFDLean.squareSum v = v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2",
+      "root": true,
+      "name": "CFDLean.Coordinates.squareSum_three",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.unitNormal": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3",
+      "root": true,
+      "name": "CFDLean.Coordinates.unitNormal",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.unitNormal_dot_self": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), S \u2260 0 \u2192 CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S) = 1",
+      "root": true,
+      "name": "CFDLean.Coordinates.unitNormal_dot_self",
+      "module": "CFDLean.Core.Coordinates",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Coordinates.squareSum_nonneg",
+        "CFDLean.squareSum",
+        "CFDLean.squareSum_div",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Coordinates.squareSum_pos",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.coordinateFlux": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.coordinateFlux",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.physicalFlux",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.coordinateFlux_zero": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d), CFDLean.PhysicalJacobian.coordinateFlux \u03b3 0 = fun x => 0",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.coordinateFlux_zero",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.physicalFlux",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.physicalFlux_zero",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.coordinatePressure": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Coordinates.StateCoordinates \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.coordinatePressure",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.coordinatePressure.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.PhysicalJacobian.coordinatePressure \u03b3 x = CFDLean.Conservative.pressure \u03b3 (CFDLean.Coordinates.decode x)",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.coordinatePressure.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.enthalpy": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Coordinates.StateCoordinates \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.enthalpy",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.enthalpy.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.PhysicalJacobian.enthalpy \u03b3 x = (x 4 + CFDLean.PhysicalJacobian.coordinatePressure \u03b3 x) / x 0",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.enthalpy.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.PhysicalJacobian.enthalpy",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (n : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),\n  x 0 \u2260 0 \u2192 HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux \u03b3 n) (CFDLean.PhysicalJacobian.jacobian \u03b3 x n) x",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_pressure",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_normalMomentum",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalIncrement",
+        "CFDLean.PhysicalJacobian.jacobian",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_normalVelocity",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (S : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),\n  x 0 \u2260 0 \u2192\n    S \u2260 0 \u2192\n      HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S)\n        (CFDLean.Coordinates.area S \u2022 CFDLean.PhysicalJacobian.jacobian \u03b3 x (CFDLean.Coordinates.unitNormal S)) x",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.reconstruct_area",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
+        "CFDLean.PhysicalJacobian.jacobian_smul",
+        "CFDLean.PhysicalJacobian.jacobian",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.hasFDerivAt_normalMomentum": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),\n  HasFDerivAt (fun y => CFDLean.dot (CFDLean.Coordinates.decode y).momentum n)\n    (CFDLean.PhysicalJacobian.normalMomentum n) x",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_normalMomentum",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.hasFDerivAt_normalVelocity": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),\n  x 0 \u2260 0 \u2192\n    HasFDerivAt (fun y => CFDLean.dot (CFDLean.Coordinates.decode y).momentum n / y 0)\n      ((1 / x 0) \u2022 CFDLean.PhysicalJacobian.normalIncrement x n) x",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_normalVelocity",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_normalMomentum",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalIncrement",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.hasFDerivAt_pressure": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  x 0 \u2260 0 \u2192\n    HasFDerivAt (CFDLean.PhysicalJacobian.coordinatePressure \u03b3) (CFDLean.PhysicalJacobian.pressureDifferential \u03b3 x) x",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_pressure",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.pressureDifferential._proof_6",
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.squareSum",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.PhysicalJacobian.pressure_formula",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates), HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux \u03b3 0) 0 x",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.coordinateFlux_zero"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.isOpen_admissible": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d), IsOpen {x | CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x)}",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.isOpen_admissible",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.hasFDerivAt_pressure",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Conservative.density",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.jacobian": {
+      "unsafe": false,
+      "type": "\u211d \u2192\n  CFDLean.Coordinates.StateCoordinates \u2192\n    CFDLean.Vector 3 \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.jacobian",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalIncrement",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.PhysicalJacobian.enthalpy",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.jacobian.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  CFDLean.PhysicalJacobian.jacobian \u03b3 x n =\n    ContinuousLinearMap.pi\n      ![CFDLean.PhysicalJacobian.normalMomentum n,\n        CFDLean.dot (CFDLean.PhysicalJacobian.velocity x) n \u2022 CFDLean.PhysicalJacobian.projection 1 +\n            CFDLean.PhysicalJacobian.velocity x 0 \u2022 CFDLean.PhysicalJacobian.normalIncrement x n +\n          n 0 \u2022 CFDLean.PhysicalJacobian.pressureDifferential \u03b3 x,\n        CFDLean.dot (CFDLean.PhysicalJacobian.velocity x) n \u2022 CFDLean.PhysicalJacobian.projection 2 +\n            CFDLean.PhysicalJacobian.velocity x 1 \u2022 CFDLean.PhysicalJacobian.normalIncrement x n +\n          n 1 \u2022 CFDLean.PhysicalJacobian.pressureDifferential \u03b3 x,\n        CFDLean.dot (CFDLean.PhysicalJacobian.velocity x) n \u2022 CFDLean.PhysicalJacobian.projection 3 +\n            CFDLean.PhysicalJacobian.velocity x 2 \u2022 CFDLean.PhysicalJacobian.normalIncrement x n +\n          n 2 \u2022 CFDLean.PhysicalJacobian.pressureDifferential \u03b3 x,\n        CFDLean.dot (CFDLean.PhysicalJacobian.velocity x) n \u2022\n            (CFDLean.PhysicalJacobian.projection 4 + CFDLean.PhysicalJacobian.pressureDifferential \u03b3 x) +\n          CFDLean.PhysicalJacobian.enthalpy \u03b3 x \u2022 CFDLean.PhysicalJacobian.normalIncrement x n]",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.jacobian.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalIncrement",
+        "CFDLean.PhysicalJacobian.jacobian",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.PhysicalJacobian.enthalpy",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.jacobian_action": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (n : CFDLean.Vector 3),\n  let u := fun i => U.momentum i / U.density;\n  let q := CFDLean.dot u n;\n  let b := CFDLean.dot V.momentum n - q * V.density;\n  let dp := (\u03b3 - 1) * (V.energy - CFDLean.dot u V.momentum + CFDLean.squareSum u / 2 * V.density);\n  let H := (U.energy + CFDLean.Conservative.pressure \u03b3 U) / U.density;\n  (CFDLean.PhysicalJacobian.jacobian \u03b3 (CFDLean.Coordinates.encode U) n) (CFDLean.Coordinates.encode V) =\n    CFDLean.Coordinates.encode\n      { density := CFDLean.dot V.momentum n, momentum := fun i => q * V.momentum i + u i * b + dp * n i,\n        energy := q * (V.energy + dp) + H * b }",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.jacobian_action",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.pressureDifferential._proof_6",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.squareSum",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.jacobian",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.jacobian_smul": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3) (a : \u211d),\n  (CFDLean.PhysicalJacobian.jacobian \u03b3 x fun i => a * n i) = a \u2022 CFDLean.PhysicalJacobian.jacobian \u03b3 x n",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.jacobian_smul",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.dot_mul",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.jacobian",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.PhysicalJacobian.enthalpy",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalIncrement": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Vector 3 \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalIncrement",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalIncrement.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  CFDLean.PhysicalJacobian.normalIncrement x n =\n    CFDLean.PhysicalJacobian.normalMomentum n -\n      CFDLean.dot (CFDLean.PhysicalJacobian.velocity x) n \u2022 CFDLean.PhysicalJacobian.projection 0",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalIncrement.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalIncrement",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalMomentum": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalMomentum",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalMomentum._proof_2": {
+      "unsafe": false,
+      "type": "ContinuousAdd \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalMomentum._proof_3": {
+      "unsafe": false,
+      "type": "SMulCommClass \u211d \u211d \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalMomentum._proof_4": {
+      "unsafe": false,
+      "type": "ContinuousConstSMul \u211d \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalMomentum._proof_5": {
+      "unsafe": false,
+      "type": "NeZero (2 + 1)",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.normalMomentum.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3),\n  CFDLean.PhysicalJacobian.normalMomentum n =\n    n 0 \u2022 CFDLean.PhysicalJacobian.projection 1 + n 1 \u2022 CFDLean.PhysicalJacobian.projection 2 +\n      n 2 \u2022 CFDLean.PhysicalJacobian.projection 3",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.normalMomentum.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.pressureDifferential": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.pressureDifferential",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.pressureDifferential._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.pressureDifferential._proof_6": {
+      "unsafe": false,
+      "type": "(0 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.pressureDifferential._proof_6",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.PhysicalJacobian.pressureDifferential.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.PhysicalJacobian.pressureDifferential \u03b3 x =\n    (\u03b3 - 1) \u2022\n      (CFDLean.PhysicalJacobian.projection 4 -\n          (CFDLean.PhysicalJacobian.velocity x 0 \u2022 CFDLean.PhysicalJacobian.projection 1 +\n              CFDLean.PhysicalJacobian.velocity x 1 \u2022 CFDLean.PhysicalJacobian.projection 2 +\n            CFDLean.PhysicalJacobian.velocity x 2 \u2022 CFDLean.PhysicalJacobian.projection 3) +\n        (CFDLean.squareSum (CFDLean.PhysicalJacobian.velocity x) / 2) \u2022 CFDLean.PhysicalJacobian.projection 0)",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.pressureDifferential.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.PhysicalJacobian.pressureDifferential._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.PhysicalJacobian.pressureDifferential",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.pressure_formula": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.PhysicalJacobian.coordinatePressure \u03b3 x = (\u03b3 - 1) * (x 4 - (x 1 ^ 2 + x 2 ^ 2 + x 3 ^ 2) / (2 * x 0))",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.pressure_formula",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.coordinatePressure",
+        "CFDLean.squareSum",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.projection": {
+      "unsafe": false,
+      "type": "Fin 5 \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.projection",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.projection._cstage1": {
+      "unsafe": true,
+      "type": "Fin 5 \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d",
+      "root": false,
+      "name": "CFDLean.PhysicalJacobian.projection._cstage1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": []
+    },
+    "CFDLean.PhysicalJacobian.projection._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.PhysicalJacobian.projection._cstage2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "ContinuousLinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.PhysicalJacobian.velocity": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Vector 3",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.velocity",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.velocity._proof_1": {
+      "unsafe": false,
+      "type": "NeZero (4 + 1)",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.velocity._proof_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.PhysicalJacobian.velocity.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates) (i : Fin 3),\n  CFDLean.PhysicalJacobian.velocity x i = (CFDLean.Coordinates.decode x).momentum i / x 0",
+      "root": true,
+      "name": "CFDLean.PhysicalJacobian.velocity.eq_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive": {
+      "unsafe": false,
+      "type": "\u2115 \u2192 Type",
+      "root": true,
+      "name": "CFDLean.Primitive",
+      "module": "CFDLean.Core.State",
+      "kind": "inductive",
+      "direct": [
+        "CFDLean.Primitive.mk"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.Admissible": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Primitive d \u2192 Prop",
+      "root": true,
+      "name": "CFDLean.Primitive.Admissible",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.density",
+        "CFDLean.Primitive.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive._sizeOf_1": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Primitive d \u2192 \u2115",
+      "root": true,
+      "name": "CFDLean.Primitive._sizeOf_1",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.rec",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive._sizeOf_inst": {
+      "unsafe": false,
+      "type": "(d : \u2115) \u2192 SizeOf (CFDLean.Primitive d)",
+      "root": true,
+      "name": "CFDLean.Primitive._sizeOf_inst",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive._sizeOf_1"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.casesOn": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192\n  {motive : CFDLean.Primitive d \u2192 Sort u} \u2192\n    (t : CFDLean.Primitive d) \u2192\n      ((density : \u211d) \u2192\n          (velocity : CFDLean.Vector d) \u2192\n            (pressure : \u211d) \u2192 motive { density := density, velocity := velocity, pressure := pressure }) \u2192\n        motive t",
+      "root": true,
+      "name": "CFDLean.Primitive.casesOn",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.rec",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.density": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Primitive d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Primitive.density",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.mk": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Vector d \u2192 \u211d \u2192 CFDLean.Primitive d",
+      "root": true,
+      "name": "CFDLean.Primitive.mk",
+      "module": "CFDLean.Core.State",
+      "kind": "constructor",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.mk._flat_ctor": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Vector d \u2192 \u211d \u2192 CFDLean.Primitive d",
+      "root": true,
+      "name": "CFDLean.Primitive.mk._flat_ctor",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.mk.inj": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} {density : \u211d} {velocity : CFDLean.Vector d} {pressure density_1 : \u211d} {velocity_1 : CFDLean.Vector d}\n  {pressure_1 : \u211d},\n  { density := density, velocity := velocity, pressure := pressure } =\n      { density := density_1, velocity := velocity_1, pressure := pressure_1 } \u2192\n    density = density_1 \u2227 velocity = velocity_1 \u2227 pressure = pressure_1",
+      "root": true,
+      "name": "CFDLean.Primitive.mk.inj",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.noConfusion",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.mk.injEq": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (density : \u211d) (velocity : CFDLean.Vector d) (pressure density_1 : \u211d) (velocity_1 : CFDLean.Vector d)\n  (pressure_1 : \u211d),\n  ({ density := density, velocity := velocity, pressure := pressure } =\n      { density := density_1, velocity := velocity_1, pressure := pressure_1 }) =\n    (density = density_1 \u2227 velocity = velocity_1 \u2227 pressure = pressure_1)",
+      "root": true,
+      "name": "CFDLean.Primitive.mk.injEq",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.noConfusion",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.mk.sizeOf_spec": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (density : \u211d) (velocity : CFDLean.Vector d) (pressure : \u211d),\n  sizeOf { density := density, velocity := velocity, pressure := pressure } = 1 + sizeOf density + sizeOf pressure",
+      "root": true,
+      "name": "CFDLean.Primitive.mk.sizeOf_spec",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive._sizeOf_inst",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.noConfusion": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 {P : Sort u} \u2192 {v1 v2 : CFDLean.Primitive d} \u2192 v1 = v2 \u2192 CFDLean.Primitive.noConfusionType P v1 v2",
+      "root": true,
+      "name": "CFDLean.Primitive.noConfusion",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive.noConfusionType",
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.casesOn",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.noConfusionType": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 Sort u \u2192 CFDLean.Primitive d \u2192 CFDLean.Primitive d \u2192 Sort u",
+      "root": true,
+      "name": "CFDLean.Primitive.noConfusionType",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.casesOn",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.pressure": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Primitive d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Primitive.pressure",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.rec": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192\n  {motive : CFDLean.Primitive d \u2192 Sort u} \u2192\n    ((density : \u211d) \u2192\n        (velocity : CFDLean.Vector d) \u2192\n          (pressure : \u211d) \u2192 motive { density := density, velocity := velocity, pressure := pressure }) \u2192\n      (t : CFDLean.Primitive d) \u2192 motive t",
+      "root": true,
+      "name": "CFDLean.Primitive.rec",
+      "module": "CFDLean.Core.State",
+      "kind": "recursor",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.recOn": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192\n  {motive : CFDLean.Primitive d \u2192 Sort u} \u2192\n    (t : CFDLean.Primitive d) \u2192\n      ((density : \u211d) \u2192\n          (velocity : CFDLean.Vector d) \u2192\n            (pressure : \u211d) \u2192 motive { density := density, velocity := velocity, pressure := pressure }) \u2192\n        motive t",
+      "root": true,
+      "name": "CFDLean.Primitive.recOn",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.rec",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.toConservative": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Primitive d \u2192 CFDLean.Conservative d",
+      "root": true,
+      "name": "CFDLean.Primitive.toConservative",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Primitive",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.toConservative.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (W : CFDLean.Primitive d),\n  CFDLean.Primitive.toConservative \u03b3 W =\n    { density := W.density, momentum := fun i => W.density * W.velocity i,\n      energy := W.pressure / (\u03b3 - 1) + W.density * CFDLean.squareSum W.velocity / 2 }",
+      "root": true,
+      "name": "CFDLean.Primitive.toConservative.eq_1",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.squareSum",
+        "CFDLean.Primitive",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Primitive.velocity": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Primitive d \u2192 CFDLean.Vector d",
+      "root": true,
+      "name": "CFDLean.Primitive.velocity",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Vector": {
+      "unsafe": false,
+      "type": "\u2115 \u2192 Type",
+      "root": true,
+      "name": "CFDLean.Vector",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.admissible_exists": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d), 1 < \u03b3 \u2192 \u2203 U, CFDLean.Conservative.Admissible \u03b3 U",
+      "root": true,
+      "name": "CFDLean.admissible_exists",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.primitive_admissible_toConservative",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.admissible_iff_internalEnergy_pos": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  1 < \u03b3 \u2192\n    (CFDLean.Conservative.Admissible \u03b3 U \u2194 0 < U.density \u2227 CFDLean.squareSum U.momentum / (2 * U.density) < U.energy)",
+      "root": true,
+      "name": "CFDLean.admissible_iff_internalEnergy_pos",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.conservative_admissible_toPrimitive": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  CFDLean.Conservative.Admissible \u03b3 U \u2192 (CFDLean.Conservative.toPrimitive \u03b3 U).Admissible",
+      "root": true,
+      "name": "CFDLean.conservative_admissible_toPrimitive",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.Admissible",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.toPrimitive"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.conservative_roundTrip": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  \u03b3 \u2260 1 \u2192 U.density \u2260 0 \u2192 CFDLean.Primitive.toConservative \u03b3 (CFDLean.Conservative.toPrimitive \u03b3 U) = U",
+      "root": true,
+      "name": "CFDLean.conservative_roundTrip",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.squareSum",
+        "CFDLean.Conservative.mk",
+        "CFDLean.squareSum_div",
+        "CFDLean.Conservative.density",
+        "CFDLean.Vector",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.toPrimitive",
+        "CFDLean.Conservative.casesOn"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.dot": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Vector d \u2192 CFDLean.Vector d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.dot",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.dot._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.dot._closed_1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.dot._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.dot._closed_1._cstage2",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.dot._cstage1": {
+      "unsafe": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Vector d \u2192 CFDLean.Vector d \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.dot._cstage1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "CFDLean.dot._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.dot._cstage2",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot._lambda_1",
+        "Finset.sum._at.CFDLean.dot._spec_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.dot._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.dot._lambda_1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.dot._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.dot._lambda_1._cstage2",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.dot.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (v S : CFDLean.Vector d), CFDLean.dot v S = \u2211 i, v i * S i",
+      "root": true,
+      "name": "CFDLean.dot.eq_1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.dot_add": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (v S T : CFDLean.Vector d), (CFDLean.dot v fun i => S i + T i) = CFDLean.dot v S + CFDLean.dot v T",
+      "root": true,
+      "name": "CFDLean.dot_add",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.dot_mul": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (v S : CFDLean.Vector d) (a : \u211d), (CFDLean.dot v fun i => a * S i) = a * CFDLean.dot v S",
+      "root": true,
+      "name": "CFDLean.dot_mul",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.physicalFlux": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 \u211d \u2192 CFDLean.Conservative d \u2192 CFDLean.Vector d \u2192 CFDLean.Conservative d",
+      "root": true,
+      "name": "CFDLean.physicalFlux",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.physicalFlux.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d) (S : CFDLean.Vector d),\n  CFDLean.physicalFlux \u03b3 U S =\n    { density := CFDLean.dot U.momentum S,\n      momentum := fun i =>\n        U.momentum i * (CFDLean.dot U.momentum S / U.density) + CFDLean.Conservative.pressure \u03b3 U * S i,\n      energy := (U.energy + CFDLean.Conservative.pressure \u03b3 U) * (CFDLean.dot U.momentum S / U.density) }",
+      "root": true,
+      "name": "CFDLean.physicalFlux.eq_1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.physicalFlux_add": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d) (S T : CFDLean.Vector d),\n  (CFDLean.physicalFlux \u03b3 U fun i => S i + T i) =\n    { density := (CFDLean.physicalFlux \u03b3 U S).density + (CFDLean.physicalFlux \u03b3 U T).density,\n      momentum := fun i => (CFDLean.physicalFlux \u03b3 U S).momentum i + (CFDLean.physicalFlux \u03b3 U T).momentum i,\n      energy := (CFDLean.physicalFlux \u03b3 U S).energy + (CFDLean.physicalFlux \u03b3 U T).energy }",
+      "root": true,
+      "name": "CFDLean.physicalFlux_add",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.dot_add",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.physicalFlux_mul": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d) (S : CFDLean.Vector d) (a : \u211d),\n  (CFDLean.physicalFlux \u03b3 U fun i => a * S i) =\n    { density := a * (CFDLean.physicalFlux \u03b3 U S).density,\n      momentum := fun i => a * (CFDLean.physicalFlux \u03b3 U S).momentum i,\n      energy := a * (CFDLean.physicalFlux \u03b3 U S).energy }",
+      "root": true,
+      "name": "CFDLean.physicalFlux_mul",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.dot_mul",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.physicalFlux_reverse": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d) (S : CFDLean.Vector d),\n  (CFDLean.physicalFlux \u03b3 U fun i => -S i) =\n    { density := -(CFDLean.physicalFlux \u03b3 U S).density, momentum := fun i => -(CFDLean.physicalFlux \u03b3 U S).momentum i,\n      energy := -(CFDLean.physicalFlux \u03b3 U S).energy }",
+      "root": true,
+      "name": "CFDLean.physicalFlux_reverse",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.physicalFlux_mul",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Vector",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.physicalFlux_zero": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (U : CFDLean.Conservative d),\n  (CFDLean.physicalFlux \u03b3 U fun x => 0) = { density := 0, momentum := fun x => 0, energy := 0 }",
+      "root": true,
+      "name": "CFDLean.physicalFlux_zero",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.pressure_toConservative": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (W : CFDLean.Primitive d),\n  \u03b3 \u2260 1 \u2192 W.density \u2260 0 \u2192 CFDLean.Conservative.pressure \u03b3 (CFDLean.Primitive.toConservative \u03b3 W) = W.pressure",
+      "root": true,
+      "name": "CFDLean.pressure_toConservative",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.squareSum",
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.density",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.squareSum_mul",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.primitive_admissible_toConservative": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (W : CFDLean.Primitive d),\n  1 < \u03b3 \u2192 W.Admissible \u2192 CFDLean.Conservative.Admissible \u03b3 (CFDLean.Primitive.toConservative \u03b3 W)",
+      "root": true,
+      "name": "CFDLean.primitive_admissible_toConservative",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.Admissible",
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Primitive",
+        "CFDLean.Primitive.density",
+        "CFDLean.Conservative.density",
+        "CFDLean.pressure_toConservative",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.primitive_roundTrip": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (\u03b3 : \u211d) (W : CFDLean.Primitive d),\n  \u03b3 \u2260 1 \u2192 W.density \u2260 0 \u2192 CFDLean.Conservative.toPrimitive \u03b3 (CFDLean.Primitive.toConservative \u03b3 W) = W",
+      "root": true,
+      "name": "CFDLean.primitive_roundTrip",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.squareSum",
+        "CFDLean.Primitive",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.Primitive.casesOn",
+        "CFDLean.pressure_toConservative",
+        "CFDLean.Vector",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Conservative.toPrimitive"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.squareSum": {
+      "unsafe": false,
+      "type": "{d : \u2115} \u2192 CFDLean.Vector d \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.squareSum",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.squareSum._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.squareSum._closed_1",
+      "module": "CFDLean.Core.State",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.squareSum._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.squareSum._closed_1._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.squareSum._cstage1": {
+      "unsafe": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Vector d \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.squareSum._cstage1",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "CFDLean.squareSum._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.squareSum._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.squareSum._spec_1",
+        "CFDLean.squareSum._lambda_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.squareSum._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.squareSum._lambda_1",
+      "module": "CFDLean.Core.State",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.squareSum._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.squareSum._lambda_1._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.squareSum.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d), CFDLean.squareSum v = \u2211 i, v i ^ 2",
+      "root": true,
+      "name": "CFDLean.squareSum.eq_1",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.squareSum_div": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) (a : \u211d), (CFDLean.squareSum fun i => v i / a) = CFDLean.squareSum v / a ^ 2",
+      "root": true,
+      "name": "CFDLean.squareSum_div",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.squareSum_mul": {
+      "unsafe": false,
+      "type": "\u2200 {d : \u2115} (a : \u211d) (v : CFDLean.Vector d), (CFDLean.squareSum fun i => a * v i) = a ^ 2 * CFDLean.squareSum v",
+      "root": true,
+      "name": "CFDLean.squareSum_mul",
+      "module": "CFDLean.Core.State",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "ContinuousLinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_1": {
+      "unsafe": true,
+      "type": "let _x_1 := fun i =>\n  let _x_20 := Real.pseudoMetricSpace.7;\n  _x_20.1;\nlet _x_2 := fun i => Real.instAddCommMonoid;\nlet _x_3 := fun i =>\n  let _x_4 := NormedField.toNormedSpace;\n  _x_4.1;\nlet _y_2 := Real.semiring;\nlet _y_5 := _x_1;\nlet _y_6 := _x_2;\nlet _y_7 := _x_3;\n(i : Fin 5) \u2192\n  let _x_1 := Semiring.toNonAssocSemiring;\n  let _x_2 := RingHom.id \u211d;\n  let _x_3 := Pi.topologicalSpace;\n  let _x_4 := Pi.addCommMonoid;\n  let _x_5 := _y_5 i;\n  let _x_6 := _y_6 i;\n  let _x_7 := Pi.module (Fin 5) (fun a => \u211d) \u211d;\n  let _x_8 := _y_7 i;\n  ((i : Fin 5) \u2192 (fun a => \u211d) i) \u2192SL[_x_2] (fun a => \u211d) i",
+      "root": false,
+      "name": "ContinuousLinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "ContinuousLinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "ContinuousLinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_1._cstage2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [
+        "LinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_3"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1": {
+      "unsafe": true,
+      "type": "(d : \u2115) \u2192 Finset (Fin d) \u2192 (Fin d \u2192 \u211d) \u2192 \u211d",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1._boxed",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1._cstage2",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.dot._spec_1._rarg"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1._rarg",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1._rarg._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1._rarg._closed_1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1._rarg._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1._rarg._closed_1._cstage2",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.dot._spec_1._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.dot._spec_1._rarg._cstage2",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.squareSum._spec_1": {
+      "unsafe": true,
+      "type": "(d : \u2115) \u2192 Finset (Fin d) \u2192 (Fin d \u2192 \u211d) \u2192 \u211d",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.squareSum._spec_1",
+      "module": "CFDLean.Core.State",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.squareSum._spec_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.squareSum._spec_1._boxed",
+      "module": "CFDLean.Core.State",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.squareSum._spec_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.squareSum._spec_1._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.squareSum._spec_1._rarg"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.squareSum._spec_1._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.squareSum._spec_1._rarg",
+      "module": "CFDLean.Core.State",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.squareSum._spec_1._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.squareSum._spec_1._rarg._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.squareSum._spec_2"
+      ],
+      "axioms": []
+    },
+    "LinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_3": {
+      "unsafe": true,
+      "type": "let _x_2 := fun i => Real.instAddCommMonoid;\nlet _x_3 := fun i =>\n  let _x_30 := NormedField.toNormedSpace;\n  _x_30.1;\nlet _y_3 := Real.semiring;\nlet _y_5 := _x_2;\nlet _y_6 := _x_3;\n(i : Fin 5) \u2192\n  let _x_1 := Semiring.toNonAssocSemiring;\n  let _x_2 := RingHom.id \u211d;\n  let _x_3 := Pi.addCommMonoid;\n  let _x_4 := _y_5 i;\n  let _x_5 := Pi.module (Fin 5) (fun a => \u211d) \u211d;\n  let _x_6 := _y_6 i;\n  ((i : Fin 5) \u2192 (fun a => \u211d) i) \u2192\u209b\u2097[_x_2] (fun a => \u211d) i",
+      "root": false,
+      "name": "LinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_3",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "LinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "LinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_3._cstage2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.squareSum._spec_2": {
+      "unsafe": true,
+      "type": "Multiset \u211d \u2192 \u211d",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.squareSum._spec_2",
+      "module": "CFDLean.Core.State",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.squareSum._spec_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.squareSum._spec_2._closed_1",
+      "module": "CFDLean.Core.State",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.squareSum._spec_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.squareSum._spec_2._closed_1._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.squareSum._spec_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.squareSum._spec_2._cstage2",
+      "module": "CFDLean.Core.State",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2": {
+      "unsafe": true,
+      "type": "let _x_5 := Semiring.toNonAssocSemiring;\nlet _y_2 := _x_5;\n\u211d \u2192+* \u211d",
+      "root": false,
+      "name": "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2._closed_1",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2._closed_1._cstage2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2._cstage2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    }
+  },
+  "deferred_result_ids": [
+    "M2-A",
+    "M2-R",
+    "M2-L",
+    "M2-E",
+    "M2-D",
+    "M2-O",
+    "M2-F1",
+    "M2-F2",
+    "M2-F3",
+    "M2-F4",
+    "M2-C"
+  ],
+  "dependency_revisions_checked": 9,
+  "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
+  "m2_approval_record": "specifications/M2-approval.md",
+  "m2_independent_acceptance": "pending"
+}

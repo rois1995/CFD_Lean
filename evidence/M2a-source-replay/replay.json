@@ -1,0 +1,25 @@
+{
+  "candidate_commit": "3788009de306d80e002976e66ba2b1103e2dbd83",
+  "date": "2026-11-13",
+  "classification": "implementation-worker fresh pinned-source replay; not independent acceptance",
+  "reproduction_script": "scripts/reproduce.sh",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m2a-source-replay.0B5jiY/checkout",
+  "preconditions_enforced": [
+    "clean detached exact-commit checkout",
+    "no project .lake directory",
+    "nine fresh manifest-pinned source checkouts"
+  ],
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "widget_bootstrap": "pinned ProofWidgets JS built locally using its npm lockfile and root Batteries pin",
+  "fresh_verification_matches_candidate": true,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "independent_scientific_acceptance": "pending"
+}
