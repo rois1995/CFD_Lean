@@ -1,0 +1,46 @@
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+.gitignore: OK
+CFDLean/Core/Coordinates.lean: OK
+CFDLean/Core/PhysicalFlux.lean: OK
+CFDLean/Core/PhysicalJacobian.lean: OK
+CFDLean/Core/State.lean: OK
+CFDLean/Flux/Roe/Averages.lean: OK
+CFDLean/Flux/Roe/Linearization.lean: OK
+CFDLean/Flux/Roe/Spectral.lean: OK
+CFDLean.lean: OK
+Integrity.lean: OK
+KernelAudit.lean: OK
+README.md: OK
+StatementChecks.lean: OK
+lake-manifest.json: OK
+lakefile.toml: OK
+lean-toolchain: OK
+references/M1.md: OK
+references/M2a.md: OK
+references/M2b.md: OK
+references/M2c.md: OK
+references/inventory.json: OK
+scripts/reproduce.sh: OK
+scripts/test_verify.py: OK
+scripts/verify.py: OK
+specifications/M0-approval.md: OK
+specifications/M1.md: OK
+specifications/M2-approval.md: OK
+specifications/M2-proposal.md: OK
+specifications/M2-results.json: OK
+specifications/M2.md: OK
+mathlib c44e0c8ee63ca166450922a373c7409c5d26b00b fresh source checkout
+plausible 77e08eddc486491d7b9e470926b3dbe50319451a fresh source checkout
+LeanSearchClient 25078369972d295301f5a1e53c3e5850cf6d9d4c fresh source checkout
+importGraph e6a9f0f5ee3ccf7443a0070f92b62f8db12ae82b fresh source checkout
+proofwidgets c4919189477c3221e6a204008998b0d724f49904 fresh source checkout
+aesop 5d50b08dedd7d69b3d9b3176e0d58a23af228884 fresh source checkout
+Qq fa4f7f15d97591a9cf3aa7724ba371c7fc6dda02 fresh source checkout
+batteries f5d04a9c4973d401c8c92500711518f7c656f034 fresh source checkout
+Cli 02dbd02bc00ec4916e99b04b2245b30200e200d0 fresh source checkout
+Verified 461 qualified inventory records, 58 promised theorems, and all pinned dependencies.
+Exact candidate match verification.json 4dbbd683e67f1012f596fbafbc4b2d7da04e6f640498fb25d38c3d0218d16f44
+Exact candidate match kernel-inventory.log 4ac7b8b7bdca12e382059a6ea520f3a31a21644264d995be87ad03f0f62f0da4
+Exact candidate match inherited-types.json 022d74fb4988a957ef7be723a696bcc1cfdd446dbc859cecbec47bd8ac16e2f1
+Exact candidate match bindings-diff.patch 719f74786c20833d5a19c66ab0741341ee5fcba998be877def23efebf07f54ef
+Exact candidate match binding-type-diff.json ce7d6d227e798016be90114f4c2391d9a05c818d50ef5605bf7ef37eb1361a3c

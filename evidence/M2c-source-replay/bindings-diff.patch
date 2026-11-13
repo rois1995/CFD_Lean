@@ -1,0 +1,58 @@
+diff --git a/specifications/M2-results.json b/specifications/M2-results.json
+index 792b9ec..84f8885 100644
+--- a/specifications/M2-results.json
++++ b/specifications/M2-results.json
+@@ -3,7 +3,7 @@
+   "contract_sha256": "1baacdb98345825c7697ed99d86cfa638186ef88692657692260ca757f1e211c",
+   "approved_proposal_commit": "1c942b0983a5d2b6bfd8ff8344535f33cdb825e6",
+   "approval_record": "specifications/M2-approval.md",
+-  "current_stage": "M2b",
++  "current_stage": "M2c",
+   "results": [
+     {
+       "id": "M2-J",
+@@ -69,17 +69,41 @@
+     {
+       "id": "M2-E",
+       "stage": "M2c",
+-      "declarations": []
++      "declarations": [
++        "CFDLean.Roe.Spectral.sound_parameters",
++        "CFDLean.Roe.Spectral.roe_cubic",
++        "CFDLean.Roe.Spectral.roe_eigenvectors",
++        "CFDLean.Roe.Spectral.roe_projector_algebra",
++        "CFDLean.Roe.Spectral.roe_projector_sum",
++        "CFDLean.Roe.Spectral.roe_projector_ranges",
++        "CFDLean.Roe.Spectral.roe_dimensions",
++        "CFDLean.Roe.Spectral.roe_projector_ranks",
++        "CFDLean.Roe.Spectral.roe_complete_basis",
++        "CFDLean.Roe.Spectral.roe_spectral_decomposition",
++        "CFDLean.Roe.Spectral.roe_convective_tangent_span",
++        "CFDLean.Roe.Spectral.tangent_dimension",
++        "CFDLean.Roe.Spectral.exists_tangent_basis"
++      ]
+     },
+     {
+       "id": "M2-D",
+       "stage": "M2c",
+-      "declarations": []
++      "declarations": [
++        "CFDLean.Roe.Spectral.roe_absolute_basis",
++        "CFDLean.Roe.Spectral.roe_absolute_eigen"
++      ]
+     },
+     {
+       "id": "M2-O",
+       "stage": "M2c",
+-      "declarations": []
++      "declarations": [
++        "CFDLean.Roe.Spectral.roe_matrix_reverse",
++        "CFDLean.Roe.Spectral.roe_shift_reverse",
++        "CFDLean.Roe.Spectral.roe_projector_reverse",
++        "CFDLean.Roe.Spectral.roe_speed_reverse",
++        "CFDLean.Roe.Spectral.roe_absolute_reverse",
++        "CFDLean.Roe.Spectral.roe_swap"
++      ]
+     },
+     {
+       "id": "M2-F1",

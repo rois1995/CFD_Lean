@@ -1,0 +1,32 @@
+{
+  "candidate_commit": "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd",
+  "accepted_inherited_commit": "c92c0f66360f85c0a3339ab9b30fc00c39ee5f93",
+  "date": "2026-11-13",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M2c acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m2c-source-replay.HMI3wJ/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS built locally using its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 58,
+  "inherited_types_checked": 37,
+  "lean_examples": 41,
+  "python_fixtures": 9,
+  "source_checksums_checked": 30,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "independent_m2c_acceptance": "pending"
+}
