@@ -1,0 +1,111 @@
+✔ [0/2] Ran job computation
+ℹ [1/2] Replayed proofwidgets/widgetPackageLock
+trace: ././widget> npm install
+trace: stdout:
+added 1 package, changed 2 packages, and audited 367 packages in 2s
+
+67 packages are looking for funding
+  run `npm fund` for details
+
+1 moderate severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+ℹ [2/2] Built proofwidgets/widgetJsAll
+trace: .lake/packages/proofwidgets/./widget> npm clean-install
+trace: stdout:
+added 365 packages in 5s
+trace: stderr:
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn deprecated three-mesh-bvh@0.7.8: Deprecated due to three.js version incompatibility. Please use v0.8.0, instead.
+trace: .lake/packages/proofwidgets/./widget> npm run build
+trace: stdout:
+> @leanprover-community/proofwidgets4@0.1.0 build
+> npx tsc && rollup --environment NODE_ENV:production --config
+trace: stderr:
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+dist/rubiks.js → ../.lake/build/js...
+created ../.lake/build/js in 6.3s
+
+dist/recharts.js → ../.lake/build/js...
+(!) Circular dependencies
+node_modules/d3-interpolate/src/value.js -> node_modules/d3-interpolate/src/array.js -> node_modules/d3-interpolate/src/value.js
+node_modules/d3-interpolate/src/value.js -> node_modules/d3-interpolate/src/object.js -> node_modules/d3-interpolate/src/value.js
+node_modules/recharts/es6/util/ChartUtils.js -> node_modules/recharts/es6/util/getLegendProps.js -> node_modules/recharts/es6/util/ChartUtils.js
+created ../.lake/build/js in 4.2s
+
+dist/rbTree.js → ../.lake/build/js...
+(!) Circular dependencies
+node_modules/d3-selection/src/selection/index.js -> node_modules/d3-selection/src/selection/select.js -> node_modules/d3-selection/src/selection/index.js
+node_modules/d3-selection/src/selection/index.js -> node_modules/d3-selection/src/selection/selectAll.js -> node_modules/d3-selection/src/selection/index.js
+node_modules/d3-selection/src/selection/index.js -> node_modules/d3-selection/src/selection/filter.js -> node_modules/d3-selection/src/selection/index.js
+...and 12 more
+created ../.lake/build/js in 1.1s
+
+dist/presentSelection.js → ../.lake/build/js...
+created ../.lake/build/js in 127ms
+
+dist/penroseDisplay.js → ../.lake/build/js...
+(!) Circular dependencies
+node_modules/true-myth/dist/es/maybe.js -> node_modules/true-myth/dist/es/result.js -> node_modules/true-myth/dist/es/maybe.js
+node_modules/@penrose/core/dist/engine/EngineUtils.js -> node_modules/@penrose/core/dist/utils/Util.js -> node_modules/@penrose/core/dist/engine/EngineUtils.js
+node_modules/@penrose/core/dist/engine/BBox.js -> node_modules/@penrose/core/dist/contrib/Queries.js -> node_modules/@penrose/core/dist/engine/BBox.js
+...and 14 more
+created ../.lake/build/js in 9.2s
+
+dist/penroseCanvas.js → ../.lake/build/js...
+(!) Circular dependencies
+node_modules/true-myth/dist/es/maybe.js -> node_modules/true-myth/dist/es/result.js -> node_modules/true-myth/dist/es/maybe.js
+node_modules/@penrose/core/dist/engine/EngineUtils.js -> node_modules/@penrose/core/dist/utils/Util.js -> node_modules/@penrose/core/dist/engine/EngineUtils.js
+node_modules/@penrose/core/dist/engine/BBox.js -> node_modules/@penrose/core/dist/contrib/Queries.js -> node_modules/@penrose/core/dist/engine/BBox.js
+...and 14 more
+created ../.lake/build/js in 9.6s
+
+dist/ofRpcMethod.js → ../.lake/build/js...
+created ../.lake/build/js in 112ms
+
+dist/makeEditLink.js → ../.lake/build/js...
+created ../.lake/build/js in 98ms
+
+dist/interactiveSvg.js → ../.lake/build/js...
+created ../.lake/build/js in 111ms
+
+dist/interactiveExpr.js → ../.lake/build/js...
+created ../.lake/build/js in 94ms
+
+dist/index.js → ../.lake/build/js...
+created ../.lake/build/js in 97ms
+
+dist/htmlDisplayPanel.js → ../.lake/build/js...
+created ../.lake/build/js in 103ms
+
+dist/htmlDisplay.js → ../.lake/build/js...
+created ../.lake/build/js in 87ms
+
+dist/goalTypePanel.js → ../.lake/build/js...
+created ../.lake/build/js in 117ms
+
+dist/filterDetails.js → ../.lake/build/js...
+created ../.lake/build/js in 102ms
+
+dist/exprPresentation.js → ../.lake/build/js...
+created ../.lake/build/js in 99ms
+
+dist/d3Graph.js → ../.lake/build/js...
+(!) Circular dependencies
+node_modules/d3-selection/src/selection/index.js -> node_modules/d3-selection/src/selection/select.js -> node_modules/d3-selection/src/selection/index.js
+node_modules/d3-selection/src/selection/index.js -> node_modules/d3-selection/src/selection/selectAll.js -> node_modules/d3-selection/src/selection/index.js
+node_modules/d3-selection/src/selection/index.js -> node_modules/d3-selection/src/selection/filter.js -> node_modules/d3-selection/src/selection/index.js
+...and 12 more
+created ../.lake/build/js in 1.8s
+
+dist/cancellable.js → ../.lake/build/js...
+created ../.lake/build/js in 108ms
+
+dist/animatedHtml.js → ../.lake/build/js...
+created ../.lake/build/js in 99ms
+Build completed successfully.

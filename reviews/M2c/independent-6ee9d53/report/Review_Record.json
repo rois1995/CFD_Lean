@@ -1,0 +1,24 @@
+{
+  "verdict": "accept M2c (M2-E/D/O)",
+  "candidate": "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd",
+  "checkpoint": "22377c204ae67cbbc1b65fd4a054dc68536363d7",
+  "accepted_baseline": "c92c0f66360f85c0a3339ab9b30fc00c39ee5f93",
+  "blockers": [],
+  "conditions": [],
+  "replay_exit": 0,
+  "independent_lean_exit": 0,
+  "accepted_inherited_types": 37,
+  "bindings": 58,
+  "examples": 41,
+  "tests": 9,
+  "closure": {
+    "visited": 20068,
+    "unsafe_reached": [],
+    "roots": 354,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}
