@@ -1,12 +1,14 @@
-# Current M2b machine evidence
+# Current M2c machine evidence
 
-The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the combined M2a/M2b candidate. M1 and M2a independent acceptance remain attached to their original immutable mathematical revisions; see reviews/M1/CFD_Lean_M1_Acceptance.md and reviews/M2a/Acceptance.md. M2b is independently accepted; see reviews/M2b/Acceptance.md. M2c remains the next implementation stage.
+The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the cumulative M2a/M2b/M2c candidate. M1, M2a and M2b acceptance remain attached to their immutable revisions; see reviews/M1, reviews/M2a/Acceptance.md and reviews/M2b/Acceptance.md. M2c is awaiting independent acceptance.
 
-The worker audit inventories 261 qualified records: 212 safe mathematical roots reach 14,536 declarations, with only propext, Classical.choice and Quot.sound as axiom leaves and no unsafe declaration reached. All 37 J/A/R/L bindings and all nine dependency revisions pass. All 37 accepted J/A/R/L bindings/types and their mathematical sources are checked against immutable revision c92c0f6. M2b is independently accepted; the original worker counts and evidence below remain historical. The nine Python fixtures and StatementChecks.lean pass, including explicit actual-M1-flux interfaces and exact contact/shear sound-speed examples.
+The audit inventories 461 qualified records. Its 354 safe mathematical roots reach 20,068 declarations with precisely propext, Classical.choice and Quot.sound and no reachable unsafe declaration. The 71 unsafe compiler/executable records and 36 metadata-only names remain visible as non-roots. Empty non-root axiom lists mean the per-root query was skipped, not that executable code was verified.
 
-inherited-types.json now records all 37 unchanged accepted types. binding-type-diff.json records accepted/current types for every active promise; null marks newly added and still awaiting review. bindings-diff.patch is the complete binding-file diff from the accepted revision. statement-checks.log is normally empty on success. The source-only replay script now asserts byte-for-byte agreement of regenerated audit and binding/type evidence against the frozen candidate; the cold-build transcript may differ. Fresh worker source replay is recorded separately and cannot supply independent scientific acceptance.
+All 58 active J/A/R/L/E/D/O bindings, all 37 inherited types/sources and all nine dependency pins are checked. StatementChecks.lean provides 41 expected-interface and exact examples, including literal spectral formulas, acoustic/contact/shear vectors, arbitrary-basis conjugation, zero-speed and oblique-unit-normal cases. Nine Python fixtures include binding/stage/type regressions across all four accepted inherited IDs.
 
-M2-E/D/O and M2-F1/F2/F3/F4/C remain deferred. No full Roe numerical flux, update positivity, mesh assembly or solver correspondence is claimed.
+inherited-types.json compares all 37 accepted types with c92c0f6. binding-type-diff.json exposes every current type; null accepted types mark the 21 new M2c claims. bindings-diff.patch is the complete qualified binding-file diff from that accepted revision. The fresh replay compares these and both full audit outputs with the exact candidate byte for byte. A different cold-build transcript is expected. Worker cold replay evidence is archived separately; it cannot supply independent scientific acceptance.
+
+M2-F1/F2/F3/F4/C remain deferred, with no numerical flux or positivity witness claimed yet.
 
 ## Historical M1 evidence narrative
 

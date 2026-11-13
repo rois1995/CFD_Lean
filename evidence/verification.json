@@ -1,6 +1,6 @@
 {
   "lean": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
-  "stage": "M2b",
+  "stage": "M2c",
   "promised_theorems": [
     "CFDLean.Coordinates.decode_encode",
     "CFDLean.Coordinates.encode_decode",
@@ -12,6 +12,27 @@
     "CFDLean.PhysicalJacobian.jacobian_action",
     "CFDLean.Roe.B_bijective",
     "CFDLean.Roe.B_inverseB",
+    "CFDLean.Roe.Spectral.exists_tangent_basis",
+    "CFDLean.Roe.Spectral.roe_absolute_basis",
+    "CFDLean.Roe.Spectral.roe_absolute_eigen",
+    "CFDLean.Roe.Spectral.roe_absolute_reverse",
+    "CFDLean.Roe.Spectral.roe_complete_basis",
+    "CFDLean.Roe.Spectral.roe_convective_tangent_span",
+    "CFDLean.Roe.Spectral.roe_cubic",
+    "CFDLean.Roe.Spectral.roe_dimensions",
+    "CFDLean.Roe.Spectral.roe_eigenvectors",
+    "CFDLean.Roe.Spectral.roe_matrix_reverse",
+    "CFDLean.Roe.Spectral.roe_projector_algebra",
+    "CFDLean.Roe.Spectral.roe_projector_ranges",
+    "CFDLean.Roe.Spectral.roe_projector_ranks",
+    "CFDLean.Roe.Spectral.roe_projector_reverse",
+    "CFDLean.Roe.Spectral.roe_projector_sum",
+    "CFDLean.Roe.Spectral.roe_shift_reverse",
+    "CFDLean.Roe.Spectral.roe_spectral_decomposition",
+    "CFDLean.Roe.Spectral.roe_speed_reverse",
+    "CFDLean.Roe.Spectral.roe_swap",
+    "CFDLean.Roe.Spectral.sound_parameters",
+    "CFDLean.Roe.Spectral.tangent_dimension",
     "CFDLean.Roe.averages_swap",
     "CFDLean.Roe.flux_midpoint_jump",
     "CFDLean.Roe.hasFDerivAt_diagonal",
@@ -48,12 +69,13 @@
     "CFDLean.Core.State",
     "CFDLean.Flux.Roe.Averages",
     "CFDLean.Flux.Roe.Linearization",
+    "CFDLean.Flux.Roe.Spectral",
     "Integrity"
   ],
   "closure": {
-    "visited": 14536,
+    "visited": 20068,
     "unsafe_reached": [],
-    "roots": 212,
+    "roots": 354,
     "axioms": [
       "propext",
       "Classical.choice",
@@ -63,7 +85,7 @@
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "fae6109fa747dfcbca2a6b5532b6074928f7d4b0101ae0e7f6f17074fa13b6a1"
+      "sha256": "a5b1a94a8667c8e49cd4f76daa73211ede082a3938b530dcef5d1f846c51ca98"
     },
     "CFDLean.Core.Coordinates": {
       "path": "CFDLean/Core/Coordinates.lean",
@@ -88,6 +110,10 @@
     "CFDLean.Flux.Roe.Linearization": {
       "path": "CFDLean/Flux/Roe/Linearization.lean",
       "sha256": "19ac8ba6396a0cd1c95debab037cbc34948973dda60533b1566d57d4ad0e46e7"
+    },
+    "CFDLean.Flux.Roe.Spectral": {
+      "path": "CFDLean/Flux/Roe/Spectral.lean",
+      "sha256": "4c7b36a6194741b97ce6d01cfa6e74d1f272a535678342f9adfe6d0bb5487bcd"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -2277,6 +2303,3572 @@
         "CFDLean.Roe.C",
         "CFDLean.Coordinates.StateCoordinates",
         "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.A": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.A",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.operator",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.A.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.A \u03b3 u H n = \u2191(CFDLean.Roe.operator \u03b3 u H n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.A.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.operator",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.A_eq_shift": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (v : CFDLean.Roe.Spectral.E),\n  (CFDLean.Roe.Spectral.A \u03b3 u H n) v = CFDLean.dot u n \u2022 v + (CFDLean.Roe.Spectral.shift \u03b3 u H n) v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.A_eq_shift",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.A_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.A \u03b3 u H (-n) = -CFDLean.Roe.Spectral.A \u03b3 u H n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.A_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.operator",
+        "CFDLean.Roe.operator_smul",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.E": {
+      "unsafe": false,
+      "type": "Type",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.E",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.absolute": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.absolute",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.absolute_basis_representation": {
+      "unsafe": false,
+      "type": "\u2200 {\u03b9 : Type u_1} [inst : Fintype \u03b9] (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        \u2200 (bas : Basis \u03b9 \u211d CFDLean.Roe.Spectral.E) (\u03bc : \u03b9 \u2192 \u211d),\n          (\u2200 (i : \u03b9), (CFDLean.Roe.Spectral.A \u03b3 u H n) (bas i) = \u03bc i \u2022 bas i) \u2192\n            CFDLean.Roe.Spectral.absolute \u03b3 u H n c =\n              \u2191bas.equivFun.symm \u2218\u2097 (CFDLean.Roe.Spectral.diagonal fun i => |\u03bc i|) \u2218\u2097 \u2191bas.equivFun",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.absolute_basis_representation",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.diagonal",
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.Roe.Spectral.diagonal._proof_8",
+        "CFDLean.Roe.Spectral.absolute_on_eigen",
+        "CFDLean.squareSum",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.diagonal._proof_9"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.absolute_on_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c \u03bc : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        \u2200 (v : CFDLean.Roe.Spectral.E),\n          v \u2260 0 \u2192 (CFDLean.Roe.Spectral.A \u03b3 u H n) v = \u03bc \u2022 v \u2192 (CFDLean.Roe.Spectral.absolute \u03b3 u H n c) v = |\u03bc| \u2022 v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.absolute_on_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.absolute_on_eigen._proof_8",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.eigenvalue_exhaustive",
+        "CFDLean.Roe.Spectral.projector_on_shift_eigen",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.offset",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.absolute_on_eigen._proof_8": {
+      "unsafe": false,
+      "type": "\u2200 {n : \u2115} {a b : Fin n}, (a = b) = (\u2191a = \u2191b)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.absolute_on_eigen._proof_8",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Roe.Spectral.absolute_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.Roe.Spectral.absolute \u03b3 u H (-n) c = CFDLean.Roe.Spectral.absolute \u03b3 u H n c",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.absolute_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.Roe.Spectral.projector_reverse",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.speed_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.acoustic": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.acoustic",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.acoustic._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._closed_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._closed_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.acoustic._lambda_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Roe.Spectral.E",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.acoustic._lambda_1",
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.acoustic._lambda_2"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._lambda_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._lambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._lambda_1._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._lambda_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._lambda_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._lambda_2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._lambda_2._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._lambda_2._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic._lambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.acoustic._lambda_2._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.vp"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.acoustic.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (s : \u211d),\n  CFDLean.Roe.Spectral.acoustic u H n s = CFDLean.Roe.Spectral.vb u H + s \u2022 CFDLean.Roe.Spectral.vp u n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.acoustic.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.acoustic_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (s : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    s ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      (CFDLean.Roe.Spectral.A \u03b3 u H n) (CFDLean.Roe.Spectral.acoustic u H n s) =\n        (CFDLean.dot u n + s) \u2022 CFDLean.Roe.Spectral.acoustic u H n s",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.acoustic_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.A_eq_shift",
+        "CFDLean.Roe.Spectral.shifted_acoustic",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.acoustic_ne_zero": {
+      "unsafe": false,
+      "type": "\u2200 (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (s : \u211d), CFDLean.Roe.Spectral.acoustic u H n s \u2260 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.acoustic_ne_zero",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E \u2192\u2097[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b._proof_2": {
+      "unsafe": false,
+      "type": "SMulCommClass \u211d \u211d \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b._proof_2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b._proof_3": {
+      "unsafe": false,
+      "type": "ContinuousConstSMul \u211d \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b._proof_3",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b._proof_4": {
+      "unsafe": false,
+      "type": "NeZero (4 + 1)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b._proof_4",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.b u n =\n    \u2191(CFDLean.PhysicalJacobian.normalMomentum n - CFDLean.dot u n \u2022 CFDLean.PhysicalJacobian.projection 0)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b_energy": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u n : CFDLean.Vector 3), (CFDLean.Roe.Spectral.b u n) (CFDLean.Roe.Spectral.energy \u03b3) = 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b_energy",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.energy",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b_shift": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.dot n n = 1 \u2192\n    \u2200 (v : CFDLean.Roe.Spectral.E),\n      (CFDLean.Roe.Spectral.b u n) ((CFDLean.Roe.Spectral.shift \u03b3 u H n) v) = (CFDLean.Roe.Spectral.dp \u03b3 u) v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b_shift",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.b_vp",
+        "CFDLean.Roe.Spectral.b_vb",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b_vb": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3) (H : \u211d), (CFDLean.Roe.Spectral.b u n) (CFDLean.Roe.Spectral.vb u H) = 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b_vb",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.b_vp": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3), (CFDLean.Roe.Spectral.b u n) (CFDLean.Roe.Spectral.vp u n) = CFDLean.dot n n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.b_vp",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.complete_eigenbasis": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      0 < c \u2192\n        \u03b3 - 1 \u2260 0 \u2192\n          \u2203 bas,\n            \u2200 (j : Fin 5), \u2203 i, (CFDLean.Roe.Spectral.A \u03b3 u H n) (bas j) = CFDLean.Roe.Spectral.speed u n c i \u2022 bas j",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.complete_eigenbasis",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.eigenspace_dimensions",
+        "CFDLean.Roe.Spectral.speed_injective",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.eigenspaces_span"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.contact": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.contact",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.contact.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u : CFDLean.Vector 3), CFDLean.Roe.Spectral.contact u = ![1, u 0, u 1, u 2, CFDLean.squareSum u / 2]",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.contact.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.contact",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.contact_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  (CFDLean.Roe.Spectral.A \u03b3 u H n) (CFDLean.Roe.Spectral.contact u) = CFDLean.dot u n \u2022 CFDLean.Roe.Spectral.contact u",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.contact_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.contact",
+        "CFDLean.Roe.Spectral.b_vb",
+        "CFDLean.Roe.Spectral.A_eq_shift",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.dp_vb",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.convective_decomposition": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.dot n n = 1 \u2192\n    \u03b3 - 1 \u2260 0 \u2192\n      \u2200 v \u2208 (CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.dot u n),\n        \u2203 t, CFDLean.dot t n = 0 \u2227 v = v 0 \u2022 CFDLean.Roe.Spectral.contact u + CFDLean.Roe.Spectral.shear u t",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.convective_decomposition",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.convective_eq_kernel",
+        "CFDLean.Roe.Spectral.waveMap",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.Roe.Spectral.contact",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.convective_dimension": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.dot n n = 1 \u2192\n    \u03b3 - 1 \u2260 0 \u2192 Module.finrank \u211d \u21a5((CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.dot u n)) = 3",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.convective_dimension",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.convective_eq_kernel",
+        "CFDLean.Roe.Spectral.waveMap",
+        "CFDLean.Roe.Spectral.convective_dimension._proof_8",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.waveMap_surjective",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.convective_dimension._proof_8": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u n : CFDLean.Vector 3),\n  2 + Module.finrank \u211d \u21a5(LinearMap.ker (CFDLean.Roe.Spectral.waveMap \u03b3 u n)) = 5 \u2192\n    \u00acModule.finrank \u211d \u21a5(LinearMap.ker (CFDLean.Roe.Spectral.waveMap \u03b3 u n)) = 3 \u2192 False",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.convective_dimension._proof_8",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.waveMap",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.convective_eq_kernel": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.dot n n = 1 \u2192\n    (CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.dot u n) = LinearMap.ker (CFDLean.Roe.Spectral.waveMap \u03b3 u n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.convective_eq_kernel",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.waveMap",
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.A_eq_shift",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.b_shift",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.convective_tangent_span": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.dot n n = 1 \u2192\n    \u03b3 - 1 \u2260 0 \u2192\n      \u2200 (tb : Basis (Fin 2) \u211d \u21a5(CFDLean.Roe.Spectral.tangent n)),\n        Submodule.span \u211d ({CFDLean.Roe.Spectral.contact u} \u222a Set.range fun i => CFDLean.Roe.Spectral.shear u \u2191(tb i)) =\n          (CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.dot u n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.convective_tangent_span",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.contact",
+        "CFDLean.Roe.Spectral.convective_decomposition",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.Roe.Spectral.shear_eigen",
+        "CFDLean.Roe.Spectral.shearMap",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.contact_eigen",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.diagonal": {
+      "unsafe": false,
+      "type": "{\u03b9 : Type u_1} \u2192 (\u03b9 \u2192 \u211d) \u2192 (\u03b9 \u2192 \u211d) \u2192\u2097[\u211d] \u03b9 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.diagonal",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.diagonal._proof_8",
+        "CFDLean.Roe.Spectral.diagonal._proof_9"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.diagonal._cstage1": {
+      "unsafe": true,
+      "type": "{\u03b9 : Type u_1} \u2192 (\u03b9 \u2192 \u211d) \u2192 (\u03b9 \u2192 \u211d) \u2192\u2097[\u211d] \u03b9 \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.diagonal._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.diagonal._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.diagonal._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.diagonal._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.diagonal._proof_8": {
+      "unsafe": false,
+      "type": "\u2200 {\u03b9 : Type u_1} (a x y : \u03b9 \u2192 \u211d), (fun i => a i * (x + y) i) = (fun i => a i * x i) + fun i => a i * y i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.diagonal._proof_8",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.diagonal._proof_9": {
+      "unsafe": false,
+      "type": "\u2200 {\u03b9 : Type u_1} (a : \u03b9 \u2192 \u211d) (r : \u211d) (x : \u03b9 \u2192 \u211d), (fun i => a i * (r \u2022 x) i) = (RingHom.id \u211d) r \u2022 fun i => a i * x i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.diagonal._proof_9",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.diagonal._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.diagonal._rarg",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.diagonal._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.diagonal._rarg._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.diagonal.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {\u03b9 : Type u_1} (a : \u03b9 \u2192 \u211d),\n  CFDLean.Roe.Spectral.diagonal a = { toFun := fun x i => a i * x i, map_add' := \u22ef, map_smul' := \u22ef }",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.diagonal.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.diagonal",
+        "CFDLean.Roe.Spectral.diagonal._proof_8",
+        "CFDLean.Roe.Spectral.diagonal._proof_9"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dissipation": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Vector 3 \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dissipation",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dissipation.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.dissipation \u03b3 x y n =\n    CFDLean.Roe.Spectral.absolute \u03b3 (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy \u03b3 x y) n\n      (CFDLean.Roe.soundSpeed \u03b3 x y)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dissipation.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dot_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3), CFDLean.dot u (-n) = -CFDLean.dot u n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dot_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot_mul",
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E \u2192\u2097[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp._proof_5": {
+      "unsafe": false,
+      "type": "ContinuousAdd \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp._proof_5",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp._proof_6": {
+      "unsafe": false,
+      "type": "NeZero (2 + 1)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp._proof_6",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp._proof_7": {
+      "unsafe": false,
+      "type": "(0 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp._proof_7",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.dp.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.dp \u03b3 u =\n    \u2191((\u03b3 - 1) \u2022\n        (CFDLean.PhysicalJacobian.projection 4 -\n            (u 0 \u2022 CFDLean.PhysicalJacobian.projection 1 + u 1 \u2022 CFDLean.PhysicalJacobian.projection 2 +\n              u 2 \u2022 CFDLean.PhysicalJacobian.projection 3) +\n          (CFDLean.squareSum u / 2) \u2022 CFDLean.PhysicalJacobian.projection 0))",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.PhysicalJacobian.projection",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp_energy": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3), \u03b3 - 1 \u2260 0 \u2192 (CFDLean.Roe.Spectral.dp \u03b3 u) (CFDLean.Roe.Spectral.energy \u03b3) = 1",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp_energy",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.Roe.Spectral.energy",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp_shift": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (v : CFDLean.Roe.Spectral.E),\n  (CFDLean.Roe.Spectral.dp \u03b3 u) ((CFDLean.Roe.Spectral.shift \u03b3 u H n) v) =\n    (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) * (CFDLean.Roe.Spectral.b u n) v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp_shift",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.dp_vp",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.dp_vb",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp_vb": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d),\n  (CFDLean.Roe.Spectral.dp \u03b3 u) (CFDLean.Roe.Spectral.vb u H) = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp_vb",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.dp_vp": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u n : CFDLean.Vector 3), (CFDLean.Roe.Spectral.dp \u03b3 u) (CFDLean.Roe.Spectral.vp u n) = 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.dp_vp",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.eigenspace_dimensions": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        \u03b3 - 1 \u2260 0 \u2192\n          \u2200 (i : Fin 3),\n            Module.finrank \u211d \u21a5((CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.Roe.Spectral.speed u n c i)) =\n              ![1, 3, 1] i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.eigenspace_dimensions",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.acoustic_ne_zero",
+        "CFDLean.Roe.Spectral.projector_range",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.minus_range",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.Roe.Spectral.convective_dimension",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.plus_range"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.eigenspaces_span": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192 \u2a06 i, (CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.Roe.Spectral.speed u n c i) = \u22a4",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.eigenspaces_span",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.projector_range",
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.Roe.Spectral.projector_sum",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.eigenvalue_exhaustive": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c \u03bc : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      \u2200 (v : CFDLean.Roe.Spectral.E),\n        v \u2260 0 \u2192 (CFDLean.Roe.Spectral.A \u03b3 u H n) v = \u03bc \u2022 v \u2192 \u2203 i, \u03bc = CFDLean.Roe.Spectral.speed u n c i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.eigenvalue_exhaustive",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.shifted_cubic",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.energy": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.energy",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.energy.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d), CFDLean.Roe.Spectral.energy \u03b3 = ![0, 0, 0, 0, 1 / (\u03b3 - 1)]",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.energy.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.energy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.exists_tangent_basis": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3), CFDLean.dot n n = 1 \u2192 Nonempty (Basis (Fin 2) \u211d \u21a5(CFDLean.Roe.Spectral.tangent n))",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.exists_tangent_basis",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.tangentBasis",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.minus": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.minus",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.minus.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.Roe.Spectral.minus \u03b3 u H n c =\n    (1 / (2 * c ^ 2)) \u2022 (CFDLean.Roe.Spectral.shift \u03b3 u H n ^ 2 - c \u2022 CFDLean.Roe.Spectral.shift \u03b3 u H n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.minus.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.minus_apply": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      \u2200 (v : CFDLean.Roe.Spectral.E),\n        (CFDLean.Roe.Spectral.minus \u03b3 u H n c) v =\n          (((CFDLean.Roe.Spectral.dp \u03b3 u) v - c * (CFDLean.Roe.Spectral.b u n) v) / (2 * c ^ 2)) \u2022\n            CFDLean.Roe.Spectral.acoustic u H n (-c)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.minus_apply",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.shift_square_apply",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.minus_range": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        LinearMap.range (CFDLean.Roe.Spectral.minus \u03b3 u H n c) =\n          Submodule.span \u211d {CFDLean.Roe.Spectral.acoustic u H n (-c)}",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.minus_range",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.rank_one_range",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.shifted_acoustic",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.projector_on_shift_eigen",
+        "CFDLean.Roe.Spectral.minus_apply",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.multiplier": {
+      "unsafe": false,
+      "type": "\u211d \u2192 \u211d \u2192 Fin 3 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.multiplier",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_7"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.multiplier.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (c s : \u211d) (j : Fin 3),\n  CFDLean.Roe.Spectral.multiplier c s j =\n    ![(s ^ 2 - c * s) / (2 * c ^ 2), 1 - s ^ 2 / c ^ 2, (s ^ 2 + c * s) / (2 * c ^ 2)] j",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.multiplier.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.multiplier"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.multiplier_offset": {
+      "unsafe": false,
+      "type": "\u2200 (c : \u211d),\n  c \u2260 0 \u2192\n    \u2200 (i j : Fin 3), CFDLean.Roe.Spectral.multiplier c (CFDLean.Roe.Spectral.offset c i) j = if i = j then 1 else 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.multiplier_offset",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.offset",
+        "CFDLean.Roe.Spectral.multiplier"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.neg_square": {
+      "unsafe": false,
+      "type": "\u2200 (f : Module.End \u211d CFDLean.Roe.Spectral.E), (-f) ^ 2 = f ^ 2",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.neg_square",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.normal": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.normal",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal._proof_10",
+        "CFDLean.Roe.Spectral.normal._proof_11",
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.normal._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.normal._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.normal._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.normal._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.normal._proof_10": {
+      "unsafe": false,
+      "type": "\u2200 (n t s : CFDLean.Vector 3), CFDLean.dot (t + s) n = CFDLean.dot t n + CFDLean.dot s n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.normal._proof_10",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.normal._proof_11": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3) (r : \u211d) (t : CFDLean.Vector 3), CFDLean.dot (r \u2022 t) n = (RingHom.id \u211d) r \u2022 CFDLean.dot t n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.normal._proof_11",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.normal_surjective": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3), CFDLean.dot n n = 1 \u2192 Function.Surjective \u21d1(CFDLean.Roe.Spectral.normal n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.normal_surjective",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.offset": {
+      "unsafe": false,
+      "type": "\u211d \u2192 Fin 3 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.offset",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.offset._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.offset._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.offset._cstage1": {
+      "unsafe": true,
+      "type": "\u211d \u2192 Fin 3 \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.offset._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.offset._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.offset._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.offset.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (c : \u211d) (i : Fin 3), CFDLean.Roe.Spectral.offset c i = ![-c, 0, c] i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.offset.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.offset"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.plus": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.plus",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.plus.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.Roe.Spectral.plus \u03b3 u H n c =\n    (1 / (2 * c ^ 2)) \u2022 (CFDLean.Roe.Spectral.shift \u03b3 u H n ^ 2 + c \u2022 CFDLean.Roe.Spectral.shift \u03b3 u H n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.plus.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.plus_apply": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      \u2200 (v : CFDLean.Roe.Spectral.E),\n        (CFDLean.Roe.Spectral.plus \u03b3 u H n c) v =\n          (((CFDLean.Roe.Spectral.dp \u03b3 u) v + c * (CFDLean.Roe.Spectral.b u n) v) / (2 * c ^ 2)) \u2022\n            CFDLean.Roe.Spectral.acoustic u H n c",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.plus_apply",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.shift_square_apply",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.plus_range": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        LinearMap.range (CFDLean.Roe.Spectral.plus \u03b3 u H n c) = Submodule.span \u211d {CFDLean.Roe.Spectral.acoustic u H n c}",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.plus_range",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.plus_apply",
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.rank_one_range",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.shifted_acoustic",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.projector_on_shift_eigen",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Fin 3 \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d) (i : Fin 3),\n  CFDLean.Roe.Spectral.projector \u03b3 u H n c i =\n    ![CFDLean.Roe.Spectral.minus \u03b3 u H n c, CFDLean.Roe.Spectral.zero \u03b3 u H n c, CFDLean.Roe.Spectral.plus \u03b3 u H n c] i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector_algebra": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        \u2200 (i j : Fin 3),\n          CFDLean.Roe.Spectral.projector \u03b3 u H n c i * CFDLean.Roe.Spectral.projector \u03b3 u H n c j =\n            if i = j then CFDLean.Roe.Spectral.projector \u03b3 u H n c i else 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector_algebra",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.shift_projector",
+        "CFDLean.squareSum",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.projector_on_shift_eigen",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector_on_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c s : \u211d) (v : CFDLean.Roe.Spectral.E),\n  (CFDLean.Roe.Spectral.shift \u03b3 u H n) v = s \u2022 v \u2192\n    \u2200 (j : Fin 3), (CFDLean.Roe.Spectral.projector \u03b3 u H n c j) v = CFDLean.Roe.Spectral.multiplier c s j \u2022 v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector_on_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.multiplier"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector_on_shift_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  c \u2260 0 \u2192\n    \u2200 (i j : Fin 3) (v : CFDLean.Roe.Spectral.E),\n      (CFDLean.Roe.Spectral.shift \u03b3 u H n) v = CFDLean.Roe.Spectral.offset c i \u2022 v \u2192\n        (CFDLean.Roe.Spectral.projector \u03b3 u H n c j) v = if i = j then v else 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector_on_shift_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.multiplier_offset",
+        "CFDLean.Roe.Spectral.projector_on_eigen",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.offset",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.multiplier"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector_range": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        \u2200 (i : Fin 3),\n          LinearMap.range (CFDLean.Roe.Spectral.projector \u03b3 u H n c i) =\n            (CFDLean.Roe.Spectral.A \u03b3 u H n).eigenspace (CFDLean.Roe.Spectral.speed u n c i)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector_range",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.shift_projector",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.A_eq_shift",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.projector_on_shift_eigen",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.offset",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d) (i : Fin 3),\n  CFDLean.Roe.Spectral.projector \u03b3 u H (-n) c i = CFDLean.Roe.Spectral.projector \u03b3 u H n c i.rev",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.shift_reverse",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.neg_square"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.projector_sum": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  c \u2260 0 \u2192\n    CFDLean.Roe.Spectral.minus \u03b3 u H n c + CFDLean.Roe.Spectral.zero \u03b3 u H n c + CFDLean.Roe.Spectral.plus \u03b3 u H n c = 1",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.projector_sum",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.rank_one_range": {
+      "unsafe": false,
+      "type": "\u2200 (f : Module.End \u211d CFDLean.Roe.Spectral.E) (r : CFDLean.Roe.Spectral.E) (a : CFDLean.Roe.Spectral.E \u2192 \u211d),\n  (\u2200 (v : CFDLean.Roe.Spectral.E), f v = a v \u2022 r) \u2192 f r = r \u2192 LinearMap.range f = Submodule.span \u211d {r}",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.rank_one_range",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roeProjector": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Vector 3 \u2192 Fin 3 \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roeProjector",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roeProjector.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3) (i : Fin 3),\n  CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i =\n    CFDLean.Roe.Spectral.projector \u03b3 (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy \u03b3 x y) n\n      (CFDLean.Roe.soundSpeed \u03b3 x y) i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roeProjector.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roeShift": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Vector 3 \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roeShift",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roeShift.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.roeShift \u03b3 x y n =\n    CFDLean.Roe.Spectral.shift \u03b3 (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy \u03b3 x y) n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roeShift.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.roeShift",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roeSpeed": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Roe.Spectral.E \u2192 CFDLean.Vector 3 \u2192 Fin 3 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roeSpeed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_absolute_basis": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 {\u03b9 : Type u_1} [inst : Fintype \u03b9] (bas : Basis \u03b9 \u211d CFDLean.Roe.Spectral.E) (\u03bc : \u03b9 \u2192 \u211d),\n            (\u2200 (i : \u03b9), (CFDLean.Roe.roeMatrix \u03b3 x y n) (bas i) = \u03bc i \u2022 bas i) \u2192\n              CFDLean.Roe.Spectral.dissipation \u03b3 x y n =\n                \u2191bas.equivFun.symm \u2218\u2097 (CFDLean.Roe.Spectral.diagonal fun i => |\u03bc i|) \u2218\u2097 \u2191bas.equivFun",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_absolute_basis",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.diagonal",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.absolute_basis_representation",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_absolute_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 (\u03bc : \u211d) (v : CFDLean.Roe.Spectral.E),\n            v \u2260 0 \u2192 (CFDLean.Roe.roeMatrix \u03b3 x y n) v = \u03bc \u2022 v \u2192 (CFDLean.Roe.Spectral.dissipation \u03b3 x y n) v = |\u03bc| \u2022 v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_absolute_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Roe.Spectral.absolute_on_eigen",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_absolute_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.dissipation \u03b3 x y (-n) = CFDLean.Roe.Spectral.dissipation \u03b3 x y n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_absolute_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.absolute_reverse"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_complete_basis": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2203 bas,\n            \u2200 (j : Fin 5),\n              \u2203 i, (CFDLean.Roe.roeMatrix \u03b3 x y n) (bas j) = CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n i \u2022 bas j",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_complete_basis",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.complete_eigenbasis",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_convective_tangent_span": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.dot n n = 1 \u2192\n      \u2200 (tb : Basis (Fin 2) \u211d \u21a5(CFDLean.Roe.Spectral.tangent n)),\n        Submodule.span \u211d\n            ({CFDLean.Roe.Spectral.contact (CFDLean.Roe.averageVelocity x y)} \u222a\n              Set.range fun i => CFDLean.Roe.Spectral.shear (CFDLean.Roe.averageVelocity x y) \u2191(tb i)) =\n          Module.End.eigenspace (\u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)) (CFDLean.dot (CFDLean.Roe.averageVelocity x y) n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_convective_tangent_span",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.contact",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Roe.Spectral.convective_tangent_span",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_cubic": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          CFDLean.Roe.Spectral.roeShift \u03b3 x y n ^ 3 =\n            CFDLean.Roe.soundSpeed \u03b3 x y ^ 2 \u2022 CFDLean.Roe.Spectral.roeShift \u03b3 x y n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_cubic",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.roeShift",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.shifted_cubic",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_dimensions": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 (i : Fin 3),\n            Module.finrank \u211d\n                \u21a5(Module.End.eigenspace (\u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)) (CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n i)) =\n              ![1, 3, 1] i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_dimensions",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.eigenspace_dimensions",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_eigenvectors": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          (\u2200 (s : \u211d),\n              s = -CFDLean.Roe.soundSpeed \u03b3 x y \u2228 s = CFDLean.Roe.soundSpeed \u03b3 x y \u2192\n                (CFDLean.Roe.roeMatrix \u03b3 x y n)\n                    (CFDLean.Roe.Spectral.acoustic (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy \u03b3 x y)\n                      n s) =\n                  (CFDLean.dot (CFDLean.Roe.averageVelocity x y) n + s) \u2022\n                    CFDLean.Roe.Spectral.acoustic (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy \u03b3 x y)\n                      n s) \u2227\n            (CFDLean.Roe.roeMatrix \u03b3 x y n) (CFDLean.Roe.Spectral.contact (CFDLean.Roe.averageVelocity x y)) =\n                CFDLean.dot (CFDLean.Roe.averageVelocity x y) n \u2022\n                  CFDLean.Roe.Spectral.contact (CFDLean.Roe.averageVelocity x y) \u2227\n              \u2200 (t : CFDLean.Vector 3),\n                CFDLean.dot t n = 0 \u2192\n                  (CFDLean.Roe.roeMatrix \u03b3 x y n) (CFDLean.Roe.Spectral.shear (CFDLean.Roe.averageVelocity x y) t) =\n                    CFDLean.dot (CFDLean.Roe.averageVelocity x y) n \u2022\n                      CFDLean.Roe.Spectral.shear (CFDLean.Roe.averageVelocity x y) t",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_eigenvectors",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.contact",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.Roe.Spectral.shear_eigen",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.acoustic_eigen",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.contact_eigen",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_matrix_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.roeMatrix \u03b3 x y (-n) = -CFDLean.Roe.roeMatrix \u03b3 x y n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_matrix_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.A_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_projector_algebra": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 (i j : Fin 3),\n            CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i * CFDLean.Roe.Spectral.roeProjector \u03b3 x y n j =\n              if i = j then CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i else 0",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_projector_algebra",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.projector_algebra",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_projector_ranges": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 (i : Fin 3),\n            LinearMap.range (CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i) =\n              Module.End.eigenspace (\u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)) (CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n i)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_projector_ranges",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Roe.Spectral.projector_range",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_projector_ranks": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 (i : Fin 3),\n            Module.finrank \u211d \u21a5(LinearMap.range (CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i)) = ![1, 3, 1] i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_projector_ranks",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.roe_dimensions",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.Spectral.roe_projector_ranges",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_projector_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3) (i : Fin 3),\n  CFDLean.Roe.Spectral.roeProjector \u03b3 x y (-n) i = CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i.rev",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_projector_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.projector_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_projector_sum": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.Roe.Spectral.roeProjector \u03b3 x y n 0 + CFDLean.Roe.Spectral.roeProjector \u03b3 x y n 1 +\n            CFDLean.Roe.Spectral.roeProjector \u03b3 x y n 2 =\n          1",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_projector_sum",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.projector_sum",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_shift_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.roeShift \u03b3 x y (-n) = -CFDLean.Roe.Spectral.roeShift \u03b3 x y n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_shift_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.roeShift",
+        "CFDLean.Roe.Spectral.shift_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_spectral_decomposition": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        \u2191(CFDLean.Roe.roeMatrix \u03b3 x y n) =\n          CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 0 \u2022 CFDLean.Roe.Spectral.roeProjector \u03b3 x y n 0 +\n              CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 1 \u2022 CFDLean.Roe.Spectral.roeProjector \u03b3 x y n 1 +\n            CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 2 \u2022 CFDLean.Roe.Spectral.roeProjector \u03b3 x y n 2",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_spectral_decomposition",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.sound_parameters",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.spectral_decomposition",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_speed_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3) (i : Fin 3),\n  CFDLean.Roe.Spectral.roeSpeed \u03b3 x y (-n) i = -CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n i.rev",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_speed_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Roe.Spectral.speed_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.roe_swap": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.roeShift \u03b3 y x n = CFDLean.Roe.Spectral.roeShift \u03b3 x y n \u2227\n    (\u2200 (i : Fin 3), CFDLean.Roe.Spectral.roeProjector \u03b3 y x n i = CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i) \u2227\n      CFDLean.Roe.Spectral.dissipation \u03b3 y x n = CFDLean.Roe.Spectral.dissipation \u03b3 x y n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.roe_swap",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.Roe.averages_swap",
+        "CFDLean.Roe.Spectral.roeShift",
+        "CFDLean.Roe.soundSquare",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shear": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shear",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shear._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.shear._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.shear._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.shear._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.shear._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.shear._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.shear.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u t : CFDLean.Vector 3), CFDLean.Roe.Spectral.shear u t = ![0, t 0, t 1, t 2, CFDLean.dot u t]",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shear.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shearMap": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192\u2097[\u211d] CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shearMap",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.shearMap._proof_13",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.Roe.Spectral.shearMap._proof_14",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shearMap._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192\u2097[\u211d] CFDLean.Roe.Spectral.E",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.shearMap._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.shearMap._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.shearMap._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.shear"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.shearMap._proof_13": {
+      "unsafe": false,
+      "type": "\u2200 (u t s : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.shear u (t + s) = CFDLean.Roe.Spectral.shear u t + CFDLean.Roe.Spectral.shear u s",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shearMap._proof_13",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shearMap._proof_14": {
+      "unsafe": false,
+      "type": "\u2200 (u : CFDLean.Vector 3) (r : \u211d) (t : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.shear u (r \u2022 t) = (RingHom.id \u211d) r \u2022 CFDLean.Roe.Spectral.shear u t",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shearMap._proof_14",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shear_eigen": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n t : CFDLean.Vector 3),\n  CFDLean.dot t n = 0 \u2192\n    (CFDLean.Roe.Spectral.A \u03b3 u H n) (CFDLean.Roe.Spectral.shear u t) = CFDLean.dot u n \u2022 CFDLean.Roe.Spectral.shear u t",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shear_eigen",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_5",
+        "CFDLean.Roe.Spectral.shear",
+        "CFDLean.Roe.Spectral.A_eq_shift",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift._proof_1": {
+      "unsafe": false,
+      "type": "SMulCommClass \u211d \u211d (Fin 5 \u2192 \u211d)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift._proof_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.shift \u03b3 u H n = CFDLean.Roe.Spectral.A \u03b3 u H n - CFDLean.dot u n \u2022 1",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift_apply": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (v : CFDLean.Roe.Spectral.E),\n  (CFDLean.Roe.Spectral.shift \u03b3 u H n) v =\n    (CFDLean.Roe.Spectral.b u n) v \u2022 CFDLean.Roe.Spectral.vb u H +\n      (CFDLean.Roe.Spectral.dp \u03b3 u) v \u2022 CFDLean.Roe.Spectral.vp u n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift_apply",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.operator._proof_8",
+        "CFDLean.Roe.operator._proof_7",
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.assemble._proof_3",
+        "CFDLean.Roe.assemble_eq_pi",
+        "CFDLean.Roe.operator._proof_5",
+        "CFDLean.Roe.assemble",
+        "CFDLean.PhysicalJacobian.normalMomentum",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.operator._proof_6",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.operator._proof_4",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift_projector": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      c \u2260 0 \u2192\n        \u2200 (i : Fin 3) (v : CFDLean.Roe.Spectral.E),\n          (CFDLean.Roe.Spectral.shift \u03b3 u H n) ((CFDLean.Roe.Spectral.projector \u03b3 u H n c i) v) =\n            CFDLean.Roe.Spectral.offset c i \u2022 (CFDLean.Roe.Spectral.projector \u03b3 u H n c i) v",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift_projector",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.projector",
+        "CFDLean.Roe.Spectral.plus_apply",
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.shifted_acoustic",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.minus_apply",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.shifted_cubic",
+        "CFDLean.Roe.Spectral.offset",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.shift \u03b3 u H (-n) = -CFDLean.Roe.Spectral.shift \u03b3 u H n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dot_reverse",
+        "CFDLean.Roe.Spectral.A_reverse",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shift_square_apply": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      \u2200 (v : CFDLean.Roe.Spectral.E),\n        (CFDLean.Roe.Spectral.shift \u03b3 u H n ^ 2) v =\n          (CFDLean.Roe.Spectral.dp \u03b3 u) v \u2022 CFDLean.Roe.Spectral.vb u H +\n            (c ^ 2 * (CFDLean.Roe.Spectral.b u n) v) \u2022 CFDLean.Roe.Spectral.vp u n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shift_square_apply",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.b_shift",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.dp_shift"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shifted_acoustic": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (s : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    s ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      (CFDLean.Roe.Spectral.shift \u03b3 u H n) (CFDLean.Roe.Spectral.acoustic u H n s) =\n        s \u2022 CFDLean.Roe.Spectral.acoustic u H n s",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shifted_acoustic",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.b_vp",
+        "CFDLean.Roe.Spectral.dp_vp",
+        "CFDLean.Roe.Spectral.b_vb",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.dp_vb",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.shifted_cubic": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.dot n n = 1 \u2192\n    c ^ 2 = (\u03b3 - 1) * (H - CFDLean.squareSum u / 2) \u2192\n      CFDLean.Roe.Spectral.shift \u03b3 u H n ^ 3 = c ^ 2 \u2022 CFDLean.Roe.Spectral.shift \u03b3 u H n",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.shifted_cubic",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.shift_apply",
+        "CFDLean.Roe.Spectral.b_shift",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.dp_shift"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.sound_parameters": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        0 < CFDLean.Roe.soundSpeed \u03b3 x y \u2227\n          CFDLean.Roe.soundSpeed \u03b3 x y ^ 2 =\n            (\u03b3 - 1) * (CFDLean.Roe.averageEnthalpy \u03b3 x y - CFDLean.squareSum (CFDLean.Roe.averageVelocity x y) / 2)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.sound_parameters",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.soundSpeed_pos",
+        "CFDLean.Roe.soundSpeed_sq",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.spectral_decomposition": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  c \u2260 0 \u2192\n    CFDLean.Roe.Spectral.A \u03b3 u H n =\n      CFDLean.Roe.Spectral.speed u n c 0 \u2022 CFDLean.Roe.Spectral.minus \u03b3 u H n c +\n          CFDLean.Roe.Spectral.speed u n c 1 \u2022 CFDLean.Roe.Spectral.zero \u03b3 u H n c +\n        CFDLean.Roe.Spectral.speed u n c 2 \u2022 CFDLean.Roe.Spectral.plus \u03b3 u H n c",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.spectral_decomposition",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.plus",
+        "CFDLean.Roe.Spectral.A_eq_shift",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.A",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.speed": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Fin 3 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.speed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.offset"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.speed._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.speed._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.speed._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Fin 3 \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.speed._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.offset"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.speed._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.speed._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.offset"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.speed.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3) (c : \u211d) (i : Fin 3),\n  CFDLean.Roe.Spectral.speed u n c i = CFDLean.dot u n + CFDLean.Roe.Spectral.offset c i",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.speed.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.offset"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.speed_injective": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3) (c : \u211d), 0 < c \u2192 Function.Injective (CFDLean.Roe.Spectral.speed u n c)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.speed_injective",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.speed_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3) (c : \u211d) (i : Fin 3),\n  CFDLean.Roe.Spectral.speed u (-n) c i = -CFDLean.Roe.Spectral.speed u n c i.rev",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.speed_reverse",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.speed",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dot_reverse",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangent": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 Submodule \u211d (CFDLean.Vector 3)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangent",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal",
+        "CFDLean.Roe.Spectral.tangent._proof_12",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangent._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 Submodule \u211d (CFDLean.Vector 3)",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.tangent._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal",
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.tangent._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.tangent._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal",
+        "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1",
+        "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.tangent._proof_12": {
+      "unsafe": false,
+      "type": "SemilinearMapClass (CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d) (RingHom.id \u211d) (CFDLean.Vector 3) \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangent._proof_12",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangentBasis": {
+      "unsafe": false,
+      "type": "(n : CFDLean.Vector 3) \u2192 CFDLean.dot n n = 1 \u2192 Basis (Fin 2) \u211d \u21a5(CFDLean.Roe.Spectral.tangent n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangentBasis",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.tangent_dimension",
+        "CFDLean.Roe.Spectral.tangentBasis._proof_16",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.tangentBasis._proof_17",
+        "CFDLean.Roe.Spectral.tangentBasis._proof_15"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangentBasis._proof_15": {
+      "unsafe": false,
+      "type": "StrongRankCondition \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangentBasis._proof_15",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangentBasis._proof_16": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3), Module.Free \u211d \u21a5(CFDLean.Roe.Spectral.tangent n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangentBasis._proof_16",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangentBasis._proof_17": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3), FiniteDimensional \u211d \u21a5(CFDLean.Roe.Spectral.tangent n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangentBasis._proof_17",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangent_dimension": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3), CFDLean.dot n n = 1 \u2192 Module.finrank \u211d \u21a5(CFDLean.Roe.Spectral.tangent n) = 2",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangent_dimension",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal",
+        "CFDLean.Roe.Spectral.normal_surjective",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.tangent",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.tangent_dimension._proof_15"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.tangent_dimension._proof_15": {
+      "unsafe": false,
+      "type": "\u2200 (n : CFDLean.Vector 3),\n  1 + Module.finrank \u211d \u21a5(LinearMap.ker (CFDLean.Roe.Spectral.normal n)) = 3 \u2192\n    \u00acModule.finrank \u211d \u21a5(LinearMap.ker (CFDLean.Roe.Spectral.normal n)) = 2 \u2192 False",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.tangent_dimension._proof_15",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.normal",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.vb": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.vb",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.vb._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vb._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vb._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vb._closed_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vb._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vb._closed_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vb._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Roe.Spectral.E",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vb._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vb._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vb._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vb.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u : CFDLean.Vector 3) (H : \u211d), CFDLean.Roe.Spectral.vb u H = ![1, u 0, u 1, u 2, H]",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.vb.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.vb",
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.vp": {
+      "unsafe": false,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.vp",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.vp._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vp._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vp._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vp._cstage1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vp._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Roe.Spectral.vp._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.dot"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Roe.Spectral.vp.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (u n : CFDLean.Vector 3), CFDLean.Roe.Spectral.vp u n = ![0, n 0, n 1, n 2, CFDLean.dot u n]",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.vp.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.dp._proof_6",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.waveMap": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Roe.Spectral.E \u2192\u2097[\u211d] Fin 2 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.waveMap",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.waveMap.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.waveMap \u03b3 u n = LinearMap.pi ![CFDLean.Roe.Spectral.b u n, CFDLean.Roe.Spectral.dp \u03b3 u]",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.waveMap.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.waveMap",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.waveMap_surjective": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u n : CFDLean.Vector 3),\n  CFDLean.dot n n = 1 \u2192 \u03b3 - 1 \u2260 0 \u2192 Function.Surjective \u21d1(CFDLean.Roe.Spectral.waveMap \u03b3 u n)",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.waveMap_surjective",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.waveMap",
+        "CFDLean.Roe.Spectral.dp_energy",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.Spectral.b_vp",
+        "CFDLean.Roe.Spectral.dp_vp",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.energy",
+        "CFDLean.Roe.Spectral.vp",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.Spectral.b_energy"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.zero": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 CFDLean.Vector 3 \u2192 \u211d \u2192 Module.End \u211d CFDLean.Roe.Spectral.E",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.zero",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.Spectral.zero.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Vector 3) (H : \u211d) (n : CFDLean.Vector 3) (c : \u211d),\n  CFDLean.Roe.Spectral.zero \u03b3 u H n c = 1 - (1 / c ^ 2) \u2022 CFDLean.Roe.Spectral.shift \u03b3 u H n ^ 2",
+      "root": true,
+      "name": "CFDLean.Roe.Spectral.zero.eq_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.Spectral.zero",
+        "CFDLean.Roe.Spectral.shift._proof_1",
+        "CFDLean.Roe.Spectral.shift",
+        "CFDLean.Vector",
+        "CFDLean.Roe.Spectral.E"
       ],
       "axioms": [
         "propext",
@@ -4900,6 +8492,83 @@
       ],
       "axioms": []
     },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1": {
+      "unsafe": true,
+      "type": "let _x_1 := fun i => Real.instAddCommMonoid;\nlet _x_2 := Pi.addCommMonoid;\nlet _x_3 := NormedField.toNormedSpace;\nlet _x_14 := _x_3.1;\nlet _x_15 := Pi.Function.module (Fin 3) \u211d \u211d;\nlet _x_17 := RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2;\nlet _x_18 := LinearMap.instFunLike;\nlet _y_5 := Real.semiring;\nlet _y_6 := Real.semiring;\nlet _y_7 := _x_2;\nlet _y_8 := Real.instAddCommMonoid;\nlet _y_9 := _x_15;\nlet _y_10 := _x_14;\nlet _y_12 := _x_18;\n{\u03c4\u2081\u2082 : \u211d \u2192+* \u211d} \u2192\n  SemilinearMapClass (CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d) \u03c4\u2081\u2082 (CFDLean.Vector 3) \u211d \u2192\n    (CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d) \u2192 Submodule \u211d (CFDLean.Vector 3)",
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "axiom",
+      "direct": [
+        "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2",
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_2._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._closed_1"
+      ],
+      "axioms": []
+    },
+    "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _neutral \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "LinearMap.ker._at.CFDLean.Roe.Spectral.tangent._spec_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2"
+      ],
+      "axioms": []
+    },
     "LinearMap.proj._at.CFDLean.PhysicalJacobian.projection._spec_3": {
       "unsafe": true,
       "type": "let _x_2 := fun i => Real.instAddCommMonoid;\nlet _x_3 := fun i =>\n  let _x_30 := NormedField.toNormedSpace;\n  _x_30.1;\nlet _y_3 := Real.semiring;\nlet _y_5 := _x_2;\nlet _y_6 := _x_3;\n(i : Fin 5) \u2192\n  let _x_1 := Semiring.toNonAssocSemiring;\n  let _x_2 := RingHom.id \u211d;\n  let _x_3 := Pi.addCommMonoid;\n  let _x_4 := _y_5 i;\n  let _x_5 := Pi.module (Fin 5) (fun a => \u211d) \u211d;\n  let _x_6 := _y_6 i;\n  ((i : Fin 5) \u2192 (fun a => \u211d) i) \u2192\u209b\u2097[_x_2] (fun a => \u211d) i",
@@ -4999,12 +8668,162 @@
       "kind": "definition",
       "direct": [],
       "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2": {
+      "unsafe": true,
+      "type": "let _x_1 := fun i => Real.instAddCommMonoid;\nlet _x_2 := Pi.addCommMonoid;\nlet _x_3 := NormedField.toNormedSpace;\nlet _x_14 := _x_3.1;\nlet _x_15 := Pi.Function.module (Fin 3) \u211d \u211d;\nlet _x_17 := LinearMap.instFunLike;\nlet _y_5 := Real.semiring;\nlet _y_6 := Real.semiring;\nlet _y_7 := _x_2;\nlet _y_8 := Real.instAddCommMonoid;\nlet _y_9 := _x_15;\nlet _y_10 := _x_14;\nlet _y_12 := _x_17;\n{\u03c3\u2081\u2082 : \u211d \u2192+* \u211d} \u2192\n  SemilinearMapClass (CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d) \u03c3\u2081\u2082 (CFDLean.Vector 3) \u211d \u2192\n    (CFDLean.Vector 3 \u2192\u2097[\u211d] \u211d) \u2192 Submodule \u211d \u211d \u2192 Submodule \u211d (CFDLean.Vector 3)",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "axiom",
+      "direct": [
+        "RingHom.id._at.CFDLean.PhysicalJacobian.projection._spec_2",
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1"
+      ],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_2._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_1"
+      ],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_3",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_3._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_2"
+      ],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_4": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_4",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_4._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_4._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._closed_3"
+      ],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _neutral \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [
+        "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1"
+      ],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1._boxed",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Submodule.comap._at.CFDLean.Roe.Spectral.tangent._spec_2._lambda_1._cstage2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
     }
   },
   "deferred_result_ids": [
-    "M2-E",
-    "M2-D",
-    "M2-O",
     "M2-F1",
     "M2-F2",
     "M2-F3",
