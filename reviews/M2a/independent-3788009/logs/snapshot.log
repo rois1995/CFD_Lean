@@ -1,0 +1,13 @@
+detached 3788009de306d80e002976e66ba2b1103e2dbd83 tree de6ee97fdcd4b33fb7e58ffcc31a4222ab870475 no .lake; clean
+M1 CFDLean/Core/State.lean same
+M1 CFDLean/Core/PhysicalFlux.lean same
+M1 Integrity.lean same
+M1 specifications/M1.md same
+M1 lean-toolchain same
+M1 lakefile.toml same
+M1 lake-manifest.json same
+M1 CFDLean.lean changed
+vs approval specifications/M2.md same
+vs approval specifications/M2-approval.md same
+vs approval specifications/M2-results.json changed
+Checkpoint contains all candidate blobs unchanged

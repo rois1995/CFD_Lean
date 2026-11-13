@@ -1,0 +1,14 @@
+build.log: OK
+environment.log: OK
+kernel-inventory.log: OK
+parser-tests.log: OK
+pins.log: OK
+postbuild-sha256.log: OK
+prebuild-sha256.log: OK
+replay.json: OK
+replay.log: OK
+tracked-diff.log: OK
+verification.json: OK
+verify.log: OK
+widget-pins.json: OK
+widget-source.log: OK

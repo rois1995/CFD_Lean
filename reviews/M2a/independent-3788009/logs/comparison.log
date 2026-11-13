@@ -1,0 +1,29 @@
+Matched original candidate and checkpoint kernel-inventory.log 8946ab5790c411d66d079bd2b39f4a6e1749b7914760cad8c117dd331046f2af
+Matched original candidate and checkpoint verification.json 274f8b249c68daca92fb8d4369bcb4eca3e113240ddcf26ff2047a48030cad64
+Matched original candidate SHA256SUMS 6a3d670d0f2ce96214d6db80496d3826022c593791c15a8bc8d7f17e36b3428e
+Root classes Counter({('theorem', False): 69, ('definition', False): 43, ('inductive', False): 2, ('constructor', False): 2, ('recursor', False): 2})
+Non-root classes Counter({('definition', True): 28, ('compiler_metadata_only', None): 14, ('axiom', True): 7})
+Closure {'visited': 13897, 'unsafe_reached': [], 'roots': 118, 'axioms': ['propext', 'Classical.choice', 'Quot.sound']}
+CFDLean.Coordinates.decode_encode ∀ (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U
+CFDLean.Coordinates.encode_decode ∀ (x : CFDLean.Coordinates.StateCoordinates), CFDLean.Coordinates.encode (CFDLean.Coordinates.decode x) = x
+CFDLean.Coordinates.unitNormal_dot_self ∀ (S : CFDLean.Vector 3), S ≠ 0 → CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S) = 1
+CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux ∀ (γ : ℝ) (n : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),
+  x 0 ≠ 0 → HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ n) (CFDLean.PhysicalJacobian.jacobian γ x n) x
+CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux ∀ (γ : ℝ) (S : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),
+  x 0 ≠ 0 →
+    S ≠ 0 →
+      HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ S)
+        (CFDLean.Coordinates.area S • CFDLean.PhysicalJacobian.jacobian γ x (CFDLean.Coordinates.unitNormal S)) x
+CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea ∀ (γ : ℝ) (x : CFDLean.Coordinates.StateCoordinates), HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ 0) 0 x
+CFDLean.PhysicalJacobian.isOpen_admissible ∀ (γ : ℝ), IsOpen {x | CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x)}
+CFDLean.PhysicalJacobian.jacobian_action ∀ (γ : ℝ) (U V : CFDLean.Conservative 3) (n : CFDLean.Vector 3),
+  let u := fun i => U.momentum i / U.density;
+  let q := CFDLean.dot u n;
+  let b := CFDLean.dot V.momentum n - q * V.density;
+  let dp := (γ - 1) * (V.energy - CFDLean.dot u V.momentum + CFDLean.squareSum u / 2 * V.density);
+  let H := (U.energy + CFDLean.Conservative.pressure γ U) / U.density;
+  (CFDLean.PhysicalJacobian.jacobian γ (CFDLean.Coordinates.encode U) n) (CFDLean.Coordinates.encode V) =
+    CFDLean.Coordinates.encode
+      { density := CFDLean.dot V.momentum n, momentum := fun i => q * V.momentum i + u i * b + dp * n i,
+        energy := q * (V.energy + dp) + H * b }
+Alternative M2-J binding accepted by name-only checker: ['CFDLean.Coordinates.area_zero']

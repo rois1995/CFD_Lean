@@ -1,0 +1,1 @@
+/workspace/scratch/e87e5b190f05/audit/logs/fixture-build/AuditNegative.lean:17:0: error: unapproved axiom in CFDLean.AuditFixture.fixtureClaim: [ReviewerFixture.extra]

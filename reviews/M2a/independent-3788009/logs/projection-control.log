@@ -1,0 +1,6 @@
+generated Multiset.sum._at.ReviewerAux.dot3._spec_2 unsafe=true
+generated Finset.sum._at.ReviewerAux.dot3._spec_1 unsafe=true
+generated ContinuousLinearMap.proj._at.ReviewerAux.proj._spec_1 unsafe=true
+generated LinearMap.proj._at.ReviewerAux.proj._spec_3 unsafe=true
+generated RingHom.id._at.ReviewerAux.proj._spec_2 unsafe=true
+'ReviewerAux.proj' depends on axioms: [propext, Classical.choice, Quot.sound]
