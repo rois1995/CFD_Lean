@@ -8834,8 +8834,9 @@
   "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
   "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
   "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
-  "accepted_inherited_revision": "c92c0f66360f85c0a3339ab9b30fc00c39ee5f93",
-  "inherited_types_checked": 37,
+  "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
+  "accepted_inherited_revision": "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd",
+  "inherited_types_checked": 58,
   "m2_approval_record": "specifications/M2-approval.md",
   "m2_independent_acceptance": "pending"
 }

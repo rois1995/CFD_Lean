@@ -8,7 +8,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
-ACCEPTED_BASELINE = "c92c0f66360f85c0a3339ab9b30fc00c39ee5f93"
+ACCEPTED_BASELINE = "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 
 
@@ -155,6 +155,7 @@ def main():
         "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
         "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
         "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
+        "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
         "accepted_inherited_revision": ACCEPTED_BASELINE, "inherited_types_checked": len(inherited),
         "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "pending"
     }, indent=2) + "\n")

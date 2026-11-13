@@ -63,14 +63,15 @@ class AuditChecks(unittest.TestCase):
     def test_inherited_binding_and_type_are_frozen(self):
         results = [{"id": rid, "stage": stage, "declarations": [rid + ".accepted"]}
                    for rid, stage in [("M2-J", "M2a"), ("M2-A", "M2b"),
-                                      ("M2-R", "M2b"), ("M2-L", "M2b")]]
-        contract = {"current_stage": "M2b", "results": results}
+                                      ("M2-R", "M2b"), ("M2-L", "M2b"), ("M2-E", "M2c"),
+                                      ("M2-D", "M2c"), ("M2-O", "M2c")]]
+        contract = {"current_stage": "M2c", "results": results}
         evidence = {"declarations": {r["declarations"][0]: {"type": "approved " + r["id"]}
                                      for r in results}}
         rows = evidence["declarations"]
-        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 4)
+        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 7)
         for index, result in enumerate(results):
-            for field, replacement in [("declarations", ["Other.safeTheorem"]), ("stage", "M2c")]:
+            for field, replacement in [("declarations", ["Other.safeTheorem"]), ("stage", "M2d")]:
                 changed = json.loads(json.dumps(contract))
                 changed["results"][index][field] = replacement
                 with self.assertRaises(ValueError):
