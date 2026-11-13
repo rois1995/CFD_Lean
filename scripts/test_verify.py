@@ -61,15 +61,24 @@ class AuditChecks(unittest.TestCase):
                 check_result_ids({"results": invalid}, text)
 
     def test_inherited_binding_and_type_are_frozen(self):
-        contract = {"results": [{"id": "M2-J", "stage": "M2a", "declarations": ["A.accepted"]}]}
-        evidence = {"declarations": {"A.accepted": {"type": "the approved proposition"}}}
+        results = [{"id": rid, "stage": stage, "declarations": [rid + ".accepted"]}
+                   for rid, stage in [("M2-J", "M2a"), ("M2-A", "M2b"),
+                                      ("M2-R", "M2b"), ("M2-L", "M2b")]]
+        contract = {"current_stage": "M2b", "results": results}
+        evidence = {"declarations": {r["declarations"][0]: {"type": "approved " + r["id"]}
+                                     for r in results}}
         rows = evidence["declarations"]
-        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 1)
-        substituted = {"results": [{"id": "M2-J", "stage": "M2a", "declarations": ["A.other"]}]}
-        with self.assertRaises(ValueError):
-            check_inherited(rows, substituted, contract, evidence)
-        with self.assertRaises(ValueError):
-            check_inherited({"A.accepted": {"type": "a weaker proposition"}}, contract, contract, evidence)
+        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 4)
+        for index, result in enumerate(results):
+            for field, replacement in [("declarations", ["Other.safeTheorem"]), ("stage", "M2c")]:
+                changed = json.loads(json.dumps(contract))
+                changed["results"][index][field] = replacement
+                with self.assertRaises(ValueError):
+                    check_inherited(rows, changed, contract, evidence)
+            weakened = dict(rows)
+            weakened[result["declarations"][0]] = {"type": "a weaker proposition"}
+            with self.assertRaises(ValueError):
+                check_inherited(weakened, contract, contract, evidence)
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:

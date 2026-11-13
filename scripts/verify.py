@@ -8,7 +8,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
-ACCEPTED_M2A = "3788009de306d80e002976e66ba2b1103e2dbd83"
+ACCEPTED_BASELINE = "c92c0f66360f85c0a3339ab9b30fc00c39ee5f93"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 
 
@@ -52,17 +52,20 @@ def check_promises(rows, contract, stage):
 
 
 def check_inherited(rows, contract, accepted_contract, accepted_evidence):
-    inherited = next(r for r in accepted_contract["results"] if r["id"] == "M2-J")
-    current = next(r for r in contract["results"] if r["id"] == "M2-J")
-    if current != inherited:
-        raise ValueError("Accepted M2-J binding or stage changed")
+    stages = ["M2a", "M2b", "M2c", "M2d"]
+    active = [r for r in accepted_contract["results"]
+              if stages.index(r["stage"]) <= stages.index(accepted_contract["current_stage"])]
+    current = {r["id"]: r for r in contract["results"]}
     comparison = {}
-    for name in inherited["declarations"]:
-        before = accepted_evidence["declarations"][name]["type"]
-        after = rows[name]["type"]
-        comparison[name] = {"accepted_type": before, "current_type": after}
-        if before != after:
-            raise ValueError(f"Accepted theorem type changed: {name}")
+    for inherited in active:
+        if not inherited["declarations"] or current.get(inherited["id"]) != inherited:
+            raise ValueError(f"Accepted {inherited['id']} binding or stage changed")
+        for name in inherited["declarations"]:
+            before = accepted_evidence["declarations"][name]["type"]
+            after = rows[name]["type"]
+            comparison[name] = {"accepted_type": before, "current_type": after}
+            if before != after:
+                raise ValueError(f"Accepted theorem type changed: {name}")
     return comparison
 
 
@@ -81,11 +84,11 @@ def main():
         raise ValueError("Frozen scientific contract changed; approval amendment required")
     if frozen != git_blob(APPROVED_M2, "specifications/M2.md"):
         raise ValueError("Contract differs from immutable approval revision")
-    accepted_contract = json.loads(git_blob(ACCEPTED_M2A, "specifications/M2-results.json"))
-    accepted_evidence = json.loads(git_blob(ACCEPTED_M2A, "evidence/verification.json"))
+    accepted_contract = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M2-results.json"))
+    accepted_evidence = json.loads(git_blob(ACCEPTED_BASELINE, "evidence/verification.json"))
     for module, record in accepted_evidence["source_modules"].items():
         if module != "CFDLean" and hashlib.sha256((ROOT / record["path"]).read_bytes()).hexdigest() != record["sha256"]:
-            raise ValueError(f"Accepted M2a mathematical source changed: {record['path']}")
+            raise ValueError(f"Accepted mathematical source changed: {record['path']}")
     check_result_ids(contract, frozen.decode())
     for name, expected in contract["accepted_m1_sources"].items():
         if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
@@ -118,7 +121,7 @@ def main():
         "current_type": rows[name]["type"]
     } for name in promised}, indent=2) + "\n")
     (evidence / "bindings-diff.patch").write_bytes(subprocess.check_output(
-        ["git", "diff", ACCEPTED_M2A, "--", "specifications/M2-results.json"]))
+        ["git", "diff", ACCEPTED_BASELINE, "--", "specifications/M2-results.json"]))
     with (evidence / "statement-checks.log").open("w") as log:
         subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "StatementChecks.lean"],
                        env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -151,7 +154,8 @@ def main():
         "dependency_revisions_checked": len(manifest["packages"]),
         "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
         "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
-        "accepted_m2a_revision": ACCEPTED_M2A, "inherited_types_checked": len(inherited),
+        "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
+        "accepted_inherited_revision": ACCEPTED_BASELINE, "inherited_types_checked": len(inherited),
         "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "pending"
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
