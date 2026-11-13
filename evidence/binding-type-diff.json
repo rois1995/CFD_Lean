@@ -1,4 +1,76 @@
 {
+  "CFDLean.Assembly.constant_state_closed": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3)\n  (T : B \u2192 CFDLean.Vector 3) (i : N),\n  CFDLean.Assembly.metricDefect m S T i = 0 \u2192\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 (fun x => U) S)\n        (fun b => (CFDLean.Assembly.physicalTransfer \u03b3 U) (T b)) i =\n      0"
+  },
+  "CFDLean.Assembly.constant_state_residual": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3)\n  (T : B \u2192 CFDLean.Vector 3) (i : N),\n  CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 (fun x => U) S)\n      (fun b => (CFDLean.Assembly.physicalTransfer \u03b3 U) (T b)) i =\n    CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U (CFDLean.Assembly.metricDefect m S T i))"
+  },
+  "CFDLean.Assembly.global_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (f : E \u2192 CFDLean.Vector d) (g : B \u2192 CFDLean.Vector d),\n  \u2211 i, CFDLean.Assembly.residual m f g i = \u2211 b, g b"
+  },
+  "CFDLean.Assembly.incidence_eq_neg_one": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), CFDLean.Assembly.incidence m i e = -1 \u2194 i = m.head e"
+  },
+  "CFDLean.Assembly.incidence_eq_one": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), CFDLean.Assembly.incidence m i e = 1 \u2194 i = m.tail e"
+  },
+  "CFDLean.Assembly.incidence_head": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (e : E),\n  CFDLean.Assembly.incidence m (m.head e) e = -1"
+  },
+  "CFDLean.Assembly.incidence_other": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), m.tail e \u2260 i \u2192 m.head e \u2260 i \u2192 CFDLean.Assembly.incidence m i e = 0"
+  },
+  "CFDLean.Assembly.incidence_smul": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] {d : \u2115} (m : CFDLean.Assembly.Interfaces N E B)\n  (i : N) (e : E) (v : CFDLean.Vector d),\n  CFDLean.Assembly.incidence m i e \u2022 v = (if m.tail e = i then v else 0) - if m.head e = i then v else 0"
+  },
+  "CFDLean.Assembly.incidence_sum": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype N]\n  (m : CFDLean.Assembly.Interfaces N E B) (e : E), \u2211 i, CFDLean.Assembly.incidence m i e = 0"
+  },
+  "CFDLean.Assembly.incidence_tail": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (e : E),\n  CFDLean.Assembly.incidence m (m.tail e) e = 1"
+  },
+  "CFDLean.Assembly.outwardTransfer_eq": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (i : N) (e : E),\n  CFDLean.Assembly.outwardTransfer m \u03b3 U S i e =\n    CFDLean.Assembly.incidence m i e \u2022 CFDLean.Assembly.roeTransfer m \u03b3 U S e"
+  },
+  "CFDLean.Assembly.residual_outgoing": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  (m : CFDLean.Assembly.Interfaces N E B) (f : E \u2192 CFDLean.Vector d) (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual m f g i =\n    \u2211 e \u2208 {e | m.tail e = i}, f e - \u2211 e \u2208 {e | m.head e = i}, f e + \u2211 b \u2208 {b | m.owner b = i}, g b"
+  },
+  "CFDLean.Assembly.residual_reindex": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E'] [inst_5 : Fintype B']\n  (m : CFDLean.Assembly.Interfaces N E B) (n : N \u2243 N') (e : E \u2243 E') (b : B \u2243 B') (f : E \u2192 CFDLean.Vector d)\n  (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual (m.reindex n e b) (fun j => f (e.symm j)) (fun j => g (b.symm j)) (n i) =\n    CFDLean.Assembly.residual m f g i"
+  },
+  "CFDLean.Assembly.residual_reverse": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop) [inst_3 : DecidablePred rev] (f : E \u2192 CFDLean.Vector d)\n  (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual (m.reverse rev) (fun e => if rev e then -f e else f e) g i =\n    CFDLean.Assembly.residual m f g i"
+  },
+  "CFDLean.Assembly.roeTransfer_zero": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (e : E),\n  S e = 0 \u2192 CFDLean.Assembly.roeTransfer m \u03b3 U S e = 0"
+  },
+  "CFDLean.Assembly.roe_global_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d) (U : N \u2192 CFDLean.Conservative 3)\n  (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates),\n  \u2211 i, CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i = \u2211 b, g b"
+  },
+  "CFDLean.Assembly.roe_residual_reindex": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E'] [inst_5 : Fintype B']\n  (m : CFDLean.Assembly.Interfaces N E B) (n : N \u2243 N') (e : E \u2243 E') (b : B \u2243 B') (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates) (i : N),\n  CFDLean.Assembly.residual (m.reindex n e b)\n      (CFDLean.Assembly.roeTransfer (m.reindex n e b) \u03b3 (fun j => U (n.symm j)) fun j => S (e.symm j))\n      (fun j => g (b.symm j)) (n i) =\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i"
+  },
+  "CFDLean.Assembly.roe_residual_reverse": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop) [inst_3 : DecidablePred rev] (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates) (i : N),\n  CFDLean.Assembly.residual (m.reverse rev)\n      (CFDLean.Assembly.roeTransfer (m.reverse rev) \u03b3 U fun e => if rev e then -S e else S e) g i =\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i"
+  },
   "CFDLean.Coordinates.decode_encode": {
     "accepted_type": "\u2200 (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U",
     "current_type": "\u2200 (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U"
@@ -156,27 +228,27 @@
     "current_type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 \u2192 0 < y 0 \u2192 0 < CFDLean.Roe.midpoint \u03b3 x y 0"
   },
   "CFDLean.Roe.numericalFlux_consistency": {
-    "accepted_type": null,
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 U U S = CFDLean.physicalFlux \u03b3 U S",
     "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 U U S = CFDLean.physicalFlux \u03b3 U S"
   },
   "CFDLean.Roe.numericalFlux_reverse": {
-    "accepted_type": null,
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 V U (-S) =\n    { density := -(CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n      momentum := fun i => -(CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n      energy := -(CFDLean.Roe.numericalFlux \u03b3 U V S).energy }",
     "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 V U (-S) =\n    { density := -(CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n      momentum := fun i => -(CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n      energy := -(CFDLean.Roe.numericalFlux \u03b3 U V S).energy }"
   },
   "CFDLean.Roe.numericalFlux_scale": {
-    "accepted_type": null,
+    "accepted_type": "\u2200 (\u03b3 a : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  0 \u2264 a \u2192\n    (CFDLean.Roe.numericalFlux \u03b3 U V fun i => a * S i) =\n      { density := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n        momentum := fun i => a * (CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n        energy := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).energy }",
     "current_type": "\u2200 (\u03b3 a : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  0 \u2264 a \u2192\n    (CFDLean.Roe.numericalFlux \u03b3 U V fun i => a * S i) =\n      { density := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n        momentum := fun i => a * (CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n        energy := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).energy }"
   },
   "CFDLean.Roe.numericalFlux_upwind_left": {
-    "accepted_type": null,
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 U S",
     "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 U S"
   },
   "CFDLean.Roe.numericalFlux_upwind_right": {
-    "accepted_type": null,
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 V S",
     "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 V S"
   },
   "CFDLean.Roe.numericalFlux_zero": {
-    "accepted_type": null,
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3),\n  CFDLean.Roe.numericalFlux \u03b3 U V 0 = { density := 0, momentum := fun x => 0, energy := 0 }",
     "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3),\n  CFDLean.Roe.numericalFlux \u03b3 U V 0 = { density := 0, momentum := fun x => 0, energy := 0 }"
   },
   "CFDLean.Roe.operator_B": {
@@ -192,7 +264,7 @@
     "current_type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  \u03b3 \u2260 0 \u2192 0 < x 0 \u2192 CFDLean.Roe.parameterState \u03b3 (CFDLean.Roe.parameter \u03b3 x) = x"
   },
   "CFDLean.Roe.positivity_counterexample": {
-    "accepted_type": null,
+    "accepted_type": "CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessLeft \u2227\n  CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessRight \u2227\n    0 <\n        CFDLean.Roe.soundSquare 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n          (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) \u2227\n      CFDLean.Roe.witnessIntermediate.density < 0",
     "current_type": "CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessLeft \u2227\n  CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessRight \u2227\n    0 <\n        CFDLean.Roe.soundSquare 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n          (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) \u2227\n      CFDLean.Roe.witnessIntermediate.density < 0"
   },
   "CFDLean.Roe.roeMatrix_B": {
@@ -260,7 +332,7 @@
     "current_type": "\u2200 (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 \u2192 0 < y 0 \u2192 CFDLean.Roe.weight x y + CFDLean.Roe.weight y x = 1"
   },
   "CFDLean.Roe.witness_intermediate_coordinates": {
-    "accepted_type": null,
+    "accepted_type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]",
     "current_type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]"
   }
 }

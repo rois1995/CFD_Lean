@@ -1,5 +1,7 @@
 # M3 scientific proposal review
 
+**Subsequent status:** the [independent review](proposal-b0e5d14/Review.md) recommends approval without mandatory amendment, and [Andrea approved implementation](../../specifications/M3-approval.md). The [frozen contract](../../specifications/M3.md) and representation precision govern M3a/M3b. The proposal submission below remains historical; its authorization-pending wording is superseded by that approval record.
+
 Status: proposed, not approved or implemented. The supplied independent M2 review accepts M2d and full M2, but explicitly authorizes no M3 implementation. The next step is independent proposal review followed by Andrea's separate scientific/repository decision.
 
 - [Concrete scientific proposal](../../specifications/M3-proposal.md).

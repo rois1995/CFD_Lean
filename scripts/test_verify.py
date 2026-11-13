@@ -1,6 +1,6 @@
 import json
 import unittest
-from verify import parse_axioms, check_promises, check_result_ids, check_inherited
+from verify import parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout
 
 
 def record(name, axioms=None):
@@ -64,14 +64,15 @@ class AuditChecks(unittest.TestCase):
         results = [{"id": rid, "stage": stage, "declarations": [rid + ".accepted"]}
                    for rid, stage in [("M2-J", "M2a"), ("M2-A", "M2b"),
                                       ("M2-R", "M2b"), ("M2-L", "M2b"), ("M2-E", "M2c"),
-                                      ("M2-D", "M2c"), ("M2-O", "M2c")]]
-        contract = {"current_stage": "M2c", "results": results}
+                                      ("M2-D", "M2c"), ("M2-O", "M2c"), ("M2-F1", "M2d"),
+                                      ("M2-F2", "M2d"), ("M2-F3", "M2d"), ("M2-F4", "M2d"), ("M2-C", "M2d")]]
+        contract = {"current_stage": "M2d", "results": results}
         evidence = {"declarations": {r["declarations"][0]: {"type": "approved " + r["id"]}
                                      for r in results}}
         rows = evidence["declarations"]
-        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 7)
+        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 12)
         for index, result in enumerate(results):
-            for field, replacement in [("declarations", ["Other.safeTheorem"]), ("stage", "M2d")]:
+            for field, replacement in [("declarations", ["Other.safeTheorem"]), ("stage", "M3a")]:
                 changed = json.loads(json.dumps(contract))
                 changed["results"][index][field] = replacement
                 with self.assertRaises(ValueError):
@@ -80,6 +81,31 @@ class AuditChecks(unittest.TestCase):
             weakened[result["declarations"][0]] = {"type": "a weaker proposition"}
             with self.assertRaises(ValueError):
                 check_inherited(weakened, contract, contract, evidence)
+
+    def test_m3_part_layout_is_frozen(self):
+        contract = {"results": [{"id": "M3-C", "parts": [{"stage": "M3a", "declarations": []},
+                                                               {"stage": "M3b", "declarations": []}]}]}
+        check_m3_layout(contract, contract)
+        redirected = json.loads(json.dumps(contract))
+        redirected["representation_contract"] = "a different specification"
+        with self.assertRaises(ValueError):
+            check_m3_layout(redirected, contract)
+        changed = json.loads(json.dumps(contract))
+        changed["results"][0]["parts"].pop()
+        with self.assertRaises(ValueError):
+            check_m3_layout(changed, contract)
+        changed["results"][0]["parts"][0]["stage"] = "M3b"
+        with self.assertRaises(ValueError):
+            check_m3_layout(changed, contract)
+
+    def test_m3_conditional_and_concrete_are_separate(self):
+        contract = {"results": [{"stage": "M3a", "declarations": ["A.conditional"]},
+                                {"stage": "M3b", "declarations": []}]}
+        rows = {"A.conditional": record("A.conditional")}
+        self.assertEqual(check_promises(rows, contract, "M3a", ("M3a", "M3b")), ["A.conditional"])
+        with self.assertRaises(ValueError):
+            check_promises(rows, contract, "M3b", ("M3a", "M3b"))
+        check_result_ids({"results": [{"id": "M3-C"}]}, "| M3-C | conditional and concrete |", "M3")
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:

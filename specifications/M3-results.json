@@ -12,7 +12,16 @@
       "parts": [
         {
           "stage": "M3a",
-          "declarations": []
+          "declarations": [
+            "CFDLean.Assembly.incidence_tail",
+            "CFDLean.Assembly.incidence_head",
+            "CFDLean.Assembly.incidence_other",
+            "CFDLean.Assembly.incidence_eq_one",
+            "CFDLean.Assembly.incidence_eq_neg_one",
+            "CFDLean.Assembly.incidence_sum",
+            "CFDLean.Assembly.incidence_smul",
+            "CFDLean.Assembly.residual_outgoing"
+          ]
         }
       ]
     },
@@ -21,7 +30,10 @@
       "parts": [
         {
           "stage": "M3a",
-          "declarations": []
+          "declarations": [
+            "CFDLean.Assembly.global_balance",
+            "CFDLean.Assembly.roe_global_balance"
+          ]
         }
       ]
     },
@@ -30,7 +42,14 @@
       "parts": [
         {
           "stage": "M3a",
-          "declarations": []
+          "declarations": [
+            "CFDLean.Assembly.outwardTransfer_eq",
+            "CFDLean.Assembly.residual_reverse",
+            "CFDLean.Assembly.roe_residual_reverse",
+            "CFDLean.Assembly.residual_reindex",
+            "CFDLean.Assembly.roe_residual_reindex",
+            "CFDLean.Assembly.roeTransfer_zero"
+          ]
         }
       ]
     },
@@ -57,7 +76,10 @@
       "parts": [
         {
           "stage": "M3a",
-          "declarations": []
+          "declarations": [
+            "CFDLean.Assembly.constant_state_residual",
+            "CFDLean.Assembly.constant_state_closed"
+          ]
         },
         {
           "stage": "M3b",

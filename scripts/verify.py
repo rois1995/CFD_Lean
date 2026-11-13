@@ -8,7 +8,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
-ACCEPTED_BASELINE = "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd"
+ACCEPTED_BASELINE = "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1"
+APPROVED_M3 = "3189a603b3f6af953f0828d6b2e239320fd2cd20"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 
 
@@ -29,15 +30,14 @@ def parse_axioms(output):
     return rows
 
 
-def check_result_ids(contract, text):
-    approved = re.findall(r"^\| (M2-[A-Z]+[0-9]*) \|", text, re.MULTILINE)
+def check_result_ids(contract, text, milestone="M2"):
+    approved = re.findall(r"^\| (" + re.escape(milestone) + r"-[A-Z]+[0-9]*) \|", text, re.MULTILINE)
     bound = [result["id"] for result in contract["results"]]
     if not approved or len(bound) != len(set(bound)) or set(bound) != set(approved):
         raise ValueError("Result bindings differ from the separately frozen approved list")
 
 
-def check_promises(rows, contract, stage):
-    stages = ["M2a", "M2b", "M2c", "M2d"]
+def check_promises(rows, contract, stage, stages=("M2a", "M2b", "M2c", "M2d")):
     active = [result for result in contract["results"]
               if stages.index(result["stage"]) <= stages.index(stage)]
     if any(not result["declarations"] for result in active):
@@ -69,6 +69,18 @@ def check_inherited(rows, contract, accepted_contract, accepted_evidence):
     return comparison
 
 
+
+def check_m3_layout(contract, approved):
+    for field in ["contract", "contract_sha256", "representation_contract", "representation_sha256",
+                  "reviewed_proposal_revision", "approval_record"]:
+        if contract.get(field) != approved.get(field):
+            raise ValueError("M3 frozen contract metadata changed")
+    def layout(value):
+        return [(r["id"], [p["stage"] for p in r["parts"]]) for r in value["results"]]
+    if layout(contract) != layout(approved):
+        raise ValueError("M3 result stages/parts differ from frozen approval")
+
+
 def git_blob(revision, path):
     return subprocess.check_output(["git", "show", f"{revision}:{path}"])
 
@@ -93,6 +105,14 @@ def main():
     for name, expected in contract["accepted_m1_sources"].items():
         if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
             raise ValueError(f"Accepted M1 source changed: {name}")
+    m3 = json.loads((ROOT / "specifications/M3-results.json").read_text())
+    for field, digest_field in [("contract", "contract_sha256"), ("representation_contract", "representation_sha256")]:
+        data = (ROOT / m3[field]).read_bytes()
+        if hashlib.sha256(data).hexdigest() != m3[digest_field] or data != git_blob(APPROVED_M3, m3[field]):
+            raise ValueError("M3 scientific contract differs from frozen approval")
+    approved_m3 = json.loads(git_blob(APPROVED_M3, "specifications/M3-results.json"))
+    check_m3_layout(m3, approved_m3)
+    check_result_ids(m3, (ROOT / m3["contract"]).read_text(), "M3")
     env = dict(os.environ, MATHLIB_NO_CACHE_ON_UPDATE="1", LAKE_NO_CACHE="1")
     with (evidence / "build.log").open("w") as log:
         subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -112,7 +132,10 @@ def main():
         raise ValueError("Elaborated module or closure coverage mismatch")
     if closures[0]["unsafe_reached"] or set(closures[0]["axioms"]) - ALLOWED:
         raise ValueError("Forbidden transitive dependency")
-    promised = check_promises(rows, contract, contract["current_stage"])
+    m2_promised = check_promises(rows, contract, contract["current_stage"])
+    parts = {"results": [p for r in m3["results"] for p in r["parts"]]}
+    m3_promised = check_promises(rows, parts, m3["current_stage"], ("M3a", "M3b"))
+    promised = sorted(set(m2_promised + m3_promised))
     inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
     (evidence / "inherited-types.json").write_text(json.dumps(inherited, indent=2) + "\n")
     (evidence / "binding-type-diff.json").write_text(json.dumps({name: {
@@ -121,7 +144,7 @@ def main():
         "current_type": rows[name]["type"]
     } for name in promised}, indent=2) + "\n")
     (evidence / "bindings-diff.patch").write_bytes(subprocess.check_output(
-        ["git", "diff", ACCEPTED_BASELINE, "--", "specifications/M2-results.json"]))
+        ["git", "diff", ACCEPTED_BASELINE, "--", "specifications/M2-results.json", "specifications/M3-results.json"]))
     with (evidence / "statement-checks.log").open("w") as log:
         subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "StatementChecks.lean"],
                        env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -143,21 +166,24 @@ def main():
         for path in sorted(files)))
     (evidence / "verification.json").write_text(json.dumps({
         "lean": subprocess.check_output(["lean", "--version"], text=True).strip(),
-        "stage": contract["current_stage"], "promised_theorems": promised,
+        "stage": m3["current_stage"], "m2_stage": contract["current_stage"], "promised_theorems": promised,
         "modules": sorted(modules[0]), "closure": closures[0],
         "source_modules": {module: {
             "path": module.replace(".", "/") + ".lean",
             "sha256": hashlib.sha256((ROOT / (module.replace(".", "/") + ".lean")).read_bytes()).hexdigest()
         } for module in sorted(modules[0])},
         "declarations": dict(sorted(rows.items())),
-        "deferred_result_ids": [r["id"] for r in contract["results"] if ["M2a", "M2b", "M2c", "M2d"].index(r["stage"]) > ["M2a", "M2b", "M2c", "M2d"].index(contract["current_stage"])],
+        "deferred_result_ids": [r["id"] for r in m3["results"] if any(
+            ("M3a", "M3b").index(p["stage"]) > ("M3a", "M3b").index(m3["current_stage"]) for p in r["parts"])],
         "dependency_revisions_checked": len(manifest["packages"]),
         "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
         "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
         "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
         "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
         "accepted_inherited_revision": ACCEPTED_BASELINE, "inherited_types_checked": len(inherited),
-        "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "pending"
+        "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "accepted at " + ACCEPTED_BASELINE,
+        "m2_acceptance_record": "reviews/M2/Acceptance.md", "m3_approval_record": m3["approval_record"],
+        "m3_independent_acceptance": "pending"
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
 

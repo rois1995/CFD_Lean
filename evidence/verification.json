@@ -1,7 +1,26 @@
 {
   "lean": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
-  "stage": "M2d",
+  "stage": "M3a",
+  "m2_stage": "M2d",
   "promised_theorems": [
+    "CFDLean.Assembly.constant_state_closed",
+    "CFDLean.Assembly.constant_state_residual",
+    "CFDLean.Assembly.global_balance",
+    "CFDLean.Assembly.incidence_eq_neg_one",
+    "CFDLean.Assembly.incidence_eq_one",
+    "CFDLean.Assembly.incidence_head",
+    "CFDLean.Assembly.incidence_other",
+    "CFDLean.Assembly.incidence_smul",
+    "CFDLean.Assembly.incidence_sum",
+    "CFDLean.Assembly.incidence_tail",
+    "CFDLean.Assembly.outwardTransfer_eq",
+    "CFDLean.Assembly.residual_outgoing",
+    "CFDLean.Assembly.residual_reindex",
+    "CFDLean.Assembly.residual_reverse",
+    "CFDLean.Assembly.roeTransfer_zero",
+    "CFDLean.Assembly.roe_global_balance",
+    "CFDLean.Assembly.roe_residual_reindex",
+    "CFDLean.Assembly.roe_residual_reverse",
     "CFDLean.Coordinates.decode_encode",
     "CFDLean.Coordinates.encode_decode",
     "CFDLean.Coordinates.unitNormal_dot_self",
@@ -75,6 +94,7 @@
     "CFDLean.Core.PhysicalFlux",
     "CFDLean.Core.PhysicalJacobian",
     "CFDLean.Core.State",
+    "CFDLean.Discretization.Assembly",
     "CFDLean.Flux.Roe.Averages",
     "CFDLean.Flux.Roe.Flux",
     "CFDLean.Flux.Roe.Linearization",
@@ -82,9 +102,9 @@
     "Integrity"
   ],
   "closure": {
-    "visited": 20183,
+    "visited": 20297,
     "unsafe_reached": [],
-    "roots": 400,
+    "roots": 458,
     "axioms": [
       "propext",
       "Classical.choice",
@@ -94,7 +114,7 @@
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "b21b758a980194509794c05c2da5aae358929812dfcd0668ad7f1481c06410cd"
+      "sha256": "3cf7842493bdc41a9a9563fad1ecfffe6212e40be0d4d511b4b8b7ba82855651"
     },
     "CFDLean.Core.Coordinates": {
       "path": "CFDLean/Core/Coordinates.lean",
@@ -111,6 +131,10 @@
     "CFDLean.Core.State": {
       "path": "CFDLean/Core/State.lean",
       "sha256": "6533e5aa85d97e65312f4c71fdf4a5281aec4a87e201d5457c6eb7e59a608b5f"
+    },
+    "CFDLean.Discretization.Assembly": {
+      "path": "CFDLean/Discretization/Assembly.lean",
+      "sha256": "0d977d905dcb19fefb83575cb19e3a2869810e69ba8c2d48704cf5c13aa0c183"
     },
     "CFDLean.Flux.Roe.Averages": {
       "path": "CFDLean/Flux/Roe/Averages.lean",
@@ -134,6 +158,1937 @@
     }
   },
   "declarations": {
+    "CFDLean.Assembly.Interfaces": {
+      "unsafe": false,
+      "type": "Type u_1 \u2192 Type u_2 \u2192 Type u_3 \u2192 Type (max (max u_1 u_2) u_3)",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "inductive",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces._sizeOf_1": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192 [inst : SizeOf N] \u2192 [inst : SizeOf E] \u2192 [inst : SizeOf B] \u2192 CFDLean.Assembly.Interfaces N E B \u2192 \u2115",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces._sizeOf_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.rec"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces._sizeOf_inst": {
+      "unsafe": false,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192\n      [inst : SizeOf N] \u2192 [inst : SizeOf E] \u2192 [inst : SizeOf B] \u2192 SizeOf (CFDLean.Assembly.Interfaces N E B)",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces._sizeOf_inst",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces._sizeOf_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.casesOn": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {motive : CFDLean.Assembly.Interfaces N E B \u2192 Sort u} \u2192\n        (t : CFDLean.Assembly.Interfaces N E B) \u2192\n          ((tail head : E \u2192 N) \u2192\n              (distinct : \u2200 (e : E), tail e \u2260 head e) \u2192\n                (owner : B \u2192 N) \u2192 motive { tail := tail, head := head, distinct := distinct, owner := owner }) \u2192\n            motive t",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.casesOn",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.rec"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.distinct": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (self : CFDLean.Assembly.Interfaces N E B) (e : E),\n  self.tail e \u2260 self.head e",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.distinct",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.head": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192 {E : Type u_2} \u2192 {B : Type u_3} \u2192 CFDLean.Assembly.Interfaces N E B \u2192 E \u2192 N",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.head",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.mk": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192 (tail head : E \u2192 N) \u2192 (\u2200 (e : E), tail e \u2260 head e) \u2192 (B \u2192 N) \u2192 CFDLean.Assembly.Interfaces N E B",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.mk",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "constructor",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.mk._flat_ctor": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192 (tail head : E \u2192 N) \u2192 (\u2200 (e : E), tail e \u2260 head e) \u2192 (B \u2192 N) \u2192 CFDLean.Assembly.Interfaces N E B",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.mk._flat_ctor",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.mk.inj": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} {tail head : E \u2192 N} {distinct : \u2200 (e : E), tail e \u2260 head e}\n  {owner : B \u2192 N} {tail_1 head_1 : E \u2192 N} {distinct_1 : \u2200 (e : E), tail_1 e \u2260 head_1 e} {owner_1 : B \u2192 N},\n  { tail := tail, head := head, distinct := distinct, owner := owner } =\n      { tail := tail_1, head := head_1, distinct := distinct_1, owner := owner_1 } \u2192\n    tail = tail_1 \u2227 head = head_1 \u2227 owner = owner_1",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.mk.inj",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.noConfusion",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.mk.injEq": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (tail head : E \u2192 N) (distinct : \u2200 (e : E), tail e \u2260 head e)\n  (owner : B \u2192 N) (tail_1 head_1 : E \u2192 N) (distinct_1 : \u2200 (e : E), tail_1 e \u2260 head_1 e) (owner_1 : B \u2192 N),\n  ({ tail := tail, head := head, distinct := distinct, owner := owner } =\n      { tail := tail_1, head := head_1, distinct := distinct_1, owner := owner_1 }) =\n    (tail = tail_1 \u2227 head = head_1 \u2227 owner = owner_1)",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.mk.injEq",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.noConfusion",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.mk.sizeOf_spec": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : SizeOf N] [inst_1 : SizeOf E] [inst_2 : SizeOf B]\n  (tail head : E \u2192 N) (distinct : \u2200 (e : E), tail e \u2260 head e) (owner : B \u2192 N),\n  sizeOf { tail := tail, head := head, distinct := distinct, owner := owner } = 1",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.mk.sizeOf_spec",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces._sizeOf_inst",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.noConfusion": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {P : Sort u} \u2192\n        {v1 v2 : CFDLean.Assembly.Interfaces N E B} \u2192 v1 = v2 \u2192 CFDLean.Assembly.Interfaces.noConfusionType P v1 v2",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.noConfusion",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.casesOn",
+        "CFDLean.Assembly.Interfaces.noConfusionType"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.noConfusionType": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192 Sort u \u2192 CFDLean.Assembly.Interfaces N E B \u2192 CFDLean.Assembly.Interfaces N E B \u2192 Sort u",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.noConfusionType",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.casesOn"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.owner": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192 {E : Type u_2} \u2192 {B : Type u_3} \u2192 CFDLean.Assembly.Interfaces N E B \u2192 B \u2192 N",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.owner",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.rec": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {motive : CFDLean.Assembly.Interfaces N E B \u2192 Sort u} \u2192\n        ((tail head : E \u2192 N) \u2192\n            (distinct : \u2200 (e : E), tail e \u2260 head e) \u2192\n              (owner : B \u2192 N) \u2192 motive { tail := tail, head := head, distinct := distinct, owner := owner }) \u2192\n          (t : CFDLean.Assembly.Interfaces N E B) \u2192 motive t",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.rec",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "recursor",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.recOn": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {motive : CFDLean.Assembly.Interfaces N E B \u2192 Sort u} \u2192\n        (t : CFDLean.Assembly.Interfaces N E B) \u2192\n          ((tail head : E \u2192 N) \u2192\n              (distinct : \u2200 (e : E), tail e \u2260 head e) \u2192\n                (owner : B \u2192 N) \u2192 motive { tail := tail, head := head, distinct := distinct, owner := owner }) \u2192\n            motive t",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.recOn",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.rec"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {N' : Type u_4} \u2192\n        {E' : Type u_5} \u2192\n          {B' : Type u_6} \u2192\n            CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 E \u2243 E' \u2192 B \u2243 B' \u2192 CFDLean.Assembly.Interfaces N' E' B'",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.reindex",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces.reindex._proof_4",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.reindex._cstage1": {
+      "unsafe": true,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {N' : Type u_4} \u2192\n        {E' : Type u_5} \u2192\n          {B' : Type u_6} \u2192\n            CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 E \u2243 E' \u2192 B \u2243 B' \u2192 CFDLean.Assembly.Interfaces N' E' B'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex._elambda_2",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces.reindex._elambda_3",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.reindex._elambda_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192 (N' : Type u_4) \u2192 (B' : Type u_6) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 B \u2243 B' \u2192 B' \u2192 N'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_1._cstage1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192 (N' : Type u_4) \u2192 (B' : Type u_6) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 B \u2243 B' \u2192 B' \u2192 N'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_1._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex._elambda_1._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_1._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_1._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_1._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_1._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_2": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192 (N' : Type u_4) \u2192 (E' : Type u_5) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 E \u2243 E' \u2192 E' \u2192 N'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_2._cstage1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192 (N' : Type u_4) \u2192 (E' : Type u_5) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 E \u2243 E' \u2192 E' \u2192 N'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_2._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex._elambda_2._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_2._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_2._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_2._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_2._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_3": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192 (N' : Type u_4) \u2192 (E' : Type u_5) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 E \u2243 E' \u2192 E' \u2192 N'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_3._cstage1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192\n    (B : Type u_3) \u2192 (N' : Type u_4) \u2192 (E' : Type u_5) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2243 N' \u2192 E \u2243 E' \u2192 E' \u2192 N'",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_3._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_3._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex._elambda_3._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_3._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_3._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._elambda_3._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._elambda_3._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._proof_4": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_2} {E : Type u_3} {B : Type u_4} {N' : Type u_1} {E' : Type u_5} (m : CFDLean.Assembly.Interfaces N E B)\n  (n : N \u2243 N') (e : E \u2243 E') (j : E'), n (m.tail (e.symm j)) = n (m.head (e.symm j)) \u2192 False",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.reindex._proof_4",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.distinct"
+      ],
+      "axioms": [
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.reindex._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reindex._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex._elambda_2",
+        "CFDLean.Assembly.Interfaces.reindex._elambda_3",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces.reindex._elambda_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reindex.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6}\n  (m : CFDLean.Assembly.Interfaces N E B) (n : N \u2243 N') (e : E \u2243 E') (b : B \u2243 B'),\n  m.reindex n e b =\n    { tail := fun j => n (m.tail (e.symm j)), head := fun j => n (m.head (e.symm j)), distinct := \u22ef,\n      owner := fun j => n (m.owner (b.symm j)) }",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.reindex.eq_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces.reindex._proof_4",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.reverse": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      CFDLean.Assembly.Interfaces N E B \u2192\n        (rev : E \u2192 Prop) \u2192 [inst : DecidablePred rev] \u2192 CFDLean.Assembly.Interfaces N E B",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.reverse",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._proof_3",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.reverse._cstage1": {
+      "unsafe": true,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      CFDLean.Assembly.Interfaces N E B \u2192\n        (rev : E \u2192 Prop) \u2192 [inst : DecidablePred rev] \u2192 CFDLean.Assembly.Interfaces N E B",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._elambda_2",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces.reverse._elambda_1",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.reverse._elambda_3",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192 (E : Type u_2) \u2192 (B : Type u_3) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 B \u2192 N",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_1._cstage1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192 (E : Type u_2) \u2192 (B : Type u_3) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 B \u2192 N",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_1._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._elambda_1._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_1._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_1._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_1._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_1._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_2": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192 (B : Type u_3) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 (rev : E \u2192 Prop) \u2192 DecidablePred rev \u2192 E \u2192 N",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_2._cstage1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192 (B : Type u_3) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 (rev : E \u2192 Prop) \u2192 DecidablePred rev \u2192 E \u2192 N",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_2._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._elambda_2._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_2._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_2._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_2._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _neutral \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_2._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_3": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192 (B : Type u_3) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 (rev : E \u2192 Prop) \u2192 DecidablePred rev \u2192 E \u2192 N",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_3._cstage1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192\n  (E : Type u_2) \u2192 (B : Type u_3) \u2192 CFDLean.Assembly.Interfaces N E B \u2192 (rev : E \u2192 Prop) \u2192 DecidablePred rev \u2192 E \u2192 N",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_3._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_3._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._elambda_3._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_3._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_3._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._elambda_3._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _neutral \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._elambda_3._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._proof_3": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop)\n  [inst : DecidablePred rev] (e : E), (if rev e then m.head e else m.tail e) \u2260 if rev e then m.tail e else m.head e",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.reverse._proof_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.distinct"
+      ],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.reverse._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _neutral \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.Interfaces.reverse._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._elambda_2",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces.reverse._elambda_1",
+        "CFDLean.Assembly.Interfaces.reverse._elambda_3"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.Interfaces.reverse.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop)\n  [inst : DecidablePred rev],\n  m.reverse rev =\n    { tail := fun e => if rev e then m.head e else m.tail e, head := fun e => if rev e then m.tail e else m.head e,\n      distinct := \u22ef, owner := m.owner }",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.reverse.eq_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reverse._proof_3",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces.mk",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.reverse"
+      ],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Assembly.Interfaces.tail": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192 {E : Type u_2} \u2192 {B : Type u_3} \u2192 CFDLean.Assembly.Interfaces N E B \u2192 E \u2192 N",
+      "root": true,
+      "name": "CFDLean.Assembly.Interfaces.tail",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.constant_state_closed": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3)\n  (T : B \u2192 CFDLean.Vector 3) (i : N),\n  CFDLean.Assembly.metricDefect m S T i = 0 \u2192\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 (fun x => U) S)\n        (fun b => (CFDLean.Assembly.physicalTransfer \u03b3 U) (T b)) i =\n      0",
+      "root": true,
+      "name": "CFDLean.Assembly.constant_state_closed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.physicalFlux",
+        "CFDLean.Assembly.physicalTransfer",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.constant_state_residual",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.metricDefect",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.constant_state_residual": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3)\n  (T : B \u2192 CFDLean.Vector 3) (i : N),\n  CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 (fun x => U) S)\n      (fun b => (CFDLean.Assembly.physicalTransfer \u03b3 U) (T b)) i =\n    CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U (CFDLean.Assembly.metricDefect m S T i))",
+      "root": true,
+      "name": "CFDLean.Assembly.constant_state_residual",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.physicalFlux",
+        "CFDLean.Assembly.physicalTransfer",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.roeTransfer_consistency",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.residual_map",
+        "CFDLean.Assembly.metricDefect",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.encoded_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Coordinates.encode (CFDLean.Roe.numericalFlux \u03b3 V U (-S)) =\n    -CFDLean.Coordinates.encode (CFDLean.Roe.numericalFlux \u03b3 U V S)",
+      "root": true,
+      "name": "CFDLean.Assembly.encoded_reverse",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Roe.roeFluxCoordinates_reverse",
+        "CFDLean.Coordinates.encode_decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.global_balance": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (f : E \u2192 CFDLean.Vector d) (g : B \u2192 CFDLean.Vector d),\n  \u2211 i, CFDLean.Assembly.residual m f g i = \u2211 b, g b",
+      "root": true,
+      "name": "CFDLean.Assembly.global_balance",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.incidence_sum",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.global_balance._proof_1",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.global_balance._proof_1": {
+      "unsafe": false,
+      "type": "\u2200 {\u03b9 : Type u_1} {R : Type u_5} {M : Type u_6} [inst : Semiring R] [inst_1 : AddCommMonoid M]\n  [inst_2 : _root_.Module R M] {f : \u03b9 \u2192 R} {s : Finset \u03b9} {x : M}, \u2211 i \u2208 s, f i \u2022 x = (\u2211 i \u2208 s, f i) \u2022 x",
+      "root": true,
+      "name": "CFDLean.Assembly.global_balance._proof_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192 {B : Type u_3} \u2192 [inst : DecidableEq N] \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2192 E \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence._cstage1": {
+      "unsafe": true,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192 {B : Type u_3} \u2192 [inst : DecidableEq N] \u2192 CFDLean.Assembly.Interfaces N E B \u2192 N \u2192 E \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence._rarg._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_4": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_4",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_4._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_4._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence._rarg._closed_3"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_5": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_5",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_5._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_5._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence._rarg._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_6": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_6",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._closed_6._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._closed_6._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence._rarg._closed_3"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.incidence._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.incidence.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), CFDLean.Assembly.incidence m i e = (if m.tail e = i then 1 else 0) - if m.head e = i then 1 else 0",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence.eq_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_eq_neg_one": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), CFDLean.Assembly.incidence m i e = -1 \u2194 i = m.head e",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_eq_neg_one",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.incidence_head"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_eq_one": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), CFDLean.Assembly.incidence m i e = 1 \u2194 i = m.tail e",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_eq_one",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.incidence_tail",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_head": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (e : E),\n  CFDLean.Assembly.incidence m (m.head e) e = -1",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_head",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.distinct"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_other": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)\n  (e : E), m.tail e \u2260 i \u2192 m.head e \u2260 i \u2192 CFDLean.Assembly.incidence m i e = 0",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_other",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_reverse": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B)\n  (rev : E \u2192 Prop) [inst_1 : DecidablePred rev] (i : N) (e : E),\n  CFDLean.Assembly.incidence (m.reverse rev) i e =\n    if rev e then -CFDLean.Assembly.incidence m i e else CFDLean.Assembly.incidence m i e",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_reverse",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.reverse"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_smul": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] {d : \u2115} (m : CFDLean.Assembly.Interfaces N E B)\n  (i : N) (e : E) (v : CFDLean.Vector d),\n  CFDLean.Assembly.incidence m i e \u2022 v = (if m.tail e = i then v else 0) - if m.head e = i then v else 0",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_smul",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_sum": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype N]\n  (m : CFDLean.Assembly.Interfaces N E B) (e : E), \u2211 i, CFDLean.Assembly.incidence m i e = 0",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_sum",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.incidence_tail": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (e : E),\n  CFDLean.Assembly.incidence m (m.tail e) e = 1",
+      "root": true,
+      "name": "CFDLean.Assembly.incidence_tail",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.distinct"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.metricDefect": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      [inst : DecidableEq N] \u2192\n        [inst : Fintype E] \u2192\n          [inst : Fintype B] \u2192\n            CFDLean.Assembly.Interfaces N E B \u2192 (E \u2192 CFDLean.Vector 3) \u2192 (B \u2192 CFDLean.Vector 3) \u2192 N \u2192 CFDLean.Vector 3",
+      "root": true,
+      "name": "CFDLean.Assembly.metricDefect",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.metricDefect._cstage1": {
+      "unsafe": true,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      [inst : DecidableEq N] \u2192\n        [inst : Fintype E] \u2192\n          [inst : Fintype B] \u2192\n            CFDLean.Assembly.Interfaces N E B \u2192 (E \u2192 CFDLean.Vector 3) \u2192 (B \u2192 CFDLean.Vector 3) \u2192 N \u2192 CFDLean.Vector 3",
+      "root": false,
+      "name": "CFDLean.Assembly.metricDefect._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.metricDefect._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.metricDefect._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.metricDefect._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.metricDefect._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.metricDefect._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.metricDefect._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.metricDefect._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.residual._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.outwardTransfer": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      [inst : DecidableEq N] \u2192\n        CFDLean.Assembly.Interfaces N E B \u2192\n          \u211d \u2192 (N \u2192 CFDLean.Conservative 3) \u2192 (E \u2192 CFDLean.Vector 3) \u2192 N \u2192 E \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Assembly.outwardTransfer",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.outwardTransfer.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (i : N) (e : E),\n  CFDLean.Assembly.outwardTransfer m \u03b3 U S i e =\n    if m.tail e = i then CFDLean.Coordinates.encode (CFDLean.Roe.numericalFlux \u03b3 (U (m.tail e)) (U (m.head e)) (S e))\n    else\n      if m.head e = i then CFDLean.Coordinates.encode (CFDLean.Roe.numericalFlux \u03b3 (U (m.head e)) (U (m.tail e)) (-S e))\n      else 0",
+      "root": true,
+      "name": "CFDLean.Assembly.outwardTransfer.eq_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.outwardTransfer",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.outwardTransfer_eq": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (i : N) (e : E),\n  CFDLean.Assembly.outwardTransfer m \u03b3 U S i e =\n    CFDLean.Assembly.incidence m i e \u2022 CFDLean.Assembly.roeTransfer m \u03b3 U S e",
+      "root": true,
+      "name": "CFDLean.Assembly.outwardTransfer_eq",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Assembly.incidence_tail",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.outwardTransfer",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Assembly.encoded_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Assembly.Interfaces.distinct",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.incidence_head"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.physicalTransfer": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Conservative 3 \u2192 CFDLean.Vector 3 \u2192\u2097[\u211d] CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Assembly.physicalTransfer",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.physicalTransfer._proof_2",
+        "CFDLean.physicalFlux",
+        "CFDLean.Assembly.physicalTransfer._proof_1",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.physicalTransfer._proof_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S T : CFDLean.Vector 3),\n  CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U (S + T)) =\n    CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U S) + CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U T)",
+      "root": true,
+      "name": "CFDLean.Assembly.physicalTransfer._proof_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.physicalFlux_add",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.physicalTransfer._proof_2": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (a : \u211d) (S : CFDLean.Vector 3),\n  CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U (a \u2022 S)) =\n    (RingHom.id \u211d) a \u2022 CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U S)",
+      "root": true,
+      "name": "CFDLean.Assembly.physicalTransfer._proof_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.physicalFlux_mul",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.residual": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      [inst : DecidableEq N] \u2192\n        [inst : Fintype E] \u2192\n          [inst : Fintype B] \u2192\n            {d : \u2115} \u2192\n              CFDLean.Assembly.Interfaces N E B \u2192 (E \u2192 CFDLean.Vector d) \u2192 (B \u2192 CFDLean.Vector d) \u2192 N \u2192 CFDLean.Vector d",
+      "root": true,
+      "name": "CFDLean.Assembly.residual",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.residual._cstage1": {
+      "unsafe": true,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      [inst : DecidableEq N] \u2192\n        [inst : Fintype E] \u2192\n          [inst : Fintype B] \u2192\n            {d : \u2115} \u2192\n              CFDLean.Assembly.Interfaces N E B \u2192 (E \u2192 CFDLean.Vector d) \u2192 (B \u2192 CFDLean.Vector d) \u2192 N \u2192 CFDLean.Vector d",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._cstage1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _neutral \u2192 _neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.residual._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._closed_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._closed_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.residual._rarg._lambda_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.Assembly.residual._spec_3",
+        "CFDLean.Assembly.residual._rarg._lambda_3",
+        "CFDLean.Assembly.residual._rarg._lambda_2",
+        "CFDLean.Assembly.residual._rarg._lambda_1",
+        "Finset.sum._at.CFDLean.Assembly.residual._spec_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_1._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Assembly.incidence._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual._rarg._lambda_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Assembly.residual._rarg._lambda_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Assembly.residual.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  (m : CFDLean.Assembly.Interfaces N E B) (f : E \u2192 CFDLean.Vector d) (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual m f g i =\n    \u2211 e, CFDLean.Assembly.incidence m i e \u2022 f e + \u2211 b, if m.owner b = i then g b else 0",
+      "root": true,
+      "name": "CFDLean.Assembly.residual.eq_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.residual_map": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  {d k : \u2115} (m : CFDLean.Assembly.Interfaces N E B) (L : CFDLean.Vector d \u2192\u2097[\u211d] CFDLean.Vector k)\n  (f : E \u2192 CFDLean.Vector d) (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual m (fun e => L (f e)) (fun b => L (g b)) i = L (CFDLean.Assembly.residual m f g i)",
+      "root": true,
+      "name": "CFDLean.Assembly.residual_map",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.residual_outgoing": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  (m : CFDLean.Assembly.Interfaces N E B) (f : E \u2192 CFDLean.Vector d) (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual m f g i =\n    \u2211 e \u2208 {e | m.tail e = i}, f e - \u2211 e \u2208 {e | m.head e = i}, f e + \u2211 b \u2208 {b | m.owner b = i}, g b",
+      "root": true,
+      "name": "CFDLean.Assembly.residual_outgoing",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence_smul",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.residual_reindex": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E'] [inst_5 : Fintype B']\n  (m : CFDLean.Assembly.Interfaces N E B) (n : N \u2243 N') (e : E \u2243 E') (b : B \u2243 B') (f : E \u2192 CFDLean.Vector d)\n  (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual (m.reindex n e b) (fun j => f (e.symm j)) (fun j => g (b.symm j)) (n i) =\n    CFDLean.Assembly.residual m f g i",
+      "root": true,
+      "name": "CFDLean.Assembly.residual_reindex",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.residual_reverse": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B] {d : \u2115}\n  (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop) [inst_3 : DecidablePred rev] (f : E \u2192 CFDLean.Vector d)\n  (g : B \u2192 CFDLean.Vector d) (i : N),\n  CFDLean.Assembly.residual (m.reverse rev) (fun e => if rev e then -f e else f e) g i =\n    CFDLean.Assembly.residual m f g i",
+      "root": true,
+      "name": "CFDLean.Assembly.residual_reverse",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.incidence_reverse",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.reverse",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roeTransfer": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  {E : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      CFDLean.Assembly.Interfaces N E B \u2192\n        \u211d \u2192 (N \u2192 CFDLean.Conservative 3) \u2192 (E \u2192 CFDLean.Vector 3) \u2192 E \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Assembly.roeTransfer",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roeTransfer.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (e : E),\n  CFDLean.Assembly.roeTransfer m \u03b3 U S e =\n    CFDLean.Coordinates.encode (CFDLean.Roe.numericalFlux \u03b3 (U (m.tail e)) (U (m.head e)) (S e))",
+      "root": true,
+      "name": "CFDLean.Assembly.roeTransfer.eq_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roeTransfer_consistency": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (e : E),\n  CFDLean.Assembly.roeTransfer m \u03b3 (fun x => U) S e = (CFDLean.Assembly.physicalTransfer \u03b3 U) (S e)",
+      "root": true,
+      "name": "CFDLean.Assembly.roeTransfer_consistency",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.physicalFlux",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Roe.numericalFlux_consistency",
+        "CFDLean.Assembly.physicalTransfer",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roeTransfer_zero": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (e : E),\n  S e = 0 \u2192 CFDLean.Assembly.roeTransfer m \u03b3 U S e = 0",
+      "root": true,
+      "name": "CFDLean.Assembly.roeTransfer_zero",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Roe.numericalFlux_zero",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roe_global_balance": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (\u03b3 : \u211d) (U : N \u2192 CFDLean.Conservative 3)\n  (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates),\n  \u2211 i, CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i = \u2211 b, g b",
+      "root": true,
+      "name": "CFDLean.Assembly.roe_global_balance",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Assembly.global_balance",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roe_residual_reindex": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E'] [inst_5 : Fintype B']\n  (m : CFDLean.Assembly.Interfaces N E B) (n : N \u2243 N') (e : E \u2243 E') (b : B \u2243 B') (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates) (i : N),\n  CFDLean.Assembly.residual (m.reindex n e b)\n      (CFDLean.Assembly.roeTransfer (m.reindex n e b) \u03b3 (fun j => U (n.symm j)) fun j => S (e.symm j))\n      (fun j => g (b.symm j)) (n i) =\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i",
+      "root": true,
+      "name": "CFDLean.Assembly.roe_residual_reindex",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.Interfaces.reindex",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.residual_reindex",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Assembly.roe_residual_reverse": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop) [inst_3 : DecidablePred rev] (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates) (i : N),\n  CFDLean.Assembly.residual (m.reverse rev)\n      (CFDLean.Assembly.roeTransfer (m.reverse rev) \u03b3 U fun e => if rev e then -S e else S e) g i =\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i",
+      "root": true,
+      "name": "CFDLean.Assembly.roe_residual_reverse",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Assembly.residual_reverse",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Assembly.encoded_reverse",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Conservative",
+        "CFDLean.Assembly.Interfaces.reverse",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
     "CFDLean.Conservative": {
       "unsafe": false,
       "type": "\u2115 \u2192 Type",
@@ -9535,6 +11490,118 @@
       ],
       "axioms": []
     },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_1": {
+      "unsafe": true,
+      "type": "(E : Type u_2) \u2192 (d : \u2115) \u2192 Finset E \u2192 (E \u2192 CFDLean.Vector d) \u2192 CFDLean.Vector d",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_1._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_1._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_3": {
+      "unsafe": true,
+      "type": "(B : Type u_3) \u2192 (d : \u2115) \u2192 Finset B \u2192 (B \u2192 CFDLean.Vector d) \u2192 CFDLean.Vector d",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_3._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Assembly.residual._spec_3._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_4"
+      ],
+      "axioms": []
+    },
     "Finset.sum._at.CFDLean.dot._spec_1": {
       "unsafe": true,
       "type": "(d : \u2115) \u2192 Finset (Fin d) \u2192 (Fin d \u2192 \u211d) \u2192 \u211d",
@@ -9756,6 +11823,290 @@
       "module": "CFDLean.Core.PhysicalJacobian",
       "kind": "definition",
       "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2": {
+      "unsafe": true,
+      "type": "(d : \u2115) \u2192 Multiset (CFDLean.Vector d) \u2192 CFDLean.Vector d",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_1"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._closed_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2",
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2._closed_1",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2._closed_1._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_1"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_4": {
+      "unsafe": true,
+      "type": "(d : \u2115) \u2192 Multiset (CFDLean.Vector d) \u2192 CFDLean.Vector d",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_4",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._boxed",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._rarg"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._rarg",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Assembly.residual._spec_4._rarg._cstage2",
+      "module": "CFDLean.Discretization.Assembly",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_2",
+        "Multiset.sum._at.CFDLean.Assembly.residual._spec_2._rarg._lambda_3"
+      ],
       "axioms": []
     },
     "Multiset.sum._at.CFDLean.squareSum._spec_2": {
@@ -9992,14 +12343,21 @@
       "axioms": []
     }
   },
-  "deferred_result_ids": [],
+  "deferred_result_ids": [
+    "M3-G",
+    "M3-V",
+    "M3-C"
+  ],
   "dependency_revisions_checked": 9,
   "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
   "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
   "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
   "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
-  "accepted_inherited_revision": "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd",
-  "inherited_types_checked": 58,
+  "accepted_inherited_revision": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "inherited_types_checked": 66,
   "m2_approval_record": "specifications/M2-approval.md",
-  "m2_independent_acceptance": "pending"
+  "m2_independent_acceptance": "accepted at ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "m2_acceptance_record": "reviews/M2/Acceptance.md",
+  "m3_approval_record": "specifications/M3-approval.md",
+  "m3_independent_acceptance": "pending"
 }

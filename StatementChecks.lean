@@ -424,3 +424,153 @@ example : numericalFlux 2 ((Primitive.mk 1 ![0, 1, 0] 1).toConservative 2)
 
 end
 end M2dChecks
+
+namespace M3aChecks
+noncomputable section
+open CFDLean.Assembly
+attribute [local irreducible] CFDLean.Roe.Spectral.shift
+attribute [local simp] Matrix.cons_val_two Matrix.cons_val_three Matrix.cons_val_four
+
+example {N E B : Type*} [DecidableEq N] (m : Interfaces N E B) (e : E) :
+    incidence m (m.tail e) e = 1 ∧ incidence m (m.head e) e = -1 :=
+  ⟨incidence_tail m e, incidence_head m e⟩
+
+example {N E B : Type*} [Fintype N] [DecidableEq N] (m : Interfaces N E B) (e : E) :
+    (∑ i, incidence m i e) = 0 ∧ (∀ i, incidence m i e = 1 ↔ i = m.tail e) ∧
+      (∀ i, incidence m i e = -1 ↔ i = m.head e) :=
+  ⟨incidence_sum m e, fun i => incidence_eq_one m i e, fun i => incidence_eq_neg_one m i e⟩
+
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : Interfaces N E B) (f : E → StateCoordinates) (g : B → StateCoordinates) :
+    ∑ i, residual m f g i = ∑ b, g b := global_balance m f g
+
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : Interfaces N E B) (γ : ℝ) (U : N → Conservative 3) (S : E → Vector 3) (g : B → StateCoordinates) :
+    ∑ i, residual m (fun e => encode (CFDLean.Roe.numericalFlux γ (U (m.tail e)) (U (m.head e)) (S e))) g i =
+      ∑ b, g b := roe_global_balance m γ U S g
+
+example {N E B : Type*} [DecidableEq N] (m : Interfaces N E B) (γ : ℝ)
+    (U : N → Conservative 3) (S : E → Vector 3) (i : N) (e : E) :
+    (if m.tail e = i then encode (CFDLean.Roe.numericalFlux γ (U (m.tail e)) (U (m.head e)) (S e))
+      else if m.head e = i then encode (CFDLean.Roe.numericalFlux γ (U (m.head e)) (U (m.tail e)) (-S e)) else 0) =
+      incidence m i e • roeTransfer m γ U S e := outwardTransfer_eq m γ U S i e
+
+example {N E B : Type*} [DecidableEq N] [Fintype E] [Fintype B]
+    (m : Interfaces N E B) (rev : E → Prop) [DecidablePred rev] (γ : ℝ) (U : N → Conservative 3)
+    (S : E → Vector 3) (g : B → StateCoordinates) (i : N) :
+    residual (m.reverse rev) (roeTransfer (m.reverse rev) γ U (fun e => if rev e then -S e else S e)) g i =
+      residual m (roeTransfer m γ U S) g i := roe_residual_reverse m rev γ U S g i
+
+example {N E B N' E' B' : Type*} [DecidableEq N] [DecidableEq N']
+    [Fintype E] [Fintype E'] [Fintype B] [Fintype B']
+    (m : Interfaces N E B) (n : N ≃ N') (e : E ≃ E') (b : B ≃ B') (γ : ℝ)
+    (U : N → Conservative 3) (S : E → Vector 3) (g : B → StateCoordinates) (i : N) :
+    residual (m.reindex n e b) (roeTransfer (m.reindex n e b) γ (fun j => U (n.symm j)) (fun j => S (e.symm j)))
+      (fun j => g (b.symm j)) (n i) = residual m (roeTransfer m γ U S) g i :=
+  roe_residual_reindex m n e b γ U S g i
+
+example {N E B : Type*} [DecidableEq N] [Fintype E] [Fintype B]
+    (m : Interfaces N E B) (γ : ℝ) (U : Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (i : N)
+    (_hγ : 1 < γ) (_hU : U.Admissible γ) :
+    residual m (roeTransfer m γ (fun _ => U) S) (fun b => encode (physicalFlux γ U (T b))) i =
+      encode (physicalFlux γ U (metricDefect m S T i)) := constant_state_residual m γ U S T i
+
+example {N E B : Type*} [DecidableEq N] [Fintype E] [Fintype B]
+    (m : Interfaces N E B) (γ : ℝ) (U : Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (i : N)
+    (h : metricDefect m S T i = 0) :
+    residual m (roeTransfer m γ (fun _ => U) S) (fun b => encode (physicalFlux γ U (T b))) i = 0 :=
+  constant_state_closed m γ U S T i h
+
+example {N E B : Type*} (m : Interfaces N E B) (γ : ℝ) (U : N → Conservative 3) (e : E) :
+    roeTransfer m γ U (fun _ => 0) e = 0 := roeTransfer_zero m γ U _ e rfl
+
+example {N E B : Type*} [DecidableEq N] [Fintype E] [Fintype B]
+    (m : Interfaces N E B) (f : E → StateCoordinates) (g : B → StateCoordinates) (i : N) :
+    residual m f g i = (∑ e ∈ Finset.univ.filter (fun e => m.tail e = i), f e) -
+      (∑ e ∈ Finset.univ.filter (fun e => m.head e = i), f e) +
+      ∑ b ∈ Finset.univ.filter (fun b => m.owner b = i), g b := residual_outgoing m f g i
+
+def oneEdge : Interfaces (Fin 2) (Fin 1) (Fin 0) where
+  tail _ := 0
+  head _ := 1
+  distinct _ := by decide
+  owner := Fin.elim0
+
+example (i : Fin 2) : residual oneEdge (fun _ => (![24, 92, 0, 0, 228] : StateCoordinates))
+    Fin.elim0 i = if i = 0 then ![24, 92, 0, 0, 228] else ![-24, -92, 0, 0, -228] := by
+  fin_cases i <;> ext j <;> fin_cases j <;>
+    norm_num [residual, incidence, oneEdge, Fin.sum_univ_succ]
+
+def cycle : Interfaces (Fin 3) (Fin 3) (Fin 1) where
+  tail := id
+  head := ![1, 2, 0]
+  distinct i := by fin_cases i <;> decide
+  owner _ := 2
+
+def cycleFlux : Fin 3 → StateCoordinates := ![![1, 2, 3, 4, 5], ![2, -1, 4, 0, 3], ![-3, 2, 1, 5, -1]]
+
+example (i : Fin 3) : residual cycle cycleFlux (fun _ => ![1, 0, 0, 0, 0]) i =
+    (![![4, 0, 2, -1, 6], ![1, -3, 1, -4, -2], ![-4, 3, -3, 5, -4]] : Fin 3 → StateCoordinates) i := by
+  have h20 : (2 : Fin 3) ≠ 0 := by decide
+  have h21 : (2 : Fin 3) ≠ 1 := by decide
+  fin_cases i
+  · ext j
+    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+  · ext j
+    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+  · change residual cycle cycleFlux (fun _ => ![1, 0, 0, 0, 0]) (2 : Fin 3) = ![-4, 3, -3, 5, -4]
+    ext j
+    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+
+def closedPair : Interfaces (Fin 2) (Fin 1) (Fin 2) where
+  tail _ := 0
+  head _ := 1
+  distinct _ := by decide
+  owner := id
+
+def resting : Conservative 3 := (Primitive.mk 1 ![0, 0, 0] 1).toConservative 2
+def pairArea : Fin 1 → Vector 3 := fun _ => ![1, 0, 0]
+def pairBoundary (b : Fin 2) : Vector 3 := if b = 0 then ![-1, 0, 0] else ![1, 0, 0]
+
+theorem pair_closed (i : Fin 2) : metricDefect closedPair pairArea pairBoundary i = 0 := by
+  fin_cases i <;> ext j <;> fin_cases j <;>
+    norm_num [metricDefect, residual, incidence, closedPair, pairArea, pairBoundary, Fin.sum_univ_succ]
+
+example : resting.Admissible 2 := by
+  norm_num [resting, Primitive.toConservative, Conservative.Admissible, Conservative.pressure, squareSum_three]
+
+example (i : Fin 2) : residual closedPair (roeTransfer closedPair 2 (fun _ => resting) pairArea)
+    (fun b => physicalTransfer 2 resting (pairBoundary b)) i = 0 :=
+  constant_state_closed closedPair 2 resting pairArea pairBoundary i (pair_closed i)
+
+def incompatibleBoundary (b : Fin 2) : StateCoordinates :=
+  physicalTransfer 2 resting (pairBoundary b) + if b = 0 then ![1, 0, 0, 0, 0] else 0
+
+theorem incompatible_actual_roe : residual closedPair (roeTransfer closedPair 2 (fun _ => resting) pairArea)
+    incompatibleBoundary 0 = ![1, 0, 0, 0, 0] := by
+  have hf : roeTransfer closedPair 2 (fun _ => resting) pairArea =
+      fun e => physicalTransfer 2 resting (pairArea e) := by
+    funext e
+    exact roeTransfer_consistency closedPair 2 resting pairArea e
+  rw [hf]
+  ext j
+  fin_cases j <;> norm_num [residual, incidence, closedPair, pairArea, pairBoundary, incompatibleBoundary,
+    physicalTransfer, resting, physicalFlux, Primitive.toConservative, Conservative.pressure,
+    encode, squareSum_three, dot_three, Fin.sum_univ_succ]
+
+example : residual closedPair (roeTransfer closedPair 2 (fun _ => resting) pairArea) incompatibleBoundary 0 ≠ 0 := by
+  rw [incompatible_actual_roe]
+  intro h
+  have hh := congrFun h 0
+  norm_num at hh
+
+example : residual (closedPair.reindex (Equiv.swap 0 1) (Equiv.refl _) (Equiv.swap 0 1))
+    (roeTransfer (closedPair.reindex (Equiv.swap 0 1) (Equiv.refl _) (Equiv.swap 0 1)) 2
+      (fun _ => resting) (fun e => pairArea ((Equiv.refl _).symm e)))
+    (fun b => incompatibleBoundary ((Equiv.swap 0 1).symm b)) 1 = ![1, 0, 0, 0, 0] := by
+  have h := roe_residual_reindex closedPair (Equiv.swap 0 1) (Equiv.refl _) (Equiv.swap 0 1)
+    2 (fun _ => resting) pairArea incompatibleBoundary 0
+  simpa only [Equiv.swap_apply_left] using h.trans incompatible_actual_roe
+
+end
+end M3aChecks

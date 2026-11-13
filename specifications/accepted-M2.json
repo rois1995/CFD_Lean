@@ -12,5 +12,6 @@
   "promised_bindings": 66,
   "approved_result_groups": 12,
   "outstanding_conditions": [],
-  "m3_implementation_authorized": false
+  "m3_implementation_authorized": true,
+  "m3_approval_record": "specifications/M3-approval.md"
 }

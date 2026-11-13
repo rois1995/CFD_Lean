@@ -230,5 +230,37 @@
   "CFDLean.Roe.Spectral.roe_swap": {
     "accepted_type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.roeShift \u03b3 y x n = CFDLean.Roe.Spectral.roeShift \u03b3 x y n \u2227\n    (\u2200 (i : Fin 3), CFDLean.Roe.Spectral.roeProjector \u03b3 y x n i = CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i) \u2227\n      CFDLean.Roe.Spectral.dissipation \u03b3 y x n = CFDLean.Roe.Spectral.dissipation \u03b3 x y n",
     "current_type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector 3),\n  CFDLean.Roe.Spectral.roeShift \u03b3 y x n = CFDLean.Roe.Spectral.roeShift \u03b3 x y n \u2227\n    (\u2200 (i : Fin 3), CFDLean.Roe.Spectral.roeProjector \u03b3 y x n i = CFDLean.Roe.Spectral.roeProjector \u03b3 x y n i) \u2227\n      CFDLean.Roe.Spectral.dissipation \u03b3 y x n = CFDLean.Roe.Spectral.dissipation \u03b3 x y n"
+  },
+  "CFDLean.Roe.numericalFlux_consistency": {
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 U U S = CFDLean.physicalFlux \u03b3 U S",
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 U U S = CFDLean.physicalFlux \u03b3 U S"
+  },
+  "CFDLean.Roe.numericalFlux_reverse": {
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 V U (-S) =\n    { density := -(CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n      momentum := fun i => -(CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n      energy := -(CFDLean.Roe.numericalFlux \u03b3 U V S).energy }",
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 V U (-S) =\n    { density := -(CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n      momentum := fun i => -(CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n      energy := -(CFDLean.Roe.numericalFlux \u03b3 U V S).energy }"
+  },
+  "CFDLean.Roe.numericalFlux_zero": {
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3),\n  CFDLean.Roe.numericalFlux \u03b3 U V 0 = { density := 0, momentum := fun x => 0, energy := 0 }",
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3),\n  CFDLean.Roe.numericalFlux \u03b3 U V 0 = { density := 0, momentum := fun x => 0, energy := 0 }"
+  },
+  "CFDLean.Roe.numericalFlux_scale": {
+    "accepted_type": "\u2200 (\u03b3 a : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  0 \u2264 a \u2192\n    (CFDLean.Roe.numericalFlux \u03b3 U V fun i => a * S i) =\n      { density := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n        momentum := fun i => a * (CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n        energy := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).energy }",
+    "current_type": "\u2200 (\u03b3 a : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  0 \u2264 a \u2192\n    (CFDLean.Roe.numericalFlux \u03b3 U V fun i => a * S i) =\n      { density := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n        momentum := fun i => a * (CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n        energy := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).energy }"
+  },
+  "CFDLean.Roe.numericalFlux_upwind_left": {
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 U S",
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 U S"
+  },
+  "CFDLean.Roe.numericalFlux_upwind_right": {
+    "accepted_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 V S",
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 V S"
+  },
+  "CFDLean.Roe.witness_intermediate_coordinates": {
+    "accepted_type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]",
+    "current_type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]"
+  },
+  "CFDLean.Roe.positivity_counterexample": {
+    "accepted_type": "CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessLeft \u2227\n  CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessRight \u2227\n    0 <\n        CFDLean.Roe.soundSquare 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n          (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) \u2227\n      CFDLean.Roe.witnessIntermediate.density < 0",
+    "current_type": "CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessLeft \u2227\n  CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessRight \u2227\n    0 <\n        CFDLean.Roe.soundSquare 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n          (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) \u2227\n      CFDLean.Roe.witnessIntermediate.density < 0"
   }
 }
