@@ -1,0 +1,44 @@
+{
+  "candidate_commit": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "accepted_inherited_commit": "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd",
+  "date": "2026-11-13",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M2d or composed-M2 acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m2d-source-replay.kBgbuz/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS built locally using its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 66,
+  "inherited_types_checked": 58,
+  "lean_examples": 56,
+  "python_fixtures": 9,
+  "source_checksums_checked": 32,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "inventory_records": 507,
+  "dependency_closure": {
+    "visited": 20183,
+    "unsafe_reached": [],
+    "roots": 400,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_m2d_acceptance": "pending",
+  "independent_composed_m2_acceptance": "pending"
+}
