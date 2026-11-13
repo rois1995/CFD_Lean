@@ -1,0 +1,5 @@
+Standard tetrahedron: 24 flag volumes, four dual closures, paired faces; V_i=1/24 and S_01=(1/12,1/24,1/24).
+Oblique affine tetrahedron: all 24 flag volumes, outward normals and four local closures pass.
+Two tetrahedra: shared-face vertex patches cancel; all five assembled duals close; positive volumes sum to primal volume.
+Three-node incidence: global boundary balance and edge-reversal/reindexing pass; incompatible boundary data are not silently zero.
+Excluded inputs: a planar zero-volume tetrahedron and three-fold primal-face incidence are detected in the controls.

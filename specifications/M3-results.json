@@ -1,0 +1,69 @@
+{
+  "contract": "specifications/M3.md",
+  "contract_sha256": "8ca374decaab40bcfc5ea3a24224b8eecb758516eb5c6fb0bd995facb5ad008d",
+  "representation_contract": "specifications/M3-representation.md",
+  "representation_sha256": "d5dfa0b521d24db1589e0fb744cd0b3e2a31e7ae1baee94a76a44c65b9df1e87",
+  "reviewed_proposal_revision": "b0e5d1405082c1058d2a55ecb273e2404d135005",
+  "approval_record": "specifications/M3-approval.md",
+  "current_stage": "M3a",
+  "results": [
+    {
+      "id": "M3-I",
+      "parts": [
+        {
+          "stage": "M3a",
+          "declarations": []
+        }
+      ]
+    },
+    {
+      "id": "M3-R",
+      "parts": [
+        {
+          "stage": "M3a",
+          "declarations": []
+        }
+      ]
+    },
+    {
+      "id": "M3-O",
+      "parts": [
+        {
+          "stage": "M3a",
+          "declarations": []
+        }
+      ]
+    },
+    {
+      "id": "M3-G",
+      "parts": [
+        {
+          "stage": "M3b",
+          "declarations": []
+        }
+      ]
+    },
+    {
+      "id": "M3-V",
+      "parts": [
+        {
+          "stage": "M3b",
+          "declarations": []
+        }
+      ]
+    },
+    {
+      "id": "M3-C",
+      "parts": [
+        {
+          "stage": "M3a",
+          "declarations": []
+        },
+        {
+          "stage": "M3b",
+          "declarations": []
+        }
+      ]
+    }
+  ]
+}

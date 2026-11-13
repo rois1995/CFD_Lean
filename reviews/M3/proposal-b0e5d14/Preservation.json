@@ -1,0 +1,9 @@
+{
+  "proposal": "b0e5d1405082c1058d2a55ecb273e2404d135005",
+  "baseline": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "protected_git_blobs_identical": 42,
+  "independent_review_payload_and_manifest_identical": 28,
+  "verdict": "recommend approval",
+  "blocking_amendments": [],
+  "implementation_authorization": "Andrea decision pending"
+}
