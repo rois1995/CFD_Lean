@@ -1,0 +1,76 @@
+{
+  "contract": "specifications/M2.md",
+  "contract_sha256": "1baacdb98345825c7697ed99d86cfa638186ef88692657692260ca757f1e211c",
+  "approved_proposal_commit": "1c942b0983a5d2b6bfd8ff8344535f33cdb825e6",
+  "approval_record": "specifications/M2-approval.md",
+  "current_stage": "M2a",
+  "results": [
+    {
+      "id": "M2-J",
+      "stage": "M2a",
+      "declarations": [
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Coordinates.encode_decode",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
+        "CFDLean.PhysicalJacobian.isOpen_admissible",
+        "CFDLean.Coordinates.unitNormal_dot_self",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux"
+      ]
+    },
+    {
+      "id": "M2-A",
+      "stage": "M2b",
+      "declarations": []
+    },
+    {
+      "id": "M2-R",
+      "stage": "M2b",
+      "declarations": []
+    },
+    {
+      "id": "M2-L",
+      "stage": "M2b",
+      "declarations": []
+    },
+    {
+      "id": "M2-E",
+      "stage": "M2c",
+      "declarations": []
+    },
+    {
+      "id": "M2-D",
+      "stage": "M2c",
+      "declarations": []
+    },
+    {
+      "id": "M2-O",
+      "stage": "M2c",
+      "declarations": []
+    },
+    {
+      "id": "M2-F1",
+      "stage": "M2d",
+      "declarations": []
+    },
+    {
+      "id": "M2-F2",
+      "stage": "M2d",
+      "declarations": []
+    },
+    {
+      "id": "M2-F3",
+      "stage": "M2d",
+      "declarations": []
+    },
+    {
+      "id": "M2-F4",
+      "stage": "M2d",
+      "declarations": []
+    },
+    {
+      "id": "M2-C",
+      "stage": "M2d",
+      "declarations": []
+    }
+  ]
+}
