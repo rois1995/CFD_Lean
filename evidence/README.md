@@ -1,6 +1,6 @@
 # Current M2d machine evidence
 
-The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the complete M2 candidate. M1 and M2a/M2b/M2c acceptance remain attached to their immutable revisions; see reviews/M1 and reviews/M2a, M2b and M2c/Acceptance.md. M2d and composed M2 independent acceptance are pending.
+The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the complete M2 candidate. M1 and M2a/M2b/M2c acceptance remain attached to their immutable revisions; see reviews/M1 and reviews/M2a, M2b and M2c/Acceptance.md. M2d and composed M2 are independently accepted at ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1; see reviews/M2d/Acceptance.md and reviews/M2/Acceptance.md. The current verification.json and original worker replay logs remain the exact submitted machine snapshot, whose historical pending-acceptance fields are superseded by those independent decisions. Their bytes are preserved; the source checksum manifest is refreshed for documentation/proposal changes only, with no new mathematical build claimed.
 
 The audit inventories 507 qualified records. Its 400 safe mathematical roots reach 20,183 declarations with precisely propext, Classical.choice and Quot.sound and no reachable unsafe declaration. The 71 unsafe compiler/executable records and 36 metadata-only names remain visible as non-roots. Empty non-root axiom lists mean the per-root query was skipped, not that executable code was verified.
 

@@ -1,0 +1,16 @@
+{
+  "milestone": "M2",
+  "status": "independently accepted within approved scope",
+  "mathematical_commit": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "tree": "860dafd062db60ef3f22d31989a534a8739d8d43",
+  "worker_checkpoint": "b2309641866ec79f137655153c24b37954f98399",
+  "approval_revision": "79fd2a03d7b15325c56a88ec83991b4fb4f498bb",
+  "contract": "specifications/M2.md",
+  "contract_sha256": "1baacdb98345825c7697ed99d86cfa638186ef88692657692260ca757f1e211c",
+  "acceptance_record": "reviews/M2/Acceptance.md",
+  "independent_review_record": "reviews/M2d/independent-ca1fc5e/report/Review_Record.json",
+  "promised_bindings": 66,
+  "approved_result_groups": 12,
+  "outstanding_conditions": [],
+  "m3_implementation_authorized": false
+}

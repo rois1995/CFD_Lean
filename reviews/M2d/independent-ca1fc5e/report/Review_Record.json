@@ -1,0 +1,27 @@
+{
+  "candidate": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "checkpoint": "b2309641866ec79f137655153c24b37954f98399",
+  "accepted_baseline": "6ee9d53e79e0c6f11e75b1b387c21256572d0fcd",
+  "M2d_verdict": "accept",
+  "full_M2_verdict": "accept within approved scope",
+  "blockers": [],
+  "conditions": [],
+  "replay_exit_code": 0,
+  "independent_lean_exit_code": 0,
+  "bindings": 66,
+  "inherited": 58,
+  "Lean_examples": 56,
+  "checker_tests": 9,
+  "source_hashes": 32,
+  "deterministic_matches_candidate_and_checkpoint": 5,
+  "closure": {
+    "visited": 20183,
+    "unsafe_reached": [],
+    "roots": 400,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

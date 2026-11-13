@@ -1,5 +1,7 @@
 # M2d and complete M2 review checkpoint
 
+**Subsequent independent decision: Accept M2d and full M2, with no blockers or conditions.** See [M2d acceptance](Acceptance.md), [full-M2 acceptance](../M2/Acceptance.md), and [the original independent report](independent-ca1fc5e/report/Review.md). The worker submission below is retained as history; its pending wording is superseded by these records.
+
 Worker submission, 2026-11-13. M1 and M2a/M2b/M2c are independently accepted. This submission implements the final approved M2-F1/F2/F3/F4/C obligations and requests both a scoped M2d verdict and a composed full-M2 verdict. Independent acceptance is pending; M3 has not started.
 
 - Mathematical candidate: [`ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1`](https://github.com/rois1995/CFD_Lean/commit/ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1).
