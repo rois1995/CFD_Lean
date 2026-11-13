@@ -1,6 +1,6 @@
 # M2a provenance and acceptance map
 
-Status: authorized by Andrea on 2026-11-13; implementation candidate, not independently accepted. The approved mathematics is frozen in specifications/M2.md and bound by its SHA-256 in specifications/M2-results.json. The approved result ID is M2-J; M2-A/R/L remain subsequent M2b obligations.
+Status: independently accepted at `3788009de306d80e002976e66ba2b1103e2dbd83`; see reviews/M2a/Acceptance.md. The remaining description records the original implementation scope. The approved mathematics is frozen in specifications/M2.md and bound by its SHA-256 in specifications/M2-results.json. The approved result ID is M2-J; M2-A/R/L remain subsequent M2b obligations.
 
 ## Sources and project derivations
 
@@ -25,4 +25,4 @@ KernelAudit.lean inventories the imported project modules by owning module, incl
 
 The Python parser retains full qualified names and rejects any duplicate record, including identical duplicates. Module coverage is compared with all project mathematical source modules. The current promised result list is checked for actual theorem declarations, and the other approved milestone IDs are reported as deferred. The frozen contract hash and accepted M1 source hashes are validated before build. Parser/foundation/missing-result fixtures are exercised by scripts/test_verify.py.
 
-The current output is an implementation-worker candidate. An independent reviewer must inspect the theorem types, domain assumptions, generated auxiliaries, checker and full proof dependency evidence before mathematical acceptance.
+The original candidate has now passed independent review of the theorem types, domain assumptions, generated auxiliaries, checker and full proof dependency evidence. Later stages still require their own independent acceptance.

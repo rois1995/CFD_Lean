@@ -4,7 +4,7 @@ The current build.log, kernel-inventory.log, verification.json and SHA256SUMS re
 
 M2a's worker audit inventories 167 qualified records: 118 safe mathematical roots reach 13,897 dependencies with only propext, Classical.choice and Quot.sound, and no unsafe declaration reached. Compiler/executable auxiliary and metadata-only names are explicitly retained in the inventory, not accepted as mathematical roots. All eight promised M2-J bindings are checked; M2-A/R/L and later result IDs remain deferred. Parser, duplicate, cumulative-stage and approved-ID fixtures are in scripts/test_verify.py.
 
-The source-only replay procedure for a frozen M2a checkpoint is scripts/reproduce.sh; use its explicit full-commit argument in a fresh clean checkout without .lake, with an outside-checkout log directory. Worker source-only replay is not independent scientific acceptance. M2a acceptance remains pending independent review.
+The source-only replay procedure for a frozen M2a checkpoint is scripts/reproduce.sh; use its explicit full-commit argument in a fresh clean checkout without .lake, with an outside-checkout log directory. Worker source-only replay is not independent scientific acceptance. M2a is independently accepted at 3788009; see reviews/M2a/Acceptance.md. Full M2 acceptance remains pending. The current checker additionally compares the accepted eight bindings/types against that immutable revision and elaborates StatementChecks.lean; the replay compares generated audit files explicitly.
 
 ## Historical M1 evidence narrative
 

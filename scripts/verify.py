@@ -8,6 +8,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
+ACCEPTED_M2A = "3788009de306d80e002976e66ba2b1103e2dbd83"
+APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 
 
 def parse_axioms(output):
@@ -49,6 +51,25 @@ def check_promises(rows, contract, stage):
     return sorted(required)
 
 
+def check_inherited(rows, contract, accepted_contract, accepted_evidence):
+    inherited = next(r for r in accepted_contract["results"] if r["id"] == "M2-J")
+    current = next(r for r in contract["results"] if r["id"] == "M2-J")
+    if current != inherited:
+        raise ValueError("Accepted M2-J binding or stage changed")
+    comparison = {}
+    for name in inherited["declarations"]:
+        before = accepted_evidence["declarations"][name]["type"]
+        after = rows[name]["type"]
+        comparison[name] = {"accepted_type": before, "current_type": after}
+        if before != after:
+            raise ValueError(f"Accepted theorem type changed: {name}")
+    return comparison
+
+
+def git_blob(revision, path):
+    return subprocess.check_output(["git", "show", f"{revision}:{path}"])
+
+
 def main():
     os.chdir(ROOT)
     evidence = ROOT / "evidence"
@@ -58,6 +79,13 @@ def main():
     digest = hashlib.sha256(frozen).hexdigest()
     if digest != contract["contract_sha256"]:
         raise ValueError("Frozen scientific contract changed; approval amendment required")
+    if frozen != git_blob(APPROVED_M2, "specifications/M2.md"):
+        raise ValueError("Contract differs from immutable approval revision")
+    accepted_contract = json.loads(git_blob(ACCEPTED_M2A, "specifications/M2-results.json"))
+    accepted_evidence = json.loads(git_blob(ACCEPTED_M2A, "evidence/verification.json"))
+    for module, record in accepted_evidence["source_modules"].items():
+        if module != "CFDLean" and hashlib.sha256((ROOT / record["path"]).read_bytes()).hexdigest() != record["sha256"]:
+            raise ValueError(f"Accepted M2a mathematical source changed: {record['path']}")
     check_result_ids(contract, frozen.decode())
     for name, expected in contract["accepted_m1_sources"].items():
         if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
@@ -82,6 +110,13 @@ def main():
     if closures[0]["unsafe_reached"] or set(closures[0]["axioms"]) - ALLOWED:
         raise ValueError("Forbidden transitive dependency")
     promised = check_promises(rows, contract, contract["current_stage"])
+    inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
+    (evidence / "inherited-types.json").write_text(json.dumps(inherited, indent=2) + "\n")
+    (evidence / "bindings-diff.patch").write_bytes(subprocess.check_output(
+        ["git", "diff", ACCEPTED_M2A, "--", "specifications/M2-results.json"]))
+    with (evidence / "statement-checks.log").open("w") as log:
+        subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "StatementChecks.lean"],
+                       env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
     manifest = json.loads((ROOT / "lake-manifest.json").read_text())
     for package in manifest["packages"]:
         path = ROOT / ".lake/packages" / package["name"]
@@ -91,7 +126,7 @@ def main():
         if revision != package["rev"] or dirty:
             raise ValueError(f"Dependency revision or tracked source mismatch: {package['name']}")
     files = [ROOT / name for name in [".gitignore", "README.md", "lean-toolchain", "lakefile.toml",
-                                     "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean"]]
+                                     "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean", "StatementChecks.lean"]]
     for directory in ["CFDLean", "references", "specifications", "scripts"]:
         files.extend(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)
@@ -110,6 +145,8 @@ def main():
         "deferred_result_ids": [r["id"] for r in contract["results"] if ["M2a", "M2b", "M2c", "M2d"].index(r["stage"]) > ["M2a", "M2b", "M2c", "M2d"].index(contract["current_stage"])],
         "dependency_revisions_checked": len(manifest["packages"]),
         "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
+        "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
+        "accepted_m2a_revision": ACCEPTED_M2A, "inherited_types_checked": len(inherited),
         "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "pending"
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")

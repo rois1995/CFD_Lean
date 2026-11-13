@@ -2934,6 +2934,9 @@
   ],
   "dependency_revisions_checked": 9,
   "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
+  "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
+  "accepted_m2a_revision": "3788009de306d80e002976e66ba2b1103e2dbd83",
+  "inherited_types_checked": 8,
   "m2_approval_record": "specifications/M2-approval.md",
   "m2_independent_acceptance": "pending"
 }

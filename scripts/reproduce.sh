@@ -49,7 +49,19 @@ lake --no-cache -d .lake/packages/proofwidgets --packages="$out/widget-pins.json
   -R -v build widgetJsAll >"$out/widget-source.log" 2>&1
 python3 -m unittest discover -s scripts -p test_verify.py >"$out/parser-tests.log" 2>&1
 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py 2>&1 | tee "$out/verify.log"
-cp evidence/build.log evidence/kernel-inventory.log evidence/verification.json "$out/"
+cp evidence/build.log evidence/kernel-inventory.log evidence/verification.json \
+  evidence/statement-checks.log evidence/inherited-types.json evidence/bindings-diff.patch "$out/"
+python3 - "$frozen" <<'PY_COMPARE' | tee "$out/audit-comparison.log"
+import hashlib
+from pathlib import Path
+import subprocess
+import sys
+for name in ["verification.json", "kernel-inventory.log", "inherited-types.json", "bindings-diff.patch"]:
+    actual = Path("evidence", name).read_bytes()
+    expected = subprocess.check_output(["git", "show", f"{sys.argv[1]}:evidence/{name}"])
+    assert actual == expected, f"Regenerated evidence changed: {name}"
+    print("Exact candidate match", name, hashlib.sha256(actual).hexdigest())
+PY_COMPARE
 git diff --name-status "$frozen" >"$out/tracked-diff.log"
 git diff --exit-code "$frozen" -- . ':(exclude)evidence/*'
 git diff --exit-code "$frozen" -- evidence/SHA256SUMS

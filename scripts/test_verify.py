@@ -1,6 +1,6 @@
 import json
 import unittest
-from verify import parse_axioms, check_promises, check_result_ids
+from verify import parse_axioms, check_promises, check_result_ids, check_inherited
 
 
 def record(name, axioms=None):
@@ -59,6 +59,17 @@ class AuditChecks(unittest.TestCase):
         for invalid in [rows[:1], rows + rows[:1]]:
             with self.assertRaises(ValueError):
                 check_result_ids({"results": invalid}, text)
+
+    def test_inherited_binding_and_type_are_frozen(self):
+        contract = {"results": [{"id": "M2-J", "stage": "M2a", "declarations": ["A.accepted"]}]}
+        evidence = {"declarations": {"A.accepted": {"type": "the approved proposition"}}}
+        rows = evidence["declarations"]
+        self.assertEqual(len(check_inherited(rows, contract, contract, evidence)), 1)
+        substituted = {"results": [{"id": "M2-J", "stage": "M2a", "declarations": ["A.other"]}]}
+        with self.assertRaises(ValueError):
+            check_inherited(rows, substituted, contract, evidence)
+        with self.assertRaises(ValueError):
+            check_inherited({"A.accepted": {"type": "a weaker proposition"}}, contract, contract, evidence)
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:
