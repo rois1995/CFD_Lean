@@ -1,10 +1,12 @@
-# Current M2a machine evidence
+# Current M2b machine evidence
 
-The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report M2a. The independent M1 acceptance remains in reviews/M1/CFD_Lean_M1_Acceptance.md and applies to its frozen mathematical revision.
+The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the combined M2a/M2b candidate. M1 and M2a independent acceptance remain attached to their original immutable mathematical revisions; see reviews/M1/CFD_Lean_M1_Acceptance.md and reviews/M2a/Acceptance.md. M2b is not independently accepted.
 
-M2a's worker audit inventories 167 qualified records: 118 safe mathematical roots reach 13,897 dependencies with only propext, Classical.choice and Quot.sound, and no unsafe declaration reached. Compiler/executable auxiliary and metadata-only names are explicitly retained in the inventory, not accepted as mathematical roots. All eight promised M2-J bindings are checked; M2-A/R/L and later result IDs remain deferred. Parser, duplicate, cumulative-stage and approved-ID fixtures are in scripts/test_verify.py.
+The worker audit inventories 261 qualified records: 212 safe mathematical roots reach 14,536 declarations, with only propext, Classical.choice and Quot.sound as axiom leaves and no unsafe declaration reached. All 37 J/A/R/L bindings and all nine dependency revisions pass. The eight inherited J bindings/types and accepted mathematical sources are checked against immutable revision 3788009. The nine Python fixtures and StatementChecks.lean pass, including explicit actual-M1-flux interfaces and exact contact/shear sound-speed examples.
 
-The source-only replay procedure for a frozen M2a checkpoint is scripts/reproduce.sh; use its explicit full-commit argument in a fresh clean checkout without .lake, with an outside-checkout log directory. Worker source-only replay is not independent scientific acceptance. M2a is independently accepted at 3788009; see reviews/M2a/Acceptance.md. Full M2 acceptance remains pending. The current checker additionally compares the accepted eight bindings/types against that immutable revision and elaborates StatementChecks.lean; the replay compares generated audit files explicitly.
+inherited-types.json records the eight unchanged accepted types. binding-type-diff.json records accepted/current types for every active promise; null marks newly added and still awaiting review. bindings-diff.patch is the complete binding-file diff from the accepted revision. statement-checks.log is normally empty on success. The source-only replay script now asserts byte-for-byte agreement of regenerated audit and binding/type evidence against the frozen candidate; the cold-build transcript may differ. Fresh worker source replay is recorded separately and cannot supply independent scientific acceptance.
+
+M2-E/D/O and M2-F1/F2/F3/F4/C remain deferred. No full Roe numerical flux, update positivity, mesh assembly or solver correspondence is claimed.
 
 ## Historical M1 evidence narrative
 

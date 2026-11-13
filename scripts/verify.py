@@ -112,6 +112,11 @@ def main():
     promised = check_promises(rows, contract, contract["current_stage"])
     inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
     (evidence / "inherited-types.json").write_text(json.dumps(inherited, indent=2) + "\n")
+    (evidence / "binding-type-diff.json").write_text(json.dumps({name: {
+        "accepted_type": accepted_evidence["declarations"][name]["type"]
+            if name in accepted_evidence["promised_theorems"] else None,
+        "current_type": rows[name]["type"]
+    } for name in promised}, indent=2) + "\n")
     (evidence / "bindings-diff.patch").write_bytes(subprocess.check_output(
         ["git", "diff", ACCEPTED_M2A, "--", "specifications/M2-results.json"]))
     with (evidence / "statement-checks.log").open("w") as log:
