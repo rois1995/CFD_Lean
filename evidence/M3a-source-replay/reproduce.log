@@ -1,0 +1,56 @@
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+.gitignore: OK
+CFDLean/Core/Coordinates.lean: OK
+CFDLean/Core/PhysicalFlux.lean: OK
+CFDLean/Core/PhysicalJacobian.lean: OK
+CFDLean/Core/State.lean: OK
+CFDLean/Discretization/Assembly.lean: OK
+CFDLean/Flux/Roe/Averages.lean: OK
+CFDLean/Flux/Roe/Flux.lean: OK
+CFDLean/Flux/Roe/Linearization.lean: OK
+CFDLean/Flux/Roe/Spectral.lean: OK
+CFDLean.lean: OK
+Integrity.lean: OK
+KernelAudit.lean: OK
+README.md: OK
+StatementChecks.lean: OK
+lake-manifest.json: OK
+lakefile.toml: OK
+lean-toolchain: OK
+references/M1.md: OK
+references/M2a.md: OK
+references/M2b.md: OK
+references/M2c.md: OK
+references/M2d.md: OK
+references/M3a.md: OK
+references/inventory.json: OK
+scripts/reproduce.sh: OK
+scripts/test_verify.py: OK
+scripts/verify.py: OK
+specifications/M0-approval.md: OK
+specifications/M1.md: OK
+specifications/M2-approval.md: OK
+specifications/M2-proposal.md: OK
+specifications/M2-results.json: OK
+specifications/M2.md: OK
+specifications/M3-approval.md: OK
+specifications/M3-proposal.md: OK
+specifications/M3-representation.md: OK
+specifications/M3-results.json: OK
+specifications/M3.md: OK
+specifications/accepted-M2.json: OK
+mathlib c44e0c8ee63ca166450922a373c7409c5d26b00b fresh source checkout
+plausible 77e08eddc486491d7b9e470926b3dbe50319451a fresh source checkout
+LeanSearchClient 25078369972d295301f5a1e53c3e5850cf6d9d4c fresh source checkout
+importGraph e6a9f0f5ee3ccf7443a0070f92b62f8db12ae82b fresh source checkout
+proofwidgets c4919189477c3221e6a204008998b0d724f49904 fresh source checkout
+aesop 5d50b08dedd7d69b3d9b3176e0d58a23af228884 fresh source checkout
+Qq fa4f7f15d97591a9cf3aa7724ba371c7fc6dda02 fresh source checkout
+batteries f5d04a9c4973d401c8c92500711518f7c656f034 fresh source checkout
+Cli 02dbd02bc00ec4916e99b04b2245b30200e200d0 fresh source checkout
+Verified 672 qualified inventory records, 84 promised theorems, and all pinned dependencies.
+Exact candidate match verification.json 3c51ff7fdffe59cc5a1ba780e7ab180f9add12a685f21b6c4e07e5106396779b
+Exact candidate match kernel-inventory.log 9154e5b88366c9974d5cd1ea310cfe7e9a4b3171438f7ff36d3eebd1237160d2
+Exact candidate match inherited-types.json 6368331fb923049f4fe17ad71ce2e5143db98b60a480ab3fe35937502a3c26e4
+Exact candidate match bindings-diff.patch 2b9a1ea359f7b78755c5aab564052a7aa2081b8efa04e14cecf585fa57a8a47e
+Exact candidate match binding-type-diff.json 8b7f46cf33e58cd06305f3105462f7b0056b9da03c687734874d1ec228025255

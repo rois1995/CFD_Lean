@@ -1,0 +1,51 @@
+{
+  "candidate_commit": "a70270c3f771e66bcaaebc18b8480c32f9606b1e",
+  "accepted_inherited_commit": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "approved_m3_revision": "3189a603b3f6af953f0828d6b2e239320fd2cd20",
+  "date": "2026-11-13",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M3a acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m3a-source-replay.Tdithj/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS built locally from its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 84,
+  "new_m3a_bindings": 18,
+  "inherited_types_checked": 66,
+  "lean_examples": 73,
+  "python_fixtures": 11,
+  "source_checksums_checked": 40,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "inventory_records": 672,
+  "dependency_closure": {
+    "visited": 20297,
+    "unsafe_reached": [],
+    "roots": 458,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "m3a_scope": "M3-I/R/O and conditional M3-C",
+  "deferred_m3b_parts": [
+    "M3-G",
+    "M3-V",
+    "M3-C concrete composition"
+  ],
+  "independent_m3a_acceptance": "pending"
+}
