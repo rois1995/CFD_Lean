@@ -1,0 +1,136 @@
+Preserved CFDLean/Core/Coordinates.lean
+Preserved CFDLean/Core/PhysicalJacobian.lean
+Preserved CFDLean/Core/PhysicalFlux.lean
+Preserved CFDLean/Core/State.lean
+Preserved Integrity.lean
+Preserved KernelAudit.lean
+Preserved lean-toolchain
+Preserved lake-manifest.json
+Preserved lakefile.toml
+Preserved specifications/M1.md
+Preserved specifications/M2.md
+Independent literal diff same as submitted: 90220 bytes
+Checkpoint manifest reviews/M2b 2 matches
+Checkpoint manifest evidence/M2b-source-replay 19 matches
+Three-way byte match verification.json 0e06d48da0f7dff42f19212c23fd4b38c3664b401ab1eeabd17dcd05f27e5b24
+Three-way byte match kernel-inventory.log daf6e3d4e5452f267d4efafb300cf8bd4f6599c2bd85cc8e80f1567c1412e5f0
+Three-way byte match bindings-diff.patch 38a1ed9773c006da5ae49227e55f530b22cd7654b8907e0a245b5f275d4a23db
+Three-way byte match binding-type-diff.json 44a9932bbdba02e870c34292b3657c7b421a1002fd7f180dfd52dc4acf6c3245
+Three-way byte match inherited-types.json e192ac2e3eb8cd07bf887d4d419d4aa84112e8e3a7c3963233528259f8899d35
+M2-J CFDLean.Coordinates.decode_encode ∀ (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U
+M2-J CFDLean.Coordinates.encode_decode ∀ (x : CFDLean.Coordinates.StateCoordinates), CFDLean.Coordinates.encode (CFDLean.Coordinates.decode x) = x
+M2-J CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux ∀ (γ : ℝ) (n : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),
+  x 0 ≠ 0 → HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ n) (CFDLean.PhysicalJacobian.jacobian γ x n) x
+M2-J CFDLean.PhysicalJacobian.isOpen_admissible ∀ (γ : ℝ), IsOpen {x | CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x)}
+M2-J CFDLean.Coordinates.unitNormal_dot_self ∀ (S : CFDLean.Vector 3), S ≠ 0 → CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S) = 1
+M2-J CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux ∀ (γ : ℝ) (S : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),
+  x 0 ≠ 0 →
+    S ≠ 0 →
+      HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ S)
+        (CFDLean.Coordinates.area S • CFDLean.PhysicalJacobian.jacobian γ x (CFDLean.Coordinates.unitNormal S)) x
+M2-J CFDLean.PhysicalJacobian.jacobian_action ∀ (γ : ℝ) (U V : CFDLean.Conservative 3) (n : CFDLean.Vector 3),
+  let u := fun i => U.momentum i / U.density;
+  let q := CFDLean.dot u n;
+  let b := CFDLean.dot V.momentum n - q * V.density;
+  let dp := (γ - 1) * (V.energy - CFDLean.dot u V.momentum + CFDLean.squareSum u / 2 * V.density);
+  let H := (U.energy + CFDLean.Conservative.pressure γ U) / U.density;
+  (CFDLean.PhysicalJacobian.jacobian γ (CFDLean.Coordinates.encode U) n) (CFDLean.Coordinates.encode V) =
+    CFDLean.Coordinates.encode
+      { density := CFDLean.dot V.momentum n, momentum := fun i => q * V.momentum i + u i * b + dp * n i,
+        energy := q * (V.energy + dp) + H * b }
+M2-J CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea ∀ (γ : ℝ) (x : CFDLean.Coordinates.StateCoordinates), HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ 0) 0 x
+M2-A CFDLean.Roe.root_pos ∀ (x : CFDLean.Coordinates.StateCoordinates), 0 < x 0 → 0 < CFDLean.Roe.root x
+M2-A CFDLean.Roe.root_sum_pos ∀ (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 → 0 < y 0 → 0 < CFDLean.Roe.root x + CFDLean.Roe.root y
+M2-A CFDLean.Roe.weight_pos ∀ (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 → 0 < y 0 → 0 < CFDLean.Roe.weight x y
+M2-A CFDLean.Roe.weight_lt_one ∀ (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 → 0 < y 0 → CFDLean.Roe.weight x y < 1
+M2-A CFDLean.Roe.weight_sum ∀ (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 → 0 < y 0 → CFDLean.Roe.weight x y + CFDLean.Roe.weight y x = 1
+M2-A CFDLean.Roe.averages_swap ∀ (γ : ℝ) (x y : CFDLean.Coordinates.StateCoordinates),
+  CFDLean.Roe.averageVelocity y x = CFDLean.Roe.averageVelocity x y ∧
+    CFDLean.Roe.averageEnthalpy γ y x = CFDLean.Roe.averageEnthalpy γ x y ∧
+      CFDLean.Roe.soundSquare γ y x = CFDLean.Roe.soundSquare γ x y
+M2-A CFDLean.Roe.variance_identity ∀ (γ : ℝ) (x y : CFDLean.Coordinates.StateCoordinates),
+  0 < x 0 →
+    0 < y 0 →
+      CFDLean.Roe.soundSquare γ x y =
+        CFDLean.Roe.weight x y * CFDLean.Roe.endpointSoundSquare γ x +
+            CFDLean.Roe.weight y x * CFDLean.Roe.endpointSoundSquare γ y +
+          (γ - 1) / 2 * CFDLean.Roe.weight x y * CFDLean.Roe.weight y x *
+            CFDLean.squareSum fun i => CFDLean.PhysicalJacobian.velocity y i - CFDLean.PhysicalJacobian.velocity x i
+M2-A CFDLean.Roe.soundSquare_pos ∀ (γ : ℝ) (x y : CFDLean.Coordinates.StateCoordinates),
+  1 < γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) → 0 < CFDLean.Roe.soundSquare γ x y
+M2-A CFDLean.Roe.soundSpeed_pos ∀ (γ : ℝ) (x y : CFDLean.Coordinates.StateCoordinates),
+  1 < γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) → 0 < CFDLean.Roe.soundSpeed γ x y
+M2-A CFDLean.Roe.soundSpeed_sq ∀ (γ : ℝ) (x y : CFDLean.Coordinates.StateCoordinates),
+  1 < γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        CFDLean.Roe.soundSpeed γ x y ^ 2 = CFDLean.Roe.soundSquare γ x y
+M2-R CFDLean.Roe.parameter_state ∀ (γ : ℝ) (x : CFDLean.Coordinates.StateCoordinates),
+  γ ≠ 0 → 0 < x 0 → CFDLean.Roe.parameterState γ (CFDLean.Roe.parameter γ x) = x
+M2-R CFDLean.Roe.parameter_flux ∀ (γ : ℝ) (n : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),
+  γ ≠ 0 →
+    0 < x 0 → CFDLean.Roe.parameterFlux γ n (CFDLean.Roe.parameter γ x) = CFDLean.PhysicalJacobian.coordinateFlux γ n x
+M2-R CFDLean.Roe.hasFDerivAt_parameterState ∀ (γ : ℝ) (z : CFDLean.Coordinates.StateCoordinates), HasFDerivAt (CFDLean.Roe.parameterState γ) (CFDLean.Roe.B γ z) z
+M2-R CFDLean.Roe.hasFDerivAt_parameterFlux ∀ (γ : ℝ) (n : CFDLean.Vector 3) (z : CFDLean.Coordinates.StateCoordinates),
+  HasFDerivAt (CFDLean.Roe.parameterFlux γ n) (CFDLean.Roe.C γ n z) z
+M2-R CFDLean.Roe.state_midpoint_jump ∀ (γ : ℝ) (z t : CFDLean.Coordinates.StateCoordinates),
+  CFDLean.Roe.parameterState γ t - CFDLean.Roe.parameterState γ z = (CFDLean.Roe.B γ fun i => (z i + t i) / 2) (t - z)
+M2-R CFDLean.Roe.flux_midpoint_jump ∀ (γ : ℝ) (n : CFDLean.Vector 3) (z t : CFDLean.Coordinates.StateCoordinates),
+  CFDLean.Roe.parameterFlux γ n t - CFDLean.Roe.parameterFlux γ n z =
+    (CFDLean.Roe.C γ n fun i => (z i + t i) / 2) (t - z)
+M2-R CFDLean.Roe.midpoint_pos ∀ (γ : ℝ) (x y : CFDLean.Coordinates.StateCoordinates), 0 < x 0 → 0 < y 0 → 0 < CFDLean.Roe.midpoint γ x y 0
+M2-R CFDLean.Roe.B_bijective ∀ (γ : ℝ) (z : CFDLean.Coordinates.StateCoordinates), γ ≠ 0 → z 0 ≠ 0 → Function.Bijective ⇑(CFDLean.Roe.B γ z)
+M2-R CFDLean.Roe.inverseB_B ∀ (γ : ℝ) (z : CFDLean.Coordinates.StateCoordinates),
+  γ ≠ 0 → z 0 ≠ 0 → ∀ (v : CFDLean.Coordinates.StateCoordinates), (CFDLean.Roe.inverseB γ z) ((CFDLean.Roe.B γ z) v) = v
+M2-R CFDLean.Roe.B_inverseB ∀ (γ : ℝ) (z : CFDLean.Coordinates.StateCoordinates),
+  γ ≠ 0 → z 0 ≠ 0 → ∀ (v : CFDLean.Coordinates.StateCoordinates), (CFDLean.Roe.B γ z) ((CFDLean.Roe.inverseB γ z) v) = v
+M2-R CFDLean.Roe.operator_B ∀ (γ : ℝ) (n : CFDLean.Vector 3) (z : CFDLean.Coordinates.StateCoordinates),
+  γ ≠ 0 →
+    z 0 ≠ 0 →
+      (CFDLean.Roe.operator γ (fun i => z ↑↑i.succ / z 0) (z 4 / z 0) n).comp (CFDLean.Roe.B γ z) = CFDLean.Roe.C γ n z
+M2-R CFDLean.Roe.roeMatrix_B ∀ (γ : ℝ) (n : CFDLean.Vector 3) (x y : CFDLean.Coordinates.StateCoordinates),
+  γ ≠ 0 →
+    0 < x 0 →
+      0 < y 0 →
+        (CFDLean.Roe.roeMatrix γ x y n).comp (CFDLean.Roe.B γ (CFDLean.Roe.midpoint γ x y)) =
+          CFDLean.Roe.C γ n (CFDLean.Roe.midpoint γ x y)
+M2-R CFDLean.Roe.roeMatrix_CB_inverse ∀ (γ : ℝ) (n : CFDLean.Vector 3) (x y : CFDLean.Coordinates.StateCoordinates),
+  1 < γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        CFDLean.Roe.roeMatrix γ x y n =
+          (CFDLean.Roe.C γ n (CFDLean.Roe.midpoint γ x y)).comp (CFDLean.Roe.inverseB γ (CFDLean.Roe.midpoint γ x y))
+M2-R CFDLean.Roe.secant_identity ∀ (γ : ℝ) (n : CFDLean.Vector 3) (x y : CFDLean.Coordinates.StateCoordinates),
+  1 < γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        (CFDLean.Roe.roeMatrix γ x y n) (y - x) =
+          CFDLean.PhysicalJacobian.coordinateFlux γ n y - CFDLean.PhysicalJacobian.coordinateFlux γ n x
+M2-R CFDLean.Roe.integrated_secant ∀ (γ : ℝ) (S : CFDLean.Vector 3) (x y : CFDLean.Coordinates.StateCoordinates),
+  1 < γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        S ≠ 0 →
+          (CFDLean.Coordinates.area S • CFDLean.Roe.roeMatrix γ x y (CFDLean.Coordinates.unitNormal S)) (y - x) =
+            CFDLean.PhysicalJacobian.coordinateFlux γ S y - CFDLean.PhysicalJacobian.coordinateFlux γ S x
+M2-L CFDLean.Roe.roeMatrix_continuousOn ∀ (γ : ℝ) (n : CFDLean.Vector 3),
+  ContinuousOn (fun q => CFDLean.Roe.roeMatrix γ q.1 q.2 n)
+    {p |
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode p.1) ∧
+        CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode p.2)}
+M2-L CFDLean.Roe.roeMatrix_diagonal ∀ (γ : ℝ) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),
+  0 < x 0 → CFDLean.Roe.roeMatrix γ x x n = CFDLean.PhysicalJacobian.jacobian γ x n
+M2-L CFDLean.Roe.hasFDerivAt_diagonal ∀ (γ : ℝ) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),
+  CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+    HasFDerivAt (fun y => CFDLean.Coordinates.encode (CFDLean.physicalFlux γ (CFDLean.Coordinates.decode y) n))
+      (CFDLean.Roe.roeMatrix γ x x n) x
+M2-L CFDLean.Roe.roeMatrix_equal_state_limit ∀ (γ : ℝ) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),
+  CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+    Filter.Tendsto (fun p => CFDLean.Roe.roeMatrix γ p.1 p.2 n) (nhds (x, x))
+      (nhds (CFDLean.PhysicalJacobian.jacobian γ x n))
+Kinds Counter({('theorem', True): 143, ('definition', True): 63, ('definition', False): 28, ('compiler_metadata_only', False): 14, ('axiom', False): 7, ('inductive', True): 2, ('constructor', True): 2, ('recursor', True): 2})
+Closure {'visited': 14536, 'unsafe_reached': [], 'roots': 212, 'axioms': ['propext', 'Classical.choice', 'Quot.sound']}
