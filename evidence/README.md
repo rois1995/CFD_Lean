@@ -1,3 +1,13 @@
+# Current M2a machine evidence
+
+The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report M2a. The independent M1 acceptance remains in reviews/M1/CFD_Lean_M1_Acceptance.md and applies to its frozen mathematical revision.
+
+M2a's worker audit inventories 167 qualified records: 118 safe mathematical roots reach 13,897 dependencies with only propext, Classical.choice and Quot.sound, and no unsafe declaration reached. Compiler/executable auxiliary and metadata-only names are explicitly retained in the inventory, not accepted as mathematical roots. All eight promised M2-J bindings are checked; M2-A/R/L and later result IDs remain deferred. Parser, duplicate, cumulative-stage and approved-ID fixtures are in scripts/test_verify.py.
+
+The source-only replay procedure for a frozen M2a checkpoint is scripts/reproduce.sh; use its explicit full-commit argument in a fresh clean checkout without .lake, with an outside-checkout log directory. Worker source-only replay is not independent scientific acceptance. M2a acceptance remains pending independent review.
+
+## Historical M1 evidence narrative
+
 # M1 verification evidence
 
 - `dependency-build.log`: initial compilation of the independently checked-out pinned dependency sources, starting with empty dependency build directories; Lake release caching was not disabled. This run was intentionally interrupted after unused imports were removed.

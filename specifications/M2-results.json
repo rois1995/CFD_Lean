@@ -14,7 +14,9 @@
         "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
         "CFDLean.PhysicalJacobian.isOpen_admissible",
         "CFDLean.Coordinates.unitNormal_dot_self",
-        "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux"
+        "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux",
+        "CFDLean.PhysicalJacobian.jacobian_action",
+        "CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea"
       ]
     },
     {
@@ -72,5 +74,10 @@
       "stage": "M2d",
       "declarations": []
     }
-  ]
+  ],
+  "accepted_m1_sources": {
+    "CFDLean/Core/State.lean": "6533e5aa85d97e65312f4c71fdf4a5281aec4a87e201d5457c6eb7e59a608b5f",
+    "CFDLean/Core/PhysicalFlux.lean": "3945b15244ffc0a4c28c74e70e7d71b42323d88ab4422edf15d9978d9e7b8874",
+    "Integrity.lean": "f7f1522aa62cf05bf9d1f8bf53db556b7d805ebf89c20250608feaa115dbe045"
+  }
 }
