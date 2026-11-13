@@ -1,6 +1,6 @@
 {
   "lean": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
-  "stage": "M2c",
+  "stage": "M2d",
   "promised_theorems": [
     "CFDLean.Coordinates.decode_encode",
     "CFDLean.Coordinates.encode_decode",
@@ -41,9 +41,16 @@
     "CFDLean.Roe.integrated_secant",
     "CFDLean.Roe.inverseB_B",
     "CFDLean.Roe.midpoint_pos",
+    "CFDLean.Roe.numericalFlux_consistency",
+    "CFDLean.Roe.numericalFlux_reverse",
+    "CFDLean.Roe.numericalFlux_scale",
+    "CFDLean.Roe.numericalFlux_upwind_left",
+    "CFDLean.Roe.numericalFlux_upwind_right",
+    "CFDLean.Roe.numericalFlux_zero",
     "CFDLean.Roe.operator_B",
     "CFDLean.Roe.parameter_flux",
     "CFDLean.Roe.parameter_state",
+    "CFDLean.Roe.positivity_counterexample",
     "CFDLean.Roe.roeMatrix_B",
     "CFDLean.Roe.roeMatrix_CB_inverse",
     "CFDLean.Roe.roeMatrix_continuousOn",
@@ -59,7 +66,8 @@
     "CFDLean.Roe.variance_identity",
     "CFDLean.Roe.weight_lt_one",
     "CFDLean.Roe.weight_pos",
-    "CFDLean.Roe.weight_sum"
+    "CFDLean.Roe.weight_sum",
+    "CFDLean.Roe.witness_intermediate_coordinates"
   ],
   "modules": [
     "CFDLean",
@@ -68,14 +76,15 @@
     "CFDLean.Core.PhysicalJacobian",
     "CFDLean.Core.State",
     "CFDLean.Flux.Roe.Averages",
+    "CFDLean.Flux.Roe.Flux",
     "CFDLean.Flux.Roe.Linearization",
     "CFDLean.Flux.Roe.Spectral",
     "Integrity"
   ],
   "closure": {
-    "visited": 20068,
+    "visited": 20183,
     "unsafe_reached": [],
-    "roots": 354,
+    "roots": 400,
     "axioms": [
       "propext",
       "Classical.choice",
@@ -85,7 +94,7 @@
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "a5b1a94a8667c8e49cd4f76daa73211ede082a3938b530dcef5d1f846c51ca98"
+      "sha256": "b21b758a980194509794c05c2da5aae358929812dfcd0668ad7f1481c06410cd"
     },
     "CFDLean.Core.Coordinates": {
       "path": "CFDLean/Core/Coordinates.lean",
@@ -106,6 +115,10 @@
     "CFDLean.Flux.Roe.Averages": {
       "path": "CFDLean/Flux/Roe/Averages.lean",
       "sha256": "b9a2033b38e19af70d615fcd4fa332ccd1e065c18898b29b97edc48fd1c65552"
+    },
+    "CFDLean.Flux.Roe.Flux": {
+      "path": "CFDLean/Flux/Roe/Flux.lean",
+      "sha256": "4d18c4824d77b393b6cfe3631f0b5401423112e6713546e42327677c61b98ae1"
     },
     "CFDLean.Flux.Roe.Linearization": {
       "path": "CFDLean/Flux/Roe/Linearization.lean",
@@ -1007,6 +1020,24 @@
       "kind": "definition",
       "direct": [
         "CFDLean.Coordinates.area",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Coordinates.unitNormal.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3) (i : Fin 3), CFDLean.Coordinates.unitNormal S i = S i / CFDLean.Coordinates.area S",
+      "root": true,
+      "name": "CFDLean.Coordinates.unitNormal.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Coordinates.unitNormal",
         "CFDLean.Vector"
       ],
       "axioms": [
@@ -5876,6 +5907,43 @@
         "Quot.sound"
       ]
     },
+    "CFDLean.Roe.area_neg": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), CFDLean.Coordinates.area (-S) = CFDLean.Coordinates.area S",
+      "root": true,
+      "name": "CFDLean.Roe.area_neg",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.squareSum",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.area_scale": {
+      "unsafe": false,
+      "type": "\u2200 (a : \u211d) (S : CFDLean.Vector 3), 0 \u2264 a \u2192 (CFDLean.Coordinates.area fun i => a * S i) = a * CFDLean.Coordinates.area S",
+      "root": true,
+      "name": "CFDLean.Roe.area_scale",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.squareSum",
+        "CFDLean.Vector",
+        "CFDLean.squareSum_mul"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
     "CFDLean.Roe.assemble": {
       "unsafe": false,
       "type": "(Fin 5 \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d) \u2192\n  CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] CFDLean.Coordinates.StateCoordinates",
@@ -6117,6 +6185,259 @@
         "CFDLean.Roe.averageVelocity",
         "CFDLean.Roe.averageEnthalpy",
         "CFDLean.Roe.soundSquare._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.coordinateFlux_neg": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (S : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.PhysicalJacobian.coordinateFlux \u03b3 (-S) x = -CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S x",
+      "root": true,
+      "name": "CFDLean.Roe.coordinateFlux_neg",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.physicalFlux_reverse",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.coordinateFlux_scale": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 a : \u211d) (S : CFDLean.Vector 3) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.PhysicalJacobian.coordinateFlux \u03b3 (fun i => a * S i) x = a \u2022 CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S x",
+      "root": true,
+      "name": "CFDLean.Roe.coordinateFlux_scale",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.physicalFlux",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Conservative.mk",
+        "CFDLean.physicalFlux_mul",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.decode_neg": {
+      "unsafe": false,
+      "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.Coordinates.decode (-x) =\n    { density := -(CFDLean.Coordinates.decode x).density,\n      momentum := fun i => -(CFDLean.Coordinates.decode x).momentum i,\n      energy := -(CFDLean.Coordinates.decode x).energy }",
+      "root": true,
+      "name": "CFDLean.Roe.decode_neg",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.decode_scale": {
+      "unsafe": false,
+      "type": "\u2200 (a : \u211d) (x : CFDLean.Coordinates.StateCoordinates),\n  CFDLean.Coordinates.decode (a \u2022 x) =\n    { density := a * (CFDLean.Coordinates.decode x).density,\n      momentum := fun i => a * (CFDLean.Coordinates.decode x).momentum i,\n      energy := a * (CFDLean.Coordinates.decode x).energy }",
+      "root": true,
+      "name": "CFDLean.Roe.decode_scale",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.decode_zero": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.decode 0 = { density := 0, momentum := fun x => 0, energy := 0 }",
+      "root": true,
+      "name": "CFDLean.Roe.decode_zero",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.dissipation_of_nonnegative": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        0 \u2264 CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 0 \u2192\n          0 \u2264 CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 1 \u2192\n            0 \u2264 CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 2 \u2192\n              CFDLean.Roe.Spectral.dissipation \u03b3 x y n = \u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)",
+      "root": true,
+      "name": "CFDLean.Roe.dissipation_of_nonnegative",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.Spectral.roe_spectral_decomposition",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.dissipation_of_nonpositive": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 0 \u2264 0 \u2192\n          CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 1 \u2264 0 \u2192\n            CFDLean.Roe.Spectral.roeSpeed \u03b3 x y n 2 \u2264 0 \u2192\n              CFDLean.Roe.Spectral.dissipation \u03b3 x y n = -\u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)",
+      "root": true,
+      "name": "CFDLean.Roe.dissipation_of_nonpositive",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.Spectral.roe_spectral_decomposition",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.dissipation_upwind_left": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.Roe.soundSpeed \u03b3 x y \u2264 CFDLean.dot (CFDLean.Roe.averageVelocity x y) n \u2192\n          CFDLean.Roe.Spectral.dissipation \u03b3 x y n = \u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)",
+      "root": true,
+      "name": "CFDLean.Roe.dissipation_upwind_left",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.dissipation_of_nonnegative",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Roe.soundSpeed_pos",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.dissipation_upwind_right": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot (CFDLean.Roe.averageVelocity x y) n \u2264 -CFDLean.Roe.soundSpeed \u03b3 x y \u2192\n          CFDLean.Roe.Spectral.dissipation \u03b3 x y n = -\u2191(CFDLean.Roe.roeMatrix \u03b3 x y n)",
+      "root": true,
+      "name": "CFDLean.Roe.dissipation_upwind_right",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.dissipation_of_nonpositive",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.Spectral.roeSpeed",
+        "CFDLean.Vector",
+        "CFDLean.Roe.soundSpeed_pos",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.dissipation_zero_of_matrix_zero": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        CFDLean.dot n n = 1 \u2192\n          \u2200 (v : CFDLean.Coordinates.StateCoordinates),\n            (CFDLean.Roe.roeMatrix \u03b3 x y n) v = 0 \u2192 (CFDLean.Roe.Spectral.dissipation \u03b3 x y n) v = 0",
+      "root": true,
+      "name": "CFDLean.Roe.dissipation_zero_of_matrix_zero",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.Spectral.roe_absolute_eigen",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeMatrix"
       ],
       "axioms": [
         "propext",
@@ -6565,6 +6886,218 @@
         "CFDLean.Coordinates.StateCoordinates",
         "CFDLean.Roe.averageVelocity",
         "CFDLean.Roe.root"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Conservative 3 \u2192 CFDLean.Conservative 3 \u2192 CFDLean.Vector 3 \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 U V S =\n    CFDLean.Coordinates.decode\n      (CFDLean.Roe.roeFluxCoordinates \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) S)",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux_consistency": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 U U S = CFDLean.physicalFlux \u03b3 U S",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux_consistency",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.physicalFlux",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Roe.roeFluxCoordinates_consistency",
+        "CFDLean.Roe.numericalFlux.eq_1",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  CFDLean.Roe.numericalFlux \u03b3 V U (-S) =\n    { density := -(CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n      momentum := fun i => -(CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n      energy := -(CFDLean.Roe.numericalFlux \u03b3 U V S).energy }",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux_reverse",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Roe.roeFluxCoordinates_reverse",
+        "CFDLean.Roe.decode_neg",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux_scale": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 a : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  0 \u2264 a \u2192\n    (CFDLean.Roe.numericalFlux \u03b3 U V fun i => a * S i) =\n      { density := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).density,\n        momentum := fun i => a * (CFDLean.Roe.numericalFlux \u03b3 U V S).momentum i,\n        energy := a * (CFDLean.Roe.numericalFlux \u03b3 U V S).energy }",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux_scale",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Roe.roeFluxCoordinates_scale",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Roe.decode_scale",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux_upwind_left": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 U S",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux_upwind_left",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.physicalFlux",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Roe.roeFluxCoordinates_upwind_left",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux_upwind_right": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        S \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal S) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2192\n            CFDLean.Roe.numericalFlux \u03b3 U V S = CFDLean.physicalFlux \u03b3 V S",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux_upwind_right",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.physicalFlux",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Roe.roeFluxCoordinates_upwind_right",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.numericalFlux_zero": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3),\n  CFDLean.Roe.numericalFlux \u03b3 U V 0 = { density := 0, momentum := fun x => 0, energy := 0 }",
+      "root": true,
+      "name": "CFDLean.Roe.numericalFlux_zero",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.numericalFlux",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Roe.decode_zero",
+        "CFDLean.Roe.numericalFlux.eq_1",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates_zero",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.roeFluxCoordinates"
       ],
       "axioms": [
         "propext",
@@ -7061,6 +7594,34 @@
         "Quot.sound"
       ]
     },
+    "CFDLean.Roe.positivity_counterexample": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessLeft \u2227\n  CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessRight \u2227\n    0 <\n        CFDLean.Roe.soundSquare 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n          (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) \u2227\n      CFDLean.Roe.witnessIntermediate.density < 0",
+      "root": true,
+      "name": "CFDLean.Roe.positivity_counterexample",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.witness_intermediate_coordinates",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Roe.soundSquare",
+        "CFDLean.Conservative.density",
+        "CFDLean.Roe.witnessIntermediate",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Roe.witness_averages",
+        "CFDLean.Vector",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.witness_admissible",
+        "CFDLean.Roe.witnessLeft"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
     "CFDLean.Roe.pressureGradient": {
       "unsafe": false,
       "type": "\u211d \u2192 CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Coordinates.StateCoordinates \u2192L[\u211d] \u211d",
@@ -7097,6 +7658,272 @@
         "CFDLean.Roe.operator._proof_4",
         "CFDLean.Coordinates.StateCoordinates",
         "CFDLean.PhysicalJacobian.projection"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates": {
+      "unsafe": false,
+      "type": "\u211d \u2192\n  CFDLean.Coordinates.StateCoordinates \u2192\n    CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Vector 3 \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates._proof_1": {
+      "unsafe": false,
+      "type": "(0 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates._proof_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Roe.roeFluxCoordinates.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  CFDLean.Roe.roeFluxCoordinates \u03b3 x y S =\n    if S = 0 then 0\n    else\n      (1 / 2) \u2022 (CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S x + CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S y) -\n        (CFDLean.Coordinates.area S / 2) \u2022\n          (CFDLean.Roe.Spectral.dissipation \u03b3 x y (CFDLean.Coordinates.unitNormal S)) (y - x)",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_central_of_zero": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        S \u2260 0 \u2192\n          (CFDLean.Roe.roeMatrix \u03b3 x y (CFDLean.Coordinates.unitNormal S)) (y - x) = 0 \u2192\n            CFDLean.Roe.roeFluxCoordinates \u03b3 x y S =\n              (1 / 2) \u2022 (CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S x + CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S y)",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_central_of_zero",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.unitNormal_dot_self",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.dissipation_zero_of_matrix_zero",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeMatrix",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_consistency": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  CFDLean.Roe.roeFluxCoordinates \u03b3 x x S = CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S x",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_consistency",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Roe.roeFluxCoordinates_zero",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.PhysicalJacobian.coordinateFlux_zero",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_reverse": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  CFDLean.Roe.roeFluxCoordinates \u03b3 y x (-S) = -CFDLean.Roe.roeFluxCoordinates \u03b3 x y S",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_reverse",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Roe.Spectral.roeShift",
+        "CFDLean.Roe.unitNormal_neg",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.Roe.Spectral.roe_absolute_reverse",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Roe.area_neg",
+        "CFDLean.Roe.coordinateFlux_neg",
+        "CFDLean.Vector",
+        "CFDLean.Roe.roeFluxCoordinates_zero",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.Spectral.roe_swap",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_scale": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 a : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  0 \u2264 a \u2192 (CFDLean.Roe.roeFluxCoordinates \u03b3 x y fun i => a * S i) = a \u2022 CFDLean.Roe.roeFluxCoordinates \u03b3 x y S",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_scale",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Roe.coordinateFlux_scale",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.Roe.area_scale",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Roe.unitNormal_scale",
+        "CFDLean.Vector",
+        "CFDLean.Roe.roeFluxCoordinates_zero",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_upwind_left": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        S \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 x y \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity x y) (CFDLean.Coordinates.unitNormal S) \u2192\n            CFDLean.Roe.roeFluxCoordinates \u03b3 x y S = CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S x",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_upwind_left",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.area",
+        "CFDLean.Roe.dissipation_upwind_left",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Roe.integrated_secant",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeMatrix",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_upwind_right": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates) (S : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode x) \u2192\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Coordinates.decode y) \u2192\n        S \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity x y) (CFDLean.Coordinates.unitNormal S) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 x y \u2192\n            CFDLean.Roe.roeFluxCoordinates \u03b3 x y S = CFDLean.PhysicalJacobian.coordinateFlux \u03b3 S y",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_upwind_right",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.area",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Roe.dissipation_upwind_right",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Roe.integrated_secant",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeMatrix",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.roeFluxCoordinates_zero": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates), CFDLean.Roe.roeFluxCoordinates \u03b3 x y 0 = 0",
+      "root": true,
+      "name": "CFDLean.Roe.roeFluxCoordinates_zero",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeFluxCoordinates"
       ],
       "axioms": [
         "propext",
@@ -7330,6 +8157,24 @@
         "propext"
       ]
     },
+    "CFDLean.Roe.root.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates), CFDLean.Roe.root x = \u221a(x 0)",
+      "root": true,
+      "name": "CFDLean.Roe.root.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.root._proof_1",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.root"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
     "CFDLean.Roe.root_pos": {
       "unsafe": false,
       "type": "\u2200 (x : CFDLean.Coordinates.StateCoordinates), 0 < x 0 \u2192 0 < CFDLean.Roe.root x",
@@ -7426,6 +8271,24 @@
       "module": "CFDLean.Flux.Roe.Averages",
       "kind": "definition",
       "direct": [
+        "CFDLean.Roe.soundSquare",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.soundSpeed.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (x y : CFDLean.Coordinates.StateCoordinates), CFDLean.Roe.soundSpeed \u03b3 x y = \u221a(CFDLean.Roe.soundSquare \u03b3 x y)",
+      "root": true,
+      "name": "CFDLean.Roe.soundSpeed.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
         "CFDLean.Roe.soundSquare",
         "CFDLean.Coordinates.StateCoordinates"
       ],
@@ -7574,6 +8437,45 @@
         "CFDLean.Roe.operator._proof_4",
         "CFDLean.Roe.parameterState",
         "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.unitNormal_neg": {
+      "unsafe": false,
+      "type": "\u2200 (S : CFDLean.Vector 3), CFDLean.Coordinates.unitNormal (-S) = -CFDLean.Coordinates.unitNormal S",
+      "root": true,
+      "name": "CFDLean.Roe.unitNormal_neg",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.area_neg",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.unitNormal_scale": {
+      "unsafe": false,
+      "type": "\u2200 (a : \u211d) (S : CFDLean.Vector 3),\n  0 < a \u2192 S \u2260 0 \u2192 (CFDLean.Coordinates.unitNormal fun i => a * S i) = CFDLean.Coordinates.unitNormal S",
+      "root": true,
+      "name": "CFDLean.Roe.unitNormal_scale",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.area",
+        "CFDLean.Roe.area_scale",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.area_pos"
       ],
       "axioms": [
         "propext",
@@ -7752,6 +8654,273 @@
         "CFDLean.squareSum",
         "CFDLean.Coordinates.squareSum_three",
         "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witnessIntermediate": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Roe.witnessIntermediate",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.witnessLeft",
+        "CFDLean.Roe.witnessIntermediate._proof_2"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witnessIntermediate._proof_2": {
+      "unsafe": false,
+      "type": "NeZero (2 + 1)",
+      "root": true,
+      "name": "CFDLean.Roe.witnessIntermediate._proof_2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Roe.witnessLeft": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Roe.witnessLeft",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witnessLeft.eq_1": {
+      "unsafe": false,
+      "type": "CFDLean.Roe.witnessLeft =\n  CFDLean.Primitive.toConservative 2 { density := 1, velocity := ![-2, 0, 0], pressure := 1 / 2 }",
+      "root": true,
+      "name": "CFDLean.Roe.witnessLeft.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.witnessLeft"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witnessRight": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Roe.witnessRight",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witnessRight.eq_1": {
+      "unsafe": false,
+      "type": "CFDLean.Roe.witnessRight =\n  CFDLean.Primitive.toConservative 2 { density := 1, velocity := ![2, 0, 0], pressure := 1 / 2 }",
+      "root": true,
+      "name": "CFDLean.Roe.witnessRight.eq_1",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witness_admissible": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessLeft \u2227 CFDLean.Conservative.Admissible 2 CFDLean.Roe.witnessRight",
+      "root": true,
+      "name": "CFDLean.Roe.witness_admissible",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Vector",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.witnessLeft"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witness_averages": {
+      "unsafe": false,
+      "type": "CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n      (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) =\n    0 \u2227\n  CFDLean.Roe.averageEnthalpy 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n        (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) =\n      3 \u2227\n    CFDLean.Roe.soundSquare 2 (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)\n        (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight) =\n      3",
+      "root": true,
+      "name": "CFDLean.Roe.witness_averages",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Roe.root._proof_1",
+        "CFDLean.Roe.soundSquare",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.witness_endpoints",
+        "CFDLean.Roe.soundSquare._proof_2",
+        "CFDLean.Roe.witnessLeft"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witness_endpoints": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft = ![1, -2, 0, 0, 5 / 2] \u2227\n  CFDLean.Coordinates.encode CFDLean.Roe.witnessRight = ![1, 2, 0, 0, 5 / 2]",
+      "root": true,
+      "name": "CFDLean.Roe.witness_endpoints",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Vector",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.witnessLeft"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Roe.witness_intermediate_coordinates": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]",
+      "root": true,
+      "name": "CFDLean.Roe.witness_intermediate_coordinates",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.PhysicalJacobian.velocity._proof_1",
+        "CFDLean.Roe.Spectral.acoustic",
+        "CFDLean.squareSum",
+        "CFDLean.Roe.Spectral.b",
+        "CFDLean.Roe.witnessRight",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Coordinates.encode_decode",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_4",
+        "CFDLean.Roe.soundSquare",
+        "CFDLean.Roe.witnessIntermediate",
+        "CFDLean.Roe.Spectral.dp",
+        "CFDLean.Roe.Spectral.b._proof_4",
+        "CFDLean.Roe.Spectral.minus",
+        "CFDLean.dot",
+        "CFDLean.Roe.Spectral.dp._proof_5",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_2",
+        "CFDLean.Roe.Spectral.roeProjector",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Roe.Spectral.dp._proof_7",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Roe.Spectral.b._proof_3",
+        "CFDLean.PhysicalJacobian.normalMomentum._proof_3",
+        "CFDLean.Roe.witness_averages",
+        "CFDLean.Roe.Spectral.minus_apply",
+        "CFDLean.Vector",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.witness_endpoints",
+        "CFDLean.Roe.soundSpeed.eq_1",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.witnessLeft",
+        "CFDLean.Roe.Spectral.b._proof_2",
+        "CFDLean.Roe.witnessIntermediate._proof_2"
       ],
       "axioms": [
         "propext",
@@ -8823,13 +9992,7 @@
       "axioms": []
     }
   },
-  "deferred_result_ids": [
-    "M2-F1",
-    "M2-F2",
-    "M2-F3",
-    "M2-F4",
-    "M2-C"
-  ],
+  "deferred_result_ids": [],
   "dependency_revisions_checked": 9,
   "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
   "m2a_acceptance_record": "reviews/M2a/Acceptance.md",

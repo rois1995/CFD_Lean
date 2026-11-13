@@ -1,14 +1,14 @@
-# Current M2c machine evidence
+# Current M2d machine evidence
 
-The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the cumulative M2a/M2b/M2c candidate. M1, M2a and M2b acceptance remain attached to their immutable revisions; see reviews/M1, reviews/M2a/Acceptance.md and reviews/M2b/Acceptance.md. M2c is independently accepted; see reviews/M2c/Acceptance.md. M2d is the next approved stage.
+The current build.log, kernel-inventory.log, verification.json and SHA256SUMS report the complete M2 candidate. M1 and M2a/M2b/M2c acceptance remain attached to their immutable revisions; see reviews/M1 and reviews/M2a, M2b and M2c/Acceptance.md. M2d and composed M2 independent acceptance are pending.
 
-The audit inventories 461 qualified records. Its 354 safe mathematical roots reach 20,068 declarations with precisely propext, Classical.choice and Quot.sound and no reachable unsafe declaration. The 71 unsafe compiler/executable records and 36 metadata-only names remain visible as non-roots. Empty non-root axiom lists mean the per-root query was skipped, not that executable code was verified.
+The audit inventories 507 qualified records. Its 400 safe mathematical roots reach 20,183 declarations with precisely propext, Classical.choice and Quot.sound and no reachable unsafe declaration. The 71 unsafe compiler/executable records and 36 metadata-only names remain visible as non-roots. Empty non-root axiom lists mean the per-root query was skipped, not that executable code was verified.
 
-All 58 active J/A/R/L/E/D/O bindings, all 58 inherited types/sources and all nine dependency pins are checked. StatementChecks.lean provides 41 expected-interface and exact examples, including literal spectral formulas, acoustic/contact/shear vectors, arbitrary-basis conjugation, zero-speed and oblique-unit-normal cases. Nine Python fixtures include binding/stage/type regressions across all four accepted inherited IDs.
+All 66 active bindings across all 12 approved IDs are checked; no M2 ID is deferred. All 58 inherited J/A/R/L/E/D/O types, binding records and mathematical sources are compared with accepted M2c at 6ee9d53e79e0c6f11e75b1b387c21256572d0fcd. All nine dependency pins are checked. StatementChecks.lean retains the 41 inherited examples and adds 15 explicit flux/witness interfaces and exact controls, for 56 examples. Nine Python fixtures cover binding/stage/type regressions across all seven inherited IDs.
 
-inherited-types.json now compares all 58 accepted types with 6ee9d53. binding-type-diff.json exposes every current type; null accepted types mark the 21 new M2c claims. bindings-diff.patch is the complete qualified binding-file diff from that accepted revision. The fresh replay compares these and both full audit outputs with the exact candidate byte for byte. A different cold-build transcript is expected. Worker cold replay evidence is archived separately; it cannot supply independent scientific acceptance.
+inherited-types.json contains the 58 accepted/current type comparisons. binding-type-diff.json exposes all 66 current types; null accepted types identify exactly the 8 new M2d claims. bindings-diff.patch is the complete binding-file diff from accepted M2c. The fresh replay compares these and verification.json and kernel-inventory.log with the immutable candidate byte for byte. A different cold-build transcript is expected. Worker replay logs are archived separately in M2d-source-replay; their final status and candidate are recorded in reviews/M2d/README.md. Worker checks cannot supply independent scientific acceptance.
 
-M2-F1/F2/F3/F4/C remain deferred, with no numerical flux or positivity witness claimed yet.
+See references/M2d.md for the full obligation map and limits. The original Roe flux has no entropy correction or fallback. The negative-density result concerns its approximate Riemann intermediate state, not a specified time-update/CFL experiment. Mesh assembly, boundaries, time stepping and implementation correspondence are later milestones.
 
 ## Historical M1 evidence narrative
 

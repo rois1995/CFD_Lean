@@ -253,3 +253,174 @@ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
 example : roeSpeed 2 (![1, 1, 0, 0, 1]) (![1, 1, 0, 0, 1]) (![1, 0, 0]) 0 = 0 := by
   norm_num [roeSpeed, speed, offset, averageVelocity, averageEnthalpy, soundSpeed, soundSquare,
     weight, root, velocity, enthalpy, coordinatePressure, Conservative.pressure, decode, squareSum_three, dot_three]
+
+namespace M2dChecks
+noncomputable section
+open CFDLean.Roe
+attribute [local irreducible] CFDLean.Roe.Spectral.shift
+
+example (g : ℝ) (U : Conservative 3) (S : Vector 3) :
+    numericalFlux g U U S = physicalFlux g U S := numericalFlux_consistency g U S
+
+example (g : ℝ) (U V : Conservative 3) (S : Vector 3) :
+    numericalFlux g V U (-S) = ⟨-(numericalFlux g U V S).density,
+      fun i => -(numericalFlux g U V S).momentum i, -(numericalFlux g U V S).energy⟩ :=
+  numericalFlux_reverse g U V S
+
+example (g : ℝ) (U V : Conservative 3) :
+    numericalFlux g U V 0 = ⟨0, fun _ => 0, 0⟩ := numericalFlux_zero g U V
+
+example (g a : ℝ) (U V : Conservative 3) (S : Vector 3) (ha : 0 ≤ a) :
+    numericalFlux g U V (fun i => a * S i) = ⟨a * (numericalFlux g U V S).density,
+      fun i => a * (numericalFlux g U V S).momentum i, a * (numericalFlux g U V S).energy⟩ :=
+  numericalFlux_scale g a U V S ha
+
+example (g : ℝ) (U V : Conservative 3) (S : Vector 3) (hg : 1 < g)
+    (hU : U.Admissible g) (hV : V.Admissible g) (hS : S ≠ 0)
+    (hup : soundSpeed g (encode U) (encode V) ≤ dot (averageVelocity (encode U) (encode V)) (unitNormal S)) :
+    numericalFlux g U V S = physicalFlux g U S := numericalFlux_upwind_left g U V S hg hU hV hS hup
+
+example (g : ℝ) (U V : Conservative 3) (S : Vector 3) (hg : 1 < g)
+    (hU : U.Admissible g) (hV : V.Admissible g) (hS : S ≠ 0)
+    (hup : dot (averageVelocity (encode U) (encode V)) (unitNormal S) ≤ -soundSpeed g (encode U) (encode V)) :
+    numericalFlux g U V S = physicalFlux g V S := numericalFlux_upwind_right g U V S hg hU hV hS hup
+
+example : encode witnessIntermediate = ![1 - 2 / Real.sqrt 3, 0, 0, 0, 5 / 2 - 2 * Real.sqrt 3] :=
+  witness_intermediate_coordinates
+
+example : witnessLeft.Admissible 2 ∧ witnessRight.Admissible 2 ∧
+    0 < soundSquare 2 (encode witnessLeft) (encode witnessRight) ∧ witnessIntermediate.density < 0 :=
+  positivity_counterexample
+
+example (g : ℝ) (x y : StateCoordinates) (S : Vector 3) (hS : S ≠ 0) :
+    roeFluxCoordinates g x y S = (1 / 2 : ℝ) •
+      (encode (physicalFlux g (decode x) S) + encode (physicalFlux g (decode y) S)) -
+      (Real.sqrt (squareSum S) / 2) •
+        dissipation g x y (fun i => S i / Real.sqrt (squareSum S)) (y - x) := by
+  rw [roeFluxCoordinates, if_neg hS]
+  rfl
+
+example : numericalFlux 2 ((Primitive.mk 2 ![3, 0, 0] 5).toConservative 2)
+    ((Primitive.mk 2 ![3, 0, 0] 5).toConservative 2) ![4, 0, 0] = ⟨24, ![92, 0, 0], 228⟩ := by
+  rw [numericalFlux_consistency]
+  norm_num [physicalFlux, Primitive.toConservative, Conservative.pressure, dot_three, squareSum_three]
+  funext i
+  fin_cases i <;> norm_num
+
+example : numericalFlux (7 / 5) ((Primitive.mk 2 ![3, -1, 0] 5).toConservative (7 / 5))
+    ((Primitive.mk 2 ![3, -1, 0] 5).toConservative (7 / 5)) ![2, 3, 0] = ⟨6, ![28, 9, 0], 165 / 2⟩ := by
+  rw [numericalFlux_consistency]
+  norm_num [physicalFlux, Primitive.toConservative, Conservative.pressure, dot_three, squareSum_three]
+  funext i
+  fin_cases i <;> norm_num
+
+-- All two-state controls start with M1 primitive conversion.
+def contactLeft (u : ℝ) : Conservative 3 := (Primitive.mk 1 ![u, 0, 0] 1).toConservative 2
+def contactRight (u : ℝ) : Conservative 3 := (Primitive.mk 4 ![u, 0, 0] 1).toConservative 2
+
+theorem sqrt_four : Real.sqrt (4 : ℝ) = 2 :=
+  (Real.sqrt_eq_iff_eq_sq (by norm_num) (by norm_num)).mpr (by norm_num)
+
+attribute [local simp] sqrt_four
+
+theorem contact_coordinates (u : ℝ) : encode (contactLeft u) = ![1, u, 0, 0, 1 + u ^ 2 / 2] ∧
+    encode (contactRight u) = ![4, 4 * u, 0, 0, 1 + 2 * u ^ 2] := by
+  constructor <;> ext i <;> fin_cases i <;>
+    norm_num [contactLeft, contactRight, Primitive.toConservative, encode, squareSum_three]
+  all_goals ring1
+
+example : numericalFlux 2 (contactLeft 0) (contactRight 0) ![1, 0, 0] = ⟨0, ![1, 0, 0], 0⟩ := by
+  generalize hxe : encode (contactLeft 0) = x
+  generalize hye : encode (contactRight 0) = y
+  have hx : (decode x).Admissible 2 := by
+    rw [← hxe, decode_encode]
+    norm_num [contactLeft, Primitive.toConservative, Conservative.Admissible, Conservative.pressure, squareSum_three]
+  have hy : (decode y).Admissible 2 := by
+    rw [← hye, decode_encode]
+    norm_num [contactRight, Primitive.toConservative, Conservative.Admissible, Conservative.pressure, squareSum_three]
+  have hn : unitNormal (![1, 0, 0] : Vector 3) = ![1, 0, 0] := by
+    funext i
+    fin_cases i <;> norm_num [unitNormal, area, squareSum_three]
+  have he : roeMatrix 2 x y (unitNormal ![1, 0, 0]) (y - x) = 0 := by
+    rw [← hxe, ← hye, (contact_coordinates 0).1, (contact_coordinates 0).2, hn]
+    ext i
+    fin_cases i <;> norm_num [roeMatrix, operator, assemble_eq_pi, normalMomentum, projection,
+      averageVelocity, averageEnthalpy, weight, root, velocity, enthalpy, coordinatePressure,
+      Conservative.pressure, decode, squareSum_three, dot_three]
+  unfold numericalFlux
+  rw [hxe, hye, roeFluxCoordinates_central_of_zero 2 x y _ (by norm_num) hx hy (by norm_num) he,
+    ← hxe, ← hye, (contact_coordinates 0).1, (contact_coordinates 0).2]
+  norm_num [coordinateFlux, physicalFlux, Conservative.pressure, decode, encode, squareSum_three, dot_three]
+
+theorem contact_averages (u : ℝ) : averageVelocity (encode (contactLeft u)) (encode (contactRight u)) = ![u, 0, 0] ∧
+    averageEnthalpy 2 (encode (contactLeft u)) (encode (contactRight u)) = 1 + u ^ 2 / 2 ∧
+    soundSpeed 2 (encode (contactLeft u)) (encode (contactRight u)) = 1 := by
+  rw [(contact_coordinates u).1, (contact_coordinates u).2]
+  have hv : averageVelocity (![1, u, 0, 0, 1 + u ^ 2 / 2]) (![4, 4 * u, 0, 0, 1 + 2 * u ^ 2]) = ![u, 0, 0] := by
+    funext i
+    fin_cases i <;> norm_num [averageVelocity, weight, root, velocity, decode]
+    all_goals ring1
+  have hH : averageEnthalpy 2 (![1, u, 0, 0, 1 + u ^ 2 / 2]) (![4, 4 * u, 0, 0, 1 + 2 * u ^ 2]) = 1 + u ^ 2 / 2 := by
+    norm_num [averageEnthalpy, weight, root, enthalpy, coordinatePressure, Conservative.pressure, decode, squareSum_three]
+    ring1
+  exact ⟨hv, hH, by norm_num [soundSpeed, soundSquare, hv, hH, squareSum_three]⟩
+
+theorem contact_admissible (u : ℝ) : (contactLeft u).Admissible 2 ∧ (contactRight u).Admissible 2 := by
+  constructor <;> constructor
+  · norm_num [contactLeft, Primitive.toConservative]
+  · norm_num [contactLeft, Primitive.toConservative, Conservative.pressure, squareSum_three]
+  · norm_num [contactRight, Primitive.toConservative]
+  · norm_num [contactRight, Primitive.toConservative, Conservative.pressure, squareSum_three]
+    nlinarith
+
+theorem unitNormal_two : unitNormal (![2, 0, 0] : Vector 3) = ![1, 0, 0] := by
+  funext i
+  fin_cases i <;> norm_num [unitNormal, area, squareSum_three]
+
+example : numericalFlux 2 (contactLeft 1) (contactRight 1) ![2, 0, 0] = ⟨2, ![4, 0, 0], 5⟩ := by
+  rw [numericalFlux_upwind_left 2 _ _ _ (by norm_num) (contact_admissible 1).1
+    (contact_admissible 1).2 (by norm_num)
+    (by rw [(contact_averages 1).1, (contact_averages 1).2.2, unitNormal_two]; norm_num [dot_three])]
+  norm_num [physicalFlux, contactLeft, Primitive.toConservative, Conservative.pressure, squareSum_three, dot_three]
+  funext i
+  fin_cases i <;> norm_num
+
+example : numericalFlux 2 (contactLeft (-1)) (contactRight (-1)) ![2, 0, 0] = ⟨-8, ![10, 0, 0], -8⟩ := by
+  rw [numericalFlux_upwind_right 2 _ _ _ (by norm_num) (contact_admissible (-1)).1
+    (contact_admissible (-1)).2 (by norm_num)
+    (by rw [(contact_averages (-1)).1, (contact_averages (-1)).2.2, unitNormal_two]; norm_num [dot_three])]
+  norm_num [physicalFlux, contactRight, Primitive.toConservative, Conservative.pressure, squareSum_three, dot_three]
+  funext i
+  fin_cases i <;> norm_num
+
+example : numericalFlux 2 ((Primitive.mk 1 ![0, 1, 0] 1).toConservative 2)
+    ((Primitive.mk 1 ![0, -1, 0] 1).toConservative 2) ![1, 0, 0] = ⟨0, ![1, 0, 0], 0⟩ := by
+  generalize hxe : encode ((Primitive.mk 1 ![0, 1, 0] 1).toConservative 2) = x
+  generalize hye : encode ((Primitive.mk 1 ![0, -1, 0] 1).toConservative 2) = y
+  have hxc : x = ![1, 0, 1, 0, 3 / 2] := by
+    rw [← hxe]
+    norm_num [Primitive.toConservative, encode, squareSum_three]
+  have hyc : y = ![1, 0, -1, 0, 3 / 2] := by
+    rw [← hye]
+    norm_num [Primitive.toConservative, encode, squareSum_three]
+  have hx : (decode x).Admissible 2 := by
+    rw [hxc]
+    norm_num [Conservative.Admissible, Conservative.pressure, decode, squareSum_three]
+  have hy : (decode y).Admissible 2 := by
+    rw [hyc]
+    norm_num [Conservative.Admissible, Conservative.pressure, decode, squareSum_three]
+  have hn : unitNormal (![1, 0, 0] : Vector 3) = ![1, 0, 0] := by
+    funext i
+    fin_cases i <;> norm_num [unitNormal, area, squareSum_three]
+  have he : roeMatrix 2 x y (unitNormal ![1, 0, 0]) (y - x) = 0 := by
+    rw [hxc, hyc, hn]
+    ext i
+    fin_cases i <;> norm_num [roeMatrix, operator, assemble_eq_pi, normalMomentum, projection,
+      averageVelocity, averageEnthalpy, weight, root, velocity, enthalpy, coordinatePressure,
+      Conservative.pressure, decode, squareSum_three, dot_three]
+  unfold numericalFlux
+  rw [hxe, hye, roeFluxCoordinates_central_of_zero 2 x y _ (by norm_num) hx hy (by norm_num) he, hxc, hyc]
+  norm_num [coordinateFlux, physicalFlux, Conservative.pressure, decode, encode, squareSum_three, dot_three]
+
+end
+end M2dChecks

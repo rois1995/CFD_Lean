@@ -3,7 +3,7 @@
   "contract_sha256": "1baacdb98345825c7697ed99d86cfa638186ef88692657692260ca757f1e211c",
   "approved_proposal_commit": "1c942b0983a5d2b6bfd8ff8344535f33cdb825e6",
   "approval_record": "specifications/M2-approval.md",
-  "current_stage": "M2c",
+  "current_stage": "M2d",
   "results": [
     {
       "id": "M2-J",
@@ -108,27 +108,40 @@
     {
       "id": "M2-F1",
       "stage": "M2d",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Roe.numericalFlux_consistency"
+      ]
     },
     {
       "id": "M2-F2",
       "stage": "M2d",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Roe.numericalFlux_reverse"
+      ]
     },
     {
       "id": "M2-F3",
       "stage": "M2d",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Roe.numericalFlux_zero",
+        "CFDLean.Roe.numericalFlux_scale"
+      ]
     },
     {
       "id": "M2-F4",
       "stage": "M2d",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Roe.numericalFlux_upwind_left",
+        "CFDLean.Roe.numericalFlux_upwind_right"
+      ]
     },
     {
       "id": "M2-C",
       "stage": "M2d",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Roe.witness_intermediate_coordinates",
+        "CFDLean.Roe.positivity_counterexample"
+      ]
     }
   ],
   "accepted_m1_sources": {
