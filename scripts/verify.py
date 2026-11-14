@@ -8,7 +8,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
-ACCEPTED_BASELINE = "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1"
+ACCEPTED_BASELINE = "a70270c3f771e66bcaaebc18b8480c32f9606b1e"
+M2_ACCEPTED_REVISION = "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1"
 APPROVED_M3 = "3189a603b3f6af953f0828d6b2e239320fd2cd20"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 
@@ -81,6 +82,24 @@ def check_m3_layout(contract, approved):
         raise ValueError("M3 result stages/parts differ from frozen approval")
 
 
+def check_m3_inherited(rows, contract, accepted, evidence):
+    stages = ("M3a", "M3b")
+    current = {(r["id"], p["stage"]): p for r in contract["results"] for p in r["parts"]}
+    comparisons = {}
+    for result in accepted["results"]:
+        for part in result["parts"]:
+            if stages.index(part["stage"]) > stages.index(accepted["current_stage"]):
+                continue
+            if not part["declarations"] or current.get((result["id"], part["stage"])) != part:
+                raise ValueError(f"Accepted {result['id']} part/bindings changed")
+            for name in part["declarations"]:
+                before, after = evidence["declarations"][name]["type"], rows[name]["type"]
+                if before != after:
+                    raise ValueError(f"Accepted M3a type changed: {name}")
+                comparisons[name] = {"accepted_type": before, "current_type": after}
+    return comparisons
+
+
 def git_blob(revision, path):
     return subprocess.check_output(["git", "show", f"{revision}:{path}"])
 
@@ -137,6 +156,8 @@ def main():
     m3_promised = check_promises(rows, parts, m3["current_stage"], ("M3a", "M3b"))
     promised = sorted(set(m2_promised + m3_promised))
     inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
+    accepted_m3 = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M3-results.json"))
+    inherited.update(check_m3_inherited(rows, m3, accepted_m3, accepted_evidence))
     (evidence / "inherited-types.json").write_text(json.dumps(inherited, indent=2) + "\n")
     (evidence / "binding-type-diff.json").write_text(json.dumps({name: {
         "accepted_type": accepted_evidence["declarations"][name]["type"]
@@ -181,9 +202,10 @@ def main():
         "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
         "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
         "accepted_inherited_revision": ACCEPTED_BASELINE, "inherited_types_checked": len(inherited),
-        "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "accepted at " + ACCEPTED_BASELINE,
+        "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "accepted at " + M2_ACCEPTED_REVISION,
         "m2_acceptance_record": "reviews/M2/Acceptance.md", "m3_approval_record": m3["approval_record"],
-        "m3_independent_acceptance": "pending"
+        "m3a_acceptance_record": "reviews/M3a/Acceptance.md",
+        "m3_independent_acceptance": "M3a accepted; full M3 pending M3b"
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
 

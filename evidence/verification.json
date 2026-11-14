@@ -12353,11 +12353,12 @@
   "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
   "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
   "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
-  "accepted_inherited_revision": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
-  "inherited_types_checked": 66,
+  "accepted_inherited_revision": "a70270c3f771e66bcaaebc18b8480c32f9606b1e",
+  "inherited_types_checked": 84,
   "m2_approval_record": "specifications/M2-approval.md",
   "m2_independent_acceptance": "accepted at ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
   "m2_acceptance_record": "reviews/M2/Acceptance.md",
   "m3_approval_record": "specifications/M3-approval.md",
-  "m3_independent_acceptance": "pending"
+  "m3a_acceptance_record": "reviews/M3a/Acceptance.md",
+  "m3_independent_acceptance": "M3a accepted; full M3 pending M3b"
 }

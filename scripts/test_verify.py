@@ -1,6 +1,6 @@
 import json
 import unittest
-from verify import parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout
+from verify import parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited
 
 
 def record(name, axioms=None):
@@ -106,6 +106,28 @@ class AuditChecks(unittest.TestCase):
         with self.assertRaises(ValueError):
             check_promises(rows, contract, "M3b", ("M3a", "M3b"))
         check_result_ids({"results": [{"id": "M3-C"}]}, "| M3-C | conditional and concrete |", "M3")
+
+    def test_m3a_inheritance_freezes_active_parts_and_types(self):
+        accepted = {"current_stage": "M3a", "results": [
+            {"id": rid, "parts": [{"stage": "M3a", "declarations": [rid + ".old"]}]} for rid in
+            ["M3-I", "M3-R", "M3-O", "M3-C"]]}
+        accepted["results"][-1]["parts"].append({"stage": "M3b", "declarations": []})
+        rows = {rid + ".old": {"type": "approved " + rid} for rid in ["M3-I", "M3-R", "M3-O", "M3-C"]}
+        evidence = {"declarations": rows}
+        self.assertEqual(len(check_m3_inherited(rows, accepted, accepted, evidence)), 4)
+        for i, rid in enumerate(["M3-I", "M3-R", "M3-O", "M3-C"]):
+            for key, value in [("declarations", ["Other.safe"]), ("stage", "M3b")]:
+                changed = json.loads(json.dumps(accepted))
+                changed["results"][i]["parts"][0][key] = value
+                with self.assertRaises(ValueError):
+                    check_m3_inherited(rows, changed, accepted, evidence)
+            weakened = dict(rows)
+            weakened[rid + ".old"] = {"type": "weakened"}
+            with self.assertRaises(ValueError):
+                check_m3_inherited(weakened, accepted, accepted, evidence)
+        future = json.loads(json.dumps(accepted))
+        future["results"][-1]["parts"][-1]["declarations"] = ["New.concrete"]
+        check_m3_inherited(rows, future, accepted, evidence)
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:
