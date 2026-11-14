@@ -205,7 +205,7 @@ def main():
         "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "accepted at " + M2_ACCEPTED_REVISION,
         "m2_acceptance_record": "reviews/M2/Acceptance.md", "m3_approval_record": m3["approval_record"],
         "m3a_acceptance_record": "reviews/M3a/Acceptance.md",
-        "m3_independent_acceptance": "M3a accepted; full M3 pending M3b"
+        "m3_independent_acceptance": "M3a accepted; M3b and full M3 pending independent review"
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
 

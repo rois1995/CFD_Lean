@@ -574,3 +574,72 @@ example : residual (closedPair.reindex (Equiv.swap 0 1) (Equiv.refl _) (Equiv.sw
 
 end
 end M3aChecks
+
+namespace M3bChecks
+noncomputable section
+open CFDLean.MedianDual CFDLean.MedianDual.MeshData
+open CFDLean.Assembly
+
+example (p : Points) : ∑ i, faceVector p i = 0 := faceVector_sum p
+example (p : Points) (i : Fin 4) :
+    (∑ j, localInterface p i j) + ∑ j, localPatch p j i = 0 := local_closure p i
+example (p : Points) (i j k l : Fin 4) (h : valid i j k l) :
+    dot (outwardTriangle p i j k l) (p j - p i) = sixVolume p / 24 := outwardTriangle_dot p i j k l h
+example (p : Points) (i j k l : Fin 4) (h : valid i j k l) :
+    volume (flagPoints p i j k l) = volume p / 24 := flag_volume p i j k l h
+example (p : Points) (i : Fin 4) : localDualVolume p i = volume p / 4 := localDualVolume_eq p i
+example : Fintype.card (Σ i : Fin 4, VertexFlags i) = 24 := flag_card
+example (i : Fin 4) : Fintype.card (VertexFlags i) = 6 := vertexFlags_card i
+example {n m : ℕ} (M : MeshData n m) (a : Fin n) :
+    M.dualVolume a = ∑ t, if a ∈ M.cellNodes t then volume (M.points t) / 4 else 0 := M.dualVolume_formula a
+example {n m : ℕ} (M : MeshData n m) (a : Fin n) (ha : M.Used a) : 0 < M.dualVolume a := M.dualVolume_pos a ha
+example {n m : ℕ} (M : MeshData n m) (a : Fin n) (ha : ¬M.Used a) : M.dualVolume a = 0 := M.dualVolume_unused a ha
+example {n m : ℕ} (M : MeshData n m) (h : M.Conforming) :
+    ∑ a, M.dualVolume a = ∑ t, volume (M.points t) := M.volume_partition h
+example {n m : ℕ} (M : MeshData n m) (e : M.Edge) :
+    e.1.1 < e.1.2 ∧ ∃ t, e.1.1 ∈ M.cellNodes t ∧ e.1.2 ∈ M.cellNodes t := e.prop
+example {n m : ℕ} (M : MeshData n m) : Function.Injective M.boundaryKey := M.boundaryKey_injective
+example {n m : ℕ} (M : MeshData n m) (F : Finset (Fin n)) (a : Fin n) :
+    (∃ b : M.Boundary, M.boundaryKey b = (F,a)) ↔ M.faceCount F = 1 ∧ a ∈ F := M.boundaryKey_range F a
+example {n m : ℕ} (M : MeshData n m) (h : M.Conforming) (a : Fin n) :
+    metricDefect M.interfaces M.edgeArea M.boundaryArea a = 0 := M.metric_closed h a
+example {n m : ℕ} (M : MeshData n m) (h : M.Conforming) (γ : ℝ) (U : Conservative 3)
+    (_hγ : 1 < γ) (_hU : U.Admissible γ) (a : Fin n) :
+    residual M.interfaces (roeTransfer M.interfaces γ (fun _ => U) M.edgeArea)
+      (fun b => encode (physicalFlux γ U (M.boundaryArea b))) a = 0 := M.constant_state h γ U a
+example {n m : ℕ} (M : MeshData n m) (γ : ℝ) (U : Fin n → Conservative 3) (g : M.Boundary → StateCoordinates) :
+    (∑ a, residual M.interfaces (roeTransfer M.interfaces γ U M.edgeArea) g a) = ∑ b, g b := M.roe_boundary_balance γ U g
+example : Controls.standard.Conforming := Controls.standard_conforming
+example : Controls.oblique.Conforming := Controls.oblique_conforming
+example : Controls.twoCells.Conforming := Controls.two_cells_conforming
+example (a : Fin 4) : Controls.standard.dualVolume a = 1/24 := Controls.standard_volume a
+example : localInterface Controls.standardPoints 0 1 = ![1/12,1/24,1/24] := Controls.standard_local_area
+example : Controls.standard.assembledArea 0 1 = ![1/12,1/24,1/24] := Controls.standard_assembled_area
+example (i j k l : Fin 4) (h : valid i j k l) :
+    volume (flagPoints Controls.standardPoints i j k l) = 1/144 := Controls.standard_flags i j k l h
+example (i j k l : Fin 4) (h : valid i j k l) :
+    volume (flagPoints Controls.obliquePoints i j k l) = volume Controls.obliquePoints / 24 := Controls.oblique_flags i j k l h
+example (a : Fin 4) : metricDefect Controls.standard.interfaces Controls.standard.edgeArea Controls.standard.boundaryArea a = 0 := Controls.standard_closed a
+example (a : Fin 4) : metricDefect Controls.oblique.interfaces Controls.oblique.edgeArea Controls.oblique.boundaryArea a = 0 := Controls.oblique_closed a
+example (a : Fin 5) : metricDefect Controls.twoCells.interfaces Controls.twoCells.edgeArea Controls.twoCells.boundaryArea a = 0 := Controls.two_cells_closed a
+example (a : Fin 5) : Controls.twoCells.dualVolume a = if a.val < 3 then 1/12 else 1/24 := Controls.two_cells_volume a
+example : (∑ a, Controls.twoCells.dualVolume a) = 1/3 := Controls.two_cells_total_volume
+example : Controls.twoCells.assembledArea 0 1 = ![1/6,1/12,0] := Controls.two_cells_assembled_area
+example (i : Fin 5) : Controls.twoCells.ownedPatch (0,3) i + Controls.twoCells.ownedPatch (1,3) i = 0 := Controls.shared_patches_cancel i
+example : Controls.resting.Admissible 2 := Controls.resting_admissible
+example (a : Fin 4) : residual Controls.standard.interfaces
+    (roeTransfer Controls.standard.interfaces 2 (fun _ => Controls.resting) Controls.standard.edgeArea)
+    (fun b => physicalTransfer 2 Controls.resting (Controls.standard.boundaryArea b)) a = 0 := Controls.compatible_standard a
+example : residual Controls.standard.interfaces
+    (roeTransfer Controls.standard.interfaces 2 (fun _ => Controls.resting) Controls.standard.edgeArea)
+    (fun b => physicalTransfer 2 Controls.resting (Controls.standard.boundaryArea b) +
+      if b = Controls.standardBoundary then (![1,0,0,0,0] : StateCoordinates) else 0) 0 ≠ 0 := Controls.incompatible_standard
+example : ¬ (0 < sixVolume (fun _ : Fin 4 => (0 : Vector 3))) := Controls.degenerate_excluded
+example {n m : ℕ} (M : MeshData n m) (F : Finset (Fin n)) (h : 3 ≤ M.faceCount F) : ¬ M.Conforming := Controls.nonmanifold_excluded M F h
+example : (decode RoeAggregation.cold).Admissible 2 ∧ (decode RoeAggregation.hot).Admissible 2 := RoeAggregation.states_admissible
+example : CFDLean.Roe.roeFluxCoordinates 2 RoeAggregation.cold RoeAggregation.hot (![1,1,0] : Vector 3) ≠
+    CFDLean.Roe.roeFluxCoordinates 2 RoeAggregation.cold RoeAggregation.hot (![1,0,0] : Vector 3) +
+    CFDLean.Roe.roeFluxCoordinates 2 RoeAggregation.cold RoeAggregation.hot (![0,1,0] : Vector 3) := RoeAggregation.nonparallel_not_additive
+
+end
+end M3bChecks
