@@ -1,0 +1,97 @@
+diff --git a/specifications/M3-results.json b/specifications/M3-results.json
+new file mode 100644
+index 0000000..79af777
+--- /dev/null
++++ b/specifications/M3-results.json
+@@ -0,0 +1,91 @@
++{
++  "contract": "specifications/M3.md",
++  "contract_sha256": "8ca374decaab40bcfc5ea3a24224b8eecb758516eb5c6fb0bd995facb5ad008d",
++  "representation_contract": "specifications/M3-representation.md",
++  "representation_sha256": "d5dfa0b521d24db1589e0fb744cd0b3e2a31e7ae1baee94a76a44c65b9df1e87",
++  "reviewed_proposal_revision": "b0e5d1405082c1058d2a55ecb273e2404d135005",
++  "approval_record": "specifications/M3-approval.md",
++  "current_stage": "M3a",
++  "results": [
++    {
++      "id": "M3-I",
++      "parts": [
++        {
++          "stage": "M3a",
++          "declarations": [
++            "CFDLean.Assembly.incidence_tail",
++            "CFDLean.Assembly.incidence_head",
++            "CFDLean.Assembly.incidence_other",
++            "CFDLean.Assembly.incidence_eq_one",
++            "CFDLean.Assembly.incidence_eq_neg_one",
++            "CFDLean.Assembly.incidence_sum",
++            "CFDLean.Assembly.incidence_smul",
++            "CFDLean.Assembly.residual_outgoing"
++          ]
++        }
++      ]
++    },
++    {
++      "id": "M3-R",
++      "parts": [
++        {
++          "stage": "M3a",
++          "declarations": [
++            "CFDLean.Assembly.global_balance",
++            "CFDLean.Assembly.roe_global_balance"
++          ]
++        }
++      ]
++    },
++    {
++      "id": "M3-O",
++      "parts": [
++        {
++          "stage": "M3a",
++          "declarations": [
++            "CFDLean.Assembly.outwardTransfer_eq",
++            "CFDLean.Assembly.residual_reverse",
++            "CFDLean.Assembly.roe_residual_reverse",
++            "CFDLean.Assembly.residual_reindex",
++            "CFDLean.Assembly.roe_residual_reindex",
++            "CFDLean.Assembly.roeTransfer_zero"
++          ]
++        }
++      ]
++    },
++    {
++      "id": "M3-G",
++      "parts": [
++        {
++          "stage": "M3b",
++          "declarations": []
++        }
++      ]
++    },
++    {
++      "id": "M3-V",
++      "parts": [
++        {
++          "stage": "M3b",
++          "declarations": []
++        }
++      ]
++    },
++    {
++      "id": "M3-C",
++      "parts": [
++        {
++          "stage": "M3a",
++          "declarations": [
++            "CFDLean.Assembly.constant_state_residual",
++            "CFDLean.Assembly.constant_state_closed"
++          ]
++        },
++        {
++          "stage": "M3b",
++          "declarations": []
++        }
++      ]
++    }
++  ]
++}

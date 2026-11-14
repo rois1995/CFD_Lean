@@ -1,0 +1,31 @@
+{
+  "candidate": "a70270c3f771e66bcaaebc18b8480c32f9606b1e",
+  "checkpoint": "54ae08dd1fca40d0b1b8eccabe91f9435068eb8b",
+  "verdict": "accept M3a only",
+  "blockers": [],
+  "acceptance_conditions": [],
+  "nonblocking_next_stage_finding": "Freeze all 18 M3a bindings/parts/types and Assembly source before M3b submission",
+  "full_M3": "pending M3b",
+  "replay_exit_code": 0,
+  "reviewer_Lean_exit_code": 0,
+  "closure": {
+    "visited": 20297,
+    "unsafe_reached": [],
+    "roots": 458,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "bindings": 84,
+  "inherited_types": 66,
+  "examples": 73,
+  "fixtures": 11,
+  "source_checksums": 40,
+  "deferred": [
+    "M3-G",
+    "M3-V",
+    "M3-C"
+  ]
+}
