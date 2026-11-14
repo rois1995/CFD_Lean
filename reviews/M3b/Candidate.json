@@ -1,0 +1,54 @@
+{
+  "mathematical_candidate": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "accepted_m3a_revision": "a70270c3f771e66bcaaebc18b8480c32f9606b1e",
+  "accepted_full_m2_revision": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "frozen_m3_approval_revision": "3189a603b3f6af953f0828d6b2e239320fd2cd20",
+  "completed_m3b_parts": [
+    "M3-G",
+    "M3-V",
+    "M3-C concrete"
+  ],
+  "requested_independent_verdicts": [
+    "M3b G/V/concrete C",
+    "composed full M3 I/R/O/G/V/C"
+  ],
+  "independent_m3b_acceptance": "pending",
+  "independent_full_m3_acceptance": "pending",
+  "worker_incremental_verification": "passed",
+  "worker_fresh_source_replay": "passed",
+  "metrics": {
+    "inventory_records": 1356,
+    "safe_roots": 780,
+    "reached_constants": 20935,
+    "unsafe_nonroots": 353,
+    "unsafe_definitions": 318,
+    "unsafe_axiom_records": 35,
+    "metadata_only_records": 223,
+    "cumulative_promised_theorems": 117,
+    "accepted_inherited_types": 84,
+    "new_m3b_bindings": 33,
+    "lean_examples": 112,
+    "python_fixtures": 12,
+    "source_hashes": 49,
+    "dependency_pins": 9
+  },
+  "foundational_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "reachable_unsafe": [],
+  "deferred_m3_parts": [],
+  "m4_status": "not started; outside this checkpoint",
+  "reviewer_prompt": "reviews/M3b/Reviewer_Prompt.md",
+  "full_index_diff": "reviews/M3b/Changes_from_Accepted_M3a.patch",
+  "worker_replay_record": "evidence/M3b-source-replay/replay.json",
+  "worker_replay_exit_code": 0,
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ]
+}

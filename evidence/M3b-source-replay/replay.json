@@ -1,0 +1,56 @@
+{
+  "candidate_commit": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "accepted_inherited_commit": "a70270c3f771e66bcaaebc18b8480c32f9606b1e",
+  "accepted_full_m2_commit": "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
+  "approved_m3_revision": "3189a603b3f6af953f0828d6b2e239320fd2cd20",
+  "date": "2026-11-14",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M3b or full-M3 acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m3b-source-replay.8oxlx3/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS built locally from its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 117,
+  "new_m3b_bindings": 33,
+  "new_bindings_by_id": {
+    "M3-G": 23,
+    "M3-V": 9,
+    "M3-C concrete": 1
+  },
+  "inherited_types_checked": 84,
+  "lean_examples": 112,
+  "python_fixtures": 12,
+  "source_checksums_checked": 49,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "inventory_records": 1356,
+  "dependency_closure": {
+    "visited": 20935,
+    "unsafe_reached": [],
+    "roots": 780,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "m3b_scope": "M3-G/V and concrete M3-C, composing accepted M3a I/R/O/conditional C",
+  "deferred_m3_parts": [],
+  "independent_m3a_acceptance": "accepted at a70270c3f771e66bcaaebc18b8480c32f9606b1e",
+  "independent_m3b_acceptance": "pending",
+  "independent_full_m3_acceptance": "pending",
+  "m4_status": "not started"
+}
