@@ -1,0 +1,26 @@
+{
+  "candidate": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "checkpoint": "6284949a428e6a6e12fbe98ad21a5b2a10778cfe",
+  "M3b_verdict": "accept",
+  "full_M3_verdict": "accept within approved scope",
+  "blockers": [],
+  "conditions": [],
+  "replay_exit_code": 0,
+  "reviewer_Lean_exit_code": 0,
+  "bindings": 117,
+  "inherited": 84,
+  "examples": 112,
+  "fixtures": 12,
+  "source_hashes": 49,
+  "closure": {
+    "visited": 20935,
+    "unsafe_reached": [],
+    "roots": 780,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "deferred": []
+}

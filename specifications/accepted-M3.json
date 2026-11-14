@@ -1,0 +1,22 @@
+{
+  "milestone": "M3",
+  "status": "independently accepted within approved exact-real tetrahedral scope",
+  "mathematical_commit": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "tree": "1cf0e361d9b2a323ac23f6f129d26fb3599ec00b",
+  "worker_checkpoint": "6284949a428e6a6e12fbe98ad21a5b2a10778cfe",
+  "approval_revision": "3189a603b3f6af953f0828d6b2e239320fd2cd20",
+  "contract": "specifications/M3.md",
+  "contract_sha256": "8ca374decaab40bcfc5ea3a24224b8eecb758516eb5c6fb0bd995facb5ad008d",
+  "representation_contract": "specifications/M3-representation.md",
+  "representation_sha256": "d5dfa0b521d24db1589e0fb744cd0b3e2a31e7ae1baee94a76a44c65b9df1e87",
+  "acceptance_record": "reviews/M3/Acceptance.md",
+  "m3b_acceptance_record": "reviews/M3b/Acceptance.md",
+  "independent_review_record": "reviews/M3b/independent-e2ea538/report/Review_Record.json",
+  "promised_bindings": 117,
+  "m2_bindings": 66,
+  "m3_bindings": 51,
+  "approved_m3_result_groups": 6,
+  "outstanding_conditions": [],
+  "m4_implementation_authorized": false,
+  "next_step": "separately reviewed M4 boundary proposal and scientific approval before implementation"
+}
