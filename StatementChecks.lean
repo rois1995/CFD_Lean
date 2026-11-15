@@ -853,3 +853,145 @@ example :
 
 end
 end M4bChecks
+
+namespace M5Checks
+noncomputable section
+open CFDLean.Time
+
+example (v dt : ℝ) (R : StateCoordinates) (U : Conservative 3) :
+    encode (euler v dt R U) = encode U - (dt/v) • R := euler_coordinates v dt R U
+example (v : ℝ) (R : StateCoordinates) (U : Conservative 3) : euler v 0 R U = U := euler_zero_step v R U
+example (v dt : ℝ) (U : Conservative 3) : euler v dt 0 U = U := euler_zero_residual v dt U
+example (v dt : ℝ) (hv : 0 < v) (R : StateCoordinates) (U : Conservative 3) :
+    v • encode (euler v dt R U) = v • encode U - dt • R := euler_amount v dt (ne_of_gt hv) R U
+
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (τ : Fin n → ℝ) (U : Fin n → Conservative 3) (i : Fin n) (hi : M.Used i) :
+    M.dualVolume i • encode (meshStep M γ k V τ U i) = M.dualVolume i • encode (U i) -
+      τ i • CFDLean.Boundary.meshResidual M γ k V U i := mesh_point_amount M γ k V τ U i hi
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (i : Fin n) (hi : M.Used i) : 0 < M.dualVolume i := mesh_used_volume_pos M i hi
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (τ : Fin n → ℝ) (U : Fin n → Conservative 3) (i : Fin n) (hi : ¬M.Used i) :
+    CFDLean.Boundary.meshResidual M γ k V U i = 0 ∧ meshStep M γ k V τ U i = U i :=
+  ⟨mesh_residual_unused M γ k V U i hi, mesh_step_unused M γ k V τ U i hi⟩
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (U : Fin n → Conservative 3) (i : Fin n) : meshStep M γ k V (fun _ => 0) U i = U i := mesh_zero_step M γ k V U i
+
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ) (hγ : 1 < γ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (τ : Fin n → ℝ) (U : Fin n → Conservative 3) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hU : ∀ i, M.Used i → (U i).Admissible γ)
+    (hV : ∀ b : M.Boundary, CFDLean.Boundary.patchKind M k b = .prescribedExteriorRoe → (CFDLean.Boundary.patchExterior M V b).Admissible γ)
+    (hτ : ∀ i, M.Used i → τ i = dt) :
+    amount M.dualVolume (meshStep M γ k V τ U) = amount M.dualVolume U -
+      dt • ∑ b, CFDLean.Boundary.patchTransfer M γ k V U b := mesh_common_balance_physical M γ hγ k V τ U dt hdt hU hV hτ
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (τ : Fin n → ℝ) (U : Fin n → Conservative 3) :
+    amount M.dualVolume (meshStep M γ k V τ U) = amount M.dualVolume U -
+      ((∑ e : M.Edge, (τ (M.interfaces.tail e) - τ (M.interfaces.head e)) • CFDLean.Assembly.roeTransfer M.interfaces γ U M.edgeArea e) +
+       ∑ b : M.Boundary, τ (M.interfaces.owner b) • CFDLean.Boundary.patchTransfer M γ k V U b) := mesh_local_balance M γ k V τ U
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (U : Fin n → Conservative 3) (dt : ℝ) (hk : ∀ b : M.Boundary, CFDLean.Boundary.patchKind M k b ≠ .prescribedExteriorRoe) :
+    (∑ i, M.dualVolume i * (meshStep M γ k V (fun _ => dt) U i).density) = ∑ i, M.dualVolume i * (U i).density := mesh_traction_mass M γ k V U dt hk
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (U : Fin n → Conservative 3) (dt : ℝ) (hk : ∀ b : M.Boundary, CFDLean.Boundary.patchKind M k b ≠ .prescribedExteriorRoe) :
+    (∑ i, M.dualVolume i * (meshStep M γ k V (fun _ => dt) U i).energy) = ∑ i, M.dualVolume i * (U i).energy := mesh_traction_energy M γ k V U dt hk
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (U : Fin n → Conservative 3) (dt : ℝ) (j : Fin 3) :
+    (∑ i, M.dualVolume i * (meshStep M γ k V (fun _ => dt) U i).momentum j) =
+      (∑ i, M.dualVolume i * (U i).momentum j) - dt * ∑ b,
+        if CFDLean.Boundary.patchKind M k b = .prescribedExteriorRoe then
+          (decode (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b)) (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b))).momentum j
+        else (U (M.interfaces.owner b)).pressure γ * M.boundaryArea b j := mesh_momentum_balance M γ k V U dt j
+
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (hM : M.Conforming) (γ : ℝ) (hγ : 1 < γ)
+    (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (τ : Fin n → ℝ) (hτ : ∀ i, M.Used i → 0 ≤ τ i) (U : Conservative 3) (hU : U.Admissible γ)
+    (hWall : ∀ b : M.Boundary, CFDLean.Boundary.patchKind M k b ≠ .prescribedExteriorRoe → dot U.momentum (M.boundaryArea b) = 0)
+    (hMatch : ∀ b : M.Boundary, CFDLean.Boundary.patchKind M k b = .prescribedExteriorRoe → CFDLean.Boundary.patchExterior M V b = U)
+    (i : Fin n) : meshStep M γ k V τ (fun _ => U) i = U := mesh_common_state M hM γ hγ k V τ hτ U hU hWall hMatch i
+
+example {N N' : Type*} [Fintype N] [Fintype N'] (n : N ≃ N') (v : N → ℝ) (U : N → Conservative 3) :
+    amount (fun x => v (n.symm x)) (fun x => U (n.symm x)) = amount v U := amount_reindex n v U
+example {N N' : Type*} (n : N ≃ N') (used : N → Prop) (v τ : N → ℝ)
+    (R : N → StateCoordinates) (U : N → Conservative 3) (i : N) :
+    heldStep (fun x => used (n.symm x)) (fun x => v (n.symm x)) (fun x => τ (n.symm x))
+      (fun x => R (n.symm x)) (fun x => U (n.symm x)) (n i) = heldStep used v τ R U i := held_reindex n used v τ R U i
+
+example : CFDLean.Time.Controls.normalState.Admissible 2 := CFDLean.Boundary.AssemblyControls.normal_admissible
+example (i : Fin 4) :
+    (meshStep CFDLean.Time.Controls.standard 2 (fun _ => .slipWall) (fun _ => CFDLean.Time.Controls.normalState)
+      CFDLean.Time.Controls.localSteps (fun _ => CFDLean.Time.Controls.normalState) i).Admissible 2 := CFDLean.Time.Controls.local_updated_admissible i
+example :
+    amount CFDLean.Time.Controls.standard.dualVolume (meshStep CFDLean.Time.Controls.standard 2 (fun _ => .slipWall)
+      (fun _ => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps (fun _ => CFDLean.Time.Controls.normalState)) =
+      amount CFDLean.Time.Controls.standard.dualVolume (fun _ => CFDLean.Time.Controls.normalState) + ![1/288,0,0,1/288,5/576] := CFDLean.Time.Controls.local_amount_change
+example :
+    amount CFDLean.Time.Controls.standard.dualVolume (meshStep CFDLean.Time.Controls.standard 2 (fun _ => .slipWall)
+      (fun _ => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps (fun _ => CFDLean.Time.Controls.normalState)) ≠
+      amount CFDLean.Time.Controls.standard.dualVolume (fun _ => CFDLean.Time.Controls.normalState) := CFDLean.Time.Controls.local_nonconservation
+example :
+    (∑ b : CFDLean.Time.Controls.standard.Boundary, CFDLean.Boundary.patchTransfer CFDLean.Time.Controls.standard 2
+      (fun _ => .slipWall) (fun _ => CFDLean.Time.Controls.normalState) (fun _ => CFDLean.Time.Controls.normalState) b) = 0 := CFDLean.Time.Controls.all_wall_boundary_zero
+example (dt : ℝ) :
+    amount CFDLean.Time.Controls.standard.dualVolume (meshStep CFDLean.Time.Controls.standard 2 (fun _ => .slipWall)
+      (fun _ => CFDLean.Time.Controls.normalState) (fun _ => dt) (fun _ => CFDLean.Time.Controls.normalState)) =
+      amount CFDLean.Time.Controls.standard.dualVolume (fun _ => CFDLean.Time.Controls.normalState) := CFDLean.Time.Controls.common_amount dt
+
+example : (CFDLean.Boundary.Controls.moving 0 3).Admissible 2 := CFDLean.Boundary.Controls.moving_admissible 0 3 (by norm_num)
+example (F : Finset (Fin 4)) : (CFDLean.Time.Controls.coldFace F).Admissible 2 := CFDLean.Time.Controls.cold_face_admissible F
+example :
+    CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds
+      CFDLean.Time.Controls.coldFace (fun _ => CFDLean.Boundary.Controls.moving 0 3) 0 = ![1/12,1/6,0,0,1/3] := CFDLean.Time.Controls.hot_cold_residual
+example :
+    encode (meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds CFDLean.Time.Controls.coldFace
+      (fun _ => 1) (fun _ => CFDLean.Boundary.Controls.moving 0 3) 0) = ![-1,-4,0,0,-5] := CFDLean.Time.Controls.negative_density_update
+example :
+    ¬ (meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds CFDLean.Time.Controls.coldFace
+      (fun _ => 1) (fun _ => CFDLean.Boundary.Controls.moving 0 3) 0).Admissible 2 := CFDLean.Time.Controls.negative_update_not_admissible
+example (γ : ℝ) (k : Finset (Fin 5) → CFDLean.Boundary.Kind) (V : Finset (Fin 5) → Conservative 3)
+    (τ : Fin 5 → ℝ) (U : Fin 5 → Conservative 3) :
+    CFDLean.Time.Controls.unusedMesh.dualVolume 4 = 0 ∧ CFDLean.Boundary.meshResidual CFDLean.Time.Controls.unusedMesh γ k V U 4 = 0 ∧
+      meshStep CFDLean.Time.Controls.unusedMesh γ k V τ U 4 = U 4 := CFDLean.Time.Controls.unused_all γ k V τ U
+
+example (q : ℝ) (τ : Fin 4 → ℝ) (hτ : ∀ i, 0 ≤ τ i) (i : Fin 4) :
+    meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds (fun _ => CFDLean.Boundary.Controls.moving q 1)
+      τ (fun _ => CFDLean.Boundary.Controls.moving q 1) i = CFDLean.Boundary.Controls.moving q 1 := CFDLean.Time.Controls.standard_mixed_common q τ hτ i
+example (τ : Fin 4 → ℝ) (hτ : ∀ i, 0 ≤ τ i) (i : Fin 4) :
+    meshStep CFDLean.Time.Controls.standard 2 (fun _ => .slipWall) (fun _ => CFDLean.Boundary.Controls.moving 0 1)
+      τ (fun _ => CFDLean.Boundary.Controls.moving 0 1) i = CFDLean.Boundary.Controls.moving 0 1 := CFDLean.Time.Controls.standard_wall_rest τ hτ i
+example (τ : Fin 4 → ℝ) (hτ : ∀ i, 0 ≤ τ i) (i : Fin 4) :
+    meshStep CFDLean.MedianDual.Controls.oblique 2 (fun _ => .inviscidSymmetryTraction) (fun _ => CFDLean.Boundary.Controls.moving 0 1)
+      τ (fun _ => CFDLean.Boundary.Controls.moving 0 1) i = CFDLean.Boundary.Controls.moving 0 1 := CFDLean.Time.Controls.oblique_rest τ hτ i
+example (q : ℝ) (τ : Fin 5 → ℝ) (hτ : ∀ i, 0 ≤ τ i) (i : Fin 5) :
+    meshStep CFDLean.Boundary.AssemblyControls.twoCells 2 CFDLean.Boundary.AssemblyControls.twoKinds
+      (fun _ => CFDLean.Boundary.Controls.moving q 1) τ (fun _ => CFDLean.Boundary.Controls.moving q 1) i = CFDLean.Boundary.Controls.moving q 1 := CFDLean.Time.Controls.two_cell_common q τ hτ i
+example : CFDLean.Time.Controls.twoCells.dualVolume 0 ≠ CFDLean.Time.Controls.twoCells.dualVolume 3 ∧
+    CFDLean.Time.Controls.twoSteps 0 ≠ CFDLean.Time.Controls.twoSteps 3 ∧
+    CFDLean.Boundary.AssemblyControls.varyingStates 0 ≠ CFDLean.Boundary.AssemblyControls.varyingStates 3 ∧
+    CFDLean.Time.Controls.twoData (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoOpen) ≠
+      CFDLean.Time.Controls.twoData (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoWall) := CFDLean.Time.Controls.transported_fields_nonconstant
+example (i : Fin 5) : 0 ≤ CFDLean.Time.Controls.twoSteps i := by unfold CFDLean.Time.Controls.twoSteps; positivity
+example (F : Finset (Fin 5)) : (CFDLean.Time.Controls.twoData F).Admissible 2 := by
+  unfold CFDLean.Time.Controls.twoData
+  split_ifs <;> apply CFDLean.Boundary.Controls.moving_admissible <;> norm_num
+
+example {n m : ℕ} {N' E' B' : Type*} [DecidableEq N'] [Fintype E'] [Fintype B']
+    (M : CFDLean.MedianDual.MeshData n m) (σ : Fin n ≃ N') (ζ : M.Edge ≃ E') (β : M.Boundary ≃ B')
+    (γ : ℝ) (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → Conservative 3)
+    (τ : Fin n → ℝ) (U : Fin n → Conservative 3) (i : Fin n) :
+    heldStep (fun j => M.Used (σ.symm j)) (fun j => M.dualVolume (σ.symm j)) (fun j => τ (σ.symm j))
+      (CFDLean.Boundary.stationaryResidual (M.interfaces.reindex σ ζ β) γ
+        (fun b => CFDLean.Boundary.patchKind M k (β.symm b)) (fun b => CFDLean.Boundary.patchExterior M V (β.symm b))
+        (fun j => U (σ.symm j)) (fun e => M.edgeArea (ζ.symm e)) (fun b => M.boundaryArea (β.symm b)))
+      (fun j => U (σ.symm j)) (σ i) = meshStep M γ k V τ U i := mesh_step_reindex M σ ζ β γ k V τ U i
+
+end
+end M5Checks

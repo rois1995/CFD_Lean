@@ -8,32 +8,81 @@
     {
       "id": "M5-U",
       "stage": "M5",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Time.euler_coordinates",
+        "CFDLean.Time.euler_zero_step",
+        "CFDLean.Time.euler_zero_residual",
+        "CFDLean.Time.euler_amount",
+        "CFDLean.Time.mesh_point_amount",
+        "CFDLean.Time.mesh_zero_step"
+      ]
     },
     {
       "id": "M5-V",
       "stage": "M5",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Time.mesh_used_volume_pos",
+        "CFDLean.Time.tail_used",
+        "CFDLean.Time.head_used",
+        "CFDLean.Time.owner_used",
+        "CFDLean.Time.mesh_residual_unused",
+        "CFDLean.Time.mesh_step_used",
+        "CFDLean.Time.mesh_step_unused",
+        "CFDLean.Time.mesh_amount_used",
+        "CFDLean.Time.Controls.unused_all"
+      ]
     },
     {
       "id": "M5-B",
       "stage": "M5",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Time.mesh_amount_change",
+        "CFDLean.Time.mesh_common_balance",
+        "CFDLean.Time.mesh_common_balance_physical",
+        "CFDLean.Time.mesh_component_balance",
+        "CFDLean.Time.mesh_mass_balance",
+        "CFDLean.Time.mesh_energy_balance",
+        "CFDLean.Time.mesh_momentum_balance",
+        "CFDLean.Time.mesh_traction_mass",
+        "CFDLean.Time.mesh_traction_energy"
+      ]
     },
     {
       "id": "M5-L",
       "stage": "M5",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Time.weighted_residual",
+        "CFDLean.Time.mesh_local_balance",
+        "CFDLean.Time.mesh_local_balance_physical",
+        "CFDLean.Time.Controls.local_amount_change",
+        "CFDLean.Time.Controls.local_nonconservation",
+        "CFDLean.Time.Controls.local_updated_admissible"
+      ]
     },
     {
       "id": "M5-C",
       "stage": "M5",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Time.mesh_common_state",
+        "CFDLean.Time.Controls.standard_mixed_common",
+        "CFDLean.Time.Controls.standard_wall_rest",
+        "CFDLean.Time.Controls.oblique_rest",
+        "CFDLean.Time.Controls.two_cell_common",
+        "CFDLean.Time.Controls.hot_cold_residual",
+        "CFDLean.Time.Controls.negative_density_update",
+        "CFDLean.Time.Controls.negative_update_not_admissible"
+      ]
     },
     {
       "id": "M5-O",
       "stage": "M5",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Time.held_reindex",
+        "CFDLean.Time.amount_reindex",
+        "CFDLean.Time.mesh_step_reindex",
+        "CFDLean.Time.Controls.transported_nonconstant",
+        "CFDLean.Time.Controls.transported_fields_nonconstant"
+      ]
     }
   ]
 }

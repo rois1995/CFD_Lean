@@ -622,5 +622,177 @@
   "CFDLean.Roe.witness_intermediate_coordinates": {
     "accepted_type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]",
     "current_type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]"
+  },
+  "CFDLean.Time.Controls.hot_cold_residual": {
+    "accepted_type": null,
+    "current_type": "CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n    CFDLean.Time.Controls.coldFace (fun x => CFDLean.Time.Controls.moving 0 3) 0 =\n  ![1 / 12, 1 / 6, 0, 0, 1 / 3]"
+  },
+  "CFDLean.Time.Controls.local_amount_change": {
+    "accepted_type": null,
+    "current_type": "CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps fun x =>\n      CFDLean.Time.Controls.normalState) =\n  (CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun x => CFDLean.Time.Controls.normalState) +\n    ![1 / 288, 0, 0, 1 / 288, 5 / 576]"
+  },
+  "CFDLean.Time.Controls.local_nonconservation": {
+    "accepted_type": null,
+    "current_type": "CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps fun x =>\n      CFDLean.Time.Controls.normalState) \u2260\n  CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun x => CFDLean.Time.Controls.normalState"
+  },
+  "CFDLean.Time.Controls.local_updated_admissible": {
+    "accepted_type": null,
+    "current_type": "\u2200 (i : Fin 4),\n  CFDLean.Conservative.Admissible 2\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps\n      (fun x => CFDLean.Time.Controls.normalState) i)"
+  },
+  "CFDLean.Time.Controls.negative_density_update": {
+    "accepted_type": null,
+    "current_type": "CFDLean.Coordinates.encode\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n      CFDLean.Time.Controls.coldFace (fun x => 1) (fun x => CFDLean.Time.Controls.moving 0 3) 0) =\n  ![-1, -4, 0, 0, -5]"
+  },
+  "CFDLean.Time.Controls.negative_update_not_admissible": {
+    "accepted_type": null,
+    "current_type": "\u00acCFDLean.Conservative.Admissible 2\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n      CFDLean.Time.Controls.coldFace (fun x => 1) (fun x => CFDLean.Time.Controls.moving 0 3) 0)"
+  },
+  "CFDLean.Time.Controls.oblique_rest": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03c4 : Fin 4 \u2192 \u211d),\n  (\u2200 (i : Fin 4), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 4),\n      CFDLean.Time.meshStep CFDLean.MedianDual.Controls.oblique 2\n          (fun x => CFDLean.Boundary.Kind.inviscidSymmetryTraction) (fun x => CFDLean.Time.Controls.moving 0 1) \u03c4\n          (fun x => CFDLean.Time.Controls.moving 0 1) i =\n        CFDLean.Time.Controls.moving 0 1"
+  },
+  "CFDLean.Time.Controls.standard_mixed_common": {
+    "accepted_type": null,
+    "current_type": "\u2200 (q : \u211d) (\u03c4 : Fin 4 \u2192 \u211d),\n  (\u2200 (i : Fin 4), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 4),\n      CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n          (fun x => CFDLean.Time.Controls.moving q 1) \u03c4 (fun x => CFDLean.Time.Controls.moving q 1) i =\n        CFDLean.Time.Controls.moving q 1"
+  },
+  "CFDLean.Time.Controls.standard_wall_rest": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03c4 : Fin 4 \u2192 \u211d),\n  (\u2200 (i : Fin 4), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 4),\n      CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n          (fun x => CFDLean.Time.Controls.moving 0 1) \u03c4 (fun x => CFDLean.Time.Controls.moving 0 1) i =\n        CFDLean.Time.Controls.moving 0 1"
+  },
+  "CFDLean.Time.Controls.transported_fields_nonconstant": {
+    "accepted_type": null,
+    "current_type": "CFDLean.Time.Controls.twoCells.dualVolume 0 \u2260 CFDLean.Time.Controls.twoCells.dualVolume 3 \u2227\n  CFDLean.Time.Controls.twoSteps 0 \u2260 CFDLean.Time.Controls.twoSteps 3 \u2227\n    CFDLean.Boundary.AssemblyControls.varyingStates 0 \u2260 CFDLean.Boundary.AssemblyControls.varyingStates 3 \u2227\n      CFDLean.Time.Controls.twoData\n          (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoOpen) \u2260\n        CFDLean.Time.Controls.twoData\n          (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoWall)"
+  },
+  "CFDLean.Time.Controls.transported_nonconstant": {
+    "accepted_type": null,
+    "current_type": "\u2200 (i : Fin 5),\n  CFDLean.Time.heldStep (fun x => CFDLean.Time.Controls.twoCells.Used ((Equiv.symm (Equiv.swap 0 3)) x))\n      (fun x => CFDLean.Time.Controls.twoCells.dualVolume ((Equiv.symm (Equiv.swap 0 3)) x))\n      (fun x => CFDLean.Time.Controls.twoSteps ((Equiv.symm (Equiv.swap 0 3)) x))\n      (CFDLean.Boundary.stationaryResidual\n        (CFDLean.Time.Controls.twoCells.interfaces.reindex (Equiv.swap 0 3)\n          (Equiv.swap CFDLean.Time.Controls.edge01 CFDLean.Time.Controls.edge03)\n          (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n        2\n        (fun x =>\n          CFDLean.Boundary.patchKind CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoKinds\n            ((Equiv.symm\n                (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n              x))\n        (fun x =>\n          CFDLean.Boundary.patchExterior CFDLean.Time.Controls.twoCells CFDLean.Time.Controls.twoData\n            ((Equiv.symm\n                (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n              x))\n        (fun x => CFDLean.Boundary.AssemblyControls.varyingStates ((Equiv.symm (Equiv.swap 0 3)) x))\n        (fun x =>\n          CFDLean.Time.Controls.twoCells.edgeArea\n            ((Equiv.symm (Equiv.swap CFDLean.Time.Controls.edge01 CFDLean.Time.Controls.edge03)) x))\n        fun x =>\n        CFDLean.Time.Controls.twoCells.boundaryArea\n          ((Equiv.symm (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n            x))\n      (fun x => CFDLean.Boundary.AssemblyControls.varyingStates ((Equiv.symm (Equiv.swap 0 3)) x))\n      ((Equiv.swap 0 3) i) =\n    CFDLean.Time.meshStep CFDLean.Time.Controls.twoCells 2 CFDLean.Boundary.AssemblyControls.twoKinds\n      CFDLean.Time.Controls.twoData CFDLean.Time.Controls.twoSteps CFDLean.Boundary.AssemblyControls.varyingStates i"
+  },
+  "CFDLean.Time.Controls.two_cell_common": {
+    "accepted_type": null,
+    "current_type": "\u2200 (q : \u211d) (\u03c4 : Fin 5 \u2192 \u211d),\n  (\u2200 (i : Fin 5), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 5),\n      CFDLean.Time.meshStep CFDLean.Boundary.AssemblyControls.twoCells 2 CFDLean.Boundary.AssemblyControls.twoKinds\n          (fun x => CFDLean.Time.Controls.moving q 1) \u03c4 (fun x => CFDLean.Time.Controls.moving q 1) i =\n        CFDLean.Time.Controls.moving q 1"
+  },
+  "CFDLean.Time.Controls.unused_all": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (k : Finset (Fin 5) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin 5) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin 5 \u2192 \u211d)\n  (U : Fin 5 \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.Controls.unusedMesh.dualVolume 4 = 0 \u2227\n    CFDLean.Boundary.meshResidual CFDLean.Time.Controls.unusedMesh \u03b3 k V U 4 = 0 \u2227\n      CFDLean.Time.meshStep CFDLean.Time.Controls.unusedMesh \u03b3 k V \u03c4 U 4 = U 4"
+  },
+  "CFDLean.Time.amount_reindex": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {N' : Type u_2} [inst : Fintype N] [inst_1 : Fintype N'] (n : N \u2243 N') (v : N \u2192 \u211d)\n  (U : N \u2192 CFDLean.Conservative 3),\n  (CFDLean.Time.amount (fun x => v (n.symm x)) fun x => U (n.symm x)) = CFDLean.Time.amount v U"
+  },
+  "CFDLean.Time.euler_amount": {
+    "accepted_type": null,
+    "current_type": "\u2200 (v \u03c4 : \u211d),\n  v \u2260 0 \u2192\n    \u2200 (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3),\n      v \u2022 CFDLean.Coordinates.encode (CFDLean.Time.euler v \u03c4 R U) = v \u2022 CFDLean.Coordinates.encode U - \u03c4 \u2022 R"
+  },
+  "CFDLean.Time.euler_coordinates": {
+    "accepted_type": null,
+    "current_type": "\u2200 (v \u03c4 : \u211d) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3),\n  CFDLean.Coordinates.encode (CFDLean.Time.euler v \u03c4 R U) = CFDLean.Coordinates.encode U - (\u03c4 / v) \u2022 R"
+  },
+  "CFDLean.Time.euler_zero_residual": {
+    "accepted_type": null,
+    "current_type": "\u2200 (v \u03c4 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Time.euler v \u03c4 0 U = U"
+  },
+  "CFDLean.Time.euler_zero_step": {
+    "accepted_type": null,
+    "current_type": "\u2200 (v : \u211d) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3), CFDLean.Time.euler v 0 R U = U"
+  },
+  "CFDLean.Time.head_used": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (e : M.Edge), M.Used (M.interfaces.head e)"
+  },
+  "CFDLean.Time.held_reindex": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {N' : Type u_2} (n : N \u2243 N') (used : N \u2192 Prop) (v \u03c4 : N \u2192 \u211d)\n  (R : N \u2192 CFDLean.Coordinates.StateCoordinates) (U : N \u2192 CFDLean.Conservative 3) (i : N),\n  CFDLean.Time.heldStep (fun x => used (n.symm x)) (fun x => v (n.symm x)) (fun x => \u03c4 (n.symm x))\n      (fun x => R (n.symm x)) (fun x => U (n.symm x)) (n i) =\n    CFDLean.Time.heldStep used v \u03c4 R U i"
+  },
+  "CFDLean.Time.mesh_amount_change": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n    CFDLean.Time.amount M.dualVolume U - \u2211 i, \u03c4 i \u2022 CFDLean.Boundary.meshResidual M \u03b3 k V U i"
+  },
+  "CFDLean.Time.mesh_amount_used": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount M.dualVolume U =\n    \u2211 i \u2208 Finset.filter M.Used Finset.univ, M.dualVolume i \u2022 CFDLean.Coordinates.encode (U i)"
+  },
+  "CFDLean.Time.mesh_common_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  (\u2200 (i : Fin n), M.Used i \u2192 \u03c4 i = dt) \u2192\n    CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n      CFDLean.Time.amount M.dualVolume U - dt \u2022 \u2211 b, CFDLean.Boundary.patchTransfer M \u03b3 k V U b"
+  },
+  "CFDLean.Time.mesh_common_balance_physical": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d),\n  1 < \u03b3 \u2192\n    \u2200 (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d)\n      (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n      0 \u2264 dt \u2192\n        (\u2200 (i : Fin n), M.Used i \u2192 CFDLean.Conservative.Admissible \u03b3 (U i)) \u2192\n          (\u2200 (b : M.Boundary),\n              CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                CFDLean.Conservative.Admissible \u03b3 (CFDLean.Boundary.patchExterior M V b)) \u2192\n            (\u2200 (i : Fin n), M.Used i \u2192 \u03c4 i = dt) \u2192\n              CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n                CFDLean.Time.amount M.dualVolume U - dt \u2022 \u2211 b, CFDLean.Boundary.patchTransfer M \u03b3 k V U b"
+  },
+  "CFDLean.Time.mesh_common_state": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming \u2192\n    \u2200 (\u03b3 : \u211d),\n      1 < \u03b3 \u2192\n        \u2200 (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d),\n          (\u2200 (i : Fin n), M.Used i \u2192 0 \u2264 \u03c4 i) \u2192\n            \u2200 (U : CFDLean.Conservative 3),\n              CFDLean.Conservative.Admissible \u03b3 U \u2192\n                (\u2200 (b : M.Boundary),\n                    CFDLean.Boundary.patchKind M k b \u2260 CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                      CFDLean.dot U.momentum (M.boundaryArea b) = 0) \u2192\n                  (\u2200 (b : M.Boundary),\n                      CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                        CFDLean.Boundary.patchExterior M V b = U) \u2192\n                    \u2200 (i : Fin n), CFDLean.Time.meshStep M \u03b3 k V \u03c4 (fun x => U) i = U"
+  },
+  "CFDLean.Time.mesh_component_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d) (j : Fin 5),\n  \u2211 i, M.dualVolume i * CFDLean.Coordinates.encode (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i) j =\n    \u2211 i, M.dualVolume i * CFDLean.Coordinates.encode (U i) j - dt * \u2211 b, CFDLean.Boundary.patchTransfer M \u03b3 k V U b j"
+  },
+  "CFDLean.Time.mesh_energy_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).energy =\n    \u2211 i, M.dualVolume i * (U i).energy -\n      dt *\n        \u2211 b,\n          if CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe then\n            CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b))\n              (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b) 4\n          else 0"
+  },
+  "CFDLean.Time.mesh_local_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n    CFDLean.Time.amount M.dualVolume U -\n      (\u2211 e,\n          (\u03c4 (M.interfaces.tail e) - \u03c4 (M.interfaces.head e)) \u2022\n            CFDLean.Assembly.roeTransfer M.interfaces \u03b3 U M.edgeArea e +\n        \u2211 b, \u03c4 (M.interfaces.owner b) \u2022 CFDLean.Boundary.patchTransfer M \u03b3 k V U b)"
+  },
+  "CFDLean.Time.mesh_local_balance_physical": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d),\n  1 < \u03b3 \u2192\n    \u2200 (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d),\n      (\u2200 (i : Fin n), M.Used i \u2192 0 \u2264 \u03c4 i) \u2192\n        \u2200 (U : Fin n \u2192 CFDLean.Conservative 3),\n          (\u2200 (i : Fin n), M.Used i \u2192 CFDLean.Conservative.Admissible \u03b3 (U i)) \u2192\n            (\u2200 (b : M.Boundary),\n                CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                  CFDLean.Conservative.Admissible \u03b3 (CFDLean.Boundary.patchExterior M V b)) \u2192\n              CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n                CFDLean.Time.amount M.dualVolume U -\n                  (\u2211 e,\n                      (\u03c4 (M.interfaces.tail e) - \u03c4 (M.interfaces.head e)) \u2022\n                        CFDLean.Assembly.roeTransfer M.interfaces \u03b3 U M.edgeArea e +\n                    \u2211 b, \u03c4 (M.interfaces.owner b) \u2022 CFDLean.Boundary.patchTransfer M \u03b3 k V U b)"
+  },
+  "CFDLean.Time.mesh_mass_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).density =\n    \u2211 i, M.dualVolume i * (U i).density -\n      dt *\n        \u2211 b,\n          if CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe then\n            CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b))\n              (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b) 0\n          else 0"
+  },
+  "CFDLean.Time.mesh_momentum_balance": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d) (j : Fin 3),\n  \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).momentum j =\n    \u2211 i, M.dualVolume i * (U i).momentum j -\n      dt *\n        \u2211 b,\n          if CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe then\n            (CFDLean.Coordinates.decode\n                  (CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b))\n                    (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b))).momentum\n              j\n          else CFDLean.Conservative.pressure \u03b3 (U (M.interfaces.owner b)) * M.boundaryArea b j"
+  },
+  "CFDLean.Time.mesh_point_amount": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  M.Used i \u2192\n    M.dualVolume i \u2022 CFDLean.Coordinates.encode (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i) =\n      M.dualVolume i \u2022 CFDLean.Coordinates.encode (U i) - \u03c4 i \u2022 CFDLean.Boundary.meshResidual M \u03b3 k V U i"
+  },
+  "CFDLean.Time.mesh_residual_unused": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  \u00acM.Used i \u2192 CFDLean.Boundary.meshResidual M \u03b3 k V U i = 0"
+  },
+  "CFDLean.Time.mesh_step_reindex": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst : DecidableEq N'] [inst_1 : Fintype E']\n  [inst_2 : Fintype B'] (M : CFDLean.MedianDual.MeshData n m) (nodeEq : Fin n \u2243 N') (e : M.Edge \u2243 E')\n  (b : M.Boundary \u2243 B') (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  CFDLean.Time.heldStep (fun x => M.Used (nodeEq.symm x)) (fun x => M.dualVolume (nodeEq.symm x))\n      (fun x => \u03c4 (nodeEq.symm x))\n      (CFDLean.Boundary.stationaryResidual (M.interfaces.reindex nodeEq e b) \u03b3\n        (fun x => CFDLean.Boundary.patchKind M k (b.symm x)) (fun x => CFDLean.Boundary.patchExterior M V (b.symm x))\n        (fun x => U (nodeEq.symm x)) (fun x => M.edgeArea (e.symm x)) fun x => M.boundaryArea (b.symm x))\n      (fun x => U (nodeEq.symm x)) (nodeEq i) =\n    CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i"
+  },
+  "CFDLean.Time.mesh_step_unused": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  \u00acM.Used i \u2192 CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i = U i"
+  },
+  "CFDLean.Time.mesh_step_used": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  M.Used i \u2192\n    CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i =\n      CFDLean.Coordinates.decode\n        (CFDLean.Coordinates.encode (U i) - (\u03c4 i / M.dualVolume i) \u2022 CFDLean.Boundary.meshResidual M \u03b3 k V U i)"
+  },
+  "CFDLean.Time.mesh_traction_energy": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  (\u2200 (b : M.Boundary), CFDLean.Boundary.patchKind M k b \u2260 CFDLean.Boundary.Kind.prescribedExteriorRoe) \u2192\n    \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).energy = \u2211 i, M.dualVolume i * (U i).energy"
+  },
+  "CFDLean.Time.mesh_traction_mass": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  (\u2200 (b : M.Boundary), CFDLean.Boundary.patchKind M k b \u2260 CFDLean.Boundary.Kind.prescribedExteriorRoe) \u2192\n    \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).density =\n      \u2211 i, M.dualVolume i * (U i).density"
+  },
+  "CFDLean.Time.mesh_used_volume_pos": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (i : Fin n), M.Used i \u2192 0 < M.dualVolume i"
+  },
+  "CFDLean.Time.mesh_zero_step": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  CFDLean.Time.meshStep M \u03b3 k V (fun x => 0) U i = U i"
+  },
+  "CFDLean.Time.owner_used": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (b : M.Boundary), M.Used (M.interfaces.owner b)"
+  },
+  "CFDLean.Time.tail_used": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (e : M.Edge), M.Used (M.interfaces.tail e)"
+  },
+  "CFDLean.Time.weighted_residual": {
+    "accepted_type": null,
+    "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype N] [inst_2 : Fintype E]\n  [inst_3 : Fintype B] (m : CFDLean.Assembly.Interfaces N E B) (\u03c4 : N \u2192 \u211d)\n  (f : E \u2192 CFDLean.Coordinates.StateCoordinates) (g : B \u2192 CFDLean.Coordinates.StateCoordinates),\n  \u2211 i, \u03c4 i \u2022 CFDLean.Assembly.residual m f g i = \u2211 e, (\u03c4 (m.tail e) - \u03c4 (m.head e)) \u2022 f e + \u2211 b, \u03c4 (m.owner b) \u2022 g b"
   }
 }

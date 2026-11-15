@@ -1,6 +1,7 @@
 {
   "lean": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
-  "stage": "M4b",
+  "stage": "M5",
+  "m4_stage": "M4b",
   "m3_stage": "M3b",
   "m2_stage": "M2d",
   "promised_theorems": [
@@ -159,7 +160,50 @@
     "CFDLean.Roe.weight_lt_one",
     "CFDLean.Roe.weight_pos",
     "CFDLean.Roe.weight_sum",
-    "CFDLean.Roe.witness_intermediate_coordinates"
+    "CFDLean.Roe.witness_intermediate_coordinates",
+    "CFDLean.Time.Controls.hot_cold_residual",
+    "CFDLean.Time.Controls.local_amount_change",
+    "CFDLean.Time.Controls.local_nonconservation",
+    "CFDLean.Time.Controls.local_updated_admissible",
+    "CFDLean.Time.Controls.negative_density_update",
+    "CFDLean.Time.Controls.negative_update_not_admissible",
+    "CFDLean.Time.Controls.oblique_rest",
+    "CFDLean.Time.Controls.standard_mixed_common",
+    "CFDLean.Time.Controls.standard_wall_rest",
+    "CFDLean.Time.Controls.transported_fields_nonconstant",
+    "CFDLean.Time.Controls.transported_nonconstant",
+    "CFDLean.Time.Controls.two_cell_common",
+    "CFDLean.Time.Controls.unused_all",
+    "CFDLean.Time.amount_reindex",
+    "CFDLean.Time.euler_amount",
+    "CFDLean.Time.euler_coordinates",
+    "CFDLean.Time.euler_zero_residual",
+    "CFDLean.Time.euler_zero_step",
+    "CFDLean.Time.head_used",
+    "CFDLean.Time.held_reindex",
+    "CFDLean.Time.mesh_amount_change",
+    "CFDLean.Time.mesh_amount_used",
+    "CFDLean.Time.mesh_common_balance",
+    "CFDLean.Time.mesh_common_balance_physical",
+    "CFDLean.Time.mesh_common_state",
+    "CFDLean.Time.mesh_component_balance",
+    "CFDLean.Time.mesh_energy_balance",
+    "CFDLean.Time.mesh_local_balance",
+    "CFDLean.Time.mesh_local_balance_physical",
+    "CFDLean.Time.mesh_mass_balance",
+    "CFDLean.Time.mesh_momentum_balance",
+    "CFDLean.Time.mesh_point_amount",
+    "CFDLean.Time.mesh_residual_unused",
+    "CFDLean.Time.mesh_step_reindex",
+    "CFDLean.Time.mesh_step_unused",
+    "CFDLean.Time.mesh_step_used",
+    "CFDLean.Time.mesh_traction_energy",
+    "CFDLean.Time.mesh_traction_mass",
+    "CFDLean.Time.mesh_used_volume_pos",
+    "CFDLean.Time.mesh_zero_step",
+    "CFDLean.Time.owner_used",
+    "CFDLean.Time.tail_used",
+    "CFDLean.Time.weighted_residual"
   ],
   "modules": [
     "CFDLean",
@@ -184,12 +228,14 @@
     "CFDLean.Geometry.MedianDual.Mesh",
     "CFDLean.Geometry.MedianDual.RoeAggregation",
     "CFDLean.Geometry.MedianDual.TwoCells",
+    "CFDLean.Time.Controls",
+    "CFDLean.Time.ExplicitEuler",
     "Integrity"
   ],
   "closure": {
-    "visited": 21175,
+    "visited": 21314,
     "unsafe_reached": [],
-    "roots": 988,
+    "roots": 1093,
     "axioms": [
       "propext",
       "Classical.choice",
@@ -199,7 +245,7 @@
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "95a10fd5734fbda88d9a6860a059c5f7c9cd24dedebee0c6c7dd97f7577ad578"
+      "sha256": "a3e4a88a02f37b4d54375e3d85ad3d6d2af7b0897a2f3ab56c3b2f14c7a8cbd0"
     },
     "CFDLean.Boundary.Assembly": {
       "path": "CFDLean/Boundary/Assembly.lean",
@@ -284,6 +330,14 @@
     "CFDLean.Geometry.MedianDual.TwoCells": {
       "path": "CFDLean/Geometry/MedianDual/TwoCells.lean",
       "sha256": "494049aa59e54e8152e674fa5474b8ce7a6c2e65ecfa653592895e4c15339857"
+    },
+    "CFDLean.Time.Controls": {
+      "path": "CFDLean/Time/Controls.lean",
+      "sha256": "a0fd094481b73caae56f6e185ccea6bd10aaa62befb59afb43c5b44f10d8cf3d"
+    },
+    "CFDLean.Time.ExplicitEuler": {
+      "path": "CFDLean/Time/ExplicitEuler.lean",
+      "sha256": "a3f80cc900edd7b8d0518fa3a7f8a6690746387d998139cedb9eba0f16ce3ebb"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -4335,6 +4389,24 @@
       "module": "CFDLean.Boundary.AssemblyControls",
       "kind": "definition",
       "direct": [
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.AssemblyControls.moving"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Boundary.AssemblyControls.varyingStates.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 5), CFDLean.Boundary.AssemblyControls.varyingStates i = CFDLean.Boundary.AssemblyControls.moving 0 (\u2191\u2191i + 1)",
+      "root": true,
+      "name": "CFDLean.Boundary.AssemblyControls.varyingStates.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.AssemblyControls.varyingStates",
         "CFDLean.Conservative",
         "CFDLean.Boundary.AssemblyControls.moving"
       ],
@@ -27997,6 +28069,3342 @@
         "Quot.sound"
       ]
     },
+    "CFDLean.Time.Controls.all_wall_boundary_zero": {
+      "unsafe": false,
+      "type": "\u2211 b,\n    CFDLean.Boundary.patchTransfer CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) (fun x => CFDLean.Time.Controls.normalState) b =\n  0",
+      "root": true,
+      "name": "CFDLean.Time.Controls.all_wall_boundary_zero",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.Controls.all_wall_residual",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.Time.Controls.normalState",
+        "CFDLean.Time.Controls.r",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.mesh_global_balance"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.all_wall_common_residual": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming \u2192\n    \u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (i : Fin n),\n      CFDLean.Boundary.meshResidual M \u03b3 (fun x => CFDLean.Boundary.Kind.slipWall) V (fun x => U) i =\n        (CFDLean.Time.Controls.wallLinear \u03b3 U - CFDLean.Assembly.physicalTransfer \u03b3 U)\n          (\u2211 b, if M.interfaces.owner b = i then M.boundaryArea b else 0)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.all_wall_common_residual",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Boundary.wall_smul",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Assembly.physicalTransfer",
+        "CFDLean.Boundary.wallTransfer",
+        "CFDLean.Time.Controls.wallLinear",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.Boundary.wall_zero",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Boundary.mesh_common_correction",
+        "CFDLean.Vector",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.MedianDual.MeshData.Conforming",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.wall_add"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.all_wall_residual": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 4),\n  CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) (fun x => CFDLean.Time.Controls.normalState) i =\n    ![CFDLean.Time.Controls.r, 0, 0, -CFDLean.Time.Controls.r] i",
+      "root": true,
+      "name": "CFDLean.Time.Controls.all_wall_residual",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Assembly.physicalTransfer._proof_2",
+        "CFDLean.Boundary.AssemblyControls.normalState._proof_1",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Boundary.wall_smul",
+        "CFDLean.Time.Controls.all_wall_common_residual",
+        "CFDLean.physicalFlux",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.Controls.r._proof_3",
+        "CFDLean.Boundary.AssemblyControls.normalState._proof_2",
+        "CFDLean.Time.Controls.boundaryTotals",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.squareSum",
+        "CFDLean.Assembly.physicalTransfer._proof_1",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Assembly.physicalTransfer",
+        "CFDLean.Boundary.wallTransfer",
+        "CFDLean.Time.Controls.wallLinear",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.dot",
+        "CFDLean.Time.Controls.standard_boundary_total",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.MedianDual.Controls.standard_conforming",
+        "CFDLean.Time.Controls.normalState",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.Controls.r._proof_2",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Time.Controls.r",
+        "CFDLean.Vector",
+        "CFDLean.Boundary.pressureTransfer._proof_3",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.wall_add"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.boundaryTotals": {
+      "unsafe": false,
+      "type": "Fin 4 \u2192 CFDLean.Vector 3",
+      "root": true,
+      "name": "CFDLean.Time.Controls.boundaryTotals",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.boundaryTotals._proof_1": {
+      "unsafe": false,
+      "type": "(4 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.boundaryTotals._proof_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.boundaryTotals.eq_1": {
+      "unsafe": false,
+      "type": "CFDLean.Time.Controls.boundaryTotals = ![![-1 / 6, -1 / 6, -1 / 6], ![1 / 6, 0, 0], ![0, 1 / 6, 0], ![0, 0, 1 / 6]]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.boundaryTotals.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.boundaryTotals",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.Vector"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.coldFace": {
+      "unsafe": false,
+      "type": "Finset (Fin 4) \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.Controls.coldFace",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Boundary.Controls.openPatch",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.coldFace._proof_6": {
+      "unsafe": false,
+      "type": "(1 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.coldFace._proof_6",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.coldFace.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (F : Finset (Fin 4)),\n  CFDLean.Time.Controls.coldFace F =\n    if F = CFDLean.Boundary.primalFace CFDLean.Time.Controls.standard CFDLean.Boundary.Controls.openPatch then\n      CFDLean.Time.Controls.moving 0 1\n    else CFDLean.Time.Controls.moving 0 3",
+      "root": true,
+      "name": "CFDLean.Time.Controls.coldFace.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Boundary.Controls.openPatch",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Time.Controls.coldFace"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.cold_face_admissible": {
+      "unsafe": false,
+      "type": "\u2200 (F : Finset (Fin 4)), CFDLean.Conservative.Admissible 2 (CFDLean.Time.Controls.coldFace F)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.cold_face_admissible",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Boundary.Controls.moving_admissible",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Boundary.Controls.openPatch",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Time.Controls.coldFace"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.common_amount": {
+      "unsafe": false,
+      "type": "\u2200 (dt : \u211d),\n  CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume\n      (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n        (fun x => CFDLean.Time.Controls.normalState) (fun x => dt) fun x => CFDLean.Time.Controls.normalState) =\n    CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun x => CFDLean.Time.Controls.normalState",
+      "root": true,
+      "name": "CFDLean.Time.Controls.common_amount",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.all_wall_boundary_zero",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.Time.Controls.normalState",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.mesh_common_balance",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.edge01": {
+      "unsafe": false,
+      "type": "CFDLean.Time.Controls.twoCells.Edge",
+      "root": true,
+      "name": "CFDLean.Time.Controls.edge01",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.Time.Controls.edge01._proof_11",
+        "CFDLean.Time.Controls.edge01._proof_12",
+        "CFDLean.MedianDual.MeshData.Edge"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.edge01._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge01._closed_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge01._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge01._closed_1._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge01._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Time.Controls.twoCells.Edge",
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge01._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.Time.Controls.edge01._proof_11",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.MedianDual.MeshData.cellNodes"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge01._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge01._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge01._proof_11": {
+      "unsafe": false,
+      "type": "NeZero (4 + 1)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.edge01._proof_11",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Time.Controls.edge01._proof_12": {
+      "unsafe": false,
+      "type": "(0, 1).1 < (0, 1).2 \u2227\n  \u2203 t, (0, 1).1 \u2208 CFDLean.Time.Controls.twoCells.cellNodes t \u2227 (0, 1).2 \u2208 CFDLean.Time.Controls.twoCells.cellNodes t",
+      "root": true,
+      "name": "CFDLean.Time.Controls.edge01._proof_12",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.Time.Controls.edge01._proof_11",
+        "CFDLean.MedianDual.MeshData.cellNodes"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.edge03": {
+      "unsafe": false,
+      "type": "CFDLean.Time.Controls.twoCells.Edge",
+      "root": true,
+      "name": "CFDLean.Time.Controls.edge03",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.Time.Controls.edge01._proof_11",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Time.Controls.edge03._proof_13"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.edge03._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge03._closed_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge03._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge03._closed_1._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge03._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.Time.Controls.twoCells.Edge",
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge03._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.Time.Controls.edge01._proof_11",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.MedianDual.MeshData.cellNodes"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge03._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.edge03._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.edge03._proof_13": {
+      "unsafe": false,
+      "type": "(0, 3).1 < (0, 3).2 \u2227\n  \u2203 t, (0, 3).1 \u2208 CFDLean.Time.Controls.twoCells.cellNodes t \u2227 (0, 3).2 \u2208 CFDLean.Time.Controls.twoCells.cellNodes t",
+      "root": true,
+      "name": "CFDLean.Time.Controls.edge03._proof_13",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.Time.Controls.edge01._proof_11",
+        "CFDLean.MedianDual.MeshData.cellNodes"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.hot_cold_negative_axis": {
+      "unsafe": false,
+      "type": "CFDLean.Boundary.prescribedExteriorRoeTransfer 2 (CFDLean.Time.Controls.moving 0 3) (CFDLean.Time.Controls.moving 0 1)\n    (-CFDLean.Boundary.Controls.axis) =\n  ![1 / 2, -2, 0, 0, 2]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.hot_cold_negative_axis",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Roe.soundSpeed",
+        "CFDLean.Coordinates.area",
+        "CFDLean.Roe.Spectral.absolute",
+        "CFDLean.Boundary.Controls.moving_enthalpy",
+        "CFDLean.Boundary.Controls.axis_unit",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Roe.averages_swap",
+        "CFDLean.PhysicalJacobian.coordinateFlux",
+        "CFDLean.squareSum",
+        "CFDLean.Boundary.Controls.moving",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Coordinates.encode_decode",
+        "CFDLean.Roe.unitNormal_neg",
+        "CFDLean.Roe.roeFluxCoordinates.eq_1",
+        "CFDLean.Boundary.Controls.axis",
+        "CFDLean.Roe.soundSquare",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Roe.Spectral.roe_absolute_reverse",
+        "CFDLean.dot",
+        "CFDLean.Coordinates.unitNormal",
+        "CFDLean.Roe.Spectral.dissipation",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Boundary.Controls.absolute_axis",
+        "CFDLean.Vector",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Boundary.Controls.moving_averageVelocity",
+        "CFDLean.Boundary.Controls.moving._proof_1",
+        "CFDLean.Boundary.Controls.moving_sound",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Roe.averageVelocity",
+        "CFDLean.Roe.averageEnthalpy",
+        "CFDLean.Roe.Spectral.E",
+        "CFDLean.Boundary.Controls.axis_ne",
+        "CFDLean.Roe.roeFluxCoordinates._proof_1",
+        "CFDLean.Roe.roeFluxCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.hot_cold_residual": {
+      "unsafe": false,
+      "type": "CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n    CFDLean.Time.Controls.coldFace (fun x => CFDLean.Time.Controls.moving 0 3) 0 =\n  ![1 / 12, 1 / 6, 0, 0, 1 / 3]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.hot_cold_residual",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Assembly.physicalTransfer._proof_2",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Boundary.AssemblyControls.standard",
+        "CFDLean.physicalFlux",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.Controls.hot_cold_negative_axis",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.squareSum",
+        "CFDLean.Assembly.physicalTransfer._proof_1",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Assembly.physicalTransfer",
+        "CFDLean.Boundary.Controls.axis",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Boundary.AssemblyControls.standard_open_area",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.dot",
+        "CFDLean.Boundary.Controls.standard",
+        "CFDLean.Boundary.AssemblyControls.openPatch",
+        "CFDLean.Boundary.transfer_compatible",
+        "CFDLean.Boundary.Controls.mixed_corner",
+        "CFDLean.Boundary.AssemblyControls.single_face_correction",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.prescribed_scale",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.MedianDual.Controls.standard_conforming",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Vector",
+        "CFDLean.Boundary.Controls.wallPatch",
+        "CFDLean.Boundary.Controls.mixedKinds",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Boundary.Controls.openPatch",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Boundary.Controls.moving._proof_1",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.Controls.coldFace",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchTransfer_prescribed",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.localSteps": {
+      "unsafe": false,
+      "type": "Fin 4 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Time.Controls.localSteps",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.localSteps._proof_4",
+        "CFDLean.Time.Controls.localSteps._proof_5"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.localSteps._proof_4": {
+      "unsafe": false,
+      "type": "(46 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.localSteps._proof_4",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.localSteps._proof_5": {
+      "unsafe": false,
+      "type": "(22 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.localSteps._proof_5",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.localSteps.eq_1": {
+      "unsafe": false,
+      "type": "CFDLean.Time.Controls.localSteps = ![1 / 48, 1 / 48, 1 / 48, 1 / 24]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.localSteps.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.localSteps",
+        "CFDLean.Time.Controls.localSteps._proof_4",
+        "CFDLean.Time.Controls.localSteps._proof_5"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.local_amount_change": {
+      "unsafe": false,
+      "type": "CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps fun x =>\n      CFDLean.Time.Controls.normalState) =\n  (CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun x => CFDLean.Time.Controls.normalState) +\n    ![1 / 288, 0, 0, 1 / 288, 5 / 576]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.local_amount_change",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Time.Controls.localSteps",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.Controls.r._proof_3",
+        "CFDLean.Time.Controls.localSteps._proof_4",
+        "CFDLean.Time.Controls.all_wall_residual",
+        "CFDLean.Time.amount",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.Time.mesh_amount_change",
+        "CFDLean.Time.Controls.normalState",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.Time.Controls.r._proof_2",
+        "CFDLean.Time.Controls.localSteps._proof_5",
+        "CFDLean.Time.Controls.r",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.local_amount_change._proof_6": {
+      "unsafe": false,
+      "type": "\u2200 {n : \u2115} {a b : Fin n}, (a = b) = (\u2191a = \u2191b)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.local_amount_change._proof_6",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Time.Controls.local_nonconservation": {
+      "unsafe": false,
+      "type": "CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps fun x =>\n      CFDLean.Time.Controls.normalState) \u2260\n  CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun x => CFDLean.Time.Controls.normalState",
+      "root": true,
+      "name": "CFDLean.Time.Controls.local_nonconservation",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.localSteps",
+        "CFDLean.Time.Controls.local_amount_change",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.amount",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.Time.Controls.normalState",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.local_steps_nonneg": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 4), 0 \u2264 CFDLean.Time.Controls.localSteps i",
+      "root": true,
+      "name": "CFDLean.Time.Controls.local_steps_nonneg",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.localSteps",
+        "CFDLean.Time.Controls.localSteps._proof_4",
+        "CFDLean.Time.Controls.localSteps._proof_5"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.local_updated_admissible": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 4),\n  CFDLean.Conservative.Admissible 2\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n      (fun x => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps\n      (fun x => CFDLean.Time.Controls.normalState) i)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.local_updated_admissible",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Boundary.AssemblyControls.normalState._proof_1",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Time.Controls.localSteps",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.Controls.r._proof_3",
+        "CFDLean.Boundary.AssemblyControls.normalState._proof_2",
+        "CFDLean.squareSum",
+        "CFDLean.Conservative.mk",
+        "CFDLean.MedianDual.Controls.standard",
+        "CFDLean.Time.Controls.localSteps._proof_4",
+        "CFDLean.Time.Controls.standard_used",
+        "CFDLean.Time.Controls.all_wall_residual",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.Coordinates.squareSum_three",
+        "CFDLean.Time.Controls.normalState",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.Time.mesh_step_used",
+        "CFDLean.Coordinates.decode._proof_2",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.Controls.r._proof_2",
+        "CFDLean.MedianDual.Controls.standard_volume",
+        "CFDLean.Time.Controls.localSteps._proof_5",
+        "CFDLean.Time.Controls.r",
+        "CFDLean.Vector",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.local_updated_admissible._proof_6": {
+      "unsafe": false,
+      "type": "\u2200 {n : \u2115} {a b : Fin n}, (a = b) = (\u2191a = \u2191b)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.local_updated_admissible._proof_6",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
+    "CFDLean.Time.Controls.moving": {
+      "unsafe": false,
+      "type": "\u211d \u2192 \u211d \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.Controls.moving",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Boundary.Controls.moving",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.negative_density_update": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.encode\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n      CFDLean.Time.Controls.coldFace (fun x => 1) (fun x => CFDLean.Time.Controls.moving 0 3) 0) =\n  ![-1, -4, 0, 0, -5]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.negative_density_update",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.encode_decode",
+        "CFDLean.MedianDual.Controls.standard",
+        "CFDLean.Time.Controls.standard_used",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode._proof_1",
+        "CFDLean.Time.Controls.hot_cold_residual",
+        "CFDLean.Time.mesh_step_used",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.MedianDual.Controls.standard_volume",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.Controls.mixedKinds",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Boundary.Controls.moving._proof_1",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.Controls.coldFace",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.negative_update_not_admissible": {
+      "unsafe": false,
+      "type": "\u00acCFDLean.Conservative.Admissible 2\n    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n      CFDLean.Time.Controls.coldFace (fun x => 1) (fun x => CFDLean.Time.Controls.moving 0 3) 0)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.negative_update_not_admissible",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Conservative.density",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.Controls.negative_density_update",
+        "CFDLean.Boundary.Controls.mixedKinds",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.Controls.coldFace",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.normalState": {
+      "unsafe": false,
+      "type": "CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.Controls.normalState",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Boundary.AssemblyControls.normalState",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.oblique_rest": {
+      "unsafe": false,
+      "type": "\u2200 (\u03c4 : Fin 4 \u2192 \u211d),\n  (\u2200 (i : Fin 4), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 4),\n      CFDLean.Time.meshStep CFDLean.MedianDual.Controls.oblique 2\n          (fun x => CFDLean.Boundary.Kind.inviscidSymmetryTraction) (fun x => CFDLean.Time.Controls.moving 0 1) \u03c4\n          (fun x => CFDLean.Time.Controls.moving 0 1) i =\n        CFDLean.Time.Controls.moving 0 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.oblique_rest",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.Controls.oblique",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.Boundary.Kind.inviscidSymmetryTraction",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.Boundary.Controls.moving",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Boundary.Kind.noConfusion",
+        "CFDLean.Boundary.Controls.moving_admissible",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.Controls.oblique_conforming",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Time.mesh_common_state",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Boundary.Controls.moving._proof_1",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.r": {
+      "unsafe": false,
+      "type": "CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Time.Controls.r",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.r._proof_3",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.Time.Controls.r._proof_2",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.r._proof_2": {
+      "unsafe": false,
+      "type": "(3 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.r._proof_2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.r._proof_3": {
+      "unsafe": false,
+      "type": "(10 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.r._proof_3",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.r.eq_1": {
+      "unsafe": false,
+      "type": "CFDLean.Time.Controls.r = ![1 / 6, 0, 0, 1 / 6, 5 / 12]",
+      "root": true,
+      "name": "CFDLean.Time.Controls.r.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.r._proof_3",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.Time.Controls.r._proof_2",
+        "CFDLean.Time.Controls.r",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.standard": {
+      "unsafe": false,
+      "type": "CFDLean.MedianDual.MeshData 4 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.standard",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.Controls.standard"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.standard._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.MedianDual.MeshData 4 1",
+      "root": false,
+      "name": "CFDLean.Time.Controls.standard._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.Controls.standard"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.standard._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.standard._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.Controls.standard"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.standard_boundary_total": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 4),\n  (\u2211 b,\n      if CFDLean.Time.Controls.standard.interfaces.owner b = i then CFDLean.Time.Controls.standard.boundaryArea b\n      else 0) =\n    CFDLean.Time.Controls.boundaryTotals i",
+      "root": true,
+      "name": "CFDLean.Time.Controls.standard_boundary_total",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.ownedPatch",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Time.Controls.boundaryTotals",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.faceID",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.MedianDual.triangle._proof_2",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.MedianDual.cross._proof_1",
+        "CFDLean.MedianDual.MeshData.faceCount",
+        "CFDLean.MedianDual.MeshData.boundary_sum",
+        "CFDLean.MedianDual.MeshData.Occurrence",
+        "CFDLean.Time.Controls.boundaryTotals._proof_1",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.MedianDual.MeshData.boundaryArea._proof_2",
+        "CFDLean.MedianDual.MeshData.faceArea"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.standard_mixed_common": {
+      "unsafe": false,
+      "type": "\u2200 (q : \u211d) (\u03c4 : Fin 4 \u2192 \u211d),\n  (\u2200 (i : Fin 4), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 4),\n      CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n          (fun x => CFDLean.Time.Controls.moving q 1) \u03c4 (fun x => CFDLean.Time.Controls.moving q 1) i =\n        CFDLean.Time.Controls.moving q 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.standard_mixed_common",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.Boundary.Controls.moving",
+        "CFDLean.Boundary.AssemblyControls.standard_wall_tangent",
+        "CFDLean.Boundary.Controls.moving_admissible",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.Controls.standard_conforming",
+        "CFDLean.Boundary.Controls.mixedKinds",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Time.mesh_common_state",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.standard_used": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 4), CFDLean.Time.Controls.standard.Used i",
+      "root": true,
+      "name": "CFDLean.Time.Controls.standard_used",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.MedianDual.MeshData.vertex"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.standard_wall_rest": {
+      "unsafe": false,
+      "type": "\u2200 (\u03c4 : Fin 4 \u2192 \u211d),\n  (\u2200 (i : Fin 4), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 4),\n      CFDLean.Time.meshStep CFDLean.Time.Controls.standard 2 (fun x => CFDLean.Boundary.Kind.slipWall)\n          (fun x => CFDLean.Time.Controls.moving 0 1) \u03c4 (fun x => CFDLean.Time.Controls.moving 0 1) i =\n        CFDLean.Time.Controls.moving 0 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.standard_wall_rest",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.Time.Controls.standard",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.Boundary.Controls.moving",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Coordinates.dot_three",
+        "CFDLean.Boundary.Kind.noConfusion",
+        "CFDLean.Boundary.Controls.moving_admissible",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Boundary.Kind.slipWall",
+        "CFDLean.dot",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.Controls.standard_conforming",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Time.mesh_common_state",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Boundary.Controls.moving._proof_1",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.transported_fields_nonconstant": {
+      "unsafe": false,
+      "type": "CFDLean.Time.Controls.twoCells.dualVolume 0 \u2260 CFDLean.Time.Controls.twoCells.dualVolume 3 \u2227\n  CFDLean.Time.Controls.twoSteps 0 \u2260 CFDLean.Time.Controls.twoSteps 3 \u2227\n    CFDLean.Boundary.AssemblyControls.varyingStates 0 \u2260 CFDLean.Boundary.AssemblyControls.varyingStates 3 \u2227\n      CFDLean.Time.Controls.twoData\n          (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoOpen) \u2260\n        CFDLean.Time.Controls.twoData\n          (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoWall)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.transported_fields_nonconstant",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.MedianDual.Controls.twoCells",
+        "CFDLean.Time.Controls.twoData",
+        "CFDLean.Time.Controls.twoSteps",
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Conservative.mk",
+        "CFDLean.MedianDual.Controls.two_cells_volume",
+        "CFDLean.Boundary.AssemblyControls.twoOpen",
+        "CFDLean.Boundary.AssemblyControls.twoWall",
+        "CFDLean.Time.Controls.twoSteps._proof_10",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Boundary.AssemblyControls.varyingStates",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Boundary.Controls.moving._proof_1",
+        "CFDLean.Boundary.AssemblyControls.moving"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.transported_nonconstant": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 5),\n  CFDLean.Time.heldStep (fun x => CFDLean.Time.Controls.twoCells.Used ((Equiv.symm (Equiv.swap 0 3)) x))\n      (fun x => CFDLean.Time.Controls.twoCells.dualVolume ((Equiv.symm (Equiv.swap 0 3)) x))\n      (fun x => CFDLean.Time.Controls.twoSteps ((Equiv.symm (Equiv.swap 0 3)) x))\n      (CFDLean.Boundary.stationaryResidual\n        (CFDLean.Time.Controls.twoCells.interfaces.reindex (Equiv.swap 0 3)\n          (Equiv.swap CFDLean.Time.Controls.edge01 CFDLean.Time.Controls.edge03)\n          (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n        2\n        (fun x =>\n          CFDLean.Boundary.patchKind CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoKinds\n            ((Equiv.symm\n                (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n              x))\n        (fun x =>\n          CFDLean.Boundary.patchExterior CFDLean.Time.Controls.twoCells CFDLean.Time.Controls.twoData\n            ((Equiv.symm\n                (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n              x))\n        (fun x => CFDLean.Boundary.AssemblyControls.varyingStates ((Equiv.symm (Equiv.swap 0 3)) x))\n        (fun x =>\n          CFDLean.Time.Controls.twoCells.edgeArea\n            ((Equiv.symm (Equiv.swap CFDLean.Time.Controls.edge01 CFDLean.Time.Controls.edge03)) x))\n        fun x =>\n        CFDLean.Time.Controls.twoCells.boundaryArea\n          ((Equiv.symm (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))\n            x))\n      (fun x => CFDLean.Boundary.AssemblyControls.varyingStates ((Equiv.symm (Equiv.swap 0 3)) x))\n      ((Equiv.swap 0 3) i) =\n    CFDLean.Time.meshStep CFDLean.Time.Controls.twoCells 2 CFDLean.Boundary.AssemblyControls.twoKinds\n      CFDLean.Time.Controls.twoData CFDLean.Time.Controls.twoSteps CFDLean.Boundary.AssemblyControls.varyingStates i",
+      "root": true,
+      "name": "CFDLean.Time.Controls.transported_nonconstant",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.reindex",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Time.Controls.twoData",
+        "CFDLean.Time.Controls.twoSteps",
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.edgeArea",
+        "CFDLean.MedianDual.MeshData.faceID",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.Boundary.stationaryResidual",
+        "CFDLean.Time.heldStep",
+        "CFDLean.Time.Controls.edge01",
+        "CFDLean.Boundary.AssemblyControls.twoOpen",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.MedianDual.MeshData.faceCount",
+        "CFDLean.Boundary.AssemblyControls.twoWall",
+        "CFDLean.Time.Controls.edge03",
+        "CFDLean.MedianDual.MeshData.instFintypeEdge",
+        "CFDLean.Boundary.AssemblyControls.twoCells",
+        "CFDLean.MedianDual.MeshData.Occurrence",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Boundary.AssemblyControls.varyingStates",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Time.mesh_step_reindex",
+        "CFDLean.Boundary.AssemblyControls.twoKinds",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.twoCells": {
+      "unsafe": false,
+      "type": "CFDLean.MedianDual.MeshData 5 2",
+      "root": true,
+      "name": "CFDLean.Time.Controls.twoCells",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Boundary.AssemblyControls.twoCells"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.twoCells._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.MedianDual.MeshData 5 2",
+      "root": false,
+      "name": "CFDLean.Time.Controls.twoCells._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.Controls.twoCells",
+        "CFDLean.MedianDual.MeshData"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.twoCells._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.twoCells._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.Controls.twoCells"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.twoData": {
+      "unsafe": false,
+      "type": "Finset (Fin 5) \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.Controls.twoData",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Boundary.AssemblyControls.twoOpen",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.twoData.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (F : Finset (Fin 5)),\n  CFDLean.Time.Controls.twoData F =\n    if F = CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoOpen then\n      CFDLean.Time.Controls.moving 0 3\n    else CFDLean.Time.Controls.moving 0 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.twoData.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.twoData",
+        "CFDLean.Time.Controls.twoCells",
+        "CFDLean.Time.Controls.coldFace._proof_6",
+        "CFDLean.Boundary.AssemblyControls.twoOpen",
+        "CFDLean.Boundary.primalFace",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.twoSteps": {
+      "unsafe": false,
+      "type": "Fin 5 \u2192 \u211d",
+      "root": true,
+      "name": "CFDLean.Time.Controls.twoSteps",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.twoSteps._proof_10"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.twoSteps._proof_10": {
+      "unsafe": false,
+      "type": "(94 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.twoSteps._proof_10",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.twoSteps.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (i : Fin 5), CFDLean.Time.Controls.twoSteps i = (\u2191\u2191i + 1) / 96",
+      "root": true,
+      "name": "CFDLean.Time.Controls.twoSteps.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.twoSteps",
+        "CFDLean.Time.Controls.twoSteps._proof_10"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.two_cell_common": {
+      "unsafe": false,
+      "type": "\u2200 (q : \u211d) (\u03c4 : Fin 5 \u2192 \u211d),\n  (\u2200 (i : Fin 5), 0 \u2264 \u03c4 i) \u2192\n    \u2200 (i : Fin 5),\n      CFDLean.Time.meshStep CFDLean.Boundary.AssemblyControls.twoCells 2 CFDLean.Boundary.AssemblyControls.twoKinds\n          (fun x => CFDLean.Time.Controls.moving q 1) \u03c4 (fun x => CFDLean.Time.Controls.moving q 1) i =\n        CFDLean.Time.Controls.moving q 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.two_cell_common",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.Controls.twoCells",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.Boundary.Controls.moving",
+        "CFDLean.Boundary.Controls.moving_admissible",
+        "CFDLean.Boundary.AssemblyControls.two_wall_tangent",
+        "CFDLean.MedianDual.Controls.two_cells_conforming",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.AssemblyControls.twoCells",
+        "CFDLean.Conservative",
+        "CFDLean.Time.Controls.moving",
+        "CFDLean.Time.mesh_common_state",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Boundary.AssemblyControls.twoKinds",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.unusedMesh": {
+      "unsafe": false,
+      "type": "CFDLean.MedianDual.MeshData 5 1",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unusedMesh",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.mk",
+        "CFDLean.Time.Controls.unusedMesh._proof_7",
+        "CFDLean.Vector",
+        "CFDLean.Time.Controls.unusedMesh._proof_8",
+        "CFDLean.Time.Controls.unusedMesh._proof_9"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.unusedMesh._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._closed_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._closed_1._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._closed_2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._closed_2._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._closed_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._closed_3",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._closed_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._closed_3._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.mk",
+        "CFDLean.Time.Controls.unusedMesh._closed_2",
+        "CFDLean.Time.Controls.unusedMesh._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._cstage1": {
+      "unsafe": true,
+      "type": "CFDLean.MedianDual.MeshData 5 1",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.mk",
+        "CFDLean.Time.Controls.unusedMesh._elambda_1",
+        "CFDLean.Time.Controls.unusedMesh._proof_7",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2",
+        "CFDLean.Vector",
+        "CFDLean.Time.Controls.unusedMesh._proof_8",
+        "CFDLean.MedianDual.sixVolume"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.mk",
+        "CFDLean.Time.Controls.unusedMesh._elambda_1",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_1": {
+      "unsafe": true,
+      "type": "Fin 1 \u2192 Fin 4 \u21aa Fin 5",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_1._boxed",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_1._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_1._closed_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_1._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_1._closed_1._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_1._cstage1": {
+      "unsafe": true,
+      "type": "Fin 1 \u2192 Fin 4 \u21aa Fin 5",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_1._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_1._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2": {
+      "unsafe": true,
+      "type": "Fin (Nat.succ 4) \u2192 Fin 3 \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "axiom",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._boxed",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_10": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_10",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_10._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_10._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_9"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_12": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_12",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_12._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_12._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_13": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_13",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_13._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_13._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_12",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_14": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_14",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_14._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_14._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_11",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_13"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_15": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_15",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_15._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_15._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_14",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_16": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_16",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_16._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_16._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_15",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_10"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_17": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_17",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_17._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_17._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_16",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_7"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_18": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_18",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_18._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_18._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_17",
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_5"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_2._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_3",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_3._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_2"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_4": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_4",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_4._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_4._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_3"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_5": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_5",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_5._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_5._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_3"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_6": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_6",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_6._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_6._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_2"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_7": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_7",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_7._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_7._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_6"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_8": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_8",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_8._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_8._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_9": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_9",
+      "module": "CFDLean.Time.Controls",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_9._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_9._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._elambda_2._closed_8"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._cstage1": {
+      "unsafe": true,
+      "type": "Fin (Nat.succ 4) \u2192 Fin 3 \u2192 \u211d",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._cstage1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._elambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Time.Controls.unusedMesh._elambda_2._cstage2",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._proof_7": {
+      "unsafe": false,
+      "type": "(7 + 2).AtLeastTwo",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unusedMesh._proof_7",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._proof_8": {
+      "unsafe": false,
+      "type": "Function.Injective Fin.castSucc",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unusedMesh._proof_8",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.Controls.unusedMesh._proof_9": {
+      "unsafe": false,
+      "type": "Fin 1 \u2192\n  0 <\n    CFDLean.MedianDual.sixVolume fun i =>\n      ![![0, 0, 0], ![1, 0, 0], ![0, 1, 0], ![0, 0, 1], ![9, 9, 9]]\n        ({ toFun := Fin.castSucc, inj' := CFDLean.Time.Controls.unusedMesh._proof_8 } i)",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unusedMesh._proof_9",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh._proof_7",
+        "CFDLean.MedianDual.Controls.standard_positive",
+        "CFDLean.Vector",
+        "CFDLean.Time.Controls.unusedMesh._proof_8",
+        "CFDLean.MedianDual.sixVolume"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.unused_all": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (k : Finset (Fin 5) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin 5) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin 5 \u2192 \u211d)\n  (U : Fin 5 \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.Controls.unusedMesh.dualVolume 4 = 0 \u2227\n    CFDLean.Boundary.meshResidual CFDLean.Time.Controls.unusedMesh \u03b3 k V U 4 = 0 \u2227\n      CFDLean.Time.meshStep CFDLean.Time.Controls.unusedMesh \u03b3 k V \u03c4 U 4 = U 4",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unused_all",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Time.mesh_step_unused",
+        "CFDLean.Time.Controls.unused_four",
+        "CFDLean.Time.mesh_residual_unused",
+        "CFDLean.MedianDual.MeshData.dualVolume_unused",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Time.Controls.unusedMesh",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.unused_four": {
+      "unsafe": false,
+      "type": "\u00acCFDLean.Time.Controls.unusedMesh.Used 4",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unused_four",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Time.Controls.unused_four._proof_10",
+        "CFDLean.Time.Controls.unusedMesh",
+        "CFDLean.MedianDual.MeshData.vertex"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.unused_four._proof_10": {
+      "unsafe": false,
+      "type": "Fin 1 \u2192 \u2200 (i : Fin 4), \u2191i = 4 \u2192 False",
+      "root": true,
+      "name": "CFDLean.Time.Controls.unused_four._proof_10",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.Controls.unusedMesh",
+        "CFDLean.MedianDual.MeshData.vertex"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.wallLinear": {
+      "unsafe": false,
+      "type": "\u211d \u2192 CFDLean.Conservative 3 \u2192 CFDLean.Vector 3 \u2192\u2097[\u211d] CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Time.Controls.wallLinear",
+      "module": "CFDLean.Time.Controls",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Boundary.wall_smul",
+        "CFDLean.Boundary.wallTransfer",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Boundary.wall_add"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.Controls.wallLinear.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3),\n  CFDLean.Time.Controls.wallLinear \u03b3 U = { toFun := CFDLean.Boundary.wallTransfer \u03b3 U, map_add' := \u22ef, map_smul' := \u22ef }",
+      "root": true,
+      "name": "CFDLean.Time.Controls.wallLinear.eq_1",
+      "module": "CFDLean.Time.Controls",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.wall_smul",
+        "CFDLean.Boundary.wallTransfer",
+        "CFDLean.Time.Controls.wallLinear",
+        "CFDLean.Vector",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Boundary.wall_add"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.amount": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192 [inst : Fintype N] \u2192 (N \u2192 \u211d) \u2192 (N \u2192 CFDLean.Conservative 3) \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": true,
+      "name": "CFDLean.Time.amount",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.amount._cstage1": {
+      "unsafe": true,
+      "type": "{N : Type u_1} \u2192 [inst : Fintype N] \u2192 (N \u2192 \u211d) \u2192 (N \u2192 CFDLean.Conservative 3) \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": false,
+      "name": "CFDLean.Time.amount._cstage1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.amount._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Time.amount._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.amount._rarg"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.amount._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.amount._rarg",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.amount._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Time.amount._rarg._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.amount._rarg._lambda_1",
+        "Finset.sum._at.CFDLean.Time.amount._spec_1"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.amount._rarg._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.amount._rarg._lambda_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.amount._rarg._lambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "CFDLean.Time.amount._rarg._lambda_1._boxed",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "CFDLean.Time.amount._rarg._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "CFDLean.Time.amount._rarg._lambda_1._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.encode"
+      ],
+      "axioms": []
+    },
+    "CFDLean.Time.amount.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} [inst : Fintype N] (v : N \u2192 \u211d) (U : N \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount v U = \u2211 i, v i \u2022 CFDLean.Coordinates.encode (U i)",
+      "root": true,
+      "name": "CFDLean.Time.amount.eq_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.amount",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.amount_reindex": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {N' : Type u_2} [inst : Fintype N] [inst_1 : Fintype N'] (n : N \u2243 N') (v : N \u2192 \u211d)\n  (U : N \u2192 CFDLean.Conservative 3),\n  (CFDLean.Time.amount (fun x => v (n.symm x)) fun x => U (n.symm x)) = CFDLean.Time.amount v U",
+      "root": true,
+      "name": "CFDLean.Time.amount_reindex",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.amount",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.amount_used": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} [inst : Fintype N] (used : N \u2192 Prop) (v : N \u2192 \u211d) (U : N \u2192 CFDLean.Conservative 3),\n  (\u2200 (i : N), \u00acused i \u2192 v i = 0) \u2192\n    CFDLean.Time.amount v U = \u2211 i \u2208 Finset.filter used Finset.univ, v i \u2022 CFDLean.Coordinates.encode (U i)",
+      "root": true,
+      "name": "CFDLean.Time.amount_used",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.amount",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.encode_momentum": {
+      "unsafe": false,
+      "type": "\u2200 (U : CFDLean.Conservative 3) (j : Fin 3), CFDLean.Coordinates.encode U j.castSucc.succ = U.momentum j",
+      "root": true,
+      "name": "CFDLean.Time.encode_momentum",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.euler": {
+      "unsafe": false,
+      "type": "\u211d \u2192 \u211d \u2192 CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Conservative 3 \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.euler",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.euler.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 (v \u03c4 : \u211d) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3),\n  CFDLean.Time.euler v \u03c4 R U = CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U - (\u03c4 / v) \u2022 R)",
+      "root": true,
+      "name": "CFDLean.Time.euler.eq_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.euler_amount": {
+      "unsafe": false,
+      "type": "\u2200 (v \u03c4 : \u211d),\n  v \u2260 0 \u2192\n    \u2200 (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3),\n      v \u2022 CFDLean.Coordinates.encode (CFDLean.Time.euler v \u03c4 R U) = v \u2022 CFDLean.Coordinates.encode U - \u03c4 \u2022 R",
+      "root": true,
+      "name": "CFDLean.Time.euler_amount",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.euler_coordinates",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.euler_coordinates": {
+      "unsafe": false,
+      "type": "\u2200 (v \u03c4 : \u211d) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3),\n  CFDLean.Coordinates.encode (CFDLean.Time.euler v \u03c4 R U) = CFDLean.Coordinates.encode U - (\u03c4 / v) \u2022 R",
+      "root": true,
+      "name": "CFDLean.Time.euler_coordinates",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.encode_decode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.euler_zero_residual": {
+      "unsafe": false,
+      "type": "\u2200 (v \u03c4 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Time.euler v \u03c4 0 U = U",
+      "root": true,
+      "name": "CFDLean.Time.euler_zero_residual",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.euler_zero_step": {
+      "unsafe": false,
+      "type": "\u2200 (v : \u211d) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative 3), CFDLean.Time.euler v 0 R U = U",
+      "root": true,
+      "name": "CFDLean.Time.euler_zero_step",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Coordinates.decode_encode",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.head_used": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (e : M.Edge), M.Used (M.interfaces.head e)",
+      "root": true,
+      "name": "CFDLean.Time.head_used",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.MedianDual.MeshData.mem_cellNodes",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.MedianDual.MeshData.vertex",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.MedianDual.MeshData.cellNodes"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.heldStep": {
+      "unsafe": false,
+      "type": "{N : Type u_1} \u2192\n  (N \u2192 Prop) \u2192\n    (N \u2192 \u211d) \u2192\n      (N \u2192 \u211d) \u2192 (N \u2192 CFDLean.Coordinates.StateCoordinates) \u2192 (N \u2192 CFDLean.Conservative 3) \u2192 N \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.heldStep",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.heldStep.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} (used : N \u2192 Prop) (v \u03c4 : N \u2192 \u211d) (R : N \u2192 CFDLean.Coordinates.StateCoordinates)\n  (U : N \u2192 CFDLean.Conservative 3) (i : N),\n  CFDLean.Time.heldStep used v \u03c4 R U i = if used i then CFDLean.Time.euler (v i) (\u03c4 i) (R i) (U i) else U i",
+      "root": true,
+      "name": "CFDLean.Time.heldStep.eq_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.heldStep",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.held_amount": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} [inst : Fintype N] (used : N \u2192 Prop) (v \u03c4 : N \u2192 \u211d) (R : N \u2192 CFDLean.Coordinates.StateCoordinates)\n  (U : N \u2192 CFDLean.Conservative 3),\n  (\u2200 (i : N), used i \u2192 v i \u2260 0) \u2192\n    (\u2200 (i : N), \u00acused i \u2192 R i = 0) \u2192\n      CFDLean.Time.amount v (CFDLean.Time.heldStep used v \u03c4 R U) = CFDLean.Time.amount v U - \u2211 i, \u03c4 i \u2022 R i",
+      "root": true,
+      "name": "CFDLean.Time.held_amount",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.heldStep",
+        "CFDLean.Time.amount",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.euler_amount"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.held_reindex": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {N' : Type u_2} (n : N \u2243 N') (used : N \u2192 Prop) (v \u03c4 : N \u2192 \u211d)\n  (R : N \u2192 CFDLean.Coordinates.StateCoordinates) (U : N \u2192 CFDLean.Conservative 3) (i : N),\n  CFDLean.Time.heldStep (fun x => used (n.symm x)) (fun x => v (n.symm x)) (fun x => \u03c4 (n.symm x))\n      (fun x => R (n.symm x)) (fun x => U (n.symm x)) (n i) =\n    CFDLean.Time.heldStep used v \u03c4 R U i",
+      "root": true,
+      "name": "CFDLean.Time.held_reindex",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.heldStep",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.held_unused": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} (used : N \u2192 Prop) (v \u03c4 : N \u2192 \u211d) (R : N \u2192 CFDLean.Coordinates.StateCoordinates)\n  (U : N \u2192 CFDLean.Conservative 3) (i : N), \u00acused i \u2192 CFDLean.Time.heldStep used v \u03c4 R U i = U i",
+      "root": true,
+      "name": "CFDLean.Time.held_unused",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.heldStep",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.held_zero_residual": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} (used : N \u2192 Prop) (v \u03c4 : N \u2192 \u211d) (U : N \u2192 CFDLean.Conservative 3) (i : N),\n  CFDLean.Time.heldStep used v \u03c4 (fun x => 0) U i = U i",
+      "root": true,
+      "name": "CFDLean.Time.held_zero_residual",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.euler_zero_residual",
+        "CFDLean.Time.heldStep",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.meshStep": {
+      "unsafe": false,
+      "type": "{n m : \u2115} \u2192\n  CFDLean.MedianDual.MeshData n m \u2192\n    \u211d \u2192\n      (Finset (Fin n) \u2192 CFDLean.Boundary.Kind) \u2192\n        (Finset (Fin n) \u2192 CFDLean.Conservative 3) \u2192\n          (Fin n \u2192 \u211d) \u2192 (Fin n \u2192 CFDLean.Conservative 3) \u2192 Fin n \u2192 CFDLean.Conservative 3",
+      "root": true,
+      "name": "CFDLean.Time.meshStep",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.heldStep",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.meshStep.eq_1": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.meshStep M \u03b3 k V \u03c4 U =\n    CFDLean.Time.heldStep M.Used M.dualVolume \u03c4 (CFDLean.Boundary.meshResidual M \u03b3 k V U) U",
+      "root": true,
+      "name": "CFDLean.Time.meshStep.eq_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.heldStep",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_amount_change": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n    CFDLean.Time.amount M.dualVolume U - \u2211 i, \u03c4 i \u2022 CFDLean.Boundary.meshResidual M \u03b3 k V U i",
+      "root": true,
+      "name": "CFDLean.Time.mesh_amount_change",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.mesh_residual_unused",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.dualVolume_pos",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.Time.held_amount"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_amount_used": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount M.dualVolume U =\n    \u2211 i \u2208 Finset.filter M.Used Finset.univ, M.dualVolume i \u2022 CFDLean.Coordinates.encode (U i)",
+      "root": true,
+      "name": "CFDLean.Time.mesh_amount_used",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.dualVolume_unused",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.amount_used"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_common_balance": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  (\u2200 (i : Fin n), M.Used i \u2192 \u03c4 i = dt) \u2192\n    CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n      CFDLean.Time.amount M.dualVolume U - dt \u2022 \u2211 b, CFDLean.Boundary.patchTransfer M \u03b3 k V U b",
+      "root": true,
+      "name": "CFDLean.Time.mesh_common_balance",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.mesh_residual_unused",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Time.mesh_amount_change",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.mesh_global_balance"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_common_balance_physical": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d),\n  1 < \u03b3 \u2192\n    \u2200 (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d)\n      (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n      0 \u2264 dt \u2192\n        (\u2200 (i : Fin n), M.Used i \u2192 CFDLean.Conservative.Admissible \u03b3 (U i)) \u2192\n          (\u2200 (b : M.Boundary),\n              CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                CFDLean.Conservative.Admissible \u03b3 (CFDLean.Boundary.patchExterior M V b)) \u2192\n            (\u2200 (i : Fin n), M.Used i \u2192 \u03c4 i = dt) \u2192\n              CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n                CFDLean.Time.amount M.dualVolume U - dt \u2022 \u2211 b, CFDLean.Boundary.patchTransfer M \u03b3 k V U b",
+      "root": true,
+      "name": "CFDLean.Time.mesh_common_balance_physical",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.mesh_common_balance",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_common_state": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming \u2192\n    \u2200 (\u03b3 : \u211d),\n      1 < \u03b3 \u2192\n        \u2200 (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d),\n          (\u2200 (i : Fin n), M.Used i \u2192 0 \u2264 \u03c4 i) \u2192\n            \u2200 (U : CFDLean.Conservative 3),\n              CFDLean.Conservative.Admissible \u03b3 U \u2192\n                (\u2200 (b : M.Boundary),\n                    CFDLean.Boundary.patchKind M k b \u2260 CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                      CFDLean.dot U.momentum (M.boundaryArea b) = 0) \u2192\n                  (\u2200 (b : M.Boundary),\n                      CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                        CFDLean.Boundary.patchExterior M V b = U) \u2192\n                    \u2200 (i : Fin n), CFDLean.Time.meshStep M \u03b3 k V \u03c4 (fun x => U) i = U",
+      "root": true,
+      "name": "CFDLean.Time.mesh_common_state",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Time.held_zero_residual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.Time.heldStep",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.mesh_constant_state",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.MedianDual.MeshData.Conforming",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_component_balance": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d) (j : Fin 5),\n  \u2211 i, M.dualVolume i * CFDLean.Coordinates.encode (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i) j =\n    \u2211 i, M.dualVolume i * CFDLean.Coordinates.encode (U i) j - dt * \u2211 b, CFDLean.Boundary.patchTransfer M \u03b3 k V U b j",
+      "root": true,
+      "name": "CFDLean.Time.mesh_component_balance",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.mesh_common_balance",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_energy_balance": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).energy =\n    \u2211 i, M.dualVolume i * (U i).energy -\n      dt *\n        \u2211 b,\n          if CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe then\n            CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b))\n              (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b) 4\n          else 0",
+      "root": true,
+      "name": "CFDLean.Time.mesh_energy_balance",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Boundary.transfer_energy",
+        "CFDLean.Boundary.instDecidableEqKind",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Time.mesh_component_balance",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_local_balance": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3),\n  CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n    CFDLean.Time.amount M.dualVolume U -\n      (\u2211 e,\n          (\u03c4 (M.interfaces.tail e) - \u03c4 (M.interfaces.head e)) \u2022\n            CFDLean.Assembly.roeTransfer M.interfaces \u03b3 U M.edgeArea e +\n        \u2211 b, \u03c4 (M.interfaces.owner b) \u2022 CFDLean.Boundary.patchTransfer M \u03b3 k V U b)",
+      "root": true,
+      "name": "CFDLean.Time.mesh_local_balance",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.MedianDual.MeshData.edgeArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Time.weighted_residual",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Time.mesh_amount_change",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.instFintypeEdge",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_local_balance_physical": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d),\n  1 < \u03b3 \u2192\n    \u2200 (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d),\n      (\u2200 (i : Fin n), M.Used i \u2192 0 \u2264 \u03c4 i) \u2192\n        \u2200 (U : Fin n \u2192 CFDLean.Conservative 3),\n          (\u2200 (i : Fin n), M.Used i \u2192 CFDLean.Conservative.Admissible \u03b3 (U i)) \u2192\n            (\u2200 (b : M.Boundary),\n                CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n                  CFDLean.Conservative.Admissible \u03b3 (CFDLean.Boundary.patchExterior M V b)) \u2192\n              CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U) =\n                CFDLean.Time.amount M.dualVolume U -\n                  (\u2211 e,\n                      (\u03c4 (M.interfaces.tail e) - \u03c4 (M.interfaces.head e)) \u2022\n                        CFDLean.Assembly.roeTransfer M.interfaces \u03b3 U M.edgeArea e +\n                    \u2211 b, \u03c4 (M.interfaces.owner b) \u2022 CFDLean.Boundary.patchTransfer M \u03b3 k V U b)",
+      "root": true,
+      "name": "CFDLean.Time.mesh_local_balance_physical",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.MedianDual.MeshData.edgeArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Time.mesh_local_balance",
+        "CFDLean.Time.amount",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.instFintypeEdge",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_mass_balance": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).density =\n    \u2211 i, M.dualVolume i * (U i).density -\n      dt *\n        \u2211 b,\n          if CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe then\n            CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b))\n              (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b) 0\n          else 0",
+      "root": true,
+      "name": "CFDLean.Time.mesh_mass_balance",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.transfer_mass",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Boundary.instDecidableEqKind",
+        "CFDLean.Conservative.density",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Time.mesh_component_balance",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_momentum_balance": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d) (j : Fin 3),\n  \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).momentum j =\n    \u2211 i, M.dualVolume i * (U i).momentum j -\n      dt *\n        \u2211 b,\n          if CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe then\n            (CFDLean.Coordinates.decode\n                  (CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b))\n                    (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b))).momentum\n              j\n          else CFDLean.Conservative.pressure \u03b3 (U (M.interfaces.owner b)) * M.boundaryArea b j",
+      "root": true,
+      "name": "CFDLean.Time.mesh_momentum_balance",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Coordinates.decode",
+        "CFDLean.Boundary.transfer_momentum",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Boundary.instDecidableEqKind",
+        "CFDLean.Boundary.momentum_coordinate",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Time.encode_momentum",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Time.mesh_component_balance",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_point_amount": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  M.Used i \u2192\n    M.dualVolume i \u2022 CFDLean.Coordinates.encode (CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i) =\n      M.dualVolume i \u2022 CFDLean.Coordinates.encode (U i) - \u03c4 i \u2022 CFDLean.Boundary.meshResidual M \u03b3 k V U i",
+      "root": true,
+      "name": "CFDLean.Time.mesh_point_amount",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.dualVolume_pos",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Time.mesh_step_used",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.Time.euler_amount"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_residual_unused": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  \u00acM.Used i \u2192 CFDLean.Boundary.meshResidual M \u03b3 k V U i = 0",
+      "root": true,
+      "name": "CFDLean.Time.mesh_residual_unused",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Assembly.roeTransfer",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Time.owner_used",
+        "CFDLean.Time.head_used",
+        "CFDLean.MedianDual.MeshData.edgeArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.instFintypeEdge",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Boundary.patchTransfer",
+        "CFDLean.Conservative",
+        "CFDLean.Time.tail_used",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.meshResidual_eq",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_step_reindex": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst : DecidableEq N'] [inst_1 : Fintype E']\n  [inst_2 : Fintype B'] (M : CFDLean.MedianDual.MeshData n m) (nodeEq : Fin n \u2243 N') (e : M.Edge \u2243 E')\n  (b : M.Boundary \u2243 B') (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  CFDLean.Time.heldStep (fun x => M.Used (nodeEq.symm x)) (fun x => M.dualVolume (nodeEq.symm x))\n      (fun x => \u03c4 (nodeEq.symm x))\n      (CFDLean.Boundary.stationaryResidual (M.interfaces.reindex nodeEq e b) \u03b3\n        (fun x => CFDLean.Boundary.patchKind M k (b.symm x)) (fun x => CFDLean.Boundary.patchExterior M V (b.symm x))\n        (fun x => U (nodeEq.symm x)) (fun x => M.edgeArea (e.symm x)) fun x => M.boundaryArea (b.symm x))\n      (fun x => U (nodeEq.symm x)) (nodeEq i) =\n    CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i",
+      "root": true,
+      "name": "CFDLean.Time.mesh_step_reindex",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Assembly.Interfaces.reindex",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.Time.held_reindex",
+        "CFDLean.MedianDual.MeshData.edgeArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Boundary.stationaryResidual",
+        "CFDLean.Time.heldStep",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior",
+        "CFDLean.Boundary.mesh_residual_reindex"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_step_unused": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  \u00acM.Used i \u2192 CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i = U i",
+      "root": true,
+      "name": "CFDLean.Time.mesh_step_unused",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Time.held_unused",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_step_used": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (\u03c4 : Fin n \u2192 \u211d) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  M.Used i \u2192\n    CFDLean.Time.meshStep M \u03b3 k V \u03c4 U i =\n      CFDLean.Coordinates.decode\n        (CFDLean.Coordinates.encode (U i) - (\u03c4 i / M.dualVolume i) \u2022 CFDLean.Boundary.meshResidual M \u03b3 k V U i)",
+      "root": true,
+      "name": "CFDLean.Time.mesh_step_used",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.Coordinates.decode",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Coordinates.encode",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_traction_energy": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  (\u2200 (b : M.Boundary), CFDLean.Boundary.patchKind M k b \u2260 CFDLean.Boundary.Kind.prescribedExteriorRoe) \u2192\n    \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).energy = \u2211 i, M.dualVolume i * (U i).energy",
+      "root": true,
+      "name": "CFDLean.Time.mesh_traction_energy",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.mesh_energy_balance",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Boundary.instDecidableEqKind",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_traction_mass": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (dt : \u211d),\n  (\u2200 (b : M.Boundary), CFDLean.Boundary.patchKind M k b \u2260 CFDLean.Boundary.Kind.prescribedExteriorRoe) \u2192\n    \u2211 i, M.dualVolume i * (CFDLean.Time.meshStep M \u03b3 k V (fun x => dt) U i).density =\n      \u2211 i, M.dualVolume i * (U i).density",
+      "root": true,
+      "name": "CFDLean.Time.mesh_traction_mass",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Time.mesh_mass_balance",
+        "CFDLean.Boundary.patchKind",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.boundaryArea",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.Boundary.instDecidableEqKind",
+        "CFDLean.Conservative.density",
+        "CFDLean.MedianDual.MeshData.instFintypeBoundary",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.Boundary.prescribedExteriorRoeTransfer",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Conservative",
+        "CFDLean.Boundary.Kind.prescribedExteriorRoe",
+        "CFDLean.Time.meshStep",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.Boundary.patchExterior"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_used_volume_pos": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (i : Fin n), M.Used i \u2192 0 < M.dualVolume i",
+      "root": true,
+      "name": "CFDLean.Time.mesh_used_volume_pos",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.dualVolume_pos",
+        "CFDLean.MedianDual.MeshData.dualVolume"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.mesh_zero_step": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (i : Fin n),\n  CFDLean.Time.meshStep M \u03b3 k V (fun x => 0) U i = U i",
+      "root": true,
+      "name": "CFDLean.Time.mesh_zero_step",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Boundary.meshResidual",
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.Boundary.Kind",
+        "CFDLean.MedianDual.MeshData.dualVolume",
+        "CFDLean.Time.euler",
+        "CFDLean.Conservative",
+        "CFDLean.Time.euler_zero_step",
+        "CFDLean.Time.meshStep"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.owner_used": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (b : M.Boundary), M.Used (M.interfaces.owner b)",
+      "root": true,
+      "name": "CFDLean.Time.owner_used",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData.faceNodes",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.faceID",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.MedianDual.MeshData.mem_faceNodes",
+        "CFDLean.MedianDual.MeshData.faceCount",
+        "CFDLean.MedianDual.MeshData.Occurrence",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.MedianDual.MeshData.vertex",
+        "CFDLean.MedianDual.MeshData.Boundary"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.tail_used": {
+      "unsafe": false,
+      "type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (e : M.Edge), M.Used (M.interfaces.tail e)",
+      "root": true,
+      "name": "CFDLean.Time.tail_used",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.MedianDual.MeshData.Used",
+        "CFDLean.MedianDual.MeshData",
+        "CFDLean.MedianDual.MeshData.interfaces",
+        "CFDLean.MedianDual.MeshData.IsEdge",
+        "CFDLean.MedianDual.MeshData.mem_cellNodes",
+        "CFDLean.MedianDual.MeshData.Edge",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.MedianDual.MeshData.vertex",
+        "CFDLean.MedianDual.MeshData.Boundary",
+        "CFDLean.MedianDual.MeshData.cellNodes"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.weighted_residual": {
+      "unsafe": false,
+      "type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype N] [inst_2 : Fintype E]\n  [inst_3 : Fintype B] (m : CFDLean.Assembly.Interfaces N E B) (\u03c4 : N \u2192 \u211d)\n  (f : E \u2192 CFDLean.Coordinates.StateCoordinates) (g : B \u2192 CFDLean.Coordinates.StateCoordinates),\n  \u2211 i, \u03c4 i \u2022 CFDLean.Assembly.residual m f g i = \u2211 e, (\u03c4 (m.tail e) - \u03c4 (m.head e)) \u2022 f e + \u2211 b, \u03c4 (m.owner b) \u2022 g b",
+      "root": true,
+      "name": "CFDLean.Time.weighted_residual",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence_smul",
+        "CFDLean.Time.weighted_residual._proof_1",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Coordinates.StateCoordinates",
+        "CFDLean.Assembly.residual"
+      ],
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "CFDLean.Time.weighted_residual._proof_1": {
+      "unsafe": false,
+      "type": "\u2200 {R : Type u_1} {M : Type u_3} [inst : Ring R] [inst_1 : AddCommGroup M] [inst_2 : _root_.Module R M] (r s : R)\n  (y : M), r \u2022 y - s \u2022 y = (r - s) \u2022 y",
+      "root": true,
+      "name": "CFDLean.Time.weighted_residual._proof_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "theorem",
+      "direct": [],
+      "axioms": [
+        "propext"
+      ]
+    },
     "CFDLean.Vector": {
       "unsafe": false,
       "type": "\u2115 \u2192 Type",
@@ -28783,6 +32191,52 @@
       ],
       "axioms": []
     },
+    "Finset.sum._at.CFDLean.Time.amount._spec_1": {
+      "unsafe": true,
+      "type": "(N : Type u_1) \u2192 Finset N \u2192 (N \u2192 CFDLean.Coordinates.StateCoordinates) \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Time.amount._spec_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Time.amount._spec_1._cstage2": {
+      "unsafe": true,
+      "type": "_neutral \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Time.amount._spec_1._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Finset.sum._at.CFDLean.Time.amount._spec_1._rarg"
+      ],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Time.amount._spec_1._rarg": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Time.amount._spec_1._rarg",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Finset.sum._at.CFDLean.Time.amount._spec_1._rarg._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Finset.sum._at.CFDLean.Time.amount._spec_1._rarg._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2"
+      ],
+      "axioms": []
+    },
     "Finset.sum._at.CFDLean.dot._spec_1": {
       "unsafe": true,
       "type": "(d : \u2115) \u2192 Finset (Fin d) \u2192 (Fin d \u2192 \u211d) \u2192 \u211d",
@@ -29520,6 +32974,201 @@
       ],
       "axioms": []
     },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2": {
+      "unsafe": true,
+      "type": "Multiset CFDLean.Coordinates.StateCoordinates \u2192 CFDLean.Coordinates.StateCoordinates",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "axiom",
+      "direct": [
+        "CFDLean.Coordinates.StateCoordinates"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_1._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_2._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_1"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_3",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._closed_3._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2",
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1._boxed",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2._closed_1": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2._closed_1",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2._closed_1._cstage2": {
+      "unsafe": true,
+      "type": "_obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2._closed_1._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj \u2192 _obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_2._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [
+        "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_1"
+      ],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3._boxed": {
+      "unsafe": null,
+      "type": null,
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3._boxed",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "compiler_metadata_only",
+      "direct": [],
+      "axioms": []
+    },
+    "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3._cstage2": {
+      "unsafe": true,
+      "type": "_obj \u2192 _obj",
+      "root": false,
+      "name": "Multiset.sum._at.CFDLean.Time.amount._spec_2._lambda_3._cstage2",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "kind": "definition",
+      "direct": [],
+      "axioms": []
+    },
     "Multiset.sum._at.CFDLean.squareSum._spec_2": {
       "unsafe": true,
       "type": "Multiset \u211d \u2192 \u211d",
@@ -29905,5 +33554,8 @@
   "m4a_acceptance_record": "reviews/M4a/Acceptance.md",
   "m4b_acceptance_record": "reviews/M4b/Acceptance.md",
   "m4_acceptance_record": "reviews/M4/Acceptance.md",
-  "m4_independent_acceptance": "accepted at 3a586a42546cba1784cc79269e3f9d1c5d843f0c"
+  "m4_independent_acceptance": "accepted at 3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "m5_approval_record": "specifications/M5-approval.md",
+  "m5_proposal_review": "reviews/M5/proposal-3dcb73d/report/Review_Record.json",
+  "m5_independent_acceptance": "pending implementation review"
 }

@@ -1,7 +1,7 @@
 import json
 import unittest
 from pathlib import Path
-from verify import ACCEPTED_BASELINE, M4_ACCEPTED_REVISION, M4A_ACCEPTED_REVISION, M3_ACCEPTED_REVISION, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited, check_m4_layout, check_m4_inherited
+from verify import ACCEPTED_BASELINE, M4_ACCEPTED_REVISION, M4A_ACCEPTED_REVISION, M3_ACCEPTED_REVISION, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited, check_m4_layout, check_m4_inherited, check_m5_layout
 
 
 def record(name, axioms=None):
@@ -237,6 +237,39 @@ class AuditChecks(unittest.TestCase):
         rollback["current_stage"] = "M4a"
         with self.assertRaises(ValueError):
             check_m4_inherited(rows, rollback, accepted, evidence)
+
+    def test_m5_frozen_metadata_and_exact_stage_layout(self):
+        root = Path(__file__).resolve().parents[1]
+        contract = json.loads((root / "specifications/M5-results.json").read_text())
+        check_m5_layout(contract, contract)
+        for field in ["contract", "contract_sha256", "reviewed_proposal_revision", "approval_record", "current_stage"]:
+            changed = json.loads(json.dumps(contract))
+            changed[field] = "redirected"
+            with self.assertRaises(ValueError):
+                check_m5_layout(changed, contract)
+        for i in range(len(contract["results"])):
+            changed = json.loads(json.dumps(contract))
+            changed["results"][i]["stage"] = "M4b"
+            with self.assertRaises(ValueError):
+                check_m5_layout(changed, contract)
+        check_result_ids(contract, (root / contract["contract"]).read_text(), "M5")
+
+    def test_m5_all_six_active_ids_require_real_theorems(self):
+        results = [{"id": "M5-" + k, "stage": "M5", "declarations": ["Proof." + k]}
+                   for k in ["U", "V", "B", "L", "C", "O"]]
+        contract = {"results": results}
+        rows = {r["declarations"][0]: record(r["declarations"][0]) for r in results}
+        self.assertEqual(len(check_promises(rows, contract, "M5", ("M5",))), 6)
+        for i, result in enumerate(results):
+            changed = json.loads(json.dumps(contract))
+            changed["results"][i]["declarations"] = []
+            with self.assertRaises(ValueError):
+                check_promises(rows, changed, "M5", ("M5",))
+            invalid = dict(rows)
+            name = result["declarations"][0]
+            invalid[name] = dict(rows[name], kind="definition")
+            with self.assertRaises(ValueError):
+                check_promises(invalid, contract, "M5", ("M5",))
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:
