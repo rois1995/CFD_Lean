@@ -1,0 +1,19 @@
+{
+  "milestone": "M4",
+  "status": "independently accepted within approved stationary boundary-transfer scope",
+  "mathematical_commit": "3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "tree": "670a0ff21ce84187b04547b30ba27530983209aa",
+  "worker_checkpoint": "416518f0961dbec4d26661c3fb8ff605b2db8830",
+  "approval_revision": "0cff4af244b85f4e2071e7bf941d40fdd0a399b5",
+  "contract": "specifications/M4.md",
+  "precision_contract": "specifications/M4-precision.md",
+  "acceptance_record": "reviews/M4/Acceptance.md",
+  "m4b_acceptance_record": "reviews/M4b/Acceptance.md",
+  "independent_review_record": "reviews/M4b/independent-3a586a4/report/Review_Record.json",
+  "promised_bindings": 156,
+  "m4_bindings": 39,
+  "approved_m4_result_groups": 6,
+  "outstanding_conditions": [],
+  "standing_authorization": "reviews/Standing_Authorization.md",
+  "next_step": "M5 explicit Euler proposal review, mandatory findings resolved and exact contract frozen before implementation"
+}

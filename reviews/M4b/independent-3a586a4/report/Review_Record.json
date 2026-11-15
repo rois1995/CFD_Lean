@@ -1,0 +1,54 @@
+{
+  "review_date": "2026-11-15",
+  "repository": "rois1995/CFD_Lean",
+  "candidate": "3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "tree": "670a0ff21ce84187b04547b30ba27530983209aa",
+  "handoff_checkpoint": "416518f0961dbec4d26661c3fb8ff605b2db8830",
+  "accepted_M4a": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "accepted_M3": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "M4_freeze": "0cff4af244b85f4e2071e7bf941d40fdd0a399b5",
+  "verdicts": {
+    "M4b_ROC": "accept",
+    "full_M4_BWPROC": "accept"
+  },
+  "blockers": [],
+  "conditions": [],
+  "deferred_M4_ids": [],
+  "reproduction_exit_code": 0,
+  "independent_lean_exit_code": 0,
+  "independent_arithmetic_exit_code": 0,
+  "promised_bindings": 156,
+  "inherited_bindings": 140,
+  "new_M4b_bindings": 16,
+  "full_M4_bindings": 39,
+  "lean_examples": 182,
+  "accepted_example_prefix": 153,
+  "checker_tests": 16,
+  "protected_checksums": 62,
+  "inventory_records": 1726,
+  "safe_roots": 988,
+  "reachable_declarations": 21175,
+  "unsafe_nonroots": 459,
+  "unsafe_definitions": 421,
+  "unsafe_compiler_axiom_records": 38,
+  "metadata_only": 279,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "reachable_unsafe": [],
+  "deterministic_candidate_and_checkpoint_matches": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "standing_implementation_authorization": "active per preserved authorization record",
+  "next_scientific_work": "M5 proposal review and exact contract freeze; no implementation initiated",
+  "scope": "approved exact-real stationary boundary-transfer composition only"
+}

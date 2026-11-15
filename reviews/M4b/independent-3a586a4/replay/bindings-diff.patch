@@ -1,0 +1,53 @@
+diff --git a/specifications/M4-results.json b/specifications/M4-results.json
+index 8bbc118..f6a52be 100644
+--- a/specifications/M4-results.json
++++ b/specifications/M4-results.json
+@@ -5,7 +5,7 @@
+   "precision_sha256": "341ef29bd083fd12b1bf2856631a94328ecf602fcec9059ac140caf1d13f29dc",
+   "reviewed_proposal_revision": "936d20d32fdd3e18c9f1782a868cbd0378fde7df",
+   "approval_record": "specifications/M4-approval.md",
+-  "current_stage": "M4a",
++  "current_stage": "M4b",
+   "results": [
+     {
+       "id": "M4-B",
+@@ -51,17 +51,36 @@
+     {
+       "id": "M4-R",
+       "stage": "M4b",
+-      "declarations": []
++      "declarations": [
++        "CFDLean.Boundary.stationary_global_balance",
++        "CFDLean.Boundary.stationary_mixed_balance",
++        "CFDLean.Boundary.stationary_mass_balance",
++        "CFDLean.Boundary.stationary_energy_balance",
++        "CFDLean.Boundary.stationary_momentum_balance",
++        "CFDLean.Boundary.meshResidual_eq",
++        "CFDLean.Boundary.mesh_global_balance"
++      ]
+     },
+     {
+       "id": "M4-O",
+       "stage": "M4b",
+-      "declarations": []
++      "declarations": [
++        "CFDLean.Boundary.constructed_transfer_reindex",
++        "CFDLean.Boundary.stationary_residual_reindex",
++        "CFDLean.Boundary.mesh_residual_reindex"
++      ]
+     },
+     {
+       "id": "M4-C",
+       "stage": "M4b",
+-      "declarations": []
++      "declarations": [
++        "CFDLean.Boundary.transfer_compatible",
++        "CFDLean.Boundary.stationary_common_defect",
++        "CFDLean.Boundary.stationary_common_closed",
++        "CFDLean.Boundary.stationary_common_correction",
++        "CFDLean.Boundary.mesh_constant_state",
++        "CFDLean.Boundary.mesh_common_correction"
++      ]
+     }
+   ]
+ }

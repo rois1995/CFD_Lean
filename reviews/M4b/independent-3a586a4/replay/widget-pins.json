@@ -1,0 +1,1 @@
+{"version": "1.1.0", "packages": [{"name": "batteries", "scope": "leanprover-community", "type": "path", "dir": "/workspace/scratch/e87e5b190f05/m4b/candidate/.lake/packages/batteries", "configFile": "lakefile.toml", "inherited": false}]}
