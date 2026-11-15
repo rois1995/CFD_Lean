@@ -1,0 +1,60 @@
+{
+  "candidate_commit": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "accepted_inherited_commit": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "approved_m4_revision": "0cff4af244b85f4e2071e7bf941d40fdd0a399b5",
+  "date": "2026-11-15",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M4a or full-M4 acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m4a-source-replay.KHN1xT/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS compiled locally from its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 140,
+  "new_m4a_bindings": 23,
+  "new_by_id": {
+    "M4-B": 7,
+    "M4-W": 10,
+    "M4-P": 6
+  },
+  "inherited_types_checked": 117,
+  "lean_examples": 153,
+  "inherited_example_prefix": 112,
+  "python_fixtures": 15,
+  "source_checksums_checked": 58,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "inventory_records": 1585,
+  "dependency_closure": {
+    "visited": 21075,
+    "unsafe_reached": [],
+    "roots": 905,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "m4a_scope": "M4-B/W/P local boundary contracts",
+  "deferred_result_ids": [
+    "M4-R",
+    "M4-O",
+    "M4-C"
+  ],
+  "independent_m3_acceptance": "accepted at e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "m4_user_implementation_authorization": "approved two-stage plan; specifications/M4-approval.md",
+  "independent_m4a_acceptance": "pending",
+  "independent_full_m4_acceptance": "deferred; M4b not implemented"
+}

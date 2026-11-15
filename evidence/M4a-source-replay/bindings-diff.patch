@@ -1,0 +1,73 @@
+diff --git a/specifications/M4-results.json b/specifications/M4-results.json
+new file mode 100644
+index 0000000..8bbc118
+--- /dev/null
++++ b/specifications/M4-results.json
+@@ -0,0 +1,67 @@
++{
++  "contract": "specifications/M4.md",
++  "contract_sha256": "12017bc7bd7c78f28bb348b63fb81ed96dcef47df253bbfb4dabea173cee5143",
++  "precision_contract": "specifications/M4-precision.md",
++  "precision_sha256": "341ef29bd083fd12b1bf2856631a94328ecf602fcec9059ac140caf1d13f29dc",
++  "reviewed_proposal_revision": "936d20d32fdd3e18c9f1782a868cbd0378fde7df",
++  "approval_record": "specifications/M4-approval.md",
++  "current_stage": "M4a",
++  "results": [
++    {
++      "id": "M4-B",
++      "stage": "M4a",
++      "declarations": [
++        "CFDLean.Boundary.boundary_record_unique",
++        "CFDLean.Boundary.boundary_record_range",
++        "CFDLean.Boundary.patchKind_coherent",
++        "CFDLean.Boundary.patchExterior_coherent",
++        "CFDLean.Boundary.patchTransfer_wall",
++        "CFDLean.Boundary.patchTransfer_symmetry",
++        "CFDLean.Boundary.patchTransfer_prescribed"
++      ]
++    },
++    {
++      "id": "M4-W",
++      "stage": "M4a",
++      "declarations": [
++        "CFDLean.Boundary.wall_mass",
++        "CFDLean.Boundary.wall_energy",
++        "CFDLean.Boundary.wall_momentum",
++        "CFDLean.Boundary.wall_zero",
++        "CFDLean.Boundary.wall_add",
++        "CFDLean.Boundary.wall_smul",
++        "CFDLean.Boundary.wall_reverse",
++        "CFDLean.Boundary.wall_pressure_pos",
++        "CFDLean.Boundary.wall_eq_physical_iff",
++        "CFDLean.Boundary.wall_eq_physical_iff_normalVelocity"
++      ]
++    },
++    {
++      "id": "M4-P",
++      "stage": "M4a",
++      "declarations": [
++        "CFDLean.Boundary.prescribed_consistency",
++        "CFDLean.Boundary.prescribed_zero",
++        "CFDLean.Boundary.prescribed_scale",
++        "CFDLean.Boundary.prescribed_reverse",
++        "CFDLean.Boundary.prescribed_upwind_owner",
++        "CFDLean.Boundary.prescribed_upwind_exterior"
++      ]
++    },
++    {
++      "id": "M4-R",
++      "stage": "M4b",
++      "declarations": []
++    },
++    {
++      "id": "M4-O",
++      "stage": "M4b",
++      "declarations": []
++    },
++    {
++      "id": "M4-C",
++      "stage": "M4b",
++      "declarations": []
++    }
++  ]
++}

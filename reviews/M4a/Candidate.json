@@ -1,0 +1,54 @@
+{
+  "candidate_commit": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "accepted_full_m3": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "approved_m4_freeze": "0cff4af244b85f4e2071e7bf941d40fdd0a399b5",
+  "scope": "M4a M4-B/W/P local stationary boundaries",
+  "m4a_independent_acceptance": "pending",
+  "full_m4_independent_acceptance": "deferred; M4b R/O/C not implemented",
+  "worker_verification": "passed",
+  "worker_fresh_source_replay": "passed",
+  "metrics": {
+    "inventory_records": 1585,
+    "safe_roots": 905,
+    "visited_constants": 21075,
+    "unsafe_nonroots": 417,
+    "unsafe_definitions": 381,
+    "unsafe_compiler_axiom_records": 36,
+    "metadata_only": 263,
+    "promised_bindings": 140,
+    "inherited_bindings_and_types": 117,
+    "new_m4a_bindings": 23,
+    "new_by_id": {
+      "M4-B": 7,
+      "M4-W": 10,
+      "M4-P": 6
+    },
+    "lean_examples": 153,
+    "inherited_example_prefix": 112,
+    "verifier_fixtures": 15,
+    "source_hashes": 58,
+    "dependency_pins": 9
+  },
+  "foundational_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "unsafe_reached": [],
+  "deferred_result_ids": [
+    "M4-R",
+    "M4-O",
+    "M4-C"
+  ],
+  "next_scope": "M4b under existing user approval, after scoped M4a review and preservation guard update",
+  "reviewer_prompt": "reviews/M4a/Reviewer_Prompt.md",
+  "worker_replay_record": "evidence/M4a-source-replay/replay.json",
+  "replay_exit_code": 0,
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ]
+}
