@@ -1,0 +1,39 @@
+{
+  "contract": "specifications/M5.md",
+  "contract_sha256": "29c152fbe479af249f9c4921922cab47381d467c1a768abd28f5370c1a6c2377",
+  "reviewed_proposal_revision": "3dcb73dce26149673f6669725fc3b371bd95defd",
+  "approval_record": "specifications/M5-approval.md",
+  "current_stage": "M5",
+  "results": [
+    {
+      "id": "M5-U",
+      "stage": "M5",
+      "declarations": []
+    },
+    {
+      "id": "M5-V",
+      "stage": "M5",
+      "declarations": []
+    },
+    {
+      "id": "M5-B",
+      "stage": "M5",
+      "declarations": []
+    },
+    {
+      "id": "M5-L",
+      "stage": "M5",
+      "declarations": []
+    },
+    {
+      "id": "M5-C",
+      "stage": "M5",
+      "declarations": []
+    },
+    {
+      "id": "M5-O",
+      "stage": "M5",
+      "declarations": []
+    }
+  ]
+}

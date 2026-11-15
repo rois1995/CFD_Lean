@@ -1,0 +1,6 @@
+Exact candidate match verification.json 5d32976698532d098f98a5f85300b5575d007ccc0af8f52fc19e8023d024906e
+Exact candidate match kernel-inventory.log 61f9c8832e922b219a98bb2e9398d32627f961f79d620c62f97cf39dffa81c88
+Exact candidate match inherited-types.json 7cbcb4d75413d1949f3d37817e051b3b632dea11f966b9f3e79d62f0412f889d
+Exact candidate match bindings-diff.patch e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+Exact candidate match binding-type-diff.json 705f0fa83d64c73b44d5f6526e347487da1818d5d272ed6021bbb18c0da1923d
+64 source checksums pass; no tracked diff. Inventory/closure/counters unchanged.

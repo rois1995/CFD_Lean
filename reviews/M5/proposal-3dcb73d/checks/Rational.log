@@ -1,0 +1,2 @@
+Independent standard-tetrahedron assembly reproduces both M5 vectors, admissible unequal-step output states, and the hot/cold negative-density update.
+300 exact rational finite-incidence/local-step/unused-node/transport cases pass. These supplement algebraic review and do not prove any proposed Lean contract.

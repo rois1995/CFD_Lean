@@ -1,0 +1,8 @@
+Candidate.json: OK
+Changes_from_Accepted_M4.patch: OK
+GuardFixtures.log: OK
+PreparationChecks.log: OK
+PreparationChecks.py: OK
+README.md: OK
+Reviewer_Prompt.md: OK
+Verification.log: OK

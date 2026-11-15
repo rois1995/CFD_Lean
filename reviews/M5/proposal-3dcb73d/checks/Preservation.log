@@ -1,0 +1,5 @@
+Full-index patch exact match 2928bba44b1336e9f10421d527e8b9612f6a135e6c533de9eec8caa556176dc3
+47 accepted mathematical/configuration/specification files unchanged; 375 prior archive files unchanged.
+All 156 ordered bindings and accepted types unchanged, zero null/changed comparisons; empty result-map diff; exact 182-example file preserved.
+All 28 original M4b review payload hashes and original ZIP bytes preserved. Five archived reviewer/worker outputs match accepted candidate.
+Standalone proposal equals pinned repository file; no M5 Lean implementation, frozen contract or active results. Separate M3 accepted pin retained.
