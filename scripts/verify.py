@@ -8,7 +8,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
-ACCEPTED_BASELINE = "a70270c3f771e66bcaaebc18b8480c32f9606b1e"
+ACCEPTED_BASELINE = "e2ea538b8da38c01c098ef28a3ea31030d90c6bb"
 M2_ACCEPTED_REVISION = "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1"
 APPROVED_M3 = "3189a603b3f6af953f0828d6b2e239320fd2cd20"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
@@ -95,7 +95,7 @@ def check_m3_inherited(rows, contract, accepted, evidence):
             for name in part["declarations"]:
                 before, after = evidence["declarations"][name]["type"], rows[name]["type"]
                 if before != after:
-                    raise ValueError(f"Accepted M3a type changed: {name}")
+                    raise ValueError(f"Accepted M3 type changed: {name}")
                 comparisons[name] = {"accepted_type": before, "current_type": after}
     return comparisons
 
@@ -205,7 +205,9 @@ def main():
         "m2_approval_record": contract["approval_record"], "m2_independent_acceptance": "accepted at " + M2_ACCEPTED_REVISION,
         "m2_acceptance_record": "reviews/M2/Acceptance.md", "m3_approval_record": m3["approval_record"],
         "m3a_acceptance_record": "reviews/M3a/Acceptance.md",
-        "m3_independent_acceptance": "M3a accepted; M3b and full M3 pending independent review"
+        "m3b_acceptance_record": "reviews/M3b/Acceptance.md",
+        "m3_acceptance_record": "reviews/M3/Acceptance.md",
+        "m3_independent_acceptance": "accepted at " + ACCEPTED_BASELINE
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
 

@@ -1,6 +1,7 @@
 import json
 import unittest
-from verify import parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited
+from pathlib import Path
+from verify import ACCEPTED_BASELINE, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited
 
 
 def record(name, axioms=None):
@@ -128,6 +129,30 @@ class AuditChecks(unittest.TestCase):
         future = json.loads(json.dumps(accepted))
         future["results"][-1]["parts"][-1]["declarations"] = ["New.concrete"]
         check_m3_inherited(rows, future, accepted, evidence)
+
+    def test_full_m3_inheritance_freezes_every_accepted_part_and_type(self):
+        root = Path(__file__).resolve().parents[1]
+        accepted = json.loads((root / "specifications/M3-results.json").read_text())
+        pin = json.loads((root / "specifications/accepted-M3.json").read_text())
+        self.assertEqual(ACCEPTED_BASELINE, pin["mathematical_commit"])
+        self.assertEqual(accepted["current_stage"], "M3b")
+        names = [name for r in accepted["results"] for p in r["parts"] for name in p["declarations"]]
+        rows = {name: {"type": "accepted type of " + name} for name in names}
+        evidence = {"declarations": rows}
+        self.assertEqual(len(check_m3_inherited(rows, accepted, accepted, evidence)), 51)
+        for i, result in enumerate(accepted["results"]):
+            for j, part in enumerate(result["parts"]):
+                for key, value in [("declarations", ["Other.safe"]),
+                                   ("stage", "M3b" if part["stage"] == "M3a" else "M3a")]:
+                    changed = json.loads(json.dumps(accepted))
+                    changed["results"][i]["parts"][j][key] = value
+                    with self.assertRaises(ValueError):
+                        check_m3_inherited(rows, changed, accepted, evidence)
+        for name in names:
+            weakened = dict(rows)
+            weakened[name] = {"type": "weakened"}
+            with self.assertRaises(ValueError):
+                check_m3_inherited(weakened, accepted, accepted, evidence)
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:

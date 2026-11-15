@@ -1,0 +1,6 @@
+Wall controls: exact oblique traction, tangency-qualified physical equality, incompatible normal flow, zero area and reversal pass.
+Actual rational Roe projector controls: strict/sonic two-state upwind reductions in both directions, swapped reversal and area scaling pass (c=2).
+Variant controls: reflected-momentum Roe traction 19/4 differs from direct pressure 7/4; Eq. (8.13) pressure interpolation differs from owner sampling.
+Actual stationary prescribed-exterior Roe mass transfer is -1/2 for a mismatching admissible exterior state; open compatibility is qualified.
+Concrete accepted tetrahedron controls: mixed wall/open tangential common state and all-wall rest residuals vanish; incompatible common normal flow gives owner mass residual 1/6; corner face IDs and global balance pass.
+These are exact feasibility controls using accepted geometry/consistency identities, not new Lean proofs, mesh validation, nonreflection or update guarantees.

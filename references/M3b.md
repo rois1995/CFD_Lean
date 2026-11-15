@@ -1,6 +1,6 @@
 # M3b source, result and assumption map
 
-This implements approved M3-G/V and the concrete M3-C part on accepted M3a a70270c3f771e66bcaaebc18b8480c32f9606b1e. Andrea's unchanged full-plan authorization is in specifications/M3-approval.md. The M3 specification and representation companion are frozen at 3189a603b3f6af953f0828d6b2e239320fd2cd20. Independent M3b and composed full-M3 acceptance remain pending.
+This implements approved M3-G/V and the concrete M3-C part on accepted M3a a70270c3f771e66bcaaebc18b8480c32f9606b1e. Andrea's unchanged full-plan authorization is in specifications/M3-approval.md. The M3 specification and representation companion are frozen at 3189a603b3f6af953f0828d6b2e239320fd2cd20. M3b and composed full M3 are now independently accepted without conditions at e2ea538b8da38c01c098ef28a3ea31030d90c6bb; see reviews/M3b/Acceptance.md and reviews/M3/Acceptance.md. This stage map retains the submitted mathematical candidate counts.
 
 ## Construction and proof dependencies
 

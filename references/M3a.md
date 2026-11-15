@@ -1,6 +1,6 @@
 # M3a source, result and assumption map
 
-Worker implementation of the approved M3a I/R/O and conditional C obligations. Andrea approved the reviewed plan after the independent proposal recommendation; see specifications/M3-approval.md. The reviewed proposal is frozen byte-for-byte as specifications/M3.md, with its approved representation precision in M3-representation.md at 3189a603b3f6af953f0828d6b2e239320fd2cd20. M3a is independently accepted at a70270c3f771e66bcaaebc18b8480c32f9606b1e; see reviews/M3a/Acceptance.md. This historical stage map retains its original counts. The current concrete extension is described in M3b.md; full M3 still requires an independent composed verdict.
+Worker implementation of the approved M3a I/R/O and conditional C obligations. Andrea approved the reviewed plan after the independent proposal recommendation; see specifications/M3-approval.md. The reviewed proposal is frozen byte-for-byte as specifications/M3.md, with its approved representation precision in M3-representation.md at 3189a603b3f6af953f0828d6b2e239320fd2cd20. M3a is independently accepted at a70270c3f771e66bcaaebc18b8480c32f9606b1e; see reviews/M3a/Acceptance.md. This historical stage map retains its original counts. The subsequent concrete extension and independently accepted full-M3 verdict are recorded in M3b.md and reviews/M3/Acceptance.md.
 
 ## Assembly and accepted physical interface
 

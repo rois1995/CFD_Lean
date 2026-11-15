@@ -1,0 +1,40 @@
+{
+  "source": "Blazek, Computational Fluid Dynamics: Principles and Applications, first edition, 2001",
+  "path": "/media/rausa/4TB/SU2_Versions/Prove/Papers/COMPUTATIONAL FLUID DYNAMICS - PRINCIPLES AND APPLICATIONS.pdf",
+  "sha256": "c37225f646c5e237a20361db0979cf09218de9800dc9a85448314e7646758fc5",
+  "current_file_hash_verified": true,
+  "text_read_pdf_pages": [
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    308,
+    309
+  ],
+  "rendered_and_visually_inspected_pdf_pages": [
+    293,
+    298,
+    302,
+    308
+  ],
+  "method": "local Poppler text extraction and page rendering; no PDF modification or new external source",
+  "proposal_choices_requiring_review": [
+    "direct owner-pressure traction per accepted owner patch",
+    "prescribed-exterior original Roe boundary with specified orientation and physical/spectral hypotheses"
+  ],
+  "source_distinctions": [
+    "owner sampling is not Eq. (8.13) tetrahedral interpolation",
+    "selected prescribed-exterior Roe composition is not Eqs. (8.20)-(8.23) characteristic reconstruction",
+    "inviscid symmetry traction does not implement the residual/geometry/gradient modifications in section 8.5"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "classification": "M4 proposal and full-M3 preservation checker update; no new mathematical implementation",
+  "accepted_full_m3_pin": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "full_m3_independent_review_record": "reviews/M3b/independent-e2ea538/report/Review_Record.json",
+  "accepted_bindings_and_types_checked": 117,
+  "m2_bindings": 66,
+  "m3_bindings": 51,
+  "accepted_mathematical_sources_unchanged": true,
+  "accepted_example_file_unchanged": true,
+  "scientific_contracts_and_pins_unchanged": true,
+  "kernel_inventory_byte_identical_to_accepted_candidate": true,
+  "lean_examples_passed": 112,
+  "verifier_fixtures_passed": 13,
+  "source_hashes": 51,
+  "new_m4_lean_files": [],
+  "m4_implementation_authorized": false,
+  "new_mathematical_cold_replay_claimed": false,
+  "m4_proposal_preparation": "exact rational feasibility controls passed",
+  "proposal_result_ids": [
+    "M4-B",
+    "M4-W",
+    "M4-P",
+    "M4-R",
+    "M4-O",
+    "M4-C"
+  ],
+  "next_decision": "independent proposal review, then Andrea scientific approval before freezing/implementing M4"
+}
