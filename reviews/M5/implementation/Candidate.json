@@ -1,0 +1,58 @@
+{
+  "candidate_commit": "9cf51ff4c2d37965c332ee1da724e8c097d1795c",
+  "candidate_tree": "f0cc2fb2ce5f8a39fcbe133e388809734b3bf00c",
+  "scope": "M5-U/V/B/L/C/O single lumped explicit Euler step; M6 separate",
+  "accepted_full_m4": "3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "accepted_full_m3": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "reviewed_proposal": "3dcb73dce26149673f6669725fc3b371bd95defd",
+  "approved_m5_freeze": "9ee58a9a0226844cda835ac0b8285d64891f1dd0",
+  "proposal_recommendation": "recommend implementation without mandatory amendments",
+  "standing_authorization": "active; reviews/Standing_Authorization.md",
+  "m5_independent_acceptance": "pending",
+  "m6_status": "not implemented or accepted by M5",
+  "worker_verification": "passed",
+  "worker_fresh_source_replay": "passed",
+  "metrics": {
+    "promised_bindings": 199,
+    "inherited_bindings_and_types": 156,
+    "new_m5_bindings": 43,
+    "new_by_id": {
+      "M5-U": 6,
+      "M5-V": 9,
+      "M5-B": 9,
+      "M5-L": 6,
+      "M5-C": 8,
+      "M5-O": 5
+    },
+    "lean_examples": 218,
+    "inherited_example_prefix": 182,
+    "verifier_fixtures": 19,
+    "source_hashes": 70,
+    "dependency_pins": 9,
+    "inventory_records": 1926,
+    "safe_roots": 1093,
+    "visited_declarations": 21314,
+    "unsafe_nonroots": 515,
+    "unsafe_definitions": 473,
+    "unsafe_compiler_axiom_records": 42,
+    "metadata_only": 318
+  },
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "unsafe_reached": [],
+  "deferred_result_ids": [],
+  "reviewer_prompt": "reviews/M5/implementation/Reviewer_Prompt.md",
+  "worker_replay_record": "evidence/M5-source-replay/replay.json",
+  "next_scope": "Independent M5 implementation review before any M6 scientific proposal; standing implementation authorization remains active.",
+  "replay_exit_code": 0,
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ]
+}

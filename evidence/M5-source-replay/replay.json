@@ -1,0 +1,64 @@
+{
+  "candidate_commit": "9cf51ff4c2d37965c332ee1da724e8c097d1795c",
+  "accepted_inherited_commit": "3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "reviewed_m5_proposal": "3dcb73dce26149673f6669725fc3b371bd95defd",
+  "approved_m5_freeze": "9ee58a9a0226844cda835ac0b8285d64891f1dd0",
+  "date": "2026-11-15",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M5 implementation acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m5-source-replay.ez0jRO/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS compiled locally from its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 199,
+  "new_m5_bindings": 43,
+  "new_by_id": {
+    "M5-U": 6,
+    "M5-V": 9,
+    "M5-B": 9,
+    "M5-L": 6,
+    "M5-C": 8,
+    "M5-O": 5
+  },
+  "inherited_types_checked": 156,
+  "lean_examples": 218,
+  "inherited_example_prefix": 182,
+  "python_fixtures": 19,
+  "source_checksums_checked": 70,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "inventory_records": 1926,
+  "dependency_closure": {
+    "visited": 21314,
+    "unsafe_reached": [],
+    "roots": 1093,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unsafe_nonroots": 515,
+  "unsafe_definitions": 473,
+  "unsafe_compiler_axiom_records": 42,
+  "metadata_only": 318,
+  "deferred_result_ids": [],
+  "independent_full_m4_acceptance": "accepted without conditions at 3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "m5_proposal_recommendation": "recommend implementation without mandatory amendments",
+  "m5_user_implementation_authorization": "standing authorization; specifications/M5-approval.md",
+  "independent_m5_acceptance": "pending",
+  "m6_status": "not started or accepted by M5"
+}
