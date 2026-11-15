@@ -1,0 +1,56 @@
+{
+  "candidate_commit": "3dcb73dce26149673f6669725fc3b371bd95defd",
+  "candidate_tree": "a8e2948c2d5aa1b7478227d17a0e0ed20b87e28f",
+  "scope": "M5 scientific proposal and full-M4 inherited-preservation guard; no M5 Lean mathematics",
+  "accepted_full_m4": "3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "accepted_m4_worker_checkpoint": "416518f0961dbec4d26661c3fb8ff605b2db8830",
+  "accepted_full_m3": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "m4b_independent_acceptance": "accepted without conditions",
+  "full_m4_independent_acceptance": "accepted without conditions",
+  "m5_proposal_recommendation": "pending independent review",
+  "m5_scientific_contract": "not frozen",
+  "m5_implementation": "not started",
+  "standing_implementation_authorization": "active; reviews/Standing_Authorization.md",
+  "worker_incremental_verification": "passed",
+  "worker_new_clean_source_replay": "not claimed: proposal/checker-only checkpoint, mathematical sources unchanged",
+  "metrics": {
+    "promised_bindings": 156,
+    "inherited_bindings_and_types": 156,
+    "new_m5_bindings": 0,
+    "lean_examples": 182,
+    "inherited_example_file": "byte-identical",
+    "verifier_fixtures": 17,
+    "source_hashes": 64,
+    "dependency_pins": 9,
+    "inventory_records": 1726,
+    "safe_roots": 988,
+    "reached_declarations": 21175,
+    "unsafe_nonroots": 459,
+    "unsafe_definitions": 421,
+    "unsafe_compiler_axiom_records": 38,
+    "metadata_only": 279
+  },
+  "allowed_foundational_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "unsafe_reached": [],
+  "deferred_m4_ids": [],
+  "proposed_not_active_ids": [
+    "M5-U",
+    "M5-V",
+    "M5-B",
+    "M5-L",
+    "M5-C",
+    "M5-O"
+  ],
+  "source_book_sha256": "c37225f646c5e237a20361db0979cf09218de9800dc9a85448314e7646758fc5",
+  "source_pages_visually_checked": [
+    204,
+    205,
+    322
+  ],
+  "reviewer_prompt": "reviews/M5/Reviewer_Prompt.md",
+  "next_permitted_scope": "Independent proposal review, mandatory-finding resolution and exact scientific contract freeze; implementation follows under standing authorization."
+}
