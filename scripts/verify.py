@@ -8,7 +8,9 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
-ACCEPTED_BASELINE = "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5"
+M4_ACCEPTED_REVISION = "3a586a42546cba1784cc79269e3f9d1c5d843f0c"
+M4A_ACCEPTED_REVISION = "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5"
+ACCEPTED_BASELINE = M4_ACCEPTED_REVISION
 M3_ACCEPTED_REVISION = "e2ea538b8da38c01c098ef28a3ea31030d90c6bb"
 M2_ACCEPTED_REVISION = "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1"
 APPROVED_M4 = "0cff4af244b85f4e2071e7bf941d40fdd0a399b5"
@@ -114,6 +116,8 @@ def check_m3_inherited(rows, contract, accepted, evidence):
 
 def check_m4_inherited(rows, contract, accepted, evidence):
     stages = ("M4a", "M4b")
+    if stages.index(contract["current_stage"]) < stages.index(accepted["current_stage"]):
+        raise ValueError("Accepted M4 current stage rolled back")
     current = {r["id"]: r for r in contract["results"]}
     comparisons = {}
     for result in accepted["results"]:
@@ -124,7 +128,7 @@ def check_m4_inherited(rows, contract, accepted, evidence):
         for name in result["declarations"]:
             before, after = evidence["declarations"][name]["type"], rows[name]["type"]
             if before != after:
-                raise ValueError(f"Accepted M4a type changed: {name}")
+                raise ValueError(f"Accepted M4 type changed: {name}")
             comparisons[name] = {"accepted_type": before, "current_type": after}
     return comparisons
 
@@ -250,7 +254,9 @@ def main():
         "m3_acceptance_record": "reviews/M3/Acceptance.md",
         "m3_independent_acceptance": "accepted at " + M3_ACCEPTED_REVISION,
         "m4_approval_record": m4["approval_record"], "m4a_acceptance_record": "reviews/M4a/Acceptance.md",
-        "m4_independent_acceptance": "M4a accepted; M4b and composed full M4 pending independent review"
+        "m4b_acceptance_record": "reviews/M4b/Acceptance.md",
+        "m4_acceptance_record": "reviews/M4/Acceptance.md",
+        "m4_independent_acceptance": "accepted at " + M4_ACCEPTED_REVISION
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
 

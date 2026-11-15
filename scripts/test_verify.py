@@ -1,7 +1,7 @@
 import json
 import unittest
 from pathlib import Path
-from verify import ACCEPTED_BASELINE, M3_ACCEPTED_REVISION, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited, check_m4_layout, check_m4_inherited
+from verify import ACCEPTED_BASELINE, M4_ACCEPTED_REVISION, M4A_ACCEPTED_REVISION, M3_ACCEPTED_REVISION, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited, check_m4_layout, check_m4_inherited
 
 
 def record(name, axioms=None):
@@ -184,7 +184,7 @@ class AuditChecks(unittest.TestCase):
         accepted = json.loads((root / "specifications/M4-results.json").read_text())
         accepted["current_stage"] = "M4a"
         pin = json.loads((root / "specifications/accepted-M4a.json").read_text())
-        self.assertEqual(ACCEPTED_BASELINE, pin["mathematical_commit"])
+        self.assertEqual(M4A_ACCEPTED_REVISION, pin["mathematical_commit"])
         active = [r for r in accepted["results"] if r["stage"] == "M4a"]
         rows = {name: {"type": "accepted type " + name} for r in active for name in r["declarations"]}
         evidence = {"declarations": rows}
@@ -208,6 +208,35 @@ class AuditChecks(unittest.TestCase):
             if r["stage"] == "M4b":
                 r["declarations"] = ["New." + r["id"]]
         check_m4_inherited(rows, future, accepted, evidence)
+
+    def test_full_m4_preserves_all_records_ordered_bindings_types_and_stage(self):
+        root = Path(__file__).resolve().parents[1]
+        accepted = json.loads((root / "specifications/M4-results.json").read_text())
+        pin = json.loads((root / "specifications/accepted-M4.json").read_text())
+        self.assertEqual(ACCEPTED_BASELINE, pin["mathematical_commit"])
+        self.assertEqual(M4_ACCEPTED_REVISION, pin["mathematical_commit"])
+        self.assertEqual(accepted["current_stage"], "M4b")
+        names = [name for r in accepted["results"] for name in r["declarations"]]
+        rows = {name: {"type": "accepted type " + name} for name in names}
+        evidence = {"declarations": rows}
+        self.assertEqual(len(check_m4_inherited(rows, accepted, accepted, evidence)), 39)
+        for i, result in enumerate(accepted["results"]):
+            for key, value in [("stage", "M4b" if result["stage"] == "M4a" else "M4a"),
+                               ("declarations", ["Other.safe"]),
+                               ("declarations", result["declarations"][::-1])]:
+                changed = json.loads(json.dumps(accepted))
+                changed["results"][i][key] = value
+                with self.assertRaises(ValueError):
+                    check_m4_inherited(rows, changed, accepted, evidence)
+        for name in names:
+            weakened = dict(rows)
+            weakened[name] = {"type": "weakened"}
+            with self.assertRaises(ValueError):
+                check_m4_inherited(weakened, accepted, accepted, evidence)
+        rollback = json.loads(json.dumps(accepted))
+        rollback["current_stage"] = "M4a"
+        with self.assertRaises(ValueError):
+            check_m4_inherited(rows, rollback, accepted, evidence)
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:
