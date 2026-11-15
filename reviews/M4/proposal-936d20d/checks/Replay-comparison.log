@@ -1,0 +1,6 @@
+Exact candidate match verification.json
+Exact candidate match kernel-inventory.log
+Exact candidate match inherited-types.json
+Exact candidate match bindings-diff.patch
+Exact candidate match binding-type-diff.json
+Kernel inventory also byte-identical to accepted M3. 51 pre/post hashes passed; only build.log differs.

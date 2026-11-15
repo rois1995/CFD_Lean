@@ -1,0 +1,26 @@
+{
+  "proposal_candidate": "936d20d32fdd3e18c9f1782a868cbd0378fde7df",
+  "accepted_M3": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "verdict": "recommend approval",
+  "owner_pressure": "recommend approval within stated scope",
+  "prescribed_exterior_Roe": "recommend approval within stated scope",
+  "mandatory_amendments": [],
+  "implementation_authorization": "Andrea decision required",
+  "M4_theorem_acceptance": "not requested",
+  "fresh_preservation_replay_exit": 0,
+  "inherited_types": 117,
+  "Lean_examples": 112,
+  "fixtures": 13,
+  "source_hashes": 51,
+  "closure": {
+    "visited": 20935,
+    "unsafe_reached": [],
+    "roots": 780,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "approved_source_sha256": "c37225f646c5e237a20361db0979cf09218de9800dc9a85448314e7646758fc5"
+}

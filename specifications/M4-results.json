@@ -1,0 +1,41 @@
+{
+  "contract": "specifications/M4.md",
+  "contract_sha256": "12017bc7bd7c78f28bb348b63fb81ed96dcef47df253bbfb4dabea173cee5143",
+  "precision_contract": "specifications/M4-precision.md",
+  "precision_sha256": "341ef29bd083fd12b1bf2856631a94328ecf602fcec9059ac140caf1d13f29dc",
+  "reviewed_proposal_revision": "936d20d32fdd3e18c9f1782a868cbd0378fde7df",
+  "approval_record": "specifications/M4-approval.md",
+  "current_stage": "M4a",
+  "results": [
+    {
+      "id": "M4-B",
+      "stage": "M4a",
+      "declarations": []
+    },
+    {
+      "id": "M4-W",
+      "stage": "M4a",
+      "declarations": []
+    },
+    {
+      "id": "M4-P",
+      "stage": "M4a",
+      "declarations": []
+    },
+    {
+      "id": "M4-R",
+      "stage": "M4b",
+      "declarations": []
+    },
+    {
+      "id": "M4-O",
+      "stage": "M4b",
+      "declarations": []
+    },
+    {
+      "id": "M4-C",
+      "stage": "M4b",
+      "declarations": []
+    }
+  ]
+}
