@@ -2,7 +2,7 @@
 
 Andrea approved the independently reviewed proposal 936d20d32fdd3e18c9f1782a868cbd0378fde7df with the supplied review and the exact reply “I approve”. The original recommendation has no mandatory amendments and is preserved unchanged under reviews/M4/proposal-936d20d. The exact proposal copy is frozen as specifications/M4.md, with the review's naming/velocity-interpretation precision and user approval in M4-precision.md and M4-approval.md, at 0cff4af244b85f4e2071e7bf941d40fdd0a399b5. Existing proposal/pending wording in the copied contract is historical and superseded by that explicit approval record.
 
-M4a implements B/W/P only. M4b R/O/C and a later composed full-M4 verdict remain required. Independent M4a theorem acceptance is pending. All 117 independently accepted M2/M3 bindings, exact M3 parts/stages/types and mathematical sources remain protected against accepted full M3 e2ea538b8da38c01c098ef28a3ea31030d90c6bb. No accepted definition/proof file or scientific contract is changed; the import-only root adds the new boundary export.
+M4a implements B/W/P only. M4b R/O/C and a later composed full-M4 verdict remain required. M4a is now independently accepted without conditions at 37c1e6ee4618b0183135c2795b3aa6ebea2f22d5; see reviews/M4a/Acceptance.md. This historical stage map retains its original submission counts. All 117 independently accepted M2/M3 bindings, exact M3 parts/stages/types and mathematical sources remain protected against accepted full M3 e2ea538b8da38c01c098ef28a3ea31030d90c6bb. No accepted definition/proof file or scientific contract is changed; the import-only root adds the new boundary export.
 
 ## Actual transfer definitions and physical domain
 

@@ -737,3 +737,119 @@ example : patchTransfer Controls.standard 2 Controls.mixedKinds (fun _ => Contro
 
 end
 end M4aChecks
+
+namespace M4bChecks
+noncomputable section
+open CFDLean.Boundary
+
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : CFDLean.Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind) (V : B → Conservative 3)
+    (U : N → Conservative 3) (S : E → Vector 3) (T : B → Vector 3) :
+    (∑ i, stationaryResidual m γ k V U S T i) = ∑ b, transfer γ (k b) (U (m.owner b)) (V b) (T b) :=
+  stationary_global_balance m γ k V U S T
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : CFDLean.Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind) (V : B → Conservative 3)
+    (U : N → Conservative 3) (S : E → Vector 3) (T : B → Vector 3) :
+    (∑ i, stationaryResidual m γ k V U S T i) =
+      (∑ b, if k b = .prescribedExteriorRoe then encode (CFDLean.Roe.numericalFlux γ (U (m.owner b)) (V b) (T b)) else 0) +
+      ∑ b, if k b = .prescribedExteriorRoe then 0 else wallTransfer γ (U (m.owner b)) (T b) := stationary_mixed_balance m γ k V U S T
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : CFDLean.Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind) (V : B → Conservative 3)
+    (U : N → Conservative 3) (S : E → Vector 3) (T : B → Vector 3) :
+    (∑ i, stationaryResidual m γ k V U S T i 0) =
+      ∑ b, if k b = .prescribedExteriorRoe then prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b) 0 else 0 := stationary_mass_balance m γ k V U S T
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : CFDLean.Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind) (V : B → Conservative 3)
+    (U : N → Conservative 3) (S : E → Vector 3) (T : B → Vector 3) :
+    (∑ i, stationaryResidual m γ k V U S T i 4) =
+      ∑ b, if k b = .prescribedExteriorRoe then prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b) 4 else 0 := stationary_energy_balance m γ k V U S T
+example {N E B : Type*} [Fintype N] [DecidableEq N] [Fintype E] [Fintype B]
+    (m : CFDLean.Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind) (V : B → Conservative 3)
+    (U : N → Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (j : Fin 3) :
+    (∑ i, (decode (stationaryResidual m γ k V U S T i)).momentum j) =
+      ∑ b, if k b = .prescribedExteriorRoe then
+        (decode (prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b))).momentum j else (U (m.owner b)).pressure γ * T b j := stationary_momentum_balance m γ k V U S T j
+
+example {N E B N' E' B' : Type*} [DecidableEq N] [DecidableEq N'] [Fintype E] [Fintype E'] [Fintype B] [Fintype B']
+    (m : CFDLean.Assembly.Interfaces N E B) (n : N ≃ N') (e : E ≃ E') (b : B ≃ B') (γ : ℝ)
+    (k : B → Kind) (V : B → Conservative 3) (U : N → Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (i : N) :
+    stationaryResidual (m.reindex n e b) γ (fun x => k (b.symm x)) (fun x => V (b.symm x))
+      (fun x => U (n.symm x)) (fun x => S (e.symm x)) (fun x => T (b.symm x)) (n i) =
+      stationaryResidual m γ k V U S T i := stationary_residual_reindex m n e b γ k V U S T i
+example (γ : ℝ) (k : Kind) (U V : Conservative 3) (T : Vector 3)
+    (hWall : k ≠ .prescribedExteriorRoe → dot U.momentum T = 0)
+    (hMatch : k = .prescribedExteriorRoe → V = U) :
+    transfer γ k U V T = encode (physicalFlux γ U T) := transfer_compatible γ k U V T hWall hMatch
+example {N E B : Type*} [DecidableEq N] [Fintype E] [Fintype B]
+    (m : CFDLean.Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind) (V : B → Conservative 3)
+    (U : Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (i : N)
+    (hWall : ∀ b, k b ≠ .prescribedExteriorRoe → dot U.momentum (T b) = 0)
+    (hMatch : ∀ b, k b = .prescribedExteriorRoe → V b = U) :
+    stationaryResidual m γ k V (fun _ => U) S T i = encode (physicalFlux γ U (CFDLean.Assembly.metricDefect m S T i)) := stationary_common_defect m γ k V U S T i hWall hMatch
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ) (k : Finset (Fin n) → Kind)
+    (V : Finset (Fin n) → Conservative 3) (U : Fin n → Conservative 3) (i : Fin n) :
+    meshResidual M γ k V U i = CFDLean.Assembly.residual M.interfaces
+      (CFDLean.Assembly.roeTransfer M.interfaces γ U M.edgeArea) (patchTransfer M γ k V U) i := meshResidual_eq M γ k V U i
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ) (k : Finset (Fin n) → Kind)
+    (V : Finset (Fin n) → Conservative 3) (U : Fin n → Conservative 3) :
+    (∑ i, meshResidual M γ k V U i) = ∑ b, patchTransfer M γ k V U b := mesh_global_balance M γ k V U
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (hM : M.Conforming) (γ : ℝ) (hγ : 1 < γ)
+    (U : Conservative 3) (hU : U.Admissible γ) (k : Finset (Fin n) → Kind) (V : Finset (Fin n) → Conservative 3) (i : Fin n)
+    (hWall : ∀ b : M.Boundary, patchKind M k b ≠ .prescribedExteriorRoe → dot U.momentum (M.boundaryArea b) = 0)
+    (hMatch : ∀ b : M.Boundary, patchKind M k b = .prescribedExteriorRoe → patchExterior M V b = U) :
+    meshResidual M γ k V (fun _ => U) i = 0 := mesh_constant_state M hM γ hγ U hU k V i hWall hMatch
+
+example (q : ℝ) (i : Fin 4) : meshResidual AssemblyControls.standard 2 AssemblyControls.mixedKinds
+    (fun _ => Controls.moving q 1) (fun _ => Controls.moving q 1) i = 0 := AssemblyControls.standard_mixed_common q i
+example (V : Finset (Fin 4) → Conservative 3) (i : Fin 4) :
+    meshResidual AssemblyControls.standard 2 (fun _ => .slipWall) V (fun _ => Controls.moving 0 1) i = 0 := AssemblyControls.standard_all_wall_rest V i
+example (V : Finset (Fin 4) → Conservative 3) (i : Fin 4) :
+    meshResidual CFDLean.MedianDual.Controls.oblique 2 (fun _ => .inviscidSymmetryTraction) V (fun _ => Controls.moving 0 1) i = 0 := AssemblyControls.oblique_all_symmetry_rest V i
+example : AssemblyControls.normalState.Admissible 2 := AssemblyControls.normal_admissible
+example : meshResidual AssemblyControls.standard 2 AssemblyControls.mixedKinds (fun _ => AssemblyControls.normalState)
+    (fun _ => AssemblyControls.normalState) 0 = ![1/6,0,0,1/6,5/12] := AssemblyControls.incompatible_wall_residual
+example : meshResidual AssemblyControls.standard 2 AssemblyControls.mixedKinds (fun _ => AssemblyControls.normalState)
+    (fun _ => AssemblyControls.normalState) 0 ≠ 0 := by
+  rw [AssemblyControls.incompatible_wall_residual]
+  intro h
+  have hh := congrFun h 0
+  norm_num at hh
+example (F : Finset (Fin 4)) : (AssemblyControls.mismatchingData F).Admissible 2 := AssemblyControls.mismatching_data_admissible F
+example : meshResidual AssemblyControls.standard 2 AssemblyControls.mixedKinds AssemblyControls.mismatchingData
+    (fun _ => Controls.moving 0 1) 0 = ![-1/12,-1/6,0,0,-1/3] := AssemblyControls.incompatible_exterior_residual
+example : meshResidual AssemblyControls.standard 2 AssemblyControls.mixedKinds AssemblyControls.mismatchingData
+    (fun _ => Controls.moving 0 1) 0 ≠ 0 := by
+  rw [AssemblyControls.incompatible_exterior_residual]
+  intro h
+  have hh := congrFun h 0
+  norm_num at hh
+example (q : ℝ) (i : Fin 5) : meshResidual AssemblyControls.twoCells 2 AssemblyControls.twoKinds
+    (fun _ => Controls.moving q 1) (fun _ => Controls.moving q 1) i = 0 := AssemblyControls.two_cell_common q i
+example : AssemblyControls.twoCells.interfaces.owner AssemblyControls.twoWall = AssemblyControls.twoCells.interfaces.owner AssemblyControls.twoSymmetry ∧
+    AssemblyControls.twoCells.interfaces.owner AssemblyControls.twoWall = AssemblyControls.twoCells.interfaces.owner AssemblyControls.twoOpen ∧
+    patchKind AssemblyControls.twoCells AssemblyControls.twoKinds AssemblyControls.twoWall = .slipWall ∧
+    patchKind AssemblyControls.twoCells AssemblyControls.twoKinds AssemblyControls.twoSymmetry = .inviscidSymmetryTraction ∧
+    patchKind AssemblyControls.twoCells AssemblyControls.twoKinds AssemblyControls.twoOpen = .prescribedExteriorRoe := AssemblyControls.two_cell_corner
+example (i : Fin 5) : 0 < AssemblyControls.twoCells.dualVolume i := by
+  rw [CFDLean.MedianDual.Controls.two_cells_volume]
+  split_ifs <;> norm_num
+example : (∑ i, AssemblyControls.twoCells.dualVolume i) = 1/3 := CFDLean.MedianDual.Controls.two_cells_total_volume
+example (i : Fin 5) : (AssemblyControls.varyingStates i).Admissible 2 := AssemblyControls.varying_admissible i
+example (V : Finset (Fin 5) → Conservative 3) :
+    (∑ i, meshResidual AssemblyControls.twoCells 2 (fun _ => .slipWall) V AssemblyControls.varyingStates i 0) = 0 := AssemblyControls.two_cell_all_wall_mass _ V
+example (V : Finset (Fin 5) → Conservative 3) :
+    (∑ i, meshResidual AssemblyControls.twoCells 2 (fun _ => .slipWall) V AssemblyControls.varyingStates i 4) = 0 := AssemblyControls.two_cell_all_wall_energy _ V
+example :
+    stationaryResidual (AssemblyControls.standard.interfaces.reindex (Equiv.swap 0 1)
+      (Equiv.swap AssemblyControls.edge01 AssemblyControls.edge02) (Equiv.swap Controls.wallPatch Controls.openPatch)) 2
+      (fun b => patchKind AssemblyControls.standard AssemblyControls.mixedKinds ((Equiv.swap Controls.wallPatch Controls.openPatch).symm b))
+      (fun b => patchExterior AssemblyControls.standard AssemblyControls.mismatchingData ((Equiv.swap Controls.wallPatch Controls.openPatch).symm b))
+      (fun _ => Controls.moving 0 1)
+      (fun e => AssemblyControls.standard.edgeArea ((Equiv.swap AssemblyControls.edge01 AssemblyControls.edge02).symm e))
+      (fun b => AssemblyControls.standard.boundaryArea ((Equiv.swap Controls.wallPatch Controls.openPatch).symm b)) 1 = ![-1/12,-1/6,0,0,-1/3] := AssemblyControls.transported_nonzero
+example :
+    (∑ i, stationaryResidual AssemblyControls.onePatchInterface 2 (fun _ => .slipWall) (fun _ => Controls.moving 0 3)
+      (fun _ => Controls.moving 0 1) (fun _ => Controls.axis) (fun _ => Controls.axis) i) = ![0,1,0,0,0] := AssemblyControls.pressure_force_retained
+
+end
+end M4bChecks
