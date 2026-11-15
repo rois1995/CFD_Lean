@@ -1,0 +1,34 @@
+{
+  "milestone": "M4",
+  "status": "proposed only; independent recommendation and Andrea approval pending",
+  "proposal_commit": "936d20d32fdd3e18c9f1782a868cbd0378fde7df",
+  "accepted_mathematical_baseline": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
+  "m4_implementation_authorized": false,
+  "m4_lean_files": [],
+  "proposed_ids": [
+    "M4-B",
+    "M4-W",
+    "M4-P",
+    "M4-R",
+    "M4-O",
+    "M4-C"
+  ],
+  "proposed_stages": {
+    "M4a": [
+      "M4-B",
+      "M4-W",
+      "M4-P"
+    ],
+    "M4b": [
+      "M4-R",
+      "M4-O",
+      "M4-C"
+    ]
+  },
+  "guarded_accepted_bindings": 117,
+  "lean_examples_preserved": 112,
+  "checker_fixtures": 13,
+  "mathematical_inventory_unchanged": true,
+  "new_mathematical_cold_replay_claimed": false,
+  "reviewer_prompt": "reviews/M4/Reviewer_Prompt.md"
+}
