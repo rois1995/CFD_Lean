@@ -1,0 +1,60 @@
+{
+  "candidate_commit": "3a586a42546cba1784cc79269e3f9d1c5d843f0c",
+  "accepted_inherited_commit": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "approved_m4_revision": "0cff4af244b85f4e2071e7bf941d40fdd0a399b5",
+  "date": "2026-11-15",
+  "classification": "implementation-worker fresh pinned-source replay; not independent M4b or full-M4 acceptance",
+  "reproduction_exit_code": 0,
+  "fresh_checkout": "/tmp/cfdlean-m4b-source-replay.kq404q/checkout",
+  "cache_controls": {
+    "LAKE_NO_CACHE": "1",
+    "MATHLIB_NO_CACHE_ON_UPDATE": "1"
+  },
+  "dependency_sources": "nine fresh manifest-pinned source checkouts with clean tracked source",
+  "widget_bootstrap": "pinned ProofWidgets JS compiled locally from its npm lockfile and root Batteries pin",
+  "byte_identical_candidate_outputs": [
+    "verification.json",
+    "kernel-inventory.log",
+    "inherited-types.json",
+    "bindings-diff.patch",
+    "binding-type-diff.json"
+  ],
+  "promised_theorem_bindings": 156,
+  "new_m4b_bindings": 16,
+  "new_by_id": {
+    "M4-R": 7,
+    "M4-O": 3,
+    "M4-C": 6
+  },
+  "full_m4_bindings": 39,
+  "inherited_types_checked": 140,
+  "lean_examples": 182,
+  "inherited_example_prefix": 153,
+  "python_fixtures": 16,
+  "source_checksums_checked": 62,
+  "source_checksums_unchanged": true,
+  "tracked_diff": [
+    "evidence/build.log"
+  ],
+  "proofwidgets_release_archive_present": false,
+  "inventory_records": 1726,
+  "dependency_closure": {
+    "visited": 21175,
+    "unsafe_reached": [],
+    "roots": 988,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "unsafe_nonroots": 459,
+  "unsafe_definitions": 421,
+  "unsafe_compiler_axiom_records": 38,
+  "metadata_only": 279,
+  "deferred_result_ids": [],
+  "independent_m4a_acceptance": "accepted without conditions at 37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "m4_user_implementation_authorization": "approved two-stage plan and standing authorization; reviews/Standing_Authorization.md",
+  "independent_m4b_acceptance": "pending",
+  "independent_full_m4_acceptance": "pending"
+}
