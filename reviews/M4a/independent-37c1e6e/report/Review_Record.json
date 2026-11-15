@@ -1,0 +1,32 @@
+{
+  "candidate": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "checkpoint": "a7fcf3be226f77981d49352e7f054310f962eb4f",
+  "verdict": "accept M4a B/W/P",
+  "blockers": [],
+  "acceptance_conditions": [],
+  "full_M4": "pending M4b R/O/C",
+  "next_stage_requirement": "protect all 140 bindings/types, B/W/P records/stages and boundary sources/controls",
+  "replay_exit_code": 0,
+  "reviewer_Lean_exit_code": 0,
+  "promises": 140,
+  "inherited": 117,
+  "new": 23,
+  "Lean_examples": 153,
+  "checker_fixtures": 15,
+  "source_hashes": 58,
+  "closure": {
+    "visited": 21075,
+    "unsafe_reached": [],
+    "roots": 905,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "deferred": [
+    "M4-R",
+    "M4-O",
+    "M4-C"
+  ]
+}
