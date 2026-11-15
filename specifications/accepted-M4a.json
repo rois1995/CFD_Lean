@@ -1,0 +1,20 @@
+{
+  "milestone": "M4a",
+  "status": "independently accepted B/W/P; full M4 pending M4b",
+  "mathematical_commit": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "worker_checkpoint": "a7fcf3be226f77981d49352e7f054310f962eb4f",
+  "acceptance_record": "reviews/M4a/Acceptance.md",
+  "independent_review_record": "reviews/M4a/independent-37c1e6e/report/Review_Record.json",
+  "accepted_cumulative_bindings": 140,
+  "accepted_m4a_bindings": 23,
+  "accepted_m4_ids": [
+    "M4-B",
+    "M4-W",
+    "M4-P"
+  ],
+  "outstanding_conditions": [],
+  "next_stage_requirement": "preserve all 140 bindings/types and accepted sources before M4b",
+  "m4b_implementation_authorized": true,
+  "approval_record": "specifications/M4-approval.md",
+  "standing_authorization": "reviews/Standing_Authorization.md"
+}

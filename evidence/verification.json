@@ -26964,8 +26964,8 @@
   "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
   "m2b_acceptance_record": "reviews/M2b/Acceptance.md",
   "m2c_acceptance_record": "reviews/M2c/Acceptance.md",
-  "accepted_inherited_revision": "e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
-  "inherited_types_checked": 117,
+  "accepted_inherited_revision": "37c1e6ee4618b0183135c2795b3aa6ebea2f22d5",
+  "inherited_types_checked": 140,
   "m2_approval_record": "specifications/M2-approval.md",
   "m2_independent_acceptance": "accepted at ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1",
   "m2_acceptance_record": "reviews/M2/Acceptance.md",
@@ -26975,5 +26975,6 @@
   "m3_acceptance_record": "reviews/M3/Acceptance.md",
   "m3_independent_acceptance": "accepted at e2ea538b8da38c01c098ef28a3ea31030d90c6bb",
   "m4_approval_record": "specifications/M4-approval.md",
-  "m4_independent_acceptance": "M4a pending independent review; M4b and full M4 deferred"
+  "m4a_acceptance_record": "reviews/M4a/Acceptance.md",
+  "m4_independent_acceptance": "M4a accepted; M4b and composed full M4 pending independent review"
 }
