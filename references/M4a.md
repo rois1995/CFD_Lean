@@ -1,0 +1,48 @@
+# M4a source, result and assumption map
+
+Andrea approved the independently reviewed proposal 936d20d32fdd3e18c9f1782a868cbd0378fde7df with the supplied review and the exact reply “I approve”. The original recommendation has no mandatory amendments and is preserved unchanged under reviews/M4/proposal-936d20d. The exact proposal copy is frozen as specifications/M4.md, with the review's naming/velocity-interpretation precision and user approval in M4-precision.md and M4-approval.md, at 0cff4af244b85f4e2071e7bf941d40fdd0a399b5. Existing proposal/pending wording in the copied contract is historical and superseded by that explicit approval record.
+
+M4a implements B/W/P only. M4b R/O/C and a later composed full-M4 verdict remain required. Independent M4a theorem acceptance is pending. All 117 independently accepted M2/M3 bindings, exact M3 parts/stages/types and mathematical sources remain protected against accepted full M3 e2ea538b8da38c01c098ef28a3ea31030d90c6bb. No accepted definition/proof file or scientific contract is changed; the import-only root adds the new boundary export.
+
+## Actual transfer definitions and physical domain
+
+CFDLean/Boundary/Stationary.lean defines Kind.slipWall, Kind.inviscidSymmetryTraction and Kind.prescribedExteriorRoe. The first two labels remain distinct while sharing the selected pressure transfer. pressureTransfer p T is exactly the five-coordinate vector (0,p T_0,p T_1,p T_2,0). wallTransfer uses the actual accepted M1 pressure of the owner conservative state, with no interpolation or velocity/state update. Mass and energy are zero; decoded momentum is p T. Zero area, addition, arbitrary real scalar multiplication and sign reversal follow directly. Positive pressure is read from the actual M1 admissibility predicate.
+
+wall_eq_physical_iff proves equality to encode(physicalFlux gamma U T) exactly when dot(momentum,T)=0. Its raw algebraic statement is stronger than the physical specialization; it does not assign physical meaning to inadmissible states. wall_eq_physical_iff_normalVelocity exposes the corresponding unit-normal velocity condition only with positive density and nonzero T. Zero-area transfer/equality still holds algebraically but does not define a physical normal direction. Gamma>1 and admissible states remain the approved physical use. Computing wall pressure flux does not establish nodal tangency after a future time update, full symmetry enforcement, gradient parity, a reflected-state wall or a projected residual/velocity.
+
+prescribedExteriorRoeTransfer is exactly encode(CFDLean.Roe.numericalFlux gamma U V T): owner U left, prescribed exterior V right, outward integrated T. The unchanged accepted M2 flux supplies consistency, zero area, nonnegative scaling, simultaneous swapped-state/area reversal and full-upwind reductions. Upwind hypotheses are precisely gamma>1, both actual endpoint admissibilities, T nonzero and the actual two-state Roe-average inequalities qbar>=cbar or qbar<=-cbar. Non-strict inequalities include sonic equality. No owner-only Mach test, characteristic reconstruction, nonreflecting property, exterior-independent outflow, entropy fix or positivity repair is substituted.
+
+## Exact face-derived local interface
+
+primalFace M b reads the existing faceID from the very same accepted Boundary record. patchKind and patchExterior compose functions on these primal-face IDs; same-face coherence follows without a supplied label-coherence certificate. Different faces at one corner may have different kinds. A total function's values on non-exterior faces are unused. Physical exterior-state admissibility is required where that face is prescribed-exterior; wall/symmetry definitions ignore the exterior value.
+
+patchTransfer dispatches the selected transfer with the actual accepted owner state and boundaryArea. boundary_record_unique/range reuse the accepted exact Boundary key injection/range, so the interface has one record for each actual exterior primal face/owner pair. patchTransfer_wall, patchTransfer_symmetry and patchTransfer_prescribed identify the dispatch on these same records and areas. No accepted incidence, cell/face ID, area, normal or ownership is overwritten. Grouped owner patches are retained separately at differently labeled faces; no flux is aggregated across those labels.
+
+This stage defines the actual selected local g_b, but does not yet compose the M4-R/O/C residual, transported labels/data or common-state theorem. Accepted generic M3 conservation/closure/common-state results remain available unchanged; their presence is not a claim that the deferred selected-boundary composition has been implemented or independently accepted.
+
+## Promised bindings and exact controls
+
+All following names have prefix CFDLean.Boundary; specifications/M4-results.json is the machine-readable frozen-stage map.
+
+| ID/stage | Declarations | Scope |
+| --- | --- | --- |
+| M4-B / M4a | boundary_record_unique, boundary_record_range, patchKind_coherent, patchExterior_coherent, patchTransfer_wall, patchTransfer_symmetry, patchTransfer_prescribed | Exact face-derived kinds/data and selected transfer per accepted owner patch. |
+| M4-W / M4a | wall_mass, wall_energy, wall_momentum, wall_zero, wall_add, wall_smul, wall_reverse, wall_pressure_pos, wall_eq_physical_iff, wall_eq_physical_iff_normalVelocity | Direct owner-pressure traction, area laws and qualified physical compatibility. |
+| M4-P / M4a | prescribed_consistency, prescribed_zero, prescribed_scale, prescribed_reverse, prescribed_upwind_owner, prescribed_upwind_exterior | Actual accepted original Roe local transfer and exact spectral-domain reductions. |
+| M4-R/O/C / M4b | No declarations claimed | Selected-rule residual/component balances, transported kinds/data and concrete common-state composition remain the next stage. |
+
+There are 23 new active bindings (seven B, ten W, six P), for 140 cumulative promises including all 117 accepted bindings. Supporting definitions, controls, generated inductive/decision declarations and compiler auxiliaries remain visible in the owning-module audit. The checker compares M4 scientific/precision/approval files and metadata/layout with the immutable approval freeze before building, and refuses to claim the future empty parts complete. Fifteen checker fixtures include these new contract/stage cases and all earlier inheritance controls.
+
+CFDLean/Boundary/Controls.lean proves exact local controls using the same actual transfer definitions. Its moving(q,p) family has rho=1, momentum=(q,0,0), energy=p+q^2/2, gamma=2. Endpoints with pressures 1 and 3 have the actual averaged sound speed 2. Strict q=+3/-3 and sonic q=+2/-2 yield the expected full five-vectors, with admissibility established. The stationary mismatch gives (-1/2,2,0,0,-2), directly checking the accepted projectors and flux.
+
+The reflected-momentum witness uses two admissible states with velocities +1/-1, pressure 7/4 and energy 9/4. The actual Roe momentum traction is 19/4, whereas direct owner pressure is 7/4. The helper absolute_axis derives the accepted absolute-speed operator at the actual zero-velocity/H=4/c=2 parameters for arbitrary coordinate jump, using the accepted minus_apply/plus_apply formulas; no alternate numerical solver or oracle replaces the accepted flux. A separate exact control shows the owner sample differs from the book's Eq. (8.13) pressure interpolation.
+
+The oblique state rho=2, momentum=(8,-6,2), energy=29 has pressure 3 and zero momentum dot (3,4,0), giving traction (0,9,12,0,0). Nonzero normal flow is explicitly incompatible with physical-flux equality. On the accepted standard tetrahedron, one owner has a slip-wall patch on face z=0 and a prescribed-exterior patch on a different face; kinds and areas stay separate and their exact five-vector transfers are checked. M4b's full mixed residual/two-cell/global component/transport controls are not claimed here.
+
+StatementChecks.lean preserves the accepted 112-example file as an exact prefix and appends generic expected-type and exact local checks. The raw algebraic and physical qualifications are visible in the expected types, including positive density/nonzero T for unit-normal interpretation and both endpoint admissibilities/actual averaged sound speed in P upwinding.
+
+## Source and verification boundary
+
+The authoritative source remains the approved Blazek first edition (2001), SHA-256 c37225f646c5e237a20361db0979cf09218de9800dc9a85448314e7646758fc5, with the exact inspected page/equation locators in frozen M4.md. The physical tangency/pressure flux is section 8.2.1, printed p.270/PDF p.293; discrete pressure/enforcement alternatives include pp.272-273 and Eq. (8.13) on p.275/PDF p.298. Section 8.3's characteristic method and section 8.5's symmetry enforcement are separate algorithms. Direct owner sampling and prescribed-exterior Roe are the explicitly approved project choices, not claimed reproductions of those alternative formulas. The proposal's original Source_Inspection.json and independent review retain the actual source inspection evidence. No new literature, publisher correction or SU2 definition is introduced.
+
+The unchanged foundational-axiom policy, full owning-module/transitive traversal, expected-type controls and exact inherited guards apply. A submitted M4a mathematical candidate requires the existing fresh pinned-source replay with both binary-cache controls and byte-identical comparison of all five deterministic files. Worker verification/replay is implementation evidence, not independent M4a acceptance. No M4b/full-M4, time update, nonreflection, symmetry evolution, entropy/update-positivity repair or SU2 correspondence is claimed.

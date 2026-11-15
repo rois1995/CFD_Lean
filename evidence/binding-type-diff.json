@@ -71,6 +71,98 @@
     "accepted_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop) [inst_3 : DecidablePred rev] (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates) (i : N),\n  CFDLean.Assembly.residual (m.reverse rev)\n      (CFDLean.Assembly.roeTransfer (m.reverse rev) \u03b3 U fun e => if rev e then -S e else S e) g i =\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i",
     "current_type": "\u2200 {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]\n  (m : CFDLean.Assembly.Interfaces N E B) (rev : E \u2192 Prop) [inst_3 : DecidablePred rev] (\u03b3 : \u211d)\n  (U : N \u2192 CFDLean.Conservative 3) (S : E \u2192 CFDLean.Vector 3) (g : B \u2192 CFDLean.Coordinates.StateCoordinates) (i : N),\n  CFDLean.Assembly.residual (m.reverse rev)\n      (CFDLean.Assembly.roeTransfer (m.reverse rev) \u03b3 U fun e => if rev e then -S e else S e) g i =\n    CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m \u03b3 U S) g i"
   },
+  "CFDLean.Boundary.boundary_record_range": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (F : Finset (Fin n)) (i : Fin n),\n  (\u2203 b, CFDLean.Boundary.primalFace M b = F \u2227 M.interfaces.owner b = i) \u2194 M.faceCount F = 1 \u2227 i \u2208 F"
+  },
+  "CFDLean.Boundary.boundary_record_unique": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (b c : M.Boundary),\n  CFDLean.Boundary.primalFace M b = CFDLean.Boundary.primalFace M c \u2192\n    M.interfaces.owner b = M.interfaces.owner c \u2192 b = c"
+  },
+  "CFDLean.Boundary.patchExterior_coherent": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (b c : M.Boundary),\n  CFDLean.Boundary.primalFace M b = CFDLean.Boundary.primalFace M c \u2192\n    CFDLean.Boundary.patchExterior M V b = CFDLean.Boundary.patchExterior M V c"
+  },
+  "CFDLean.Boundary.patchKind_coherent": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind) (b c : M.Boundary),\n  CFDLean.Boundary.primalFace M b = CFDLean.Boundary.primalFace M c \u2192\n    CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.patchKind M k c"
+  },
+  "CFDLean.Boundary.patchTransfer_prescribed": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (b : M.Boundary),\n  CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.prescribedExteriorRoe \u2192\n    CFDLean.Boundary.patchTransfer M \u03b3 k V U b =\n      CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 (U (M.interfaces.owner b)) (CFDLean.Boundary.patchExterior M V b)\n        (M.boundaryArea b)"
+  },
+  "CFDLean.Boundary.patchTransfer_symmetry": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (b : M.Boundary),\n  CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.inviscidSymmetryTraction \u2192\n    CFDLean.Boundary.patchTransfer M \u03b3 k V U b =\n      CFDLean.Boundary.wallTransfer \u03b3 (U (M.interfaces.owner b)) (M.boundaryArea b)"
+  },
+  "CFDLean.Boundary.patchTransfer_wall": {
+    "accepted_type": null,
+    "current_type": "\u2200 {n m : \u2115} (M : CFDLean.MedianDual.MeshData n m) (\u03b3 : \u211d) (k : Finset (Fin n) \u2192 CFDLean.Boundary.Kind)\n  (V : Finset (Fin n) \u2192 CFDLean.Conservative 3) (U : Fin n \u2192 CFDLean.Conservative 3) (b : M.Boundary),\n  CFDLean.Boundary.patchKind M k b = CFDLean.Boundary.Kind.slipWall \u2192\n    CFDLean.Boundary.patchTransfer M \u03b3 k V U b =\n      CFDLean.Boundary.wallTransfer \u03b3 (U (M.interfaces.owner b)) (M.boundaryArea b)"
+  },
+  "CFDLean.Boundary.prescribed_consistency": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U U T = CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U T)"
+  },
+  "CFDLean.Boundary.prescribed_reverse": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 V U (-T) = -CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U V T"
+  },
+  "CFDLean.Boundary.prescribed_scale": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 a : \u211d) (U V : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  0 \u2264 a \u2192\n    CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U V (a \u2022 T) =\n      a \u2022 CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U V T"
+  },
+  "CFDLean.Boundary.prescribed_upwind_exterior": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        T \u2260 0 \u2192\n          CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal T) \u2264\n              -CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2192\n            CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U V T =\n              CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 V T)"
+  },
+  "CFDLean.Boundary.prescribed_upwind_owner": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  1 < \u03b3 \u2192\n    CFDLean.Conservative.Admissible \u03b3 U \u2192\n      CFDLean.Conservative.Admissible \u03b3 V \u2192\n        T \u2260 0 \u2192\n          CFDLean.Roe.soundSpeed \u03b3 (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V) \u2264\n              CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))\n                (CFDLean.Coordinates.unitNormal T) \u2192\n            CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U V T =\n              CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U T)"
+  },
+  "CFDLean.Boundary.prescribed_zero": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U V : CFDLean.Conservative 3), CFDLean.Boundary.prescribedExteriorRoeTransfer \u03b3 U V 0 = 0"
+  },
+  "CFDLean.Boundary.wall_add": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (S T : CFDLean.Vector 3),\n  CFDLean.Boundary.wallTransfer \u03b3 U (S + T) = CFDLean.Boundary.wallTransfer \u03b3 U S + CFDLean.Boundary.wallTransfer \u03b3 U T"
+  },
+  "CFDLean.Boundary.wall_energy": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3), CFDLean.Boundary.wallTransfer \u03b3 U T 4 = 0"
+  },
+  "CFDLean.Boundary.wall_eq_physical_iff": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  CFDLean.Boundary.wallTransfer \u03b3 U T = CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U T) \u2194\n    CFDLean.dot U.momentum T = 0"
+  },
+  "CFDLean.Boundary.wall_eq_physical_iff_normalVelocity": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  0 < U.density \u2192\n    T \u2260 0 \u2192\n      (CFDLean.Boundary.wallTransfer \u03b3 U T = CFDLean.Coordinates.encode (CFDLean.physicalFlux \u03b3 U T) \u2194\n        CFDLean.dot (fun i => U.momentum i / U.density) (CFDLean.Coordinates.unitNormal T) = 0)"
+  },
+  "CFDLean.Boundary.wall_mass": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3), CFDLean.Boundary.wallTransfer \u03b3 U T 0 = 0"
+  },
+  "CFDLean.Boundary.wall_momentum": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3) (i : Fin 3),\n  (CFDLean.Coordinates.decode (CFDLean.Boundary.wallTransfer \u03b3 U T)).momentum i =\n    CFDLean.Conservative.pressure \u03b3 U * T i"
+  },
+  "CFDLean.Boundary.wall_pressure_pos": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Conservative.Admissible \u03b3 U \u2192 0 < CFDLean.Conservative.pressure \u03b3 U"
+  },
+  "CFDLean.Boundary.wall_reverse": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  CFDLean.Boundary.wallTransfer \u03b3 U (-T) = -CFDLean.Boundary.wallTransfer \u03b3 U T"
+  },
+  "CFDLean.Boundary.wall_smul": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 a : \u211d) (U : CFDLean.Conservative 3) (T : CFDLean.Vector 3),\n  CFDLean.Boundary.wallTransfer \u03b3 U (a \u2022 T) = a \u2022 CFDLean.Boundary.wallTransfer \u03b3 U T"
+  },
+  "CFDLean.Boundary.wall_zero": {
+    "accepted_type": null,
+    "current_type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Boundary.wallTransfer \u03b3 U 0 = 0"
+  },
   "CFDLean.Coordinates.decode_encode": {
     "accepted_type": "\u2200 (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U",
     "current_type": "\u2200 (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U"

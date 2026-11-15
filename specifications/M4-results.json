@@ -10,17 +10,43 @@
     {
       "id": "M4-B",
       "stage": "M4a",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Boundary.boundary_record_unique",
+        "CFDLean.Boundary.boundary_record_range",
+        "CFDLean.Boundary.patchKind_coherent",
+        "CFDLean.Boundary.patchExterior_coherent",
+        "CFDLean.Boundary.patchTransfer_wall",
+        "CFDLean.Boundary.patchTransfer_symmetry",
+        "CFDLean.Boundary.patchTransfer_prescribed"
+      ]
     },
     {
       "id": "M4-W",
       "stage": "M4a",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Boundary.wall_mass",
+        "CFDLean.Boundary.wall_energy",
+        "CFDLean.Boundary.wall_momentum",
+        "CFDLean.Boundary.wall_zero",
+        "CFDLean.Boundary.wall_add",
+        "CFDLean.Boundary.wall_smul",
+        "CFDLean.Boundary.wall_reverse",
+        "CFDLean.Boundary.wall_pressure_pos",
+        "CFDLean.Boundary.wall_eq_physical_iff",
+        "CFDLean.Boundary.wall_eq_physical_iff_normalVelocity"
+      ]
     },
     {
       "id": "M4-P",
       "stage": "M4a",
-      "declarations": []
+      "declarations": [
+        "CFDLean.Boundary.prescribed_consistency",
+        "CFDLean.Boundary.prescribed_zero",
+        "CFDLean.Boundary.prescribed_scale",
+        "CFDLean.Boundary.prescribed_reverse",
+        "CFDLean.Boundary.prescribed_upwind_owner",
+        "CFDLean.Boundary.prescribed_upwind_exterior"
+      ]
     },
     {
       "id": "M4-R",

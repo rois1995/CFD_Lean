@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
 ACCEPTED_BASELINE = "e2ea538b8da38c01c098ef28a3ea31030d90c6bb"
 M2_ACCEPTED_REVISION = "ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1"
+APPROVED_M4 = "0cff4af244b85f4e2071e7bf941d40fdd0a399b5"
 APPROVED_M3 = "3189a603b3f6af953f0828d6b2e239320fd2cd20"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 
@@ -82,6 +83,16 @@ def check_m3_layout(contract, approved):
         raise ValueError("M3 result stages/parts differ from frozen approval")
 
 
+def check_m4_layout(contract, approved):
+    for field in ["contract", "contract_sha256", "precision_contract", "precision_sha256",
+                  "reviewed_proposal_revision", "approval_record"]:
+        if contract.get(field) != approved.get(field):
+            raise ValueError("M4 frozen contract metadata changed")
+    layout = lambda value: [(r["id"], r["stage"]) for r in value["results"]]
+    if layout(contract) != layout(approved):
+        raise ValueError("M4 result IDs/stages differ from frozen approval")
+
+
 def check_m3_inherited(rows, contract, accepted, evidence):
     stages = ("M3a", "M3b")
     current = {(r["id"], p["stage"]): p for r in contract["results"] for p in r["parts"]}
@@ -132,6 +143,15 @@ def main():
     approved_m3 = json.loads(git_blob(APPROVED_M3, "specifications/M3-results.json"))
     check_m3_layout(m3, approved_m3)
     check_result_ids(m3, (ROOT / m3["contract"]).read_text(), "M3")
+    m4 = json.loads((ROOT / "specifications/M4-results.json").read_text())
+    for field, digest_field in [("contract", "contract_sha256"), ("precision_contract", "precision_sha256")]:
+        data = (ROOT / m4[field]).read_bytes()
+        if hashlib.sha256(data).hexdigest() != m4[digest_field] or data != git_blob(APPROVED_M4, m4[field]):
+            raise ValueError("M4 scientific contract differs from frozen approval")
+    if (ROOT / m4["approval_record"]).read_bytes() != git_blob(APPROVED_M4, m4["approval_record"]):
+        raise ValueError("M4 approval record differs from immutable authorization")
+    check_m4_layout(m4, json.loads(git_blob(APPROVED_M4, "specifications/M4-results.json")))
+    check_result_ids(m4, (ROOT / m4["contract"]).read_text(), "M4")
     env = dict(os.environ, MATHLIB_NO_CACHE_ON_UPDATE="1", LAKE_NO_CACHE="1")
     with (evidence / "build.log").open("w") as log:
         subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -154,7 +174,8 @@ def main():
     m2_promised = check_promises(rows, contract, contract["current_stage"])
     parts = {"results": [p for r in m3["results"] for p in r["parts"]]}
     m3_promised = check_promises(rows, parts, m3["current_stage"], ("M3a", "M3b"))
-    promised = sorted(set(m2_promised + m3_promised))
+    m4_promised = check_promises(rows, m4, m4["current_stage"], ("M4a", "M4b"))
+    promised = sorted(set(m2_promised + m3_promised + m4_promised))
     inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
     accepted_m3 = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M3-results.json"))
     inherited.update(check_m3_inherited(rows, m3, accepted_m3, accepted_evidence))
@@ -165,7 +186,7 @@ def main():
         "current_type": rows[name]["type"]
     } for name in promised}, indent=2) + "\n")
     (evidence / "bindings-diff.patch").write_bytes(subprocess.check_output(
-        ["git", "diff", ACCEPTED_BASELINE, "--", "specifications/M2-results.json", "specifications/M3-results.json"]))
+        ["git", "diff", ACCEPTED_BASELINE, "--", "specifications/M2-results.json", "specifications/M3-results.json", "specifications/M4-results.json"]))
     with (evidence / "statement-checks.log").open("w") as log:
         subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "StatementChecks.lean"],
                        env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -187,15 +208,15 @@ def main():
         for path in sorted(files)))
     (evidence / "verification.json").write_text(json.dumps({
         "lean": subprocess.check_output(["lean", "--version"], text=True).strip(),
-        "stage": m3["current_stage"], "m2_stage": contract["current_stage"], "promised_theorems": promised,
+        "stage": m4["current_stage"], "m3_stage": m3["current_stage"], "m2_stage": contract["current_stage"], "promised_theorems": promised,
         "modules": sorted(modules[0]), "closure": closures[0],
         "source_modules": {module: {
             "path": module.replace(".", "/") + ".lean",
             "sha256": hashlib.sha256((ROOT / (module.replace(".", "/") + ".lean")).read_bytes()).hexdigest()
         } for module in sorted(modules[0])},
         "declarations": dict(sorted(rows.items())),
-        "deferred_result_ids": [r["id"] for r in m3["results"] if any(
-            ("M3a", "M3b").index(p["stage"]) > ("M3a", "M3b").index(m3["current_stage"]) for p in r["parts"])],
+        "deferred_result_ids": [r["id"] for r in m4["results"] if
+            ("M4a", "M4b").index(r["stage"]) > ("M4a", "M4b").index(m4["current_stage"])],
         "dependency_revisions_checked": len(manifest["packages"]),
         "m1_acceptance_record": "reviews/M1/CFD_Lean_M1_Acceptance.md",
         "m2a_acceptance_record": "reviews/M2a/Acceptance.md",
@@ -207,7 +228,8 @@ def main():
         "m3a_acceptance_record": "reviews/M3a/Acceptance.md",
         "m3b_acceptance_record": "reviews/M3b/Acceptance.md",
         "m3_acceptance_record": "reviews/M3/Acceptance.md",
-        "m3_independent_acceptance": "accepted at " + ACCEPTED_BASELINE
+        "m3_independent_acceptance": "accepted at " + ACCEPTED_BASELINE,
+        "m4_approval_record": m4["approval_record"], "m4_independent_acceptance": "M4a pending independent review; M4b and full M4 deferred"
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
 

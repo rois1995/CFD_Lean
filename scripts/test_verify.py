@@ -1,7 +1,7 @@
 import json
 import unittest
 from pathlib import Path
-from verify import ACCEPTED_BASELINE, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited
+from verify import ACCEPTED_BASELINE, parse_axioms, check_promises, check_result_ids, check_inherited, check_m3_layout, check_m3_inherited, check_m4_layout
 
 
 def record(name, axioms=None):
@@ -153,6 +153,31 @@ class AuditChecks(unittest.TestCase):
             weakened[name] = {"type": "weakened"}
             with self.assertRaises(ValueError):
                 check_m3_inherited(weakened, accepted, accepted, evidence)
+
+    def test_m4_frozen_algorithm_metadata_and_stage_layout(self):
+        root = Path(__file__).resolve().parents[1]
+        contract = json.loads((root / "specifications/M4-results.json").read_text())
+        check_m4_layout(contract, contract)
+        for field in ["contract", "contract_sha256", "precision_contract", "precision_sha256",
+                      "reviewed_proposal_revision", "approval_record"]:
+            changed = json.loads(json.dumps(contract))
+            changed[field] = "redirected"
+            with self.assertRaises(ValueError):
+                check_m4_layout(changed, contract)
+        for i, result in enumerate(contract["results"]):
+            changed = json.loads(json.dumps(contract))
+            changed["results"][i]["stage"] = "M4b" if result["stage"] == "M4a" else "M4a"
+            with self.assertRaises(ValueError):
+                check_m4_layout(changed, contract)
+        check_result_ids(contract, (root / contract["contract"]).read_text(), "M4")
+
+    def test_m4_deferred_composition_cannot_be_claimed_complete(self):
+        contract = {"results": [{"id": "M4-W", "stage": "M4a", "declarations": ["W.local"]},
+                                {"id": "M4-C", "stage": "M4b", "declarations": []}]}
+        rows = {"W.local": record("W.local")}
+        self.assertEqual(check_promises(rows, contract, "M4a", ("M4a", "M4b")), ["W.local"])
+        with self.assertRaises(ValueError):
+            check_promises(rows, contract, "M4b", ("M4a", "M4b"))
 
     def test_empty_or_malformed_inventory(self):
         for output in ["", "CFDLEAN_DECL {bad}"]:

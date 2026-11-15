@@ -643,3 +643,97 @@ example : CFDLean.Roe.roeFluxCoordinates 2 RoeAggregation.cold RoeAggregation.ho
 
 end
 end M3bChecks
+
+namespace M4aChecks
+noncomputable section
+open CFDLean.Boundary
+
+example : Kind.slipWall ≠ Kind.inviscidSymmetryTraction := by decide
+example (γ : ℝ) (U V : Conservative 3) (T : Vector 3) :
+    transfer γ .slipWall U V T = transfer γ .inviscidSymmetryTraction U V T := rfl
+example (γ : ℝ) (U : Conservative 3) (T : Vector 3) :
+    wallTransfer γ U T 0 = 0 ∧ wallTransfer γ U T 4 = 0 := ⟨wall_mass γ U T, wall_energy γ U T⟩
+example (γ : ℝ) (U : Conservative 3) (T : Vector 3) (i : Fin 3) :
+    (decode (wallTransfer γ U T)).momentum i = U.pressure γ * T i := wall_momentum γ U T i
+example (γ : ℝ) (U : Conservative 3) : wallTransfer γ U 0 = 0 := wall_zero γ U
+example (γ : ℝ) (U : Conservative 3) (S T : Vector 3) :
+    wallTransfer γ U (S+T) = wallTransfer γ U S + wallTransfer γ U T := wall_add γ U S T
+example (γ a : ℝ) (U : Conservative 3) (T : Vector 3) :
+    wallTransfer γ U (a • T) = a • wallTransfer γ U T := wall_smul γ a U T
+example (γ : ℝ) (U : Conservative 3) (T : Vector 3) :
+    wallTransfer γ U (-T) = -wallTransfer γ U T := wall_reverse γ U T
+example (γ : ℝ) (U : Conservative 3) (hU : U.Admissible γ) : 0 < U.pressure γ := wall_pressure_pos γ U hU
+example (γ : ℝ) (U : Conservative 3) (T : Vector 3) :
+    wallTransfer γ U T = encode (physicalFlux γ U T) ↔ dot U.momentum T = 0 := wall_eq_physical_iff γ U T
+example (γ : ℝ) (U : Conservative 3) (T : Vector 3) (hρ : 0 < U.density) (hT : T ≠ 0) :
+    wallTransfer γ U T = encode (physicalFlux γ U T) ↔
+      dot (fun i => U.momentum i / U.density) (unitNormal T) = 0 := wall_eq_physical_iff_normalVelocity γ U T hρ hT
+example (γ : ℝ) (U : Conservative 3) (T : Vector 3) :
+    encode (CFDLean.Roe.numericalFlux γ U U T) = encode (physicalFlux γ U T) := prescribed_consistency γ U T
+example (γ : ℝ) (U V : Conservative 3) : prescribedExteriorRoeTransfer γ U V 0 = 0 := prescribed_zero γ U V
+example (γ a : ℝ) (U V : Conservative 3) (T : Vector 3) (ha : 0 ≤ a) :
+    prescribedExteriorRoeTransfer γ U V (a • T) = a • prescribedExteriorRoeTransfer γ U V T := prescribed_scale γ a U V T ha
+example (γ : ℝ) (U V : Conservative 3) (T : Vector 3) :
+    encode (CFDLean.Roe.numericalFlux γ V U (-T)) = -encode (CFDLean.Roe.numericalFlux γ U V T) := prescribed_reverse γ U V T
+example (γ : ℝ) (U V : Conservative 3) (T : Vector 3) (hγ : 1 < γ)
+    (hU : U.Admissible γ) (hV : V.Admissible γ) (hT : T ≠ 0)
+    (hup : CFDLean.Roe.soundSpeed γ (encode U) (encode V) ≤
+      dot (CFDLean.Roe.averageVelocity (encode U) (encode V)) (unitNormal T)) :
+    encode (CFDLean.Roe.numericalFlux γ U V T) = encode (physicalFlux γ U T) := prescribed_upwind_owner γ U V T hγ hU hV hT hup
+example (γ : ℝ) (U V : Conservative 3) (T : Vector 3) (hγ : 1 < γ)
+    (hU : U.Admissible γ) (hV : V.Admissible γ) (hT : T ≠ 0)
+    (hup : dot (CFDLean.Roe.averageVelocity (encode U) (encode V)) (unitNormal T) ≤
+      -CFDLean.Roe.soundSpeed γ (encode U) (encode V)) :
+    encode (CFDLean.Roe.numericalFlux γ U V T) = encode (physicalFlux γ V T) := prescribed_upwind_exterior γ U V T hγ hU hV hT hup
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (b c : M.Boundary)
+    (hf : primalFace M b = primalFace M c) (hi : M.interfaces.owner b = M.interfaces.owner c) : b = c := boundary_record_unique M b c hf hi
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (F : Finset (Fin n)) (i : Fin n) :
+    (∃ b : M.Boundary, primalFace M b = F ∧ M.interfaces.owner b = i) ↔ M.faceCount F = 1 ∧ i ∈ F := boundary_record_range M F i
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (k : Finset (Fin n) → Kind)
+    (V : Finset (Fin n) → Conservative 3) (b c : M.Boundary) (h : primalFace M b = primalFace M c) :
+    patchKind M k b = patchKind M k c ∧ patchExterior M V b = patchExterior M V c :=
+  ⟨patchKind_coherent M k b c h, patchExterior_coherent M V b c h⟩
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ) (k : Finset (Fin n) → Kind)
+    (V : Finset (Fin n) → Conservative 3) (U : Fin n → Conservative 3) (b : M.Boundary)
+    (h : patchKind M k b = .slipWall) :
+    patchTransfer M γ k V U b = wallTransfer γ (U (M.interfaces.owner b)) (M.boundaryArea b) := patchTransfer_wall M γ k V U b h
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ) (k : Finset (Fin n) → Kind)
+    (V : Finset (Fin n) → Conservative 3) (U : Fin n → Conservative 3) (b : M.Boundary)
+    (h : patchKind M k b = .inviscidSymmetryTraction) :
+    patchTransfer M γ k V U b = wallTransfer γ (U (M.interfaces.owner b)) (M.boundaryArea b) := patchTransfer_symmetry M γ k V U b h
+example {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m) (γ : ℝ) (k : Finset (Fin n) → Kind)
+    (V : Finset (Fin n) → Conservative 3) (U : Fin n → Conservative 3) (b : M.Boundary)
+    (h : patchKind M k b = .prescribedExteriorRoe) :
+    patchTransfer M γ k V U b = encode (CFDLean.Roe.numericalFlux γ (U (M.interfaces.owner b))
+      (patchExterior M V b) (M.boundaryArea b)) := patchTransfer_prescribed M γ k V U b h
+
+example : Controls.obliqueOwner.Admissible 2 := Controls.oblique_admissible
+example : wallTransfer 2 Controls.obliqueOwner Controls.obliqueArea = ![0,9,12,0,0] := Controls.oblique_traction
+example : wallTransfer 2 Controls.obliqueOwner Controls.obliqueArea = encode (physicalFlux 2 Controls.obliqueOwner Controls.obliqueArea) := Controls.oblique_physical
+example : (Controls.moving 1 1).Admissible 2 := Controls.moving_admissible _ _ (by norm_num)
+example : wallTransfer 2 (Controls.moving 1 1) (![0,0,-1/6] : Vector 3) =
+    encode (physicalFlux 2 (Controls.moving 1 1) (![0,0,-1/6] : Vector 3)) := by
+  apply (wall_eq_physical_iff _ _ _).mpr
+  norm_num [dot_three, Controls.moving]
+example : wallTransfer 2 (Controls.moving 1 1) Controls.axis ≠ encode (physicalFlux 2 (Controls.moving 1 1) Controls.axis) := Controls.normal_flow_incompatible
+example : Controls.reflectedOwner.Admissible 2 ∧ Controls.reflectedExterior.Admissible 2 := by
+  constructor <;> apply Controls.moving_admissible <;> norm_num
+example : prescribedExteriorRoeTransfer 2 Controls.reflectedOwner Controls.reflectedExterior Controls.axis = ![0,19/4,0,0,0] := Controls.reflected_roe
+example : prescribedExteriorRoeTransfer 2 Controls.reflectedOwner Controls.reflectedExterior Controls.axis ≠ wallTransfer 2 Controls.reflectedOwner Controls.axis := Controls.reflected_not_wall
+example : wallTransfer 2 (Controls.moving 0 1) Controls.axis ≠
+    pressureTransfer ((6*(Controls.moving 0 1).pressure 2+(Controls.moving 0 2).pressure 2+(Controls.moving 0 4).pressure 2)/8) Controls.axis := Controls.owner_sampling_differs
+example : prescribedExteriorRoeTransfer 2 (Controls.moving 3 1) (Controls.moving 3 3) Controls.axis = ![3,10,0,0,39/2] := Controls.strict_outflow
+example : prescribedExteriorRoeTransfer 2 (Controls.moving (-3) 1) (Controls.moving (-3) 3) Controls.axis = ![-3,12,0,0,-63/2] := Controls.strict_inflow
+example : prescribedExteriorRoeTransfer 2 (Controls.moving 2 1) (Controls.moving 2 3) Controls.axis = ![2,5,0,0,8] := Controls.sonic_outflow
+example : prescribedExteriorRoeTransfer 2 (Controls.moving (-2) 1) (Controls.moving (-2) 3) Controls.axis = ![-2,7,0,0,-16] := Controls.sonic_inflow
+example : prescribedExteriorRoeTransfer 2 (Controls.moving 0 1) (Controls.moving 0 3) Controls.axis = ![-1/2,2,0,0,-2] := Controls.mismatching_exterior
+example : Controls.standard.interfaces.owner Controls.wallPatch = Controls.standard.interfaces.owner Controls.openPatch ∧
+    patchKind Controls.standard Controls.mixedKinds Controls.wallPatch = .slipWall ∧
+    patchKind Controls.standard Controls.mixedKinds Controls.openPatch = .prescribedExteriorRoe := Controls.mixed_corner
+example : patchTransfer Controls.standard 2 Controls.mixedKinds (fun _ => Controls.moving 0 1)
+    (fun _ => Controls.moving 0 1) Controls.wallPatch = ![0,0,0,-1/6,0] := Controls.wall_patch_transfer
+example : patchTransfer Controls.standard 2 Controls.mixedKinds (fun _ => Controls.moving 0 1)
+    (fun _ => Controls.moving 0 1) Controls.openPatch = ![0,-1/6,0,0,0] := Controls.open_patch_transfer
+
+end
+end M4aChecks

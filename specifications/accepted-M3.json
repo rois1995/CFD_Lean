@@ -17,6 +17,7 @@
   "m3_bindings": 51,
   "approved_m3_result_groups": 6,
   "outstanding_conditions": [],
-  "m4_implementation_authorized": false,
-  "next_step": "separately reviewed M4 boundary proposal and scientific approval before implementation"
+  "m4_implementation_authorized": true,
+  "next_step": "approved M4a B/W/P followed by M4b R/O/C with independent checkpoint review",
+  "m4_approval_record": "specifications/M4-approval.md"
 }
