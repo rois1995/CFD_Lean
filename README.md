@@ -23,6 +23,16 @@ The tested reproduction script checks the frozen snapshot, fetches all nine mani
 
 Check the committed hashes **before** verification: the verifier regenerates evidence/SHA256SUMS. The frozen Git commit remains the baseline. The reviewer independently completed and replayed the source-only procedure; detailed commands and results are in [the report](reviews/M1/CFD_Lean_M1_Independent_Review.md).
 
+## MC-T: Lean v4.36.0 (current toolchain)
+
+Since MC-T the library builds with `leanprover/lean4:v4.36.0` and Mathlib tag `v4.36.0`
+(`fc4f59e577feb1a4956671bc04ac18aaaf8cd842`). The port changed proofs and imports only; all 199 promised theorems
+keep their names, stages and meaning. Type map: [MC-port-types.json](specifications/MC-port-types.json) (191
+identical, 8 notation/rename), notes in [evidence/port-types.md](evidence/port-types.md). The verifier accepts an
+accepted source only if it equals its accepted revision or the reviewed port revision `4f249ae`, and an accepted type
+only through the pinned map. Status: implemented and AI-reviewed; independent human review waived by the user
+([MC-approval.md](specifications/MC-approval.md)). The v4.19 sections below are kept as history.
+
 ## Development verification
 
 Lean: `leanprover/lean4:v4.19.0`. Mathlib: `c44e0c8ee63ca166450922a373c7409c5d26b00b`. Transitive dependencies are pinned in lake-manifest.json.
