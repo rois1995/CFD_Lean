@@ -56,7 +56,7 @@ jobs:
         run: ~/.elan/bin/lake build CFDLean.Burgers
       - name: Check implementation against trusted B0 statements
         run: ~/.elan/bin/lake build CFDLean.Verification.BurgersB0Verify
-      - name: Build full CFDLean library
-        run: ~/.elan/bin/lake build CFDLean
+      - name: Build full package and integrity target
+        run: ~/.elan/bin/lake build
       - name: Audit axioms and unsafe dependency closure
         run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
