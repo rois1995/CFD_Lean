@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, B1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, B1, B2). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -3547,6 +3547,305 @@
       ],
       "summary": "Bounds under the per-interface CFL 1/2 hypothesis for the assembled scheme on ZMod N.",
       "source": "specifications/Burgers-B1-results.json B1-S; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+      "id": "B2-B",
+      "milestone": "B2",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The set of cell functions with m ≤ u_j ≤ M in every cell is convex.",
+      "source": "specifications/Burgers-B2-results.json B2-B; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+      "id": "B2-B",
+      "milestone": "B2",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The periodic total variation is a convex functional on every convex set of states.",
+      "source": "specifications/Burgers-B2-results.json B2-B; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds",
+      "id": "B2-B",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For states between m and M the Rusanov wave speed is at most max(|m|, |M|).",
+      "source": "specifications/Burgers-B2-results.json B2-B; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk2_forwardEuler",
+      "id": "B2-R",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "SSPRK2 over a Forward Euler map is Heun's method: u + (dt/2)(L(u) + L(u + dt L(u))).",
+      "source": "specifications/Burgers-B2-results.json B2-R; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk2_mem",
+      "id": "B2-C",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "SSPRK2 keeps every convex set that the one-step map keeps.",
+      "source": "specifications/Burgers-B2-results.json B2-C; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk3_mem",
+      "id": "B2-C",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "SSPRK3 keeps every convex set that the one-step map keeps.",
+      "source": "specifications/Burgers-B2-results.json B2-C; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk2_le",
+      "id": "B2-C",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "SSPRK2 does not increase a functional that is convex on an invariant set and not increased by the one-step map.",
+      "source": "specifications/Burgers-B2-results.json B2-C; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk3_le",
+      "id": "B2-C",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "SSPRK3 does not increase a functional that is convex on an invariant set and not increased by the one-step map.",
+      "source": "specifications/Burgers-B2-results.json B2-C; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.iterate_mem",
+      "id": "B2-N",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A one-step map that keeps a set keeps it for every number of steps.",
+      "source": "specifications/Burgers-B2-results.json B2-N; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.iterate_le",
+      "id": "B2-N",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A functional not increased by one step on an invariant set is not increased by n steps.",
+      "source": "specifications/Burgers-B2-results.json B2-N; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk2_fixed",
+      "id": "B2-L",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A fixed point of the one-step map is a fixed point of SSPRK2.",
+      "source": "specifications/Burgers-B2-results.json B2-L; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk3_fixed",
+      "id": "B2-L",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A fixed point of the one-step map is a fixed point of SSPRK3.",
+      "source": "specifications/Burgers-B2-results.json B2-L; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk2_linear",
+      "id": "B2-L",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A linear functional kept by the one-step map is kept by SSPRK2.",
+      "source": "specifications/Burgers-B2-results.json B2-L; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Time.SSP.ssprk3_linear",
+      "id": "B2-L",
+      "milestone": "B2",
+      "module": "CFDLean.Time.SSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A linear functional kept by the one-step map is kept by SSPRK3.",
+      "source": "specifications/Burgers-B2-results.json B2-L; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_mem",
+      "id": "B2-B",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx > 0, dt ≥ 0 and 2 · dt · max(|m|, |M|) ≤ dx the Burgers Rusanov Forward Euler map keeps the bounds m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B2-results.json B2-B; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le",
+      "id": "B2-B",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the same hypothesis the Forward Euler map does not increase the total variation of a state with m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B2-results.json B2-B; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "After n Burgers Rusanov Forward Euler steps with one dt from the initial bounds, the bounds hold and the total variation is not larger.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same multi-step bounds and total-variation result for n SSPRK2 steps.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same multi-step bounds and total-variation result for n SSPRK3 steps.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step_sum",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 one Burgers Rusanov SSPRK2 step keeps the total sum of the cell values.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step_sum",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 one Burgers Rusanov SSPRK3 step keeps the total sum of the cell values.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step_constant",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One Burgers Rusanov SSPRK2 step keeps every constant state.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step_constant",
+      "id": "B2-S",
+      "milestone": "B2",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One Burgers Rusanov SSPRK3 step keeps every constant state.",
+      "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
     }
   ]
 }

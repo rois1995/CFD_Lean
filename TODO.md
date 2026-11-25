@@ -11,8 +11,10 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
    - B0 (composable core): merged (PR 2). Independent review pending.
    - B1 (TVD and bounds of the first-order Rusanov step under CFL): contract frozen (PR 3), implementation in
      `references/Burgers-B1.md`. Independent review and human review of the trusted statements pending.
-   - Next: B2 (multi-step statements, SSP Runge-Kutta composition), B3 (reconstruction and limiters), B4 (entropy),
-     B5 (paper correspondence), E0 (array refinement and executable).
+   - B2 (SSP Runge-Kutta composition, multi-step bounds and TVD): contract frozen by the agent, implementation in
+     `references/Burgers-B2.md`. Reviews pending.
+   - Next: B3 (reconstruction and limiters), B4 (entropy), B5 (paper correspondence), E0 (array refinement and
+     executable).
    - Open for the user: the trusted B0 statements do not state the assembled `ZMod N` scheme (B0-S).
 3. **M6 composition** (original roadmap in `specifications/M2-proposal.md`): multi-step evolution on top of M5.
 4. **Fold paper 1 into CFD_Lean.** The JST_Paper_Lean formalization (92 proved statements: P1, P2, P3, branch
