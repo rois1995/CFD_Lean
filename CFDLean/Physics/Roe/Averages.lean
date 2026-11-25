@@ -1,4 +1,4 @@
-import CFDLean.Core.PhysicalJacobian
+import CFDLean.Physics.Euler.PhysicalJacobian
 import Mathlib.Tactic.Linarith
 
 noncomputable section

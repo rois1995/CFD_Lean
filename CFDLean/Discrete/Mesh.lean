@@ -1,4 +1,4 @@
-import CFDLean.Num.Simplex
+import CFDLean.Geometry.Simplex
 set_option cleanup.letToHave false -- MC-N: keep the `let` binders of the moved JST definitions and statements
 set_option linter.unusedSectionVars false
 

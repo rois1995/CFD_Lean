@@ -1,4 +1,4 @@
-import CFDLean.Boundary.Stationary
+import CFDLean.Schemes.Boundary.Stationary
 import CFDLean.Geometry.MedianDual.Controls
 
 noncomputable section

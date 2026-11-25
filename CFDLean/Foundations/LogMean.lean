@@ -1,4 +1,4 @@
-import CFDLean.Num.Basic
+import CFDLean.Foundations.Basic
 
 /-! Logarithmic mean.
 

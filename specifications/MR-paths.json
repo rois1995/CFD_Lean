@@ -1,0 +1,106 @@
+[
+  {
+    "old_path": "CFDLean/Num/Basic.lean",
+    "new_path": "CFDLean/Foundations/Basic.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/LogMean.lean",
+    "new_path": "CFDLean/Foundations/LogMean.lean"
+  },
+  {
+    "old_path": "CFDLean/Core/Coordinates.lean",
+    "new_path": "CFDLean/Foundations/Coordinates.lean"
+  },
+  {
+    "old_path": "CFDLean/Core/State.lean",
+    "new_path": "CFDLean/Physics/Euler/State.lean"
+  },
+  {
+    "old_path": "CFDLean/Core/PhysicalFlux.lean",
+    "new_path": "CFDLean/Physics/Euler/PhysicalFlux.lean"
+  },
+  {
+    "old_path": "CFDLean/Core/PhysicalJacobian.lean",
+    "new_path": "CFDLean/Physics/Euler/PhysicalJacobian.lean"
+  },
+  {
+    "old_path": "CFDLean/Flux/Roe/Averages.lean",
+    "new_path": "CFDLean/Physics/Roe/Averages.lean"
+  },
+  {
+    "old_path": "CFDLean/Flux/Roe/Linearization.lean",
+    "new_path": "CFDLean/Physics/Roe/Linearization.lean"
+  },
+  {
+    "old_path": "CFDLean/Flux/Roe/Spectral.lean",
+    "new_path": "CFDLean/Physics/Roe/Spectral.lean"
+  },
+  {
+    "old_path": "CFDLean/Flux/Roe/Flux.lean",
+    "new_path": "CFDLean/Schemes/Roe/Flux.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/Simplex.lean",
+    "new_path": "CFDLean/Geometry/Simplex.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/Boundary.lean",
+    "new_path": "CFDLean/Geometry/MeshBoundary.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/Bridge.lean",
+    "new_path": "CFDLean/Geometry/MedianDualBridge.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/Mesh.lean",
+    "new_path": "CFDLean/Discrete/Mesh.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/Galerkin.lean",
+    "new_path": "CFDLean/Discrete/Galerkin.lean"
+  },
+  {
+    "old_path": "CFDLean/Discretization/Assembly.lean",
+    "new_path": "CFDLean/Discrete/Assembly.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/PairFlux.lean",
+    "new_path": "CFDLean/Entropy/PairFlux.lean"
+  },
+  {
+    "old_path": "CFDLean/Num/Production.lean",
+    "new_path": "CFDLean/Entropy/Production.lean"
+  },
+  {
+    "old_path": "CFDLean/Boundary/Assembly.lean",
+    "new_path": "CFDLean/Schemes/Boundary/Assembly.lean"
+  },
+  {
+    "old_path": "CFDLean/Boundary/Stationary.lean",
+    "new_path": "CFDLean/Schemes/Boundary/Stationary.lean"
+  },
+  {
+    "old_path": "CFDLean/Boundary/Controls.lean",
+    "new_path": "CFDLean/Schemes/Boundary/Controls.lean"
+  },
+  {
+    "old_path": "CFDLean/Boundary/AssemblyControls.lean",
+    "new_path": "CFDLean/Schemes/Boundary/AssemblyControls.lean"
+  },
+  {
+    "old_path": "CFDLean/Geometry/MedianDual/Local.lean",
+    "new_path": "CFDLean/Geometry/MedianDual/Local.lean"
+  },
+  {
+    "old_path": "CFDLean/Geometry/MedianDual/RoeAggregation.lean",
+    "new_path": "CFDLean/Geometry/MedianDual/RoeAggregation.lean"
+  },
+  {
+    "old_path": "CFDLean/Time/ExplicitEuler.lean",
+    "new_path": "CFDLean/Time/ExplicitEuler.lean"
+  },
+  {
+    "old_path": "CFDLean/Time/Controls.lean",
+    "new_path": "CFDLean/Time/Controls.lean"
+  }
+]

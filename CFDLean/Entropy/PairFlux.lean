@@ -1,4 +1,4 @@
-import CFDLean.Num.Boundary
+import CFDLean.Geometry.MeshBoundary
 set_option cleanup.letToHave false -- MC-N: keep the `let` binders of the moved JST definitions and statements
 set_option linter.unusedSectionVars false
 

@@ -1,4 +1,4 @@
-import CFDLean.Num.Mesh
+import CFDLean.Discrete.Mesh
 set_option cleanup.letToHave false -- MC-N: keep the `let` binders of the moved JST definitions and statements
 set_option linter.unusedSectionVars false
 

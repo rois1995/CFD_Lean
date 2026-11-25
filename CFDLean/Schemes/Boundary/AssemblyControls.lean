@@ -1,5 +1,5 @@
-import CFDLean.Boundary.Assembly
-import CFDLean.Boundary.Controls
+import CFDLean.Schemes.Boundary.Assembly
+import CFDLean.Schemes.Boundary.Controls
 import CFDLean.Geometry.MedianDual.TwoCells
 
 noncomputable section

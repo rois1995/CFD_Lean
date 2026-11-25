@@ -5,7 +5,7 @@
       "name": "CFDLean.squareSum_mul",
       "id": "M1-aux",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -18,7 +18,7 @@
       "name": "CFDLean.squareSum_div",
       "id": "M1-aux",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -31,7 +31,7 @@
       "name": "CFDLean.pressure_toConservative",
       "id": "M1-1",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -44,7 +44,7 @@
       "name": "CFDLean.primitive_roundTrip",
       "id": "M1-1",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -57,7 +57,7 @@
       "name": "CFDLean.conservative_roundTrip",
       "id": "M1-2",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -70,7 +70,7 @@
       "name": "CFDLean.primitive_admissible_toConservative",
       "id": "M1-3",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -83,7 +83,7 @@
       "name": "CFDLean.conservative_admissible_toPrimitive",
       "id": "M1-3",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -96,7 +96,7 @@
       "name": "CFDLean.admissible_iff_internalEnergy_pos",
       "id": "M1-4",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -109,7 +109,7 @@
       "name": "CFDLean.admissible_exists",
       "id": "M1-5",
       "milestone": "M1",
-      "module": "CFDLean.Core.State",
+      "module": "CFDLean.Physics.Euler.State",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -122,7 +122,7 @@
       "name": "CFDLean.dot_add",
       "id": "M1-6",
       "milestone": "M1",
-      "module": "CFDLean.Core.PhysicalFlux",
+      "module": "CFDLean.Physics.Euler.PhysicalFlux",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -135,7 +135,7 @@
       "name": "CFDLean.dot_mul",
       "id": "M1-6",
       "milestone": "M1",
-      "module": "CFDLean.Core.PhysicalFlux",
+      "module": "CFDLean.Physics.Euler.PhysicalFlux",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -148,7 +148,7 @@
       "name": "CFDLean.physicalFlux_add",
       "id": "M1-6",
       "milestone": "M1",
-      "module": "CFDLean.Core.PhysicalFlux",
+      "module": "CFDLean.Physics.Euler.PhysicalFlux",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -161,7 +161,7 @@
       "name": "CFDLean.physicalFlux_mul",
       "id": "M1-6",
       "milestone": "M1",
-      "module": "CFDLean.Core.PhysicalFlux",
+      "module": "CFDLean.Physics.Euler.PhysicalFlux",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -174,7 +174,7 @@
       "name": "CFDLean.physicalFlux_reverse",
       "id": "M1-6",
       "milestone": "M1",
-      "module": "CFDLean.Core.PhysicalFlux",
+      "module": "CFDLean.Physics.Euler.PhysicalFlux",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -187,7 +187,7 @@
       "name": "CFDLean.physicalFlux_zero",
       "id": "M1-6",
       "milestone": "M1",
-      "module": "CFDLean.Core.PhysicalFlux",
+      "module": "CFDLean.Physics.Euler.PhysicalFlux",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -200,7 +200,7 @@
       "name": "CFDLean.Coordinates.decode_encode",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.Coordinates",
+      "module": "CFDLean.Foundations.Coordinates",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -213,7 +213,7 @@
       "name": "CFDLean.Coordinates.encode_decode",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.Coordinates",
+      "module": "CFDLean.Foundations.Coordinates",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -226,7 +226,7 @@
       "name": "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.PhysicalJacobian",
+      "module": "CFDLean.Physics.Euler.PhysicalJacobian",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -239,7 +239,7 @@
       "name": "CFDLean.PhysicalJacobian.isOpen_admissible",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.PhysicalJacobian",
+      "module": "CFDLean.Physics.Euler.PhysicalJacobian",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -252,7 +252,7 @@
       "name": "CFDLean.Coordinates.unitNormal_dot_self",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.Coordinates",
+      "module": "CFDLean.Foundations.Coordinates",
       "status": "accepted",
       "layer": "Foundations",
       "methods": [
@@ -265,7 +265,7 @@
       "name": "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.PhysicalJacobian",
+      "module": "CFDLean.Physics.Euler.PhysicalJacobian",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -278,7 +278,7 @@
       "name": "CFDLean.PhysicalJacobian.jacobian_action",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.PhysicalJacobian",
+      "module": "CFDLean.Physics.Euler.PhysicalJacobian",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -291,7 +291,7 @@
       "name": "CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea",
       "id": "M2-J",
       "milestone": "M2",
-      "module": "CFDLean.Core.PhysicalJacobian",
+      "module": "CFDLean.Physics.Euler.PhysicalJacobian",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -304,7 +304,7 @@
       "name": "CFDLean.Roe.root_pos",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -317,7 +317,7 @@
       "name": "CFDLean.Roe.root_sum_pos",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -330,7 +330,7 @@
       "name": "CFDLean.Roe.weight_pos",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -343,7 +343,7 @@
       "name": "CFDLean.Roe.weight_lt_one",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -356,7 +356,7 @@
       "name": "CFDLean.Roe.weight_sum",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -369,7 +369,7 @@
       "name": "CFDLean.Roe.averages_swap",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -382,7 +382,7 @@
       "name": "CFDLean.Roe.variance_identity",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -395,7 +395,7 @@
       "name": "CFDLean.Roe.soundSquare_pos",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -408,7 +408,7 @@
       "name": "CFDLean.Roe.soundSpeed_pos",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -421,7 +421,7 @@
       "name": "CFDLean.Roe.soundSpeed_sq",
       "id": "M2-A",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Averages",
+      "module": "CFDLean.Physics.Roe.Averages",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -434,7 +434,7 @@
       "name": "CFDLean.Roe.parameter_state",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -447,7 +447,7 @@
       "name": "CFDLean.Roe.parameter_flux",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -460,7 +460,7 @@
       "name": "CFDLean.Roe.hasFDerivAt_parameterState",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -473,7 +473,7 @@
       "name": "CFDLean.Roe.hasFDerivAt_parameterFlux",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -486,7 +486,7 @@
       "name": "CFDLean.Roe.state_midpoint_jump",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -499,7 +499,7 @@
       "name": "CFDLean.Roe.flux_midpoint_jump",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -512,7 +512,7 @@
       "name": "CFDLean.Roe.midpoint_pos",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -525,7 +525,7 @@
       "name": "CFDLean.Roe.B_bijective",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -538,7 +538,7 @@
       "name": "CFDLean.Roe.inverseB_B",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -551,7 +551,7 @@
       "name": "CFDLean.Roe.B_inverseB",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -564,7 +564,7 @@
       "name": "CFDLean.Roe.operator_B",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -577,7 +577,7 @@
       "name": "CFDLean.Roe.roeMatrix_B",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -590,7 +590,7 @@
       "name": "CFDLean.Roe.roeMatrix_CB_inverse",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -603,7 +603,7 @@
       "name": "CFDLean.Roe.secant_identity",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -616,7 +616,7 @@
       "name": "CFDLean.Roe.integrated_secant",
       "id": "M2-R",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -629,7 +629,7 @@
       "name": "CFDLean.Roe.roeMatrix_continuousOn",
       "id": "M2-L",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -642,7 +642,7 @@
       "name": "CFDLean.Roe.roeMatrix_diagonal",
       "id": "M2-L",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -655,7 +655,7 @@
       "name": "CFDLean.Roe.hasFDerivAt_diagonal",
       "id": "M2-L",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -668,7 +668,7 @@
       "name": "CFDLean.Roe.roeMatrix_equal_state_limit",
       "id": "M2-L",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Linearization",
+      "module": "CFDLean.Physics.Roe.Linearization",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -681,7 +681,7 @@
       "name": "CFDLean.Roe.Spectral.sound_parameters",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -694,7 +694,7 @@
       "name": "CFDLean.Roe.Spectral.roe_cubic",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -707,7 +707,7 @@
       "name": "CFDLean.Roe.Spectral.roe_eigenvectors",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -720,7 +720,7 @@
       "name": "CFDLean.Roe.Spectral.roe_projector_algebra",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -733,7 +733,7 @@
       "name": "CFDLean.Roe.Spectral.roe_projector_sum",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -746,7 +746,7 @@
       "name": "CFDLean.Roe.Spectral.roe_projector_ranges",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -759,7 +759,7 @@
       "name": "CFDLean.Roe.Spectral.roe_dimensions",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -772,7 +772,7 @@
       "name": "CFDLean.Roe.Spectral.roe_projector_ranks",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -785,7 +785,7 @@
       "name": "CFDLean.Roe.Spectral.roe_complete_basis",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -798,7 +798,7 @@
       "name": "CFDLean.Roe.Spectral.roe_spectral_decomposition",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -811,7 +811,7 @@
       "name": "CFDLean.Roe.Spectral.roe_convective_tangent_span",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -824,7 +824,7 @@
       "name": "CFDLean.Roe.Spectral.tangent_dimension",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -837,7 +837,7 @@
       "name": "CFDLean.Roe.Spectral.exists_tangent_basis",
       "id": "M2-E",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -850,7 +850,7 @@
       "name": "CFDLean.Roe.Spectral.roe_absolute_basis",
       "id": "M2-D",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -863,7 +863,7 @@
       "name": "CFDLean.Roe.Spectral.roe_absolute_eigen",
       "id": "M2-D",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -876,7 +876,7 @@
       "name": "CFDLean.Roe.Spectral.roe_matrix_reverse",
       "id": "M2-O",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -889,7 +889,7 @@
       "name": "CFDLean.Roe.Spectral.roe_shift_reverse",
       "id": "M2-O",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -902,7 +902,7 @@
       "name": "CFDLean.Roe.Spectral.roe_projector_reverse",
       "id": "M2-O",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -915,7 +915,7 @@
       "name": "CFDLean.Roe.Spectral.roe_speed_reverse",
       "id": "M2-O",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -928,7 +928,7 @@
       "name": "CFDLean.Roe.Spectral.roe_absolute_reverse",
       "id": "M2-O",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -941,7 +941,7 @@
       "name": "CFDLean.Roe.Spectral.roe_swap",
       "id": "M2-O",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Spectral",
+      "module": "CFDLean.Physics.Roe.Spectral",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -954,7 +954,7 @@
       "name": "CFDLean.Roe.numericalFlux_consistency",
       "id": "M2-F1",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -967,7 +967,7 @@
       "name": "CFDLean.Roe.numericalFlux_reverse",
       "id": "M2-F2",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -980,7 +980,7 @@
       "name": "CFDLean.Roe.numericalFlux_zero",
       "id": "M2-F3",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -993,7 +993,7 @@
       "name": "CFDLean.Roe.numericalFlux_scale",
       "id": "M2-F3",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1006,7 +1006,7 @@
       "name": "CFDLean.Roe.numericalFlux_upwind_left",
       "id": "M2-F4",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1019,7 +1019,7 @@
       "name": "CFDLean.Roe.numericalFlux_upwind_right",
       "id": "M2-F4",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1032,7 +1032,7 @@
       "name": "CFDLean.Roe.witness_intermediate_coordinates",
       "id": "M2-C",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1045,7 +1045,7 @@
       "name": "CFDLean.Roe.positivity_counterexample",
       "id": "M2-C",
       "milestone": "M2",
-      "module": "CFDLean.Flux.Roe.Flux",
+      "module": "CFDLean.Schemes.Roe.Flux",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1058,7 +1058,7 @@
       "name": "CFDLean.Assembly.incidence_tail",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1071,7 +1071,7 @@
       "name": "CFDLean.Assembly.incidence_head",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1084,7 +1084,7 @@
       "name": "CFDLean.Assembly.incidence_other",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1097,7 +1097,7 @@
       "name": "CFDLean.Assembly.incidence_eq_one",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1110,7 +1110,7 @@
       "name": "CFDLean.Assembly.incidence_eq_neg_one",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1123,7 +1123,7 @@
       "name": "CFDLean.Assembly.incidence_sum",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1136,7 +1136,7 @@
       "name": "CFDLean.Assembly.incidence_smul",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1149,7 +1149,7 @@
       "name": "CFDLean.Assembly.residual_outgoing",
       "id": "M3-I",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1162,7 +1162,7 @@
       "name": "CFDLean.Assembly.global_balance",
       "id": "M3-R",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1175,7 +1175,7 @@
       "name": "CFDLean.Assembly.roe_global_balance",
       "id": "M3-R",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1188,7 +1188,7 @@
       "name": "CFDLean.Assembly.outwardTransfer_eq",
       "id": "M3-O",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1201,7 +1201,7 @@
       "name": "CFDLean.Assembly.residual_reverse",
       "id": "M3-O",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1214,7 +1214,7 @@
       "name": "CFDLean.Assembly.roe_residual_reverse",
       "id": "M3-O",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1227,7 +1227,7 @@
       "name": "CFDLean.Assembly.residual_reindex",
       "id": "M3-O",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
@@ -1240,7 +1240,7 @@
       "name": "CFDLean.Assembly.roe_residual_reindex",
       "id": "M3-O",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1253,7 +1253,7 @@
       "name": "CFDLean.Assembly.roeTransfer_zero",
       "id": "M3-O",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1682,7 +1682,7 @@
       "name": "CFDLean.Assembly.constant_state_residual",
       "id": "M3-C",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1695,7 +1695,7 @@
       "name": "CFDLean.Assembly.constant_state_closed",
       "id": "M3-C",
       "milestone": "M3",
-      "module": "CFDLean.Discretization.Assembly",
+      "module": "CFDLean.Discrete.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1721,7 +1721,7 @@
       "name": "CFDLean.Boundary.boundary_record_unique",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Geometry",
       "methods": [
@@ -1734,7 +1734,7 @@
       "name": "CFDLean.Boundary.boundary_record_range",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Geometry",
       "methods": [
@@ -1747,7 +1747,7 @@
       "name": "CFDLean.Boundary.patchKind_coherent",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1760,7 +1760,7 @@
       "name": "CFDLean.Boundary.patchExterior_coherent",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1773,7 +1773,7 @@
       "name": "CFDLean.Boundary.patchTransfer_wall",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1786,7 +1786,7 @@
       "name": "CFDLean.Boundary.patchTransfer_symmetry",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1799,7 +1799,7 @@
       "name": "CFDLean.Boundary.patchTransfer_prescribed",
       "id": "M4-B",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1812,7 +1812,7 @@
       "name": "CFDLean.Boundary.wall_mass",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1825,7 +1825,7 @@
       "name": "CFDLean.Boundary.wall_energy",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1838,7 +1838,7 @@
       "name": "CFDLean.Boundary.wall_momentum",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1851,7 +1851,7 @@
       "name": "CFDLean.Boundary.wall_zero",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1864,7 +1864,7 @@
       "name": "CFDLean.Boundary.wall_add",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1877,7 +1877,7 @@
       "name": "CFDLean.Boundary.wall_smul",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1890,7 +1890,7 @@
       "name": "CFDLean.Boundary.wall_reverse",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1903,7 +1903,7 @@
       "name": "CFDLean.Boundary.wall_pressure_pos",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Physics models",
       "methods": [
@@ -1916,7 +1916,7 @@
       "name": "CFDLean.Boundary.wall_eq_physical_iff",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1929,7 +1929,7 @@
       "name": "CFDLean.Boundary.wall_eq_physical_iff_normalVelocity",
       "id": "M4-W",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1942,7 +1942,7 @@
       "name": "CFDLean.Boundary.prescribed_consistency",
       "id": "M4-P",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1955,7 +1955,7 @@
       "name": "CFDLean.Boundary.prescribed_zero",
       "id": "M4-P",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1968,7 +1968,7 @@
       "name": "CFDLean.Boundary.prescribed_scale",
       "id": "M4-P",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1981,7 +1981,7 @@
       "name": "CFDLean.Boundary.prescribed_reverse",
       "id": "M4-P",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -1994,7 +1994,7 @@
       "name": "CFDLean.Boundary.prescribed_upwind_owner",
       "id": "M4-P",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2007,7 +2007,7 @@
       "name": "CFDLean.Boundary.prescribed_upwind_exterior",
       "id": "M4-P",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Stationary",
+      "module": "CFDLean.Schemes.Boundary.Stationary",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2020,7 +2020,7 @@
       "name": "CFDLean.Boundary.stationary_global_balance",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2033,7 +2033,7 @@
       "name": "CFDLean.Boundary.stationary_mixed_balance",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2046,7 +2046,7 @@
       "name": "CFDLean.Boundary.stationary_mass_balance",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2059,7 +2059,7 @@
       "name": "CFDLean.Boundary.stationary_energy_balance",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2072,7 +2072,7 @@
       "name": "CFDLean.Boundary.stationary_momentum_balance",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2085,7 +2085,7 @@
       "name": "CFDLean.Boundary.meshResidual_eq",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2098,7 +2098,7 @@
       "name": "CFDLean.Boundary.mesh_global_balance",
       "id": "M4-R",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2111,7 +2111,7 @@
       "name": "CFDLean.Boundary.constructed_transfer_reindex",
       "id": "M4-O",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2124,7 +2124,7 @@
       "name": "CFDLean.Boundary.stationary_residual_reindex",
       "id": "M4-O",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2137,7 +2137,7 @@
       "name": "CFDLean.Boundary.mesh_residual_reindex",
       "id": "M4-O",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2150,7 +2150,7 @@
       "name": "CFDLean.Boundary.transfer_compatible",
       "id": "M4-C",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2163,7 +2163,7 @@
       "name": "CFDLean.Boundary.stationary_common_defect",
       "id": "M4-C",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2176,7 +2176,7 @@
       "name": "CFDLean.Boundary.stationary_common_closed",
       "id": "M4-C",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2189,7 +2189,7 @@
       "name": "CFDLean.Boundary.stationary_common_correction",
       "id": "M4-C",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2202,7 +2202,7 @@
       "name": "CFDLean.Boundary.mesh_constant_state",
       "id": "M4-C",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2215,7 +2215,7 @@
       "name": "CFDLean.Boundary.mesh_common_correction",
       "id": "M4-C",
       "milestone": "M4",
-      "module": "CFDLean.Boundary.Assembly",
+      "module": "CFDLean.Schemes.Boundary.Assembly",
       "status": "accepted",
       "layer": "Schemes",
       "methods": [
@@ -2787,7 +2787,7 @@
       "name": "CFDLean.Num.logMean_properties",
       "id": "MC-N.P1-2.4",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.LogMean",
+      "module": "CFDLean.Foundations.LogMean",
       "status": "candidate",
       "layer": "Foundations",
       "methods": [
@@ -2800,7 +2800,7 @@
       "name": "CFDLean.Num.Simplex.calculus",
       "id": "MC-N.P1-5.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Simplex",
+      "module": "CFDLean.Geometry.Simplex",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2813,7 +2813,7 @@
       "name": "CFDLean.Num.Simplex.facet_cross3",
       "id": "MC-N.P3-11.2",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Simplex",
+      "module": "CFDLean.Geometry.Simplex",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2826,7 +2826,7 @@
       "name": "CFDLean.Num.Simplex.facet_perp2",
       "id": "MC-N.P3-11.2b",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Simplex",
+      "module": "CFDLean.Geometry.Simplex",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2839,7 +2839,7 @@
       "name": "CFDLean.Num.pathSimplex_nonobtuse",
       "id": "MC-N.P3-12.5",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Simplex",
+      "module": "CFDLean.Geometry.Simplex",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2852,7 +2852,7 @@
       "name": "CFDLean.Num.WMesh.nW_row_sum",
       "id": "MC-N.P1-2.3",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2866,7 +2866,7 @@
       "name": "CFDLean.Num.WMesh.sbp_defect",
       "id": "MC-N.P2-6.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2879,7 +2879,7 @@
       "name": "CFDLean.Num.Simplex.median_defect_iff",
       "id": "MC-N.P2-6.2",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2893,7 +2893,7 @@
       "name": "CFDLean.Num.WMesh.dissGeom_edge",
       "id": "MC-N.P1-5.2",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2906,7 +2906,7 @@
       "name": "CFDLean.Num.WMesh.dissGeom_outer",
       "id": "MC-N.P1-5.3",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2920,7 +2920,7 @@
       "name": "CFDLean.Num.WMesh.dissGeom_calibration",
       "id": "MC-N.P1-5.4",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -2933,7 +2933,7 @@
       "name": "CFDLean.Num.quadratic_edge_expansion",
       "id": "MC-N.P2-7.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2946,7 +2946,7 @@
       "name": "CFDLean.Num.dissTensor_loewner",
       "id": "MC-N.P2-7.2",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2959,7 +2959,7 @@
       "name": "CFDLean.Num.WMesh.dissTensor_trace",
       "id": "MC-N.P2-7.3",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Mesh",
+      "module": "CFDLean.Discrete.Mesh",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2972,7 +2972,7 @@
       "name": "CFDLean.Num.WMesh.closed_of_facetPaired",
       "id": "MC-N.P1-5.0a",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Boundary",
+      "module": "CFDLean.Geometry.MeshBoundary",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2985,7 +2985,7 @@
       "name": "CFDLean.Num.WMesh.conforming_boundary",
       "id": "MC-N.P2-6.3",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Boundary",
+      "module": "CFDLean.Geometry.MeshBoundary",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -2998,7 +2998,7 @@
       "name": "CFDLean.Num.WMesh.facetBalanced_boundary",
       "id": "MC-N.P3-11.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Boundary",
+      "module": "CFDLean.Geometry.MeshBoundary",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3011,7 +3011,7 @@
       "name": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced",
       "id": "MC-N.P3-11.4",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Boundary",
+      "module": "CFDLean.Geometry.MeshBoundary",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -3024,7 +3024,7 @@
       "name": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2",
       "id": "MC-N.P3-11.4b",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Boundary",
+      "module": "CFDLean.Geometry.MeshBoundary",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -3037,7 +3037,7 @@
       "name": "CFDLean.Num.antisymmetric_pairFlux",
       "id": "MC-N.P1-2.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Entropy framework",
       "methods": [
@@ -3050,7 +3050,7 @@
       "name": "CFDLean.Num.entropyConservative_production",
       "id": "MC-N.P1-2.2",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Entropy framework",
       "methods": [
@@ -3063,7 +3063,7 @@
       "name": "CFDLean.Num.dissipativePairFlux_conservation",
       "id": "MC-N.P1-2.6",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Schemes",
       "methods": [
@@ -3076,7 +3076,7 @@
       "name": "CFDLean.Num.dissipativePairFlux_freeStream",
       "id": "MC-N.P1-2.7",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Schemes",
       "methods": [
@@ -3089,7 +3089,7 @@
       "name": "CFDLean.Num.edgeForm_boundary_split",
       "id": "MC-N.P2-6.4",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3103,7 +3103,7 @@
       "name": "CFDLean.Num.WMesh.standardClosure_entropy",
       "id": "MC-N.P2-6.5",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Entropy framework",
       "methods": [
@@ -3116,7 +3116,7 @@
       "name": "CFDLean.Num.WMesh.standardClosure_linear",
       "id": "MC-N.P2-6.5b",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Schemes",
       "methods": [
@@ -3130,7 +3130,7 @@
       "name": "CFDLean.Num.quadratureClosure_entropy",
       "id": "MC-N.P2-8.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Entropy framework",
       "methods": [
@@ -3143,7 +3143,7 @@
       "name": "CFDLean.Num.quadratureClosure_freeStream",
       "id": "MC-N.P2-8.2",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Schemes",
       "methods": [
@@ -3156,7 +3156,7 @@
       "name": "CFDLean.Num.quadratureClosure_linear",
       "id": "MC-N.P2-8.3",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Schemes",
       "methods": [
@@ -3169,7 +3169,7 @@
       "name": "CFDLean.Num.WMesh.faceRule_beta_B",
       "id": "MC-N.P2-8.4",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.PairFlux",
+      "module": "CFDLean.Entropy.PairFlux",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3183,7 +3183,7 @@
       "name": "CFDLean.Num.WMesh.galerkin_identity",
       "id": "MC-N.P1-4.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Galerkin",
+      "module": "CFDLean.Discrete.Galerkin",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3196,7 +3196,7 @@
       "name": "CFDLean.Num.WMesh.fvRes_eq_galerkinRes",
       "id": "MC-N.P1-5.5",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Galerkin",
+      "module": "CFDLean.Discrete.Galerkin",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3210,7 +3210,7 @@
       "name": "CFDLean.Num.WMesh.closed_mean_galerkin",
       "id": "MC-N.P2-6.7",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Galerkin",
+      "module": "CFDLean.Discrete.Galerkin",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3224,7 +3224,7 @@
       "name": "CFDLean.Num.pair_production_integral",
       "id": "MC-N.P3-13.1",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Production",
+      "module": "CFDLean.Entropy.Production",
       "status": "candidate",
       "layer": "Entropy framework",
       "methods": [
@@ -3237,7 +3237,7 @@
       "name": "CFDLean.Num.ofMeshData_closed",
       "id": "MC-N.P1-5.0b",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Bridge",
+      "module": "CFDLean.Geometry.MedianDualBridge",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [
@@ -3251,7 +3251,7 @@
       "name": "CFDLean.Num.dualFacets_grad",
       "id": "MC-N.P1-5.6",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Bridge",
+      "module": "CFDLean.Geometry.MedianDualBridge",
       "status": "candidate",
       "layer": "Geometry",
       "methods": [
@@ -3265,7 +3265,7 @@
       "name": "CFDLean.Num.ofMeshData_fv_galerkin",
       "id": "MC-N.P1-5.7",
       "milestone": "MC-N",
-      "module": "CFDLean.Num.Bridge",
+      "module": "CFDLean.Geometry.MedianDualBridge",
       "status": "candidate",
       "layer": "Discrete operators",
       "methods": [

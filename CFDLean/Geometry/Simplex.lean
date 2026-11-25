@@ -1,4 +1,4 @@
-import CFDLean.Num.Basic
+import CFDLean.Foundations.Basic
 set_option cleanup.letToHave false -- MC-N: keep the `let` binders of the moved JST definitions and statements
 
 /-! A simplex of `ℝ^d` with its P1 barycentric gradients: simplex calculus (P1-5.1), 3D facet vectors as half cross

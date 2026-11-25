@@ -1,4 +1,4 @@
-import CFDLean.Num.Mesh
+import CFDLean.Discrete.Mesh
 
 /-! Galerkin identity (P1-4.1), finite-volume residual = Galerkin residual (P1-5.5), and the mean flux at a closed
 vertex as the Galerkin form (P2-6.7, `prop:consistency`(b)).

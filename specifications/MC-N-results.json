@@ -16,259 +16,259 @@
       "jst_statement": "Paper1.Spec.P1_2_4",
       "jst_theorem": "Paper1.Proofs.p1_2_4",
       "theorem": "CFDLean.Num.logMean_properties",
-      "module": "CFDLean.Num.LogMean"
+      "module": "CFDLean.Foundations.LogMean"
     },
     {
       "id": "MC-N.P1-5.1",
       "jst_statement": "Paper1.Spec.P1_5_1",
       "jst_theorem": "Paper1.Proofs.p1_5_1",
       "theorem": "CFDLean.Num.Simplex.calculus",
-      "module": "CFDLean.Num.Simplex"
+      "module": "CFDLean.Geometry.Simplex"
     },
     {
       "id": "MC-N.P3-11.2",
       "jst_statement": "Paper1.Spec.P3_11_2",
       "jst_theorem": "Paper1.Proofs.p3_11_2",
       "theorem": "CFDLean.Num.Simplex.facet_cross3",
-      "module": "CFDLean.Num.Simplex"
+      "module": "CFDLean.Geometry.Simplex"
     },
     {
       "id": "MC-N.P3-11.2b",
       "jst_statement": "Paper1.Spec.P3_11_2b",
       "jst_theorem": "Paper1.Proofs.p3_11_2b",
       "theorem": "CFDLean.Num.Simplex.facet_perp2",
-      "module": "CFDLean.Num.Simplex"
+      "module": "CFDLean.Geometry.Simplex"
     },
     {
       "id": "MC-N.P3-12.5",
       "jst_statement": "Paper1.Spec.P3_12_5",
       "jst_theorem": "Paper1.Proofs.p3_12_5",
       "theorem": "CFDLean.Num.pathSimplex_nonobtuse",
-      "module": "CFDLean.Num.Simplex"
+      "module": "CFDLean.Geometry.Simplex"
     },
     {
       "id": "MC-N.P1-2.3",
       "jst_statement": "Paper1.Spec.P1_2_3",
       "jst_theorem": "Paper1.Proofs.p1_2_3",
       "theorem": "CFDLean.Num.WMesh.nW_row_sum",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P2-6.1",
       "jst_statement": "Paper1.Spec.P2_6_1",
       "jst_theorem": "Paper1.Proofs.p2_6_1",
       "theorem": "CFDLean.Num.WMesh.sbp_defect",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P2-6.2",
       "jst_statement": "Paper1.Spec.P2_6_2",
       "jst_theorem": "Paper1.Proofs.p2_6_2",
       "theorem": "CFDLean.Num.Simplex.median_defect_iff",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P1-5.2",
       "jst_statement": "Paper1.Spec.P1_5_2",
       "jst_theorem": "Paper1.Proofs.p1_5_2",
       "theorem": "CFDLean.Num.WMesh.dissGeom_edge",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P1-5.3",
       "jst_statement": "Paper1.Spec.P1_5_3",
       "jst_theorem": "Paper1.Proofs.p1_5_3",
       "theorem": "CFDLean.Num.WMesh.dissGeom_outer",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P1-5.4",
       "jst_statement": "Paper1.Spec.P1_5_4",
       "jst_theorem": "Paper1.Proofs.p1_5_4",
       "theorem": "CFDLean.Num.WMesh.dissGeom_calibration",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P2-7.1",
       "jst_statement": "Paper1.Spec.P2_7_1",
       "jst_theorem": "Paper1.Proofs.p2_7_1",
       "theorem": "CFDLean.Num.quadratic_edge_expansion",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P2-7.2",
       "jst_statement": "Paper1.Spec.P2_7_2",
       "jst_theorem": "Paper1.Proofs.p2_7_2",
       "theorem": "CFDLean.Num.dissTensor_loewner",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P2-7.3",
       "jst_statement": "Paper1.Spec.P2_7_3",
       "jst_theorem": "Paper1.Proofs.p2_7_3",
       "theorem": "CFDLean.Num.WMesh.dissTensor_trace",
-      "module": "CFDLean.Num.Mesh"
+      "module": "CFDLean.Discrete.Mesh"
     },
     {
       "id": "MC-N.P1-5.0a",
       "jst_statement": "Paper1.Spec.P1_5_0a",
       "jst_theorem": "Paper1.Proofs.p1_5_0a",
       "theorem": "CFDLean.Num.WMesh.closed_of_facetPaired",
-      "module": "CFDLean.Num.Boundary"
+      "module": "CFDLean.Geometry.MeshBoundary"
     },
     {
       "id": "MC-N.P2-6.3",
       "jst_statement": "Paper1.Spec.P2_6_3",
       "jst_theorem": "Paper1.Proofs.p2_6_3",
       "theorem": "CFDLean.Num.WMesh.conforming_boundary",
-      "module": "CFDLean.Num.Boundary"
+      "module": "CFDLean.Geometry.MeshBoundary"
     },
     {
       "id": "MC-N.P3-11.1",
       "jst_statement": "Paper1.Spec.P3_11_1",
       "jst_theorem": "Paper1.Proofs.p3_11_1",
       "theorem": "CFDLean.Num.WMesh.facetBalanced_boundary",
-      "module": "CFDLean.Num.Boundary"
+      "module": "CFDLean.Geometry.MeshBoundary"
     },
     {
       "id": "MC-N.P3-11.4",
       "jst_statement": "Paper1.Spec.P3_11_4",
       "jst_theorem": "Paper1.Proofs.p3_11_4",
       "theorem": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced",
-      "module": "CFDLean.Num.Boundary"
+      "module": "CFDLean.Geometry.MeshBoundary"
     },
     {
       "id": "MC-N.P3-11.4b",
       "jst_statement": "Paper1.Spec.P3_11_4b",
       "jst_theorem": "Paper1.Proofs.p3_11_4b",
       "theorem": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2",
-      "module": "CFDLean.Num.Boundary"
+      "module": "CFDLean.Geometry.MeshBoundary"
     },
     {
       "id": "MC-N.P1-2.1",
       "jst_statement": "Paper1.Spec.P1_2_1",
       "jst_theorem": "Paper1.Proofs.p1_2_1",
       "theorem": "CFDLean.Num.antisymmetric_pairFlux",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P1-2.2",
       "jst_statement": "Paper1.Spec.P1_2_2",
       "jst_theorem": "Paper1.Proofs.p1_2_2",
       "theorem": "CFDLean.Num.entropyConservative_production",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P1-2.6",
       "jst_statement": "Paper1.Spec.P1_2_6",
       "jst_theorem": "Paper1.Proofs.p1_2_6",
       "theorem": "CFDLean.Num.dissipativePairFlux_conservation",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P1-2.7",
       "jst_statement": "Paper1.Spec.P1_2_7",
       "jst_theorem": "Paper1.Proofs.p1_2_7",
       "theorem": "CFDLean.Num.dissipativePairFlux_freeStream",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-6.4",
       "jst_statement": "Paper1.Spec.P2_6_4",
       "jst_theorem": "Paper1.Proofs.p2_6_4",
       "theorem": "CFDLean.Num.edgeForm_boundary_split",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-6.5",
       "jst_statement": "Paper1.Spec.P2_6_5",
       "jst_theorem": "Paper1.Proofs.p2_6_5",
       "theorem": "CFDLean.Num.WMesh.standardClosure_entropy",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-6.5b",
       "jst_statement": "Paper1.Spec.P2_6_5b",
       "jst_theorem": "Paper1.Proofs.p2_6_5b",
       "theorem": "CFDLean.Num.WMesh.standardClosure_linear",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-8.1",
       "jst_statement": "Paper1.Spec.P2_8_1",
       "jst_theorem": "Paper1.Proofs.p2_8_1",
       "theorem": "CFDLean.Num.quadratureClosure_entropy",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-8.2",
       "jst_statement": "Paper1.Spec.P2_8_2",
       "jst_theorem": "Paper1.Proofs.p2_8_2",
       "theorem": "CFDLean.Num.quadratureClosure_freeStream",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-8.3",
       "jst_statement": "Paper1.Spec.P2_8_3",
       "jst_theorem": "Paper1.Proofs.p2_8_3",
       "theorem": "CFDLean.Num.quadratureClosure_linear",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P2-8.4",
       "jst_statement": "Paper1.Spec.P2_8_4",
       "jst_theorem": "Paper1.Proofs.p2_8_4",
       "theorem": "CFDLean.Num.WMesh.faceRule_beta_B",
-      "module": "CFDLean.Num.PairFlux"
+      "module": "CFDLean.Entropy.PairFlux"
     },
     {
       "id": "MC-N.P1-4.1",
       "jst_statement": "Paper1.Spec.P1_4_1",
       "jst_theorem": "Paper1.Proofs.p1_4_1",
       "theorem": "CFDLean.Num.WMesh.galerkin_identity",
-      "module": "CFDLean.Num.Galerkin"
+      "module": "CFDLean.Discrete.Galerkin"
     },
     {
       "id": "MC-N.P1-5.5",
       "jst_statement": "Paper1.Spec.P1_5_5",
       "jst_theorem": "Paper1.Proofs.p1_5_5",
       "theorem": "CFDLean.Num.WMesh.fvRes_eq_galerkinRes",
-      "module": "CFDLean.Num.Galerkin"
+      "module": "CFDLean.Discrete.Galerkin"
     },
     {
       "id": "MC-N.P2-6.7",
       "jst_statement": "Paper1.Spec.P2_6_7",
       "jst_theorem": "Paper1.Proofs.p2_6_7",
       "theorem": "CFDLean.Num.WMesh.closed_mean_galerkin",
-      "module": "CFDLean.Num.Galerkin"
+      "module": "CFDLean.Discrete.Galerkin"
     },
     {
       "id": "MC-N.P3-13.1",
       "jst_statement": "Paper1.Spec.P3_13_1",
       "jst_theorem": "Paper1.Proofs.p3_13_1",
       "theorem": "CFDLean.Num.pair_production_integral",
-      "module": "CFDLean.Num.Production"
+      "module": "CFDLean.Entropy.Production"
     },
     {
       "id": "MC-N.P1-5.0b",
       "jst_statement": "Paper1.Spec.P1_5_0b",
       "jst_theorem": "Paper1.Proofs.p1_5_0b",
       "theorem": "CFDLean.Num.ofMeshData_closed",
-      "module": "CFDLean.Num.Bridge"
+      "module": "CFDLean.Geometry.MedianDualBridge"
     },
     {
       "id": "MC-N.P1-5.6",
       "jst_statement": "Paper1.Spec.P1_5_6",
       "jst_theorem": "Paper1.Proofs.p1_5_6",
       "theorem": "CFDLean.Num.dualFacets_grad",
-      "module": "CFDLean.Num.Bridge"
+      "module": "CFDLean.Geometry.MedianDualBridge"
     },
     {
       "id": "MC-N.P1-5.7",
       "jst_statement": "Paper1.Spec.P1_5_7",
       "jst_theorem": "Paper1.Proofs.p1_5_7",
       "theorem": "CFDLean.Num.ofMeshData_fv_galerkin",
-      "module": "CFDLean.Num.Bridge"
+      "module": "CFDLean.Geometry.MedianDualBridge"
     }
   ]
 }

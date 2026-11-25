@@ -1,4 +1,4 @@
-import CFDLean.Boundary.Stationary
+import CFDLean.Schemes.Boundary.Stationary
 
 noncomputable section
 namespace CFDLean.Boundary

@@ -1,4 +1,4 @@
-import CFDLean.Num
+import CFDLean
 import Lean
 
 /-! MC-N evidence: print the types of the MC-N theorems with the settings of the JST_Paper_Lean statement dumps

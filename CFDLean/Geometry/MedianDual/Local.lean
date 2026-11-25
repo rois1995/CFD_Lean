@@ -1,4 +1,4 @@
-import CFDLean.Discretization.Assembly
+import CFDLean.Discrete.Assembly
 
 noncomputable section
 namespace CFDLean.MedianDual

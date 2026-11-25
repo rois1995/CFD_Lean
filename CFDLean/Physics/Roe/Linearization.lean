@@ -1,4 +1,4 @@
-import CFDLean.Flux.Roe.Averages
+import CFDLean.Physics.Roe.Averages
 
 noncomputable section
 namespace CFDLean.Roe

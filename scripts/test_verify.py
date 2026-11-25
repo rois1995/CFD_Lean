@@ -310,7 +310,7 @@ class MCNTests(unittest.TestCase):
                     ["Basic", "LogMean", "Simplex", "Mesh", "Boundary", "PairFlux", "Galerkin", "Production", "Bridge"])
 
     def setUp(self):
-        self.results = [{"id": f"MC-N.X-{i}", "theorem": f"CFDLean.Num.t{i}", "module": "CFDLean.Num.Mesh"}
+        self.results = [{"id": f"MC-N.X-{i}", "theorem": f"CFDLean.Num.t{i}", "module": "CFDLean.Discrete.Mesh"}
                         for i in range(verify.MC_N_COUNT)]
         self.rows = {}
         for r in self.results:
@@ -330,7 +330,7 @@ class MCNTests(unittest.TestCase):
                        lambda rows, n: rows[n].update(kind="definition"),
                        lambda rows, n: rows[n].update(root=False),
                        lambda rows, n: rows[n].update(axioms=["sorryAx"]),
-                       lambda rows, n: rows[n].update(module="CFDLean.Num.Bridge")]:
+                       lambda rows, n: rows[n].update(module="CFDLean.Geometry.MedianDualBridge")]:
             rows = json.loads(json.dumps(self.rows))
             mutate(rows, "CFDLean.Num.t0")
             with self.assertRaises(ValueError):
@@ -340,6 +340,7 @@ class MCNTests(unittest.TestCase):
         for results in [self.results[1:], self.results[:-1] + self.results[:1],
                         [dict(self.results[0], theorem="CFDLean.Time.t0")] + self.results[1:],
                         [dict(self.results[0], module="CFDLean.Time.Controls")] + self.results[1:],
+                        [dict(self.results[0], module="CFDLean.Num.Mesh")] + self.results[1:],
                         [dict(self.results[0], id="M5-X")] + self.results[1:]]:
             with self.assertRaises(ValueError):
                 self.check(results=results)
@@ -377,7 +378,7 @@ class CatalogTests(unittest.TestCase):
         self.expected.update(verify.catalog_index("M5", {"results": [
             {"id": "M5-U", "stage": "M5", "declarations": ["CFDLean.Time.u"]}]}))
         self.expected.update(verify.catalog_index("MC-N", {"results": [
-            {"id": "MC-N.P1-2.4", "theorem": "CFDLean.Num.n", "module": "CFDLean.Num.LogMean"}]}))
+            {"id": "MC-N.P1-2.4", "theorem": "CFDLean.Num.n", "module": "CFDLean.Foundations.LogMean"}]}))
         self.rows, entries = {}, []
         for name, (milestone, result_id) in self.expected.items():
             row = record(name)
@@ -454,3 +455,121 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
         verify.check_catalog_readme(catalog, (root / verify.CATALOG_README).read_text(encoding="utf-8"),
                                     verify.load_catalog_renderer())
+
+
+class MRLayoutTests(unittest.TestCase):
+    """MR-1: moved files are found only through the pinned path map and may differ only in their `import` header."""
+    OLD = b"import CFDLean.Core.State\nimport Mathlib.Tactic\n\nnamespace CFDLean\ntheorem t : True := trivial\nend CFDLean\n"
+    NEW = b"import CFDLean.Physics.Euler.State\nimport Mathlib.Tactic\n\nnamespace CFDLean\ntheorem t : True := trivial\nend CFDLean\n"
+    MOVES = {"CFDLean/Core/Flux.lean": "CFDLean/Physics/Euler/Flux.lean",
+             "CFDLean/Time/Step.lean": "CFDLean/Time/Step.lean"}
+
+    def blob(self, refs):
+        def get(revision, path):
+            if (revision, path) not in refs:
+                raise verify.subprocess.CalledProcessError(128, "git")
+            return refs[(revision, path)]
+        return get
+
+    def test_strip_imports(self):
+        self.assertEqual(verify.strip_imports(self.OLD), verify.strip_imports(self.NEW))
+        self.assertEqual(verify.strip_imports(self.NEW), b"\nnamespace CFDLean\ntheorem t : True := trivial\nend CFDLean\n")
+        self.assertEqual(verify.strip_imports(b"import A"), b"")
+        self.assertEqual(verify.strip_imports(b"theorem t : True := trivial\n"), b"theorem t : True := trivial\n")
+        # Only the leading header is removed: a later `import` line, or a changed body, is still a difference.
+        later = self.NEW + b"import CFDLean.Other\n"
+        self.assertNotEqual(verify.strip_imports(later), verify.strip_imports(self.OLD))
+        changed = self.NEW.replace(b"True", b"False")
+        self.assertNotEqual(verify.strip_imports(changed), verify.strip_imports(self.OLD))
+        self.assertNotEqual(verify.strip_imports(b"-- c\nimport A\nx\n"), b"x\n")
+
+    def test_pinned_map_loads_and_matches_mr_table(self):
+        moves = verify.load_mr_paths((verify.ROOT / verify.MR_PATHS).read_bytes())
+        self.assertEqual(sum(old != new for old, new in moves.items()), 22)
+        self.assertEqual(moves["CFDLean/Core/State.lean"], "CFDLean/Physics/Euler/State.lean")
+        self.assertEqual(moves["CFDLean/Num/Bridge.lean"], "CFDLean/Geometry/MedianDualBridge.lean")
+        self.assertTrue(all(not old.startswith(("CFDLean/Geometry/MedianDual/", "CFDLean/Time/")) or old == new
+                            for old, new in moves.items()))
+        verify.check_mc_n_module_paths(moves)
+        for name in ["Bridge", "Mesh"]:
+            wrong = dict(moves, **{f"CFDLean/Num/{name}.lean": "CFDLean/Discrete/Other.lean"})
+            with self.assertRaises(ValueError):
+                verify.check_mc_n_module_paths(wrong)
+
+    def test_tampered_map_rejected(self):
+        data = (verify.ROOT / verify.MR_PATHS).read_bytes()
+        for tampered in [data + b" ", data.replace(b"CFDLean/Physics/Euler/State.lean", b"CFDLean/Physics/Euler/Stat.lean")]:
+            with self.assertRaises(ValueError):
+                verify.load_mr_paths(tampered)
+
+    def test_malformed_map_rejected_even_if_pinned(self):
+        bad_maps = [[], [{"old_path": "CFDLean/A.lean"}], [{"old_path": "A.lean", "new_path": "CFDLean/A.lean"}],
+                    [{"old_path": "CFDLean/A.lean", "new_path": "CFDLean/B.lean"}] * 2,
+                    [{"old_path": "CFDLean/A.lean", "new_path": "CFDLean/C.lean"},
+                     {"old_path": "CFDLean/B.lean", "new_path": "CFDLean/C.lean"}],
+                    [{"old_path": "CFDLean/A.lean", "new_path": "CFDLean/B.lean"},
+                     {"old_path": "CFDLean/B.lean", "new_path": "CFDLean/C.lean"}]]
+        original = verify.MR_PATHS_SHA256
+        try:
+            for entries in bad_maps:
+                data = json.dumps(entries).encode()
+                verify.MR_PATHS_SHA256 = verify.hashlib.sha256(data).hexdigest()
+                with self.assertRaises(ValueError, msg=str(entries)):
+                    verify.load_mr_paths(data)
+        finally:
+            verify.MR_PATHS_SHA256 = original
+
+    def test_accepted_source_found_only_through_map(self):
+        old, new = "CFDLean/Core/Flux.lean", "CFDLean/Physics/Euler/Flux.lean"
+        accepted = verify.hashlib.sha256(self.OLD).hexdigest()
+        refs = {("accepted", old): self.OLD}
+        files = {new: self.NEW}
+        check = lambda moves, files, refs=refs, sha=accepted: verify.same_or_ported_source(
+            old, sha, moves, files.__getitem__, self.blob(refs), "accepted")
+        self.assertTrue(check(self.MOVES, files))
+        # Without the map the moved file is not found; with a wrong target it is not accepted either.
+        self.assertFalse(check({}, files))
+        self.assertFalse(check({old: "CFDLean/Physics/Euler/Other.lean"}, dict(files, **{
+            "CFDLean/Physics/Euler/Other.lean": b"import X\ntheorem t : False := sorry\n"})))
+        # A non-import change at the new path is rejected.
+        self.assertFalse(check(self.MOVES, {new: self.NEW.replace(b"trivial", b"by trivial")}))
+        self.assertFalse(check(self.MOVES, {new: self.NEW + b"import CFDLean.Other\n"}))
+        # The accepted reference counts only if its bytes have the accepted hash; the MC-T port bytes also count.
+        self.assertFalse(check(self.MOVES, files, sha="0" * 64))
+        port = {(verify.MC_PORT_REVISION, old): self.OLD}
+        self.assertTrue(check(self.MOVES, files, refs=port, sha="0" * 64))
+        # Unmapped files keep the exact rule: same hash, or byte-identical to the port.
+        self.assertTrue(verify.same_or_ported_source(old, accepted, {}, {old: self.OLD}.__getitem__,
+                                                     self.blob({}), "accepted"))
+        self.assertFalse(verify.same_or_ported_source(old, accepted, {}, {old: self.NEW}.__getitem__,
+                                                      self.blob({}), "accepted"))
+
+    def test_mr_sources_only_imports_changed(self):
+        base = {"CFDLean/Core/Flux.lean": self.OLD, "CFDLean/Time/Step.lean": b"import CFDLean.Core.Flux\nx\n"}
+        files = {"CFDLean/Physics/Euler/Flux.lean": self.NEW, "CFDLean/Time/Step.lean": b"import CFDLean.Physics.Euler.Flux\nx\n"}
+        run = lambda files, moves=self.MOVES: verify.check_mr_sources(
+            moves, files.__getitem__, lambda p: base[p] if p in base else (_ for _ in ()).throw(
+                verify.subprocess.CalledProcessError(128, "git")), files.__contains__)
+        self.assertEqual(run(files), 2)
+        for bad in [dict(files, **{"CFDLean/Time/Step.lean": b"import CFDLean.Physics.Euler.Flux\ny\n"}),
+                    dict(files, **{"CFDLean/Physics/Euler/Flux.lean": self.NEW.replace(b"True", b"False")}),
+                    dict(files, **{"CFDLean/Core/Flux.lean": self.OLD}),
+                    dict(files, **{"CFDLean/Num.lean": b""}),
+                    {"CFDLean/Time/Step.lean": files["CFDLean/Time/Step.lean"]}]:
+            with self.assertRaises(ValueError):
+                run(bad)
+        with self.assertRaises(ValueError):
+            run(files, dict(self.MOVES, **{"CFDLean/Core/New.lean": "CFDLean/Physics/Euler/Flux2.lean"}))
+
+    def test_mc_n_sources_follow_map(self):
+        base = {"CFDLean/Core/Flux.lean": self.OLD, "CFDLean/Time/Step.lean": b"import CFDLean.Core.Flux\nx\n"}
+        moves = dict(self.MOVES, **{"CFDLean/Num/Mesh.lean": "CFDLean/Discrete/Mesh.lean"})
+        files = {"CFDLean/Physics/Euler/Flux.lean": self.NEW, "CFDLean/Time/Step.lean": b"import CFDLean.Physics.Euler.Flux\nx\n",
+                 "CFDLean/Discrete/Mesh.lean": b"new MC-N file"}
+        blob = lambda p: base[p] if p in base else (_ for _ in ()).throw(verify.subprocess.CalledProcessError(128, "git"))
+        self.assertEqual(verify.check_mc_n_sources(sorted(files), files.__getitem__, blob, moves), 2)
+        with self.assertRaises(ValueError):
+            verify.check_mc_n_sources(sorted(files), files.__getitem__, blob)
+        changed = dict(files, **{"CFDLean/Physics/Euler/Flux.lean": self.NEW.replace(b"trivial", b"by trivial")})
+        with self.assertRaises(ValueError):
+            verify.check_mc_n_sources(sorted(changed), changed.__getitem__, blob, moves)

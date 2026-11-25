@@ -1,4 +1,4 @@
-import CFDLean.Flux.Roe.Flux
+import CFDLean.Schemes.Roe.Flux
 
 noncomputable section
 namespace CFDLean.Assembly

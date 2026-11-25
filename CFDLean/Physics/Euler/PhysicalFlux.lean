@@ -1,4 +1,4 @@
-import CFDLean.Core.State
+import CFDLean.Physics.Euler.State
 
 noncomputable section
 

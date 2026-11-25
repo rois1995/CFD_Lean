@@ -1,4 +1,4 @@
-import CFDLean.Core.PhysicalFlux
+import CFDLean.Physics.Euler.PhysicalFlux
 import Mathlib.Data.Fin.VecNotation
 import Mathlib.Algebra.BigOperators.Fin
 import Mathlib.Analysis.Real.Sqrt

@@ -1,4 +1,4 @@
-import CFDLean.Flux.Roe.Linearization
+import CFDLean.Physics.Roe.Linearization
 import Mathlib.LinearAlgebra.Eigenspace.Basic
 import Mathlib.Algebra.DirectSum.Module
 import Mathlib.Tactic.Module

@@ -1,4 +1,4 @@
-import CFDLean.Core.Coordinates
+import CFDLean.Foundations.Coordinates
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.FDeriv.Prod
 

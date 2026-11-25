@@ -1,4 +1,4 @@
-import CFDLean.Flux.Roe.Spectral
+import CFDLean.Physics.Roe.Spectral
 
 noncomputable section
 namespace CFDLean.Roe

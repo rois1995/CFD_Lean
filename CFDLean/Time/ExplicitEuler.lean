@@ -1,4 +1,4 @@
-import CFDLean.Boundary.Assembly
+import CFDLean.Schemes.Boundary.Assembly
 
 noncomputable section
 namespace CFDLean.Time

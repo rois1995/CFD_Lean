@@ -35,13 +35,32 @@ only through the pinned map. Status: implemented and AI-reviewed; independent hu
 
 ## MC-N: numerical core library (`CFDLean.Num`)
 
-`CFDLean/Num/{Basic,LogMean,Simplex,Mesh,Boundary,PairFlux,Galerkin,Production,Bridge}.lean` (umbrella
-`CFDLean.Num`) hold the generic simplex/mesh/pair-flux results moved from JST_Paper_Lean (`v436`, `afdf4f9`): scope
+The modules `CFDLean/Num/{Basic,LogMean,Simplex,Mesh,Boundary,PairFlux,Galerkin,Production,Bridge}.lean` (since
+MR-1 in the layer folders below) hold the generic simplex/mesh/pair-flux results moved from JST_Paper_Lean (`v436`, `afdf4f9`): scope
 [MC-N.md](specifications/MC-N.md), bindings [MC-N-results.json](specifications/MC-N-results.json) (37 theorems),
 statement map [evidence/mc-n-map.md](evidence/mc-n-map.md). Definitions are copied verbatim (namespace change only);
 each JST `Prop` body is the type of a directly stated theorem, identical up to the namespace of its constants. Proof
 helpers live in `CFDLean.Num.Internal`. The verifier checks that every MC-N theorem is a root theorem with standard
 axioms in its module and that no pre-existing (M1-M5) `CFDLean` source differs from the MC-N base `497b356`.
+
+## Library layout
+
+Since MR-1 ([MR.md](specifications/MR.md)) each module sits in the folder of its main catalog layer; `CFDLean.lean`
+imports every module. Namespaces and declaration names did not change (the MC-N core keeps namespace `CFDLean.Num`).
+
+| Folder | Content |
+|---|---|
+| `CFDLean/Foundations/` | `Basic`, `LogMean`, state `Coordinates` |
+| `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure) |
+| `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
+| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly` |
+| `CFDLean/Entropy/` | `PairFlux`, `Production` |
+| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls) |
+| `CFDLean/Time/` | explicit Euler step and its controls |
+
+The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
+verifier finds an accepted source at its new path only through this map and accepts it only if it equals the accepted
+(or MC-T port) file except for the `import` header.
 
 ## Development verification
 

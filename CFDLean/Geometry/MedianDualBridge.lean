@@ -1,4 +1,4 @@
-import CFDLean.Num.Boundary
+import CFDLean.Geometry.MeshBoundary
 import CFDLean.Geometry.MedianDual
 
 /-! The M3 median-dual tetrahedral mesh (`CFDLean.MedianDual.MeshData`) as a weighted mesh with weights 1: closure of
