@@ -10,6 +10,16 @@ namespace CFDLean.Exec
 open _root_.CFDLean.Scalar Periodic Burgers
 open scoped BigOperators
 
+/-- E0-K: the real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field. The
+right-hand sides are the Mathlib operations (the parent projections of `Scalar` have low priority). -/
+theorem instScalarReal_standard (x y : ℝ) :
+    Scalar.toAdd.add x y = x + y ∧ Scalar.toSub.sub x y = x - y ∧ Scalar.toMul.mul x y = x * y ∧
+    Scalar.toDiv.div x y = x / y ∧ Scalar.toNeg.neg x = -x ∧ (Scalar.toZero.zero : ℝ) = 0 ∧
+    Scalar.abs x = |x| ∧ Scalar.max x y = max x y ∧
+    (Scalar.two : ℝ) = 2 ∧ (Scalar.half : ℝ) = 1 / 2 ∧ (Scalar.third : ℝ) = 1 / 3 ∧
+    (Scalar.twoThirds : ℝ) = 2 / 3 ∧ (Scalar.quarter : ℝ) = 1 / 4 ∧ (Scalar.threeQuarters : ℝ) = 3 / 4 :=
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+
 theorem rusanov_eq (uL uR : ℝ) : Scalar.rusanov uL uR = Rusanov.eval uL uR := by
   simp only [Scalar.rusanov, Scalar.burgersFlux, Rusanov.eval, Rusanov.waveSpeed, physicalFlux]
   change (uL * uL / 2 + uR * uR / 2) / 2 - max |uL| |uR| / 2 * (uR - uL) = _

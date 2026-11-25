@@ -417,6 +417,86 @@
       "type": "∀ (S : CFDLean.Vector 3), S ≠ 0 → CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S) = 1",
       "raw_type": "∀ (S : CFDLean.Vector (OfNat.ofNat 3)),\n  Ne S (OfNat.ofNat 0) →\n    Eq (CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S)) (OfNat.ofNat 1)"
     },
+    "CFDLean.Exec.axpby_refines": {
+      "type": "∀ {n : ℕ} (a b : ℝ) {x y : Array ℝ} {u v : Fin n → ℝ},\n  CFDLean.Exec.Represents x u →\n    CFDLean.Exec.Represents y v → CFDLean.Exec.Represents (CFDLean.Exec.axpby a x b y) (a • u + b • v)",
+      "raw_type": "∀ {n : Nat} (a b : Real) {x y : Array Real} {u v : Fin n → Real},\n  CFDLean.Exec.Represents x u →\n    CFDLean.Exec.Represents y v →\n      CFDLean.Exec.Represents (CFDLean.Exec.axpby a x b y) (HAdd.hAdd (HSMul.hSMul a u) (HSMul.hSMul b v))"
+    },
+    "CFDLean.Exec.axpby_size": {
+      "type": "∀ (a b : ℝ) (x y : Array ℝ), (CFDLean.Exec.axpby a x b y).size = min x.size y.size",
+      "raw_type": "∀ (a b : Real) (x y : Array Real), Eq (CFDLean.Exec.axpby a x b y).size (min x.size y.size)"
+    },
+    "CFDLean.Exec.eulerStepArray_refines": {
+      "type": "∀ {n : ℕ} [inst : NeZero n] (dx dt : ℝ) {a : Array ℝ} {u : Fin n → ℝ},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.Represents (CFDLean.Exec.eulerStepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.eulerStep (CFDLean.Exec.finGrid n) dx dt u)",
+      "raw_type": "∀ {n : Nat} [inst : NeZero n] (dx dt : Real) {a : Array Real} {u : Fin n → Real},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.Represents (CFDLean.Exec.eulerStepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.eulerStep (CFDLean.Exec.finGrid n) dx dt u)"
+    },
+    "CFDLean.Exec.eulerStepArray_size": {
+      "type": "∀ (dx dt : ℝ) (a : Array ℝ), (CFDLean.Exec.eulerStepArray dx dt a).size = a.size",
+      "raw_type": "∀ (dx dt : Real) (a : Array Real), Eq (CFDLean.Exec.eulerStepArray dx dt a).size a.size"
+    },
+    "CFDLean.Exec.instScalarReal_standard": {
+      "type": "∀ (x y : ℝ),\n  Add.add x y = x + y ∧\n    Sub.sub x y = x - y ∧\n      Mul.mul x y = x * y ∧\n        Div.div x y = x / y ∧\n          -x = -x ∧\n            Zero.zero = 0 ∧\n              CFDLean.Exec.Scalar.abs x = |x| ∧\n                CFDLean.Exec.Scalar.max x y = max x y ∧\n                  CFDLean.Exec.Scalar.two = 2 ∧\n                    CFDLean.Exec.Scalar.half = 1 / 2 ∧\n                      CFDLean.Exec.Scalar.third = 1 / 3 ∧\n                        CFDLean.Exec.Scalar.twoThirds = 2 / 3 ∧\n                          CFDLean.Exec.Scalar.quarter = 1 / 4 ∧ CFDLean.Exec.Scalar.threeQuarters = 3 / 4",
+      "raw_type": "∀ (x y : Real),\n  And (Eq (Add.add x y) (HAdd.hAdd x y))\n    (And (Eq (Sub.sub x y) (HSub.hSub x y))\n      (And (Eq (Mul.mul x y) (HMul.hMul x y))\n        (And (Eq (Div.div x y) (HDiv.hDiv x y))\n          (And (Eq (Neg.neg x) (Neg.neg x))\n            (And (Eq Zero.zero (OfNat.ofNat 0))\n              (And (Eq (CFDLean.Exec.Scalar.abs x) (abs x))\n                (And (Eq (CFDLean.Exec.Scalar.max x y) (max x y))\n                  (And (Eq CFDLean.Exec.Scalar.two (OfNat.ofNat 2))\n                    (And (Eq CFDLean.Exec.Scalar.half (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)))\n                      (And (Eq CFDLean.Exec.Scalar.third (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 3)))\n                        (And (Eq CFDLean.Exec.Scalar.twoThirds (HDiv.hDiv (OfNat.ofNat 2) (OfNat.ofNat 3)))\n                          (And (Eq CFDLean.Exec.Scalar.quarter (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 4)))\n                            (Eq CFDLean.Exec.Scalar.threeQuarters\n                              (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 4)))))))))))))))"
+    },
+    "CFDLean.Exec.represents_iff_eq_ofFn": {
+      "type": "∀ {n : ℕ} (a : Array ℝ) (u : Fin n → ℝ), CFDLean.Exec.Represents a u ↔ a = Array.ofFn u",
+      "raw_type": "∀ {n : Nat} (a : Array Real) (u : Fin n → Real), Iff (CFDLean.Exec.Represents a u) (Eq a (Array.ofFn u))"
+    },
+    "CFDLean.Exec.run_eulerStepArray_bounds": {
+      "type": "∀ (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ (a : Array ℝ),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : ℕ), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a)",
+      "raw_type": "∀ (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : Nat), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a)"
+    },
+    "CFDLean.Exec.run_eulerStepArray_sum": {
+      "type": "∀ (dx dt : ℝ),\n  dx ≠ 0 →\n    ∀ (a : Array ℝ) (k : ℕ),\n      CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a) = CFDLean.Exec.sumArray a",
+      "raw_type": "∀ (dx dt : Real),\n  Ne dx (OfNat.ofNat 0) →\n    ∀ (a : Array Real) (k : Nat),\n      Eq (CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a)) (CFDLean.Exec.sumArray a)"
+    },
+    "CFDLean.Exec.run_eulerStepArray_totalVariation_le": {
+      "type": "∀ (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ (a : Array ℝ),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : ℕ),\n              CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a) ≤\n                CFDLean.Exec.totalVariationArray a",
+      "raw_type": "∀ (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : Nat),\n              LE.le (CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a))\n                (CFDLean.Exec.totalVariationArray a)"
+    },
+    "CFDLean.Exec.run_refines": {
+      "type": "∀ {n : ℕ} {step : Array ℝ → Array ℝ} {T : (Fin n → ℝ) → Fin n → ℝ},\n  (∀ (a : Array ℝ) (u : Fin n → ℝ), CFDLean.Exec.Represents a u → CFDLean.Exec.Represents (step a) (T u)) →\n    ∀ (k : ℕ) {a : Array ℝ} {u : Fin n → ℝ},\n      CFDLean.Exec.Represents a u → CFDLean.Exec.Represents (CFDLean.Exec.run step k a) (T^[k] u)",
+      "raw_type": "∀ {n : Nat} {step : Array Real → Array Real} {T : (Fin n → Real) → Fin n → Real},\n  (∀ (a : Array Real) (u : Fin n → Real), CFDLean.Exec.Represents a u → CFDLean.Exec.Represents (step a) (T u)) →\n    ∀ (k : Nat) {a : Array Real} {u : Fin n → Real},\n      CFDLean.Exec.Represents a u → CFDLean.Exec.Represents (CFDLean.Exec.run step k a) (Nat.iterate T k u)"
+    },
+    "CFDLean.Exec.run_size": {
+      "type": "∀ {step : Array ℝ → Array ℝ},\n  (∀ (a : Array ℝ), (step a).size = a.size) → ∀ (k : ℕ) (a : Array ℝ), (CFDLean.Exec.run step k a).size = a.size",
+      "raw_type": "∀ {step : Array Real → Array Real},\n  (∀ (a : Array Real), Eq (step a).size a.size) →\n    ∀ (k : Nat) (a : Array Real), Eq (CFDLean.Exec.run step k a).size a.size"
+    },
+    "CFDLean.Exec.run_ssprk3StepArray_bounds": {
+      "type": "∀ (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ (a : Array ℝ),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : ℕ), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.ssprk3StepArray dx dt) k a)",
+      "raw_type": "∀ (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : Nat), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.ssprk3StepArray dx dt) k a)"
+    },
+    "CFDLean.Exec.run_ssprk3StepArray_sum": {
+      "type": "∀ (dx dt : ℝ),\n  dx ≠ 0 →\n    ∀ (a : Array ℝ) (k : ℕ),\n      CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.ssprk3StepArray dx dt) k a) = CFDLean.Exec.sumArray a",
+      "raw_type": "∀ (dx dt : Real),\n  Ne dx (OfNat.ofNat 0) →\n    ∀ (a : Array Real) (k : Nat),\n      Eq (CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.ssprk3StepArray dx dt) k a)) (CFDLean.Exec.sumArray a)"
+    },
+    "CFDLean.Exec.run_ssprk3StepArray_totalVariation_le": {
+      "type": "∀ (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ (a : Array ℝ),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : ℕ),\n              CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.ssprk3StepArray dx dt) k a) ≤\n                CFDLean.Exec.totalVariationArray a",
+      "raw_type": "∀ (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a →\n            ∀ (k : Nat),\n              LE.le (CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.ssprk3StepArray dx dt) k a))\n                (CFDLean.Exec.totalVariationArray a)"
+    },
+    "CFDLean.Exec.rusanov_eq": {
+      "type": "∀ (uL uR : ℝ), CFDLean.Exec.Scalar.rusanov uL uR = CFDLean.Burgers.Rusanov.eval uL uR",
+      "raw_type": "∀ (uL uR : Real), Eq (CFDLean.Exec.Scalar.rusanov uL uR) (CFDLean.Burgers.Rusanov.eval uL uR)"
+    },
+    "CFDLean.Exec.ssprk2StepArray_refines": {
+      "type": "∀ {n : ℕ} [inst : NeZero n] (dx dt : ℝ) {a : Array ℝ} {u : Fin n → ℝ},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.Represents (CFDLean.Exec.ssprk2StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.ssprk2Step (CFDLean.Exec.finGrid n) dx dt u)",
+      "raw_type": "∀ {n : Nat} [inst : NeZero n] (dx dt : Real) {a : Array Real} {u : Fin n → Real},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.Represents (CFDLean.Exec.ssprk2StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.ssprk2Step (CFDLean.Exec.finGrid n) dx dt u)"
+    },
+    "CFDLean.Exec.ssprk3StepArray_refines": {
+      "type": "∀ {n : ℕ} [inst : NeZero n] (dx dt : ℝ) {a : Array ℝ} {u : Fin n → ℝ},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.Represents (CFDLean.Exec.ssprk3StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.ssprk3Step (CFDLean.Exec.finGrid n) dx dt u)",
+      "raw_type": "∀ {n : Nat} [inst : NeZero n] (dx dt : Real) {a : Array Real} {u : Fin n → Real},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.Represents (CFDLean.Exec.ssprk3StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.ssprk3Step (CFDLean.Exec.finGrid n) dx dt u)"
+    },
+    "CFDLean.Exec.ssprk3StepArray_size": {
+      "type": "∀ (dx dt : ℝ) (a : Array ℝ), (CFDLean.Exec.ssprk3StepArray dx dt a).size = a.size",
+      "raw_type": "∀ (dx dt : Real) (a : Array Real), Eq (CFDLean.Exec.ssprk3StepArray dx dt a).size a.size"
+    },
+    "CFDLean.Exec.sumArray_eq": {
+      "type": "∀ {n : ℕ} {a : Array ℝ} {u : Fin n → ℝ}, CFDLean.Exec.Represents a u → CFDLean.Exec.sumArray a = ∑ i, u i",
+      "raw_type": "∀ {n : Nat} {a : Array Real} {u : Fin n → Real},\n  CFDLean.Exec.Represents a u → Eq (CFDLean.Exec.sumArray a) (Finset.univ.sum fun i => u i)"
+    },
+    "CFDLean.Exec.totalVariationArray_eq": {
+      "type": "∀ {n : ℕ} [inst : NeZero n] {a : Array ℝ} {u : Fin n → ℝ},\n  CFDLean.Exec.Represents a u →\n    CFDLean.Exec.totalVariationArray a = CFDLean.Scalar.FiniteVolume.totalVariation (CFDLean.Exec.finGrid n) u",
+      "raw_type": "∀ {n : Nat} [inst : NeZero n] {a : Array Real} {u : Fin n → Real},\n  CFDLean.Exec.Represents a u →\n    Eq (CFDLean.Exec.totalVariationArray a) (CFDLean.Scalar.FiniteVolume.totalVariation (CFDLean.Exec.finGrid n) u)"
+    },
     "CFDLean.JST1.Proofs.p1_1_0": {
       "type": "CFDLean.JST1.Spec.P1_1_0",
       "raw_type": "CFDLean.JST1.Spec.P1_1_0"

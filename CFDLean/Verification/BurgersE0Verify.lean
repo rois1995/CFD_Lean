@@ -23,6 +23,9 @@ theorem eulerStep_eq {n : ℕ} [NeZero n] (dx dt : ℝ) :
     Scalar.FiniteVolume.interfaceFlux, Rusanov.numericalFlux, Rusanov.eval, Rusanov.waveSpeed, physicalFlux,
     Exec.finGrid, Grid.prev, sub_eq_add_neg]
 
+theorem real_scalar_is_standard : BurgersE0Challenge.RealScalarIsStandard :=
+  fun x y => Exec.instScalarReal_standard x y
+
 theorem kernel_flux_is_rusanov : BurgersE0Challenge.KernelFluxIsRusanov :=
   fun uL uR => Exec.rusanov_eq uL uR
 

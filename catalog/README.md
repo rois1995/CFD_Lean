@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-444 promised theorems, grouped by layer.
+445 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -66,13 +66,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 86 | 0 | 0 | 0 | 86 |
 | Schemes | 93 | 7 | 71 | 6 | 9 |
 | Time | 79 | 0 | 59 | 0 | 20 |
-| Execution | 19 | 0 | 19 | 0 | 0 |
-| **Total** | 444 | 17 | 245 | 27 | 155 |
+| Execution | 20 | 0 | 20 | 0 | 0 |
+| **Total** | 445 | 17 | 246 | 27 | 155 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 44 |
-| FVM | 272 |
+| FVM | 273 |
 | method-free | 155 |
 
 | Milestone | Status | Theorems |
@@ -88,7 +88,7 @@ that this file equals the generated text. Do not edit by hand.
 | B2 | pending | 23 |
 | B3 | pending | 24 |
 | B4 | pending | 14 |
-| E0 | pending | 19 |
+| E0 | pending | 20 |
 | JST1 | candidate | 92 |
 
 ## Foundations (10)
@@ -551,7 +551,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
 
-## Execution (19)
+## Execution (20)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -574,3 +574,4 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.run_ssprk3StepArray_sum` | E0-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel SSPRK3 steps keep the sum of the entries. |
 | `CFDLean.Exec.run_eulerStepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel Euler steps do not increase the total variation of the entries. |
 | `CFDLean.Exec.run_ssprk3StepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.instScalarReal_standard` | E0-K | FVM | pending | The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field. |

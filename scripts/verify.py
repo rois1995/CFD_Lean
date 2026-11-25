@@ -109,17 +109,17 @@ BURGERS = {
     "E0": {"results": "specifications/Burgers-E0-results.json",
            "approved": "859f849e92b6be05b20d4a9d582712f6e9b82087",
            "statements": "CFDLean/Verification/BurgersE0Challenge.lean",
-           "statements_sha256": "7fed41cc630fed0aff13fd0ca50aaa6e47d7deedb1f6edcd23ce2c58fb691594",
+           "statements_sha256": "f8af584400869ce8cb8a3261f0f2c7b5dfd8ba3bcb79396d3c75c5028578153c",
            "challenge": "Challenges/BurgersE0.lean",
-           "challenge_sha256": "fb4810349763bc5aaa7dc72e22850821950d2bda086adc73e76cd0d579145b3a",
+           "challenge_sha256": "60fa18aabbd3a6816a351534f1ed77d8db48a34a66357a53d037158bbd4cbef5",
            "trusted_inputs": {
                "CFDLean.Exec.Kernel": {
                    "path": "CFDLean/Exec/Kernel.lean",
-                   "sha256": "ca7788b4489bcaea9b61e9ec84570b371a05150453145e796cfe53dac98914de"},
+                   "sha256": "5a01cf45d28ff448ef4a9e823d5c9c6ebb23819ebea49045139b953b90b692ac"},
                "CFDLean.Exec.RealScalar": {
                    "path": "CFDLean/Exec/RealScalar.lean",
                    "sha256": "1ffa874a796385474f160a5508233bf91d48a356d655477beacb78e9ca5ad17c"}},
-           "count": 19, "bridges": 9},
+           "count": 20, "bridges": 10},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -135,7 +135,7 @@ JST1_COUNT = 92
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "de20c88db40dd05a419d2d4cfe0fb408480f714e867bee4c2eb458d14ffa3396"
+RAW_TYPES_SHA256 = "6b5b0f8b2811158743d557e1b6903eddbfd1970ad9c78c62a07289f2a5eb0f23"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"

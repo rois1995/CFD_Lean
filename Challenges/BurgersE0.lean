@@ -13,6 +13,8 @@ namespace CFDLean.Verification.BurgersE0Verify
 
 open CFDLean.Verification.BurgersE0Challenge
 
+theorem real_scalar_is_standard : RealScalarIsStandard := sorry
+
 theorem kernel_flux_is_rusanov : KernelFluxIsRusanov := sorry
 
 theorem euler_step_refines : EulerStepRefines := sorry

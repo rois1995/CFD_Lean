@@ -1,6 +1,6 @@
 /-! Burgers E0-K, the kernel: an executable array implementation of the first-order periodic Rusanov finite-volume scheme for the
 1D Burgers equation with Forward Euler, SSPRK2 and SSPRK3 in Shu-Osher form. Generic over the arithmetic `α`; the
-`Float` instance is for execution, the `ℝ` instance (in the refinement file) is for the specification. No Mathlib. -/
+`Float` instance is for execution, the `ℝ` instance (`CFDLean.Exec.RealScalar`) is for the specification. No Mathlib. -/
 namespace CFDLean.Exec
 
 /-- The arithmetic that the kernel uses. The SSP coefficients are fields so that the `ℝ` instance gives them as the
@@ -14,6 +14,10 @@ class Scalar (α : Type) extends Add α, Sub α, Mul α, Div α, Neg α, Zero α
   twoThirds : α
   quarter : α
   threeQuarters : α
+
+-- The parent projections are instances of low priority. A type with its own arithmetic (`Float`, `ℝ`) keeps it:
+-- `x / y` on `ℝ` is the Mathlib division also in a module that imports a `Scalar ℝ` instance.
+attribute [instance 10] Scalar.toAdd Scalar.toSub Scalar.toMul Scalar.toDiv Scalar.toNeg Scalar.toZero
 
 namespace Scalar
 

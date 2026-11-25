@@ -16,6 +16,16 @@ namespace CFDLean.Verification.BurgersE0Challenge
 open scoped BigOperators
 open CFDLean.Exec
 
+/-- E0-K: the real instance of the kernel arithmetic is the standard real arithmetic. On the left are the fields of the
+instance that the kernel uses; on the right are the operations and literals of Mathlib. -/
+def RealScalarIsStandard : Prop :=
+  ∀ x y : ℝ,
+    Scalar.toAdd.add x y = x + y ∧ Scalar.toSub.sub x y = x - y ∧ Scalar.toMul.mul x y = x * y ∧
+    Scalar.toDiv.div x y = x / y ∧ Scalar.toNeg.neg x = -x ∧ (Scalar.toZero.zero : ℝ) = 0 ∧
+    Scalar.abs x = |x| ∧ Scalar.max x y = max x y ∧
+    (Scalar.two : ℝ) = 2 ∧ (Scalar.half : ℝ) = 1 / 2 ∧ (Scalar.third : ℝ) = 1 / 3 ∧
+    (Scalar.twoThirds : ℝ) = 2 / 3 ∧ (Scalar.quarter : ℝ) = 1 / 4 ∧ (Scalar.threeQuarters : ℝ) = 3 / 4
+
 /-- Burgers physical flux `f(u) = u² / 2`. -/
 def burgersFlux (u : ℝ) : ℝ := u ^ 2 / 2
 

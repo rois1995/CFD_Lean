@@ -5799,6 +5799,19 @@
       ],
       "summary": "Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries.",
       "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.instScalarReal_standard",
+      "id": "E0-K",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field.",
+      "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
     }
   ]
 }

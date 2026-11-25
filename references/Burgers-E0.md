@@ -17,6 +17,7 @@ lake exe burgers1d 50 100 0.4 --dump
 
 The program prints `N`, `steps`, `dt`, and for the initial and final state `sum · dx`, minimum, maximum and total
 variation. It runs the kernel with `Float`. The theorems are about the same kernel with real numbers.
+Exit codes: 0 normal, 1 bad arguments, 2 the final state has a NaN or an infinity.
 
 ## Module map
 
@@ -40,7 +41,7 @@ The dependency direction is: the mathematical modules do not import `CFDLean/Exe
 - Definitions: `CFDLean.Exec.Scalar` (class), `Scalar.burgersFlux`, `Scalar.rusanov`, `eulerStepArray`, `axpby`,
   `ssprk2StepArray`, `ssprk3StepArray`, `run`, `sumArray`, `maxArray`, `minArray`, `totalVariationArray`,
   `instScalarReal`
-- Results: `eulerStepArray_size`, `axpby_size`, `ssprk3StepArray_size`, `run_size`
+- Results: `eulerStepArray_size`, `axpby_size`, `ssprk3StepArray_size`, `run_size`, `instScalarReal_standard`
 - Supporting: `succ_mod_lt`, `pred_mod_lt` (the periodic indices are in bounds; no default value is used)
 
 The kernel builds new arrays with `Array.ofFn` and `Array.zipWith`. `axpby` on arrays of different sizes returns the
@@ -86,6 +87,7 @@ represents the iterated scheme (E0-N), the B2 theorem (`eulerStep_iterate_stable
 
 ```text
 N = 200  steps = 200  cfl = 0.400000  dx = 5.000000000000e-3  dt = 1.333443002369e-3
+note: Float arithmetic is not verified. The proved bounds (real arithmetic) need cfl <= 0.5.
 initial: sum*dx = 5.000000000000e-1  min = -4.998766324817e-1  max = 1.499876632482e0  TV = 3.999506529927e0
 final  : sum*dx = 5.000000000000e-1  min = -4.783885174983e-1  max = 1.457006232256e0  TV = 3.870789499509e0
 sum drift (final - initial) * dx = -4.831690603169e-15
@@ -103,8 +105,13 @@ sum drift (final - initial) * dx = -4.831690603169e-15
 | E0-D | `SumDiagnostic`, `TotalVariationDiagnostic` | `sum_diagnostic`, `total_variation_diagnostic` | `sumArray_eq`, `totalVariationArray_eq` |
 | E0-T | `SSPRK3RunBounds`, `SSPRK3RunSum`, `SSPRK3RunTotalVariation` | `ssprk3_run_*` | `run_ssprk3StepArray_*` |
 
-The trusted file has two statements more than the contract table (the two E0-D statements). The total-variation
-transfer is stated with the kernel diagnostic, and `TotalVariationDiagnostic` says what that diagnostic is.
+The trusted file has three statements more than the contract table: the two E0-D statements, and
+`RealScalarIsStandard` (E0-K, bridge `real_scalar_is_standard`, implementation `instScalarReal_standard`), which says
+that every field of the real instance is the Mathlib operation or literal. The total-variation transfer is stated
+with the kernel diagnostic, and `TotalVariationDiagnostic` says what that diagnostic is.
+
+The parent projections of the class `Scalar` are instances of priority 10. So `x / y` on `ℝ` is the Mathlib division
+also in the trusted file, which imports the real instance (a finding of the review).
 
 The trusted file restates the scheme on `Fin n` with the cyclic indices `i + 1`, `i - 1` and its own representation
 relation; the bridge proves that these are the implemented ones (`eulerStep_eq`, `represents_iff`). The kernel and the

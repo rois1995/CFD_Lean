@@ -168,7 +168,7 @@ code is the native program
 lake exe burgers1d 200 200 0.4      # N, steps, cfl; add --dump for the final cell values
 ```
 
-Nothing is proved about `Float` rounding, about the driver `Main.lean` or about the compiler. 19 promised theorems,
+Nothing is proved about `Float` rounding, about the driver `Main.lean` or about the compiler. 20 promised theorems,
 status `pending`. Comparator:
 
 ```bash
