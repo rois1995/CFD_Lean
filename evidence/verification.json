@@ -213,6 +213,7 @@
     "CFDLean.Discrete.Periodic.Conservation",
     "CFDLean.Discrete.Periodic.FiniteVolume",
     "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Discrete.Periodic.TotalVariation",
     "CFDLean.Entropy.PairFlux",
     "CFDLean.Entropy.Production",
     "CFDLean.Foundations.Basic",
@@ -244,13 +245,18 @@
     "CFDLean.Schemes.Burgers.Controls",
     "CFDLean.Schemes.Burgers.Rusanov",
     "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Schemes.Burgers.StabilityControls",
     "CFDLean.Schemes.Roe.Flux",
+    "CFDLean.Schemes.Scalar.Monotone",
     "CFDLean.Schemes.Scalar.NumericalFlux",
     "CFDLean.Time.Controls",
     "CFDLean.Time.ExplicitEuler",
     "CFDLean.Time.ForwardEuler",
     "CFDLean.Verification.BurgersB0Challenge",
     "CFDLean.Verification.BurgersB0Verify",
+    "CFDLean.Verification.BurgersB1Challenge",
+    "CFDLean.Verification.BurgersB1Verify",
     "Integrity"
   ],
   "closure": {
@@ -259,14 +265,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 1788,
+    "roots": 1843,
     "unsafe_reached": [],
-    "visited": 48700
+    "visited": 48921
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "af65d04b02d57928afbd640a6a130157ceda8ad13cbbd7d3ab4b8fdd2e7f1518"
+      "sha256": "9a46cd9d7f7ef6b37e3feadfedc210c6a7be3bd07fdfaf3a0df0f704949344c7"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -291,6 +297,10 @@
     "CFDLean.Discrete.Periodic.Grid": {
       "path": "CFDLean/Discrete/Periodic/Grid.lean",
       "sha256": "e0e528410356af053f212726b0eeea1445d74e05998f43750ad45a0fd3efecba"
+    },
+    "CFDLean.Discrete.Periodic.TotalVariation": {
+      "path": "CFDLean/Discrete/Periodic/TotalVariation.lean",
+      "sha256": "29170c6df9c9d892f6ec3338e60e6799f85088f9f43c4cf0edfb96e9921b1a69"
     },
     "CFDLean.Entropy.PairFlux": {
       "path": "CFDLean/Entropy/PairFlux.lean",
@@ -416,9 +426,21 @@
       "path": "CFDLean/Schemes/Burgers/RusanovForwardEuler.lean",
       "sha256": "22a783901d060cf47fd303bd85eb0ebd712aa6e8c0ee87de6f185a784e9b5b55"
     },
+    "CFDLean.Schemes.Burgers.RusanovStability": {
+      "path": "CFDLean/Schemes/Burgers/RusanovStability.lean",
+      "sha256": "1a0017537a10a189f080629c73a18973695088cbc481efc7170ca968d0a3c1b9"
+    },
+    "CFDLean.Schemes.Burgers.StabilityControls": {
+      "path": "CFDLean/Schemes/Burgers/StabilityControls.lean",
+      "sha256": "30371266d94f3f04b73546710da051f2aef5969707392c4ce45aa044ed4badc6"
+    },
     "CFDLean.Schemes.Roe.Flux": {
       "path": "CFDLean/Schemes/Roe/Flux.lean",
       "sha256": "17bb3e4b14cb503f24a0594c8a6deb5440897f7176944d74eb27ae3333025f0b"
+    },
+    "CFDLean.Schemes.Scalar.Monotone": {
+      "path": "CFDLean/Schemes/Scalar/Monotone.lean",
+      "sha256": "a2844e75b1ff692b641611179fd8338bb72246a327bfd3b9bf96ff7f3a0328b7"
     },
     "CFDLean.Schemes.Scalar.NumericalFlux": {
       "path": "CFDLean/Schemes/Scalar/NumericalFlux.lean",
@@ -443,6 +465,14 @@
     "CFDLean.Verification.BurgersB0Verify": {
       "path": "CFDLean/Verification/BurgersB0Verify.lean",
       "sha256": "ee2c61df38d9af64e7aa50ab13c576add79f66634e56380cce016d0fcd8aa8d6"
+    },
+    "CFDLean.Verification.BurgersB1Challenge": {
+      "path": "CFDLean/Verification/BurgersB1Challenge.lean",
+      "sha256": "c8f0c7e54f96b72dce34f5e7ccedeae7ba19028689a2b047bfba1ca87cf385bf"
+    },
+    "CFDLean.Verification.BurgersB1Verify": {
+      "path": "CFDLean/Verification/BurgersB1Verify.lean",
+      "sha256": "9027c120967daa93c77d9da1eeb3c38fe5d0d956bb621f63a1ab6224c0769830"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -7758,6 +7788,22 @@
       "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Boundary.wallTransfer \u03b3 U 0 = 0",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.waveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+      "root": true,
+      "type": "\u2200 (a b : \u211d), |(a + b) / 2| \u2264 CFDLean.Burgers.Rusanov.waveSpeed a b",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.consistent": {
       "axioms": [
         "propext",
@@ -7830,6 +7876,215 @@
       "type": "\u2200 (uL uR : \u211d),\n  CFDLean.Burgers.Rusanov.eval uL uR =\n    (CFDLean.Burgers.physicalFlux uL + CFDLean.Burgers.physicalFlux uR) / 2 -\n      CFDLean.Burgers.Rusanov.waveSpeed uL uR / 2 * (uR - uL)",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.eval_anti_right": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.Rusanov.eval._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.eval_anti_right",
+      "root": true,
+      "type": "\u2200 (a b b' : \u211d), b \u2264 b' \u2192 CFDLean.Burgers.Rusanov.eval a b' \u2264 CFDLean.Burgers.Rusanov.eval a b",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eval_mono_left": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.Rusanov.eval._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.eval_mono_left",
+      "root": true,
+      "type": "\u2200 (a a' b : \u211d), a \u2264 a' \u2192 CFDLean.Burgers.Rusanov.eval a b \u2264 CFDLean.Burgers.Rusanov.eval a' b",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementC": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementC",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementC._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementC.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementC.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Burgers.Rusanov.incrementC g dx dt u i =\n    dt / dx * ((CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i)) - (u i + u (g.next i)) / 2) / 2)",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementC_add_incrementD": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.incrementD",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementC_add_incrementD",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Burgers.Rusanov.incrementC g dx dt u i + CFDLean.Burgers.Rusanov.incrementD g dx dt u i =\n    dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i)) / dx",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementC_nonneg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementC_nonneg",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  0 < dx \u2192 0 \u2264 dt \u2192 \u2200 (u : I \u2192 \u211d) (i : I), 0 \u2264 CFDLean.Burgers.Rusanov.incrementC g dx dt u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementD": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementD",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementD.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.incrementD",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementD.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Burgers.Rusanov.incrementD g dx dt u i =\n    dt / dx * ((CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i)) + (u i + u (g.next i)) / 2) / 2)",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.incrementD_nonneg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.incrementD",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.incrementD_nonneg",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  0 < dx \u2192 0 \u2264 dt \u2192 \u2200 (u : I \u2192 \u211d) (i : I), 0 \u2264 CFDLean.Burgers.Rusanov.incrementD g dx dt u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.monotone": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Burgers.Rusanov.eval_anti_right",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.eval_mono_left"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.monotone",
+      "root": true,
+      "type": "CFDLean.Scalar.MonotoneFlux CFDLean.Burgers.Rusanov.numericalFlux",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.numericalFlux": {
       "axioms": [
         "propext",
@@ -7865,6 +8120,100 @@
       "name": "CFDLean.Burgers.Rusanov.numericalFlux.eq_1",
       "root": true,
       "type": "CFDLean.Burgers.Rusanov.numericalFlux = { eval := CFDLean.Burgers.Rusanov.eval }",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.step_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.incrementC_nonneg",
+        "CFDLean.Burgers.Rusanov.incrementD",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds",
+        "CFDLean.Burgers.Rusanov.incrementD_nonneg",
+        "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.step_bounds",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : I \u2192 \u211d) (m M : \u211d),\n        (\u2200 (i : I), 2 * (dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i))) \u2264 dx) \u2192\n          (\u2200 (j : I), m \u2264 u j) \u2192\n            (\u2200 (j : I), u j \u2264 M) \u2192\n              \u2200 (i : I),\n                m \u2264\n                    CFDLean.Time.ForwardEuler.step dt\n                      (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u i \u2227\n                  CFDLean.Time.ForwardEuler.step dt\n                      (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u i \u2264\n                    M",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Burgers.Rusanov.incrementC._proof_1",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.incrementD",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u i =\n    CFDLean.Scalar.FiniteVolume.incrementalUpdate g (CFDLean.Burgers.Rusanov.incrementC g dx dt u)\n      (CFDLean.Burgers.Rusanov.incrementD g dx dt u) u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.step_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.incrementC_nonneg",
+        "CFDLean.Burgers.Rusanov.incrementD",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Burgers.Rusanov.incrementC_add_incrementD",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.incrementD_nonneg",
+        "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : I \u2192 \u211d),\n        (\u2200 (i : I), dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i)) \u2264 dx) \u2192\n          CFDLean.Scalar.FiniteVolume.totalVariation g\n              (CFDLean.Time.ForwardEuler.step dt\n                (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u) \u2264\n            CFDLean.Scalar.FiniteVolume.totalVariation g u",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.waveSpeed": {
@@ -7923,6 +8272,23 @@
       "type": null,
       "unsafe": null
     },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.zmodGrid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.eq_1",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N], CFDLean.Burgers.Schemes.RusanovForwardEuler.grid = CFDLean.Periodic.zmodGrid N",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete": {
       "axioms": [
         "propext",
@@ -7939,6 +8305,25 @@
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
       "root": true,
       "type": "{N : \u2115} \u2192 [NeZero N] \u2192 \u211d \u2192 (ZMod N \u2192 \u211d) \u2192 ZMod N \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete.eq_1",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx : \u211d),\n  CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete dx =\n    CFDLean.Scalar.FiniteVolume.rhs CFDLean.Burgers.Schemes.RusanovForwardEuler.grid dx\n      CFDLean.Burgers.Rusanov.numericalFlux",
       "unsafe": false
     },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant": {
@@ -7998,6 +8383,44 @@
       "type": "{N : \u2115} \u2192 [NeZero N] \u2192 \u211d \u2192 \u211d \u2192 (ZMod N \u2192 \u211d) \u2192 ZMod N \u2192 \u211d",
       "unsafe": false
     },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step.eq_1",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d) (u : ZMod N \u2192 \u211d),\n  CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u =\n    CFDLean.Time.ForwardEuler.step dt (CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete dx) u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.step_bounds",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : ZMod N \u2192 \u211d) (m M : \u211d),\n        (\u2200 (i : ZMod N),\n            2 *\n                (dt *\n                  CFDLean.Burgers.Rusanov.waveSpeed (u i)\n                    (u (CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i))) \u2264\n              dx) \u2192\n          (\u2200 (j : ZMod N), m \u2264 u j) \u2192\n            (\u2200 (j : ZMod N), u j \u2264 M) \u2192\n              \u2200 (i : ZMod N),\n                m \u2264 CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i \u2227\n                  CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i \u2264 M",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant": {
       "axioms": [
         "propext",
@@ -8051,6 +8474,161 @@
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
       "root": true,
       "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : ZMod N \u2192 \u211d), \u2211 i, CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i = \u2211 i, u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : ZMod N \u2192 \u211d),\n        (\u2200 (i : ZMod N),\n            dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i)) \u2264\n              dx) \u2192\n          CFDLean.Scalar.FiniteVolume.totalVariation CFDLean.Burgers.Schemes.RusanovForwardEuler.grid\n              (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u) \u2264\n            CFDLean.Scalar.FiniteVolume.totalVariation CFDLean.Burgers.Schemes.RusanovForwardEuler.grid u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.StabilityControls.jump": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.jump",
+      "root": true,
+      "type": "ZMod 2 \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.StabilityControls.jump._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.jump._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Burgers.StabilityControls.jump._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.jump._closed_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Burgers.StabilityControls.jump._closed_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.jump._closed_1",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Burgers.StabilityControls.jump.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.StabilityControls.jump"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.jump.eq_1",
+      "root": true,
+      "type": "\u2200 (i : ZMod 2), CFDLean.Burgers.StabilityControls.jump i = if i = 0 then 1 else 0",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.StabilityControls.jump_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Burgers.StabilityControls.zmod2_cases",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.StabilityControls.jump",
+        "CFDLean.Burgers.StabilityControls.zmod2_one_add_one",
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.jump_step",
+      "root": true,
+      "type": "\u2200 (dt : \u211d),\n  CFDLean.Burgers.Schemes.RusanovForwardEuler.step 1 dt CFDLean.Burgers.StabilityControls.jump = fun i =>\n    if i = 0 then 1 - dt else dt",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.StabilityControls.zmod2_cases": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.zmod2_cases",
+      "root": true,
+      "type": "\u2200 (i : ZMod 2), i = 0 \u2228 i = 1",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.StabilityControls.zmod2_one_add_one": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.zmod2_one_add_one",
+      "root": true,
+      "type": "1 + 1 = 0",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.StabilityControls.zmod2_univ": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Burgers.StabilityControls.zmod2_univ",
+      "root": true,
+      "type": "Finset.univ = {0, 1}",
       "unsafe": false
     },
     "CFDLean.Burgers.law": {
@@ -27279,7 +27857,7 @@
         "CFDLean.Periodic.Grid.next"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Verification.BurgersB0Verify",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
       "name": "CFDLean.Periodic.Grid.prev.eq_1",
       "root": true,
       "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I), g.prev = \u21d1g.next.symm",
@@ -27388,6 +27966,23 @@
       "root": false,
       "type": null,
       "unsafe": null
+    },
+    "CFDLean.Periodic.zmodGrid.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.zmodGrid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "name": "CFDLean.Periodic.zmodGrid.eq_1",
+      "root": true,
+      "type": "\u2200 (N : \u2115) [inst : NeZero N], CFDLean.Periodic.zmodGrid N = { next := Equiv.addRight 1 }",
+      "unsafe": false
     },
     "CFDLean.PhysicalJacobian.coordinateFlux": {
       "axioms": [
@@ -36307,6 +36902,96 @@
       "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d),\n  \u2211 i,\n      (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i -\n        CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) =\n    0",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 (I \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (C D u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u i =\n    u i + C i * (u (g.next i) - u i) - D (g.prev i) * (u i - u (g.prev i))",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (C D u : I \u2192 \u211d) (m M : \u211d) (i : I),\n  0 \u2264 C i \u2192\n    0 \u2264 D (g.prev i) \u2192\n      C i + D (g.prev i) \u2264 1 \u2192\n        (\u2200 (j : I), m \u2264 u j) \u2192\n          (\u2200 (j : I), u j \u2264 M) \u2192\n            m \u2264 CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u i \u2227\n              CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u i \u2264 M",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Periodic.Grid.sum_prev",
+        "CFDLean.Periodic.Grid.prev_next",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Periodic.Grid.sum_next",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (C D u : I \u2192 \u211d),\n  (\u2200 (i : I), 0 \u2264 C i) \u2192\n    (\u2200 (i : I), 0 \u2264 D i) \u2192\n      (\u2200 (i : I), C i + D i \u2264 1) \u2192\n        CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u) \u2264\n          CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.interfaceFlux": {
       "axioms": [
         "propext",
@@ -36452,6 +37137,70 @@
       "name": "CFDLean.Scalar.FiniteVolume.rhs_sum_zero._simp_1_1",
       "root": true,
       "type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  \u2211 i \u2208 s, f i / a = (\u2211 i \u2208 s, f i) / a",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 [Fintype I] \u2192 CFDLean.Periodic.Grid I \u2192 (I \u2192 \u211d) \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation._redArg._lam_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation._redArg._lam_0._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.MonotoneFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.Monotone",
+      "name": "CFDLean.Scalar.MonotoneFlux",
+      "root": true,
+      "type": "CFDLean.Scalar.NumericalFlux \u2192 Prop",
       "unsafe": false
     },
     "CFDLean.Scalar.NumericalFlux": {
@@ -40286,6 +41035,447 @@
       "type": "CFDLean.Verification.BurgersB0Challenge.RusanovConsistency",
       "unsafe": false
     },
+    "CFDLean.Verification.BurgersB1Challenge.HartenTotalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.HartenTotalVariation",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.IncrementalBounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.IncrementalBounds",
+      "root": true,
+      "type": "Type u_2 \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.RusanovBounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.RusanovBounds",
+      "root": true,
+      "type": "Type u_2 \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.RusanovMonotone": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanov"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.RusanovMonotone",
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.burgersFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.burgersFlux",
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.burgersFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Challenge.burgersFlux.eq_1",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Verification.BurgersB1Challenge.burgersFlux u = u ^ 2 / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.incrementalUpdate._redArg._lam_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB1Challenge.rusanov": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.rusanov",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.rusanov.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB1Challenge.rusanov",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Challenge.rusanov.eq_1",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d),\n  CFDLean.Verification.BurgersB1Challenge.rusanov uL uR =\n    (CFDLean.Verification.BurgersB1Challenge.burgersFlux uL + CFDLean.Verification.BurgersB1Challenge.burgersFlux uR) /\n        2 -\n      CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed uL uR / 2 * (uR - uL)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.rusanovStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanov"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.rusanovStep",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.rusanovStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanov",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Challenge.rusanovStep.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB1Challenge.rusanovStep next dx dt u i =\n    u i +\n      dt *\n        (-(CFDLean.Verification.BurgersB1Challenge.rusanov (u i) (u (next i)) -\n              CFDLean.Verification.BurgersB1Challenge.rusanov (u (next.symm i)) (u i)) /\n          dx)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed.eq_1",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d), CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed uL uR = max |uL| |uR|",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.totalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.totalVariation",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 [Fintype I] \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Challenge.totalVariation._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.totalVariation._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB1Challenge.totalVariation._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.totalVariation._redArg._lam_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB1Challenge.totalVariation._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "CFDLean.Verification.BurgersB1Challenge.totalVariation._redArg._lam_0._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB1Verify.harten_total_variation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB1Challenge.HartenTotalVariation"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Verify.harten_total_variation",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB1Challenge.HartenTotalVariation I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Verify.incremental_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB1Challenge.IncrementalBounds",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Verify.incremental_bounds",
+      "root": true,
+      "type": "\u2200 {I : Type u_1}, CFDLean.Verification.BurgersB1Challenge.IncrementalBounds I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Verify.rusanovStep_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Verification.BurgersB1Challenge.rusanov",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovStep",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Verify.rusanovStep_eq",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx dt : \u211d) (u : I \u2192 \u211d),\n  CFDLean.Verification.BurgersB1Challenge.rusanovStep next dx dt u =\n    CFDLean.Time.ForwardEuler.step dt\n      (CFDLean.Scalar.FiniteVolume.rhs { next := next } dx CFDLean.Burgers.Rusanov.numericalFlux) u",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Verify.rusanov_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+        "CFDLean.Burgers.Rusanov.step_bounds",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Verification.BurgersB1Verify.rusanovStep_eq",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Verification.BurgersB1Challenge.burgersFlux._proof_1",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovStep",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB1Challenge.RusanovBounds"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Verify.rusanov_bounds",
+      "root": true,
+      "type": "\u2200 {I : Type u_1}, CFDLean.Verification.BurgersB1Challenge.RusanovBounds I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Verify.rusanov_monotone": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.monotone",
+        "CFDLean.Verification.BurgersB1Challenge.RusanovMonotone"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Verify.rusanov_monotone",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB1Challenge.RusanovMonotone",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB1Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation",
+        "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Verification.BurgersB1Verify.rusanovStep_eq",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Verification.BurgersB1Challenge.rusanovStep",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB1Verify",
+      "name": "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation I",
+      "unsafe": false
+    },
     "CFDLean.admissible_exists": {
       "axioms": [
         "propext",
@@ -41420,6 +42610,16 @@
       "type": null,
       "unsafe": null
     },
+    "abs._at_.CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB1Challenge",
+      "name": "abs._at_.CFDLean.Verification.BurgersB1Challenge.rusanovWaveSpeed.spec_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "npowRec._at_.CFDLean.squareSum.spec_0": {
       "axioms": [],
       "direct": [],
@@ -41508,30 +42708,57 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 263,
-  "b0_results": "specifications/Burgers-B0-results.json",
-  "b0_promised_theorems": [
-    "CFDLean.Burgers.Rusanov.consistent",
-    "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant",
-    "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero",
-    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant",
-    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral",
-    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
-    "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
-    "CFDLean.Scalar.FiniteVolume.rhs_constant",
-    "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
-    "CFDLean.Time.ForwardEuler.step_constant",
-    "CFDLean.Time.ForwardEuler.step_sum",
-    "CFDLean.Time.ForwardEuler.step_zero_rhs"
-  ],
-  "b0_trusted_bridge_theorems": [
-    "CFDLean.Verification.BurgersB0Verify.constant_rhs",
-    "CFDLean.Verification.BurgersB0Verify.forward_euler_sum",
-    "CFDLean.Verification.BurgersB0Verify.periodic_conservation",
-    "CFDLean.Verification.BurgersB0Verify.rusanov_consistency"
-  ],
-  "b0_approved_revision": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
-  "b0_independent_acceptance": "pending implementation review",
+  "catalog_entries": 272,
+  "burgers": {
+    "B0": {
+      "results": "specifications/Burgers-B0-results.json",
+      "approved_revision": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
+      "promised_theorems": [
+        "CFDLean.Burgers.Rusanov.consistent",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
+        "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
+        "CFDLean.Scalar.FiniteVolume.rhs_constant",
+        "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
+        "CFDLean.Time.ForwardEuler.step_constant",
+        "CFDLean.Time.ForwardEuler.step_sum",
+        "CFDLean.Time.ForwardEuler.step_zero_rhs"
+      ],
+      "trusted_bridge_theorems": [
+        "CFDLean.Verification.BurgersB0Verify.constant_rhs",
+        "CFDLean.Verification.BurgersB0Verify.forward_euler_sum",
+        "CFDLean.Verification.BurgersB0Verify.periodic_conservation",
+        "CFDLean.Verification.BurgersB0Verify.rusanov_consistency"
+      ],
+      "independent_acceptance": "pending implementation review"
+    },
+    "B1": {
+      "results": "specifications/Burgers-B1-results.json",
+      "approved_revision": "62ee14a7ab8815be8a4e40b007ef6f5cf715e262",
+      "promised_theorems": [
+        "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+        "CFDLean.Burgers.Rusanov.monotone",
+        "CFDLean.Burgers.Rusanov.step_bounds",
+        "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate",
+        "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le"
+      ],
+      "trusted_bridge_theorems": [
+        "CFDLean.Verification.BurgersB1Verify.harten_total_variation",
+        "CFDLean.Verification.BurgersB1Verify.incremental_bounds",
+        "CFDLean.Verification.BurgersB1Verify.rusanov_bounds",
+        "CFDLean.Verification.BurgersB1Verify.rusanov_monotone",
+        "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation"
+      ],
+      "independent_acceptance": "pending implementation review"
+    }
+  },
   "mr_paths": "specifications/MR-paths.json",
   "mr_base_revision": "5a072de6ef1f97b263dc0f9d97b22c9c35aa432a",
   "mr_mapped_files": 26

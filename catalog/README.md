@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-263 promised theorems, grouped by layer.
+272 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -35,9 +35,10 @@ independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on bran
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
 
-**Burgers B0** (milestone `B0`, status `pending`: implemented, independent review pending). The declarations bound in
-`specifications/Burgers-B0-results.json`: the scalar two-point-flux finite-volume core on a periodic grid (Discrete
-operators, Schemes), the Burgers Rusanov flux (Schemes) and the Forward Euler step (Time). `FVM` marks the periodic
+**Burgers** (milestones `B0`, `B1`, status `pending`: implemented, independent review pending). The declarations bound
+in `specifications/Burgers-B0-results.json` and `Burgers-B1-results.json`: the scalar two-point-flux finite-volume core
+on a periodic grid and the incremental-form stability lemmas (Discrete operators, Schemes), the Burgers Rusanov flux
+(Schemes), the Forward Euler step and its stability under a CFL hypothesis (Time). `FVM` marks the periodic
 finite-volume statements; the generic Forward Euler statements are `method-free`.
 
 **Source.** The contract or result map and the result ID (with stage, or the JST statement for MC-N).
@@ -51,17 +52,17 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 8 | 0 | 0 | 0 | 8 |
 | Geometry | 47 | 0 | 35 | 2 | 10 |
-| Discrete operators | 30 | 5 | 17 | 8 | 0 |
+| Discrete operators | 32 | 5 | 19 | 8 | 0 |
 | Entropy framework | 5 | 0 | 4 | 0 | 1 |
 | Physics models | 67 | 0 | 0 | 0 | 67 |
-| Schemes | 64 | 0 | 55 | 1 | 8 |
-| Time | 42 | 0 | 33 | 0 | 9 |
-| **Total** | 263 | 5 | 144 | 11 | 103 |
+| Schemes | 67 | 0 | 58 | 1 | 8 |
+| Time | 46 | 0 | 37 | 0 | 9 |
+| **Total** | 272 | 5 | 153 | 11 | 103 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 16 |
-| FVM | 155 |
+| FVM | 164 |
 | method-free | 103 |
 
 | Milestone | Status | Theorems |
@@ -73,6 +74,7 @@ that this file equals the generated text. Do not edit by hand.
 | M5 | pending | 43 |
 | MC-N | candidate | 37 |
 | B0 | pending | 12 |
+| B1 | pending | 9 |
 
 ## Foundations (8)
 
@@ -139,7 +141,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2` | MC-N.P3-11.4b | method-free | candidate | On a mesh of nondegenerate triangles side balance implies facet balance. |
 | `CFDLean.Num.dualFacets_grad` | MC-N.P1-5.6 | FEM + FVM | candidate | The median-dual facets of a tetrahedron (and of a triangle) are (\|T\|/(d+1))(g_k − g_i) in terms of P1 gradients. |
 
-## Discrete operators (30)
+## Discrete operators (32)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -173,6 +175,8 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.ofMeshData_fv_galerkin` | MC-N.P1-5.7 | FEM + FVM | candidate | On a median-dual tetrahedral mesh the finite-volume residual over the dual facets equals the Galerkin residual. |
 | `CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero` | B0-C | FVM | pending | On a finite periodic grid the interface flux differences of any two-point flux sum to zero. |
 | `CFDLean.Scalar.FiniteVolume.rhs_sum_zero` | B0-C | FVM | pending | For dx ≠ 0 the periodic first-order finite-volume right-hand side of any two-point flux sums to zero. |
+| `CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le` | B1-H | FVM | pending | Harten lemma: an incremental-form update with C, D ≥ 0 and C + D ≤ 1 at every interface does not increase the periodic total variation. |
+| `CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds` | B1-X | FVM | pending | An incremental-form update with C_i, D_{i-1} ≥ 0 and C_i + D_{i-1} ≤ 1 keeps every lower and upper bound of the old state at cell i. |
 
 ## Entropy framework (5)
 
@@ -256,7 +260,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Roe.Spectral.roe_swap` | M2-O | method-free | accepted | The shifted Roe matrix, projectors and dissipation are symmetric in the two states. |
 | `CFDLean.Boundary.wall_pressure_pos` | M4-W | method-free | accepted | An admissible state has positive pressure. |
 
-## Schemes (64)
+## Schemes (67)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -324,8 +328,11 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Scalar.FiniteVolume.rhs_constant` | B0-K | FVM | pending | A consistent two-point flux gives a zero periodic finite-volume right-hand side on a constant state. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant` | B0-S | FVM | pending | The Burgers Rusanov semidiscretization on ZMod N is zero on a constant state (composition of B0-F and B0-K). |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov semidiscretization on ZMod N sums to zero (instance of B0-C). |
+| `CFDLean.Burgers.Rusanov.monotone` | B1-M | FVM | pending | The Burgers Rusanov flux is nondecreasing in the left state and nonincreasing in the right state. |
+| `CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed` | B1-I | FVM | pending | The mean of two states is bounded in absolute value by the Rusanov wave speed max(\|a\|, \|b\|). |
+| `CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate` | B1-I | FVM | pending | The Burgers Rusanov Forward Euler step is in incremental form with C = (dt/dx)(a − ū)/2 and D = (dt/dx)(a + ū)/2. |
 
-## Time (42)
+## Time (46)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -371,3 +378,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant` | B0-S | FVM | pending | The Burgers Rusanov Forward Euler step on ZMod N keeps every constant state, for every dx and dt. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the total sum of the cell averages. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the discrete integral dx · Σ u. |
+| `CFDLean.Burgers.Rusanov.step_totalVariation_le` | B1-S | FVM | pending | For dx > 0, dt ≥ 0 and dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step does not increase the total variation, on any periodic grid. |
+| `CFDLean.Burgers.Rusanov.step_bounds` | B1-S | FVM | pending | For dx > 0, dt ≥ 0 and 2 · dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step keeps every lower and upper bound of the old state. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le` | B1-S | FVM | pending | Total variation under the per-interface CFL hypothesis for the assembled scheme on ZMod N. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds` | B1-S | FVM | pending | Bounds under the per-interface CFL 1/2 hypothesis for the assembled scheme on ZMod N. |

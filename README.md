@@ -53,9 +53,9 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Foundations/` | `Basic`, `LogMean`, state `Coordinates` |
 | `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure), `Scalar/` (scalar conservation law), `Burgers/` (physical flux) |
 | `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
-| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation) |
+| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form) |
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
-| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux and consistency certificate), `Burgers/` (Rusanov flux, assembled scheme, controls) |
+| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux, consistency and monotone certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
@@ -78,6 +78,21 @@ bridge against the challenge with Lean's kernel and five external checkers in a 
 
 ```bash
 lake comparator --paranoid --config Challenges/BurgersB0.comparator.json
+```
+
+## Burgers B1 (stability of the first-order scheme)
+
+[Burgers B1](references/Burgers-B1.md) implements the frozen [contract](specifications/Burgers-B1.md). For one
+Rusanov Forward-Euler step with `dx > 0`, `dt ≥ 0`: the total variation does not grow if `dt · a_i ≤ dx` at every
+interface (`a_i = max(|u_i|, |u_{i+1}|)`), and the new values keep the bounds of the old state if `2 · dt · a_i ≤ dx`.
+The Rusanov flux is monotone. The generic lemmas (Harten incremental form) are flux-free. The
+[result map](specifications/Burgers-B1-results.json) binds six result IDs (9 promised theorems, status `pending`).
+B1 makes no multi-step, entropy, convergence, order or floating-point claim. The trusted statements were written
+by the agent and checked by a review agent ([record](reviews/Burgers-B1/TrustedStatements_Review.md)); human review
+is pending. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB1.comparator.json
 ```
 
 ## Development verification

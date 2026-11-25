@@ -1,5 +1,6 @@
 import Integrity
 import CFDLean.Verification.BurgersB0Verify
+import CFDLean.Verification.BurgersB1Verify
 import Lean
 
 open Lean
