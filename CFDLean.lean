@@ -8,6 +8,8 @@ import CFDLean.Physics.Euler.PhysicalJacobian
 import CFDLean.Physics.Roe.Averages
 import CFDLean.Physics.Roe.Linearization
 import CFDLean.Physics.Roe.Spectral
+import CFDLean.Physics.Scalar.ConservationLaw
+import CFDLean.Physics.Burgers.Flux
 
 import CFDLean.Geometry.Simplex
 import CFDLean.Geometry.MeshBoundary
@@ -24,6 +26,9 @@ import CFDLean.Geometry.MedianDualBridge
 import CFDLean.Discrete.Mesh
 import CFDLean.Discrete.Galerkin
 import CFDLean.Discrete.Assembly
+import CFDLean.Discrete.Periodic.Grid
+import CFDLean.Discrete.Periodic.FiniteVolume
+import CFDLean.Discrete.Periodic.Conservation
 
 import CFDLean.Entropy.PairFlux
 import CFDLean.Entropy.Production
@@ -33,8 +38,11 @@ import CFDLean.Schemes.Boundary.Assembly
 import CFDLean.Schemes.Boundary.Stationary
 import CFDLean.Schemes.Boundary.Controls
 import CFDLean.Schemes.Boundary.AssemblyControls
+import CFDLean.Schemes.Scalar.NumericalFlux
+import CFDLean.Schemes.Burgers.Rusanov
+import CFDLean.Schemes.Burgers.RusanovForwardEuler
+import CFDLean.Schemes.Burgers.Controls
 
 import CFDLean.Time.ExplicitEuler
 import CFDLean.Time.Controls
-
-import CFDLean.Burgers
+import CFDLean.Time.ForwardEuler

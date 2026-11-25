@@ -1,15 +1,10 @@
-import CFDLean.Burgers.Core.NumericalFlux
-import Mathlib.Data.Real.Basic
+import CFDLean.Physics.Burgers.Flux
+import CFDLean.Schemes.Scalar.NumericalFlux
 
 noncomputable section
 namespace CFDLean.Burgers
 
 open Core
-
-def physicalFlux (u : ℝ) : ℝ := u ^ 2 / 2
-
-def law : ScalarConservationLaw where
-  flux := physicalFlux
 
 namespace Rusanov
 

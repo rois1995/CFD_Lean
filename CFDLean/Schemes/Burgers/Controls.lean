@@ -1,4 +1,4 @@
-import CFDLean.Burgers.Schemes.RusanovForwardEuler
+import CFDLean.Schemes.Burgers.RusanovForwardEuler
 
 noncomputable section
 namespace CFDLean.Burgers.Controls
@@ -9,8 +9,8 @@ open CFDLean.Burgers.Schemes.RusanovForwardEuler
 example : physicalFlux 0 = 0 := by
   simp [physicalFlux]
 
-example : Rusanov.eval 3 3 = physicalFlux 3 := by
-  simpa [Rusanov.numericalFlux] using Rusanov.consistent 3
+example : Rusanov.eval 3 3 = physicalFlux 3 :=
+  Rusanov.consistent 3
 
 example (dx dt c : ℝ) :
     @step 4 (by infer_instance) dx dt (fun _ => c) = fun _ => c :=

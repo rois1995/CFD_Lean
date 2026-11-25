@@ -1,5 +1,5 @@
 import Mathlib.Data.ZMod.Basic
-import Mathlib.Data.Real.Basic
+import Mathlib.Basic.Real.Basic
 import Mathlib.Algebra.BigOperators.Field
 
 noncomputable section

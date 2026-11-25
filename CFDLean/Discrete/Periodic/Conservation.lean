@@ -1,4 +1,4 @@
-import CFDLean.Burgers.FiniteVolume.FirstOrder
+import CFDLean.Discrete.Periodic.FiniteVolume
 import Mathlib.Algebra.BigOperators.Field
 
 noncomputable section

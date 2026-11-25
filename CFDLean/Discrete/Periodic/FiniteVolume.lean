@@ -1,5 +1,5 @@
-import CFDLean.Burgers.Core.NumericalFlux
-import CFDLean.Burgers.Core.PeriodicGrid
+import CFDLean.Schemes.Scalar.NumericalFlux
+import CFDLean.Discrete.Periodic.Grid
 
 noncomputable section
 namespace CFDLean.Burgers.FiniteVolume

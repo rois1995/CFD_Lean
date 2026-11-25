@@ -1,4 +1,4 @@
-import CFDLean.Burgers.Core.ConservationLaw
+import CFDLean.Physics.Scalar.ConservationLaw
 
 noncomputable section
 namespace CFDLean.Burgers.Core

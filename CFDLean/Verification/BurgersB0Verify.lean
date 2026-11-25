@@ -1,5 +1,5 @@
 import CFDLean.Verification.BurgersB0Challenge
-import CFDLean.Burgers
+import CFDLean.Schemes.Burgers.RusanovForwardEuler
 
 noncomputable section
 namespace CFDLean.Verification.BurgersB0Verify

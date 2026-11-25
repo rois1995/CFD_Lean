@@ -1,6 +1,6 @@
-import CFDLean.Burgers.Flux.Rusanov
-import CFDLean.Burgers.FiniteVolume.Conservation
-import CFDLean.Burgers.Time.ForwardEuler
+import CFDLean.Schemes.Burgers.Rusanov
+import CFDLean.Discrete.Periodic.Conservation
+import CFDLean.Time.ForwardEuler
 
 noncomputable section
 namespace CFDLean.Burgers.Schemes.RusanovForwardEuler
