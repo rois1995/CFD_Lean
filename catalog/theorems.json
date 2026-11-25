@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -3274,6 +3274,162 @@
       ],
       "summary": "On a median-dual tetrahedral mesh the finite-volume residual over the dual facets equals the Galerkin residual.",
       "source": "specifications/MC-N-results.json MC-N.P1-5.7 (JST Paper1.Spec.P1_5_7)"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
+      "id": "B0-C",
+      "milestone": "B0",
+      "module": "CFDLean.Discrete.Periodic.Conservation",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a finite periodic grid the interface flux differences of any two-point flux sum to zero.",
+      "source": "specifications/Burgers-B0-results.json B0-C; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
+      "id": "B0-C",
+      "milestone": "B0",
+      "module": "CFDLean.Discrete.Periodic.Conservation",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 the periodic first-order finite-volume right-hand side of any two-point flux sums to zero.",
+      "source": "specifications/Burgers-B0-results.json B0-C; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.consistent",
+      "id": "B0-F",
+      "milestone": "B0",
+      "module": "CFDLean.Schemes.Burgers.Rusanov",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov (local Lax-Friedrichs) flux with wave speed max(|uL|, |uR|) equals the physical flux u²/2 on equal states.",
+      "source": "specifications/Burgers-B0-results.json B0-F; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_constant",
+      "id": "B0-K",
+      "milestone": "B0",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A consistent two-point flux gives a zero periodic finite-volume right-hand side on a constant state.",
+      "source": "specifications/Burgers-B0-results.json B0-K; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant",
+      "id": "B0-S",
+      "milestone": "B0",
+      "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov semidiscretization on ZMod N is zero on a constant state (composition of B0-F and B0-K).",
+      "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero",
+      "id": "B0-S",
+      "milestone": "B0",
+      "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 the Burgers Rusanov semidiscretization on ZMod N sums to zero (instance of B0-C).",
+      "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Time.ForwardEuler.step_zero_rhs",
+      "id": "B0-T",
+      "milestone": "B0",
+      "module": "CFDLean.Time.ForwardEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A Forward Euler step with a zero right-hand side at the state returns the state.",
+      "source": "specifications/Burgers-B0-results.json B0-T; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Time.ForwardEuler.step_constant",
+      "id": "B0-T",
+      "milestone": "B0",
+      "module": "CFDLean.Time.ForwardEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A Forward Euler step keeps a constant state when the right-hand side is zero on it.",
+      "source": "specifications/Burgers-B0-results.json B0-T; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Time.ForwardEuler.step_sum",
+      "id": "B0-T",
+      "milestone": "B0",
+      "module": "CFDLean.Time.ForwardEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A Forward Euler step keeps the total sum when the right-hand side sums to zero.",
+      "source": "specifications/Burgers-B0-results.json B0-T; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant",
+      "id": "B0-S",
+      "milestone": "B0",
+      "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov Forward Euler step on ZMod N keeps every constant state, for every dx and dt.",
+      "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
+      "id": "B0-S",
+      "milestone": "B0",
+      "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the total sum of the cell averages.",
+      "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral",
+      "id": "B0-S",
+      "milestone": "B0",
+      "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the discrete integral dx · Σ u.",
+      "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
     },
     {
       "name": "CFDLean.JST1.Proofs.p1_1_0",

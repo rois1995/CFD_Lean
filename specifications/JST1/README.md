@@ -19,4 +19,8 @@ and that the folded files use from there: `cross3`, `perp2`, `pathSimplex`, `rot
 (`Geometry/Simplex.lean`), `facetSide`, `SideBalanced`, `facetSide2`, `SideBalanced2` (`Geometry/MeshBoundary.lean`),
 `stdWeight` (`Entropy/PairFlux.lean`), `ofMeshData`, `simplexOfPoints` (`Geometry/MedianDualBridge.lean`).
 
+The core files in `frozen.sha256` stay listed because no other check pins them byte for byte: the MC-N source guard of
+`scripts/verify.py` skips the MC-N core files (it checks only the MC-N theorems), and the MR-1 path guard compares them
+with the pre-MR-1 revision only after removing the `import` header.
+
 Statement comparison: `evidence/JST1/fold-diff.md`.
