@@ -33,6 +33,10 @@ on:
       - '.github/workflows/burgers-b0.yml'
   workflow_dispatch:
 
+concurrency:
+  group: burgers-b0-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
