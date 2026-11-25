@@ -17,7 +17,11 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
      the agent, implementation in `references/Burgers-B3.md`. Reviews pending.
    - B4 (entropy certificates, semidiscrete cell entropy inequality, Rusanov entropy stable for the square entropy):
      contract frozen by the agent, implementation in `references/Burgers-B4.md`. Reviews pending.
-   - Next: E0 (array refinement and executable), B5 (paper correspondence).
+   - E0 (array kernel generic in its arithmetic, refinement to the scheme with real numbers, native program
+     `lake exe burgers1d` with `Float`): contract frozen by the agent, implementation in `references/Burgers-E0.md`.
+     Reviews pending.
+   - Next: B5 (paper correspondence; the user must choose the references), E1 (floating point: needs a formal model
+     of `Float`), a MUSCL kernel, E2--E4 (parallel, GPU, MPI; design notes in `references/Burgers-E0.md`).
    - Ideas not started: fully discrete entropy inequality, adapter from the periodic scalar operator to
      `CFDLean.Num.antisymmetric_pairFlux`, limiters outside the minmod region (MC, superbee), a sharp CFL constant for the bounds (B1)
      and for MUSCL (B3), accuracy statements.

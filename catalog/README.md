@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-333 promised theorems, grouped by layer.
+352 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -23,6 +23,7 @@ independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on bran
 | Physics models | Ideal-gas Euler states, admissibility, physical flux and Jacobian, Roe averages, linearization and eigenstructure. |
 | Schemes | Numerical fluxes and their residuals: Roe flux, Roe edge/boundary transfers, boundary kinds, closures, residual balances, constant-state and free-stream consistency. |
 | Time | The explicit Euler update, amounts, conservation balances and step controls. |
+| Execution | Executable array kernels and their refinement to the mathematical schemes (Burgers E0). |
 
 **Method tags** (`FEM`, `FVM`, both, or `method-free`):
 
@@ -35,13 +36,13 @@ independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on bran
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
 
-**Burgers** (milestones `B0` .. `B4`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`: the scalar two-point-flux finite-volume
+**Burgers** (milestones `B0` .. `B4`, `E0`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json` and `Burgers-E0-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
 Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
 Runge-Kutta composition and the multi-step results (Time), the entropy certificates of a two-point flux and the
-semidiscrete entropy inequalities (Entropy framework). `FVM` marks the periodic finite-volume statements; the
+semidiscrete entropy inequalities (Entropy framework), the refinement of the executable array kernel (Execution). `FVM` marks the periodic finite-volume statements; the
 generic time-stepping statements are `method-free`.
 
 **Source.** The contract or result map and the result ID (with stage, or the JST statement for MC-N).
@@ -60,12 +61,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 67 | 0 | 0 | 0 | 67 |
 | Schemes | 71 | 0 | 62 | 1 | 8 |
 | Time | 79 | 0 | 59 | 0 | 20 |
-| **Total** | 333 | 5 | 201 | 11 | 116 |
+| Execution | 19 | 0 | 19 | 0 | 0 |
+| **Total** | 352 | 5 | 220 | 11 | 116 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 16 |
-| FVM | 212 |
+| FVM | 231 |
 | method-free | 116 |
 
 | Milestone | Status | Theorems |
@@ -81,6 +83,7 @@ that this file equals the generated text. Do not edit by hand.
 | B2 | pending | 23 |
 | B3 | pending | 24 |
 | B4 | pending | 14 |
+| E0 | pending | 19 |
 
 ## Foundations (8)
 
@@ -449,3 +452,27 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.musclEulerStep_constant` | B3-S | FVM | pending | One MUSCL-Rusanov Forward Euler step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
+
+## Execution (19)
+
+| Theorem | ID | Methods | Status | Summary |
+|---|---|---|---|---|
+| `CFDLean.Exec.eulerStepArray_size` | E0-K | FVM | pending | The kernel Euler step returns an array of the same size. |
+| `CFDLean.Exec.axpby_size` | E0-K | FVM | pending | The kernel linear combination returns an array of the smaller of the two sizes. |
+| `CFDLean.Exec.ssprk3StepArray_size` | E0-K | FVM | pending | The kernel SSPRK3 step returns an array of the same size. |
+| `CFDLean.Exec.run_size` | E0-K | FVM | pending | Running a size-preserving step k times preserves the size. |
+| `CFDLean.Exec.rusanov_eq` | E0-R | FVM | pending | With real arithmetic the kernel flux is the Burgers Rusanov flux. |
+| `CFDLean.Exec.represents_iff_eq_ofFn` | E0-R | FVM | pending | An array represents a cell function on Fin n exactly when it is Array.ofFn of that function. |
+| `CFDLean.Exec.eulerStepArray_refines` | E0-S | FVM | pending | If an array represents u, the kernel Euler step of the array represents the Rusanov Forward Euler step of u on the periodic grid Fin n. |
+| `CFDLean.Exec.axpby_refines` | E0-S | FVM | pending | The kernel linear combination of two arrays represents the pointwise linear combination of the two cell functions. |
+| `CFDLean.Exec.ssprk2StepArray_refines` | E0-S | FVM | pending | The kernel SSPRK2 step represents the Rusanov SSPRK2 step. |
+| `CFDLean.Exec.ssprk3StepArray_refines` | E0-S | FVM | pending | The kernel SSPRK3 step represents the Rusanov SSPRK3 step. |
+| `CFDLean.Exec.run_refines` | E0-N | FVM | pending | k applications of a kernel step that refines T represent the k-fold iterate of T. |
+| `CFDLean.Exec.sumArray_eq` | E0-D | FVM | pending | The kernel sum diagnostic of an array that represents u is the sum of the cell values of u. |
+| `CFDLean.Exec.totalVariationArray_eq` | E0-D | FVM | pending | The kernel total-variation diagnostic of an array that represents u is the periodic total variation of u. |
+| `CFDLean.Exec.run_eulerStepArray_bounds` | E0-T | FVM | pending | With real arithmetic, dx > 0, dt ≥ 0 and 2 · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel Euler steps. |
+| `CFDLean.Exec.run_ssprk3StepArray_bounds` | E0-T | FVM | pending | The same bounds result after k kernel SSPRK3 steps. |
+| `CFDLean.Exec.run_eulerStepArray_sum` | E0-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel Euler steps keep the sum of the entries. |
+| `CFDLean.Exec.run_ssprk3StepArray_sum` | E0-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel SSPRK3 steps keep the sum of the entries. |
+| `CFDLean.Exec.run_eulerStepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel Euler steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.run_ssprk3StepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries. |

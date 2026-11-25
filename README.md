@@ -57,6 +57,7 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Entropy/` | `PairFlux`, `Production`, `Scalar/` (entropy certificates of a two-point flux, periodic cell entropy inequality, Burgers square entropy) |
 | `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux; consistency, monotone and Lipschitz certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, SSP and MUSCL schemes, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
+| `CFDLean/Exec/` | executable array kernel (`Kernel`, no imports), its `ℝ` instance, refinement to the mathematical scheme |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
 verifier finds an accepted source at its new path only through this map and accepts it only if it equals the accepted
@@ -135,6 +136,26 @@ semidiscrete and algebraic: no time derivative, no fully discrete entropy inequa
 
 ```bash
 lake comparator --paranoid --config Challenges/BurgersB4.comparator.json
+```
+
+## Burgers E0 (executable kernel and refinement)
+
+[Burgers E0](references/Burgers-E0.md) implements the [contract](specifications/Burgers-E0.md) that the agent froze
+under the standing authorization. `CFDLean/Exec/Kernel.lean` is an array implementation of the first-order Rusanov
+scheme (Forward Euler, SSPRK2, SSPRK3), generic in its arithmetic and free of Mathlib. With the real-number instance
+it is proved to compute the mathematical scheme on the periodic grid `Fin n` (one step and `k` steps), and the B2
+results transfer to the arrays: bounds, sum and total variation after `k` steps. With the `Float` instance the same
+code is the native program
+
+```bash
+lake exe burgers1d 200 200 0.4      # N, steps, cfl; add --dump for the final cell values
+```
+
+Nothing is proved about `Float` rounding, about the driver `Main.lean` or about the compiler. 19 promised theorems,
+status `pending`. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersE0.comparator.json
 ```
 
 ## Development verification

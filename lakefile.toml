@@ -22,3 +22,8 @@ name = "Integrity"
 # target and no library module imports them.
 [[lean_lib]]
 name = "Challenges"
+
+# Burgers E0: native executable of the array kernel with the Float instance. `Main.lean` imports only the kernel.
+[[lean_exe]]
+name = "burgers1d"
+root = "Main"
