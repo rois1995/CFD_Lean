@@ -10,3 +10,6 @@
 - 2026-11-25, the user: "I allow you to merge with main whenever you feel confident to do so". Merge condition used
   by the agent: verifier and fixtures green on the merge result, AI statement review without blocking findings,
   pushed branch first.
+- 2026-11-25, the user chose option A: finalize the restructuring now (layered folders for M1-M5 and the numerical
+  core, fold the JST paper-1 formalization into `CFDLean/Papers/JST1`, finish the verifier generalization), so that
+  Burgers and the paper work start from the final layout. Scope: `specifications/MR.md`.
