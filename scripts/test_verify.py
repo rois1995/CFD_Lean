@@ -279,3 +279,27 @@ class AuditChecks(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+import verify
+
+
+class PortMapTests(unittest.TestCase):
+    def test_pinned_map_loads(self):
+        data = (verify.ROOT / verify.MC_PORT_MAP).read_bytes()
+        mapping = verify.load_port_map(data)
+        self.assertEqual(len(mapping), verify.MC_PORT_COUNT)
+
+    def test_tampered_map_rejected(self):
+        data = (verify.ROOT / verify.MC_PORT_MAP).read_bytes() + b" "
+        with self.assertRaises(ValueError):
+            verify.load_port_map(data)
+
+    def test_type_guard(self):
+        mapping = {"a": {"classification": "notation", "accepted_type": "old", "current_type": "new"},
+                   "b": {"classification": "other", "accepted_type": "old", "current_type": "new"}}
+        self.assertTrue(verify.same_or_ported_type("x", "t", "t", mapping))
+        self.assertTrue(verify.same_or_ported_type("a", "old", "new", mapping))
+        self.assertFalse(verify.same_or_ported_type("a", "old", "forged", mapping))
+        self.assertFalse(verify.same_or_ported_type("b", "old", "new", mapping))
+        self.assertFalse(verify.same_or_ported_type("c", "old", "new", mapping))

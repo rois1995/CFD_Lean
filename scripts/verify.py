@@ -21,21 +21,38 @@ APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
 # revision only by being byte-identical to this port revision; accepted types may differ only as recorded in
 # specifications/MC-port-types.json with a mechanical classification.
 MC_PORT_REVISION = "4f249ae108bc71f069427d09275ddc29cf1f0f7a"
-MC_PORT_CLASSES = {"identical", "notation", "mathlib-rename", "pretty-printer"}
+MC_PORT_CLASSES = {"notation", "mathlib-rename", "pretty-printer"}
+MC_PORT_MAP = "specifications/MC-port-types.json"
+MC_PORT_MAP_SHA256 = "e333f9a76687ea7ca34e6b60b86bcb096b2e4696124393a7e439c4c91365dc8c"
+MC_PORT_COUNT = 199
 _PORT_MAP = None
+
+
+def load_port_map(data):
+    if hashlib.sha256(data).hexdigest() != MC_PORT_MAP_SHA256:
+        raise ValueError("MC port map differs from the reviewed map")
+    record = json.loads(data)
+    if record["count"] != MC_PORT_COUNT or len(record["theorems"]) != MC_PORT_COUNT:
+        raise ValueError("MC port map does not cover the reviewed promised theorems")
+    for name, entry in record["theorems"].items():
+        same = entry["accepted_type"] == entry["current_type"]
+        if (entry["classification"] == "identical") != same or (
+                not same and entry["classification"] not in MC_PORT_CLASSES):
+            raise ValueError(f"MC port map entry inconsistent with its class: {name}")
+    return record["theorems"]
 
 
 def port_map():
     global _PORT_MAP
     if _PORT_MAP is None:
-        _PORT_MAP = json.loads((ROOT / "specifications/MC-port-types.json").read_text())["theorems"]
+        _PORT_MAP = load_port_map((ROOT / MC_PORT_MAP).read_bytes())
     return _PORT_MAP
 
 
-def same_or_ported_type(name, before, after):
+def same_or_ported_type(name, before, after, mapping=None):
     if before == after:
         return True
-    entry = port_map().get(name)
+    entry = (port_map() if mapping is None else mapping).get(name)
     return (entry is not None and entry["classification"] in MC_PORT_CLASSES
             and entry["accepted_type"] == before and entry["current_type"] == after)
 

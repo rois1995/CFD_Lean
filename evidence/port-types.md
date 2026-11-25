@@ -44,3 +44,16 @@ are the M2-M5 bindings, selected with the stage filter that `scripts/verify.py` 
 - The following types differ only in notation: `convective_eq_kernel` (`LinearMap.ker f` now prints as `f.ker`),
   `minus_range`, `plus_range` and `rank_one_range` (`Submodule.span ℝ {r}` now prints as `ℝ ∙ r`), `amount_used`
   (filter `with`), and `absolute_basis_representation` and `convective_tangent_span` (`Module.Basis`).
+
+## Raw comparison (pp.notation false, pp.coercions false, pp.fullNames) and the Mathlib Set refactor
+
+A second dump without notation and coercions (`*-raw-v4.19.txt` / `*-raw-v4.36.txt`, script in `scripts/`) shows the
+head constants. Besides the items above, it shows changes caused by the Mathlib refactor that makes `Set α` a
+structure (Mathlib fc4f59e `Mathlib/Data/Set/Defs.lean`: `structure Set (α) where ofPred :: Mem`; `LE (Set α)` is
+`Set.Subset`; `Max (Set α)` is `Set.union`; Finset `≤` comes from `PartialOrder.ofSetLike`, the subset relation):
+`setOf` becomes `Set.ofPred`, Finset `⊆` is elaborated as `LE.le`, Set `∪` as `Max.max`. The printed (notation)
+strings are equal and the meaning is the same. Affected: CFD `isOpen_admissible`, `face_membership`,
+`roe_convective_tangent_span`; JST `P2_10_3`. The same refactor forces `upperRegion x` to `x ∈ upperRegion`
+(a `Set` is no longer a function). Fin casts: `Fin.instNatCast` (v4.19, `Fin.ofNat'`) and core
+`Fin.NatCast.instNatCast` (v4.36, `Fin.ofNat`) both give `⟨a % n, _⟩`. AI statement review of 2026-11-25: no
+promised statement or definition changed meaning.

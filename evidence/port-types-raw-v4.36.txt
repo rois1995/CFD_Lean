@@ -1,0 +1,1229 @@
+XSTMT CFDLean.Assembly.constant_state_closed :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (i : N),
+  Eq (CFDLean.Assembly.metricDefect m S T i) (OfNat.ofNat 0) →
+    Eq
+      (CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m γ (fun (x : N) => U) S)
+        (fun (b : B) => DFunLike.coe (CFDLean.Assembly.physicalTransfer γ U) (T b)) i)
+      (OfNat.ofNat 0)
+XSTMT CFDLean.Assembly.constant_state_residual :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (i : N),
+  Eq
+    (CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m γ (fun (x : N) => U) S)
+      (fun (b : B) => DFunLike.coe (CFDLean.Assembly.physicalTransfer γ U) (T b)) i)
+    (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U (CFDLean.Assembly.metricDefect m S T i)))
+XSTMT CFDLean.Assembly.global_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  {d : Nat} [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (f : E → CFDLean.Vector d)
+  (g : B → CFDLean.Vector d),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Assembly.residual m f g i) (Finset.univ.sum fun (b : B) => g b)
+XSTMT CFDLean.Assembly.incidence_eq_neg_one :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)
+  (e : E), Iff (Eq (CFDLean.Assembly.incidence m i e) (Neg.neg (OfNat.ofNat 1))) (Eq i (m.head e))
+XSTMT CFDLean.Assembly.incidence_eq_one :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)
+  (e : E), Iff (Eq (CFDLean.Assembly.incidence m i e) (OfNat.ofNat 1)) (Eq i (m.tail e))
+XSTMT CFDLean.Assembly.incidence_head :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (e : E),
+  Eq (CFDLean.Assembly.incidence m (m.head e) e) (Neg.neg (OfNat.ofNat 1))
+XSTMT CFDLean.Assembly.incidence_other :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (i : N)
+  (e : E), Ne (m.tail e) i → Ne (m.head e) i → Eq (CFDLean.Assembly.incidence m i e) (OfNat.ofNat 0)
+XSTMT CFDLean.Assembly.incidence_smul :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] {d : Nat} (m : CFDLean.Assembly.Interfaces N E B)
+  (i : N) (e : E) (v : CFDLean.Vector d),
+  Eq (HSMul.hSMul (CFDLean.Assembly.incidence m i e) v)
+    (HSub.hSub (ite (Eq (m.tail e) i) v (OfNat.ofNat 0)) (ite (Eq (m.head e) i) v (OfNat.ofNat 0)))
+XSTMT CFDLean.Assembly.incidence_sum :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype N]
+  (m : CFDLean.Assembly.Interfaces N E B) (e : E),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Assembly.incidence m i e) (OfNat.ofNat 0)
+XSTMT CFDLean.Assembly.incidence_tail :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (e : E),
+  Eq (CFDLean.Assembly.incidence m (m.tail e) e) (OfNat.ofNat 1)
+XSTMT CFDLean.Assembly.outwardTransfer_eq :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real)
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (S : E → CFDLean.Vector (OfNat.ofNat 3)) (i : N) (e : E),
+  Eq (CFDLean.Assembly.outwardTransfer m γ U S i e)
+    (HSMul.hSMul (CFDLean.Assembly.incidence m i e) (CFDLean.Assembly.roeTransfer m γ U S e))
+XSTMT CFDLean.Assembly.residual_outgoing :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  {d : Nat} (m : CFDLean.Assembly.Interfaces N E B) (f : E → CFDLean.Vector d) (g : B → CFDLean.Vector d) (i : N),
+  Eq (CFDLean.Assembly.residual m f g i)
+    (HAdd.hAdd
+      (HSub.hSub ((Finset.filter (fun (e : E) => Eq (m.tail e) i) Finset.univ).sum fun (e : E) => f e)
+        ((Finset.filter (fun (e : E) => Eq (m.head e) i) Finset.univ).sum fun (e : E) => f e))
+      ((Finset.filter (fun (b : B) => Eq (m.owner b) i) Finset.univ).sum fun (b : B) => g b))
+XSTMT CFDLean.Assembly.residual_reindex :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  {d : Nat} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E']
+  [inst_5 : Fintype B'] (m : CFDLean.Assembly.Interfaces N E B) (n : Equiv N N') (e : Equiv E E') (b : Equiv B B')
+  (f : E → CFDLean.Vector d) (g : B → CFDLean.Vector d) (i : N),
+  Eq
+    (CFDLean.Assembly.residual (m.reindex n e b) (fun (j : E') => f (DFunLike.coe e.symm j))
+      (fun (j : B') => g (DFunLike.coe b.symm j)) (DFunLike.coe n i))
+    (CFDLean.Assembly.residual m f g i)
+XSTMT CFDLean.Assembly.residual_reverse :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  {d : Nat} (m : CFDLean.Assembly.Interfaces N E B) (rev : E → Prop) [inst_3 : DecidablePred rev]
+  (f : E → CFDLean.Vector d) (g : B → CFDLean.Vector d) (i : N),
+  Eq (CFDLean.Assembly.residual (m.reverse rev) (fun (e : E) => ite (rev e) (Neg.neg (f e)) (f e)) g i)
+    (CFDLean.Assembly.residual m f g i)
+XSTMT CFDLean.Assembly.roeTransfer_zero :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces N E B) (γ : Real)
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (S : E → CFDLean.Vector (OfNat.ofNat 3)) (e : E),
+  Eq (S e) (OfNat.ofNat 0) → Eq (CFDLean.Assembly.roeTransfer m γ U S e) (OfNat.ofNat 0)
+XSTMT CFDLean.Assembly.roe_global_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (U : N → CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (g : B → CFDLean.Coordinates.StateCoordinates),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m γ U S) g i)
+    (Finset.univ.sum fun (b : B) => g b)
+XSTMT CFDLean.Assembly.roe_residual_reindex :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E'] [inst_5 : Fintype B']
+  (m : CFDLean.Assembly.Interfaces N E B) (n : Equiv N N') (e : Equiv E E') (b : Equiv B B') (γ : Real)
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (S : E → CFDLean.Vector (OfNat.ofNat 3))
+  (g : B → CFDLean.Coordinates.StateCoordinates) (i : N),
+  Eq
+    (CFDLean.Assembly.residual (m.reindex n e b)
+      (CFDLean.Assembly.roeTransfer (m.reindex n e b) γ (fun (j : N') => U (DFunLike.coe n.symm j)) fun (j : E') =>
+        S (DFunLike.coe e.symm j))
+      (fun (j : B') => g (DFunLike.coe b.symm j)) (DFunLike.coe n i))
+    (CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m γ U S) g i)
+XSTMT CFDLean.Assembly.roe_residual_reverse :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  (m : CFDLean.Assembly.Interfaces N E B) (rev : E → Prop) [inst_3 : DecidablePred rev] (γ : Real)
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (S : E → CFDLean.Vector (OfNat.ofNat 3))
+  (g : B → CFDLean.Coordinates.StateCoordinates) (i : N),
+  Eq
+    (CFDLean.Assembly.residual (m.reverse rev)
+      (CFDLean.Assembly.roeTransfer (m.reverse rev) γ U fun (e : E) => ite (rev e) (Neg.neg (S e)) (S e)) g i)
+    (CFDLean.Assembly.residual m (CFDLean.Assembly.roeTransfer m γ U S) g i)
+XSTMT CFDLean.Boundary.boundary_record_range :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (F : Finset (Fin n)) (i : Fin n),
+  Iff (Exists fun (b : M.Boundary) => And (Eq (CFDLean.Boundary.primalFace M b) F) (Eq (M.interfaces.owner b) i))
+    (And (Eq (M.faceCount F) (OfNat.ofNat 1)) (Membership.mem F i))
+XSTMT CFDLean.Boundary.boundary_record_unique :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (b c : M.Boundary),
+  Eq (CFDLean.Boundary.primalFace M b) (CFDLean.Boundary.primalFace M c) →
+    Eq (M.interfaces.owner b) (M.interfaces.owner c) → Eq b c
+XSTMT CFDLean.Boundary.constructed_transfer_reindex :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6}
+  (m : CFDLean.Assembly.Interfaces N E B) (n : Equiv N N') (e : Equiv E E') (b : Equiv B B') (γ : Real)
+  (k : B → CFDLean.Boundary.Kind) (V : B → CFDLean.Conservative (OfNat.ofNat 3))
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (j : B'),
+  Eq
+    (CFDLean.Boundary.constructedTransfer (m.reindex n e b) γ (fun (x : B') => k (DFunLike.coe b.symm x))
+      (fun (x : B') => V (DFunLike.coe b.symm x)) (fun (x : N') => U (DFunLike.coe n.symm x))
+      (fun (x : B') => T (DFunLike.coe b.symm x)) j)
+    (CFDLean.Boundary.constructedTransfer m γ k V U T (DFunLike.coe b.symm j))
+XSTMT CFDLean.Boundary.meshResidual_eq :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (i : Fin n),
+  Eq (CFDLean.Boundary.meshResidual M γ k V U i)
+    (CFDLean.Assembly.residual M.interfaces (CFDLean.Assembly.roeTransfer M.interfaces γ U M.edgeArea)
+      (CFDLean.Boundary.patchTransfer M γ k V U) i)
+XSTMT CFDLean.Boundary.mesh_common_correction :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+      (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : CFDLean.Conservative (OfNat.ofNat 3))
+      (i : Fin n),
+      Eq (CFDLean.Boundary.meshResidual M γ k V (fun (x : Fin n) => U) i)
+        (Finset.univ.sum fun (b : M.Boundary) =>
+          ite (Eq (M.interfaces.owner b) i)
+            (HSub.hSub (CFDLean.Boundary.patchTransfer M γ k V (fun (x : Fin n) => U) b)
+              (DFunLike.coe (CFDLean.Assembly.physicalTransfer γ U) (M.boundaryArea b)))
+            (OfNat.ofNat 0))
+XSTMT CFDLean.Boundary.mesh_constant_state :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (γ : Real),
+      LT.lt (OfNat.ofNat 1) γ →
+        ∀ (U : CFDLean.Conservative (OfNat.ofNat 3)),
+          CFDLean.Conservative.Admissible γ U →
+            ∀ (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3))
+              (i : Fin n),
+              (∀ (b : M.Boundary),
+                  Ne (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+                    Eq (CFDLean.dot U.momentum (M.boundaryArea b)) (OfNat.ofNat 0)) →
+                (∀ (b : M.Boundary),
+                    Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+                      Eq (CFDLean.Boundary.patchExterior M V b) U) →
+                  Eq (CFDLean.Boundary.meshResidual M γ k V (fun (x : Fin n) => U) i) (OfNat.ofNat 0)
+XSTMT CFDLean.Boundary.mesh_global_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (Finset.univ.sum fun (i : Fin n) => CFDLean.Boundary.meshResidual M γ k V U i)
+    (Finset.univ.sum fun (b : M.Boundary) => CFDLean.Boundary.patchTransfer M γ k V U b)
+XSTMT CFDLean.Boundary.mesh_residual_reindex :: ∀ {n m : Nat} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst : DecidableEq N'] [inst_1 : Fintype E']
+  [inst_2 : Fintype B'] (M : CFDLean.MedianDual.MeshData n m) (nodeEq : Equiv (Fin n) N') (e : Equiv M.Edge E')
+  (b : Equiv M.Boundary B') (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (i : Fin n),
+  Eq
+    (CFDLean.Boundary.stationaryResidual (M.interfaces.reindex nodeEq e b) γ
+      (fun (x : B') => CFDLean.Boundary.patchKind M k (DFunLike.coe b.symm x))
+      (fun (x : B') => CFDLean.Boundary.patchExterior M V (DFunLike.coe b.symm x))
+      (fun (x : N') => U (DFunLike.coe nodeEq.symm x)) (fun (x : E') => M.edgeArea (DFunLike.coe e.symm x))
+      (fun (x : B') => M.boundaryArea (DFunLike.coe b.symm x)) (DFunLike.coe nodeEq i))
+    (CFDLean.Boundary.meshResidual M γ k V U i)
+XSTMT CFDLean.Boundary.patchExterior_coherent :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3))
+  (b c : M.Boundary),
+  Eq (CFDLean.Boundary.primalFace M b) (CFDLean.Boundary.primalFace M c) →
+    Eq (CFDLean.Boundary.patchExterior M V b) (CFDLean.Boundary.patchExterior M V c)
+XSTMT CFDLean.Boundary.patchKind_coherent :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (k : Finset (Fin n) → CFDLean.Boundary.Kind) (b c : M.Boundary),
+  Eq (CFDLean.Boundary.primalFace M b) (CFDLean.Boundary.primalFace M c) →
+    Eq (CFDLean.Boundary.patchKind M k b) (CFDLean.Boundary.patchKind M k c)
+XSTMT CFDLean.Boundary.patchTransfer_prescribed :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (b : M.Boundary),
+  Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+    Eq (CFDLean.Boundary.patchTransfer M γ k V U b)
+      (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b))
+        (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b))
+XSTMT CFDLean.Boundary.patchTransfer_symmetry :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (b : M.Boundary),
+  Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.inviscidSymmetryTraction →
+    Eq (CFDLean.Boundary.patchTransfer M γ k V U b)
+      (CFDLean.Boundary.wallTransfer γ (U (M.interfaces.owner b)) (M.boundaryArea b))
+XSTMT CFDLean.Boundary.patchTransfer_wall :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (b : M.Boundary),
+  Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.slipWall →
+    Eq (CFDLean.Boundary.patchTransfer M γ k V U b)
+      (CFDLean.Boundary.wallTransfer γ (U (M.interfaces.owner b)) (M.boundaryArea b))
+XSTMT CFDLean.Boundary.prescribed_consistency :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U U T) (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U T))
+XSTMT CFDLean.Boundary.prescribed_reverse :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.prescribedExteriorRoeTransfer γ V U (Neg.neg T))
+    (Neg.neg (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U V T))
+XSTMT CFDLean.Boundary.prescribed_scale :: ∀ (γ a : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  LE.le (OfNat.ofNat 0) a →
+    Eq (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U V (HSMul.hSMul a T))
+      (HSMul.hSMul a (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U V T))
+XSTMT CFDLean.Boundary.prescribed_upwind_exterior :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ U →
+      CFDLean.Conservative.Admissible γ V →
+        Ne T (OfNat.ofNat 0) →
+          LE.le
+              (CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))
+                (CFDLean.Coordinates.unitNormal T))
+              (Neg.neg (CFDLean.Roe.soundSpeed γ (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))) →
+            Eq (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U V T)
+              (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ V T))
+XSTMT CFDLean.Boundary.prescribed_upwind_owner :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ U →
+      CFDLean.Conservative.Admissible γ V →
+        Ne T (OfNat.ofNat 0) →
+          LE.le (CFDLean.Roe.soundSpeed γ (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))
+              (CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))
+                (CFDLean.Coordinates.unitNormal T)) →
+            Eq (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U V T)
+              (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U T))
+XSTMT CFDLean.Boundary.prescribed_zero :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.prescribedExteriorRoeTransfer γ U V (OfNat.ofNat 0)) (OfNat.ofNat 0)
+XSTMT CFDLean.Boundary.stationary_common_closed :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (i : N),
+  (∀ (b : B),
+      Ne (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe → Eq (CFDLean.dot U.momentum (T b)) (OfNat.ofNat 0)) →
+    (∀ (b : B), Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe → Eq (V b) U) →
+      Eq (CFDLean.Assembly.metricDefect m S T i) (OfNat.ofNat 0) →
+        Eq (CFDLean.Boundary.stationaryResidual m γ k V (fun (x : N) => U) S T i) (OfNat.ofNat 0)
+XSTMT CFDLean.Boundary.stationary_common_correction :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (i : N),
+  Eq (CFDLean.Boundary.stationaryResidual m γ k V (fun (x : N) => U) S T i)
+    (HAdd.hAdd (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U (CFDLean.Assembly.metricDefect m S T i)))
+      (Finset.univ.sum fun (b : B) =>
+        ite (Eq (m.owner b) i)
+          (HSub.hSub (CFDLean.Boundary.constructedTransfer m γ k V (fun (x : N) => U) T b)
+            (DFunLike.coe (CFDLean.Assembly.physicalTransfer γ U) (T b)))
+          (OfNat.ofNat 0)))
+XSTMT CFDLean.Boundary.stationary_common_defect :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (i : N),
+  (∀ (b : B),
+      Ne (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe → Eq (CFDLean.dot U.momentum (T b)) (OfNat.ofNat 0)) →
+    (∀ (b : B), Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe → Eq (V b) U) →
+      Eq (CFDLean.Boundary.stationaryResidual m γ k V (fun (x : N) => U) S T i)
+        (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U (CFDLean.Assembly.metricDefect m S T i)))
+XSTMT CFDLean.Boundary.stationary_energy_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : N → CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Boundary.stationaryResidual m γ k V U S T i ⟨4, Fin.instOfNat⟩)
+    (Finset.univ.sum fun (b : B) =>
+      ite (Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+        (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b) ⟨4, Fin.instOfNat⟩)
+        (OfNat.ofNat 0))
+XSTMT CFDLean.Boundary.stationary_global_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : N → CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Boundary.stationaryResidual m γ k V U S T i)
+    (Finset.univ.sum fun (b : B) => CFDLean.Boundary.constructedTransfer m γ k V U T b)
+XSTMT CFDLean.Boundary.stationary_mass_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : N → CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Boundary.stationaryResidual m γ k V U S T i ⟨0, Fin.instOfNat⟩)
+    (Finset.univ.sum fun (b : B) =>
+      ite (Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+        (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b) ⟨0, Fin.instOfNat⟩)
+        (OfNat.ofNat 0))
+XSTMT CFDLean.Boundary.stationary_mixed_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : N → CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (Finset.univ.sum fun (i : N) => CFDLean.Boundary.stationaryResidual m γ k V U S T i)
+    (HAdd.hAdd
+      (Finset.univ.sum fun (b : B) =>
+        ite (Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+          (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b)) (OfNat.ofNat 0))
+      (Finset.univ.sum fun (b : B) =>
+        ite (Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe) (OfNat.ofNat 0)
+          (CFDLean.Boundary.wallTransfer γ (U (m.owner b)) (T b))))
+XSTMT CFDLean.Boundary.stationary_momentum_balance :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  [inst_3 : Fintype N] (m : CFDLean.Assembly.Interfaces N E B) (γ : Real) (k : B → CFDLean.Boundary.Kind)
+  (V : B → CFDLean.Conservative (OfNat.ofNat 3)) (U : N → CFDLean.Conservative (OfNat.ofNat 3))
+  (S : E → CFDLean.Vector (OfNat.ofNat 3)) (T : B → CFDLean.Vector (OfNat.ofNat 3)) (j : Fin (OfNat.ofNat 3)),
+  Eq
+    (Finset.univ.sum fun (i : N) =>
+      (CFDLean.Coordinates.decode (CFDLean.Boundary.stationaryResidual m γ k V U S T i)).momentum j)
+    (Finset.univ.sum fun (b : B) =>
+      ite (Eq (k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+        ((CFDLean.Coordinates.decode
+              (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (m.owner b)) (V b) (T b))).momentum
+          j)
+        (HMul.hMul (CFDLean.Conservative.pressure γ (U (m.owner b))) (T b j)))
+XSTMT CFDLean.Boundary.stationary_residual_reindex :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype E] [inst_2 : Fintype B]
+  {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst_3 : DecidableEq N'] [inst_4 : Fintype E'] [inst_5 : Fintype B']
+  (m : CFDLean.Assembly.Interfaces N E B) (n : Equiv N N') (e : Equiv E E') (b : Equiv B B') (γ : Real)
+  (k : B → CFDLean.Boundary.Kind) (V : B → CFDLean.Conservative (OfNat.ofNat 3))
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (S : E → CFDLean.Vector (OfNat.ofNat 3))
+  (T : B → CFDLean.Vector (OfNat.ofNat 3)) (i : N),
+  Eq
+    (CFDLean.Boundary.stationaryResidual (m.reindex n e b) γ (fun (x : B') => k (DFunLike.coe b.symm x))
+      (fun (x : B') => V (DFunLike.coe b.symm x)) (fun (x : N') => U (DFunLike.coe n.symm x))
+      (fun (x : E') => S (DFunLike.coe e.symm x)) (fun (x : B') => T (DFunLike.coe b.symm x)) (DFunLike.coe n i))
+    (CFDLean.Boundary.stationaryResidual m γ k V U S T i)
+XSTMT CFDLean.Boundary.transfer_compatible :: ∀ (γ : Real) (k : CFDLean.Boundary.Kind) (U V : CFDLean.Conservative (OfNat.ofNat 3))
+  (T : CFDLean.Vector (OfNat.ofNat 3)),
+  (Ne k CFDLean.Boundary.Kind.prescribedExteriorRoe → Eq (CFDLean.dot U.momentum T) (OfNat.ofNat 0)) →
+    (Eq k CFDLean.Boundary.Kind.prescribedExteriorRoe → Eq V U) →
+      Eq (CFDLean.Boundary.transfer γ k U V T) (DFunLike.coe (CFDLean.Assembly.physicalTransfer γ U) T)
+XSTMT CFDLean.Boundary.wall_add :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (S T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.wallTransfer γ U (HAdd.hAdd S T))
+    (HAdd.hAdd (CFDLean.Boundary.wallTransfer γ U S) (CFDLean.Boundary.wallTransfer γ U T))
+XSTMT CFDLean.Boundary.wall_energy :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.wallTransfer γ U T ⟨4, Fin.instOfNat⟩) (OfNat.ofNat 0)
+XSTMT CFDLean.Boundary.wall_eq_physical_iff :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Iff (Eq (CFDLean.Boundary.wallTransfer γ U T) (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U T)))
+    (Eq (CFDLean.dot U.momentum T) (OfNat.ofNat 0))
+XSTMT CFDLean.Boundary.wall_eq_physical_iff_normalVelocity :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 0) U.density →
+    Ne T (OfNat.ofNat 0) →
+      Iff (Eq (CFDLean.Boundary.wallTransfer γ U T) (CFDLean.Coordinates.encode (CFDLean.physicalFlux γ U T)))
+        (Eq
+          (CFDLean.dot (fun (i : Fin (OfNat.ofNat 3)) => HDiv.hDiv (U.momentum i) U.density)
+            (CFDLean.Coordinates.unitNormal T))
+          (OfNat.ofNat 0))
+XSTMT CFDLean.Boundary.wall_mass :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.wallTransfer γ U T ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0)
+XSTMT CFDLean.Boundary.wall_momentum :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)) (i : Fin (OfNat.ofNat 3)),
+  Eq ((CFDLean.Coordinates.decode (CFDLean.Boundary.wallTransfer γ U T)).momentum i)
+    (HMul.hMul (CFDLean.Conservative.pressure γ U) (T i))
+XSTMT CFDLean.Boundary.wall_pressure_pos :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)),
+  CFDLean.Conservative.Admissible γ U → LT.lt (OfNat.ofNat 0) (CFDLean.Conservative.pressure γ U)
+XSTMT CFDLean.Boundary.wall_reverse :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.wallTransfer γ U (Neg.neg T)) (Neg.neg (CFDLean.Boundary.wallTransfer γ U T))
+XSTMT CFDLean.Boundary.wall_smul :: ∀ (γ a : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (T : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.wallTransfer γ U (HSMul.hSMul a T)) (HSMul.hSMul a (CFDLean.Boundary.wallTransfer γ U T))
+XSTMT CFDLean.Boundary.wall_zero :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Boundary.wallTransfer γ U (OfNat.ofNat 0)) (OfNat.ofNat 0)
+XSTMT CFDLean.Coordinates.decode_encode :: ∀ (U : CFDLean.Conservative (OfNat.ofNat 3)), Eq (CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U)) U
+XSTMT CFDLean.Coordinates.encode_decode :: ∀ (x : CFDLean.Coordinates.StateCoordinates), Eq (CFDLean.Coordinates.encode (CFDLean.Coordinates.decode x)) x
+XSTMT CFDLean.Coordinates.unitNormal_dot_self :: ∀ (S : CFDLean.Vector (OfNat.ofNat 3)),
+  Ne S (OfNat.ofNat 0) →
+    Eq (CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S)) (OfNat.ofNat 1)
+XSTMT CFDLean.MedianDual.MeshData.all_patches_boundary :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (i : Fin n),
+      Eq (Finset.univ.sum fun (a : M.Occurrence) => M.ownedPatch a i)
+        (Finset.univ.sum fun (b : M.Boundary) => ite (Eq b.val.2 i) (M.boundaryArea b) (OfNat.ofNat 0))
+XSTMT CFDLean.MedianDual.MeshData.assembledArea_reverse :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a b : Fin n),
+  Eq (M.assembledArea b a) (Neg.neg (M.assembledArea a b))
+XSTMT CFDLean.MedianDual.MeshData.assembledArea_row :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a : Fin n),
+  Eq (Finset.univ.sum fun (b : Fin n) => M.assembledArea a b)
+    (Finset.univ.sum fun (t : Fin m) =>
+      Finset.univ.sum fun (i : Fin (OfNat.ofNat 4)) =>
+        ite (Eq (DFunLike.coe (M.vertex t) i) a)
+          (Finset.univ.sum fun (j : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.localInterface (M.points t) i j)
+          (OfNat.ofNat 0))
+XSTMT CFDLean.MedianDual.MeshData.boundaryKey_injective :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m), Function.Injective M.boundaryKey
+XSTMT CFDLean.MedianDual.MeshData.boundaryKey_range :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (F : Finset (Fin n)) (i : Fin n),
+  Iff (Exists fun (b : M.Boundary) => Eq (M.boundaryKey b) (Prod.mk F i))
+    (And (Eq (M.faceCount F) (OfNat.ofNat 1)) (Membership.mem F i))
+XSTMT CFDLean.MedianDual.MeshData.constant_state :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (a : Fin n),
+      Eq
+        (CFDLean.Assembly.residual M.interfaces
+          (CFDLean.Assembly.roeTransfer M.interfaces γ (fun (x : Fin n) => U) M.edgeArea)
+          (fun (b : M.Boundary) => DFunLike.coe (CFDLean.Assembly.physicalTransfer γ U) (M.boundaryArea b)) a)
+        (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.MeshData.dualVolume_formula :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a : Fin n),
+  Eq (M.dualVolume a)
+    (Finset.univ.sum fun (t : Fin m) =>
+      ite (Membership.mem (M.cellNodes t) a) (HDiv.hDiv (CFDLean.MedianDual.volume (M.points t)) (OfNat.ofNat 4))
+        (OfNat.ofNat 0))
+XSTMT CFDLean.MedianDual.MeshData.dualVolume_pos :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a : Fin n), M.Used a → LT.lt (OfNat.ofNat 0) (M.dualVolume a)
+XSTMT CFDLean.MedianDual.MeshData.dualVolume_unused :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a : Fin n), Not (M.Used a) → Eq (M.dualVolume a) (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.MeshData.edge_incidence_sum :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a : Fin n),
+  Eq
+    (Finset.univ.sum fun (e : M.Edge) =>
+      HSMul.hSMul
+        (HSub.hSub (ite (Eq e.val.1 a) (OfNat.ofNat 1) (OfNat.ofNat 0))
+          (ite (Eq e.val.2 a) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+        (M.edgeArea e))
+    (Finset.univ.sum fun (b : Fin n) => M.assembledArea a b)
+XSTMT CFDLean.MedianDual.MeshData.faceArea_cancel :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (a b : M.Occurrence), Ne a b → Eq (M.faceID a) (M.faceID b) → Eq (M.faceArea b) (Neg.neg (M.faceArea a))
+XSTMT CFDLean.MedianDual.MeshData.face_membership :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (t : Fin m) (F : Finset (Fin n)),
+  Eq F.card (OfNat.ofNat 3) →
+    Iff (LE.le F (M.cellNodes t)) (Exists fun (j : Fin (OfNat.ofNat 4)) => Eq (M.faceNodes t j) F)
+XSTMT CFDLean.MedianDual.MeshData.interior_cancel :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming → ∀ (i : Fin n), Eq (Finset.univ.sum fun (a : M.Interior) => M.ownedPatch a.val i) (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.MeshData.mem_faceNodes :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (t : Fin m) (j : Fin (OfNat.ofNat 4)) (a : Fin n),
+  Iff (Membership.mem (M.faceNodes t j) a)
+    (Exists fun (i : Fin (OfNat.ofNat 4)) => And (Ne i j) (Eq (DFunLike.coe (M.vertex t) i) a))
+XSTMT CFDLean.MedianDual.MeshData.metric_closed :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (a : Fin n), Eq (CFDLean.Assembly.metricDefect M.interfaces M.edgeArea M.boundaryArea a) (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.MeshData.ownedPatch_local :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (a : M.Occurrence) (i : Fin n),
+  Eq (M.ownedPatch a i)
+    (Finset.univ.sum fun (j : Fin (OfNat.ofNat 4)) =>
+      ite (Eq (DFunLike.coe (M.vertex a.1) j) i) (CFDLean.MedianDual.localPatch (M.points a.1) a.2 j) (OfNat.ofNat 0))
+XSTMT CFDLean.MedianDual.MeshData.roe_boundary_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (g : M.Boundary → CFDLean.Coordinates.StateCoordinates),
+  Eq
+    (Finset.univ.sum fun (a : Fin n) =>
+      CFDLean.Assembly.residual M.interfaces (CFDLean.Assembly.roeTransfer M.interfaces γ U M.edgeArea) g a)
+    (Finset.univ.sum fun (b : M.Boundary) => g b)
+XSTMT CFDLean.MedianDual.MeshData.volume_partition :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    Eq (Finset.univ.sum fun (a : Fin n) => M.dualVolume a)
+      (Finset.univ.sum fun (t : Fin m) => CFDLean.MedianDual.volume (M.points t))
+XSTMT CFDLean.MedianDual.faceVector_sum :: ∀ (p : CFDLean.MedianDual.Points),
+  Eq (Finset.univ.sum fun (i : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.faceVector p i) (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.flagBoundary_sum :: ∀ (p : CFDLean.MedianDual.Points) (i j k l : Fin (OfNat.ofNat 4)),
+  Eq (Finset.univ.sum fun (r : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.flagBoundary p i j k l r) (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.flag_boundaries_identify :: ∀ (p : CFDLean.MedianDual.Points) (i : Fin (OfNat.ofNat 4)),
+  Eq
+    (Finset.univ.sum fun (f : CFDLean.MedianDual.VertexFlags i) =>
+      Finset.univ.sum fun (r : Fin (OfNat.ofNat 4)) =>
+        CFDLean.MedianDual.flagBoundary p i f.val.1 f.val.2.1 f.val.2.2 r)
+    (CFDLean.MedianDual.localHullVector p i)
+XSTMT CFDLean.MedianDual.flag_card :: Eq (Fintype.card (Sigma fun (i : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.VertexFlags i)) (OfNat.ofNat 24)
+XSTMT CFDLean.MedianDual.flag_determinant :: ∀ (p : CFDLean.MedianDual.Points) (i j k l : Fin (OfNat.ofNat 4)),
+  CFDLean.MedianDual.valid i j k l →
+    Eq (CFDLean.MedianDual.sixVolume (CFDLean.MedianDual.flagPoints p i j k l))
+      (HDiv.hDiv (HMul.hMul (CFDLean.MedianDual.frameSign i j k l) (CFDLean.MedianDual.sixVolume p)) (OfNat.ofNat 24))
+XSTMT CFDLean.MedianDual.flag_volume :: ∀ (p : CFDLean.MedianDual.Points) (i j k l : Fin (OfNat.ofNat 4)),
+  CFDLean.MedianDual.valid i j k l →
+    Eq (CFDLean.MedianDual.volume (CFDLean.MedianDual.flagPoints p i j k l))
+      (HDiv.hDiv (CFDLean.MedianDual.volume p) (OfNat.ofNat 24))
+XSTMT CFDLean.MedianDual.localDualVolume_eq :: ∀ (p : CFDLean.MedianDual.Points) (i : Fin (OfNat.ofNat 4)),
+  Eq (CFDLean.MedianDual.localDualVolume p i) (HDiv.hDiv (CFDLean.MedianDual.volume p) (OfNat.ofNat 4))
+XSTMT CFDLean.MedianDual.localHull_identification :: ∀ (p : CFDLean.MedianDual.Points) (i : Fin (OfNat.ofNat 4)),
+  Eq (CFDLean.MedianDual.localHullVector p i)
+    (HAdd.hAdd (Finset.univ.sum fun (j : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.localInterface p i j)
+      (Finset.univ.sum fun (j : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.localPatch p j i))
+XSTMT CFDLean.MedianDual.localInterface_reverse :: ∀ (p : CFDLean.MedianDual.Points) (i j : Fin (OfNat.ofNat 4)),
+  Eq (CFDLean.MedianDual.localInterface p j i) (Neg.neg (CFDLean.MedianDual.localInterface p i j))
+XSTMT CFDLean.MedianDual.localPatch_eq :: ∀ (p : CFDLean.MedianDual.Points) (opp owner : Fin (OfNat.ofNat 4)),
+  Eq (CFDLean.MedianDual.localPatch p opp owner)
+    (ite (Eq owner.val opp.val) (OfNat.ofNat 0)
+      (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 3)) (CFDLean.MedianDual.faceVector p opp)))
+XSTMT CFDLean.MedianDual.local_closure :: ∀ (p : CFDLean.MedianDual.Points) (i : Fin (OfNat.ofNat 4)),
+  Eq
+    (HAdd.hAdd (Finset.univ.sum fun (j : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.localInterface p i j)
+      (Finset.univ.sum fun (j : Fin (OfNat.ofNat 4)) => CFDLean.MedianDual.localPatch p j i))
+    (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.outwardTriangle_dot :: ∀ (p : CFDLean.MedianDual.Points) (i j k l : Fin (OfNat.ofNat 4)),
+  CFDLean.MedianDual.valid i j k l →
+    Eq (CFDLean.dot (CFDLean.MedianDual.outwardTriangle p i j k l) (HSub.hSub (p j) (p i)))
+      (HDiv.hDiv (CFDLean.MedianDual.sixVolume p) (OfNat.ofNat 24))
+XSTMT CFDLean.MedianDual.sum_internal_one :: ∀ (p : CFDLean.MedianDual.Points) (i : Fin (OfNat.ofNat 4)),
+  Eq
+    (Finset.univ.sum fun (f : CFDLean.MedianDual.VertexFlags i) =>
+      CFDLean.MedianDual.flagBoundary p i f.val.1 f.val.2.1 f.val.2.2 ⟨1, Fin.instOfNat⟩)
+    (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.sum_internal_two :: ∀ (p : CFDLean.MedianDual.Points) (i : Fin (OfNat.ofNat 4)),
+  Eq
+    (Finset.univ.sum fun (f : CFDLean.MedianDual.VertexFlags i) =>
+      CFDLean.MedianDual.flagBoundary p i f.val.1 f.val.2.1 f.val.2.2 ⟨2, Fin.instOfNat⟩)
+    (OfNat.ofNat 0)
+XSTMT CFDLean.MedianDual.vertexFlags_card :: ∀ (i : Fin (OfNat.ofNat 4)), Eq (Fintype.card (CFDLean.MedianDual.VertexFlags i)) (OfNat.ofNat 6)
+XSTMT CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (x : CFDLean.Coordinates.StateCoordinates),
+  Ne (x ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0) →
+    HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ n) (CFDLean.PhysicalJacobian.jacobian γ x n) x
+XSTMT CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux :: ∀ (γ : Real) (S : CFDLean.Vector (OfNat.ofNat 3)) (x : CFDLean.Coordinates.StateCoordinates),
+  Ne (x ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0) →
+    Ne S (OfNat.ofNat 0) →
+      HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ S)
+        (HSMul.hSMul (CFDLean.Coordinates.area S)
+          (CFDLean.PhysicalJacobian.jacobian γ x (CFDLean.Coordinates.unitNormal S)))
+        x
+XSTMT CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea :: ∀ (γ : Real) (x : CFDLean.Coordinates.StateCoordinates),
+  HasFDerivAt (CFDLean.PhysicalJacobian.coordinateFlux γ (OfNat.ofNat 0)) (OfNat.ofNat 0) x
+XSTMT CFDLean.PhysicalJacobian.isOpen_admissible :: ∀ (γ : Real),
+  IsOpen
+    (Set.ofPred fun (x : CFDLean.Coordinates.StateCoordinates) =>
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x))
+XSTMT CFDLean.PhysicalJacobian.jacobian_action :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  let u := fun (i : Fin (OfNat.ofNat 3)) => HDiv.hDiv (U.momentum i) U.density;
+  let q := CFDLean.dot u n;
+  let b := HSub.hSub (CFDLean.dot V.momentum n) (HMul.hMul q V.density);
+  let dp :=
+    HMul.hMul (HSub.hSub γ (OfNat.ofNat 1))
+      (HAdd.hAdd (HSub.hSub V.energy (CFDLean.dot u V.momentum))
+        (HMul.hMul (HDiv.hDiv (CFDLean.squareSum u) (OfNat.ofNat 2)) V.density));
+  let H := HDiv.hDiv (HAdd.hAdd U.energy (CFDLean.Conservative.pressure γ U)) U.density;
+  Eq
+    (DFunLike.coe (CFDLean.PhysicalJacobian.jacobian γ (CFDLean.Coordinates.encode U) n) (CFDLean.Coordinates.encode V))
+    (CFDLean.Coordinates.encode
+      { density := CFDLean.dot V.momentum n,
+        momentum := fun (i : Fin (OfNat.ofNat 3)) =>
+          HAdd.hAdd (HAdd.hAdd (HMul.hMul q (V.momentum i)) (HMul.hMul (u i) b)) (HMul.hMul dp (n i)),
+        energy := HAdd.hAdd (HMul.hMul q (HAdd.hAdd V.energy dp)) (HMul.hMul H b) })
+XSTMT CFDLean.Roe.B_bijective :: ∀ (γ : Real) (z : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    Ne (z ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0) → Function.Bijective (DFunLike.coe (CFDLean.Roe.B γ z))
+XSTMT CFDLean.Roe.B_inverseB :: ∀ (γ : Real) (z : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    Ne (z ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0) →
+      ∀ (v : CFDLean.Coordinates.StateCoordinates),
+        Eq (DFunLike.coe (CFDLean.Roe.B γ z) (DFunLike.coe (CFDLean.Roe.inverseB γ z) v)) v
+XSTMT CFDLean.Roe.Spectral.exists_tangent_basis :: ∀ (n : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+    Nonempty
+      (Module.Basis (Fin (OfNat.ofNat 2)) Real
+        (Subtype fun (x : CFDLean.Vector (OfNat.ofNat 3)) => Membership.mem (CFDLean.Roe.Spectral.tangent n) x))
+XSTMT CFDLean.Roe.Spectral.roe_absolute_basis :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          ∀ {ι : Type u_1} [inst : Fintype ι] (bas : Module.Basis ι Real CFDLean.Roe.Spectral.E) (μ : ι → Real),
+            (∀ (i : ι),
+                Eq (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n) (DFunLike.coe bas i))
+                  (HSMul.hSMul (μ i) (DFunLike.coe bas i))) →
+              Eq (CFDLean.Roe.Spectral.dissipation γ x y n)
+                (bas.equivFun.symm.comp
+                  ((CFDLean.Roe.Spectral.diagonal fun (i : ι) => abs (μ i)).comp bas.equivFun.toLinearMap))
+XSTMT CFDLean.Roe.Spectral.roe_absolute_eigen :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          ∀ (μ : Real) (v : CFDLean.Roe.Spectral.E),
+            Ne v (OfNat.ofNat 0) →
+              Eq (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n) v) (HSMul.hSMul μ v) →
+                Eq (DFunLike.coe (CFDLean.Roe.Spectral.dissipation γ x y n) v) (HSMul.hSMul (abs μ) v)
+XSTMT CFDLean.Roe.Spectral.roe_absolute_reverse :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.Spectral.dissipation γ x y (Neg.neg n)) (CFDLean.Roe.Spectral.dissipation γ x y n)
+XSTMT CFDLean.Roe.Spectral.roe_complete_basis :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          Exists fun (bas : Module.Basis (Fin (OfNat.ofNat 5)) Real CFDLean.Roe.Spectral.E) =>
+            ∀ (j : Fin (OfNat.ofNat 5)),
+              Exists fun (i : Fin (OfNat.ofNat 3)) =>
+                Eq (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n) (DFunLike.coe bas j))
+                  (HSMul.hSMul (CFDLean.Roe.Spectral.roeSpeed γ x y n i) (DFunLike.coe bas j))
+XSTMT CFDLean.Roe.Spectral.roe_convective_tangent_span :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+      ∀
+        (tb :
+          Module.Basis (Fin (OfNat.ofNat 2)) Real
+            (Subtype fun (x : CFDLean.Vector (OfNat.ofNat 3)) => Membership.mem (CFDLean.Roe.Spectral.tangent n) x)),
+        Eq
+          (Submodule.span Real
+            (Max.max (Singleton.singleton (CFDLean.Roe.Spectral.contact (CFDLean.Roe.averageVelocity x y)))
+              (Set.range fun (i : Fin (OfNat.ofNat 2)) =>
+                CFDLean.Roe.Spectral.shear (CFDLean.Roe.averageVelocity x y) (DFunLike.coe tb i).val)))
+          (Module.End.eigenspace (CFDLean.Roe.roeMatrix γ x y n).toLinearMap
+            (CFDLean.dot (CFDLean.Roe.averageVelocity x y) n))
+XSTMT CFDLean.Roe.Spectral.roe_cubic :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          Eq (HPow.hPow (CFDLean.Roe.Spectral.roeShift γ x y n) (OfNat.ofNat 3))
+            (HSMul.hSMul (HPow.hPow (CFDLean.Roe.soundSpeed γ x y) (OfNat.ofNat 2))
+              (CFDLean.Roe.Spectral.roeShift γ x y n))
+XSTMT CFDLean.Roe.Spectral.roe_dimensions :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          ∀ (i : Fin (OfNat.ofNat 3)),
+            Eq
+              (Module.finrank Real
+                (Subtype fun (x_1 : CFDLean.Coordinates.StateCoordinates) =>
+                  Membership.mem
+                    (Module.End.eigenspace (CFDLean.Roe.roeMatrix γ x y n).toLinearMap
+                      (CFDLean.Roe.Spectral.roeSpeed γ x y n i))
+                    x_1))
+              (Matrix.vecCons (OfNat.ofNat 1)
+                (Matrix.vecCons (OfNat.ofNat 3) (Matrix.vecCons (OfNat.ofNat 1) Matrix.vecEmpty)) i)
+XSTMT CFDLean.Roe.Spectral.roe_eigenvectors :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          And
+            (∀ (s : Real),
+              Or (Eq s (Neg.neg (CFDLean.Roe.soundSpeed γ x y))) (Eq s (CFDLean.Roe.soundSpeed γ x y)) →
+                Eq
+                  (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n)
+                    (CFDLean.Roe.Spectral.acoustic (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy γ x y)
+                      n s))
+                  (HSMul.hSMul (HAdd.hAdd (CFDLean.dot (CFDLean.Roe.averageVelocity x y) n) s)
+                    (CFDLean.Roe.Spectral.acoustic (CFDLean.Roe.averageVelocity x y) (CFDLean.Roe.averageEnthalpy γ x y)
+                      n s)))
+            (And
+              (Eq
+                (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n)
+                  (CFDLean.Roe.Spectral.contact (CFDLean.Roe.averageVelocity x y)))
+                (HSMul.hSMul (CFDLean.dot (CFDLean.Roe.averageVelocity x y) n)
+                  (CFDLean.Roe.Spectral.contact (CFDLean.Roe.averageVelocity x y))))
+              (∀ (t : CFDLean.Vector (OfNat.ofNat 3)),
+                Eq (CFDLean.dot t n) (OfNat.ofNat 0) →
+                  Eq
+                    (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n)
+                      (CFDLean.Roe.Spectral.shear (CFDLean.Roe.averageVelocity x y) t))
+                    (HSMul.hSMul (CFDLean.dot (CFDLean.Roe.averageVelocity x y) n)
+                      (CFDLean.Roe.Spectral.shear (CFDLean.Roe.averageVelocity x y) t))))
+XSTMT CFDLean.Roe.Spectral.roe_matrix_reverse :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.roeMatrix γ x y (Neg.neg n)) (Neg.neg (CFDLean.Roe.roeMatrix γ x y n))
+XSTMT CFDLean.Roe.Spectral.roe_projector_algebra :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          ∀ (i j : Fin (OfNat.ofNat 3)),
+            Eq (HMul.hMul (CFDLean.Roe.Spectral.roeProjector γ x y n i) (CFDLean.Roe.Spectral.roeProjector γ x y n j))
+              (ite (Eq i j) (CFDLean.Roe.Spectral.roeProjector γ x y n i) (OfNat.ofNat 0))
+XSTMT CFDLean.Roe.Spectral.roe_projector_ranges :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          ∀ (i : Fin (OfNat.ofNat 3)),
+            Eq (LinearMap.range (CFDLean.Roe.Spectral.roeProjector γ x y n i))
+              (Module.End.eigenspace (CFDLean.Roe.roeMatrix γ x y n).toLinearMap
+                (CFDLean.Roe.Spectral.roeSpeed γ x y n i))
+XSTMT CFDLean.Roe.Spectral.roe_projector_ranks :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+          ∀ (i : Fin (OfNat.ofNat 3)),
+            Eq
+              (Module.finrank Real
+                (Subtype fun (x_1 : CFDLean.Roe.Spectral.E) =>
+                  Membership.mem (LinearMap.range (CFDLean.Roe.Spectral.roeProjector γ x y n i)) x_1))
+              (Matrix.vecCons (OfNat.ofNat 1)
+                (Matrix.vecCons (OfNat.ofNat 3) (Matrix.vecCons (OfNat.ofNat 1) Matrix.vecEmpty)) i)
+XSTMT CFDLean.Roe.Spectral.roe_projector_reverse :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)) (i : Fin (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.Spectral.roeProjector γ x y (Neg.neg n) i) (CFDLean.Roe.Spectral.roeProjector γ x y n i.rev)
+XSTMT CFDLean.Roe.Spectral.roe_projector_sum :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq
+          (HAdd.hAdd
+            (HAdd.hAdd (CFDLean.Roe.Spectral.roeProjector γ x y n ⟨0, Fin.instOfNat⟩)
+              (CFDLean.Roe.Spectral.roeProjector γ x y n ⟨1, Fin.instOfNat⟩))
+            (CFDLean.Roe.Spectral.roeProjector γ x y n ⟨2, Fin.instOfNat⟩))
+          (OfNat.ofNat 1)
+XSTMT CFDLean.Roe.Spectral.roe_shift_reverse :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.Spectral.roeShift γ x y (Neg.neg n)) (Neg.neg (CFDLean.Roe.Spectral.roeShift γ x y n))
+XSTMT CFDLean.Roe.Spectral.roe_spectral_decomposition :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.Roe.roeMatrix γ x y n).toLinearMap
+          (HAdd.hAdd
+            (HAdd.hAdd
+              (HSMul.hSMul (CFDLean.Roe.Spectral.roeSpeed γ x y n ⟨0, Fin.instOfNat⟩)
+                (CFDLean.Roe.Spectral.roeProjector γ x y n ⟨0, Fin.instOfNat⟩))
+              (HSMul.hSMul (CFDLean.Roe.Spectral.roeSpeed γ x y n ⟨1, Fin.instOfNat⟩)
+                (CFDLean.Roe.Spectral.roeProjector γ x y n ⟨1, Fin.instOfNat⟩)))
+            (HSMul.hSMul (CFDLean.Roe.Spectral.roeSpeed γ x y n ⟨2, Fin.instOfNat⟩)
+              (CFDLean.Roe.Spectral.roeProjector γ x y n ⟨2, Fin.instOfNat⟩)))
+XSTMT CFDLean.Roe.Spectral.roe_speed_reverse :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)) (i : Fin (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.Spectral.roeSpeed γ x y (Neg.neg n) i) (Neg.neg (CFDLean.Roe.Spectral.roeSpeed γ x y n i.rev))
+XSTMT CFDLean.Roe.Spectral.roe_swap :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  And (Eq (CFDLean.Roe.Spectral.roeShift γ y x n) (CFDLean.Roe.Spectral.roeShift γ x y n))
+    (And
+      (∀ (i : Fin (OfNat.ofNat 3)),
+        Eq (CFDLean.Roe.Spectral.roeProjector γ y x n i) (CFDLean.Roe.Spectral.roeProjector γ x y n i))
+      (Eq (CFDLean.Roe.Spectral.dissipation γ y x n) (CFDLean.Roe.Spectral.dissipation γ x y n)))
+XSTMT CFDLean.Roe.Spectral.sound_parameters :: ∀ (γ : Real) (x y : CFDLean.Roe.Spectral.E),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        And (LT.lt (OfNat.ofNat 0) (CFDLean.Roe.soundSpeed γ x y))
+          (Eq (HPow.hPow (CFDLean.Roe.soundSpeed γ x y) (OfNat.ofNat 2))
+            (HMul.hMul (HSub.hSub γ (OfNat.ofNat 1))
+              (HSub.hSub (CFDLean.Roe.averageEnthalpy γ x y)
+                (HDiv.hDiv (CFDLean.squareSum (CFDLean.Roe.averageVelocity x y)) (OfNat.ofNat 2)))))
+XSTMT CFDLean.Roe.Spectral.tangent_dimension :: ∀ (n : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.dot n n) (OfNat.ofNat 1) →
+    Eq
+      (Module.finrank Real
+        (Subtype fun (x : CFDLean.Vector (OfNat.ofNat 3)) => Membership.mem (CFDLean.Roe.Spectral.tangent n) x))
+      (OfNat.ofNat 2)
+XSTMT CFDLean.Roe.averages_swap :: ∀ (γ : Real) (x y : CFDLean.Coordinates.StateCoordinates),
+  And (Eq (CFDLean.Roe.averageVelocity y x) (CFDLean.Roe.averageVelocity x y))
+    (And (Eq (CFDLean.Roe.averageEnthalpy γ y x) (CFDLean.Roe.averageEnthalpy γ x y))
+      (Eq (CFDLean.Roe.soundSquare γ y x) (CFDLean.Roe.soundSquare γ x y)))
+XSTMT CFDLean.Roe.flux_midpoint_jump :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (z t : CFDLean.Coordinates.StateCoordinates),
+  Eq (HSub.hSub (CFDLean.Roe.parameterFlux γ n t) (CFDLean.Roe.parameterFlux γ n z))
+    (DFunLike.coe (CFDLean.Roe.C γ n fun (i : Fin (OfNat.ofNat 5)) => HDiv.hDiv (HAdd.hAdd (z i) (t i)) (OfNat.ofNat 2))
+      (HSub.hSub t z))
+XSTMT CFDLean.Roe.hasFDerivAt_diagonal :: ∀ (γ : Real) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+    HasFDerivAt
+      (fun (y : CFDLean.Coordinates.StateCoordinates) =>
+        CFDLean.Coordinates.encode (CFDLean.physicalFlux γ (CFDLean.Coordinates.decode y) n))
+      (CFDLean.Roe.roeMatrix γ x x n) x
+XSTMT CFDLean.Roe.hasFDerivAt_parameterFlux :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (z : CFDLean.Coordinates.StateCoordinates),
+  HasFDerivAt (CFDLean.Roe.parameterFlux γ n) (CFDLean.Roe.C γ n z) z
+XSTMT CFDLean.Roe.hasFDerivAt_parameterState :: ∀ (γ : Real) (z : CFDLean.Coordinates.StateCoordinates),
+  HasFDerivAt (CFDLean.Roe.parameterState γ) (CFDLean.Roe.B γ z) z
+XSTMT CFDLean.Roe.integrated_secant :: ∀ (γ : Real) (S : CFDLean.Vector (OfNat.ofNat 3)) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Ne S (OfNat.ofNat 0) →
+          Eq
+            (DFunLike.coe
+              (HSMul.hSMul (CFDLean.Coordinates.area S)
+                (CFDLean.Roe.roeMatrix γ x y (CFDLean.Coordinates.unitNormal S)))
+              (HSub.hSub y x))
+            (HSub.hSub (CFDLean.PhysicalJacobian.coordinateFlux γ S y) (CFDLean.PhysicalJacobian.coordinateFlux γ S x))
+XSTMT CFDLean.Roe.inverseB_B :: ∀ (γ : Real) (z : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    Ne (z ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0) →
+      ∀ (v : CFDLean.Coordinates.StateCoordinates),
+        Eq (DFunLike.coe (CFDLean.Roe.inverseB γ z) (DFunLike.coe (CFDLean.Roe.B γ z) v)) v
+XSTMT CFDLean.Roe.midpoint_pos :: ∀ (γ : Real) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) → LT.lt (OfNat.ofNat 0) (CFDLean.Roe.midpoint γ x y ⟨0, Fin.instOfNat⟩)
+XSTMT CFDLean.Roe.numericalFlux_consistency :: ∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)) (S : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.numericalFlux γ U U S) (CFDLean.physicalFlux γ U S)
+XSTMT CFDLean.Roe.numericalFlux_reverse :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (S : CFDLean.Vector (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.numericalFlux γ V U (Neg.neg S))
+    { density := Neg.neg (CFDLean.Roe.numericalFlux γ U V S).density,
+      momentum := fun (i : Fin (OfNat.ofNat 3)) => Neg.neg ((CFDLean.Roe.numericalFlux γ U V S).momentum i),
+      energy := Neg.neg (CFDLean.Roe.numericalFlux γ U V S).energy }
+XSTMT CFDLean.Roe.numericalFlux_scale :: ∀ (γ a : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (S : CFDLean.Vector (OfNat.ofNat 3)),
+  LE.le (OfNat.ofNat 0) a →
+    Eq (CFDLean.Roe.numericalFlux γ U V fun (i : Fin (OfNat.ofNat 3)) => HMul.hMul a (S i))
+      { density := HMul.hMul a (CFDLean.Roe.numericalFlux γ U V S).density,
+        momentum := fun (i : Fin (OfNat.ofNat 3)) => HMul.hMul a ((CFDLean.Roe.numericalFlux γ U V S).momentum i),
+        energy := HMul.hMul a (CFDLean.Roe.numericalFlux γ U V S).energy }
+XSTMT CFDLean.Roe.numericalFlux_upwind_left :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (S : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ U →
+      CFDLean.Conservative.Admissible γ V →
+        Ne S (OfNat.ofNat 0) →
+          LE.le (CFDLean.Roe.soundSpeed γ (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))
+              (CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))
+                (CFDLean.Coordinates.unitNormal S)) →
+            Eq (CFDLean.Roe.numericalFlux γ U V S) (CFDLean.physicalFlux γ U S)
+XSTMT CFDLean.Roe.numericalFlux_upwind_right :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)) (S : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ U →
+      CFDLean.Conservative.Admissible γ V →
+        Ne S (OfNat.ofNat 0) →
+          LE.le
+              (CFDLean.dot (CFDLean.Roe.averageVelocity (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))
+                (CFDLean.Coordinates.unitNormal S))
+              (Neg.neg (CFDLean.Roe.soundSpeed γ (CFDLean.Coordinates.encode U) (CFDLean.Coordinates.encode V))) →
+            Eq (CFDLean.Roe.numericalFlux γ U V S) (CFDLean.physicalFlux γ V S)
+XSTMT CFDLean.Roe.numericalFlux_zero :: ∀ (γ : Real) (U V : CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Roe.numericalFlux γ U V (OfNat.ofNat 0))
+    { density := OfNat.ofNat 0, momentum := fun (x : Fin (OfNat.ofNat 3)) => OfNat.ofNat 0, energy := OfNat.ofNat 0 }
+XSTMT CFDLean.Roe.operator_B :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (z : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    Ne (z ⟨0, Fin.instOfNat⟩) (OfNat.ofNat 0) →
+      Eq
+        ((CFDLean.Roe.operator γ (fun (i : Fin (OfNat.ofNat 3)) => HDiv.hDiv (z i.succ.val.cast) (z ⟨0, Fin.instOfNat⟩))
+              (HDiv.hDiv (z ⟨4, Fin.instOfNat⟩) (z ⟨0, Fin.instOfNat⟩)) n).comp
+          (CFDLean.Roe.B γ z))
+        (CFDLean.Roe.C γ n z)
+XSTMT CFDLean.Roe.parameter_flux :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (x : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+      Eq (CFDLean.Roe.parameterFlux γ n (CFDLean.Roe.parameter γ x)) (CFDLean.PhysicalJacobian.coordinateFlux γ n x)
+XSTMT CFDLean.Roe.parameter_state :: ∀ (γ : Real) (x : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) → Eq (CFDLean.Roe.parameterState γ (CFDLean.Roe.parameter γ x)) x
+XSTMT CFDLean.Roe.positivity_counterexample :: And (CFDLean.Conservative.Admissible (OfNat.ofNat 2) CFDLean.Roe.witnessLeft)
+  (And (CFDLean.Conservative.Admissible (OfNat.ofNat 2) CFDLean.Roe.witnessRight)
+    (And
+      (LT.lt (OfNat.ofNat 0)
+        (CFDLean.Roe.soundSquare (OfNat.ofNat 2) (CFDLean.Coordinates.encode CFDLean.Roe.witnessLeft)
+          (CFDLean.Coordinates.encode CFDLean.Roe.witnessRight)))
+      (LT.lt CFDLean.Roe.witnessIntermediate.density (OfNat.ofNat 0))))
+XSTMT CFDLean.Roe.roeMatrix_B :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (x y : CFDLean.Coordinates.StateCoordinates),
+  Ne γ (OfNat.ofNat 0) →
+    LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+      LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) →
+        Eq ((CFDLean.Roe.roeMatrix γ x y n).comp (CFDLean.Roe.B γ (CFDLean.Roe.midpoint γ x y)))
+          (CFDLean.Roe.C γ n (CFDLean.Roe.midpoint γ x y))
+XSTMT CFDLean.Roe.roeMatrix_CB_inverse :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (CFDLean.Roe.roeMatrix γ x y n)
+          ((CFDLean.Roe.C γ n (CFDLean.Roe.midpoint γ x y)).comp (CFDLean.Roe.inverseB γ (CFDLean.Roe.midpoint γ x y)))
+XSTMT CFDLean.Roe.roeMatrix_continuousOn :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  ContinuousOn
+    (fun (q : Prod CFDLean.Coordinates.StateCoordinates CFDLean.Coordinates.StateCoordinates) =>
+      CFDLean.Roe.roeMatrix γ q.1 q.2 n)
+    (Set.ofPred fun (p : Prod CFDLean.Coordinates.StateCoordinates CFDLean.Coordinates.StateCoordinates) =>
+      And (CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode p.1))
+        (CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode p.2)))
+XSTMT CFDLean.Roe.roeMatrix_diagonal :: ∀ (γ : Real) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    Eq (CFDLean.Roe.roeMatrix γ x x n) (CFDLean.PhysicalJacobian.jacobian γ x n)
+XSTMT CFDLean.Roe.roeMatrix_equal_state_limit :: ∀ (γ : Real) (x : CFDLean.Coordinates.StateCoordinates) (n : CFDLean.Vector (OfNat.ofNat 3)),
+  CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+    Filter.Tendsto
+      (fun (p : Prod CFDLean.Coordinates.StateCoordinates CFDLean.Coordinates.StateCoordinates) =>
+        CFDLean.Roe.roeMatrix γ p.1 p.2 n)
+      (nhds (Prod.mk x x)) (nhds (CFDLean.PhysicalJacobian.jacobian γ x n))
+XSTMT CFDLean.Roe.root_pos :: ∀ (x : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) → LT.lt (OfNat.ofNat 0) (CFDLean.Roe.root x)
+XSTMT CFDLean.Roe.root_sum_pos :: ∀ (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) →
+      LT.lt (OfNat.ofNat 0) (HAdd.hAdd (CFDLean.Roe.root x) (CFDLean.Roe.root y))
+XSTMT CFDLean.Roe.secant_identity :: ∀ (γ : Real) (n : CFDLean.Vector (OfNat.ofNat 3)) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (DFunLike.coe (CFDLean.Roe.roeMatrix γ x y n) (HSub.hSub y x))
+          (HSub.hSub (CFDLean.PhysicalJacobian.coordinateFlux γ n y) (CFDLean.PhysicalJacobian.coordinateFlux γ n x))
+XSTMT CFDLean.Roe.soundSpeed_pos :: ∀ (γ : Real) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        LT.lt (OfNat.ofNat 0) (CFDLean.Roe.soundSpeed γ x y)
+XSTMT CFDLean.Roe.soundSpeed_sq :: ∀ (γ : Real) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        Eq (HPow.hPow (CFDLean.Roe.soundSpeed γ x y) (OfNat.ofNat 2)) (CFDLean.Roe.soundSquare γ x y)
+XSTMT CFDLean.Roe.soundSquare_pos :: ∀ (γ : Real) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 1) γ →
+    CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode x) →
+      CFDLean.Conservative.Admissible γ (CFDLean.Coordinates.decode y) →
+        LT.lt (OfNat.ofNat 0) (CFDLean.Roe.soundSquare γ x y)
+XSTMT CFDLean.Roe.state_midpoint_jump :: ∀ (γ : Real) (z t : CFDLean.Coordinates.StateCoordinates),
+  Eq (HSub.hSub (CFDLean.Roe.parameterState γ t) (CFDLean.Roe.parameterState γ z))
+    (DFunLike.coe (CFDLean.Roe.B γ fun (i : Fin (OfNat.ofNat 5)) => HDiv.hDiv (HAdd.hAdd (z i) (t i)) (OfNat.ofNat 2))
+      (HSub.hSub t z))
+XSTMT CFDLean.Roe.variance_identity :: ∀ (γ : Real) (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) →
+      Eq (CFDLean.Roe.soundSquare γ x y)
+        (HAdd.hAdd
+          (HAdd.hAdd (HMul.hMul (CFDLean.Roe.weight x y) (CFDLean.Roe.endpointSoundSquare γ x))
+            (HMul.hMul (CFDLean.Roe.weight y x) (CFDLean.Roe.endpointSoundSquare γ y)))
+          (HMul.hMul
+            (HMul.hMul (HMul.hMul (HDiv.hDiv (HSub.hSub γ (OfNat.ofNat 1)) (OfNat.ofNat 2)) (CFDLean.Roe.weight x y))
+              (CFDLean.Roe.weight y x))
+            (CFDLean.squareSum fun (i : Fin (OfNat.ofNat 3)) =>
+              HSub.hSub (CFDLean.PhysicalJacobian.velocity y i) (CFDLean.PhysicalJacobian.velocity x i))))
+XSTMT CFDLean.Roe.weight_lt_one :: ∀ (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) → LT.lt (CFDLean.Roe.weight x y) (OfNat.ofNat 1)
+XSTMT CFDLean.Roe.weight_pos :: ∀ (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) → LT.lt (OfNat.ofNat 0) (CFDLean.Roe.weight x y)
+XSTMT CFDLean.Roe.weight_sum :: ∀ (x y : CFDLean.Coordinates.StateCoordinates),
+  LT.lt (OfNat.ofNat 0) (x ⟨0, Fin.instOfNat⟩) →
+    LT.lt (OfNat.ofNat 0) (y ⟨0, Fin.instOfNat⟩) →
+      Eq (HAdd.hAdd (CFDLean.Roe.weight x y) (CFDLean.Roe.weight y x)) (OfNat.ofNat 1)
+XSTMT CFDLean.Roe.witness_intermediate_coordinates :: Eq (CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate)
+  (Matrix.vecCons (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 2) (Real.sqrt (OfNat.ofNat 3))))
+    (Matrix.vecCons (OfNat.ofNat 0)
+      (Matrix.vecCons (OfNat.ofNat 0)
+        (Matrix.vecCons (OfNat.ofNat 0)
+          (Matrix.vecCons
+            (HSub.hSub (HDiv.hDiv (OfNat.ofNat 5) (OfNat.ofNat 2))
+              (HMul.hMul (OfNat.ofNat 2) (Real.sqrt (OfNat.ofNat 3))))
+            Matrix.vecEmpty)))))
+XSTMT CFDLean.Time.Controls.hot_cold_residual :: Eq
+  (CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard (OfNat.ofNat 2) CFDLean.Boundary.Controls.mixedKinds
+    CFDLean.Time.Controls.coldFace
+    (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 3)) ⟨0, Fin.instOfNat⟩)
+  (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 12))
+    (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 6))
+      (Matrix.vecCons (OfNat.ofNat 0)
+        (Matrix.vecCons (OfNat.ofNat 0) (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 3)) Matrix.vecEmpty)))))
+XSTMT CFDLean.Time.Controls.local_amount_change :: Eq
+  (CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume
+    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2)
+      (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Boundary.Kind.slipWall)
+      (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps
+      fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.normalState))
+  (HAdd.hAdd
+    (CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun (x : Fin (OfNat.ofNat 4)) =>
+      CFDLean.Time.Controls.normalState)
+    (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 288))
+      (Matrix.vecCons (OfNat.ofNat 0)
+        (Matrix.vecCons (OfNat.ofNat 0)
+          (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 288))
+            (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 5) (OfNat.ofNat 576)) Matrix.vecEmpty))))))
+XSTMT CFDLean.Time.Controls.local_nonconservation :: Ne
+  (CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume
+    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2)
+      (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Boundary.Kind.slipWall)
+      (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps
+      fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.normalState))
+  (CFDLean.Time.amount CFDLean.Time.Controls.standard.dualVolume fun (x : Fin (OfNat.ofNat 4)) =>
+    CFDLean.Time.Controls.normalState)
+XSTMT CFDLean.Time.Controls.local_updated_admissible :: ∀ (i : Fin (OfNat.ofNat 4)),
+  CFDLean.Conservative.Admissible (OfNat.ofNat 2)
+    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2)
+      (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Boundary.Kind.slipWall)
+      (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Time.Controls.normalState) CFDLean.Time.Controls.localSteps
+      (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.normalState) i)
+XSTMT CFDLean.Time.Controls.negative_density_update :: Eq
+  (CFDLean.Coordinates.encode
+    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2) CFDLean.Boundary.Controls.mixedKinds
+      CFDLean.Time.Controls.coldFace (fun (x : Fin (OfNat.ofNat 4)) => OfNat.ofNat 1)
+      (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 3))
+      ⟨0, Fin.instOfNat⟩))
+  (Matrix.vecCons (Neg.neg (OfNat.ofNat 1))
+    (Matrix.vecCons (Neg.neg (OfNat.ofNat 4))
+      (Matrix.vecCons (OfNat.ofNat 0)
+        (Matrix.vecCons (OfNat.ofNat 0) (Matrix.vecCons (Neg.neg (OfNat.ofNat 5)) Matrix.vecEmpty)))))
+XSTMT CFDLean.Time.Controls.negative_update_not_admissible :: Not
+  (CFDLean.Conservative.Admissible (OfNat.ofNat 2)
+    (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2) CFDLean.Boundary.Controls.mixedKinds
+      CFDLean.Time.Controls.coldFace (fun (x : Fin (OfNat.ofNat 4)) => OfNat.ofNat 1)
+      (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 3))
+      ⟨0, Fin.instOfNat⟩))
+XSTMT CFDLean.Time.Controls.oblique_rest :: ∀ (τ : Fin (OfNat.ofNat 4) → Real),
+  (∀ (i : Fin (OfNat.ofNat 4)), LE.le (OfNat.ofNat 0) (τ i)) →
+    ∀ (i : Fin (OfNat.ofNat 4)),
+      Eq
+        (CFDLean.Time.meshStep CFDLean.MedianDual.Controls.oblique (OfNat.ofNat 2)
+          (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Boundary.Kind.inviscidSymmetryTraction)
+          (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 1)) τ
+          (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 1)) i)
+        (CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 1))
+XSTMT CFDLean.Time.Controls.standard_mixed_common :: ∀ (q : Real) (τ : Fin (OfNat.ofNat 4) → Real),
+  (∀ (i : Fin (OfNat.ofNat 4)), LE.le (OfNat.ofNat 0) (τ i)) →
+    ∀ (i : Fin (OfNat.ofNat 4)),
+      Eq
+        (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2) CFDLean.Boundary.Controls.mixedKinds
+          (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Time.Controls.moving q (OfNat.ofNat 1)) τ
+          (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.moving q (OfNat.ofNat 1)) i)
+        (CFDLean.Time.Controls.moving q (OfNat.ofNat 1))
+XSTMT CFDLean.Time.Controls.standard_wall_rest :: ∀ (τ : Fin (OfNat.ofNat 4) → Real),
+  (∀ (i : Fin (OfNat.ofNat 4)), LE.le (OfNat.ofNat 0) (τ i)) →
+    ∀ (i : Fin (OfNat.ofNat 4)),
+      Eq
+        (CFDLean.Time.meshStep CFDLean.Time.Controls.standard (OfNat.ofNat 2)
+          (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Boundary.Kind.slipWall)
+          (fun (x : Finset (Fin (OfNat.ofNat 4))) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 1)) τ
+          (fun (x : Fin (OfNat.ofNat 4)) => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 1)) i)
+        (CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 1))
+XSTMT CFDLean.Time.Controls.transported_fields_nonconstant :: And
+  (Ne (CFDLean.Time.Controls.twoCells.dualVolume ⟨0, Fin.instOfNat⟩)
+    (CFDLean.Time.Controls.twoCells.dualVolume ⟨3, Fin.instOfNat⟩))
+  (And (Ne (CFDLean.Time.Controls.twoSteps ⟨0, Fin.instOfNat⟩) (CFDLean.Time.Controls.twoSteps ⟨3, Fin.instOfNat⟩))
+    (And
+      (Ne (CFDLean.Boundary.AssemblyControls.varyingStates ⟨0, Fin.instOfNat⟩)
+        (CFDLean.Boundary.AssemblyControls.varyingStates ⟨3, Fin.instOfNat⟩))
+      (Ne
+        (CFDLean.Time.Controls.twoData
+          (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoOpen))
+        (CFDLean.Time.Controls.twoData
+          (CFDLean.Boundary.primalFace CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoWall)))))
+XSTMT CFDLean.Time.Controls.transported_nonconstant :: ∀ (i : Fin (OfNat.ofNat 5)),
+  Eq
+    (CFDLean.Time.heldStep
+      (fun (x : Fin (OfNat.ofNat 5)) =>
+        CFDLean.Time.Controls.twoCells.Used
+          (DFunLike.coe (Equiv.symm (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)) x))
+      (fun (x : Fin (OfNat.ofNat 5)) =>
+        CFDLean.Time.Controls.twoCells.dualVolume
+          (DFunLike.coe (Equiv.symm (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)) x))
+      (fun (x : Fin (OfNat.ofNat 5)) =>
+        CFDLean.Time.Controls.twoSteps (DFunLike.coe (Equiv.symm (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)) x))
+      (CFDLean.Boundary.stationaryResidual
+        (CFDLean.Time.Controls.twoCells.interfaces.reindex (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)
+          (Equiv.swap CFDLean.Time.Controls.edge01 CFDLean.Time.Controls.edge03)
+          (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))
+        (OfNat.ofNat 2)
+        (fun (x : CFDLean.Time.Controls.twoCells.Boundary) =>
+          CFDLean.Boundary.patchKind CFDLean.Time.Controls.twoCells CFDLean.Boundary.AssemblyControls.twoKinds
+            (DFunLike.coe
+              (Equiv.symm
+                (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))
+              x))
+        (fun (x : CFDLean.Time.Controls.twoCells.Boundary) =>
+          CFDLean.Boundary.patchExterior CFDLean.Time.Controls.twoCells CFDLean.Time.Controls.twoData
+            (DFunLike.coe
+              (Equiv.symm
+                (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))
+              x))
+        (fun (x : Fin (OfNat.ofNat 5)) =>
+          CFDLean.Boundary.AssemblyControls.varyingStates
+            (DFunLike.coe (Equiv.symm (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)) x))
+        (fun (x : CFDLean.Time.Controls.twoCells.Edge) =>
+          CFDLean.Time.Controls.twoCells.edgeArea
+            (DFunLike.coe (Equiv.symm (Equiv.swap CFDLean.Time.Controls.edge01 CFDLean.Time.Controls.edge03)) x))
+        fun (x : CFDLean.Time.Controls.twoCells.Boundary) =>
+        CFDLean.Time.Controls.twoCells.boundaryArea
+          (DFunLike.coe
+            (Equiv.symm
+              (Equiv.swap CFDLean.Boundary.AssemblyControls.twoWall CFDLean.Boundary.AssemblyControls.twoOpen))
+            x))
+      (fun (x : Fin (OfNat.ofNat 5)) =>
+        CFDLean.Boundary.AssemblyControls.varyingStates
+          (DFunLike.coe (Equiv.symm (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)) x))
+      (DFunLike.coe (Equiv.swap ⟨0, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩) i))
+    (CFDLean.Time.meshStep CFDLean.Time.Controls.twoCells (OfNat.ofNat 2) CFDLean.Boundary.AssemblyControls.twoKinds
+      CFDLean.Time.Controls.twoData CFDLean.Time.Controls.twoSteps CFDLean.Boundary.AssemblyControls.varyingStates i)
+XSTMT CFDLean.Time.Controls.two_cell_common :: ∀ (q : Real) (τ : Fin (OfNat.ofNat 5) → Real),
+  (∀ (i : Fin (OfNat.ofNat 5)), LE.le (OfNat.ofNat 0) (τ i)) →
+    ∀ (i : Fin (OfNat.ofNat 5)),
+      Eq
+        (CFDLean.Time.meshStep CFDLean.Boundary.AssemblyControls.twoCells (OfNat.ofNat 2)
+          CFDLean.Boundary.AssemblyControls.twoKinds
+          (fun (x : Finset (Fin (OfNat.ofNat 5))) => CFDLean.Time.Controls.moving q (OfNat.ofNat 1)) τ
+          (fun (x : Fin (OfNat.ofNat 5)) => CFDLean.Time.Controls.moving q (OfNat.ofNat 1)) i)
+        (CFDLean.Time.Controls.moving q (OfNat.ofNat 1))
+XSTMT CFDLean.Time.Controls.unused_all :: ∀ (γ : Real) (k : Finset (Fin (OfNat.ofNat 5)) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin (OfNat.ofNat 5)) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin (OfNat.ofNat 5) → Real)
+  (U : Fin (OfNat.ofNat 5) → CFDLean.Conservative (OfNat.ofNat 3)),
+  And (Eq (CFDLean.Time.Controls.unusedMesh.dualVolume ⟨4, Fin.instOfNat⟩) (OfNat.ofNat 0))
+    (And
+      (Eq (CFDLean.Boundary.meshResidual CFDLean.Time.Controls.unusedMesh γ k V U ⟨4, Fin.instOfNat⟩) (OfNat.ofNat 0))
+      (Eq (CFDLean.Time.meshStep CFDLean.Time.Controls.unusedMesh γ k V τ U ⟨4, Fin.instOfNat⟩) (U ⟨4, Fin.instOfNat⟩)))
+XSTMT CFDLean.Time.amount_reindex :: ∀ {N : Type u_1} {N' : Type u_2} [inst : Fintype N] [inst_1 : Fintype N'] (n : Equiv N N') (v : N → Real)
+  (U : N → CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Time.amount (fun (x : N') => v (DFunLike.coe n.symm x)) fun (x : N') => U (DFunLike.coe n.symm x))
+    (CFDLean.Time.amount v U)
+XSTMT CFDLean.Time.euler_amount :: ∀ (v τ : Real),
+  Ne v (OfNat.ofNat 0) →
+    ∀ (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative (OfNat.ofNat 3)),
+      Eq (HSMul.hSMul v (CFDLean.Coordinates.encode (CFDLean.Time.euler v τ R U)))
+        (HSub.hSub (HSMul.hSMul v (CFDLean.Coordinates.encode U)) (HSMul.hSMul τ R))
+XSTMT CFDLean.Time.euler_coordinates :: ∀ (v τ : Real) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Coordinates.encode (CFDLean.Time.euler v τ R U))
+    (HSub.hSub (CFDLean.Coordinates.encode U) (HSMul.hSMul (HDiv.hDiv τ v) R))
+XSTMT CFDLean.Time.euler_zero_residual :: ∀ (v τ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)), Eq (CFDLean.Time.euler v τ (OfNat.ofNat 0) U) U
+XSTMT CFDLean.Time.euler_zero_step :: ∀ (v : Real) (R : CFDLean.Coordinates.StateCoordinates) (U : CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Time.euler v (OfNat.ofNat 0) R U) U
+XSTMT CFDLean.Time.head_used :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (e : M.Edge), M.Used (M.interfaces.head e)
+XSTMT CFDLean.Time.held_reindex :: ∀ {N : Type u_1} {N' : Type u_2} (n : Equiv N N') (used : N → Prop) (v τ : N → Real)
+  (R : N → CFDLean.Coordinates.StateCoordinates) (U : N → CFDLean.Conservative (OfNat.ofNat 3)) (i : N),
+  Eq
+    (CFDLean.Time.heldStep (fun (x : N') => used (DFunLike.coe n.symm x)) (fun (x : N') => v (DFunLike.coe n.symm x))
+      (fun (x : N') => τ (DFunLike.coe n.symm x)) (fun (x : N') => R (DFunLike.coe n.symm x))
+      (fun (x : N') => U (DFunLike.coe n.symm x)) (DFunLike.coe n i))
+    (CFDLean.Time.heldStep used v τ R U i)
+XSTMT CFDLean.Time.mesh_amount_change :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M γ k V τ U))
+    (HSub.hSub (CFDLean.Time.amount M.dualVolume U)
+      (Finset.univ.sum fun (i : Fin n) => HSMul.hSMul (τ i) (CFDLean.Boundary.meshResidual M γ k V U i)))
+XSTMT CFDLean.Time.mesh_amount_used :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Time.amount M.dualVolume U)
+    ((Finset.filter M.Used Finset.univ).sum fun (i : Fin n) =>
+      HSMul.hSMul (M.dualVolume i) (CFDLean.Coordinates.encode (U i)))
+XSTMT CFDLean.Time.mesh_common_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)) (dt : Real),
+  (∀ (i : Fin n), M.Used i → Eq (τ i) dt) →
+    Eq (CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M γ k V τ U))
+      (HSub.hSub (CFDLean.Time.amount M.dualVolume U)
+        (HSMul.hSMul dt (Finset.univ.sum fun (b : M.Boundary) => CFDLean.Boundary.patchTransfer M γ k V U b)))
+XSTMT CFDLean.Time.mesh_common_balance_physical :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real),
+  LT.lt (OfNat.ofNat 1) γ →
+    ∀ (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3))
+      (τ : Fin n → Real) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)) (dt : Real),
+      LE.le (OfNat.ofNat 0) dt →
+        (∀ (i : Fin n), M.Used i → CFDLean.Conservative.Admissible γ (U i)) →
+          (∀ (b : M.Boundary),
+              Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+                CFDLean.Conservative.Admissible γ (CFDLean.Boundary.patchExterior M V b)) →
+            (∀ (i : Fin n), M.Used i → Eq (τ i) dt) →
+              Eq (CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M γ k V τ U))
+                (HSub.hSub (CFDLean.Time.amount M.dualVolume U)
+                  (HSMul.hSMul dt (Finset.univ.sum fun (b : M.Boundary) => CFDLean.Boundary.patchTransfer M γ k V U b)))
+XSTMT CFDLean.Time.mesh_common_state :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),
+  M.Conforming →
+    ∀ (γ : Real),
+      LT.lt (OfNat.ofNat 1) γ →
+        ∀ (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3))
+          (τ : Fin n → Real),
+          (∀ (i : Fin n), M.Used i → LE.le (OfNat.ofNat 0) (τ i)) →
+            ∀ (U : CFDLean.Conservative (OfNat.ofNat 3)),
+              CFDLean.Conservative.Admissible γ U →
+                (∀ (b : M.Boundary),
+                    Ne (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+                      Eq (CFDLean.dot U.momentum (M.boundaryArea b)) (OfNat.ofNat 0)) →
+                  (∀ (b : M.Boundary),
+                      Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+                        Eq (CFDLean.Boundary.patchExterior M V b) U) →
+                    ∀ (i : Fin n), Eq (CFDLean.Time.meshStep M γ k V τ (fun (x : Fin n) => U) i) U
+XSTMT CFDLean.Time.mesh_component_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (dt : Real) (j : Fin (OfNat.ofNat 5)),
+  Eq
+    (Finset.univ.sum fun (i : Fin n) =>
+      HMul.hMul (M.dualVolume i)
+        (CFDLean.Coordinates.encode (CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => dt) U i) j))
+    (HSub.hSub (Finset.univ.sum fun (i : Fin n) => HMul.hMul (M.dualVolume i) (CFDLean.Coordinates.encode (U i) j))
+      (HMul.hMul dt (Finset.univ.sum fun (b : M.Boundary) => CFDLean.Boundary.patchTransfer M γ k V U b j)))
+XSTMT CFDLean.Time.mesh_energy_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (dt : Real),
+  Eq
+    (Finset.univ.sum fun (i : Fin n) =>
+      HMul.hMul (M.dualVolume i) (CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => dt) U i).energy)
+    (HSub.hSub (Finset.univ.sum fun (i : Fin n) => HMul.hMul (M.dualVolume i) (U i).energy)
+      (HMul.hMul dt
+        (Finset.univ.sum fun (b : M.Boundary) =>
+          ite (Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+            (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b))
+              (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b) ⟨4, Fin.instOfNat⟩)
+            (OfNat.ofNat 0))))
+XSTMT CFDLean.Time.mesh_local_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)),
+  Eq (CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M γ k V τ U))
+    (HSub.hSub (CFDLean.Time.amount M.dualVolume U)
+      (HAdd.hAdd
+        (Finset.univ.sum fun (e : M.Edge) =>
+          HSMul.hSMul (HSub.hSub (τ (M.interfaces.tail e)) (τ (M.interfaces.head e)))
+            (CFDLean.Assembly.roeTransfer M.interfaces γ U M.edgeArea e))
+        (Finset.univ.sum fun (b : M.Boundary) =>
+          HSMul.hSMul (τ (M.interfaces.owner b)) (CFDLean.Boundary.patchTransfer M γ k V U b))))
+XSTMT CFDLean.Time.mesh_local_balance_physical :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real),
+  LT.lt (OfNat.ofNat 1) γ →
+    ∀ (k : Finset (Fin n) → CFDLean.Boundary.Kind) (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3))
+      (τ : Fin n → Real),
+      (∀ (i : Fin n), M.Used i → LE.le (OfNat.ofNat 0) (τ i)) →
+        ∀ (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)),
+          (∀ (i : Fin n), M.Used i → CFDLean.Conservative.Admissible γ (U i)) →
+            (∀ (b : M.Boundary),
+                Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe →
+                  CFDLean.Conservative.Admissible γ (CFDLean.Boundary.patchExterior M V b)) →
+              Eq (CFDLean.Time.amount M.dualVolume (CFDLean.Time.meshStep M γ k V τ U))
+                (HSub.hSub (CFDLean.Time.amount M.dualVolume U)
+                  (HAdd.hAdd
+                    (Finset.univ.sum fun (e : M.Edge) =>
+                      HSMul.hSMul (HSub.hSub (τ (M.interfaces.tail e)) (τ (M.interfaces.head e)))
+                        (CFDLean.Assembly.roeTransfer M.interfaces γ U M.edgeArea e))
+                    (Finset.univ.sum fun (b : M.Boundary) =>
+                      HSMul.hSMul (τ (M.interfaces.owner b)) (CFDLean.Boundary.patchTransfer M γ k V U b))))
+XSTMT CFDLean.Time.mesh_mass_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (dt : Real),
+  Eq
+    (Finset.univ.sum fun (i : Fin n) =>
+      HMul.hMul (M.dualVolume i) (CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => dt) U i).density)
+    (HSub.hSub (Finset.univ.sum fun (i : Fin n) => HMul.hMul (M.dualVolume i) (U i).density)
+      (HMul.hMul dt
+        (Finset.univ.sum fun (b : M.Boundary) =>
+          ite (Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+            (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b))
+              (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b) ⟨0, Fin.instOfNat⟩)
+            (OfNat.ofNat 0))))
+XSTMT CFDLean.Time.mesh_momentum_balance :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (dt : Real) (j : Fin (OfNat.ofNat 3)),
+  Eq
+    (Finset.univ.sum fun (i : Fin n) =>
+      HMul.hMul (M.dualVolume i) ((CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => dt) U i).momentum j))
+    (HSub.hSub (Finset.univ.sum fun (i : Fin n) => HMul.hMul (M.dualVolume i) ((U i).momentum j))
+      (HMul.hMul dt
+        (Finset.univ.sum fun (b : M.Boundary) =>
+          ite (Eq (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe)
+            ((CFDLean.Coordinates.decode
+                  (CFDLean.Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b))
+                    (CFDLean.Boundary.patchExterior M V b) (M.boundaryArea b))).momentum
+              j)
+            (HMul.hMul (CFDLean.Conservative.pressure γ (U (M.interfaces.owner b))) (M.boundaryArea b j)))))
+XSTMT CFDLean.Time.mesh_point_amount :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)) (i : Fin n),
+  M.Used i →
+    Eq (HSMul.hSMul (M.dualVolume i) (CFDLean.Coordinates.encode (CFDLean.Time.meshStep M γ k V τ U i)))
+      (HSub.hSub (HSMul.hSMul (M.dualVolume i) (CFDLean.Coordinates.encode (U i)))
+        (HSMul.hSMul (τ i) (CFDLean.Boundary.meshResidual M γ k V U i)))
+XSTMT CFDLean.Time.mesh_residual_unused :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (i : Fin n), Not (M.Used i) → Eq (CFDLean.Boundary.meshResidual M γ k V U i) (OfNat.ofNat 0)
+XSTMT CFDLean.Time.mesh_step_reindex :: ∀ {n m : Nat} {N' : Type u_4} {E' : Type u_5} {B' : Type u_6} [inst : DecidableEq N'] [inst_1 : Fintype E']
+  [inst_2 : Fintype B'] (M : CFDLean.MedianDual.MeshData n m) (nodeEq : Equiv (Fin n) N') (e : Equiv M.Edge E')
+  (b : Equiv M.Boundary B') (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)) (i : Fin n),
+  Eq
+    (CFDLean.Time.heldStep (fun (x : N') => M.Used (DFunLike.coe nodeEq.symm x))
+      (fun (x : N') => M.dualVolume (DFunLike.coe nodeEq.symm x)) (fun (x : N') => τ (DFunLike.coe nodeEq.symm x))
+      (CFDLean.Boundary.stationaryResidual (M.interfaces.reindex nodeEq e b) γ
+        (fun (x : B') => CFDLean.Boundary.patchKind M k (DFunLike.coe b.symm x))
+        (fun (x : B') => CFDLean.Boundary.patchExterior M V (DFunLike.coe b.symm x))
+        (fun (x : N') => U (DFunLike.coe nodeEq.symm x)) (fun (x : E') => M.edgeArea (DFunLike.coe e.symm x))
+        fun (x : B') => M.boundaryArea (DFunLike.coe b.symm x))
+      (fun (x : N') => U (DFunLike.coe nodeEq.symm x)) (DFunLike.coe nodeEq i))
+    (CFDLean.Time.meshStep M γ k V τ U i)
+XSTMT CFDLean.Time.mesh_step_unused :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)) (i : Fin n),
+  Not (M.Used i) → Eq (CFDLean.Time.meshStep M γ k V τ U i) (U i)
+XSTMT CFDLean.Time.mesh_step_used :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (τ : Fin n → Real)
+  (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3)) (i : Fin n),
+  M.Used i →
+    Eq (CFDLean.Time.meshStep M γ k V τ U i)
+      (CFDLean.Coordinates.decode
+        (HSub.hSub (CFDLean.Coordinates.encode (U i))
+          (HSMul.hSMul (HDiv.hDiv (τ i) (M.dualVolume i)) (CFDLean.Boundary.meshResidual M γ k V U i))))
+XSTMT CFDLean.Time.mesh_traction_energy :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (dt : Real),
+  (∀ (b : M.Boundary), Ne (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe) →
+    Eq
+      (Finset.univ.sum fun (i : Fin n) =>
+        HMul.hMul (M.dualVolume i) (CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => dt) U i).energy)
+      (Finset.univ.sum fun (i : Fin n) => HMul.hMul (M.dualVolume i) (U i).energy)
+XSTMT CFDLean.Time.mesh_traction_mass :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (dt : Real),
+  (∀ (b : M.Boundary), Ne (CFDLean.Boundary.patchKind M k b) CFDLean.Boundary.Kind.prescribedExteriorRoe) →
+    Eq
+      (Finset.univ.sum fun (i : Fin n) =>
+        HMul.hMul (M.dualVolume i) (CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => dt) U i).density)
+      (Finset.univ.sum fun (i : Fin n) => HMul.hMul (M.dualVolume i) (U i).density)
+XSTMT CFDLean.Time.mesh_used_volume_pos :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (i : Fin n), M.Used i → LT.lt (OfNat.ofNat 0) (M.dualVolume i)
+XSTMT CFDLean.Time.mesh_zero_step :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (γ : Real) (k : Finset (Fin n) → CFDLean.Boundary.Kind)
+  (V : Finset (Fin n) → CFDLean.Conservative (OfNat.ofNat 3)) (U : Fin n → CFDLean.Conservative (OfNat.ofNat 3))
+  (i : Fin n), Eq (CFDLean.Time.meshStep M γ k V (fun (x : Fin n) => OfNat.ofNat 0) U i) (U i)
+XSTMT CFDLean.Time.owner_used :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (b : M.Boundary), M.Used (M.interfaces.owner b)
+XSTMT CFDLean.Time.tail_used :: ∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m) (e : M.Edge), M.Used (M.interfaces.tail e)
+XSTMT CFDLean.Time.weighted_residual :: ∀ {N : Type u_1} {E : Type u_2} {B : Type u_3} [inst : DecidableEq N] [inst_1 : Fintype N] [inst_2 : Fintype E]
+  [inst_3 : Fintype B] (m : CFDLean.Assembly.Interfaces N E B) (τ : N → Real)
+  (f : E → CFDLean.Coordinates.StateCoordinates) (g : B → CFDLean.Coordinates.StateCoordinates),
+  Eq (Finset.univ.sum fun (i : N) => HSMul.hSMul (τ i) (CFDLean.Assembly.residual m f g i))
+    (HAdd.hAdd (Finset.univ.sum fun (e : E) => HSMul.hSMul (HSub.hSub (τ (m.tail e)) (τ (m.head e))) (f e))
+      (Finset.univ.sum fun (b : B) => HSMul.hSMul (τ (m.owner b)) (g b)))
