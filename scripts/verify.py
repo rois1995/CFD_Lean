@@ -17,6 +17,37 @@ APPROVED_M5 = "9ee58a9a0226844cda835ac0b8285d64891f1dd0"
 APPROVED_M4 = "0cff4af244b85f4e2071e7bf941d40fdd0a399b5"
 APPROVED_M3 = "3189a603b3f6af953f0828d6b2e239320fd2cd20"
 APPROVED_M2 = "79fd2a03d7b15325c56a88ec83991b4fb4f498bb"
+# MC-T: reviewed toolchain port (Lean v4.19.0 -> v4.36.0). Accepted sources may differ from their accepted
+# revision only by being byte-identical to this port revision; accepted types may differ only as recorded in
+# specifications/MC-port-types.json with a mechanical classification.
+MC_PORT_REVISION = "4f249ae108bc71f069427d09275ddc29cf1f0f7a"
+MC_PORT_CLASSES = {"identical", "notation", "mathlib-rename", "pretty-printer"}
+_PORT_MAP = None
+
+
+def port_map():
+    global _PORT_MAP
+    if _PORT_MAP is None:
+        _PORT_MAP = json.loads((ROOT / "specifications/MC-port-types.json").read_text())["theorems"]
+    return _PORT_MAP
+
+
+def same_or_ported_type(name, before, after):
+    if before == after:
+        return True
+    entry = port_map().get(name)
+    return (entry is not None and entry["classification"] in MC_PORT_CLASSES
+            and entry["accepted_type"] == before and entry["current_type"] == after)
+
+
+def same_or_ported_source(path, accepted_sha256):
+    data = (ROOT / path).read_bytes()
+    if hashlib.sha256(data).hexdigest() == accepted_sha256:
+        return True
+    try:
+        return data == git_blob(MC_PORT_REVISION, path)
+    except subprocess.CalledProcessError:
+        return False
 
 
 def parse_axioms(output):
@@ -70,7 +101,7 @@ def check_inherited(rows, contract, accepted_contract, accepted_evidence):
             before = accepted_evidence["declarations"][name]["type"]
             after = rows[name]["type"]
             comparison[name] = {"accepted_type": before, "current_type": after}
-            if before != after:
+            if not same_or_ported_type(name, before, after):
                 raise ValueError(f"Accepted theorem type changed: {name}")
     return comparison
 
@@ -118,7 +149,7 @@ def check_m3_inherited(rows, contract, accepted, evidence):
                 raise ValueError(f"Accepted {result['id']} part/bindings changed")
             for name in part["declarations"]:
                 before, after = evidence["declarations"][name]["type"], rows[name]["type"]
-                if before != after:
+                if not same_or_ported_type(name, before, after):
                     raise ValueError(f"Accepted M3 type changed: {name}")
                 comparisons[name] = {"accepted_type": before, "current_type": after}
     return comparisons
@@ -137,7 +168,7 @@ def check_m4_inherited(rows, contract, accepted, evidence):
             raise ValueError(f"Accepted {result['id']} binding/stage changed")
         for name in result["declarations"]:
             before, after = evidence["declarations"][name]["type"], rows[name]["type"]
-            if before != after:
+            if not same_or_ported_type(name, before, after):
                 raise ValueError(f"Accepted M4 type changed: {name}")
             comparisons[name] = {"accepted_type": before, "current_type": after}
     return comparisons
@@ -161,11 +192,11 @@ def main():
     accepted_contract = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M2-results.json"))
     accepted_evidence = json.loads(git_blob(ACCEPTED_BASELINE, "evidence/verification.json"))
     for module, record in accepted_evidence["source_modules"].items():
-        if module != "CFDLean" and hashlib.sha256((ROOT / record["path"]).read_bytes()).hexdigest() != record["sha256"]:
+        if module != "CFDLean" and not same_or_ported_source(record["path"], record["sha256"]):
             raise ValueError(f"Accepted mathematical source changed: {record['path']}")
     check_result_ids(contract, frozen.decode())
     for name, expected in contract["accepted_m1_sources"].items():
-        if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
+        if not same_or_ported_source(name, expected):
             raise ValueError(f"Accepted M1 source changed: {name}")
     m3 = json.loads((ROOT / "specifications/M3-results.json").read_text())
     for field, digest_field in [("contract", "contract_sha256"), ("representation_contract", "representation_sha256")]:
