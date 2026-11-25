@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = "catalog/theorems.json"
 README = "catalog/README.md"
 LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes", "Time")
-MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1")
+MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2")
 STATUSES = ("accepted", "pending", "candidate")
 METHOD_SETS = (("FEM",), ("FVM",), ("FEM", "FVM"), ("method-free",))
 
@@ -50,11 +50,12 @@ independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on bran
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
 
-**Burgers** (milestones `B0`, `B1`, status `pending`: implemented, independent review pending). The declarations bound
-in `specifications/Burgers-B0-results.json` and `Burgers-B1-results.json`: the scalar two-point-flux finite-volume core
-on a periodic grid and the incremental-form stability lemmas (Discrete operators, Schemes), the Burgers Rusanov flux
-(Schemes), the Forward Euler step and its stability under a CFL hypothesis (Time). `FVM` marks the periodic
-finite-volume statements; the generic Forward Euler statements are `method-free`.
+**Burgers** (milestones `B0`, `B1`, `B2`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B2-results.json`: the scalar two-point-flux finite-volume
+core on a periodic grid, the incremental-form stability lemmas and the convexity of bounded states and of the total
+variation (Discrete operators, Schemes), the Burgers Rusanov flux (Schemes), the Forward Euler step, its stability
+under a CFL hypothesis, the generic SSP Runge-Kutta composition and the multi-step results (Time). `FVM` marks the
+periodic finite-volume statements; the generic time-stepping statements are `method-free`.
 
 **Source.** The contract or result map and the result ID (with stage, or the JST statement for MC-N).
 

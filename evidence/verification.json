@@ -211,6 +211,7 @@
     "CFDLean.Discrete.Galerkin",
     "CFDLean.Discrete.Mesh",
     "CFDLean.Discrete.Periodic.Conservation",
+    "CFDLean.Discrete.Periodic.Convexity",
     "CFDLean.Discrete.Periodic.FiniteVolume",
     "CFDLean.Discrete.Periodic.Grid",
     "CFDLean.Discrete.Periodic.TotalVariation",
@@ -245,7 +246,9 @@
     "CFDLean.Schemes.Burgers.Controls",
     "CFDLean.Schemes.Burgers.Rusanov",
     "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Schemes.Burgers.RusanovSSP",
     "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Schemes.Burgers.SSPControls",
     "CFDLean.Schemes.Burgers.StabilityControls",
     "CFDLean.Schemes.Roe.Flux",
     "CFDLean.Schemes.Scalar.Monotone",
@@ -253,10 +256,13 @@
     "CFDLean.Time.Controls",
     "CFDLean.Time.ExplicitEuler",
     "CFDLean.Time.ForwardEuler",
+    "CFDLean.Time.SSP",
     "CFDLean.Verification.BurgersB0Challenge",
     "CFDLean.Verification.BurgersB0Verify",
     "CFDLean.Verification.BurgersB1Challenge",
     "CFDLean.Verification.BurgersB1Verify",
+    "CFDLean.Verification.BurgersB2Challenge",
+    "CFDLean.Verification.BurgersB2Verify",
     "Integrity"
   ],
   "closure": {
@@ -265,14 +271,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 1843,
+    "roots": 1915,
     "unsafe_reached": [],
-    "visited": 48921
+    "visited": 48993
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "9a46cd9d7f7ef6b37e3feadfedc210c6a7be3bd07fdfaf3a0df0f704949344c7"
+      "sha256": "ad1050d33d0c6ed8b45f9ab5896e24fa5a603860631743df83cbc1cca337b181"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -289,6 +295,10 @@
     "CFDLean.Discrete.Periodic.Conservation": {
       "path": "CFDLean/Discrete/Periodic/Conservation.lean",
       "sha256": "4a2729b72431af833e1cacd1385c2fb249a4e24e45fad94083b72ed2223eef78"
+    },
+    "CFDLean.Discrete.Periodic.Convexity": {
+      "path": "CFDLean/Discrete/Periodic/Convexity.lean",
+      "sha256": "1a7072ff50f2baf7d8faf2edd9b7d2037923adfc36177075bb120c97cbb8400a"
     },
     "CFDLean.Discrete.Periodic.FiniteVolume": {
       "path": "CFDLean/Discrete/Periodic/FiniteVolume.lean",
@@ -426,9 +436,17 @@
       "path": "CFDLean/Schemes/Burgers/RusanovForwardEuler.lean",
       "sha256": "22a783901d060cf47fd303bd85eb0ebd712aa6e8c0ee87de6f185a784e9b5b55"
     },
+    "CFDLean.Schemes.Burgers.RusanovSSP": {
+      "path": "CFDLean/Schemes/Burgers/RusanovSSP.lean",
+      "sha256": "4bf15ebf8fe5b06feda07a5e4a2adacdfac5636f4ecebaa08eac921009b67c53"
+    },
     "CFDLean.Schemes.Burgers.RusanovStability": {
       "path": "CFDLean/Schemes/Burgers/RusanovStability.lean",
       "sha256": "1a0017537a10a189f080629c73a18973695088cbc481efc7170ca968d0a3c1b9"
+    },
+    "CFDLean.Schemes.Burgers.SSPControls": {
+      "path": "CFDLean/Schemes/Burgers/SSPControls.lean",
+      "sha256": "7b370336cfce260a6ad324dab3b1e4643fc2b4f6f238fcf0def0b420871ee308"
     },
     "CFDLean.Schemes.Burgers.StabilityControls": {
       "path": "CFDLean/Schemes/Burgers/StabilityControls.lean",
@@ -458,6 +476,10 @@
       "path": "CFDLean/Time/ForwardEuler.lean",
       "sha256": "970e50e0b49f4069cb58193e533e4644128853559dbdd060910f6c1a0f920fbe"
     },
+    "CFDLean.Time.SSP": {
+      "path": "CFDLean/Time/SSP.lean",
+      "sha256": "9628435596cb3ee8c336a15b3fc187ef983dce852d66f5f4f1e3c8ce86afc7c4"
+    },
     "CFDLean.Verification.BurgersB0Challenge": {
       "path": "CFDLean/Verification/BurgersB0Challenge.lean",
       "sha256": "87e430df675886e918600ec7fd026c4afd256f4e7cfc9ce3dd244d984bfddf38"
@@ -473,6 +495,14 @@
     "CFDLean.Verification.BurgersB1Verify": {
       "path": "CFDLean/Verification/BurgersB1Verify.lean",
       "sha256": "9027c120967daa93c77d9da1eeb3c38fe5d0d956bb621f63a1ab6224c0769830"
+    },
+    "CFDLean.Verification.BurgersB2Challenge": {
+      "path": "CFDLean/Verification/BurgersB2Challenge.lean",
+      "sha256": "445e3cf8c17a53ba5e9f55a911bf5070fff187144ad48c12126fe7186124af75"
+    },
+    "CFDLean.Verification.BurgersB2Verify": {
+      "path": "CFDLean/Verification/BurgersB2Verify.lean",
+      "sha256": "fada65f6c5632ab4826cb7a7dc914afa46b864a0b9070524b9936f0c1b55d0f0"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -7827,6 +7857,157 @@
       "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.eulerStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  CFDLean.Burgers.Rusanov.eulerStep g dx dt =\n    CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux)",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Scalar.FiniteVolume.rhs_constant",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Burgers.Rusanov.consistent",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.law",
+        "CFDLean.Time.ForwardEuler.step_constant"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_constant",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : \u211d),\n  (CFDLean.Burgers.Rusanov.eulerStep g dx dt fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Burgers.Rusanov.eulerStep_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      2 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          \u2200 (n : \u2115),\n            (CFDLean.Burgers.Rusanov.eulerStep g dx dt)^[n] u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.eulerStep g dx dt)^[n] u) \u2264\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.step_bounds",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_mem",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      2 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Burgers.Rusanov.eulerStep g dx dt u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.ForwardEuler.step_sum",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_sum",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, CFDLean.Burgers.Rusanov.eulerStep g dx dt u i = \u2211 i, u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      2 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.eulerStep g dx dt u) \u2264\n            CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.eval": {
       "axioms": [
         "propext",
@@ -8122,6 +8303,184 @@
       "type": "CFDLean.Burgers.Rusanov.numericalFlux = { eval := CFDLean.Burgers.Rusanov.eval }",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.ssprk2Step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk2Step_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Time.SSP.ssprk2_fixed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.ssprk2Step",
+        "CFDLean.Burgers.Rusanov.eulerStep_constant"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step_constant",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : \u211d),\n  (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Time.SSP.ssprk2_mem",
+        "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+        "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.ssprk2Step",
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Burgers.Rusanov.eulerStep_mem",
+        "CFDLean.Time.SSP.ssprk2_le"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      2 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          \u2200 (n : \u2115),\n            (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt)^[n] u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.ssprk2Step g dx dt)^[n] u) \u2264\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk2Step_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Scalar.FiniteVolume.totalSum_apply",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.ssprk2Step",
+        "CFDLean.Time.SSP.ssprk2",
+        "CFDLean.Time.SSP.ssprk2_linear",
+        "CFDLean.Scalar.FiniteVolume.totalSum",
+        "CFDLean.Burgers.Rusanov.eulerStep_sum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk2Step_sum",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, CFDLean.Burgers.Rusanov.ssprk2Step g dx dt u i = \u2211 i, u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Time.SSP.ssprk3_fixed",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.ssprk3Step",
+        "CFDLean.Burgers.Rusanov.eulerStep_constant"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step_constant",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : \u211d),\n  (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Time.SSP.ssprk3_le",
+        "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+        "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Time.SSP.ssprk3_mem",
+        "CFDLean.Burgers.Rusanov.ssprk3Step",
+        "CFDLean.Burgers.Rusanov.eulerStep_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      2 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          \u2200 (n : \u2115),\n            (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt)^[n] u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.ssprk3Step g dx dt)^[n] u) \u2264\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Time.SSP.ssprk3_linear",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Scalar.FiniteVolume.totalSum_apply",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.ssprk3Step",
+        "CFDLean.Scalar.FiniteVolume.totalSum",
+        "CFDLean.Burgers.Rusanov.eulerStep_sum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.ssprk3Step_sum",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, CFDLean.Burgers.Rusanov.ssprk3Step g dx dt u i = \u2211 i, u i",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.step_bounds": {
       "axioms": [
         "propext",
@@ -8244,6 +8603,22 @@
       "name": "CFDLean.Burgers.Rusanov.waveSpeed.eq_1",
       "root": true,
       "type": "\u2200 (uL uR : \u211d), CFDLean.Burgers.Rusanov.waveSpeed uL uR = max |uL| |uR|",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.waveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds",
+      "root": true,
+      "type": "\u2200 (m M a b : \u211d), m \u2264 a \u2227 a \u2264 M \u2192 m \u2264 b \u2227 b \u2264 M \u2192 CFDLean.Burgers.Rusanov.waveSpeed a b \u2264 max |m| |M|",
       "unsafe": false
     },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid": {
@@ -8419,6 +8794,24 @@
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds",
       "root": true,
       "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : ZMod N \u2192 \u211d) (m M : \u211d),\n        (\u2200 (i : ZMod N),\n            2 *\n                (dt *\n                  CFDLean.Burgers.Rusanov.waveSpeed (u i)\n                    (u (CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i))) \u2264\n              dx) \u2192\n          (\u2200 (j : ZMod N), m \u2264 u j) \u2192\n            (\u2200 (j : ZMod N), u j \u2264 M) \u2192\n              \u2200 (i : ZMod N),\n                m \u2264 CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i \u2227\n                  CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i \u2264 M",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_eq_eulerStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovSSP",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_eq_eulerStep",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt =\n    CFDLean.Burgers.Rusanov.eulerStep CFDLean.Burgers.Schemes.RusanovForwardEuler.grid dx dt",
       "unsafe": false
     },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant": {
@@ -36882,6 +37275,66 @@
       "type": "CFDLean.Scalar.ConservationLaw \u2192 CFDLean.Scalar.NumericalFlux \u2192 Prop",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.boundedStates": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.boundedStates",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 \u211d \u2192 \u211d \u2192 Set (I \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.boundedStates._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.boundedStates._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.boundedStates._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.boundedStates._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.boundedStates._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.boundedStates._redArg._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.boundedStates_convex": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.boundedStates"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (m M : \u211d), Convex \u211d (CFDLean.Scalar.FiniteVolume.boundedStates m M)",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero": {
       "axioms": [
         "propext",
@@ -37139,6 +37592,92 @@
       "type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  \u2211 i \u2208 s, f i / a = (\u2211 i \u2208 s, f i) / a",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.totalSum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 [Fintype I] \u2192 (I \u2192 \u211d) \u2192\u2097[\u211d] \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.totalSum._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalSum._redArg._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum._redArg._closed_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalSum._redArg._closed_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum._redArg._closed_1",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalSum._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum._redArg._lam_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalSum.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalSum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Scalar.FiniteVolume.totalSum = \u2211 i, LinearMap.proj i",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.totalSum_apply": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalSum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalSum_apply",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (u : I \u2192 \u211d), CFDLean.Scalar.FiniteVolume.totalSum u = \u2211 i, u i",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.totalVariation": {
       "axioms": [
         "propext",
@@ -37185,6 +37724,42 @@
       "root": false,
       "type": null,
       "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (u : I \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.totalVariation g u = \u2211 i, |u (g.next i) - u i|",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Convexity",
+      "name": "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (S : Set (I \u2192 \u211d)),\n  Convex \u211d S \u2192 ConvexOn \u211d S (CFDLean.Scalar.FiniteVolume.totalVariation g)",
+      "unsafe": false
     },
     "CFDLean.Scalar.MonotoneFlux": {
       "axioms": [
@@ -39388,6 +39963,305 @@
       "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d),\n  (L u = fun x => 0) \u2192 CFDLean.Time.ForwardEuler.step dt L u = u",
       "unsafe": false
     },
+    "CFDLean.Time.SSP.iterate_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.iterate_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.iterate_le",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} (T : V \u2192 V) (S : Set V) (\u03a6 : V \u2192 \u211d),\n  (\u2200 u \u2208 S, T u \u2208 S) \u2192 (\u2200 u \u2208 S, \u03a6 (T u) \u2264 \u03a6 u) \u2192 \u2200 u \u2208 S, \u2200 (n : \u2115), \u03a6 (T^[n] u) \u2264 \u03a6 u",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.iterate_mem": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.iterate_mem",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} (T : V \u2192 V) (S : Set V), (\u2200 u \u2208 S, T u \u2208 S) \u2192 \u2200 u \u2208 S, \u2200 (n : \u2115), T^[n] u \u2208 S",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2",
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2._proof_1",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2.eq_1",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (u : V),\n  CFDLean.Time.SSP.ssprk2 E u = (1 / 2) \u2022 u + (1 / 2) \u2022 E (E u)",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2_fixed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk2.eq_1",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2_fixed",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (c : V),\n  E c = c \u2192 CFDLean.Time.SSP.ssprk2 E c = c",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2_forwardEuler": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2_forwardEuler",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Time.SSP.ssprk2 (CFDLean.Time.ForwardEuler.step dt L) u i =\n    u i + dt / 2 * (L u i + L (CFDLean.Time.ForwardEuler.step dt L u) i)",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2_le",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (S : Set V) (\u03a6 : V \u2192 \u211d),\n  ConvexOn \u211d S \u03a6 \u2192 (\u2200 u \u2208 S, E u \u2208 S) \u2192 (\u2200 u \u2208 S, \u03a6 (E u) \u2264 \u03a6 u) \u2192 \u2200 u \u2208 S, \u03a6 (CFDLean.Time.SSP.ssprk2 E u) \u2264 \u03a6 u",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2_linear": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2_linear",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (\u2113 : V \u2192\u2097[\u211d] \u211d),\n  (\u2200 (u : V), \u2113 (E u) = \u2113 u) \u2192 \u2200 (u : V), \u2113 (CFDLean.Time.SSP.ssprk2 E u) = \u2113 u",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk2_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk2_mem",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (S : Set V),\n  Convex \u211d S \u2192 (\u2200 u \u2208 S, E u \u2208 S) \u2192 \u2200 u \u2208 S, CFDLean.Time.SSP.ssprk2 E u \u2208 S",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk3._proof_2"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3",
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3._proof_1",
+      "root": true,
+      "type": "(2 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3._proof_2",
+      "root": true,
+      "type": "(3 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk3._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3.eq_1",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (u : V),\n  CFDLean.Time.SSP.ssprk3 E u = (1 / 3) \u2022 u + (2 / 3) \u2022 E ((3 / 4) \u2022 u + (1 / 4) \u2022 E (E u))",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3_fixed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Time.SSP.ssprk3.eq_1",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk3._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3_fixed",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (c : V),\n  E c = c \u2192 CFDLean.Time.SSP.ssprk3 E c = c",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk3._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3_le",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (S : Set V) (\u03a6 : V \u2192 \u211d),\n  ConvexOn \u211d S \u03a6 \u2192 (\u2200 u \u2208 S, E u \u2208 S) \u2192 (\u2200 u \u2208 S, \u03a6 (E u) \u2264 \u03a6 u) \u2192 \u2200 u \u2208 S, \u03a6 (CFDLean.Time.SSP.ssprk3 E u) \u2264 \u03a6 u",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3_linear": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk3._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3_linear",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (\u2113 : V \u2192\u2097[\u211d] \u211d),\n  (\u2200 (u : V), \u2113 (E u) = \u2113 u) \u2192 \u2200 (u : V), \u2113 (CFDLean.Time.SSP.ssprk3 E u) = \u2113 u",
+      "unsafe": false
+    },
+    "CFDLean.Time.SSP.ssprk3_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Time.SSP.ssprk2._proof_1",
+        "CFDLean.Time.SSP.ssprk3._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.SSP",
+      "name": "CFDLean.Time.SSP.ssprk3_mem",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V] (E : V \u2192 V) (S : Set V),\n  Convex \u211d S \u2192 (\u2200 u \u2208 S, E u \u2208 S) \u2192 \u2200 u \u2208 S, CFDLean.Time.SSP.ssprk3 E u \u2208 S",
+      "unsafe": false
+    },
     "CFDLean.Time.amount": {
       "axioms": [
         "propext",
@@ -41476,6 +42350,572 @@
       "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation I",
       "unsafe": false
     },
+    "CFDLean.Verification.BurgersB2Challenge.EulerMultiStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.MultiStepStable",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.EulerMultiStep",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.MultiStepStable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.MultiStepStable",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 (I \u2243 I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d) \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.SSPRK2Conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.SSPRK2Conservation",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.SSPRK2Convex": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.SSPRK2Convex",
+      "root": true,
+      "type": "(V : Type u_2) \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.SSPRK2MultiStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2",
+        "CFDLean.Verification.BurgersB2Challenge.MultiStepStable",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.SSPRK2MultiStep",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.SSPRK3Conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.SSPRK3Conservation",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.SSPRK3Convex": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.SSPRK3Convex",
+      "root": true,
+      "type": "(V : Type u_2) \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB2Challenge.MultiStepStable",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.burgersFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.burgersFlux",
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.burgersFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Challenge.burgersFlux.eq_1",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Verification.BurgersB2Challenge.burgersFlux u = u ^ 2 / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.eulerStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.rusanov"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.eulerStep",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.eulerStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.rusanov",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Challenge.eulerStep.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB2Challenge.eulerStep next dx dt u i =\n    u i +\n      dt *\n        (-(CFDLean.Verification.BurgersB2Challenge.rusanov (u i) (u (next i)) -\n              CFDLean.Verification.BurgersB2Challenge.rusanov (u (next.symm i)) (u i)) /\n          dx)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.rusanov": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB2Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.rusanov",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.rusanov.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB2Challenge.rusanov",
+        "CFDLean.Verification.BurgersB2Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Challenge.rusanov.eq_1",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d),\n  CFDLean.Verification.BurgersB2Challenge.rusanov uL uR =\n    (CFDLean.Verification.BurgersB2Challenge.burgersFlux uL + CFDLean.Verification.BurgersB2Challenge.burgersFlux uR) /\n        2 -\n      CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed uL uR / 2 * (uR - uL)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed.eq_1",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d), CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed uL uR = max |uL| |uR|",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.ssprk2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.ssprk2",
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.ssprk3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3._proof_1",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3._proof_2",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.ssprk3",
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.ssprk3._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.ssprk3._proof_1",
+      "root": true,
+      "type": "(2 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.ssprk3._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.ssprk3._proof_2",
+      "root": true,
+      "type": "(3 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.totalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.totalVariation",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 [Fintype I] \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Challenge.totalVariation._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.totalVariation._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB2Challenge.totalVariation._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.totalVariation._redArg._lam_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB2Challenge.totalVariation._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "CFDLean.Verification.BurgersB2Challenge.totalVariation._redArg._lam_0._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB2Verify.eulerStep_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Verification.BurgersB2Challenge.rusanov",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.eulerStep_eq",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx dt : \u211d),\n  CFDLean.Verification.BurgersB2Challenge.eulerStep next dx dt =\n    CFDLean.Burgers.Rusanov.eulerStep { next := next } dx dt",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.euler_multi_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Verification.BurgersB2Verify.eulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB2Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep",
+        "CFDLean.Verification.BurgersB2Challenge.EulerMultiStep",
+        "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.euler_multi_step",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.EulerMultiStep I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.ssprk2_conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.ssprk2Step_sum",
+        "CFDLean.Verification.BurgersB2Challenge.SSPRK2Conservation",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Verification.BurgersB2Verify.eulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.ssprk2_conservation",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK2Conservation I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.ssprk2_convex": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2",
+        "CFDLean.Time.SSP.ssprk2_mem",
+        "CFDLean.Verification.BurgersB2Challenge.SSPRK2Convex",
+        "CFDLean.Time.SSP.ssprk2_le"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.ssprk2_convex",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V],\n  CFDLean.Verification.BurgersB2Challenge.SSPRK2Convex V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.ssprk2_multi_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Verification.BurgersB2Verify.eulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB2Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1",
+        "CFDLean.Verification.BurgersB2Challenge.SSPRK2MultiStep",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.ssprk2_multi_step",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK2MultiStep I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.ssprk3_conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.ssprk3Step_sum",
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB2Verify.eulerStep_eq",
+        "CFDLean.Verification.BurgersB2Challenge.SSPRK3Conservation",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.ssprk3_conservation",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK3Conservation I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.ssprk3_convex": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3_le",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB2Challenge.SSPRK3Convex",
+        "CFDLean.Time.SSP.ssprk3_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.ssprk3_convex",
+      "root": true,
+      "type": "\u2200 {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module \u211d V],\n  CFDLean.Verification.BurgersB2Challenge.SSPRK3Convex V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.eulerStep",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB2Verify.eulerStep_eq",
+        "CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB2Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB2Challenge.ssprk2._proof_1",
+        "CFDLean.Verification.BurgersB2Challenge.eulerStep"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB2Verify",
+      "name": "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep I",
+      "unsafe": false
+    },
     "CFDLean.admissible_exists": {
       "axioms": [
         "propext",
@@ -42620,6 +44060,16 @@
       "type": null,
       "unsafe": null
     },
+    "abs._at_.CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB2Challenge",
+      "name": "abs._at_.CFDLean.Verification.BurgersB2Challenge.rusanovWaveSpeed.spec_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "npowRec._at_.CFDLean.squareSum.spec_0": {
       "axioms": [],
       "direct": [],
@@ -42708,7 +44158,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 272,
+  "catalog_entries": 295,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -42755,6 +44205,45 @@
         "CFDLean.Verification.BurgersB1Verify.rusanov_bounds",
         "CFDLean.Verification.BurgersB1Verify.rusanov_monotone",
         "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation"
+      ],
+      "independent_acceptance": "pending implementation review"
+    },
+    "B2": {
+      "results": "specifications/Burgers-B2-results.json",
+      "approved_revision": "a4c271a44c6fa74b0caffc10546e5ab956b41bca",
+      "promised_theorems": [
+        "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable",
+        "CFDLean.Burgers.Rusanov.eulerStep_mem",
+        "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.ssprk2Step_constant",
+        "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.ssprk2Step_sum",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_constant",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_sum",
+        "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds",
+        "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+        "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Time.SSP.ssprk2_fixed",
+        "CFDLean.Time.SSP.ssprk2_forwardEuler",
+        "CFDLean.Time.SSP.ssprk2_le",
+        "CFDLean.Time.SSP.ssprk2_linear",
+        "CFDLean.Time.SSP.ssprk2_mem",
+        "CFDLean.Time.SSP.ssprk3_fixed",
+        "CFDLean.Time.SSP.ssprk3_le",
+        "CFDLean.Time.SSP.ssprk3_linear",
+        "CFDLean.Time.SSP.ssprk3_mem"
+      ],
+      "trusted_bridge_theorems": [
+        "CFDLean.Verification.BurgersB2Verify.euler_multi_step",
+        "CFDLean.Verification.BurgersB2Verify.ssprk2_conservation",
+        "CFDLean.Verification.BurgersB2Verify.ssprk2_convex",
+        "CFDLean.Verification.BurgersB2Verify.ssprk2_multi_step",
+        "CFDLean.Verification.BurgersB2Verify.ssprk3_conservation",
+        "CFDLean.Verification.BurgersB2Verify.ssprk3_convex",
+        "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step"
       ],
       "independent_acceptance": "pending implementation review"
     }

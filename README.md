@@ -56,7 +56,7 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form) |
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
 | `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux, consistency and monotone certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, controls) |
-| `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step |
+| `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
 verifier finds an accepted source at its new path only through this map and accepts it only if it equals the accepted
@@ -93,6 +93,19 @@ is pending. Comparator:
 
 ```bash
 lake comparator --paranoid --config Challenges/BurgersB1.comparator.json
+```
+
+## Burgers B2 (SSP time stepping, multi-step stability)
+
+[Burgers B2](references/Burgers-B2.md) implements the [contract](specifications/Burgers-B2.md) that the agent froze
+under the standing authorization. Generic part (`CFDLean/Time/SSP.lean`): SSPRK2 and SSPRK3 in Shu-Osher form over any
+one-step map keep every convex set and every convex bound that the map keeps. Burgers part: with `dx > 0`, `dt ≥ 0`,
+initial bounds `m ≤ u ≤ M` and `2 · dt · max(|m|, |M|) ≤ dx`, the Rusanov scheme with Forward Euler, SSPRK2 or SSPRK3
+keeps the bounds and does not increase the total variation for every number of steps; the SSP steps keep the total sum
+and constant states. 23 promised theorems, status `pending`. No order-of-accuracy claim. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB2.comparator.json
 ```
 
 ## Development verification

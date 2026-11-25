@@ -58,9 +58,10 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
                   "Time")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate", "B0": "pending", "B1": "pending"}
+                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
-# frozen result ID of specifications/Burgers-<m>.md (frozen on `main` at `approved`) to its definitions and theorems,
+# frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
+# to its definitions and theorems,
 # each in its module. The trusted statement file imports only Mathlib and is hash-pinned here, as is the
 # `lake comparator` challenge that restates the bridge theorems; each bridge theorem has the recorded type, which is
 # its trusted statement, and uses a promised implementation theorem of its result ID. `count` is the number of promised
@@ -80,6 +81,13 @@ BURGERS = {
            "challenge": "Challenges/BurgersB1.lean",
            "challenge_sha256": "a3f78de87b1f4f45e46d9485919dca69107558dcbe3b9c576b46fdef1b981b1b",
            "count": 9, "bridges": 5},
+    "B2": {"results": "specifications/Burgers-B2-results.json",
+           "approved": "a4c271a44c6fa74b0caffc10546e5ab956b41bca",
+           "statements": "CFDLean/Verification/BurgersB2Challenge.lean",
+           "statements_sha256": "445e3cf8c17a53ba5e9f55a911bf5070fff187144ad48c12126fe7186124af75",
+           "challenge": "Challenges/BurgersB2.lean",
+           "challenge_sha256": "ae6053bc7aef69b19bd1a34cf54eb7aee63cb604169708674b16356484644f24",
+           "count": 23, "bridges": 7},
 }
 
 
@@ -449,7 +457,7 @@ def check_burgers(milestone, rows, record, contract_text, read=read_source, pins
         definition(statement, trusted["statements_module"])
         row = theorem(name, trusted["bridge_module"])
         if not (row["type"] == binding["type"] and re.fullmatch(
-                r"(∀ [^,]*, )?" + re.escape(statement) + r"( I)?", binding["type"])):
+                r"(∀ [^,]*,\s+)?" + re.escape(statement) + r"( [A-Z])?", binding["type"])):
             raise ValueError(f"{milestone} bridge theorem does not state its trusted statement: {name}")
         if promised.get(binding["uses"]) != binding["id"] or binding["uses"] not in row["direct"]:
             raise ValueError(f"{milestone} bridge theorem does not use its promised theorem: {name}")
