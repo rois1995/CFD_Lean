@@ -1,0 +1,37 @@
+# TODO
+
+Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, merged to `main` at 497b356).
+
+## Implementation side (new mathematics)
+
+1. **M5 acceptance.** The M5 lumped explicit Euler step waits for its independent implementation review
+   (`reviews/M5/Reviewer_Prompt.md`). The review refers to the v4.19 commit; its theorems are unchanged in the v4.36
+   port (`specifications/MC-port-types.json`).
+2. **Burgers B0.** Contract frozen on `main` (`specifications/Burgers-B0.md`, commit 9e4418d). The implementation
+   must now target Lean v4.36.0 (`git pull`, then `lake exe cache get`).
+3. **M6 composition** (original roadmap in `specifications/M2-proposal.md`): multi-step evolution on top of M5.
+4. **Fold paper 1 into CFD_Lean.** The JST_Paper_Lean formalization (92 proved statements: P1, P2, P3, branch
+   `v436`) becomes a CFD_Lean module (e.g. `CFDLean/Papers/JST1/`), using `CFDLean.Num` and the M1 Euler states
+   where the definitions agree. Needs a proposal: map JST `Paper1.State`/Euler definitions to M1 ones.
+5. **Paper-1 items not yet formalized:** `prop:wallJST` (model analysis), the Taylor parts of
+   `prop:consistency`(b),(c), the PDE form of `prop:sstpde`, the Hessian form of `lem:sstentropy`, mixed cells that
+   are not affine images of the reference cells (trilinear hexahedra).
+6. **SU2 correspondence** (excluded so far): relate the Lean scheme to the SU2 C++ implementation.
+
+## Refactoring side (no new mathematics)
+
+1. **MC-N, numerical core** (in progress on branch `mc-n`): move the generic JST blocks into `CFDLean/Num`
+   (`specifications/MC-N.md`), then merge to `main`.
+2. **MC-C, theorem catalog:** `catalog/theorems.json` + `catalog/README.md` with layer (Foundations / Geometry /
+   Discrete operators / Entropy framework / Physics models / Schemes / Time), method tags (FEM / FVM / both /
+   method-free) and status for every promised theorem; verifier checks coverage.
+3. **JST switch:** JST_Paper_Lean imports `CFDLean.Num` instead of its own `NumCore`; re-pin cfdlean to the GitHub
+   URL and the merged commit (it currently pins a local path).
+4. **Physical reorganization of M1-M5 folders** into the catalog layers. Deferred until M5 and Burgers B0 are
+   settled, because moving files changes the paths the accepted results and pending reviews are pinned to.
+5. **Proof validation routine:** run `lake check --paranoid` (five independent checkers) and `lake comparator` in
+   the `bubblewrap` sandbox for every milestone; add the commands to `scripts/` and the README.
+6. **Verifier:** compare types also with `pp.notation false` (the default printer hid the Mathlib `Set` refactor in
+   MC-T); generalize the per-milestone guards (M2/M3/M4/M5 code paths) into one table-driven check.
+7. **Housekeeping:** update the local `main` checkout to v4.36 (new `.lake`), remove merged worktrees
+   (`core-v436`), shorten the README (history sections into `references/`).
