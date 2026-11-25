@@ -20,10 +20,6 @@ theorem rhs_constant (g : PeriodicGrid I) (dx c : ℝ)
     (law : ScalarConservationLaw) (numFlux : NumericalFlux)
     (hcons : Consistent law numFlux) (i : I) :
     rhs g dx numFlux (fun _ => c) i = 0 := by
-  rw [rhs]
-  have h := hcons c
-  simp only [interfaceFlux]
-  rw [h, h]
-  simp
+  simp [rhs, interfaceFlux, hcons c]
 
 end CFDLean.Burgers.FiniteVolume
