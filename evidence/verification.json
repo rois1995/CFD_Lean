@@ -214,6 +214,7 @@
     "CFDLean.Discrete.Periodic.Convexity",
     "CFDLean.Discrete.Periodic.FiniteVolume",
     "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Discrete.Periodic.Muscl",
     "CFDLean.Discrete.Periodic.TotalVariation",
     "CFDLean.Entropy.PairFlux",
     "CFDLean.Entropy.Production",
@@ -302,13 +303,16 @@
     "CFDLean.Schemes.Boundary.Controls",
     "CFDLean.Schemes.Boundary.Stationary",
     "CFDLean.Schemes.Burgers.Controls",
+    "CFDLean.Schemes.Burgers.MusclControls",
     "CFDLean.Schemes.Burgers.Rusanov",
     "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Schemes.Burgers.RusanovMuscl",
     "CFDLean.Schemes.Burgers.RusanovSSP",
     "CFDLean.Schemes.Burgers.RusanovStability",
     "CFDLean.Schemes.Burgers.SSPControls",
     "CFDLean.Schemes.Burgers.StabilityControls",
     "CFDLean.Schemes.Roe.Flux",
+    "CFDLean.Schemes.Scalar.Lipschitz",
     "CFDLean.Schemes.Scalar.Monotone",
     "CFDLean.Schemes.Scalar.NumericalFlux",
     "CFDLean.Time.Controls",
@@ -321,6 +325,8 @@
     "CFDLean.Verification.BurgersB1Verify",
     "CFDLean.Verification.BurgersB2Challenge",
     "CFDLean.Verification.BurgersB2Verify",
+    "CFDLean.Verification.BurgersB3Challenge",
+    "CFDLean.Verification.BurgersB3Verify",
     "CFDLean.Verification.JST1Verify",
     "Integrity"
   ],
@@ -330,14 +336,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 3499,
+    "roots": 3611,
     "unsafe_reached": [],
-    "visited": 54843
+    "visited": 54958
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "d097febc1e3fc02c64bc2fcd6523d2517d78eaebf572cd1223b1982b0ead3484"
+      "sha256": "896de42c13ca1531e4562df1de03029ec378afe993f4886cf272db0191ccf91d"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -366,6 +372,10 @@
     "CFDLean.Discrete.Periodic.Grid": {
       "path": "CFDLean/Discrete/Periodic/Grid.lean",
       "sha256": "e0e528410356af053f212726b0eeea1445d74e05998f43750ad45a0fd3efecba"
+    },
+    "CFDLean.Discrete.Periodic.Muscl": {
+      "path": "CFDLean/Discrete/Periodic/Muscl.lean",
+      "sha256": "14a35399a771ac0e95de4bd6c5857314cde59c63cb5498dcbcb2386858e62b9b"
     },
     "CFDLean.Discrete.Periodic.TotalVariation": {
       "path": "CFDLean/Discrete/Periodic/TotalVariation.lean",
@@ -719,6 +729,10 @@
       "path": "CFDLean/Schemes/Burgers/Controls.lean",
       "sha256": "a1b019b561573d94acc2b945629367bd5dc731035615db8bfb377972a0936224"
     },
+    "CFDLean.Schemes.Burgers.MusclControls": {
+      "path": "CFDLean/Schemes/Burgers/MusclControls.lean",
+      "sha256": "fc4e175ff8fcce64b8c25d33b2ac86410e93f803ca91f806f88068581c7dfa2b"
+    },
     "CFDLean.Schemes.Burgers.Rusanov": {
       "path": "CFDLean/Schemes/Burgers/Rusanov.lean",
       "sha256": "3745a2a8f0ab2241b06540f5e439e1eaae0beab7229e899a5a2c7798120ed041"
@@ -726,6 +740,10 @@
     "CFDLean.Schemes.Burgers.RusanovForwardEuler": {
       "path": "CFDLean/Schemes/Burgers/RusanovForwardEuler.lean",
       "sha256": "22a783901d060cf47fd303bd85eb0ebd712aa6e8c0ee87de6f185a784e9b5b55"
+    },
+    "CFDLean.Schemes.Burgers.RusanovMuscl": {
+      "path": "CFDLean/Schemes/Burgers/RusanovMuscl.lean",
+      "sha256": "ab66d8703c7934ee796bebc62d6e5c27c14d87e09403a937e0b5203583ea956d"
     },
     "CFDLean.Schemes.Burgers.RusanovSSP": {
       "path": "CFDLean/Schemes/Burgers/RusanovSSP.lean",
@@ -746,6 +764,10 @@
     "CFDLean.Schemes.Roe.Flux": {
       "path": "CFDLean/Schemes/Roe/Flux.lean",
       "sha256": "17bb3e4b14cb503f24a0594c8a6deb5440897f7176944d74eb27ae3333025f0b"
+    },
+    "CFDLean.Schemes.Scalar.Lipschitz": {
+      "path": "CFDLean/Schemes/Scalar/Lipschitz.lean",
+      "sha256": "90de60eb8999fb4f2d58ebff9578a0fe59a6f1a0d4a283ac9cc740d36bbd1afd"
     },
     "CFDLean.Schemes.Scalar.Monotone": {
       "path": "CFDLean/Schemes/Scalar/Monotone.lean",
@@ -794,6 +816,14 @@
     "CFDLean.Verification.BurgersB2Verify": {
       "path": "CFDLean/Verification/BurgersB2Verify.lean",
       "sha256": "fada65f6c5632ab4826cb7a7dc914afa46b864a0b9070524b9936f0c1b55d0f0"
+    },
+    "CFDLean.Verification.BurgersB3Challenge": {
+      "path": "CFDLean/Verification/BurgersB3Challenge.lean",
+      "sha256": "977a2e63064d9667d94b136cff163e201be25028d81449efc54c1c152abf4d8d"
+    },
+    "CFDLean.Verification.BurgersB3Verify": {
+      "path": "CFDLean/Verification/BurgersB3Verify.lean",
+      "sha256": "60009e840557b32f5431906f20dc8bea54989d6d7e02a639d821ef072c1608fc"
     },
     "CFDLean.Verification.JST1Verify": {
       "path": "CFDLean/Verification/JST1Verify.lean",
@@ -8486,6 +8516,21 @@
       "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Boundary.wallTransfer \u03b3 U 0 = 0",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds",
+      "raw_type": "\u2200 (m M x : Real), And (LE.le m x) (LE.le x M) \u2192 LE.le (abs x) (max (abs m) (abs M))",
+      "root": true,
+      "type": "\u2200 (m M x : \u211d), m \u2264 x \u2227 x \u2264 M \u2192 |x| \u2264 max |m| |M|",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed": {
       "axioms": [
         "propext",
@@ -8501,6 +8546,21 @@
       "raw_type": "\u2200 (a b : Real), LE.le (abs (HDiv.hDiv (HAdd.hAdd a b) (OfNat.ofNat 2))) (CFDLean.Burgers.Rusanov.waveSpeed a b)",
       "root": true,
       "type": "\u2200 (a b : \u211d), |(a + b) / 2| \u2264 CFDLean.Burgers.Rusanov.waveSpeed a b",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.cfl_of_six": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.cfl_of_six",
+      "raw_type": "\u2200 (dx dt m M : Real),\n  LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n    LE.le\n      (HMul.hMul dt\n        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2))\n          (HAdd.hAdd (HMul.hMul (OfNat.ofNat 2) (max (abs m) (abs M)))\n            (HMul.hMul (OfNat.ofNat 2) (max (abs m) (abs M))))))\n      dx",
+      "root": true,
+      "type": "\u2200 (dx dt m M : \u211d), 6 * (dt * max |m| |M|) \u2264 dx \u2192 dt * (3 / 2 * (2 * max |m| |M| + 2 * max |m| |M|)) \u2264 dx",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.consistent": {
@@ -8756,6 +8816,48 @@
       "type": "\u2200 (a b b' : \u211d), b \u2264 b' \u2192 CFDLean.Burgers.Rusanov.eval a b' \u2264 CFDLean.Burgers.Rusanov.eval a b",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.eval_lipschitz_left": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.Rusanov.waveSpeed_abs_le",
+        "CFDLean.Burgers.Rusanov.eval._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.eval_lipschitz_left",
+      "raw_type": "\u2200 (A a a' b : Real),\n  LE.le (abs a) A \u2192\n    LE.le (abs a') A \u2192\n      LE.le (abs b) A \u2192\n        LE.le (abs (HSub.hSub (CFDLean.Burgers.Rusanov.eval a b) (CFDLean.Burgers.Rusanov.eval a' b)))\n          (HMul.hMul (HMul.hMul (OfNat.ofNat 2) A) (abs (HSub.hSub a a')))",
+      "root": true,
+      "type": "\u2200 (A a a' b : \u211d),\n  |a| \u2264 A \u2192\n    |a'| \u2264 A \u2192 |b| \u2264 A \u2192 |CFDLean.Burgers.Rusanov.eval a b - CFDLean.Burgers.Rusanov.eval a' b| \u2264 2 * A * |a - a'|",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eval_lipschitz_right": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.Rusanov.waveSpeed_abs_le",
+        "CFDLean.Burgers.Rusanov.eval._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.eval_lipschitz_right",
+      "raw_type": "\u2200 (A a b b' : Real),\n  LE.le (abs a) A \u2192\n    LE.le (abs b) A \u2192\n      LE.le (abs b') A \u2192\n        LE.le (abs (HSub.hSub (CFDLean.Burgers.Rusanov.eval a b) (CFDLean.Burgers.Rusanov.eval a b')))\n          (HMul.hMul (HMul.hMul (OfNat.ofNat 2) A) (abs (HSub.hSub b b')))",
+      "root": true,
+      "type": "\u2200 (A a b b' : \u211d),\n  |a| \u2264 A \u2192\n    |b| \u2264 A \u2192 |b'| \u2264 A \u2192 |CFDLean.Burgers.Rusanov.eval a b - CFDLean.Burgers.Rusanov.eval a b'| \u2264 2 * A * |b - b'|",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.eval_mono_left": {
       "axioms": [
         "propext",
@@ -8936,6 +9038,28 @@
       "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d),\n  0 < dx \u2192 0 \u2264 dt \u2192 \u2200 (u : I \u2192 \u211d) (i : I), 0 \u2264 CFDLean.Burgers.Rusanov.incrementD g dx dt u i",
       "unsafe": false
     },
+    "CFDLean.Burgers.Rusanov.lipschitzOnBounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds",
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_right",
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_left"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.lipschitzOnBounds",
+      "raw_type": "\u2200 (m M : Real),\n  CFDLean.Scalar.LipschitzOnBounds CFDLean.Burgers.Rusanov.numericalFlux m M\n    (HMul.hMul (OfNat.ofNat 2) (max (abs m) (abs M))) (HMul.hMul (OfNat.ofNat 2) (max (abs m) (abs M)))",
+      "root": true,
+      "type": "\u2200 (m M : \u211d),\n  CFDLean.Scalar.LipschitzOnBounds CFDLean.Burgers.Rusanov.numericalFlux m M (2 * max |m| |M|) (2 * max |m| |M|)",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.monotone": {
       "axioms": [
         "propext",
@@ -8955,6 +9079,423 @@
       "raw_type": "CFDLean.Scalar.MonotoneFlux CFDLean.Burgers.Rusanov.numericalFlux",
       "root": true,
       "type": "CFDLean.Scalar.MonotoneFlux CFDLean.Burgers.Rusanov.numericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  Eq (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6)\n    (CFDLean.Time.ForwardEuler.step dt\n      (CFDLean.Scalar.FiniteVolume.musclRhs g dx CFDLean.Burgers.Rusanov.numericalFlux \u03c6))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 =\n    CFDLean.Time.ForwardEuler.step dt\n      (CFDLean.Scalar.FiniteVolume.musclRhs g dx CFDLean.Burgers.Rusanov.numericalFlux \u03c6)",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_constant",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Time.ForwardEuler.step_constant"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_constant",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real) (c : Real),\n  Eq (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 fun x => c) fun x => c",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (c : \u211d),\n  (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+        "CFDLean.Time.SSP.iterate_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n          \u2200 (u : I \u2192 Real),\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n              \u2200 (n : Nat),\n                And\n                  (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6) n u))\n                  (LE.le\n                    (CFDLean.Scalar.FiniteVolume.totalVariation g\n                      (Nat.iterate (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6) n u))\n                    (CFDLean.Scalar.FiniteVolume.totalVariation g u))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        6 * (dt * max |m| |M|) \u2264 dx \u2192\n          \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n            \u2200 (n : \u2115),\n              (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6)^[n] u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n                CFDLean.Scalar.FiniteVolume.totalVariation g\n                    ((CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6)^[n] u) \u2264\n                  CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.monotone",
+        "CFDLean.Burgers.Rusanov.lipschitzOnBounds",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_mem",
+        "CFDLean.Burgers.Rusanov.cfl_of_six"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n          \u2200 (u : I \u2192 Real),\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n              Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 u)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        6 * (dt * max |m| |M|) \u2264 dx \u2192\n          \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n            CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_mem",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (u : I \u2192 Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n              (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Burgers.Rusanov.musclEulerStep g dx dt CFDLean.Scalar.FiniteVolume.minmod u \u2208\n            CFDLean.Scalar.FiniteVolume.boundedStates m M",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_totalVariation_le",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (u : I \u2192 Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n            LE.le\n              (CFDLean.Scalar.FiniteVolume.totalVariation g\n                (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt CFDLean.Scalar.FiniteVolume.minmod u))\n              (CFDLean.Scalar.FiniteVolume.totalVariation g u)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Scalar.FiniteVolume.totalVariation g\n              (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt CFDLean.Scalar.FiniteVolume.minmod u) \u2264\n            CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.ForwardEuler.step_sum",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  Ne dx (OfNat.ofNat 0) \u2192\n    \u2200 (u : I \u2192 Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 u i) (Finset.univ.sum fun i => u i)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 u i = \u2211 i, u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.monotone",
+        "CFDLean.Burgers.Rusanov.lipschitzOnBounds",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.cfl_of_six"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n          \u2200 (u : I \u2192 Real),\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n              LE.le (CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 u))\n                (CFDLean.Scalar.FiniteVolume.totalVariation g u)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        6 * (dt * max |m| |M|) \u2264 dx \u2192\n          \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n            CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.musclEulerStep g dx dt \u03c6 u) \u2264\n              CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Time.SSP.ssprk2"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_constant",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Time.SSP.ssprk2_fixed",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_constant",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real) (c : Real),\n  Eq (CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6 fun x => c) fun x => c",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (c : \u211d),\n  (CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6 fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Time.SSP.ssprk2_mem",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step",
+        "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+        "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Time.SSP.ssprk2_le"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n          \u2200 (u : I \u2192 Real),\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n              \u2200 (n : Nat),\n                And\n                  (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6) n u))\n                  (LE.le\n                    (CFDLean.Scalar.FiniteVolume.totalVariation g\n                      (Nat.iterate (CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6) n u))\n                    (CFDLean.Scalar.FiniteVolume.totalVariation g u))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        6 * (dt * max |m| |M|) \u2264 dx \u2192\n          \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n            \u2200 (n : \u2115),\n              (CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6)^[n] u \u2208\n                  CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n                CFDLean.Scalar.FiniteVolume.totalVariation g\n                    ((CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6)^[n] u) \u2264\n                  CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+        "CFDLean.Scalar.FiniteVolume.totalSum_apply",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Time.SSP.ssprk2",
+        "CFDLean.Time.SSP.ssprk2_linear",
+        "CFDLean.Scalar.FiniteVolume.totalSum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  Ne dx (OfNat.ofNat 0) \u2192\n    \u2200 (u : I \u2192 Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6 u i) (Finset.univ.sum fun i => u i)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, CFDLean.Burgers.Rusanov.musclSsprk2Step g dx dt \u03c6 u i = \u2211 i, u i",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 \u211d \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_constant",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Time.SSP.ssprk3_fixed",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_constant",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real) (c : Real),\n  Eq (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6 fun x => c) fun x => c",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (c : \u211d),\n  (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6 fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Time.SSP.ssprk3_le",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+        "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Time.SSP.iterate_le",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Time.SSP.ssprk3_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n          \u2200 (u : I \u2192 Real),\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n              \u2200 (n : Nat),\n                And\n                  (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6) n u))\n                  (LE.le\n                    (CFDLean.Scalar.FiniteVolume.totalVariation g\n                      (Nat.iterate (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6) n u))\n                    (CFDLean.Scalar.FiniteVolume.totalVariation g u))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        6 * (dt * max |m| |M|) \u2264 dx \u2192\n          \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n            \u2200 (n : \u2115),\n              (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6)^[n] u \u2208\n                  CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n                CFDLean.Scalar.FiniteVolume.totalVariation g\n                    ((CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6)^[n] u) \u2264\n                  CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmod_iterate_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmod_iterate_stable",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (u : I \u2192 Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n            \u2200 (n : Nat),\n              And\n                (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                  (Nat.iterate (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt CFDLean.Scalar.FiniteVolume.minmod) n\n                    u))\n                (LE.le\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt CFDLean.Scalar.FiniteVolume.minmod) n\n                      u))\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g u))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          \u2200 (n : \u2115),\n            (CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt CFDLean.Scalar.FiniteVolume.minmod)^[n] u \u2208\n                CFDLean.Scalar.FiniteVolume.boundedStates m M \u2227\n              CFDLean.Scalar.FiniteVolume.totalVariation g\n                  ((CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt CFDLean.Scalar.FiniteVolume.minmod)^[n] u) \u2264\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+        "CFDLean.Time.SSP.ssprk3_linear",
+        "CFDLean.Scalar.FiniteVolume.totalSum_apply",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.totalSum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : Real) (\u03c6 : Real \u2192 Real \u2192 Real),\n  Ne dx (OfNat.ofNat 0) \u2192\n    \u2200 (u : I \u2192 Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6 u i) (Finset.univ.sum fun i => u i)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : \u211d) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, CFDLean.Burgers.Rusanov.musclSsprk3Step g dx dt \u03c6 u i = \u2211 i, u i",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.numericalFlux": {
@@ -9309,6 +9850,23 @@
       "raw_type": "\u2200 (uL uR : Real), Eq (CFDLean.Burgers.Rusanov.waveSpeed uL uR) (max (abs uL) (abs uR))",
       "root": true,
       "type": "\u2200 (uL uR : \u211d), CFDLean.Burgers.Rusanov.waveSpeed uL uR = max |uL| |uR|",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.waveSpeed_abs_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.waveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "name": "CFDLean.Burgers.Rusanov.waveSpeed_abs_le",
+      "raw_type": "\u2200 (A a b : Real), LE.le (abs a) A \u2192 LE.le (abs b) A \u2192 LE.le (abs (CFDLean.Burgers.Rusanov.waveSpeed a b)) A",
+      "root": true,
+      "type": "\u2200 (A a b : \u211d), |a| \u2264 A \u2192 |b| \u2264 A \u2192 |CFDLean.Burgers.Rusanov.waveSpeed a b| \u2264 A",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds": {
@@ -73510,6 +74068,21 @@
       "type": "CFDLean.Scalar.ConservationLaw \u2192 CFDLean.Scalar.NumericalFlux \u2192 Prop",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.MinmodBounded": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+      "raw_type": null,
+      "root": true,
+      "type": "(\u211d \u2192 \u211d \u2192 \u211d) \u2192 Prop",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.boundedStates": {
       "axioms": [
         "propext",
@@ -73575,6 +74148,146 @@
       "type": "\u2200 {I : Type u_1} (m M : \u211d), Convex \u211d (CFDLean.Scalar.FiniteVolume.boundedStates m M)",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one",
+      "raw_type": "\u2200 (dx dt KL KR c d : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (HMul.hMul dt (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (HAdd.hAdd KL KR))) dx \u2192\n      LE.le c (HMul.hMul (HDiv.hDiv dt dx) (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KR)) \u2192\n        LE.le d (HMul.hMul (HDiv.hDiv dt dx) (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KL)) \u2192\n          LE.le (HAdd.hAdd c d) (OfNat.ofNat 1)",
+      "root": true,
+      "type": "\u2200 (dx dt KL KR c d : \u211d),\n  0 < dx \u2192 dt * (3 / 2 * (KL + KR)) \u2264 dx \u2192 c \u2264 dt / dx * (3 / 2 * KR) \u2192 d \u2264 dt / dx * (3 / 2 * KL) \u2192 c + d \u2264 1",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio",
+      "raw_type": "\u2200 (x d c : Real),\n  LE.le (OfNat.ofNat 0) (HMul.hMul x d) \u2192\n    LE.le (abs x) (HMul.hMul c (abs d)) \u2192\n      LE.le (OfNat.ofNat 0) c \u2192 Exists fun q => And (LE.le (OfNat.ofNat 0) q) (And (LE.le q c) (Eq (HMul.hMul q d) x))",
+      "root": true,
+      "type": "\u2200 (x d c : \u211d), 0 \u2264 x * d \u2192 |x| \u2264 c * |d| \u2192 0 \u2264 c \u2192 \u2203 q, 0 \u2264 q \u2227 q \u2264 c \u2227 q * d = x",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_1",
+      "raw_type": "\u2200 {\u03b1 : Type u_1} [inst : AddGroup \u03b1] [inst_1 : LinearOrder \u03b1] [AddLeftMono \u03b1] {a : \u03b1} [AddRightMono \u03b1],\n  Eq (LE.le (abs a) (OfNat.ofNat 0)) (Eq a (OfNat.ofNat 0))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_1} [inst : AddGroup \u03b1] [inst_1 : LinearOrder \u03b1] [AddLeftMono \u03b1] {a : \u03b1} [AddRightMono \u03b1],\n  (|a| \u2264 0) = (a = 0)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_2",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 2)] [NeZero (OfNat.ofNat 2)],\n  Eq (Eq (OfNat.ofNat 2) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 2] [NeZero 2], (2 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_3": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_3",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 3)] [NeZero (OfNat.ofNat 3)],\n  Eq (Eq (OfNat.ofNat 3) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 3] [NeZero 3], (3 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_4": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_4",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 4)] [NeZero (OfNat.ofNat 4)],\n  Eq (Eq (OfNat.ofNat 4) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 4] [NeZero 4], (4 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_5": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_5",
+      "raw_type": "\u2200 {M\u2080 : Type u_1} [inst : Mul M\u2080] [inst_1 : Zero M\u2080] [NoZeroDivisors M\u2080] {a b : M\u2080},\n  Ne a (OfNat.ofNat 0) \u2192 Ne b (OfNat.ofNat 0) \u2192 Eq (Eq (HMul.hMul a b) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {M\u2080 : Type u_1} [inst : Mul M\u2080] [inst_1 : Zero M\u2080] [NoZeroDivisors M\u2080] {a b : M\u2080}, a \u2260 0 \u2192 b \u2260 0 \u2192 (a * b = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_6": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_6",
+      "raw_type": "\u2200 {M\u2080 : Type u_1} [inst : MonoidWithZero M\u2080] {a : M\u2080} [IsReduced M\u2080] (n : Nat),\n  Ne a (OfNat.ofNat 0) \u2192 Eq (Eq (HPow.hPow a n) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {M\u2080 : Type u_1} [inst : MonoidWithZero M\u2080] {a : M\u2080} [IsReduced M\u2080] (n : \u2115), a \u2260 0 \u2192 (a ^ n = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_7": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_7",
+      "raw_type": "\u2200 {G\u2080 : Type u_3} [inst : GroupWithZero G\u2080] {a : G\u2080} (n : Int),\n  Ne a (OfNat.ofNat 0) \u2192 Eq (Eq (HPow.hPow a n) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {G\u2080 : Type u_3} [inst : GroupWithZero G\u2080] {a : G\u2080} (n : \u2124), a \u2260 0 \u2192 (a ^ n = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_8": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.exists_ratio._simp_1_8",
+      "raw_type": "\u2200 {R : Type u_1} [inst : AddMonoidWithOne R] [CharZero R] (n : Nat),\n  Eq (Eq (HAdd.hAdd n.cast (OfNat.ofNat 1)) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {R : Type u_1} [inst : AddMonoidWithOne R] [CharZero R] (n : \u2115), (\u2191n + 1 = 0) = False",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero": {
       "axioms": [
         "propext",
@@ -73594,6 +74307,82 @@
       "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux)\n  (u : I \u2192 Real),\n  Eq\n    (Finset.univ.sum fun i =>\n      HSub.hSub (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i)\n        (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)))\n    (OfNat.ofNat 0)",
       "root": true,
       "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d),\n  \u2211 i,\n      (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i -\n        CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) =\n    0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.flux_left_increment": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.FiniteVolume.leftState_mem",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.sign_transfer",
+        "CFDLean.Scalar.FiniteVolume.leftState_sub",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.rightState_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.flux_left_increment",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : Real),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          LE.le (OfNat.ofNat 0) KL \u2192\n            \u2200 (u : I \u2192 Real),\n              Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n                \u2200 (i : I),\n                  And\n                    (LE.le (OfNat.ofNat 0)\n                      (HMul.hMul\n                        (HSub.hSub\n                          (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)))\n                          (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i))\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))))\n                        (HSub.hSub (u i) (u (g.prev i)))))\n                    (LE.le\n                      (abs\n                        (HSub.hSub\n                          (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)))\n                          (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i))\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)))))\n                      (HMul.hMul (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KL)\n                        (abs (HSub.hSub (u i) (u (g.prev i))))))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : \u211d),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          0 \u2264 KL \u2192\n            \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n              \u2200 (i : I),\n                0 \u2264\n                    (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                          (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)) -\n                        nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i))\n                          (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))) *\n                      (u i - u (g.prev i)) \u2227\n                  |nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                          (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)) -\n                        nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i))\n                          (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))| \u2264\n                    3 / 2 * KL * |u i - u (g.prev i)|",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.flux_right_increment": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.FiniteVolume.leftState_mem",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rightState_sub",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.sign_transfer",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.rightState_mem"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.flux_right_increment",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : Real),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          LE.le (OfNat.ofNat 0) KR \u2192\n            \u2200 (u : I \u2192 Real),\n              Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n                \u2200 (i : I),\n                  And\n                    (LE.le (OfNat.ofNat 0)\n                      (HMul.hMul\n                        (Neg.neg\n                          (HSub.hSub\n                            (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                              (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i))\n                            (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                              (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)))))\n                        (HSub.hSub (u (DFunLike.coe g.next i)) (u i))))\n                    (LE.le\n                      (abs\n                        (Neg.neg\n                          (HSub.hSub\n                            (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                              (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i))\n                            (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                              (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))))))\n                      (HMul.hMul (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KR)\n                        (abs (HSub.hSub (u (DFunLike.coe g.next i)) (u i)))))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : \u211d),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          0 \u2264 KR \u2192\n            \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n              \u2200 (i : I),\n                0 \u2264\n                    -(nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i) -\n                          nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))) *\n                      (u (g.next i) - u i) \u2227\n                  |(-(nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i) -\n                          nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n                            (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))))| \u2264\n                    3 / 2 * KR * |u (g.next i) - u i|",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.half_slope_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.half_slope_mem",
+      "raw_type": "\u2200 (m M v vl vr s : Real),\n  LE.le (OfNat.ofNat 0) (HMul.hMul s (HSub.hSub v vl)) \u2192\n    LE.le (OfNat.ofNat 0) (HMul.hMul s (HSub.hSub vr v)) \u2192\n      LE.le (abs s) (abs (HSub.hSub v vl)) \u2192\n        LE.le (abs s) (abs (HSub.hSub vr v)) \u2192\n          And (LE.le m v) (LE.le v M) \u2192\n            And (LE.le m vl) (LE.le vl M) \u2192\n              And (LE.le m vr) (LE.le vr M) \u2192\n                And\n                  (And (LE.le m (HAdd.hAdd v (HDiv.hDiv s (OfNat.ofNat 2))))\n                    (LE.le (HAdd.hAdd v (HDiv.hDiv s (OfNat.ofNat 2))) M))\n                  (And (LE.le m (HSub.hSub v (HDiv.hDiv s (OfNat.ofNat 2))))\n                    (LE.le (HSub.hSub v (HDiv.hDiv s (OfNat.ofNat 2))) M))",
+      "root": true,
+      "type": "\u2200 (m M v vl vr s : \u211d),\n  0 \u2264 s * (v - vl) \u2192\n    0 \u2264 s * (vr - v) \u2192\n      |s| \u2264 |v - vl| \u2192\n        |s| \u2264 |vr - v| \u2192\n          m \u2264 v \u2227 v \u2264 M \u2192\n            m \u2264 vl \u2227 vl \u2264 M \u2192 m \u2264 vr \u2227 vr \u2264 M \u2192 (m \u2264 v + s / 2 \u2227 v + s / 2 \u2264 M) \u2227 m \u2264 v - s / 2 \u2227 v - s / 2 \u2264 M",
       "unsafe": false
     },
     "CFDLean.Scalar.FiniteVolume.incrementalUpdate": {
@@ -73743,6 +74532,465 @@
       "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i = numFlux.eval (u i) (u (g.next i))",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.leftState": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.slope"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.leftState",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.leftState._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.leftState.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.leftState.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n    (HAdd.hAdd (u i) (HDiv.hDiv (CFDLean.Scalar.FiniteVolume.slope g \u03c6 u i) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i = u i + CFDLean.Scalar.FiniteVolume.slope g \u03c6 u i / 2",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.leftState_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.half_slope_mem",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.leftState_mem",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (m M : Real) (u : I \u2192 Real),\n      Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n        \u2200 (i : I),\n          And (LE.le m (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i))\n            (LE.le (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i) M)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (m M : \u211d),\n      \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n        \u2200 (i : I), m \u2264 CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i \u2227 CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i \u2264 M",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.leftState_sub": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Scalar.FiniteVolume.slope_combo",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.leftState_sub",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (u : I \u2192 Real) (i : I),\n      And\n        (LE.le (OfNat.ofNat 0)\n          (HMul.hMul\n            (HSub.hSub (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n              (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i)))\n            (HSub.hSub (u i) (u (g.prev i)))))\n        (LE.le\n          (abs\n            (HSub.hSub (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i)\n              (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i))))\n          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (abs (HSub.hSub (u i) (u (g.prev i))))))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (u : I \u2192 \u211d) (i : I),\n      0 \u2264\n          (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i - CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i)) *\n            (u i - u (g.prev i)) \u2227\n        |CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i - CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u (g.prev i)| \u2264\n          3 / 2 * |u i - u (g.prev i)|",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.minmod": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.minmod",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+      "raw_type": "CFDLean.Scalar.FiniteVolume.MinmodBounded CFDLean.Scalar.FiniteVolume.minmod",
+      "root": true,
+      "type": "CFDLean.Scalar.FiniteVolume.MinmodBounded CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.leftState"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclFlux",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 CFDLean.Scalar.NumericalFlux \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.musclFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclFlux.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real)\n  (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Scalar.FiniteVolume.musclFlux g nf \u03c6 u i)\n    (nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i) (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.musclFlux g nf \u03c6 u i =\n    nf.eval (CFDLean.Scalar.FiniteVolume.leftState g \u03c6 u i) (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclRhs": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.musclFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 CFDLean.Scalar.NumericalFlux \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclRhs.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.musclFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : Real) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real)\n  (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6 u i)\n    (HDiv.hDiv\n      (Neg.neg\n        (HSub.hSub (CFDLean.Scalar.FiniteVolume.musclFlux g nf \u03c6 u i)\n          (CFDLean.Scalar.FiniteVolume.musclFlux g nf \u03c6 u (g.prev i))))\n      dx)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d)\n  (i : I),\n  CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6 u i =\n    -(CFDLean.Scalar.FiniteVolume.musclFlux g nf \u03c6 u i - CFDLean.Scalar.FiniteVolume.musclFlux g nf \u03c6 u (g.prev i)) / dx",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclRhs_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.musclFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_constant",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : Real) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real)\n  (c : Real) (i : I), Eq (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6 (fun x => c) i) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (c : \u211d)\n  (i : I), CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6 (fun x => c) i = 0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero._simp_1_2",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid.sum_prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.musclFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : Real),\n  Ne dx (OfNat.ofNat 0) \u2192\n    \u2200 (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real) (u : I \u2192 Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6 u i) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : \u211d),\n  dx \u2260 0 \u2192\n    \u2200 (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d),\n      \u2211 i, CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6 u i = 0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero._simp_1_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero._simp_1_2",
+      "raw_type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  Eq (s.sum fun i => HDiv.hDiv (f i) a) (HDiv.hDiv (s.sum fun i => f i) a)",
+      "root": true,
+      "type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  \u2211 i \u2208 s, f i / a = (\u2211 i \u2208 s, f i) / a",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.musclRhs_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.musclFlux",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_zero",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : Real) (nf : CFDLean.Scalar.NumericalFlux) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf (fun x x_1 => OfNat.ofNat 0) u i)\n    (CFDLean.Scalar.FiniteVolume.rhs g dx nf u i)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (nf : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.musclRhs g dx nf (fun x x_1 => 0) u i = CFDLean.Scalar.FiniteVolume.rhs g dx nf u i",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.muscl_incremental": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.exists_ratio",
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid.prev_next",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.flux_left_increment",
+        "CFDLean.Scalar.FiniteVolume.flux_right_increment"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_incremental",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : Real),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          LE.le (OfNat.ofNat 0) KL \u2192\n            LE.le (OfNat.ofNat 0) KR \u2192\n              \u2200 (dx dt : Real),\n                LT.lt (OfNat.ofNat 0) dx \u2192\n                  LE.le (OfNat.ofNat 0) dt \u2192\n                    \u2200 (u : I \u2192 Real),\n                      Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n                        Exists fun C =>\n                          Exists fun D =>\n                            And\n                              (\u2200 (i : I),\n                                And (LE.le (OfNat.ofNat 0) (C i))\n                                  (LE.le (C i)\n                                    (HMul.hMul (HDiv.hDiv dt dx)\n                                      (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KR))))\n                              (And\n                                (\u2200 (i : I),\n                                  And (LE.le (OfNat.ofNat 0) (D i))\n                                    (LE.le (D i)\n                                      (HMul.hMul (HDiv.hDiv dt dx)\n                                        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KL))))\n                                (Eq\n                                  (CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u)\n                                  (CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : \u211d),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          0 \u2264 KL \u2192\n            0 \u2264 KR \u2192\n              \u2200 (dx dt : \u211d),\n                0 < dx \u2192\n                  0 \u2264 dt \u2192\n                    \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n                      \u2203 C D,\n                        (\u2200 (i : I), 0 \u2264 C i \u2227 C i \u2264 dt / dx * (3 / 2 * KR)) \u2227\n                          (\u2200 (i : I), 0 \u2264 D i \u2227 D i \u2264 dt / dx * (3 / 2 * KL)) \u2227\n                            CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u =\n                              CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.muscl_incremental_false_without_nonneg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Scalar.FiniteVolume.zero_minmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_incremental_false_without_nonneg",
+      "raw_type": "Not\n  (\u2200 (I : Type) (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real),\n    CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n      CFDLean.Scalar.MonotoneFlux nf \u2192\n        \u2200 (m M KL KR : Real),\n          CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n            \u2200 (dx dt : Real),\n              LT.lt (OfNat.ofNat 0) dx \u2192\n                LE.le (OfNat.ofNat 0) dt \u2192\n                  \u2200 (u : I \u2192 Real),\n                    Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n                      Exists fun C =>\n                        Exists fun D =>\n                          And\n                            (\u2200 (i : I),\n                              And (LE.le (OfNat.ofNat 0) (C i))\n                                (LE.le (C i)\n                                  (HMul.hMul (HDiv.hDiv dt dx)\n                                    (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KR))))\n                            (And\n                              (\u2200 (i : I),\n                                And (LE.le (OfNat.ofNat 0) (D i))\n                                  (LE.le (D i)\n                                    (HMul.hMul (HDiv.hDiv dt dx)\n                                      (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) KL))))\n                              (Eq (CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u)\n                                (CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u))))",
+      "root": true,
+      "type": "\u00ac\u2200 (I : Type) (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n    CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n      CFDLean.Scalar.MonotoneFlux nf \u2192\n        \u2200 (m M KL KR : \u211d),\n          CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n            \u2200 (dx dt : \u211d),\n              0 < dx \u2192\n                0 \u2264 dt \u2192\n                  \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n                    \u2203 C D,\n                      (\u2200 (i : I), 0 \u2264 C i \u2227 C i \u2264 dt / dx * (3 / 2 * KR)) \u2227\n                        (\u2200 (i : I), 0 \u2264 D i \u2227 D i \u2264 dt / dx * (3 / 2 * KL)) \u2227\n                          CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u =\n                            CFDLean.Scalar.FiniteVolume.incrementalUpdate g C D u",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.muscl_step_eq_self_of_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_constant",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_eq_self_of_le",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : Real) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real)\n  (dt m M : Real) (u : I \u2192 Real),\n  Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n    LE.le M m \u2192 Eq (CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u) u",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d)\n  (dt m M : \u211d),\n  \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n    M \u2264 m \u2192 CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u = u",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.muscl_step_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.LipschitzOnBounds.nonneg",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Scalar.FiniteVolume.muscl_incremental",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_eq_self_of_le"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_mem",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : Real),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          \u2200 (dx dt : Real),\n            LT.lt (OfNat.ofNat 0) dx \u2192\n              LE.le (OfNat.ofNat 0) dt \u2192\n                LE.le (HMul.hMul dt (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (HAdd.hAdd KL KR))) dx \u2192\n                  \u2200 (u : I \u2192 Real),\n                    Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n                      Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                        (CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : \u211d),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          \u2200 (dx dt : \u211d),\n            0 < dx \u2192\n              0 \u2264 dt \u2192\n                dt * (3 / 2 * (KL + KR)) \u2264 dx \u2192\n                  \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n                    CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u \u2208\n                      CFDLean.Scalar.FiniteVolume.boundedStates m M",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Scalar.MonotoneFlux",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.LipschitzOnBounds.nonneg",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one",
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate",
+        "CFDLean.Scalar.FiniteVolume.muscl_incremental",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_eq_self_of_le"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux)\n  (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : Real),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          \u2200 (dx dt : Real),\n            LT.lt (OfNat.ofNat 0) dx \u2192\n              LE.le (OfNat.ofNat 0) dt \u2192\n                LE.le (HMul.hMul dt (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (HAdd.hAdd KL KR))) dx \u2192\n                  \u2200 (u : I \u2192 Real),\n                    Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n                      LE.le\n                        (CFDLean.Scalar.FiniteVolume.totalVariation g\n                          (CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u))\n                        (CFDLean.Scalar.FiniteVolume.totalVariation g u)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (nf : CFDLean.Scalar.NumericalFlux) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    CFDLean.Scalar.MonotoneFlux nf \u2192\n      \u2200 (m M KL KR : \u211d),\n        CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192\n          \u2200 (dx dt : \u211d),\n            0 < dx \u2192\n              0 \u2264 dt \u2192\n                dt * (3 / 2 * (KL + KR)) \u2264 dx \u2192\n                  \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n                    CFDLean.Scalar.FiniteVolume.totalVariation g\n                        (CFDLean.Time.ForwardEuler.step dt (CFDLean.Scalar.FiniteVolume.musclRhs g dx nf \u03c6) u) \u2264\n                      CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.rhs": {
       "axioms": [
         "propext",
@@ -73844,6 +75092,210 @@
       "raw_type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  Eq (s.sum fun i => HDiv.hDiv (f i) a) (HDiv.hDiv (s.sum fun i => f i) a)",
       "root": true,
       "type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  \u2211 i \u2208 s, f i / a = (\u2211 i \u2208 s, f i) / a",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rightState": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.rightState",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rightState.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.rightState.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i)\n    (HSub.hSub (u (DFunLike.coe g.next i))\n      (HDiv.hDiv (CFDLean.Scalar.FiniteVolume.slope g \u03c6 u (DFunLike.coe g.next i)) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i = u (g.next i) - CFDLean.Scalar.FiniteVolume.slope g \u03c6 u (g.next i) / 2",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rightState_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.half_slope_mem",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.rightState_mem",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (m M : Real) (u : I \u2192 Real),\n      Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u \u2192\n        \u2200 (i : I),\n          And (LE.le m (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i))\n            (LE.le (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i) M)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (m M : \u211d),\n      \u2200 u \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M,\n        \u2200 (i : I),\n          m \u2264 CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i \u2227 CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i \u2264 M",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rightState_sub": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Periodic.Grid.prev_next",
+        "CFDLean.Scalar.FiniteVolume.slope_combo",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.rightState_sub",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (u : I \u2192 Real) (i : I),\n      And\n        (LE.le (OfNat.ofNat 0)\n          (HMul.hMul\n            (HSub.hSub (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i)\n              (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)))\n            (HSub.hSub (u (DFunLike.coe g.next i)) (u i))))\n        (LE.le\n          (abs\n            (HSub.hSub (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i)\n              (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i))))\n          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (abs (HSub.hSub (u (DFunLike.coe g.next i)) (u i)))))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d),\n  CFDLean.Scalar.FiniteVolume.MinmodBounded \u03c6 \u2192\n    \u2200 (u : I \u2192 \u211d) (i : I),\n      0 \u2264\n          (CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i - CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)) *\n            (u (g.next i) - u i) \u2227\n        |CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u i - CFDLean.Scalar.FiniteVolume.rightState g \u03c6 u (g.prev i)| \u2264\n          3 / 2 * |u (g.next i) - u i|",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.sign_transfer": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.sign_transfer._simp_1_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.sign_transfer",
+      "raw_type": "\u2200 (x r d K : Real),\n  LE.le (OfNat.ofNat 0) (HMul.hMul x r) \u2192\n    LE.le (OfNat.ofNat 0) (HMul.hMul r d) \u2192 LE.le (abs x) (HMul.hMul K (abs r)) \u2192 LE.le (OfNat.ofNat 0) (HMul.hMul x d)",
+      "root": true,
+      "type": "\u2200 (x r d K : \u211d), 0 \u2264 x * r \u2192 0 \u2264 r * d \u2192 |x| \u2264 K * |r| \u2192 0 \u2264 x * d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.sign_transfer._simp_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.sign_transfer._simp_1_1",
+      "raw_type": "\u2200 {\u03b1 : Type u_1} [inst : AddGroup \u03b1] [inst_1 : LinearOrder \u03b1] [AddLeftMono \u03b1] {a : \u03b1} [AddRightMono \u03b1],\n  Eq (LE.le (abs a) (OfNat.ofNat 0)) (Eq a (OfNat.ofNat 0))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_1} [inst : AddGroup \u03b1] [inst_1 : LinearOrder \u03b1] [AddLeftMono \u03b1] {a : \u03b1} [AddRightMono \u03b1],\n  (|a| \u2264 0) = (a = 0)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.slope": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.slope",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.slope._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.slope._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.slope.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.slope.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : Real \u2192 Real \u2192 Real) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Scalar.FiniteVolume.slope g \u03c6 u i)\n    (\u03c6 (HSub.hSub (u i) (u (g.prev i))) (HSub.hSub (u (DFunLike.coe g.next i)) (u i)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (\u03c6 : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.slope g \u03c6 u i = \u03c6 (u i - u (g.prev i)) (u (g.next i) - u i)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.slope_combo": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.slope_combo._simp_1_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.slope_combo",
+      "raw_type": "\u2200 (d s1 s2 : Real),\n  LE.le (OfNat.ofNat 0) (HMul.hMul s1 d) \u2192\n    LE.le (abs s1) (abs d) \u2192\n      LE.le (OfNat.ofNat 0) (HMul.hMul s2 d) \u2192\n        LE.le (abs s2) (abs d) \u2192\n          And\n            (LE.le (OfNat.ofNat 0)\n              (HMul.hMul (HSub.hSub (HAdd.hAdd d (HDiv.hDiv s1 (OfNat.ofNat 2))) (HDiv.hDiv s2 (OfNat.ofNat 2))) d))\n            (LE.le (abs (HSub.hSub (HAdd.hAdd d (HDiv.hDiv s1 (OfNat.ofNat 2))) (HDiv.hDiv s2 (OfNat.ofNat 2))))\n              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (abs d)))",
+      "root": true,
+      "type": "\u2200 (d s1 s2 : \u211d),\n  0 \u2264 s1 * d \u2192\n    |s1| \u2264 |d| \u2192 0 \u2264 s2 * d \u2192 |s2| \u2264 |d| \u2192 0 \u2264 (d + s1 / 2 - s2 / 2) * d \u2227 |d + s1 / 2 - s2 / 2| \u2264 3 / 2 * |d|",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.slope_combo._simp_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.slope_combo._simp_1_1",
+      "raw_type": "\u2200 {\u03b1 : Type u_1} [inst : AddGroup \u03b1] [inst_1 : LinearOrder \u03b1] [AddLeftMono \u03b1] {a : \u03b1} [AddRightMono \u03b1],\n  Eq (LE.le (abs a) (OfNat.ofNat 0)) (Eq a (OfNat.ofNat 0))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_1} [inst : AddGroup \u03b1] [inst_1 : LinearOrder \u03b1] [AddLeftMono \u03b1] {a : \u03b1} [AddRightMono \u03b1],\n  (|a| \u2264 0) = (a = 0)",
       "unsafe": false
     },
     "CFDLean.Scalar.FiniteVolume.totalSum": {
@@ -74026,6 +75478,60 @@
       "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (S : Set (I \u2192 Real)),\n  Convex Real S \u2192 ConvexOn Real S (CFDLean.Scalar.FiniteVolume.totalVariation g)",
       "root": true,
       "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (S : Set (I \u2192 \u211d)),\n  Convex \u211d S \u2192 ConvexOn \u211d S (CFDLean.Scalar.FiniteVolume.totalVariation g)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.zero_minmodBounded": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "name": "CFDLean.Scalar.FiniteVolume.zero_minmodBounded",
+      "raw_type": "CFDLean.Scalar.FiniteVolume.MinmodBounded fun x x_1 => OfNat.ofNat 0",
+      "root": true,
+      "type": "CFDLean.Scalar.FiniteVolume.MinmodBounded fun x x_1 => 0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.LipschitzOnBounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.Lipschitz",
+      "name": "CFDLean.Scalar.LipschitzOnBounds",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Scalar.NumericalFlux \u2192 \u211d \u2192 \u211d \u2192 \u211d \u2192 \u211d \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.LipschitzOnBounds.nonneg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.LipschitzOnBounds",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Scalar.Lipschitz",
+      "name": "CFDLean.Scalar.LipschitzOnBounds.nonneg",
+      "raw_type": "\u2200 {nf : CFDLean.Scalar.NumericalFlux} {m M KL KR : Real},\n  CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192 LT.lt m M \u2192 And (LE.le (OfNat.ofNat 0) KL) (LE.le (OfNat.ofNat 0) KR)",
+      "root": true,
+      "type": "\u2200 {nf : CFDLean.Scalar.NumericalFlux} {m M KL KR : \u211d},\n  CFDLean.Scalar.LipschitzOnBounds nf m M KL KR \u2192 m < M \u2192 0 \u2264 KL \u2227 0 \u2264 KR",
       "unsafe": false
     },
     "CFDLean.Scalar.MonotoneFlux": {
@@ -79463,6 +80969,823 @@
       "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep I",
       "unsafe": false
     },
+    "CFDLean.Verification.BurgersB3Challenge.MinmodProperties": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MinmodProperties",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MultiStepStable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable._proof_1",
+        "CFDLean.Verification.BurgersB3Challenge.totalVariation"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MultiStepStable",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 (I \u2243 I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d) \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MultiStepStable._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MultiStepStable._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 5) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(5 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk2",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk2",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep",
+      "raw_type": null,
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.rusanov",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.burgersFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.burgersFlux",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.burgersFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.burgersFlux.eq_1",
+      "raw_type": "\u2200 (u : Real),\n  Eq (CFDLean.Verification.BurgersB3Challenge.burgersFlux u) (HDiv.hDiv (HPow.hPow u (OfNat.ofNat 2)) (OfNat.ofNat 2))",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Verification.BurgersB3Challenge.burgersFlux u = u ^ 2 / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.faceMinus": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.slope",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.faceMinus",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.faceMinus.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.faceMinus",
+        "CFDLean.Verification.BurgersB3Challenge.slope",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.faceMinus.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (next : Equiv I I) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Verification.BurgersB3Challenge.faceMinus next u i)\n    (HSub.hSub (u i) (HDiv.hDiv (CFDLean.Verification.BurgersB3Challenge.slope next u i) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB3Challenge.faceMinus next u i =\n    u i - CFDLean.Verification.BurgersB3Challenge.slope next u i / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.facePlus": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.slope",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.facePlus",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.facePlus.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.slope",
+        "CFDLean.Verification.BurgersB3Challenge.facePlus",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.facePlus.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (next : Equiv I I) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Verification.BurgersB3Challenge.facePlus next u i)\n    (HAdd.hAdd (u i) (HDiv.hDiv (CFDLean.Verification.BurgersB3Challenge.slope next u i) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB3Challenge.facePlus next u i =\n    u i + CFDLean.Verification.BurgersB3Challenge.slope next u i / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.minmod": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.minmod",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.musclEulerStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.rusanov",
+        "CFDLean.Verification.BurgersB3Challenge.faceMinus",
+        "CFDLean.Verification.BurgersB3Challenge.facePlus"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.musclEulerStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.rusanov",
+        "CFDLean.Verification.BurgersB3Challenge.faceMinus",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Challenge.facePlus"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.musclEulerStep.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (next : Equiv I I) (dx dt : Real) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Verification.BurgersB3Challenge.musclEulerStep next dx dt u i)\n    (HAdd.hAdd (u i)\n      (HMul.hMul dt\n        (HDiv.hDiv\n          (Neg.neg\n            (HSub.hSub\n              (CFDLean.Verification.BurgersB3Challenge.rusanov\n                (CFDLean.Verification.BurgersB3Challenge.facePlus next u i)\n                (CFDLean.Verification.BurgersB3Challenge.faceMinus next u (DFunLike.coe next i)))\n              (CFDLean.Verification.BurgersB3Challenge.rusanov\n                (CFDLean.Verification.BurgersB3Challenge.facePlus next u (DFunLike.coe next.symm i))\n                (CFDLean.Verification.BurgersB3Challenge.faceMinus next u i))))\n          dx)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx dt : \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB3Challenge.musclEulerStep next dx dt u i =\n    u i +\n      dt *\n        (-(CFDLean.Verification.BurgersB3Challenge.rusanov (CFDLean.Verification.BurgersB3Challenge.facePlus next u i)\n                (CFDLean.Verification.BurgersB3Challenge.faceMinus next u (next i)) -\n              CFDLean.Verification.BurgersB3Challenge.rusanov\n                (CFDLean.Verification.BurgersB3Challenge.facePlus next u (next.symm i))\n                (CFDLean.Verification.BurgersB3Challenge.faceMinus next u i)) /\n          dx)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.rusanov": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.rusanov",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.rusanov.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersB3Challenge.rusanov",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.rusanov.eq_1",
+      "raw_type": "\u2200 (uL uR : Real),\n  Eq (CFDLean.Verification.BurgersB3Challenge.rusanov uL uR)\n    (HSub.hSub\n      (HDiv.hDiv\n        (HAdd.hAdd (CFDLean.Verification.BurgersB3Challenge.burgersFlux uL)\n          (CFDLean.Verification.BurgersB3Challenge.burgersFlux uR))\n        (OfNat.ofNat 2))\n      (HMul.hMul (HDiv.hDiv (CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed uL uR) (OfNat.ofNat 2))\n        (HSub.hSub uR uL)))",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d),\n  CFDLean.Verification.BurgersB3Challenge.rusanov uL uR =\n    (CFDLean.Verification.BurgersB3Challenge.burgersFlux uL + CFDLean.Verification.BurgersB3Challenge.burgersFlux uR) /\n        2 -\n      CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed uL uR / 2 * (uR - uL)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed.eq_1",
+      "raw_type": "\u2200 (uL uR : Real), Eq (CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed uL uR) (max (abs uL) (abs uR))",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d), CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed uL uR = max |uL| |uR|",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.slope": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.slope",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.slope.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Challenge.slope.eq_1",
+      "raw_type": "\u2200 {I : Type u_1} (next : Equiv I I) (u : I \u2192 Real) (i : I),\n  Eq (CFDLean.Verification.BurgersB3Challenge.slope next u i)\n    (CFDLean.Verification.BurgersB3Challenge.minmod (HSub.hSub (u i) (u (DFunLike.coe next.symm i)))\n      (HSub.hSub (u (DFunLike.coe next i)) (u i)))",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB3Challenge.slope next u i =\n    CFDLean.Verification.BurgersB3Challenge.minmod (u i - u (next.symm i)) (u (next i) - u i)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.ssprk2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.ssprk2",
+      "raw_type": null,
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.ssprk3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk3._proof_2",
+        "CFDLean.Verification.BurgersB3Challenge.ssprk3._proof_1",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.ssprk3",
+      "raw_type": null,
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.ssprk3._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.ssprk3._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(2 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.ssprk3._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.ssprk3._proof_2",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 3) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(3 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.totalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.totalVariation",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type u_1} \u2192 [Fintype I] \u2192 I \u2243 I \u2192 (I \u2192 \u211d) \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Challenge.totalVariation._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.totalVariation._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB3Challenge.totalVariation._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.totalVariation._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB3Challenge.totalVariation._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "CFDLean.Verification.BurgersB3Challenge.totalVariation._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Verification.BurgersB3Verify.minmod_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.minmod",
+        "CFDLean.Scalar.FiniteVolume.minmod"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.minmod_eq",
+      "raw_type": "Eq CFDLean.Verification.BurgersB3Challenge.minmod CFDLean.Scalar.FiniteVolume.minmod",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB3Challenge.minmod = CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.minmod_properties": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Verification.BurgersB3Challenge.MinmodProperties"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.minmod_properties",
+      "raw_type": "CFDLean.Verification.BurgersB3Challenge.MinmodProperties",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB3Challenge.MinmodProperties",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux",
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Verification.BurgersB3Challenge.rusanov",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Verification.BurgersB3Challenge.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.faceMinus",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Verification.BurgersB3Challenge.slope",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Verification.BurgersB3Challenge.facePlus",
+        "CFDLean.Scalar.FiniteVolume.musclFlux",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+      "raw_type": "\u2200 {I : Type u_1} (next : Equiv I I) (dx dt : Real),\n  Eq (CFDLean.Verification.BurgersB3Challenge.musclEulerStep next dx dt)\n    (CFDLean.Burgers.Rusanov.musclEulerStep { next := next } dx dt CFDLean.Scalar.FiniteVolume.minmod)",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx dt : \u211d),\n  CFDLean.Verification.BurgersB3Challenge.musclEulerStep next dx dt =\n    CFDLean.Burgers.Rusanov.musclEulerStep { next := next } dx dt CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.muscl_euler_conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.muscl_euler_conservation",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation I",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.muscl_euler_multi_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable._proof_1",
+        "CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB3Challenge.totalVariation",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.muscl_euler_multi_step",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep I",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk2",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation",
+        "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_conservation",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation I",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_multi_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable._proof_1",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Verification.BurgersB3Challenge.ssprk2",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB3Challenge.totalVariation",
+        "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_multi_step",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep I",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_conservation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk3",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum",
+        "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_conservation",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation I",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.ssprk3",
+        "CFDLean.Verification.BurgersB3Challenge.MultiStepStable._proof_1",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersB3Challenge.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersB3Verify.musclEulerStep_eq",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB3Challenge.totalVariation"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step",
+      "raw_type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep I",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB3Challenge.rusanov",
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_right",
+        "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_left",
+        "CFDLean.Verification.BurgersB3Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB3Verify",
+      "name": "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz",
+      "raw_type": "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
+      "unsafe": false
+    },
     "CFDLean.Verification.JST1Verify.p1_1_0": {
       "axioms": [
         "propext",
@@ -84895,6 +87218,17 @@
       "type": null,
       "unsafe": null
     },
+    "abs._at_.CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB3Challenge",
+      "name": "abs._at_.CFDLean.Verification.BurgersB3Challenge.rusanovWaveSpeed.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Mixed.Cell.X.spec_0.spec_0": {
       "axioms": [],
       "direct": [],
@@ -85018,7 +87352,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 387,
+  "catalog_entries": 411,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -85104,6 +87438,47 @@
         "CFDLean.Verification.BurgersB2Verify.ssprk3_conservation",
         "CFDLean.Verification.BurgersB2Verify.ssprk3_convex",
         "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step"
+      ],
+      "independent_acceptance": "pending implementation review"
+    },
+    "B3": {
+      "results": "specifications/Burgers-B3-results.json",
+      "approved_revision": "9dedd67443d87cce0cca530fd0b4c8f9b6d7d21e",
+      "promised_theorems": [
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_left",
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_right",
+        "CFDLean.Burgers.Rusanov.lipschitzOnBounds",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_constant",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_constant",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_constant",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum",
+        "CFDLean.Scalar.FiniteVolume.leftState_mem",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_constant",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_zero",
+        "CFDLean.Scalar.FiniteVolume.muscl_incremental",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_mem",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.rightState_mem",
+        "CFDLean.Scalar.FiniteVolume.zero_minmodBounded"
+      ],
+      "trusted_bridge_theorems": [
+        "CFDLean.Verification.BurgersB3Verify.minmod_properties",
+        "CFDLean.Verification.BurgersB3Verify.muscl_euler_conservation",
+        "CFDLean.Verification.BurgersB3Verify.muscl_euler_multi_step",
+        "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_conservation",
+        "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_multi_step",
+        "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_conservation",
+        "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step",
+        "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz"
       ],
       "independent_acceptance": "pending implementation review"
     }
@@ -85258,5 +87633,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 92,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 387
+  "raw_types_checked": 411
 }

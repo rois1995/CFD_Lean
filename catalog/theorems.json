@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, B1, B2, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, B1, B2, B3, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -3846,6 +3846,318 @@
       ],
       "summary": "One Burgers Rusanov SSPRK3 step keeps every constant state.",
       "source": "specifications/Burgers-B2-results.json B2-S; references/Burgers-B2.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+      "id": "B3-L",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The minmod limiter has the sign of both differences and is not larger than either in absolute value.",
+      "source": "specifications/Burgers-B3-results.json B3-L; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.zero_minmodBounded",
+      "id": "B3-L",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The zero limiter (first-order reconstruction) satisfies the limiter certificate.",
+      "source": "specifications/Burgers-B3-results.json B3-L; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_zero",
+      "id": "B3-R",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With the zero limiter the MUSCL right-hand side is the first-order flux-difference right-hand side.",
+      "source": "specifications/Burgers-B3-results.json B3-R; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero",
+      "id": "B3-R",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The periodic MUSCL right-hand side sums to zero for every two-point flux and every limiter.",
+      "source": "specifications/Burgers-B3-results.json B3-R; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.musclRhs_constant",
+      "id": "B3-R",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The MUSCL right-hand side is zero on a constant state, for every flux and every limiter.",
+      "source": "specifications/Burgers-B3-results.json B3-R; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.leftState_mem",
+      "id": "B3-R",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a limiter in the minmod region the reconstructed left state of an interface keeps the bounds m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B3-results.json B3-R; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.rightState_mem",
+      "id": "B3-R",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a limiter in the minmod region the reconstructed right state of an interface keeps the bounds m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B3-results.json B3-R; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_incremental",
+      "id": "B3-I",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a monotone flux that is Lipschitz on bounded states and a limiter in the minmod region, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(3/2)KR and 0 ≤ D ≤ (dt/dx)(3/2)KL.",
+      "source": "specifications/Burgers-B3-results.json B3-I; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.eval_lipschitz_left",
+      "id": "B3-K",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the left state with constant 2A.",
+      "source": "specifications/Burgers-B3-results.json B3-K; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.eval_lipschitz_right",
+      "id": "B3-K",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the right state with constant 2A.",
+      "source": "specifications/Burgers-B3-results.json B3-K; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.lipschitzOnBounds",
+      "id": "B3-K",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Lipschitz certificate of the Burgers Rusanov flux on states between m and M with constants 2 max(|m|, |M|).",
+      "source": "specifications/Burgers-B3-results.json B3-K; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le",
+      "id": "B3-T",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step does not increase the total variation of a state with m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B3-results.json B3-T; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_mem",
+      "id": "B3-T",
+      "milestone": "B3",
+      "module": "CFDLean.Discrete.Periodic.Muscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step keeps the bounds m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B3-results.json B3-T; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under 6 · dt · max(|m|, |M|) ≤ dx the MUSCL-Rusanov Forward Euler step keeps the bounds, for every limiter in the minmod region.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under 6 · dt · max(|m|, |M|) ≤ dx the MUSCL-Rusanov Forward Euler step does not increase the total variation.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with one dt from the initial bounds.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 one MUSCL-Rusanov Forward Euler step keeps the total sum of the cell values.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 one MUSCL-Rusanov SSPRK2 step keeps the total sum of the cell values.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx ≠ 0 one MUSCL-Rusanov SSPRK3 step keeps the total sum of the cell values.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_constant",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One MUSCL-Rusanov Forward Euler step keeps every constant state.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_constant",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One MUSCL-Rusanov SSPRK2 step keeps every constant state.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_constant",
+      "id": "B3-S",
+      "milestone": "B3",
+      "module": "CFDLean.Schemes.Burgers.RusanovMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One MUSCL-Rusanov SSPRK3 step keeps every constant state.",
+      "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
     },
     {
       "name": "CFDLean.JST1.Proofs.p1_1_0",

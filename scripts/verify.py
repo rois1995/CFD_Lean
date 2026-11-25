@@ -59,7 +59,7 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
                   "Time")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending",
+                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending",
                   "JST1": "candidate"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
@@ -90,6 +90,13 @@ BURGERS = {
            "challenge": "Challenges/BurgersB2.lean",
            "challenge_sha256": "ae6053bc7aef69b19bd1a34cf54eb7aee63cb604169708674b16356484644f24",
            "count": 23, "bridges": 7},
+    "B3": {"results": "specifications/Burgers-B3-results.json",
+           "approved": "9dedd67443d87cce0cca530fd0b4c8f9b6d7d21e",
+           "statements": "CFDLean/Verification/BurgersB3Challenge.lean",
+           "statements_sha256": "977a2e63064d9667d94b136cff163e201be25028d81449efc54c1c152abf4d8d",
+           "challenge": "Challenges/BurgersB3.lean",
+           "challenge_sha256": "c6640bad33466c96c48d13da23e43ce55df18db39efa9f91aa133ab6b08fd357",
+           "count": 24, "bridges": 8},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -105,7 +112,7 @@ JST1_COUNT = 92
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "e205d2fa0a538b34b71d2078a28501887e986111d668edaf453d8014e789581a"
+RAW_TYPES_SHA256 = "e9a2f7024f4be0ccd84fee4beb4763f39ea01b2748a20e3673f6be73c0deff9e"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"

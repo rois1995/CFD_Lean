@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = "catalog/theorems.json"
 README = "catalog/README.md"
 LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes", "Time")
-MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "JST1")
+MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "B3", "JST1")
 STATUSES = ("accepted", "pending", "candidate")
 METHOD_SETS = (("FEM",), ("FVM",), ("FEM", "FVM"), ("method-free",))
 
@@ -55,12 +55,13 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0`, `B1`, `B2`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B2-results.json`: the scalar two-point-flux finite-volume
-core on a periodic grid, the incremental-form stability lemmas and the convexity of bounded states and of the total
-variation (Discrete operators, Schemes), the Burgers Rusanov flux (Schemes), the Forward Euler step, its stability
-under a CFL hypothesis, the generic SSP Runge-Kutta composition and the multi-step results (Time). `FVM` marks the
-periodic finite-volume statements; the generic time-stepping statements are `method-free`.
+**Burgers** (milestones `B0` .. `B3`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B3-results.json`: the scalar two-point-flux finite-volume
+core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
+variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
+Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
+Runge-Kutta composition and the multi-step results (Time). `FVM` marks the periodic finite-volume statements; the
+generic time-stepping statements are `method-free`.
 
 **Source.** The contract or result map and the result ID (with stage, or the JST statement for MC-N and JST1).
 

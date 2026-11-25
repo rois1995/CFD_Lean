@@ -53,9 +53,9 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Foundations/` | `Basic`, `LogMean`, state `Coordinates` |
 | `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure), `Scalar/` (scalar conservation law), `Burgers/` (physical flux) |
 | `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
-| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form) |
+| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form, convexity, MUSCL reconstruction) |
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
-| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux, consistency and monotone certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, controls) |
+| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux; consistency, monotone and Lipschitz certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, SSP and MUSCL schemes, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
 | `CFDLean/Papers/JST1/` | paper 1 (JST), see below |
 
@@ -109,6 +109,21 @@ and constant states. 23 promised theorems, status `pending`. No order-of-accurac
 lake comparator --paranoid --config Challenges/BurgersB2.comparator.json
 ```
 
+## Burgers B3 (MUSCL reconstruction)
+
+[Burgers B3](references/Burgers-B3.md) implements the [contract](specifications/Burgers-B3.md) that the agent froze
+under the standing authorization. Generic part (`CFDLean/Discrete/Periodic/Muscl.lean`): for a limiter in the minmod
+region (certificate `MinmodBounded`) and a monotone two-point flux that is Lipschitz on bounded states, the
+Forward-Euler step of the MUSCL scheme is in Harten's incremental form with bounded nonnegative coefficients; so it
+keeps bounds and does not increase the total variation under `dt · (3/2)(KL + KR) ≤ dx`. Burgers part: the Rusanov
+flux has Lipschitz constants `2 max(|m|, |M|)`; with `6 · dt · max(|m|, |M|) ≤ dx` the MUSCL-Rusanov scheme with
+Forward Euler, SSPRK2 or SSPRK3 keeps the bounds and is TVD for every number of steps, and keeps the total sum and
+constant states. 24 promised theorems, status `pending`. No accuracy claim; the CFL constant is not sharp. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB3.comparator.json
+```
+
 ## Paper 1 (JST)
 
 Since MR-2 ([MR.md](specifications/MR.md)) the formalization of paper 1 (all 92 statements proved, folded from
@@ -144,7 +159,7 @@ This incremental command is not the complete fresh-checkout bootstrap; use the s
 | Level | When | Checks |
 |---|---|---|
 | 1 | every commit | `lake build`; `LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py`; the fixtures `python3 -m unittest discover -s scripts -p test_verify.py`; `sha256sum -c evidence/SHA256SUMS` |
-| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/<name>.comparator.json` for `BurgersB0`, `BurgersB1`, `BurgersB2` and `JST1` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
+| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/<name>.comparator.json` for `BurgersB0` .. `BurgersB3` and `JST1` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
 | 3 | optional, only when the user asks | `lake check --paranoid` (five independent kernels over the whole build), run alone, overnight; it needs 10-20 GB RAM per checker |
 
 Level 1 runs with `LEAN_NUM_THREADS=2` and `nice -n 19`, one Lean process at a time. `scripts/verify.py` also pins
