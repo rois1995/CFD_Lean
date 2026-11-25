@@ -108,9 +108,12 @@ JST1_CHALLENGE_SHA256 = "583a1e7a3e5bea6efeb0984b233278d4c860968043f9e14dadf934e
 JST1_COMPARATOR = "Challenges/JST1.comparator.json"
 JST1_SOLUTION = "CFDLean.Verification.JST1Verify"
 JST1_ID = re.compile(r"P[1-3]-[0-9]+\.[0-9]+[a-z]?")
+# The frozen JST1 result IDs are the statement definitions `def P<a>_<b>_<c> : Prop` of the hash-pinned statement files
+# (CFDLean/Papers/JST1/Spec/); ID `P<a>-<b>.<c>` binds statement `CFDLean.JST1.Spec.P<a>_<b>_<c>`.
+JST1_SPEC_DEF = re.compile(r"^def (P[1-3])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
 FORBIDDEN_ROOT = "CFDLean/Papers"
-FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|^\s*(private |protected )?axiom\b|native_decide|implemented_by|\bunsafe\b"
-                       r"|\bopaque\b|@\[extern", re.MULTILINE)
+FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|\baxiom\b|native_decide|implemented_by|\bunsafe\b|\bopaque\b|@\[extern"
+                       r"|skipKernelTC", re.MULTILINE)
 
 
 def load_port_map(data):
@@ -332,7 +335,9 @@ INHERITED = {
 
 def check_inherited_milestone(milestone, rows, contract, accepted, evidence):
     """Every binding of `accepted` up to its current stage is unchanged in `contract`, has declarations, and each
-    declaration keeps its accepted type (or its MC-T port type). Returns {name: {accepted_type, current_type}}."""
+    declaration keeps its accepted type (or its MC-T port type). Returns {name: {accepted_type, current_type}}.
+    Fields are read in the order of the former per-milestone functions (M2: accepted stages filtered before the
+    current bindings are indexed; result IDs read only when needed), so malformed input fails the same way."""
     spec = INHERITED[milestone]
     stages = spec["stages"]
     if spec["no_rollback"] and stages.index(contract["current_stage"]) < stages.index(accepted["current_stage"]):
@@ -341,18 +346,23 @@ def check_inherited_milestone(milestone, rows, contract, accepted, evidence):
     def units(record):
         for result in record["results"]:
             for unit in (result["parts"] if spec["parts"] else [result]):
-                yield ((result["id"], unit["stage"]) if spec["parts"] else result["id"]), result["id"], unit
-    current = {key: unit for key, _, unit in units(contract)}
-    active = lambda key, result_id, unit: stages.index(unit["stage"]) <= stages.index(accepted["current_stage"])
-    accepted_units = units(accepted)
+                yield result, unit
+
+    def key(result, unit):
+        return (result["id"], unit["stage"]) if spec["parts"] else result["id"]
+
+    def active(unit):
+        return stages.index(unit["stage"]) <= stages.index(accepted["current_stage"])
+
     if spec["filter_first"]:
-        accepted_units = [entry for entry in accepted_units if active(*entry)]
+        accepted_units = [(result, unit) for result, unit in units(accepted) if active(unit)]
+    current = {key(result, unit): unit for result, unit in units(contract)}
     comparisons = {}
-    for key, result_id, unit in accepted_units:
-        if not spec["filter_first"] and not active(key, result_id, unit):
+    for result, unit in (accepted_units if spec["filter_first"] else units(accepted)):
+        if not spec["filter_first"] and not active(unit):
             continue
-        if not unit["declarations"] or current.get(key) != unit:
-            raise ValueError(spec["binding_error"].format(id=result_id))
+        if not unit["declarations"] or current.get(key(result, unit)) != unit:
+            raise ValueError(spec["binding_error"].format(id=result["id"]))
         for name in unit["declarations"]:
             before, after = evidence["declarations"][name]["type"], rows[name]["type"]
             if not same_or_ported_type(name, before, after):
@@ -594,16 +604,62 @@ def check_jst1_frozen(entries, read, paths):
     return len(entries)
 
 
-def check_jst1(rows, records, audit_text, core_theorems):
-    """The 92 JST1 bindings: unique IDs and names in CFDLean.JST1, each bound in the audit, each a root theorem with
-    standard axioms in its module, the statement a definition, and a delegated binding uses its MC-N theorem."""
-    bindings = [(result_id, binding) for record in records for result_id, binding in record["bindings"].items()]
-    ids = [result_id for result_id, _ in bindings]
-    names = [binding["theorem"] for _, binding in bindings]
-    if (len(bindings) != JST1_COUNT or len(set(ids)) != len(ids) or len(set(names)) != len(names)
-            or any(not JST1_ID.fullmatch(result_id) for result_id in ids)):
+def jst1_frozen_ids(spec_texts):
+    """The frozen JST1 result IDs: one per statement definition of the pinned statement files."""
+    ids = [f"{a}-{b}.{c}" for text in spec_texts for a, b, c in JST1_SPEC_DEF.findall(text)]
+    if len(ids) != JST1_COUNT or len(set(ids)) != len(ids):
+        raise ValueError("JST1 statement files do not define the frozen statements")
+    return set(ids)
+
+
+def strip_lean_comments(text):
+    """Lean source without `--` line comments and (nested) `/- -/` block comments; string literals are kept."""
+    out, i, depth, n = [], 0, 0, len(text)
+    while i < n:
+        if depth:
+            if text.startswith("/-", i):
+                depth, i = depth + 1, i + 2
+            elif text.startswith("-/", i):
+                depth, i = depth - 1, i + 2
+            else:
+                i += 1
+        elif text.startswith("/-", i):
+            depth, i = 1, i + 2
+        elif text.startswith("--", i):
+            while i < n and text[i] != "\n":
+                i += 1
+        elif text[i] == '"':
+            j = i + 1
+            while j < n and text[j] != '"':
+                j += 2 if text[j] == "\\" else 1
+            out.append(text[i:j + 1])
+            i = j + 1
+        else:
+            out.append(text[i])
+            i += 1
+    return "".join(out)
+
+
+def check_jst1(rows, records, audit_text, core_theorems, frozen_ids):
+    """The 92 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
+    statement of its ID; unique names in CFDLean.JST1; each bound in the audit (outside comments); each a root theorem
+    with standard axioms in its module whose type is its statement; the statement a definition; and a delegated
+    binding uses its MC-N theorem."""
+    if len(records) != len(JST1_RESULTS):
         raise ValueError("JST1 result bindings differ from the frozen scope")
-    bound = set(re.findall(r"^example : (\S+) := (\S+)$", audit_text, re.MULTILINE))
+    bindings = [(paper, result_id, binding) for paper, record in zip(("P1", "P2", "P3"), records)
+                for result_id, binding in record["bindings"].items()]
+    ids = [result_id for _, result_id, _ in bindings]
+    names = [binding["theorem"] for _, _, binding in bindings]
+    if (len(bindings) != JST1_COUNT or len(set(ids)) != len(ids) or len(set(names)) != len(names)
+            or set(ids) != set(frozen_ids) or any(not JST1_ID.fullmatch(result_id) for result_id in ids)):
+        raise ValueError("JST1 result bindings differ from the frozen scope")
+    for paper, result_id, binding in bindings:
+        if (not result_id.startswith(paper + "-")
+                or binding["statement"] != "CFDLean.JST1.Spec." + result_id.replace("-", "_").replace(".", "_")):
+            raise ValueError(f"JST1 result ID bound to another statement or paper part: {result_id}")
+    bindings = [(result_id, binding) for _, result_id, binding in bindings]
+    bound = set(re.findall(r"^example : (\S+) := (\S+)$", strip_lean_comments(audit_text), re.MULTILINE))
     delegated = []
     for result_id, binding in bindings:
         statement, name = binding["statement"], binding["theorem"]
@@ -617,6 +673,8 @@ def check_jst1(rows, records, audit_text, core_theorems):
             raise ValueError(f"Missing JST1 theorem: {name}")
         if row["module"] != binding["module"] or binding["file"] != binding["module"].replace(".", "/") + ".lean":
             raise ValueError(f"JST1 theorem outside its module: {name}")
+        if row["type"] != statement:
+            raise ValueError(f"JST1 theorem does not state its statement: {name}")
         if rows.get(statement, {}).get("kind") != "definition":
             raise ValueError(f"JST1 statement is not a definition: {statement}")
         core = binding.get("core_theorem")
@@ -827,7 +885,10 @@ def main(record_raw_types=False):
             raise ValueError(f"JST1 result map differs from the frozen scope: {path}")
         jst1.append(record)
     jst1_frozen = check_jst1_frozen(load_jst1_frozen((ROOT / JST1_FROZEN).read_bytes()), read_source, lean_sources)
-    jst1_promised, jst1_delegated = check_jst1(rows, jst1, (ROOT / "KernelAudit.lean").read_text(), mcn_promised)
+    jst1_ids = jst1_frozen_ids(read_source(path).decode() for path in lean_sources
+                               if path.startswith(JST1_ROOT + "Spec/"))
+    jst1_promised, jst1_delegated = check_jst1(rows, jst1, (ROOT / "KernelAudit.lean").read_text(), mcn_promised,
+                                               jst1_ids)
     jst1_comparator = check_jst1_comparator(rows, jst1)
     if set(jst1_promised) & (set(promised) | set(mcn_promised) | all_burgers):
         raise ValueError("JST1 rebinds an M1-M5, MC-N or Burgers promised theorem")

@@ -52,6 +52,8 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
   update on dual volumes.
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
+- Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
+  pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
 **Burgers** (milestones `B0`, `B1`, status `pending`: implemented, independent review pending). The declarations bound
 in `specifications/Burgers-B0-results.json` and `Burgers-B1-results.json`: the scalar two-point-flux finite-volume core

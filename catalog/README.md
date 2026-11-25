@@ -37,6 +37,8 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
   update on dual volumes.
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
+- Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
+  pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
 **Burgers** (milestones `B0`, `B1`, status `pending`: implemented, independent review pending). The declarations bound
 in `specifications/Burgers-B0-results.json` and `Burgers-B1-results.json`: the scalar two-point-flux finite-volume core
@@ -56,17 +58,17 @@ that this file equals the generated text. Do not edit by hand.
 | Foundations | 10 | 0 | 0 | 0 | 10 |
 | Geometry | 66 | 0 | 38 | 4 | 24 |
 | Discrete operators | 50 | 10 | 23 | 17 | 0 |
-| Entropy framework | 17 | 0 | 12 | 0 | 5 |
+| Entropy framework | 17 | 0 | 13 | 0 | 4 |
 | Physics models | 86 | 0 | 0 | 0 | 86 |
 | Schemes | 89 | 7 | 67 | 6 | 9 |
 | Time | 46 | 0 | 37 | 0 | 9 |
-| **Total** | 364 | 17 | 177 | 27 | 143 |
+| **Total** | 364 | 17 | 178 | 27 | 142 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 44 |
-| FVM | 204 |
-| method-free | 143 |
+| FVM | 205 |
+| method-free | 142 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -238,7 +240,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p2_8_1` | P2-8.1 | FVM | candidate | The quadrature boundary closure has an exact boundary entropy identity and conserves Σ_i b_i = Σ_q F*_q. |
 | `CFDLean.JST1.Proofs.p2_8_5` | P2-8.5 | FVM | candidate | At a slip wall with the pressure flux the boundary point term ψ̃·N − w̃·F* vanishes for every admissible state. |
 | `CFDLean.JST1.Proofs.p2_8_6` | P2-8.6 | FVM | candidate | An entropy-stable far-field flux bounds the point term by the ghost entropy flux; Ismail-Roe with Rusanov dissipation λ ≥ 0 is such a flux. |
-| `CFDLean.JST1.Proofs.p2_10_2` | P2-10.2 | method-free | candidate | v^η is the gradient of η0, v^η·R = w(û)·(R_ρ, R_m, R_E − R_k), and the exact semi-discrete entropy rate follows. |
+| `CFDLean.JST1.Proofs.p2_10_2` | P2-10.2 | FVM | candidate | v^η is the gradient of η0, v^η·R = w(û)·(R_ρ, R_m, R_E − R_k), and the exact semi-discrete entropy rate follows. |
 | `CFDLean.JST1.Proofs.p3_13_1` | P3-13.1 | method-free | candidate | The pair entropy production is exactly the path integral of the derivative along the straight segment in entropy variables, with no remainder. |
 | `CFDLean.JST1.Proofs.p3_13_2` | P3-13.2 | method-free | candidate | For Euler with \|v·E\| < c\|E\| the pair term production takes both signs for arbitrarily small admissible jumps. |
 | `CFDLean.JST1.Proofs.p3_14_2` | P3-14.2 | FVM | candidate | With slip and no-slip wall points and entropy-stable far-field points the boundary term B is at most the sum of ghost entropy fluxes. |

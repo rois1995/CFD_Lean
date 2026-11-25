@@ -66,3 +66,8 @@ before the merge to `main`.
   one-line wrappers. `scripts/test_verify.py` keeps the former functions verbatim as an oracle and checks identical
   results and failures on the committed records and on mutations (one changed type per milestone, bindings, stages,
   rollback, malformed stages, missing rows). M5 is not accepted and has no inherited check.
+- Level 2 review follow-up: the default `lake build` also builds `CFDLean.Verification.*` (`globs` of the `CFDLean`
+  library in `lakefile.toml`), so `lake env lean KernelAudit.lean` works on a fresh checkout. `check_jst1` binds each
+  result ID to the statement of the same name among the 92 statement definitions of the pinned statement files,
+  requires each proof's type to be its statement, and reads the KernelAudit bindings outside comments. The forbidden
+  token scan of `CFDLean/Papers` rejects `axiom` anywhere (also after attributes and modifiers) and `skipKernelTC`.

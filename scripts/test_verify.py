@@ -277,9 +277,6 @@ class AuditChecks(unittest.TestCase):
                 parse_axioms(output)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 import verify
 
@@ -470,12 +467,13 @@ class JST1Tests(unittest.TestCase):
         for paper, count in [("P1", 36), ("P2", 36), ("P3", 20)]:
             bindings = {}
             for i in range(count):
-                rid, suffix = f"{paper}-{i // 10 + 1}.{i % 10}", f"{paper}_{i}"
+                rid = f"{paper}-{i // 10 + 1}.{i % 10}"
+                suffix = rid.replace("-", "_").replace(".", "_")
                 module = "CFDLean.Papers.JST1.Proofs.Item" + paper
                 binding = {"statement": f"CFDLean.JST1.Spec.{suffix}", "theorem": f"CFDLean.JST1.Proofs.p{suffix}",
                            "file": module.replace(".", "/") + ".lean", "module": module}
                 row = record(binding["theorem"], ["propext"])
-                row.update(module=module, direct=[])
+                row.update(module=module, direct=[], type=binding["statement"])
                 if paper == "P1" and i < 5:
                     binding["core_theorem"] = f"CFDLean.Num.c{i}"
                     row["direct"] = [binding["core_theorem"]]
@@ -486,10 +484,11 @@ class JST1Tests(unittest.TestCase):
             self.records.append({"bindings": bindings})
         self.audit = "import Integrity\n" + "\n".join(lines) + "\n"
         self.core = [f"CFDLean.Num.c{i}" for i in range(5)]
+        self.ids = {rid for record in self.records for rid in record["bindings"]}
 
-    def check(self, records=None, rows=None, audit=None):
+    def check(self, records=None, rows=None, audit=None, ids=None):
         return verify.check_jst1(self.rows if rows is None else rows, self.records if records is None else records,
-                                 self.audit if audit is None else audit, self.core)
+                                 self.audit if audit is None else audit, self.core, self.ids if ids is None else ids)
 
     def mutated_binding(self, **change):
         records = json.loads(json.dumps(self.records))
@@ -501,15 +500,46 @@ class JST1Tests(unittest.TestCase):
         self.assertEqual((len(names), len(delegated)), (verify.JST1_COUNT, 5))
 
     def test_binding_must_be_in_audit(self):
-        line = "example : CFDLean.JST1.Spec.P1_0 := CFDLean.JST1.Proofs.pP1_0\n"
+        line = "example : CFDLean.JST1.Spec.P1_1_0 := CFDLean.JST1.Proofs.pP1_1_0\n"
         self.assertIn(line, self.audit)
         for audit in [self.audit.replace(line, ""), self.audit.replace(line, "-- " + line),
-                      self.audit.replace(line, line.replace("pP1_0", "pP1_1"))]:
+                      self.audit.replace(line, "/-\n" + line + "-/\n"),
+                      self.audit.replace(line, "/- outer /- inner -/\n" + line + "-/\n"),
+                      self.audit.replace(line, line.replace("pP1_1_0", "pP1_1_1"))]:
             with self.assertRaises(ValueError):
                 self.check(audit=audit)
+        self.check(audit=self.audit.replace(line, '#eval "-- /-"\n' + line))
+
+    def test_comment_stripping(self):
+        text = 'a -- x\nb /- c /- d -/ e -/ f "g -- /- h" i\n'
+        self.assertEqual(verify.strip_lean_comments(text), 'a \nb  f "g -- /- h" i\n')
+
+    def test_ids_are_the_frozen_statements(self):
+        spec = "def P1_1_0 : Prop :=\n  True\n/-- P1-1.1 -/\ndef P1_1_1 : Prop := True\ndef other : Prop := True\n"
+        self.assertEqual(verify.jst1_frozen_ids([spec] + [f"def P2_{i}_0 : Prop :=" for i in range(90)]),
+                         {"P1-1.0", "P1-1.1"} | {f"P2-{i}.0" for i in range(90)})
+        with self.assertRaises(ValueError):
+            verify.jst1_frozen_ids([spec])
+        with self.assertRaises(ValueError):
+            self.check(ids=(self.ids - {"P1-1.0"}) | {"P1-9.9"})
+        moved = json.loads(json.dumps(self.records))
+        moved[1]["bindings"]["P1-1.0"] = moved[0]["bindings"].pop("P1-1.0")
+        with self.assertRaises(ValueError):
+            self.check(records=moved)
+        rebound = json.loads(json.dumps(self.records))
+        b = rebound[0]["bindings"]
+        b["P1-1.0"]["statement"], b["P1-1.1"]["statement"] = b["P1-1.1"]["statement"], b["P1-1.0"]["statement"]
+        with self.assertRaises(ValueError):
+            self.check(records=rebound)
+
+    def test_theorem_type_is_its_statement(self):
+        rows = json.loads(json.dumps(self.rows))
+        rows["CFDLean.JST1.Proofs.pP2_1_0"]["type"] = "CFDLean.JST1.Spec.P2_1_1"
+        with self.assertRaises(ValueError):
+            self.check(rows=rows)
 
     def test_theorem_kind_axioms_module_and_statement(self):
-        name, statement = "CFDLean.JST1.Proofs.pP1_7", "CFDLean.JST1.Spec.P1_7"
+        name, statement = "CFDLean.JST1.Proofs.pP1_1_7", "CFDLean.JST1.Spec.P1_1_7"
         for mutate in [lambda rows: rows.pop(name), lambda rows: rows[name].update(kind="definition"),
                        lambda rows: rows[name].update(root=False), lambda rows: rows[name].update(unsafe=True),
                        lambda rows: rows[name].update(axioms=["sorryAx"]),
@@ -526,7 +556,7 @@ class JST1Tests(unittest.TestCase):
 
     def test_delegation_must_use_core_theorem(self):
         rows = json.loads(json.dumps(self.rows))
-        rows["CFDLean.JST1.Proofs.pP1_0"]["direct"] = []
+        rows["CFDLean.JST1.Proofs.pP1_1_0"]["direct"] = []
         with self.assertRaises(ValueError):
             self.check(rows=rows)
         with self.assertRaises(ValueError):
@@ -536,8 +566,8 @@ class JST1Tests(unittest.TestCase):
         records = json.loads(json.dumps(self.records))
         del records[2]["bindings"]["P3-1.0"]
         bad = [records, self.records + [{"bindings": {"P4-1.0": self.records[0]["bindings"]["P1-1.0"]}}],
-               self.mutated_binding(theorem="CFDLean.JST1.Proofs.pP1_1"),
-               self.mutated_binding(statement="Paper1.Spec.P1_0"),
+               self.mutated_binding(theorem="CFDLean.JST1.Proofs.pP1_1_1"),
+               self.mutated_binding(statement="Paper1.Spec.P1_1_0"),
                self.mutated_binding(file="CFDLean/Papers/JST1/Proofs/Other.lean")]
         renamed = json.loads(json.dumps(self.records))
         renamed[0]["bindings"]["P1-x"] = renamed[0]["bindings"].pop("P1-1.0")
@@ -581,7 +611,8 @@ class JST1Tests(unittest.TestCase):
         clean = {"CFDLean/Papers/JST1/A.lean": b"theorem t : True := trivial -- the axioms are printed\n"}
         self.assertEqual(verify.check_forbidden_tokens(sorted(clean), clean.__getitem__), 1)
         for text in [b"theorem t : False := sorry\n", b"theorem t : False := by admit\n", b"axiom bad : False\n",
-                     b"  private axiom bad : False\n", b"example : 2 = 2 := by native_decide\n",
+                     b"  private axiom bad : False\n", b"@[simp] axiom bad : False\n",
+                     b"noncomputable section\nprotected axiom bad : False\n", b"set_option debug.skipKernelTC true\n", b"example : 2 = 2 := by native_decide\n",
                      b"@[implemented_by f] def g := 0\n", b"unsafe def g := 0\n", b"opaque g : Nat\n",
                      b"@[extern \"c\"] def g := 0\n"]:
             files = dict(clean, **{"CFDLean/Papers/JST1/B.lean": text})
@@ -600,7 +631,8 @@ class JST1Tests(unittest.TestCase):
         audit = (root / "KernelAudit.lean").read_text()
         rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
         mcn = [r["theorem"] for r in json.loads((root / verify.MC_N_RESULTS).read_text())["results"]]
-        names, delegated = verify.check_jst1(rows, records, audit, mcn)
+        spec = [p.read_text() for p in (root / verify.JST1_ROOT / "Spec").glob("*.lean")]
+        names, delegated = verify.check_jst1(rows, records, audit, mcn, verify.jst1_frozen_ids(spec))
         self.assertEqual((len(names), len(delegated)), (92, 37))
         sources = sorted(str(p.relative_to(root)) for p in (root / "CFDLean").rglob("*.lean"))
         verify.check_jst1_frozen(verify.load_jst1_frozen((root / verify.JST1_FROZEN).read_bytes()),
@@ -755,6 +787,17 @@ class InheritedTableTests(unittest.TestCase):
         current["results"][0]["declarations"] = []
         accepted["results"][-1]["stage"] = "bogus"
         self.assertEqual(self.same("M2", current=current, accepted=accepted)[0], "ValueError")
+
+    def test_m2_reviewer_case_bogus_stage_before_missing_id(self):
+        accepted = json.loads(json.dumps(self.accepted["M2"]))
+        accepted["results"][0]["stage"] = "bogus"
+        current = json.loads(json.dumps(self.current["M2"]))
+        del current["results"][0]["id"]
+        self.assertEqual(self.same("M2", current=current, accepted=accepted), ("ValueError", "'bogus' is not in list"))
+        accepted = json.loads(json.dumps(self.accepted["M3"]))
+        del accepted["results"][-1]["id"]
+        accepted["current_stage"] = "M3a"
+        self.same("M3", accepted=accepted)
 
     def test_m4_rollback_and_unaccepted_future_stage(self):
         current = json.loads(json.dumps(self.current["M4"]))
@@ -1085,3 +1128,7 @@ class BurgersTests(unittest.TestCase):
             self.assertEqual(len(record["trusted"]["bindings"]), pins["bridges"])
             self.assertEqual(sum(len(r["declarations"]) for r in record["results"]), pins["count"])
             self.assertTrue(all(r["id"].startswith(milestone + "-") for r in record["results"]))
+
+
+if __name__ == "__main__":
+    unittest.main()

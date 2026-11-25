@@ -4361,7 +4361,7 @@
       "status": "candidate",
       "layer": "Entropy framework",
       "methods": [
-        "method-free"
+        "FVM"
       ],
       "summary": "v^η is the gradient of η0, v^η·R = w(û)·(R_ρ, R_m, R_E − R_k), and the exact semi-discrete entropy rate follows.",
       "source": "specifications/JST1/P2-results.json P2-10.2 (CFDLean.JST1.Spec.P2_10_2)"
