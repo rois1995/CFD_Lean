@@ -65,8 +65,9 @@ verifier finds an accepted source at its new path only through this map and acce
 ## Burgers B0 (scalar finite-volume core)
 
 [Burgers B0](references/Burgers-B0.md) implements the frozen [contract](specifications/Burgers-B0.md): exact-real 1D
-inviscid Burgers, periodic uniform grid, two-point flux, Rusanov flux, Forward Euler. The declarations keep the
-namespace `CFDLean.Burgers`; the modules follow the layered folders ([layout note](specifications/Burgers-B0-layout.md)).
+inviscid Burgers, periodic uniform grid, two-point flux, Rusanov flux, Forward Euler. Burgers-specific
+declarations are in `CFDLean.Burgers`, generic ones in `CFDLean.Scalar`, `CFDLean.Periodic` and
+`CFDLean.Time.ForwardEuler`; the modules follow the layered folders ([layout note](specifications/Burgers-B0-layout.md)).
 The [result map](specifications/Burgers-B0-results.json) binds the six result IDs (12 promised theorems, catalog status
 `pending`). Independent acceptance is pending. B0 makes no CFL, monotonicity, TVD, entropy, convergence, positivity,
 order, floating-point or executable-refinement claim.

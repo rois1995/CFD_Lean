@@ -6,9 +6,26 @@ layout". The user asked for this change on 2026-11-25: adapt the B0 work to the 
 
 ## Rule
 
-The same rule as MR-1: each module moves to the folder of its main catalog layer. Namespaces, declaration names and
-theorem types do not change. Frozen decision 2 of the contract ("Burgers is isolated under `CFDLean.Burgers`") now
-applies to the namespace `CFDLean.Burgers`, not to a folder.
+The same rule as MR-1: each module moves to the folder of its main catalog layer. Theorem statements do not change.
+
+## Namespaces (amendment of frozen decision 2)
+
+Frozen decision 2 of the contract says "Burgers is isolated under `CFDLean.Burgers`". The user asked on 2026-11-25 to
+fix the naming before B1 ("maybe it is better to fix the naming before?"). Declarations that are generic for scalar
+conservation laws leave the Burgers namespace. Burgers-specific declarations stay in `CFDLean.Burgers`.
+
+| Old name | New name |
+|---|---|
+| `CFDLean.Burgers.Core.ScalarConservationLaw` | `CFDLean.Scalar.ConservationLaw` |
+| `CFDLean.Burgers.Core.NumericalFlux`, `.Consistent` | `CFDLean.Scalar.NumericalFlux`, `CFDLean.Scalar.Consistent` |
+| `CFDLean.Burgers.Core.PeriodicGrid` (and `.prev`, `.next_prev`, `.prev_next`, `.sum_prev`, `.sum_next`) | `CFDLean.Periodic.Grid` (same member names) |
+| `CFDLean.Burgers.Core.zmodGrid` | `CFDLean.Periodic.zmodGrid` |
+| `CFDLean.Burgers.FiniteVolume.*` | `CFDLean.Scalar.FiniteVolume.*` |
+| `CFDLean.Burgers.Time.*` | `CFDLean.Time.ForwardEuler.*` |
+| `CFDLean.Burgers.physicalFlux`, `.law`, `.Rusanov.*`, `.Schemes.RusanovForwardEuler.*` | unchanged |
+
+The rename changes names only. The trusted statement file, the bridge theorem names and their types are unchanged, so
+the `lake comparator` challenge is unchanged.
 
 ## Module map
 
@@ -36,7 +53,7 @@ applies to the namespace `CFDLean.Burgers`, not to a folder.
 3. One control example in `Controls.lean` did not compile with Lean v4.36.0 (`simpa`). It is now the direct term
    `Rusanov.consistent 3`. The statement of the example is the same.
 
-Review command: `git diff -M bb21358 HEAD -- CFDLean`.
+Review command: `git diff -M bb21358 HEAD -- CFDLean` (the namespace rename is one separate commit).
 
 ## Reuse of the MR-1 core
 

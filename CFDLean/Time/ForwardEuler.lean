@@ -2,7 +2,7 @@ import Mathlib.Basic.Real.Basic
 import Mathlib.Algebra.BigOperators.Field
 
 noncomputable section
-namespace CFDLean.Burgers.Time
+namespace CFDLean.Time.ForwardEuler
 
 open scoped BigOperators
 
@@ -29,4 +29,4 @@ theorem step_sum [Fintype I] (dt : ℝ) (L : (I → ℝ) → I → ℝ) (u : I �
   rw [hL]
   simp
 
-end CFDLean.Burgers.Time
+end CFDLean.Time.ForwardEuler

@@ -6,8 +6,10 @@ Frozen contract: `specifications/Burgers-B0.md`.
 
 Approval record: `specifications/Burgers-B0-approval.md`.
 
-The declarations keep the namespace `CFDLean.Burgers` and their names and types. Since the move to the layered folders
-of `main` (`specifications/Burgers-B0-layout.md`) each module sits in the folder of its catalog layer. The accepted
+Since the move to the layered folders of `main` (`specifications/Burgers-B0-layout.md`) each module sits in the folder
+of its catalog layer. Burgers-specific declarations keep the namespace `CFDLean.Burgers`. The generic declarations are in
+`CFDLean.Scalar`, `CFDLean.Periodic` and `CFDLean.Time.ForwardEuler` (rename table in the layout note); theorem
+statements did not change. The accepted
 Euler M1--M4 mathematical source files and the M5 sources are not modified. Toolchain: Lean v4.36.0.
 
 Result bindings checked by `scripts/verify.py`: `specifications/Burgers-B0-results.json`.
@@ -59,21 +61,21 @@ The evaluator is the frozen local Lax--Friedrichs/Rusanov expression with (a=max
 
 Definitions:
 
-- `CFDLean.Burgers.Core.PeriodicGrid`
-- `CFDLean.Burgers.Core.PeriodicGrid.prev`
-- `CFDLean.Burgers.Core.zmodGrid`
-- `CFDLean.Burgers.FiniteVolume.interfaceFlux`
-- `CFDLean.Burgers.FiniteVolume.rhs`
+- `CFDLean.Periodic.Grid`
+- `CFDLean.Periodic.Grid.prev`
+- `CFDLean.Periodic.zmodGrid`
+- `CFDLean.Scalar.FiniteVolume.interfaceFlux`
+- `CFDLean.Scalar.FiniteVolume.rhs`
 
 Supporting reindexing results:
 
-- `CFDLean.Burgers.Core.PeriodicGrid.sum_prev`
-- `CFDLean.Burgers.Core.PeriodicGrid.sum_next`
+- `CFDLean.Periodic.Grid.sum_prev`
+- `CFDLean.Periodic.Grid.sum_next`
 
 Results:
 
-- `CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero`
-- `CFDLean.Burgers.FiniteVolume.rhs_sum_zero`
+- `CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero`
+- `CFDLean.Scalar.FiniteVolume.rhs_sum_zero`
 
 The cancellation theorem is numerical-flux generic and uses only finite cyclic reindexing. Consistency is not an assumption.
 
@@ -81,21 +83,21 @@ The cancellation theorem is numerical-flux generic and uses only finite cyclic r
 
 Result:
 
-- `CFDLean.Burgers.FiniteVolume.rhs_constant`
+- `CFDLean.Scalar.FiniteVolume.rhs_constant`
 
-The public theorem consumes the separate `Core.Consistent` certificate and proves zero semidiscrete RHS for a constant state.
+The public theorem consumes the separate `CFDLean.Scalar.Consistent` certificate and proves zero semidiscrete RHS for a constant state.
 
 ### B0-T — generic Forward Euler composition
 
 Definition:
 
-- `CFDLean.Burgers.Time.step`
+- `CFDLean.Time.ForwardEuler.step`
 
 Results:
 
-- `CFDLean.Burgers.Time.step_zero_rhs`
-- `CFDLean.Burgers.Time.step_constant`
-- `CFDLean.Burgers.Time.step_sum`
+- `CFDLean.Time.ForwardEuler.step_zero_rhs`
+- `CFDLean.Time.ForwardEuler.step_constant`
+- `CFDLean.Time.ForwardEuler.step_sum`
 
 These are exact algebraic one-step statements. No temporal order or stability theorem is claimed.
 
@@ -128,9 +130,9 @@ Trusted statements and their bridge theorems (`CFDLean.Verification.BurgersB0Cha
 | ID | Trusted statement | Bridge theorem | Implementation theorem used |
 | --- | --- | --- | --- |
 | B0-F | `RusanovConsistency` | `rusanov_consistency` | `CFDLean.Burgers.Rusanov.consistent` |
-| B0-C | `PeriodicConservation` | `periodic_conservation` | `CFDLean.Burgers.FiniteVolume.rhs_sum_zero` |
-| B0-K | `ConstantRhs` | `constant_rhs` | `CFDLean.Burgers.FiniteVolume.rhs_constant` |
-| B0-T | `ForwardEulerSum` | `forward_euler_sum` | `CFDLean.Burgers.Time.step_sum` |
+| B0-C | `PeriodicConservation` | `periodic_conservation` | `CFDLean.Scalar.FiniteVolume.rhs_sum_zero` |
+| B0-K | `ConstantRhs` | `constant_rhs` | `CFDLean.Scalar.FiniteVolume.rhs_constant` |
+| B0-T | `ForwardEulerSum` | `forward_euler_sum` | `CFDLean.Time.ForwardEuler.step_sum` |
 
 The trusted statement file does not state B0-P (definitions only), the constant-state part of B0-T, or the assembled
 `ZMod N` scheme B0-S. Those results are checked by the kernel audit and the result map, not by a separate statement.

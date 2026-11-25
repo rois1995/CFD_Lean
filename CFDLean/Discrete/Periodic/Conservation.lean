@@ -2,20 +2,20 @@ import CFDLean.Discrete.Periodic.FiniteVolume
 import Mathlib.Algebra.BigOperators.Field
 
 noncomputable section
-namespace CFDLean.Burgers.FiniteVolume
+namespace CFDLean.Scalar.FiniteVolume
 
-open Core
+open Periodic
 open scoped BigOperators
 
 variable {I : Type*} [Fintype I]
 
-theorem fluxDifference_sum_zero (g : PeriodicGrid I) (numFlux : NumericalFlux)
+theorem fluxDifference_sum_zero (g : Grid I) (numFlux : NumericalFlux)
     (u : I → ℝ) :
     ∑ i, (interfaceFlux g numFlux u i - interfaceFlux g numFlux u (g.prev i)) = 0 := by
   rw [Finset.sum_sub_distrib, g.sum_prev]
   simp
 
-theorem rhs_sum_zero (g : PeriodicGrid I) (dx : ℝ) (_hdx : dx ≠ 0)
+theorem rhs_sum_zero (g : Grid I) (dx : ℝ) (_hdx : dx ≠ 0)
     (numFlux : NumericalFlux) (u : I → ℝ) :
     ∑ i, rhs g dx numFlux u i = 0 := by
   calc
@@ -27,4 +27,4 @@ theorem rhs_sum_zero (g : PeriodicGrid I) (dx : ℝ) (_hdx : dx ≠ 0)
       rw [fluxDifference_sum_zero]
       simp
 
-end CFDLean.Burgers.FiniteVolume
+end CFDLean.Scalar.FiniteVolume

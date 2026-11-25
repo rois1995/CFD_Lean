@@ -1,9 +1,9 @@
 import Mathlib.Basic.Real.Basic
 
 noncomputable section
-namespace CFDLean.Burgers.Core
+namespace CFDLean.Scalar
 
-structure ScalarConservationLaw where
+structure ConservationLaw where
   flux : ℝ → ℝ
 
-end CFDLean.Burgers.Core
+end CFDLean.Scalar

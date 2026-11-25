@@ -4,7 +4,7 @@ import CFDLean.Schemes.Scalar.NumericalFlux
 noncomputable section
 namespace CFDLean.Burgers
 
-open Core
+open Scalar
 
 namespace Rusanov
 

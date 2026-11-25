@@ -1,12 +1,12 @@
 import CFDLean.Physics.Scalar.ConservationLaw
 
 noncomputable section
-namespace CFDLean.Burgers.Core
+namespace CFDLean.Scalar
 
 structure NumericalFlux where
   eval : ℝ → ℝ → ℝ
 
-def Consistent (law : ScalarConservationLaw) (numFlux : NumericalFlux) : Prop :=
+def Consistent (law : ConservationLaw) (numFlux : NumericalFlux) : Prop :=
   ∀ u, numFlux.eval u u = law.flux u
 
-end CFDLean.Burgers.Core
+end CFDLean.Scalar

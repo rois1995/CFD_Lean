@@ -282,15 +282,15 @@
     },
     "CFDLean.Discrete.Periodic.Conservation": {
       "path": "CFDLean/Discrete/Periodic/Conservation.lean",
-      "sha256": "2b79761e406d0d5fc8c29c2f68a30ffdd8fc4ceb0a7932bafcc7d6ded53bd34b"
+      "sha256": "4a2729b72431af833e1cacd1385c2fb249a4e24e45fad94083b72ed2223eef78"
     },
     "CFDLean.Discrete.Periodic.FiniteVolume": {
       "path": "CFDLean/Discrete/Periodic/FiniteVolume.lean",
-      "sha256": "1e535e7bfe0b9c0b5ef8f3fb4dd4859c023268cdea7526830c22e2db3252b78d"
+      "sha256": "2befd3d8be909ba2124d748cddd427f510dd73684c828c85aa1cdd69151516af"
     },
     "CFDLean.Discrete.Periodic.Grid": {
       "path": "CFDLean/Discrete/Periodic/Grid.lean",
-      "sha256": "a44ba88ed399e4a67af180e6045eeda2193f1318372e83e508da6cda5372dff4"
+      "sha256": "e0e528410356af053f212726b0eeea1445d74e05998f43750ad45a0fd3efecba"
     },
     "CFDLean.Entropy.PairFlux": {
       "path": "CFDLean/Entropy/PairFlux.lean",
@@ -358,7 +358,7 @@
     },
     "CFDLean.Physics.Burgers.Flux": {
       "path": "CFDLean/Physics/Burgers/Flux.lean",
-      "sha256": "85a12263f08bb15698b98e2a4189b0cd76f51c86d379c25adba7604e5a5642a8"
+      "sha256": "f502ede069d3fb1494a128e7892c4c38be361ddcdba2ae95c1f26d9654e06e04"
     },
     "CFDLean.Physics.Euler.PhysicalFlux": {
       "path": "CFDLean/Physics/Euler/PhysicalFlux.lean",
@@ -386,7 +386,7 @@
     },
     "CFDLean.Physics.Scalar.ConservationLaw": {
       "path": "CFDLean/Physics/Scalar/ConservationLaw.lean",
-      "sha256": "9e3fe304f609a812d515e0775cc82ff313ce4d90c27b66ca052c3722bfa3a5a5"
+      "sha256": "3c36c67a660e1310279a34ed2793aefc9e8e1be3516da23c445a856c2ccf448a"
     },
     "CFDLean.Schemes.Boundary.Assembly": {
       "path": "CFDLean/Schemes/Boundary/Assembly.lean",
@@ -410,11 +410,11 @@
     },
     "CFDLean.Schemes.Burgers.Rusanov": {
       "path": "CFDLean/Schemes/Burgers/Rusanov.lean",
-      "sha256": "da1377b7ba1ef67ab6d22db76f36305f276a552474a267b4ffae3b04daa58793"
+      "sha256": "3745a2a8f0ab2241b06540f5e439e1eaae0beab7229e899a5a2c7798120ed041"
     },
     "CFDLean.Schemes.Burgers.RusanovForwardEuler": {
       "path": "CFDLean/Schemes/Burgers/RusanovForwardEuler.lean",
-      "sha256": "e8871f7bc9c11f524487e391634a5aabf85750278c29f13438a0f4c2d4957729"
+      "sha256": "22a783901d060cf47fd303bd85eb0ebd712aa6e8c0ee87de6f185a784e9b5b55"
     },
     "CFDLean.Schemes.Roe.Flux": {
       "path": "CFDLean/Schemes/Roe/Flux.lean",
@@ -422,7 +422,7 @@
     },
     "CFDLean.Schemes.Scalar.NumericalFlux": {
       "path": "CFDLean/Schemes/Scalar/NumericalFlux.lean",
-      "sha256": "c850aafe7adb8d8c6195efa59ea259e1b1aacfb0d96bf865f88436b0d23b0e96"
+      "sha256": "18be4c02d87b6ca6bbdaf5ecb1bf72f6d55339b8dd44002aa1a173878563d100"
     },
     "CFDLean.Time.Controls": {
       "path": "CFDLean/Time/Controls.lean",
@@ -434,7 +434,7 @@
     },
     "CFDLean.Time.ForwardEuler": {
       "path": "CFDLean/Time/ForwardEuler.lean",
-      "sha256": "eabee8c18503576663fdde0df1234b5244d6bd9de902bf62dab78460ac790a69"
+      "sha256": "970e50e0b49f4069cb58193e533e4644128853559dbdd060910f6c1a0f920fbe"
     },
     "CFDLean.Verification.BurgersB0Challenge": {
       "path": "CFDLean/Verification/BurgersB0Challenge.lean",
@@ -442,7 +442,7 @@
     },
     "CFDLean.Verification.BurgersB0Verify": {
       "path": "CFDLean/Verification/BurgersB0Verify.lean",
-      "sha256": "33fe65a0ec1cf6596227931c6ad0bd71c998e73aa73bf84cfc92bc63336bd029"
+      "sha256": "ee2c61df38d9af64e7aa50ab13c576add79f66634e56380cce016d0fcd8aa8d6"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -7758,1092 +7758,6 @@
       "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Boundary.wallTransfer \u03b3 U 0 = 0",
       "unsafe": false
     },
-    "CFDLean.Burgers.Core.Consistent": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.flux",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.NumericalFlux.eval"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.Consistent",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.ScalarConservationLaw \u2192 CFDLean.Burgers.Core.NumericalFlux \u2192 Prop",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk"
-      ],
-      "kind": "inductive",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux",
-      "root": true,
-      "type": "Type",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux._sizeOf_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.rec",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux._sizeOf_1",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.NumericalFlux \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux._sizeOf_inst": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux._sizeOf_1",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux._sizeOf_inst",
-      "root": true,
-      "type": "SizeOf CFDLean.Burgers.Core.NumericalFlux",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.casesOn": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.rec",
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.casesOn",
-      "root": true,
-      "type": "{motive : CFDLean.Burgers.Core.NumericalFlux \u2192 Sort u} \u2192\n  (t : CFDLean.Burgers.Core.NumericalFlux) \u2192 ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.ctorIdx": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.ctorIdx",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.NumericalFlux \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.eval": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.eval",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.NumericalFlux \u2192 \u211d \u2192 \u211d \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.mk": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "constructor",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.mk",
-      "root": true,
-      "type": "(\u211d \u2192 \u211d \u2192 \u211d) \u2192 CFDLean.Burgers.Core.NumericalFlux",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.mk._flat_ctor": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.mk._flat_ctor",
-      "root": true,
-      "type": "(\u211d \u2192 \u211d \u2192 \u211d) \u2192 CFDLean.Burgers.Core.NumericalFlux",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.mk.inj": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux.mk.noConfusion",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.mk.inj",
-      "root": true,
-      "type": "\u2200 {eval eval_1 : \u211d \u2192 \u211d \u2192 \u211d}, { eval := eval } = { eval := eval_1 } \u2192 eval = eval_1",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.mk.injEq": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk.inj",
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.mk.injEq",
-      "root": true,
-      "type": "\u2200 (eval eval_1 : \u211d \u2192 \u211d \u2192 \u211d), ({ eval := eval } = { eval := eval_1 }) = (eval = eval_1)",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.mk.noConfusion": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux.noConfusion",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.mk.noConfusion",
-      "root": true,
-      "type": "{P : Sort u} \u2192 {eval eval' : \u211d \u2192 \u211d \u2192 \u211d} \u2192 { eval := eval } = { eval := eval' } \u2192 (eval = eval' \u2192 P) \u2192 P",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.mk.sizeOf_spec": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux._sizeOf_inst",
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.mk.sizeOf_spec",
-      "root": true,
-      "type": "\u2200 (eval : \u211d \u2192 \u211d \u2192 \u211d), sizeOf { eval := eval } = 1",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.noConfusion": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.noConfusionType",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.NumericalFlux.casesOn"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.noConfusion",
-      "root": true,
-      "type": "{P : Sort u} \u2192\n  {t t' : CFDLean.Burgers.Core.NumericalFlux} \u2192 t = t' \u2192 CFDLean.Burgers.Core.NumericalFlux.noConfusionType P t t'",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.noConfusionType": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.NumericalFlux.casesOn"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.noConfusionType",
-      "root": true,
-      "type": "Sort u \u2192 CFDLean.Burgers.Core.NumericalFlux \u2192 CFDLean.Burgers.Core.NumericalFlux \u2192 Sort u",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.rec": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "recursor",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.rec",
-      "root": true,
-      "type": "{motive : CFDLean.Burgers.Core.NumericalFlux \u2192 Sort u} \u2192\n  ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 (t : CFDLean.Burgers.Core.NumericalFlux) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.NumericalFlux.recOn": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.rec",
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Core.NumericalFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
-      "name": "CFDLean.Burgers.Core.NumericalFlux.recOn",
-      "root": true,
-      "type": "{motive : CFDLean.Burgers.Core.NumericalFlux \u2192 Sort u} \u2192\n  (t : CFDLean.Burgers.Core.NumericalFlux) \u2192 ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk"
-      ],
-      "kind": "inductive",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid",
-      "root": true,
-      "type": "Type u_1 \u2192 Type u_1",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid._sizeOf_1": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.rec",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid._sizeOf_1",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 [SizeOf I] \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid._sizeOf_inst": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid._sizeOf_1",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid._sizeOf_inst",
-      "root": true,
-      "type": "(I : Type u_1) \u2192 [SizeOf I] \u2192 SizeOf (CFDLean.Burgers.Core.PeriodicGrid I)",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.casesOn": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid.rec",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.casesOn",
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {motive : CFDLean.Burgers.Core.PeriodicGrid I \u2192 Sort u} \u2192\n    (t : CFDLean.Burgers.Core.PeriodicGrid I) \u2192 ((next : I \u2243 I) \u2192 motive { next := next }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.ctorIdx": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.ctorIdx",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.mk": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "constructor",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.mk",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 CFDLean.Burgers.Core.PeriodicGrid I",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.mk._flat_ctor": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.mk._flat_ctor",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 CFDLean.Burgers.Core.PeriodicGrid I",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.mk.inj": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid.mk.noConfusion",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.mk.inj",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {next next_1 : I \u2243 I}, { next := next } = { next := next_1 } \u2192 next = next_1",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.mk.injEq": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.Core.PeriodicGrid.mk.inj"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.mk.injEq",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (next next_1 : I \u2243 I), ({ next := next } = { next := next_1 }) = (next = next_1)",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.mk.noConfusion": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid.noConfusion",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.mk.noConfusion",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 {P : Sort u} \u2192 {next next' : I \u2243 I} \u2192 { next := next } = { next := next' } \u2192 (next \u224d next' \u2192 P) \u2192 P",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.mk.sizeOf_spec": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid._sizeOf_inst",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.mk.sizeOf_spec",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} [inst : SizeOf I] (next : I \u2243 I), sizeOf { next := next } = 1 + sizeOf next",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.next": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.next",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 I \u2243 I",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.next_prev": {
-      "axioms": [
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.next_prev",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (g : CFDLean.Burgers.Core.PeriodicGrid I) (i : I), g.next (g.prev i) = i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.noConfusion": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.casesOn",
-        "CFDLean.Burgers.Core.PeriodicGrid.noConfusionType",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.noConfusion",
-      "root": true,
-      "type": "{P : Sort u} \u2192\n  {I : Type u_1} \u2192\n    {t : CFDLean.Burgers.Core.PeriodicGrid I} \u2192\n      {I' : Type u_1} \u2192\n        {t' : CFDLean.Burgers.Core.PeriodicGrid I'} \u2192\n          I = I' \u2192 t \u224d t' \u2192 CFDLean.Burgers.Core.PeriodicGrid.noConfusionType P t t'",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.noConfusionType": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.casesOn",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.noConfusionType",
-      "root": true,
-      "type": "Sort u \u2192\n  {I : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 {I' : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I' \u2192 Sort u",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.prev": {
-      "axioms": [
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.prev",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 I \u2192 I",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.prev._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.prev._redArg",
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.prev.eq_1": {
-      "axioms": [
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Verification.BurgersB0Verify",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.prev.eq_1",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (g : CFDLean.Burgers.Core.PeriodicGrid I), g.prev = \u21d1g.next.symm",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.prev_next": {
-      "axioms": [
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.prev_next",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (g : CFDLean.Burgers.Core.PeriodicGrid I) (i : I), g.prev (g.next i) = i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.rec": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "recursor",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.rec",
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {motive : CFDLean.Burgers.Core.PeriodicGrid I \u2192 Sort u} \u2192\n    ((next : I \u2243 I) \u2192 motive { next := next }) \u2192 (t : CFDLean.Burgers.Core.PeriodicGrid I) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.recOn": {
-      "axioms": [],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid.rec",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.recOn",
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {motive : CFDLean.Burgers.Core.PeriodicGrid I \u2192 Sort u} \u2192\n    (t : CFDLean.Burgers.Core.PeriodicGrid I) \u2192 ((next : I \u2243 I) \u2192 motive { next := next }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.sum_next": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.sum_next",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Burgers.Core.PeriodicGrid I) (f : I \u2192 \u211d), \u2211 i, f (g.next i) = \u2211 i, f i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.PeriodicGrid.sum_prev": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.PeriodicGrid.sum_prev",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Burgers.Core.PeriodicGrid I) (f : I \u2192 \u211d), \u2211 i, f (g.prev i) = \u2211 i, f i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "inductive",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw",
-      "root": true,
-      "type": "Type",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw._sizeOf_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.rec",
-        "CFDLean.Burgers.Core.ScalarConservationLaw"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw._sizeOf_1",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.ScalarConservationLaw \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw._sizeOf_inst": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw._sizeOf_1",
-        "CFDLean.Burgers.Core.ScalarConservationLaw"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw._sizeOf_inst",
-      "root": true,
-      "type": "SizeOf CFDLean.Burgers.Core.ScalarConservationLaw",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.casesOn": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.rec",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.casesOn",
-      "root": true,
-      "type": "{motive : CFDLean.Burgers.Core.ScalarConservationLaw \u2192 Sort u} \u2192\n  (t : CFDLean.Burgers.Core.ScalarConservationLaw) \u2192 ((flux : \u211d \u2192 \u211d) \u2192 motive { flux := flux }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.ctorIdx": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.ctorIdx",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.ScalarConservationLaw \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.flux": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.flux",
-      "root": true,
-      "type": "CFDLean.Burgers.Core.ScalarConservationLaw \u2192 \u211d \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.mk": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "constructor",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.mk",
-      "root": true,
-      "type": "(\u211d \u2192 \u211d) \u2192 CFDLean.Burgers.Core.ScalarConservationLaw",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.mk._flat_ctor": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.mk._flat_ctor",
-      "root": true,
-      "type": "(\u211d \u2192 \u211d) \u2192 CFDLean.Burgers.Core.ScalarConservationLaw",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.mk.inj": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk.noConfusion"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.mk.inj",
-      "root": true,
-      "type": "\u2200 {flux flux_1 : \u211d \u2192 \u211d}, { flux := flux } = { flux := flux_1 } \u2192 flux = flux_1",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.mk.injEq": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk.inj",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.mk.injEq",
-      "root": true,
-      "type": "\u2200 (flux flux_1 : \u211d \u2192 \u211d), ({ flux := flux } = { flux := flux_1 }) = (flux = flux_1)",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.mk.noConfusion": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.noConfusion",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.mk.noConfusion",
-      "root": true,
-      "type": "{P : Sort u} \u2192 {flux flux' : \u211d \u2192 \u211d} \u2192 { flux := flux } = { flux := flux' } \u2192 (flux = flux' \u2192 P) \u2192 P",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.mk.sizeOf_spec": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk",
-        "CFDLean.Burgers.Core.ScalarConservationLaw._sizeOf_inst"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.mk.sizeOf_spec",
-      "root": true,
-      "type": "\u2200 (flux : \u211d \u2192 \u211d), sizeOf { flux := flux } = 1",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.noConfusion": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.casesOn",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.noConfusionType"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.noConfusion",
-      "root": true,
-      "type": "{P : Sort u} \u2192\n  {t t' : CFDLean.Burgers.Core.ScalarConservationLaw} \u2192\n    t = t' \u2192 CFDLean.Burgers.Core.ScalarConservationLaw.noConfusionType P t t'",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.noConfusionType": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.casesOn",
-        "CFDLean.Burgers.Core.ScalarConservationLaw"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.noConfusionType",
-      "root": true,
-      "type": "Sort u \u2192 CFDLean.Burgers.Core.ScalarConservationLaw \u2192 CFDLean.Burgers.Core.ScalarConservationLaw \u2192 Sort u",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.rec": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "recursor",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.rec",
-      "root": true,
-      "type": "{motive : CFDLean.Burgers.Core.ScalarConservationLaw \u2192 Sort u} \u2192\n  ((flux : \u211d \u2192 \u211d) \u2192 motive { flux := flux }) \u2192 (t : CFDLean.Burgers.Core.ScalarConservationLaw) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.ScalarConservationLaw.recOn": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw.rec",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Physics.Scalar.ConservationLaw",
-      "name": "CFDLean.Burgers.Core.ScalarConservationLaw.recOn",
-      "root": true,
-      "type": "{motive : CFDLean.Burgers.Core.ScalarConservationLaw \u2192 Sort u} \u2192\n  (t : CFDLean.Burgers.Core.ScalarConservationLaw) \u2192 ((flux : \u211d \u2192 \u211d) \u2192 motive { flux := flux }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.zmodGrid": {
-      "axioms": [
-        "propext",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.PeriodicGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.zmodGrid",
-      "root": true,
-      "type": "(N : \u2115) \u2192 [NeZero N] \u2192 CFDLean.Burgers.Core.PeriodicGrid (ZMod N)",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Core.zmodGrid._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Grid",
-      "name": "CFDLean.Burgers.Core.zmodGrid._redArg",
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid.sum_prev",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Conservation",
-      "name": "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Burgers.Core.PeriodicGrid I)\n  (numFlux : CFDLean.Burgers.Core.NumericalFlux) (u : I \u2192 \u211d),\n  \u2211 i,\n      (CFDLean.Burgers.FiniteVolume.interfaceFlux g numFlux u i -\n        CFDLean.Burgers.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) =\n    0",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.interfaceFlux": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.Core.NumericalFlux.eval"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
-      "name": "CFDLean.Burgers.FiniteVolume.interfaceFlux",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 CFDLean.Burgers.Core.NumericalFlux \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.interfaceFlux._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
-      "name": "CFDLean.Burgers.FiniteVolume.interfaceFlux._redArg",
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Burgers.FiniteVolume.interfaceFlux.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux",
-        "CFDLean.Burgers.Core.NumericalFlux.eval"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
-      "name": "CFDLean.Burgers.FiniteVolume.interfaceFlux.eq_1",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (g : CFDLean.Burgers.Core.PeriodicGrid I) (numFlux : CFDLean.Burgers.Core.NumericalFlux) (u : I \u2192 \u211d)\n  (i : I), CFDLean.Burgers.FiniteVolume.interfaceFlux g numFlux u i = numFlux.eval (u i) (u (g.next i))",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.rhs": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
-      "name": "CFDLean.Burgers.FiniteVolume.rhs",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 CFDLean.Burgers.Core.PeriodicGrid I \u2192 \u211d \u2192 CFDLean.Burgers.Core.NumericalFlux \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.rhs.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux",
-        "CFDLean.Burgers.FiniteVolume.rhs"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
-      "name": "CFDLean.Burgers.FiniteVolume.rhs.eq_1",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (g : CFDLean.Burgers.Core.PeriodicGrid I) (dx : \u211d) (numFlux : CFDLean.Burgers.Core.NumericalFlux)\n  (u : I \u2192 \u211d) (i : I),\n  CFDLean.Burgers.FiniteVolume.rhs g dx numFlux u i =\n    -(CFDLean.Burgers.FiniteVolume.interfaceFlux g numFlux u i -\n          CFDLean.Burgers.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) /\n      dx",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.rhs_constant": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.flux",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.Core.Consistent",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux",
-        "CFDLean.Burgers.FiniteVolume.rhs"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
-      "name": "CFDLean.Burgers.FiniteVolume.rhs_constant",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (g : CFDLean.Burgers.Core.PeriodicGrid I) (dx c : \u211d) (law : CFDLean.Burgers.Core.ScalarConservationLaw)\n  (numFlux : CFDLean.Burgers.Core.NumericalFlux),\n  CFDLean.Burgers.Core.Consistent law numFlux \u2192\n    \u2200 (i : I), CFDLean.Burgers.FiniteVolume.rhs g dx numFlux (fun x => c) i = 0",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.rhs_sum_zero": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero",
-        "CFDLean.Burgers.FiniteVolume.rhs_sum_zero._simp_1_1",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux",
-        "CFDLean.Burgers.FiniteVolume.rhs"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Conservation",
-      "name": "CFDLean.Burgers.FiniteVolume.rhs_sum_zero",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Burgers.Core.PeriodicGrid I) (dx : \u211d),\n  dx \u2260 0 \u2192\n    \u2200 (numFlux : CFDLean.Burgers.Core.NumericalFlux) (u : I \u2192 \u211d),\n      \u2211 i, CFDLean.Burgers.FiniteVolume.rhs g dx numFlux u i = 0",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.FiniteVolume.rhs_sum_zero._simp_1_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Conservation",
-      "name": "CFDLean.Burgers.FiniteVolume.rhs_sum_zero._simp_1_1",
-      "root": true,
-      "type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  \u2211 i \u2208 s, f i / a = (\u2211 i \u2208 s, f i) / a",
-      "unsafe": false
-    },
     "CFDLean.Burgers.Rusanov.consistent": {
       "axioms": [
         "propext",
@@ -8852,19 +7766,19 @@
       ],
       "direct": [
         "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Scalar.NumericalFlux.eval",
         "CFDLean.Burgers.Rusanov.numericalFlux",
         "CFDLean.Burgers.Rusanov.waveSpeed",
         "CFDLean.Burgers.law",
         "CFDLean.Burgers.physicalFlux",
         "CFDLean.Burgers.Rusanov.eval._proof_1",
-        "CFDLean.Burgers.Core.Consistent",
-        "CFDLean.Burgers.Core.NumericalFlux.eval"
+        "CFDLean.Scalar.Consistent"
       ],
       "kind": "theorem",
       "module": "CFDLean.Schemes.Burgers.Rusanov",
       "name": "CFDLean.Burgers.Rusanov.consistent",
       "root": true,
-      "type": "CFDLean.Burgers.Core.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux",
+      "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.eval": {
@@ -8923,15 +7837,15 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
-        "CFDLean.Burgers.Rusanov.eval",
-        "CFDLean.Burgers.Core.NumericalFlux"
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Burgers.Rusanov.eval"
       ],
       "kind": "definition",
       "module": "CFDLean.Schemes.Burgers.Rusanov",
       "name": "CFDLean.Burgers.Rusanov.numericalFlux",
       "root": true,
-      "type": "CFDLean.Burgers.Core.NumericalFlux",
+      "type": "CFDLean.Scalar.NumericalFlux",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.numericalFlux.eq_1": {
@@ -8941,10 +7855,10 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux.mk",
         "CFDLean.Burgers.Rusanov.numericalFlux",
-        "CFDLean.Burgers.Rusanov.eval",
-        "CFDLean.Burgers.Core.NumericalFlux"
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Burgers.Rusanov.eval"
       ],
       "kind": "theorem",
       "module": "CFDLean.Schemes.Burgers.Rusanov",
@@ -8989,14 +7903,14 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.zmodGrid",
-        "CFDLean.Burgers.Core.PeriodicGrid"
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.zmodGrid"
       ],
       "kind": "definition",
       "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
       "root": true,
-      "type": "{N : \u2115} \u2192 [NeZero N] \u2192 CFDLean.Burgers.Core.PeriodicGrid (ZMod N)",
+      "type": "{N : \u2115} \u2192 [NeZero N] \u2192 CFDLean.Periodic.Grid (ZMod N)",
       "unsafe": false
     },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid._redArg": {
@@ -9017,8 +7931,8 @@
       ],
       "direct": [
         "CFDLean.Burgers.Rusanov.numericalFlux",
-        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
-        "CFDLean.Burgers.FiniteVolume.rhs"
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid"
       ],
       "kind": "definition",
       "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
@@ -9034,7 +7948,7 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.FiniteVolume.rhs_constant",
+        "CFDLean.Scalar.FiniteVolume.rhs_constant",
         "CFDLean.Burgers.Rusanov.numericalFlux",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
@@ -9056,9 +7970,9 @@
       ],
       "direct": [
         "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
-        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
-        "CFDLean.Burgers.FiniteVolume.rhs_sum_zero"
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid"
       ],
       "kind": "theorem",
       "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
@@ -9074,8 +7988,8 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
-        "CFDLean.Burgers.Time.step"
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete"
       ],
       "kind": "definition",
       "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
@@ -9094,7 +8008,7 @@
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
-        "CFDLean.Burgers.Time.step_constant"
+        "CFDLean.Time.ForwardEuler.step_constant"
       ],
       "kind": "theorem",
       "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
@@ -9127,119 +8041,16 @@
         "Quot.sound"
       ],
       "direct": [
+        "CFDLean.Time.ForwardEuler.step_sum",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero",
-        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
-        "CFDLean.Burgers.Time.step_sum"
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete"
       ],
       "kind": "theorem",
       "module": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
       "root": true,
       "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  dx \u2260 0 \u2192 \u2200 (u : ZMod N \u2192 \u211d), \u2211 i, CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i = \u2211 i, u i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Time.step": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [],
-      "kind": "definition",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step",
-      "root": true,
-      "type": "{I : Type u_1} \u2192 \u211d \u2192 ((I \u2192 \u211d) \u2192 I \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Time.step._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step._redArg",
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Burgers.Time.step.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Time.step"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step.eq_1",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Burgers.Time.step dt L u i = u i + dt * L u i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Time.step_constant": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Time.step_zero_rhs",
-        "CFDLean.Burgers.Time.step"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step_constant",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (c : \u211d),\n  ((L fun x => c) = fun x => 0) \u2192 (CFDLean.Burgers.Time.step dt L fun x => c) = fun x => c",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Time.step_sum": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Time.step_sum._simp_1_2",
-        "CFDLean.Burgers.Time.step"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step_sum",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d),\n  \u2211 i, L u i = 0 \u2192 \u2211 i, CFDLean.Burgers.Time.step dt L u i = \u2211 i, u i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Time.step_sum._simp_1_2": {
-      "axioms": [
-        "propext",
-        "Quot.sound"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step_sum._simp_1_2",
-      "root": true,
-      "type": "\u2200 {\u03b9 : Type u_1} {R : Type u_4} [inst : NonUnitalNonAssocSemiring R] (s : Finset \u03b9) (f : \u03b9 \u2192 R) (a : R),\n  \u2211 i \u2208 s, a * f i = a * \u2211 i \u2208 s, f i",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.Time.step_zero_rhs": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Burgers.Time.step"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Time.ForwardEuler",
-      "name": "CFDLean.Burgers.Time.step_zero_rhs",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d), (L u = fun x => 0) \u2192 CFDLean.Burgers.Time.step dt L u = u",
       "unsafe": false
     },
     "CFDLean.Burgers.law": {
@@ -9249,15 +8060,15 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk",
-        "CFDLean.Burgers.physicalFlux"
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Scalar.ConservationLaw"
       ],
       "kind": "definition",
       "module": "CFDLean.Physics.Burgers.Flux",
       "name": "CFDLean.Burgers.law",
       "root": true,
-      "type": "CFDLean.Burgers.Core.ScalarConservationLaw",
+      "type": "CFDLean.Scalar.ConservationLaw",
       "unsafe": false
     },
     "CFDLean.Burgers.law.eq_1": {
@@ -9267,10 +8078,10 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
+        "CFDLean.Scalar.ConservationLaw.mk",
         "CFDLean.Burgers.law",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk",
-        "CFDLean.Burgers.physicalFlux"
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Scalar.ConservationLaw"
       ],
       "kind": "theorem",
       "module": "CFDLean.Schemes.Burgers.Rusanov",
@@ -28230,6 +27041,354 @@
       "type": "\u2200 {\u03b9 : Type} {inst : DecidableEq \u03b9} [inst_1 : DecidableEq \u03b9] (d d_1 : \u2115),\n  d = d_1 \u2192\n    \u2200 (i i_1 : \u03b9), i = i_1 \u2192 \u2200 (j j_1 : \u03b9), j = j_1 \u2192 CFDLean.Num.stdWeight d i j = CFDLean.Num.stdWeight d_1 i_1 j_1",
       "unsafe": false
     },
+    "CFDLean.Periodic.Grid": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "inductive",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid",
+      "root": true,
+      "type": "Type u_1 \u2192 Type u_1",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid._sizeOf_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid._sizeOf_1",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 [SizeOf I] \u2192 CFDLean.Periodic.Grid I \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid._sizeOf_inst": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid._sizeOf_1",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid._sizeOf_inst",
+      "root": true,
+      "type": "(I : Type u_1) \u2192 [SizeOf I] \u2192 SizeOf (CFDLean.Periodic.Grid I)",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.casesOn": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.casesOn",
+      "root": true,
+      "type": "{I : Type u_1} \u2192\n  {motive : CFDLean.Periodic.Grid I \u2192 Sort u} \u2192\n    (t : CFDLean.Periodic.Grid I) \u2192 ((next : I \u2243 I) \u2192 motive { next := next }) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.ctorIdx": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.ctorIdx",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.mk": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "constructor",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.mk",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 CFDLean.Periodic.Grid I",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.mk._flat_ctor": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.mk._flat_ctor",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 CFDLean.Periodic.Grid I",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.mk.inj": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.mk.noConfusion"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.mk.inj",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} {next next_1 : I \u2243 I}, { next := next } = { next := next_1 } \u2192 next = next_1",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.mk.injEq": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.mk.inj"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.mk.injEq",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next next_1 : I \u2243 I), ({ next := next } = { next := next_1 }) = (next = next_1)",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.mk.noConfusion": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.noConfusion"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.mk.noConfusion",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 {P : Sort u} \u2192 {next next' : I \u2243 I} \u2192 { next := next } = { next := next' } \u2192 (next \u224d next' \u2192 P) \u2192 P",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.mk.sizeOf_spec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid._sizeOf_inst"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.mk.sizeOf_spec",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : SizeOf I] (next : I \u2243 I), sizeOf { next := next } = 1 + sizeOf next",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.next": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.next",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 I \u2243 I",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.next_prev": {
+      "axioms": [
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.next_prev",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (i : I), g.next (g.prev i) = i",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.noConfusion": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid.noConfusionType",
+        "CFDLean.Periodic.Grid.casesOn",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.noConfusion",
+      "root": true,
+      "type": "{P : Sort u} \u2192\n  {I : Type u_1} \u2192\n    {t : CFDLean.Periodic.Grid I} \u2192\n      {I' : Type u_1} \u2192 {t' : CFDLean.Periodic.Grid I'} \u2192 I = I' \u2192 t \u224d t' \u2192 CFDLean.Periodic.Grid.noConfusionType P t t'",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.noConfusionType": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid.casesOn",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.noConfusionType",
+      "root": true,
+      "type": "Sort u \u2192 {I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 {I' : Type u_1} \u2192 CFDLean.Periodic.Grid I' \u2192 Sort u",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.prev": {
+      "axioms": [
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.prev",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 I \u2192 I",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.prev._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.prev._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Periodic.Grid.prev.eq_1": {
+      "axioms": [
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB0Verify",
+      "name": "CFDLean.Periodic.Grid.prev.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I), g.prev = \u21d1g.next.symm",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.prev_next": {
+      "axioms": [
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.prev_next",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (i : I), g.prev (g.next i) = i",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.rec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "recursor",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.rec",
+      "root": true,
+      "type": "{I : Type u_1} \u2192\n  {motive : CFDLean.Periodic.Grid I \u2192 Sort u} \u2192\n    ((next : I \u2243 I) \u2192 motive { next := next }) \u2192 (t : CFDLean.Periodic.Grid I) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.recOn": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.recOn",
+      "root": true,
+      "type": "{I : Type u_1} \u2192\n  {motive : CFDLean.Periodic.Grid I \u2192 Sort u} \u2192\n    (t : CFDLean.Periodic.Grid I) \u2192 ((next : I \u2243 I) \u2192 motive { next := next }) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.sum_next": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.sum_next",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (f : I \u2192 \u211d), \u2211 i, f (g.next i) = \u2211 i, f i",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.Grid.sum_prev": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.Grid.sum_prev",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (f : I \u2192 \u211d), \u2211 i, f (g.prev i) = \u2211 i, f i",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.zmodGrid": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.zmodGrid",
+      "root": true,
+      "type": "(N : \u2115) \u2192 [NeZero N] \u2192 CFDLean.Periodic.Grid (ZMod N)",
+      "unsafe": false
+    },
+    "CFDLean.Periodic.zmodGrid._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.Grid",
+      "name": "CFDLean.Periodic.zmodGrid._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "CFDLean.PhysicalJacobian.coordinateFlux": {
       "axioms": [
         "propext",
@@ -36833,6 +35992,744 @@
       "type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / \u221a3, 0, 0, 0, 5 / 2 - 2 * \u221a3]",
       "unsafe": false
     },
+    "CFDLean.Scalar.ConservationLaw": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk"
+      ],
+      "kind": "inductive",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw",
+      "root": true,
+      "type": "Type",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw._sizeOf_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.rec",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw._sizeOf_1",
+      "root": true,
+      "type": "CFDLean.Scalar.ConservationLaw \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw._sizeOf_inst": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw._sizeOf_1",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw._sizeOf_inst",
+      "root": true,
+      "type": "SizeOf CFDLean.Scalar.ConservationLaw",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.casesOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.rec",
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.casesOn",
+      "root": true,
+      "type": "{motive : CFDLean.Scalar.ConservationLaw \u2192 Sort u} \u2192\n  (t : CFDLean.Scalar.ConservationLaw) \u2192 ((flux : \u211d \u2192 \u211d) \u2192 motive { flux := flux }) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.ctorIdx": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.ctorIdx",
+      "root": true,
+      "type": "CFDLean.Scalar.ConservationLaw \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.flux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.flux",
+      "root": true,
+      "type": "CFDLean.Scalar.ConservationLaw \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.mk": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "constructor",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.mk",
+      "root": true,
+      "type": "(\u211d \u2192 \u211d) \u2192 CFDLean.Scalar.ConservationLaw",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.mk._flat_ctor": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.mk._flat_ctor",
+      "root": true,
+      "type": "(\u211d \u2192 \u211d) \u2192 CFDLean.Scalar.ConservationLaw",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.mk.inj": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk.noConfusion",
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.mk.inj",
+      "root": true,
+      "type": "\u2200 {flux flux_1 : \u211d \u2192 \u211d}, { flux := flux } = { flux := flux_1 } \u2192 flux = flux_1",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.mk.injEq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw",
+        "CFDLean.Scalar.ConservationLaw.mk.inj"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.mk.injEq",
+      "root": true,
+      "type": "\u2200 (flux flux_1 : \u211d \u2192 \u211d), ({ flux := flux } = { flux := flux_1 }) = (flux = flux_1)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.mk.noConfusion": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.noConfusion",
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.mk.noConfusion",
+      "root": true,
+      "type": "{P : Sort u} \u2192 {flux flux' : \u211d \u2192 \u211d} \u2192 { flux := flux } = { flux := flux' } \u2192 (flux = flux' \u2192 P) \u2192 P",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.mk.sizeOf_spec": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw._sizeOf_inst",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.mk.sizeOf_spec",
+      "root": true,
+      "type": "\u2200 (flux : \u211d \u2192 \u211d), sizeOf { flux := flux } = 1",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.noConfusion": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.casesOn",
+        "CFDLean.Scalar.ConservationLaw.noConfusionType",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.noConfusion",
+      "root": true,
+      "type": "{P : Sort u} \u2192 {t t' : CFDLean.Scalar.ConservationLaw} \u2192 t = t' \u2192 CFDLean.Scalar.ConservationLaw.noConfusionType P t t'",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.noConfusionType": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.casesOn",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.noConfusionType",
+      "root": true,
+      "type": "Sort u \u2192 CFDLean.Scalar.ConservationLaw \u2192 CFDLean.Scalar.ConservationLaw \u2192 Sort u",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.rec": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "recursor",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.rec",
+      "root": true,
+      "type": "{motive : CFDLean.Scalar.ConservationLaw \u2192 Sort u} \u2192\n  ((flux : \u211d \u2192 \u211d) \u2192 motive { flux := flux }) \u2192 (t : CFDLean.Scalar.ConservationLaw) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.ConservationLaw.recOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.rec",
+        "CFDLean.Scalar.ConservationLaw.mk",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Physics.Scalar.ConservationLaw",
+      "name": "CFDLean.Scalar.ConservationLaw.recOn",
+      "root": true,
+      "type": "{motive : CFDLean.Scalar.ConservationLaw \u2192 Sort u} \u2192\n  (t : CFDLean.Scalar.ConservationLaw) \u2192 ((flux : \u211d \u2192 \u211d) \u2192 motive { flux := flux }) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.Consistent": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.flux",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.Consistent",
+      "root": true,
+      "type": "CFDLean.Scalar.ConservationLaw \u2192 CFDLean.Scalar.NumericalFlux \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid.sum_prev",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Conservation",
+      "name": "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d),\n  \u2211 i,\n      (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i -\n        CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) =\n    0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.interfaceFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "name": "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 CFDLean.Scalar.NumericalFlux \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.interfaceFlux._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "name": "CFDLean.Scalar.FiniteVolume.interfaceFlux._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Scalar.FiniteVolume.interfaceFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "name": "CFDLean.Scalar.FiniteVolume.interfaceFlux.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i = numFlux.eval (u i) (u (g.next i))",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rhs": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Grid I \u2192 \u211d \u2192 CFDLean.Scalar.NumericalFlux \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rhs.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.rhs g dx numFlux u i =\n    -(CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i -\n          CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) /\n      dx",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rhs_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.ConservationLaw.flux",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.Consistent",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+        "CFDLean.Scalar.ConservationLaw"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.FiniteVolume",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_constant",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx c : \u211d) (law : CFDLean.Scalar.ConservationLaw)\n  (numFlux : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.Consistent law numFlux \u2192 \u2200 (i : I), CFDLean.Scalar.FiniteVolume.rhs g dx numFlux (fun x => c) i = 0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rhs_sum_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
+        "CFDLean.Scalar.FiniteVolume.rhs_sum_zero._simp_1_1",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Conservation",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : \u211d),\n  dx \u2260 0 \u2192\n    \u2200 (numFlux : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d), \u2211 i, CFDLean.Scalar.FiniteVolume.rhs g dx numFlux u i = 0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.rhs_sum_zero._simp_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.Periodic.Conservation",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_sum_zero._simp_1_1",
+      "root": true,
+      "type": "\u2200 {\u03b9 : Type u_1} {K : Type u_2} [inst : DivisionSemiring K] (s : Finset \u03b9) (f : \u03b9 \u2192 K) (a : K),\n  \u2211 i \u2208 s, f i / a = (\u2211 i \u2208 s, f i) / a",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk"
+      ],
+      "kind": "inductive",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux",
+      "root": true,
+      "type": "Type",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux._sizeOf_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux._sizeOf_1",
+      "root": true,
+      "type": "CFDLean.Scalar.NumericalFlux \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux._sizeOf_inst": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux._sizeOf_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux._sizeOf_inst",
+      "root": true,
+      "type": "SizeOf CFDLean.Scalar.NumericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.casesOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.casesOn",
+      "root": true,
+      "type": "{motive : CFDLean.Scalar.NumericalFlux \u2192 Sort u} \u2192\n  (t : CFDLean.Scalar.NumericalFlux) \u2192 ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.ctorIdx": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.ctorIdx",
+      "root": true,
+      "type": "CFDLean.Scalar.NumericalFlux \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.eval": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.eval",
+      "root": true,
+      "type": "CFDLean.Scalar.NumericalFlux \u2192 \u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.mk": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "constructor",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.mk",
+      "root": true,
+      "type": "(\u211d \u2192 \u211d \u2192 \u211d) \u2192 CFDLean.Scalar.NumericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.mk._flat_ctor": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.mk._flat_ctor",
+      "root": true,
+      "type": "(\u211d \u2192 \u211d \u2192 \u211d) \u2192 CFDLean.Scalar.NumericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.mk.inj": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.mk.noConfusion"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.mk.inj",
+      "root": true,
+      "type": "\u2200 {eval eval_1 : \u211d \u2192 \u211d \u2192 \u211d}, { eval := eval } = { eval := eval_1 } \u2192 eval = eval_1",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.mk.injEq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.mk.inj"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.mk.injEq",
+      "root": true,
+      "type": "\u2200 (eval eval_1 : \u211d \u2192 \u211d \u2192 \u211d), ({ eval := eval } = { eval := eval_1 }) = (eval = eval_1)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.mk.noConfusion": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.noConfusion"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.mk.noConfusion",
+      "root": true,
+      "type": "{P : Sort u} \u2192 {eval eval' : \u211d \u2192 \u211d \u2192 \u211d} \u2192 { eval := eval } = { eval := eval' } \u2192 (eval = eval' \u2192 P) \u2192 P",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.mk.sizeOf_spec": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux._sizeOf_inst"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.mk.sizeOf_spec",
+      "root": true,
+      "type": "\u2200 (eval : \u211d \u2192 \u211d \u2192 \u211d), sizeOf { eval := eval } = 1",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.noConfusion": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.noConfusionType",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.casesOn"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.noConfusion",
+      "root": true,
+      "type": "{P : Sort u} \u2192 {t t' : CFDLean.Scalar.NumericalFlux} \u2192 t = t' \u2192 CFDLean.Scalar.NumericalFlux.noConfusionType P t t'",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.noConfusionType": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.casesOn"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.noConfusionType",
+      "root": true,
+      "type": "Sort u \u2192 CFDLean.Scalar.NumericalFlux \u2192 CFDLean.Scalar.NumericalFlux \u2192 Sort u",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.rec": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "recursor",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.rec",
+      "root": true,
+      "type": "{motive : CFDLean.Scalar.NumericalFlux \u2192 Sort u} \u2192\n  ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 (t : CFDLean.Scalar.NumericalFlux) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.NumericalFlux.recOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.NumericalFlux.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Scalar.NumericalFlux",
+      "name": "CFDLean.Scalar.NumericalFlux.recOn",
+      "root": true,
+      "type": "{motive : CFDLean.Scalar.NumericalFlux \u2192 Sort u} \u2192\n  (t : CFDLean.Scalar.NumericalFlux) \u2192 ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 motive t",
+      "unsafe": false
+    },
     "CFDLean.Time.Controls.all_wall_boundary_zero": {
       "axioms": [
         "propext",
@@ -38639,6 +38536,109 @@
       "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3),\n  CFDLean.Time.Controls.wallLinear \u03b3 U = { toFun := CFDLean.Boundary.wallTransfer \u03b3 U, map_add' := \u22ef, map_smul' := \u22ef }",
       "unsafe": false
     },
+    "CFDLean.Time.ForwardEuler.step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 \u211d \u2192 ((I \u2192 \u211d) \u2192 I \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Time.ForwardEuler.step._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step._redArg",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Time.ForwardEuler.step.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.ForwardEuler.step"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Time.ForwardEuler.step dt L u i = u i + dt * L u i",
+      "unsafe": false
+    },
+    "CFDLean.Time.ForwardEuler.step_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.ForwardEuler.step_zero_rhs",
+        "CFDLean.Time.ForwardEuler.step"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step_constant",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (c : \u211d),\n  ((L fun x => c) = fun x => 0) \u2192 (CFDLean.Time.ForwardEuler.step dt L fun x => c) = fun x => c",
+      "unsafe": false
+    },
+    "CFDLean.Time.ForwardEuler.step_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.ForwardEuler.step",
+        "CFDLean.Time.ForwardEuler.step_sum._simp_1_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step_sum",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d),\n  \u2211 i, L u i = 0 \u2192 \u2211 i, CFDLean.Time.ForwardEuler.step dt L u i = \u2211 i, u i",
+      "unsafe": false
+    },
+    "CFDLean.Time.ForwardEuler.step_sum._simp_1_2": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step_sum._simp_1_2",
+      "root": true,
+      "type": "\u2200 {\u03b9 : Type u_1} {R : Type u_4} [inst : NonUnitalNonAssocSemiring R] (s : Finset \u03b9) (f : \u03b9 \u2192 R) (a : R),\n  \u2211 i \u2208 s, a * f i = a * \u2211 i \u2208 s, f i",
+      "unsafe": false
+    },
+    "CFDLean.Time.ForwardEuler.step_zero_rhs": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Time.ForwardEuler.step"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Time.ForwardEuler",
+      "name": "CFDLean.Time.ForwardEuler.step_zero_rhs",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (dt : \u211d) (L : (I \u2192 \u211d) \u2192 I \u2192 \u211d) (u : I \u2192 \u211d),\n  (L u = fun x => 0) \u2192 CFDLean.Time.ForwardEuler.step dt L u = u",
+      "unsafe": false
+    },
     "CFDLean.Time.amount": {
       "axioms": [
         "propext",
@@ -40206,16 +40206,16 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
+        "CFDLean.Scalar.NumericalFlux.mk",
         "CFDLean.Verification.BurgersB0Challenge.Consistent",
-        "CFDLean.Burgers.FiniteVolume.rhs_constant",
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
+        "CFDLean.Scalar.FiniteVolume.rhs_constant",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.ConservationLaw.mk",
         "CFDLean.Verification.BurgersB0Challenge.ConstantRhs",
-        "CFDLean.Burgers.Core.ScalarConservationLaw",
-        "CFDLean.Burgers.Core.ScalarConservationLaw.mk",
-        "CFDLean.Burgers.Core.NumericalFlux",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Burgers.Core.Consistent"
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Scalar.Consistent",
+        "CFDLean.Scalar.ConservationLaw"
       ],
       "kind": "theorem",
       "module": "CFDLean.Verification.BurgersB0Verify",
@@ -40231,7 +40231,7 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Time.step_sum",
+        "CFDLean.Time.ForwardEuler.step_sum",
         "CFDLean.Verification.BurgersB0Challenge.ForwardEulerSum"
       ],
       "kind": "theorem",
@@ -40248,19 +40248,19 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.Burgers.Core.PeriodicGrid.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid.mk",
-        "CFDLean.Burgers.Core.NumericalFlux.mk",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.mk",
         "CFDLean.Verification.BurgersB0Challenge.PeriodicConservation",
-        "CFDLean.Burgers.Core.PeriodicGrid.next",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
+        "CFDLean.Scalar.FiniteVolume.rhs",
         "CFDLean.Verification.BurgersB0Challenge.rhs",
-        "CFDLean.Burgers.Core.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.next",
         "CFDLean.Verification.BurgersB0Challenge.prev",
-        "CFDLean.Burgers.Core.PeriodicGrid",
-        "CFDLean.Verification.BurgersB0Challenge.interfaceFlux",
-        "CFDLean.Burgers.FiniteVolume.interfaceFlux",
-        "CFDLean.Burgers.FiniteVolume.rhs_sum_zero",
-        "CFDLean.Burgers.FiniteVolume.rhs"
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+        "CFDLean.Verification.BurgersB0Challenge.interfaceFlux"
       ],
       "kind": "theorem",
       "module": "CFDLean.Verification.BurgersB0Verify",
@@ -41511,18 +41511,18 @@
   "catalog_entries": 263,
   "b0_results": "specifications/Burgers-B0-results.json",
   "b0_promised_theorems": [
-    "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero",
-    "CFDLean.Burgers.FiniteVolume.rhs_constant",
-    "CFDLean.Burgers.FiniteVolume.rhs_sum_zero",
     "CFDLean.Burgers.Rusanov.consistent",
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant",
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero",
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant",
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral",
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
-    "CFDLean.Burgers.Time.step_constant",
-    "CFDLean.Burgers.Time.step_sum",
-    "CFDLean.Burgers.Time.step_zero_rhs"
+    "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
+    "CFDLean.Scalar.FiniteVolume.rhs_constant",
+    "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
+    "CFDLean.Time.ForwardEuler.step_constant",
+    "CFDLean.Time.ForwardEuler.step_sum",
+    "CFDLean.Time.ForwardEuler.step_zero_rhs"
   ],
   "b0_trusted_bridge_theorems": [
     "CFDLean.Verification.BurgersB0Verify.constant_rhs",

@@ -171,8 +171,8 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.WMesh.closed_mean_galerkin` | MC-N.P2-6.7 | FEM + FVM | candidate | At a closed vertex the mean edge flux through the dual normals equals the Galerkin form Σ_k c_ik F_k. |
 | `CFDLean.Num.ofMeshData_closed` | MC-N.P1-5.0b | FEM + FVM | candidate | In a conforming tetrahedral median-dual mesh a vertex on no boundary face is closed for the induced P1 operator. |
 | `CFDLean.Num.ofMeshData_fv_galerkin` | MC-N.P1-5.7 | FEM + FVM | candidate | On a median-dual tetrahedral mesh the finite-volume residual over the dual facets equals the Galerkin residual. |
-| `CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero` | B0-C | FVM | pending | On a finite periodic grid the interface flux differences of any two-point flux sum to zero. |
-| `CFDLean.Burgers.FiniteVolume.rhs_sum_zero` | B0-C | FVM | pending | For dx ≠ 0 the periodic first-order finite-volume right-hand side of any two-point flux sums to zero. |
+| `CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero` | B0-C | FVM | pending | On a finite periodic grid the interface flux differences of any two-point flux sum to zero. |
+| `CFDLean.Scalar.FiniteVolume.rhs_sum_zero` | B0-C | FVM | pending | For dx ≠ 0 the periodic first-order finite-volume right-hand side of any two-point flux sums to zero. |
 
 ## Entropy framework (5)
 
@@ -321,7 +321,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.quadratureClosure_freeStream` | MC-N.P2-8.2 | FVM | candidate | With a uniform state, physical boundary fluxes and matching quadrature normals the quadrature closure has zero residual. |
 | `CFDLean.Num.quadratureClosure_linear` | MC-N.P2-8.3 | FVM | candidate | For linear fluxes the quadrature closure is ½(F_i β_i + Σ_k F_k Σ_q φ_qi φ_qk N_q). |
 | `CFDLean.Burgers.Rusanov.consistent` | B0-F | FVM | pending | The Burgers Rusanov (local Lax-Friedrichs) flux with wave speed max(\|uL\|, \|uR\|) equals the physical flux u²/2 on equal states. |
-| `CFDLean.Burgers.FiniteVolume.rhs_constant` | B0-K | FVM | pending | A consistent two-point flux gives a zero periodic finite-volume right-hand side on a constant state. |
+| `CFDLean.Scalar.FiniteVolume.rhs_constant` | B0-K | FVM | pending | A consistent two-point flux gives a zero periodic finite-volume right-hand side on a constant state. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant` | B0-S | FVM | pending | The Burgers Rusanov semidiscretization on ZMod N is zero on a constant state (composition of B0-F and B0-K). |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov semidiscretization on ZMod N sums to zero (instance of B0-C). |
 
@@ -365,9 +365,9 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Time.mesh_step_reindex` | M5-O | FVM | pending | The mesh step commutes with relabeling of nodes, edges and boundary records with fully transported residual data. |
 | `CFDLean.Time.Controls.transported_nonconstant` | M5-O | FVM | pending | The relabeled two-cell step with nonconstant transported data equals the original step. |
 | `CFDLean.Time.Controls.transported_fields_nonconstant` | M5-O | FVM | pending | In the relabeling control the volumes, steps, states and exterior data differ between the swapped nodes and faces. |
-| `CFDLean.Burgers.Time.step_zero_rhs` | B0-T | method-free | pending | A Forward Euler step with a zero right-hand side at the state returns the state. |
-| `CFDLean.Burgers.Time.step_constant` | B0-T | method-free | pending | A Forward Euler step keeps a constant state when the right-hand side is zero on it. |
-| `CFDLean.Burgers.Time.step_sum` | B0-T | method-free | pending | A Forward Euler step keeps the total sum when the right-hand side sums to zero. |
+| `CFDLean.Time.ForwardEuler.step_zero_rhs` | B0-T | method-free | pending | A Forward Euler step with a zero right-hand side at the state returns the state. |
+| `CFDLean.Time.ForwardEuler.step_constant` | B0-T | method-free | pending | A Forward Euler step keeps a constant state when the right-hand side is zero on it. |
+| `CFDLean.Time.ForwardEuler.step_sum` | B0-T | method-free | pending | A Forward Euler step keeps the total sum when the right-hand side sums to zero. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant` | B0-S | FVM | pending | The Burgers Rusanov Forward Euler step on ZMod N keeps every constant state, for every dx and dt. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the total sum of the cell averages. |
 | `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the discrete integral dx · Σ u. |

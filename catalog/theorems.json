@@ -3276,7 +3276,7 @@
       "source": "specifications/MC-N-results.json MC-N.P1-5.7 (JST Paper1.Spec.P1_5_7)"
     },
     {
-      "name": "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero",
+      "name": "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero",
       "id": "B0-C",
       "milestone": "B0",
       "module": "CFDLean.Discrete.Periodic.Conservation",
@@ -3289,7 +3289,7 @@
       "source": "specifications/Burgers-B0-results.json B0-C; references/Burgers-B0.md"
     },
     {
-      "name": "CFDLean.Burgers.FiniteVolume.rhs_sum_zero",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_sum_zero",
       "id": "B0-C",
       "milestone": "B0",
       "module": "CFDLean.Discrete.Periodic.Conservation",
@@ -3315,7 +3315,7 @@
       "source": "specifications/Burgers-B0-results.json B0-F; references/Burgers-B0.md"
     },
     {
-      "name": "CFDLean.Burgers.FiniteVolume.rhs_constant",
+      "name": "CFDLean.Scalar.FiniteVolume.rhs_constant",
       "id": "B0-K",
       "milestone": "B0",
       "module": "CFDLean.Discrete.Periodic.FiniteVolume",
@@ -3354,7 +3354,7 @@
       "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
     },
     {
-      "name": "CFDLean.Burgers.Time.step_zero_rhs",
+      "name": "CFDLean.Time.ForwardEuler.step_zero_rhs",
       "id": "B0-T",
       "milestone": "B0",
       "module": "CFDLean.Time.ForwardEuler",
@@ -3367,7 +3367,7 @@
       "source": "specifications/Burgers-B0-results.json B0-T; references/Burgers-B0.md"
     },
     {
-      "name": "CFDLean.Burgers.Time.step_constant",
+      "name": "CFDLean.Time.ForwardEuler.step_constant",
       "id": "B0-T",
       "milestone": "B0",
       "module": "CFDLean.Time.ForwardEuler",
@@ -3380,7 +3380,7 @@
       "source": "specifications/Burgers-B0-results.json B0-T; references/Burgers-B0.md"
     },
     {
-      "name": "CFDLean.Burgers.Time.step_sum",
+      "name": "CFDLean.Time.ForwardEuler.step_sum",
       "id": "B0-T",
       "milestone": "B0",
       "module": "CFDLean.Time.ForwardEuler",
