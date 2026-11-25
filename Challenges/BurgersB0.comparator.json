@@ -1,0 +1,12 @@
+{
+  "challenge_module": "Challenges.BurgersB0",
+  "solution_module": "CFDLean.Verification.BurgersB0Verify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersB0Verify.rusanov_consistency",
+    "CFDLean.Verification.BurgersB0Verify.periodic_conservation",
+    "CFDLean.Verification.BurgersB0Verify.constant_rhs",
+    "CFDLean.Verification.BurgersB0Verify.forward_euler_sum"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

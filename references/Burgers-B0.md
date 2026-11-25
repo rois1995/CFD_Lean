@@ -6,22 +6,29 @@ Frozen contract: `specifications/Burgers-B0.md`.
 
 Approval record: `specifications/Burgers-B0-approval.md`.
 
-This candidate is isolated under `CFDLean.Burgers` and does not modify accepted Euler M1--M4 mathematical source files.
+The declarations keep the namespace `CFDLean.Burgers` and their names and types. Since the move to the layered folders
+of `main` (`specifications/Burgers-B0-layout.md`) each module sits in the folder of its catalog layer. The accepted
+Euler M1--M4 mathematical source files and the M5 sources are not modified. Toolchain: Lean v4.36.0.
+
+Result bindings checked by `scripts/verify.py`: `specifications/Burgers-B0-results.json`.
 
 ## Module map
 
 | Module | Purpose |
 | --- | --- |
-| `CFDLean/Burgers/Core/ConservationLaw.lean` | Generic exact-real scalar conservation-law object |
-| `CFDLean/Burgers/Core/NumericalFlux.lean` | Generic two-point numerical flux and separate consistency certificate |
-| `CFDLean/Burgers/Core/PeriodicGrid.lean` | Generic periodic equivalence and `ZMod` periodic-grid instance |
-| `CFDLean/Burgers/Flux/Rusanov.lean` | Burgers physical flux and local Lax--Friedrichs/Rusanov flux |
-| `CFDLean/Burgers/FiniteVolume/FirstOrder.lean` | Generic first-order periodic flux-difference semidiscretization |
-| `CFDLean/Burgers/FiniteVolume/Conservation.lean` | Generic finite-sum telescoping and semidiscrete conservation |
-| `CFDLean/Burgers/Time/ForwardEuler.lean` | Generic Forward-Euler composition results |
-| `CFDLean/Burgers/Schemes/RusanovForwardEuler.lean` | Assembled Burgers/Rusanov/Forward-Euler scheme certificates |
-| `CFDLean/Burgers/Controls.lean` | Exact small controls |
-| `CFDLean/Burgers.lean` | Burgers umbrella export |
+| `CFDLean/Physics/Scalar/ConservationLaw.lean` | Generic exact-real scalar conservation-law object |
+| `CFDLean/Physics/Burgers/Flux.lean` | Burgers physical flux and conservation law |
+| `CFDLean/Discrete/Periodic/Grid.lean` | Generic periodic equivalence and `ZMod` periodic-grid instance |
+| `CFDLean/Discrete/Periodic/FiniteVolume.lean` | Generic first-order periodic flux-difference semidiscretization |
+| `CFDLean/Discrete/Periodic/Conservation.lean` | Generic finite-sum telescoping and semidiscrete conservation |
+| `CFDLean/Schemes/Scalar/NumericalFlux.lean` | Generic two-point numerical flux and separate consistency certificate |
+| `CFDLean/Schemes/Burgers/Rusanov.lean` | Local Lax--Friedrichs/Rusanov flux for Burgers and its consistency |
+| `CFDLean/Schemes/Burgers/RusanovForwardEuler.lean` | Assembled Burgers/Rusanov/Forward-Euler scheme certificates |
+| `CFDLean/Schemes/Burgers/Controls.lean` | Exact small controls |
+| `CFDLean/Time/ForwardEuler.lean` | Generic Forward-Euler composition results |
+| `CFDLean/Verification/BurgersB0Challenge.lean` | Trusted B0 statements; imports only Mathlib |
+| `CFDLean/Verification/BurgersB0Verify.lean` | Bridge: the implementation proves the trusted statements |
+| `Challenges/BurgersB0.lean` | `lake comparator` challenge: the bridge theorem statements with `sorry` holes |
 
 ## Frozen result IDs
 
@@ -115,6 +122,26 @@ The assembled proofs compose the generic finite-volume/time results with the Rus
 Project proof terms are intended to be checked by the pinned Lean kernel and Mathlib dependency.
 
 The B0 agent/workflow is not trusted as a source of mathematical truth; it only proposes proof terms and build results.
+
+Trusted statements and their bridge theorems (`CFDLean.Verification.BurgersB0Challenge` / `.BurgersB0Verify`):
+
+| ID | Trusted statement | Bridge theorem | Implementation theorem used |
+| --- | --- | --- | --- |
+| B0-F | `RusanovConsistency` | `rusanov_consistency` | `CFDLean.Burgers.Rusanov.consistent` |
+| B0-C | `PeriodicConservation` | `periodic_conservation` | `CFDLean.Burgers.FiniteVolume.rhs_sum_zero` |
+| B0-K | `ConstantRhs` | `constant_rhs` | `CFDLean.Burgers.FiniteVolume.rhs_constant` |
+| B0-T | `ForwardEulerSum` | `forward_euler_sum` | `CFDLean.Burgers.Time.step_sum` |
+
+The trusted statement file does not state B0-P (definitions only), the constant-state part of B0-T, or the assembled
+`ZMod N` scheme B0-S. Those results are checked by the kernel audit and the result map, not by a separate statement.
+
+Checks:
+
+- `scripts/verify.py`: result bindings, modules, standard axioms, hash of the trusted statement file, its
+  Mathlib-only imports, bridge theorem types;
+- `KernelAudit.lean`: no project axiom, only `propext`, `Classical.choice`, `Quot.sound`, no unsafe dependency;
+- `lake comparator --paranoid --config Challenges/BurgersB0.comparator.json`: each bridge theorem has the statement
+  of the challenge and is accepted by Lean's kernel and five external checkers in a `bwrap` sandbox.
 
 No B0 result implies:
 

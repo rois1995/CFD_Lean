@@ -1,0 +1,162 @@
+{
+  "contract": "specifications/Burgers-B0.md",
+  "contract_sha256": "4226c9a3397333e0eace92a7e8bf986a5dad62df54bc4b03279bcb798687411d",
+  "approval_record": "specifications/Burgers-B0-approval.md",
+  "approved_revision": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
+  "layout": "specifications/Burgers-B0-layout.md",
+  "source_map": "references/Burgers-B0.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "B0-P",
+      "definitions": [
+        "CFDLean.Burgers.Core.ScalarConservationLaw",
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Burgers.law"
+      ],
+      "supporting": [],
+      "declarations": []
+    },
+    {
+      "id": "B0-F",
+      "definitions": [
+        "CFDLean.Burgers.Core.NumericalFlux",
+        "CFDLean.Burgers.Core.Consistent",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.consistent"
+      ]
+    },
+    {
+      "id": "B0-C",
+      "definitions": [
+        "CFDLean.Burgers.Core.PeriodicGrid",
+        "CFDLean.Burgers.Core.PeriodicGrid.prev",
+        "CFDLean.Burgers.Core.zmodGrid",
+        "CFDLean.Burgers.FiniteVolume.interfaceFlux",
+        "CFDLean.Burgers.FiniteVolume.rhs"
+      ],
+      "supporting": [
+        "CFDLean.Burgers.Core.PeriodicGrid.sum_prev",
+        "CFDLean.Burgers.Core.PeriodicGrid.sum_next"
+      ],
+      "declarations": [
+        "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero",
+        "CFDLean.Burgers.FiniteVolume.rhs_sum_zero"
+      ]
+    },
+    {
+      "id": "B0-K",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.FiniteVolume.rhs_constant"
+      ]
+    },
+    {
+      "id": "B0-T",
+      "definitions": [
+        "CFDLean.Burgers.Time.step"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Time.step_zero_rhs",
+        "CFDLean.Burgers.Time.step_constant",
+        "CFDLean.Burgers.Time.step_sum"
+      ]
+    },
+    {
+      "id": "B0-S",
+      "definitions": [
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Burgers.physicalFlux": "CFDLean.Physics.Burgers.Flux",
+    "CFDLean.Burgers.law": "CFDLean.Physics.Burgers.Flux",
+    "CFDLean.Burgers.Rusanov.waveSpeed": "CFDLean.Schemes.Burgers.Rusanov",
+    "CFDLean.Burgers.Rusanov.eval": "CFDLean.Schemes.Burgers.Rusanov",
+    "CFDLean.Burgers.Rusanov.numericalFlux": "CFDLean.Schemes.Burgers.Rusanov",
+    "CFDLean.Burgers.Rusanov.consistent": "CFDLean.Schemes.Burgers.Rusanov",
+    "CFDLean.Burgers.Core.ScalarConservationLaw": "CFDLean.Physics.Scalar.ConservationLaw",
+    "CFDLean.Burgers.Core.NumericalFlux": "CFDLean.Schemes.Scalar.NumericalFlux",
+    "CFDLean.Burgers.Core.Consistent": "CFDLean.Schemes.Scalar.NumericalFlux",
+    "CFDLean.Burgers.Core.PeriodicGrid": "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Burgers.Core.PeriodicGrid.prev": "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Burgers.Core.zmodGrid": "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Burgers.Core.PeriodicGrid.sum_prev": "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Burgers.Core.PeriodicGrid.sum_next": "CFDLean.Discrete.Periodic.Grid",
+    "CFDLean.Burgers.FiniteVolume.interfaceFlux": "CFDLean.Discrete.Periodic.FiniteVolume",
+    "CFDLean.Burgers.FiniteVolume.rhs": "CFDLean.Discrete.Periodic.FiniteVolume",
+    "CFDLean.Burgers.FiniteVolume.rhs_constant": "CFDLean.Discrete.Periodic.FiniteVolume",
+    "CFDLean.Burgers.FiniteVolume.fluxDifference_sum_zero": "CFDLean.Discrete.Periodic.Conservation",
+    "CFDLean.Burgers.FiniteVolume.rhs_sum_zero": "CFDLean.Discrete.Periodic.Conservation",
+    "CFDLean.Burgers.Time.step": "CFDLean.Time.ForwardEuler",
+    "CFDLean.Burgers.Time.step_zero_rhs": "CFDLean.Time.ForwardEuler",
+    "CFDLean.Burgers.Time.step_constant": "CFDLean.Time.ForwardEuler",
+    "CFDLean.Burgers.Time.step_sum": "CFDLean.Time.ForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum": "CFDLean.Schemes.Burgers.RusanovForwardEuler",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral": "CFDLean.Schemes.Burgers.RusanovForwardEuler"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersB0Challenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersB0Challenge",
+    "statements_sha256": "87e430df675886e918600ec7fd026c4afd256f4e7cfc9ce3dd244d984bfddf38",
+    "bridge_module": "CFDLean.Verification.BurgersB0Verify",
+    "comparator_challenge": "Challenges/BurgersB0.lean",
+    "comparator_challenge_module": "Challenges.BurgersB0",
+    "comparator_challenge_sha256": "62de556c1d1c37f57ccb98bbe0672e085e9a9a78fc62fb031900be76da40cb42",
+    "comparator_config": "Challenges/BurgersB0.comparator.json",
+    "bindings": [
+      {
+        "id": "B0-F",
+        "statement": "CFDLean.Verification.BurgersB0Challenge.RusanovConsistency",
+        "theorem": "CFDLean.Verification.BurgersB0Verify.rusanov_consistency",
+        "type": "CFDLean.Verification.BurgersB0Challenge.RusanovConsistency",
+        "uses": "CFDLean.Burgers.Rusanov.consistent"
+      },
+      {
+        "id": "B0-C",
+        "statement": "CFDLean.Verification.BurgersB0Challenge.PeriodicConservation",
+        "theorem": "CFDLean.Verification.BurgersB0Verify.periodic_conservation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB0Challenge.PeriodicConservation I",
+        "uses": "CFDLean.Burgers.FiniteVolume.rhs_sum_zero"
+      },
+      {
+        "id": "B0-K",
+        "statement": "CFDLean.Verification.BurgersB0Challenge.ConstantRhs",
+        "theorem": "CFDLean.Verification.BurgersB0Verify.constant_rhs",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.BurgersB0Challenge.ConstantRhs I",
+        "uses": "CFDLean.Burgers.FiniteVolume.rhs_constant"
+      },
+      {
+        "id": "B0-T",
+        "statement": "CFDLean.Verification.BurgersB0Challenge.ForwardEulerSum",
+        "theorem": "CFDLean.Verification.BurgersB0Verify.forward_euler_sum",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB0Challenge.ForwardEulerSum I",
+        "uses": "CFDLean.Burgers.Time.step_sum"
+      }
+    ]
+  }
+}
