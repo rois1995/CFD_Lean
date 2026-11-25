@@ -1,5 +1,6 @@
 import Mathlib.Data.ZMod.Basic
-import Mathlib.Algebra.BigOperators.Basic
+import Mathlib.Data.Real.Basic
+import Mathlib.Algebra.BigOperators.Field
 
 noncomputable section
 namespace CFDLean.Burgers.Core
