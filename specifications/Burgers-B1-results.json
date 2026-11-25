@@ -1,0 +1,144 @@
+{
+  "contract": "specifications/Burgers-B1.md",
+  "contract_sha256": "37d95c032f2977572f08f5f109fd6af97537e8c05d5a8926a56655066e96fd81",
+  "approval_record": "specifications/Burgers-B1-approval.md",
+  "approved_revision": "62ee14a7ab8815be8a4e40b007ef6f5cf715e262",
+  "source_map": "references/Burgers-B1.md",
+  "trusted_statement_review": "reviews/Burgers-B1/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "B1-V",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate"
+      ],
+      "supporting": [],
+      "declarations": []
+    },
+    {
+      "id": "B1-H",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le"
+      ]
+    },
+    {
+      "id": "B1-X",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds"
+      ]
+    },
+    {
+      "id": "B1-M",
+      "definitions": [
+        "CFDLean.Scalar.MonotoneFlux"
+      ],
+      "supporting": [
+        "CFDLean.Burgers.Rusanov.eval_mono_left",
+        "CFDLean.Burgers.Rusanov.eval_anti_right"
+      ],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.monotone"
+      ]
+    },
+    {
+      "id": "B1-I",
+      "definitions": [
+        "CFDLean.Burgers.Rusanov.incrementC",
+        "CFDLean.Burgers.Rusanov.incrementD"
+      ],
+      "supporting": [
+        "CFDLean.Burgers.Rusanov.incrementC_nonneg",
+        "CFDLean.Burgers.Rusanov.incrementD_nonneg",
+        "CFDLean.Burgers.Rusanov.incrementC_add_incrementD"
+      ],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+        "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate"
+      ]
+    },
+    {
+      "id": "B1-S",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.step_bounds",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Scalar.FiniteVolume.totalVariation": "CFDLean.Discrete.Periodic.TotalVariation",
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate": "CFDLean.Discrete.Periodic.TotalVariation",
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le": "CFDLean.Discrete.Periodic.TotalVariation",
+    "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds": "CFDLean.Discrete.Periodic.TotalVariation",
+    "CFDLean.Scalar.MonotoneFlux": "CFDLean.Schemes.Scalar.Monotone",
+    "CFDLean.Burgers.Rusanov.eval_mono_left": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.eval_anti_right": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.monotone": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.incrementC": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.incrementD": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.incrementC_nonneg": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.incrementD_nonneg": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.incrementC_add_incrementD": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.step_totalVariation_le": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Rusanov.step_bounds": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le": "CFDLean.Schemes.Burgers.RusanovStability",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds": "CFDLean.Schemes.Burgers.RusanovStability"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersB1Challenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersB1Challenge",
+    "statements_sha256": "c8f0c7e54f96b72dce34f5e7ccedeae7ba19028689a2b047bfba1ca87cf385bf",
+    "bridge_module": "CFDLean.Verification.BurgersB1Verify",
+    "comparator_challenge": "Challenges/BurgersB1.lean",
+    "comparator_challenge_module": "Challenges.BurgersB1",
+    "comparator_challenge_sha256": "a3f78de87b1f4f45e46d9485919dca69107558dcbe3b9c576b46fdef1b981b1b",
+    "comparator_config": "Challenges/BurgersB1.comparator.json",
+    "bindings": [
+      {
+        "id": "B1-M",
+        "statement": "CFDLean.Verification.BurgersB1Challenge.RusanovMonotone",
+        "theorem": "CFDLean.Verification.BurgersB1Verify.rusanov_monotone",
+        "type": "CFDLean.Verification.BurgersB1Challenge.RusanovMonotone",
+        "uses": "CFDLean.Burgers.Rusanov.monotone"
+      },
+      {
+        "id": "B1-H",
+        "statement": "CFDLean.Verification.BurgersB1Challenge.HartenTotalVariation",
+        "theorem": "CFDLean.Verification.BurgersB1Verify.harten_total_variation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB1Challenge.HartenTotalVariation I",
+        "uses": "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le"
+      },
+      {
+        "id": "B1-X",
+        "statement": "CFDLean.Verification.BurgersB1Challenge.IncrementalBounds",
+        "theorem": "CFDLean.Verification.BurgersB1Verify.incremental_bounds",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.BurgersB1Challenge.IncrementalBounds I",
+        "uses": "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds"
+      },
+      {
+        "id": "B1-S",
+        "statement": "CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation",
+        "theorem": "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB1Challenge.RusanovTotalVariation I",
+        "uses": "CFDLean.Burgers.Rusanov.step_totalVariation_le"
+      },
+      {
+        "id": "B1-S",
+        "statement": "CFDLean.Verification.BurgersB1Challenge.RusanovBounds",
+        "theorem": "CFDLean.Verification.BurgersB1Verify.rusanov_bounds",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.BurgersB1Challenge.RusanovBounds I",
+        "uses": "CFDLean.Burgers.Rusanov.step_bounds"
+      }
+    ]
+  }
+}

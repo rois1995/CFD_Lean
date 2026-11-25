@@ -29,6 +29,7 @@ import CFDLean.Discrete.Assembly
 import CFDLean.Discrete.Periodic.Grid
 import CFDLean.Discrete.Periodic.FiniteVolume
 import CFDLean.Discrete.Periodic.Conservation
+import CFDLean.Discrete.Periodic.TotalVariation
 
 import CFDLean.Entropy.PairFlux
 import CFDLean.Entropy.Production
@@ -39,9 +40,12 @@ import CFDLean.Schemes.Boundary.Stationary
 import CFDLean.Schemes.Boundary.Controls
 import CFDLean.Schemes.Boundary.AssemblyControls
 import CFDLean.Schemes.Scalar.NumericalFlux
+import CFDLean.Schemes.Scalar.Monotone
 import CFDLean.Schemes.Burgers.Rusanov
 import CFDLean.Schemes.Burgers.RusanovForwardEuler
 import CFDLean.Schemes.Burgers.Controls
+import CFDLean.Schemes.Burgers.RusanovStability
+import CFDLean.Schemes.Burgers.StabilityControls
 
 import CFDLean.Time.ExplicitEuler
 import CFDLean.Time.Controls

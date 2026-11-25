@@ -59,20 +59,30 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
                   "Time")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate", "B0": "pending", "JST1": "candidate"}
-# Burgers B0: scalar finite-volume core. specifications/Burgers-B0-results.json binds every frozen result ID of
-# specifications/Burgers-B0.md (frozen on `main` at B0_APPROVED) to its definitions and theorems, each in its module
-# (specifications/Burgers-B0-layout.md). The trusted statement file imports only Mathlib and is hash-pinned here, as is
-# the `lake comparator` challenge that restates the bridge theorems; each bridge theorem has the recorded type, which
-# is its trusted statement, and uses the promised implementation theorem of its result ID.
-B0_RESULTS = "specifications/Burgers-B0-results.json"
-B0_APPROVED = "9e4418d25b1a20d5df7e6c9b96b39ab367c58536"
-B0_STATEMENTS = "CFDLean/Verification/BurgersB0Challenge.lean"
-B0_STATEMENTS_SHA256 = "87e430df675886e918600ec7fd026c4afd256f4e7cfc9ce3dd244d984bfddf38"
-B0_CHALLENGE = "Challenges/BurgersB0.lean"
-B0_CHALLENGE_SHA256 = "62de556c1d1c37f57ccb98bbe0672e085e9a9a78fc62fb031900be76da40cb42"
-B0_COUNT = 12
-B0_BRIDGE_COUNT = 4
+                  "MC-N": "candidate", "B0": "pending", "B1": "pending",
+                  "JST1": "candidate"}
+# Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
+# frozen result ID of specifications/Burgers-<m>.md (frozen on `main` at `approved`) to its definitions and theorems,
+# each in its module. The trusted statement file imports only Mathlib and is hash-pinned here, as is the
+# `lake comparator` challenge that restates the bridge theorems; each bridge theorem has the recorded type, which is
+# its trusted statement, and uses a promised implementation theorem of its result ID. `count` is the number of promised
+# theorems, `bridges` the number of trusted bindings.
+BURGERS = {
+    "B0": {"results": "specifications/Burgers-B0-results.json",
+           "approved": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
+           "statements": "CFDLean/Verification/BurgersB0Challenge.lean",
+           "statements_sha256": "87e430df675886e918600ec7fd026c4afd256f4e7cfc9ce3dd244d984bfddf38",
+           "challenge": "Challenges/BurgersB0.lean",
+           "challenge_sha256": "62de556c1d1c37f57ccb98bbe0672e085e9a9a78fc62fb031900be76da40cb42",
+           "count": 12, "bridges": 4},
+    "B1": {"results": "specifications/Burgers-B1-results.json",
+           "approved": "62ee14a7ab8815be8a4e40b007ef6f5cf715e262",
+           "statements": "CFDLean/Verification/BurgersB1Challenge.lean",
+           "statements_sha256": "c8f0c7e54f96b72dce34f5e7ccedeae7ba19028689a2b047bfba1ca87cf385bf",
+           "challenge": "Challenges/BurgersB1.lean",
+           "challenge_sha256": "a3f78de87b1f4f45e46d9485919dca69107558dcbe3b9c576b46fdef1b981b1b",
+           "count": 9, "bridges": 5},
+}
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
 # the 92 bindings of the P1-P3 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
@@ -82,12 +92,12 @@ JST1_RESULTS = (("specifications/JST1/P1-results.json", 36), ("specifications/JS
                 ("specifications/JST1/P3-results.json", 20))
 JST1_COUNT = 92
 # MR-3: the pretty and raw types (`pp.notation false`, `pp.coercions false`; field `raw_type` of KernelAudit.lean) of
-# every promised theorem (M1-M5, MC-N, B0, JST1: the catalog index) are pinned in evidence/raw-types.json, whose hash is
+# every promised theorem (M1-M5, MC-N, Burgers, JST1: the catalog index) are pinned in evidence/raw-types.json, whose hash is
 # pinned here; a run fails if a type changes. The accepted v4.19 history has no raw types (they cannot be regenerated),
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "a95f4434724cbc3fee98dec1fd2f8ccec44bff9547a6710bab93e69cf108668f"
+RAW_TYPES_SHA256 = "afcf04d9f3a0c532db1b639026905d02040b6b3896bf0526457c38399f9ab23c"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"
@@ -416,80 +426,81 @@ def imported_modules(data):
     return re.findall(r"^[ \t]*(?:public[ \t]+)?import[ \t]+(\S+)", data.decode(), re.MULTILINE)
 
 
-def check_b0(rows, record, contract_text, read=read_source):
-    """Burgers B0: the result map covers exactly the frozen IDs; each bound definition and theorem is in its module,
-    each theorem is a root theorem with standard axioms; the trusted statements and the comparator challenge are the
-    pinned files and import no implementation; each bridge theorem states its trusted statement and uses the promised
-    theorem of its result ID."""
-    check_result_ids(record, contract_text, "B0")
+def check_burgers(milestone, rows, record, contract_text, read=read_source, pins=None):
+    """One Burgers milestone: the result map covers exactly the frozen IDs; each bound definition and theorem is in its
+    module, each theorem is a root theorem with standard axioms; the trusted statements and the comparator challenge
+    are the pinned files and import no implementation; each bridge theorem states its trusted statement and uses a
+    promised theorem of its result ID."""
+    pins = BURGERS[milestone] if pins is None else pins
+    check_result_ids(record, contract_text, milestone)
     modules = record["modules"]
 
     def theorem(name, module):
         row = rows.get(name)
         if (row is None or row["kind"] != "theorem" or not row["root"] or row["unsafe"]
                 or set(row["axioms"]) - ALLOWED or row["module"] != module):
-            raise ValueError(f"Missing B0 theorem: {name}")
+            raise ValueError(f"Missing {milestone} theorem: {name}")
         return row
 
     def definition(name, module):
         row = rows.get(name)
         if row is None or row["kind"] not in ("definition", "inductive") or row["module"] != module:
-            raise ValueError(f"Missing B0 definition: {name}")
+            raise ValueError(f"Missing {milestone} definition: {name}")
 
     bound = [name for result in record["results"]
              for field in ("definitions", "supporting", "declarations") for name in result[field]]
     if len(set(bound)) != len(bound) or set(bound) != set(modules):
-        raise ValueError("B0 bindings and module map disagree")
+        raise ValueError(f"{milestone} bindings and module map disagree")
     promised = {}
     for result in record["results"]:
         if not result["definitions"] and not result["declarations"]:
-            raise ValueError(f"B0 result without a binding: {result['id']}")
+            raise ValueError(f"{milestone} result without a binding: {result['id']}")
         for name in result["definitions"]:
             definition(name, modules[name])
         for name in result["supporting"] + result["declarations"]:
             theorem(name, modules[name])
         for name in result["declarations"]:
             promised[name] = result["id"]
-    if len(promised) != B0_COUNT:
-        raise ValueError("B0 promised theorems differ from the frozen scope")
+    if len(promised) != pins["count"]:
+        raise ValueError(f"{milestone} promised theorems differ from the frozen scope")
     trusted = record["trusted"]
-    if (trusted["statements"] != B0_STATEMENTS or trusted["statements_sha256"] != B0_STATEMENTS_SHA256
-            or trusted["comparator_challenge"] != B0_CHALLENGE
-            or trusted["comparator_challenge_sha256"] != B0_CHALLENGE_SHA256):
-        raise ValueError("B0 trusted files differ from the pinned record")
-    statements, challenge = read(B0_STATEMENTS), read(B0_CHALLENGE)
-    if (hashlib.sha256(statements).hexdigest() != B0_STATEMENTS_SHA256
-            or hashlib.sha256(challenge).hexdigest() != B0_CHALLENGE_SHA256):
-        raise ValueError("B0 trusted statement or challenge file changed")
+    if (trusted["statements"] != pins["statements"] or trusted["statements_sha256"] != pins["statements_sha256"]
+            or trusted["comparator_challenge"] != pins["challenge"]
+            or trusted["comparator_challenge_sha256"] != pins["challenge_sha256"]):
+        raise ValueError(f"{milestone} trusted files differ from the pinned record")
+    statements, challenge = read(pins["statements"]), read(pins["challenge"])
+    if (hashlib.sha256(statements).hexdigest() != pins["statements_sha256"]
+            or hashlib.sha256(challenge).hexdigest() != pins["challenge_sha256"]):
+        raise ValueError(f"{milestone} trusted statement or challenge file changed")
     imports = imported_modules(statements)
     if not imports or any(not module.startswith("Mathlib.") for module in imports):
-        raise ValueError("B0 trusted statements import a module outside Mathlib")
+        raise ValueError(f"{milestone} trusted statements import a module outside Mathlib")
     if imported_modules(challenge) != [trusted["statements_module"]]:
-        raise ValueError("B0 comparator challenge imports more than the trusted statements")
+        raise ValueError(f"{milestone} comparator challenge imports more than the trusted statements")
     bindings = trusted["bindings"]
     bridges = [binding["theorem"] for binding in bindings]
-    if len(bindings) != B0_BRIDGE_COUNT or len(set(bridges)) != len(bridges) or len(
+    if len(bindings) != pins["bridges"] or len(set(bridges)) != len(bridges) or len(
             {binding["statement"] for binding in bindings}) != len(bindings):
-        raise ValueError("B0 trusted bindings differ from the frozen scope")
+        raise ValueError(f"{milestone} trusted bindings differ from the frozen scope")
     for binding in bindings:
         statement, name = binding["statement"], binding["theorem"]
         definition(statement, trusted["statements_module"])
         row = theorem(name, trusted["bridge_module"])
         if not (row["type"] == binding["type"] and re.fullmatch(
                 r"(∀ [^,]*, )?" + re.escape(statement) + r"( I)?", binding["type"])):
-            raise ValueError(f"B0 bridge theorem does not state its trusted statement: {name}")
+            raise ValueError(f"{milestone} bridge theorem does not state its trusted statement: {name}")
         if promised.get(binding["uses"]) != binding["id"] or binding["uses"] not in row["direct"]:
-            raise ValueError(f"B0 bridge theorem does not use its promised theorem: {name}")
+            raise ValueError(f"{milestone} bridge theorem does not use its promised theorem: {name}")
     config = json.loads(read(trusted["comparator_config"]))
     if (config.get("challenge_module") != trusted["comparator_challenge_module"]
             or config.get("solution_module") != trusted["bridge_module"]
             or sorted(config.get("theorem_names", [])) != sorted(bridges) or config.get("definition_names", [])
             or set(config.get("permitted_axioms", [])) != ALLOWED):
-        raise ValueError("B0 comparator configuration differs from the trusted bindings")
+        raise ValueError(f"{milestone} comparator configuration differs from the trusted bindings")
     for name in bridges:
         if not re.search(r"^theorem " + re.escape(name.rsplit(".", 1)[1]) + r"\b.*:= sorry$", challenge.decode(),
                          re.MULTILINE):
-            raise ValueError(f"B0 comparator challenge does not state: {name}")
+            raise ValueError(f"{milestone} comparator challenge does not state: {name}")
     return sorted(promised), sorted(bridges)
 
 
@@ -763,8 +774,8 @@ def main(record_raw_types=False):
     with (evidence / "build.log").open("w") as log:
         subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
         # The trusted-statement bridges are not in the `CFDLean` umbrella; KernelAudit.lean imports them.
-        subprocess.run(["lake", "build", "CFDLean.Verification.BurgersB0Verify", JST1_SOLUTION], env=env, stdout=log,
-                       stderr=subprocess.STDOUT, check=True)
+        bridges = [f"CFDLean.Verification.Burgers{m}Verify" for m in BURGERS] + [JST1_SOLUTION]
+        subprocess.run(["lake", "build"] + bridges, env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
     result = subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "KernelAudit.lean"],
                             env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     (evidence / "kernel-inventory.log").write_text(result.stdout)
@@ -792,16 +803,22 @@ def main(record_raw_types=False):
     if hashlib.sha256(mcn_spec).hexdigest() != mcn["specification_sha256"]:
         raise ValueError("MC-N scope differs from the recorded specification")
     mcn_promised = check_mc_n(rows, mcn, promised, mcn_spec.decode())
-    b0 = json.loads((ROOT / B0_RESULTS).read_text())
-    b0_contract = (ROOT / b0["contract"]).read_bytes()
-    if (b0["approved_revision"] != B0_APPROVED or hashlib.sha256(b0_contract).hexdigest() != b0["contract_sha256"]
-            or b0_contract != git_blob(B0_APPROVED, b0["contract"])):
-        raise ValueError("Burgers B0 contract differs from frozen approval")
-    if (ROOT / b0["approval_record"]).read_bytes() != git_blob(B0_APPROVED, b0["approval_record"]):
-        raise ValueError("Burgers B0 approval record differs from immutable authorization")
-    b0_promised, b0_bridges = check_b0(rows, b0, b0_contract.decode())
-    if set(b0_promised) & (set(promised) | set(mcn_promised)):
-        raise ValueError("Burgers B0 rebinds an M1-M5 or MC-N promised theorem")
+    burgers, burgers_promised, burgers_bridges = {}, {}, {}
+    for milestone, pins in BURGERS.items():
+        record = json.loads((ROOT / pins["results"]).read_text())
+        data = (ROOT / record["contract"]).read_bytes()
+        if (record["approved_revision"] != pins["approved"]
+                or hashlib.sha256(data).hexdigest() != record["contract_sha256"]
+                or data != git_blob(pins["approved"], record["contract"])):
+            raise ValueError(f"Burgers {milestone} contract differs from frozen approval")
+        if (ROOT / record["approval_record"]).read_bytes() != git_blob(pins["approved"], record["approval_record"]):
+            raise ValueError(f"Burgers {milestone} approval record differs from immutable authorization")
+        names, bridges = check_burgers(milestone, rows, record, data.decode())
+        taken = set(promised) | set(mcn_promised) | {n for other in burgers_promised.values() for n in other}
+        if set(names) & taken:
+            raise ValueError(f"Burgers {milestone} rebinds a theorem promised by another milestone")
+        burgers[milestone], burgers_promised[milestone], burgers_bridges[milestone] = record, names, bridges
+    all_burgers = {name for names in burgers_promised.values() for name in names}
     lean_sources = sorted(str(path.relative_to(ROOT)) for path in (ROOT / "CFDLean").rglob("*.lean"))
     jst1 = []
     for path, count in JST1_RESULTS:
@@ -812,19 +829,19 @@ def main(record_raw_types=False):
     jst1_frozen = check_jst1_frozen(load_jst1_frozen((ROOT / JST1_FROZEN).read_bytes()), read_source, lean_sources)
     jst1_promised, jst1_delegated = check_jst1(rows, jst1, (ROOT / "KernelAudit.lean").read_text(), mcn_promised)
     jst1_comparator = check_jst1_comparator(rows, jst1)
-    if set(jst1_promised) & (set(promised) | set(mcn_promised) | set(b0_promised)):
-        raise ValueError("JST1 rebinds an M1-M5, MC-N or Burgers B0 promised theorem")
+    if set(jst1_promised) & (set(promised) | set(mcn_promised) | all_burgers):
+        raise ValueError("JST1 rebinds an M1-M5, MC-N or Burgers promised theorem")
     forbidden_scanned = check_forbidden_tokens(
         [path for path in lean_sources if path.startswith(FORBIDDEN_ROOT + "/")], read_source)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
     for milestone, index in [(m, catalog_index(m, r)) for m, r in
-                             [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn), ("B0", b0)]] + [
-                                ("JST1", jst1_catalog_index(jst1))]:
+                             [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)] + list(
+                                 burgers.items())] + [("JST1", jst1_catalog_index(jst1))]:
         if set(index) & set(catalog_expected):
             raise ValueError(f"{milestone} rebinds a theorem promised by another milestone")
         catalog_expected.update(index)
     if {name for name, (milestone, _) in catalog_expected.items() if milestone != "M1"} != set(promised) | set(
-            mcn_promised) | set(b0_promised) | set(jst1_promised):
+            mcn_promised) | all_burgers | set(jst1_promised):
         raise ValueError("Catalog promise index differs from the active promised theorems")
     catalog = json.loads((ROOT / CATALOG).read_text(encoding="utf-8"))
     catalog_entries = check_catalog(catalog, catalog_expected, rows)
@@ -904,8 +921,10 @@ def main(record_raw_types=False):
         "mc_n_results": MC_N_RESULTS, "mc_n_promised_theorems": mcn_promised,
         "mc_n_base_revision": MC_N_BASE_REVISION, "mc_n_unchanged_sources": mcn_sources,
         "catalog": CATALOG, "catalog_entries": catalog_entries,
-        "b0_results": B0_RESULTS, "b0_promised_theorems": b0_promised, "b0_trusted_bridge_theorems": b0_bridges,
-        "b0_approved_revision": B0_APPROVED, "b0_independent_acceptance": "pending implementation review",
+        "burgers": {milestone: {
+            "results": BURGERS[milestone]["results"], "approved_revision": BURGERS[milestone]["approved"],
+            "promised_theorems": burgers_promised[milestone], "trusted_bridge_theorems": burgers_bridges[milestone],
+            "independent_acceptance": "pending implementation review"} for milestone in BURGERS},
         "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
         "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
         "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,
@@ -914,10 +933,10 @@ def main(record_raw_types=False):
         "raw_types": RAW_TYPES, "raw_types_checked": raw_types_checked
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, "
-          f"{len(mcn_promised)} MC-N theorems, {len(b0_promised)} Burgers B0 theorems with {len(b0_bridges)} trusted "
-          f"bridge theorems, {len(jst1_promised)} JST1 theorems ({len(jst1_delegated)} delegated to MC-N), "
-          f"{catalog_entries} catalog entries, {raw_types_checked} pinned pretty and raw types, and all pinned "
-          f"dependencies.")
+          f"{len(mcn_promised)} MC-N theorems, {len(all_burgers)} Burgers theorems ({', '.join(BURGERS)}) with "
+          f"{sum(map(len, burgers_bridges.values()))} trusted bridge theorems, {len(jst1_promised)} JST1 theorems "
+          f"({len(jst1_delegated)} delegated to MC-N), {catalog_entries} catalog entries, {raw_types_checked} pinned "
+          f"pretty and raw types, and all pinned dependencies.")
 
 
 if __name__ == "__main__":

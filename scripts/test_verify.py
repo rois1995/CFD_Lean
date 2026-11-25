@@ -450,13 +450,14 @@ class CatalogTests(unittest.TestCase):
         expected = verify.m1_accepted_theorems((root / "Integrity.lean").read_text())
         for milestone, path in [("M2", "specifications/M2-results.json"), ("M3", "specifications/M3-results.json"),
                                 ("M4", "specifications/M4-results.json"), ("M5", "specifications/M5-results.json"),
-                                ("MC-N", verify.MC_N_RESULTS), ("B0", verify.B0_RESULTS)]:
+                                ("MC-N", verify.MC_N_RESULTS)] + [
+                                    (m, pins["results"]) for m, pins in verify.BURGERS.items()]:
             expected.update(verify.catalog_index(milestone, json.loads((root / path).read_text())))
         expected.update(verify.jst1_catalog_index([json.loads((root / path).read_text())
                                                    for path, _ in verify.JST1_RESULTS]))
         catalog = json.loads((root / verify.CATALOG).read_text(encoding="utf-8"))
-        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT + verify.B0_COUNT
-                         + verify.JST1_COUNT)
+        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT
+                         + sum(pins["count"] for pins in verify.BURGERS.values()) + verify.JST1_COUNT)
         rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
         self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
         verify.check_catalog_readme(catalog, (root / verify.CATALOG_README).read_text(encoding="utf-8"),
@@ -964,11 +965,13 @@ class MRLayoutTests(unittest.TestCase):
             verify.check_mc_n_sources(sorted(changed), changed.__getitem__, blob, moves)
 
 
-class BurgersB0Tests(unittest.TestCase):
+class BurgersTests(unittest.TestCase):
     STATEMENTS = b"import Mathlib.Basic.Real.Basic\n\ndef S.Claim : Prop := True\n"
     CHALLENGE = b"import S\n\nnamespace V\ntheorem claim : S.Claim := sorry\nend V\n"
 
     def fixture(self):
+        import hashlib
+
         def row(name, module, kind="theorem", direct=(), type_=""):
             return {"name": name, "kind": kind, "root": True, "unsafe": False, "axioms": ["propext"],
                     "module": module, "direct": list(direct), "type": type_}
@@ -977,105 +980,108 @@ class BurgersB0Tests(unittest.TestCase):
             row("A.helper", "M.Flux"), row("A.result", "M.Scheme"),
             row("S.Claim", "S", "definition"),
             row("V.claim", "V", direct=["A.result", "S.Claim"], type_="∀ {I : Type u_1}, S.Claim I")]}
+        pins = {"statements": "S.lean", "statements_sha256": hashlib.sha256(self.STATEMENTS).hexdigest(),
+                "challenge": "C.lean", "challenge_sha256": hashlib.sha256(self.CHALLENGE).hexdigest(),
+                "count": 1, "bridges": 1}
         record = {
-            "results": [{"id": "B0-P", "definitions": ["A.flux", "A.Law"], "supporting": [], "declarations": []},
-                        {"id": "B0-F", "definitions": [], "supporting": ["A.helper"], "declarations": ["A.result"]}],
+            "results": [{"id": "B9-P", "definitions": ["A.flux", "A.Law"], "supporting": [], "declarations": []},
+                        {"id": "B9-F", "definitions": [], "supporting": ["A.helper"], "declarations": ["A.result"]}],
             "modules": {"A.flux": "M.Flux", "A.Law": "M.Flux", "A.helper": "M.Flux", "A.result": "M.Scheme"},
             "trusted": {
-                "statements": verify.B0_STATEMENTS, "statements_module": "S",
-                "statements_sha256": verify.B0_STATEMENTS_SHA256, "bridge_module": "V",
-                "comparator_challenge": verify.B0_CHALLENGE, "comparator_challenge_module": "C",
-                "comparator_challenge_sha256": verify.B0_CHALLENGE_SHA256, "comparator_config": "config.json",
-                "bindings": [{"id": "B0-F", "statement": "S.Claim", "theorem": "V.claim",
+                "statements": "S.lean", "statements_module": "S",
+                "statements_sha256": pins["statements_sha256"], "bridge_module": "V",
+                "comparator_challenge": "C.lean", "comparator_challenge_module": "C",
+                "comparator_challenge_sha256": pins["challenge_sha256"], "comparator_config": "config.json",
+                "bindings": [{"id": "B9-F", "statement": "S.Claim", "theorem": "V.claim",
                               "type": "∀ {I : Type u_1}, S.Claim I", "uses": "A.result"}]}}
-        files = {verify.B0_STATEMENTS: self.STATEMENTS, verify.B0_CHALLENGE: self.CHALLENGE,
+        files = {"S.lean": self.STATEMENTS, "C.lean": self.CHALLENGE,
                  "config.json": json.dumps({
                      "challenge_module": "C", "solution_module": "V", "theorem_names": ["V.claim"],
                      "definition_names": [], "permitted_axioms": sorted(verify.ALLOWED)}).encode()}
-        return rows, record, files
+        return rows, record, files, pins
 
-    def check(self, rows, record, files):
-        import hashlib
-        from unittest import mock
-        with mock.patch.multiple(
-                verify, B0_COUNT=1, B0_BRIDGE_COUNT=1,
-                B0_STATEMENTS_SHA256=hashlib.sha256(files[verify.B0_STATEMENTS]).hexdigest(),
-                B0_CHALLENGE_SHA256=hashlib.sha256(files[verify.B0_CHALLENGE]).hexdigest()):
-            trusted = record["trusted"]
-            if trusted["statements_sha256"] == type(self).pins[0]:
-                trusted["statements_sha256"] = verify.B0_STATEMENTS_SHA256
-            if trusted["comparator_challenge_sha256"] == type(self).pins[1]:
-                trusted["comparator_challenge_sha256"] = verify.B0_CHALLENGE_SHA256
-            return verify.check_b0(rows, record, "| B0-P | claim |\n| B0-F | claim |", files.__getitem__)
+    def check(self, rows, record, files, pins):
+        return verify.check_burgers("B9", rows, record, "| B9-P | claim |\n| B9-F | claim |", files.__getitem__, pins)
 
-    pins = (verify.B0_STATEMENTS_SHA256, verify.B0_CHALLENGE_SHA256)
+    def rejects(self, mutations, errors=(ValueError,)):
+        for mutate in mutations:
+            rows, record, files, pins = self.fixture()
+            mutate(rows, record, files, pins)
+            with self.assertRaises(errors):
+                self.check(rows, record, files, pins)
 
     def test_valid_map(self):
         self.assertEqual(self.check(*self.fixture()), (["A.result"], ["V.claim"]))
 
     def test_result_ids_modules_and_axioms(self):
-        mutations = [
-            lambda rows, record, files: record["results"].pop(0),
-            lambda rows, record, files: record["results"][0].update(definitions=[]),
-            lambda rows, record, files: record["modules"].update({"A.result": "M.Other"}),
-            lambda rows, record, files: record["modules"].pop("A.helper"),
-            lambda rows, record, files: rows.pop("A.result"),
-            lambda rows, record, files: rows["A.result"].update(axioms=["sorryAx"]),
-            lambda rows, record, files: rows["A.helper"].update(kind="definition"),
-            lambda rows, record, files: rows["A.flux"].update(module="M.Other"),
-            lambda rows, record, files: rows["A.result"].update(unsafe=True)]
-        for mutate in mutations:
-            rows, record, files = self.fixture()
-            mutate(rows, record, files)
-            with self.assertRaises((ValueError, KeyError)):
-                self.check(rows, record, files)
+        self.rejects([
+            lambda rows, record, files, pins: record["results"].pop(0),
+            lambda rows, record, files, pins: record["results"][0].update(definitions=[]),
+            lambda rows, record, files, pins: record["modules"].update({"A.result": "M.Other"}),
+            lambda rows, record, files, pins: record["modules"].pop("A.helper"),
+            lambda rows, record, files, pins: rows.pop("A.result"),
+            lambda rows, record, files, pins: rows["A.result"].update(axioms=["sorryAx"]),
+            lambda rows, record, files, pins: rows["A.helper"].update(kind="definition"),
+            lambda rows, record, files, pins: rows["A.flux"].update(module="M.Other"),
+            lambda rows, record, files, pins: rows["A.result"].update(unsafe=True),
+            lambda rows, record, files, pins: pins.update(count=2)], (ValueError, KeyError))
 
     def test_trusted_files_are_pinned_and_independent(self):
-        mutations = [
-            lambda rows, record, files: record["trusted"].update(statements_sha256="0" * 64),
-            lambda rows, record, files: record["trusted"].update(comparator_challenge_sha256="0" * 64),
-            lambda rows, record, files: record["trusted"].update(statements="CFDLean/Other.lean"),
-            lambda rows, record, files: files.update(
-                {verify.B0_STATEMENTS: b"import Mathlib.Basic.Real.Basic\nimport CFDLean.Schemes.Burgers.Rusanov\n"}),
-            lambda rows, record, files: files.update({verify.B0_STATEMENTS: b"def S.Claim : Prop := True\n"}),
-            lambda rows, record, files: files.update(
-                {verify.B0_CHALLENGE: b"import S\nimport V\ntheorem claim : S.Claim := sorry\n"}),
-            lambda rows, record, files: files.update(
-                {verify.B0_CHALLENGE: b"import S\ntheorem other : S.Claim := sorry\n"})]
-        for mutate in mutations:
-            rows, record, files = self.fixture()
-            mutate(rows, record, files)
-            with self.assertRaises(ValueError):
-                self.check(rows, record, files)
+        import hashlib
+        dependent = b"import Mathlib.Basic.Real.Basic\nimport CFDLean.Schemes.Burgers.Rusanov\n"
+        self.rejects([
+            lambda rows, record, files, pins: record["trusted"].update(statements_sha256="0" * 64),
+            lambda rows, record, files, pins: record["trusted"].update(comparator_challenge_sha256="0" * 64),
+            lambda rows, record, files, pins: record["trusted"].update(statements="CFDLean/Other.lean"),
+            lambda rows, record, files, pins: files.update({"S.lean": self.STATEMENTS + b"-- edit\n"}),
+            lambda rows, record, files, pins: files.update({"C.lean": self.CHALLENGE + b"-- edit\n"}),
+            # a statement file with an implementation import is rejected even when every pin follows it
+            lambda rows, record, files, pins: (
+                files.update({"S.lean": dependent}),
+                pins.update(statements_sha256=hashlib.sha256(dependent).hexdigest()),
+                record["trusted"].update(statements_sha256=hashlib.sha256(dependent).hexdigest())),
+            lambda rows, record, files, pins: self.repin(files, pins, record, "S.lean", b"def S.Claim : Prop := True\n"),
+            lambda rows, record, files, pins: self.repin(
+                files, pins, record, "C.lean", b"import S\nimport V\ntheorem claim : S.Claim := sorry\n"),
+            lambda rows, record, files, pins: self.repin(
+                files, pins, record, "C.lean", b"import S\ntheorem other : S.Claim := sorry\n")])
 
-    def test_real_pins_reject_changed_files(self):
-        rows, record, files = self.fixture()
-        with self.assertRaises(ValueError):
-            verify.check_b0(rows, record, "| B0-P | claim |\n| B0-F | claim |", files.__getitem__)
+    @staticmethod
+    def repin(files, pins, record, path, data):
+        import hashlib
+        digest = hashlib.sha256(data).hexdigest()
+        files[path] = data
+        key = "statements_sha256" if path == "S.lean" else "challenge_sha256"
+        pins[key] = digest
+        record["trusted"]["statements_sha256" if path == "S.lean" else "comparator_challenge_sha256"] = digest
 
     def test_bridge_states_its_statement_and_uses_its_theorem(self):
-        mutations = [
-            lambda rows, record, files: rows["V.claim"].update(type="∀ {I : Type u_1}, S.Other I"),
-            lambda rows, record, files: (rows["V.claim"].update(type="True"),
-                                         record["trusted"]["bindings"][0].update(type="True")),
-            lambda rows, record, files: rows["V.claim"].update(direct=["S.Claim"]),
-            lambda rows, record, files: record["trusted"]["bindings"][0].update(uses="A.helper"),
-            lambda rows, record, files: record["trusted"]["bindings"][0].update(id="B0-P"),
-            lambda rows, record, files: rows["V.claim"].update(module="M.Scheme"),
-            lambda rows, record, files: rows["V.claim"].update(axioms=["sorryAx"]),
-            lambda rows, record, files: rows["S.Claim"].update(module="M.Scheme"),
-            lambda rows, record, files: record["trusted"].update(bindings=[]),
-            lambda rows, record, files: files.update({"config.json": json.dumps({
-                "challenge_module": "C", "solution_module": "V", "theorem_names": [],
-                "permitted_axioms": sorted(verify.ALLOWED)}).encode()}),
-            lambda rows, record, files: files.update({"config.json": json.dumps({
-                "challenge_module": "C", "solution_module": "V", "theorem_names": ["V.claim"],
-                "permitted_axioms": sorted(verify.ALLOWED) + ["sorryAx"]}).encode()}),
-            lambda rows, record, files: files.update({"config.json": json.dumps({
-                "challenge_module": "C", "solution_module": "V", "theorem_names": ["V.claim"],
-                "definition_names": ["S.Claim"], "permitted_axioms": sorted(verify.ALLOWED)}).encode()})]
-        for mutate in mutations:
-            rows, record, files = self.fixture()
-            mutate(rows, record, files)
-            with self.assertRaises(ValueError):
-                self.check(rows, record, files)
+        def config(**changes):
+            base = {"challenge_module": "C", "solution_module": "V", "theorem_names": ["V.claim"],
+                    "definition_names": [], "permitted_axioms": sorted(verify.ALLOWED)}
+            base.update(changes)
+            return {"config.json": json.dumps(base).encode()}
+        self.rejects([
+            lambda rows, record, files, pins: rows["V.claim"].update(type="∀ {I : Type u_1}, S.Other I"),
+            lambda rows, record, files, pins: (rows["V.claim"].update(type="True"),
+                                               record["trusted"]["bindings"][0].update(type="True")),
+            lambda rows, record, files, pins: rows["V.claim"].update(direct=["S.Claim"]),
+            lambda rows, record, files, pins: record["trusted"]["bindings"][0].update(uses="A.helper"),
+            lambda rows, record, files, pins: record["trusted"]["bindings"][0].update(id="B9-P"),
+            lambda rows, record, files, pins: rows["V.claim"].update(module="M.Scheme"),
+            lambda rows, record, files, pins: rows["V.claim"].update(axioms=["sorryAx"]),
+            lambda rows, record, files, pins: rows["S.Claim"].update(module="M.Scheme"),
+            lambda rows, record, files, pins: record["trusted"].update(bindings=[]),
+            lambda rows, record, files, pins: files.update(config(theorem_names=[])),
+            lambda rows, record, files, pins: files.update(
+                config(permitted_axioms=sorted(verify.ALLOWED) + ["sorryAx"])),
+            lambda rows, record, files, pins: files.update(config(definition_names=["S.Claim"])),
+            lambda rows, record, files, pins: files.update(config(solution_module="C"))])
+
+    def test_committed_maps_follow_the_pinned_table(self):
+        for milestone, pins in verify.BURGERS.items():
+            record = json.loads((verify.ROOT / pins["results"]).read_text())
+            self.assertEqual(record["approved_revision"], pins["approved"])
+            self.assertEqual(len(record["trusted"]["bindings"]), pins["bridges"])
+            self.assertEqual(sum(len(r["declarations"]) for r in record["results"]), pins["count"])
+            self.assertTrue(all(r["id"].startswith(milestone + "-") for r in record["results"]))
