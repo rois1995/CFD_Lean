@@ -1,0 +1,1494 @@
+XSTMT Paper1.Spec.P1_1_0 :: ∀ (d : Nat) (g : Paper1.Gas) (U : Paper1.State d),
+  Paper1.Admissible g U → HasFDerivAt (Paper1.entropyFun g) (NumCore.pairCLM (Paper1.entropyVars g U)) U
+XSTMT Paper1.Spec.P1_1_1 :: ∀ (γ : Real),
+  LT.lt (OfNat.ofNat 1) γ →
+    And
+      (∀ (a b : Real),
+        And (LE.le (HMul.hMul (Paper1.lamLow γ) (Paper1.thermoQ γ a b)) (Paper1.thermoQt γ a b))
+          (LE.le (Paper1.thermoQt γ a b) (HMul.hMul (Paper1.lamHigh γ) (Paper1.thermoQ γ a b))))
+      (And
+        (Exists fun (a : Real) =>
+          Exists fun (b : Real) =>
+            And (Ne (Prod.mk a b) (Prod.mk (OfNat.ofNat 0) (OfNat.ofNat 0)))
+              (Eq (Paper1.thermoQt γ a b) (HMul.hMul (Paper1.lamLow γ) (Paper1.thermoQ γ a b))))
+        (Exists fun (a : Real) =>
+          Exists fun (b : Real) =>
+            And (Ne (Prod.mk a b) (Prod.mk (OfNat.ofNat 0) (OfNat.ofNat 0)))
+              (Eq (Paper1.thermoQt γ a b) (HMul.hMul (Paper1.lamHigh γ) (Paper1.thermoQ γ a b)))))
+XSTMT Paper1.Spec.P1_1_2 :: ∀ (d : Nat) (g : Paper1.Gas) (Ui Uk : Paper1.State d),
+  Paper1.Admissible g Ui →
+    Paper1.Admissible g Uk →
+      let dw := HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui);
+      And
+        (LE.le (HMul.hMul (Paper1.lamLow g.γ) (NumCore.pairF dw (HSub.hSub Uk Ui)))
+          (NumCore.pairF dw (HSub.hSub (Paper1.enthalpyState g Uk) (Paper1.enthalpyState g Ui))))
+        (LE.le (NumCore.pairF dw (HSub.hSub (Paper1.enthalpyState g Uk) (Paper1.enthalpyState g Ui)))
+          (HMul.hMul (Paper1.lamHigh g.γ) (NumCore.pairF dw (HSub.hSub Uk Ui))))
+XSTMT Paper1.Spec.P1_1_3 :: ∀ (d : Nat) (g : Paper1.Gas) (Ui Uk : Paper1.State d),
+  Paper1.Admissible g Ui →
+    Paper1.Admissible g Uk →
+      LE.le (OfNat.ofNat 0)
+        (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui)) (HSub.hSub Uk Ui))
+XSTMT Paper1.Spec.P1_1_4 :: And
+  (∀ (γ : Real),
+    LT.lt (OfNat.ofNat 1) γ →
+      And (LT.lt (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 4)) (Paper1.lamLow γ))
+        (And (LT.lt (Paper1.lamLow γ) (OfNat.ofNat 1)) (LT.lt (OfNat.ofNat 1) (Paper1.lamHigh γ))))
+  (And (StrictAntiOn Paper1.lamLow (Set.Ioi (OfNat.ofNat 1)))
+    (And (Filter.Tendsto Paper1.lamLow (nhdsWithin (OfNat.ofNat 1) (Set.Ioi (OfNat.ofNat 1))) (nhds (OfNat.ofNat 1)))
+      (And (Filter.Tendsto Paper1.lamLow Filter.atTop (nhds (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 4))))
+        (And
+          (LT.lt (HDiv.hDiv (OfNat.ofNat 8258) (OfNat.ofNat 10000))
+            (Paper1.lamLow (HDiv.hDiv (OfNat.ofNat 14) (OfNat.ofNat 10))))
+          (LT.lt (Paper1.lamLow (HDiv.hDiv (OfNat.ofNat 14) (OfNat.ofNat 10)))
+            (HDiv.hDiv (OfNat.ofNat 8259) (OfNat.ofNat 10000)))))))
+XSTMT Paper1.Spec.P1_1_5 :: ∀ (d : Nat) (g : Paper1.Gas) (Ui Uk : Paper1.State d) (lam eps2 : Real),
+  Paper1.Admissible g Ui →
+    Paper1.Admissible g Uk →
+      LE.le (OfNat.ofNat 0) lam →
+        LE.le (OfNat.ofNat 0) eps2 →
+          let dw := HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui);
+          let d2 :=
+            HSMul.hSMul (HMul.hMul lam eps2) (HSub.hSub (Paper1.enthalpyState g Ui) (Paper1.enthalpyState g Uk));
+          And
+            (Eq (NumCore.pairF dw d2)
+              (HMul.hMul (Neg.neg (HMul.hMul eps2 lam))
+                (NumCore.pairF dw (HSub.hSub (Paper1.enthalpyState g Uk) (Paper1.enthalpyState g Ui)))))
+            (And
+              (LE.le (NumCore.pairF dw d2)
+                (HMul.hMul (HMul.hMul (HMul.hMul (Neg.neg (Paper1.lamLow g.γ)) eps2) lam)
+                  (NumCore.pairF dw (HSub.hSub Uk Ui))))
+              (LE.le
+                (HMul.hMul (HMul.hMul (HMul.hMul (Neg.neg (Paper1.lamLow g.γ)) eps2) lam)
+                  (NumCore.pairF dw (HSub.hSub Uk Ui)))
+                (OfNat.ofNat 0)))
+XSTMT Paper1.Spec.P1_1_6 :: ∀ (d : Nat) (g : Paper1.Gas) (ε : Real),
+  LT.lt (OfNat.ofNat 0) ε →
+    And
+      (Exists fun (Ui : Paper1.State d) =>
+        Exists fun (Uk : Paper1.State d) =>
+          And (Paper1.Admissible g Ui)
+            (And (Paper1.Admissible g Uk)
+              (And
+                (LT.lt (OfNat.ofNat 0)
+                  (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui)) (HSub.hSub Uk Ui)))
+                (LT.lt
+                  (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui))
+                    (HSub.hSub (Paper1.enthalpyState g Uk) (Paper1.enthalpyState g Ui)))
+                  (HMul.hMul (HAdd.hAdd (Paper1.lamLow g.γ) ε)
+                    (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui))
+                      (HSub.hSub Uk Ui)))))))
+      (Exists fun (Ui : Paper1.State d) =>
+        Exists fun (Uk : Paper1.State d) =>
+          And (Paper1.Admissible g Ui)
+            (And (Paper1.Admissible g Uk)
+              (And
+                (LT.lt (OfNat.ofNat 0)
+                  (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui)) (HSub.hSub Uk Ui)))
+                (LT.lt
+                  (HMul.hMul (HSub.hSub (Paper1.lamHigh g.γ) ε)
+                    (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui)) (HSub.hSub Uk Ui)))
+                  (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g Ui))
+                    (HSub.hSub (Paper1.enthalpyState g Uk) (Paper1.enthalpyState g Ui)))))))
+XSTMT Paper1.Spec.P1_2_0 :: ∀ (d : Nat) (g : Paper1.Gas) (U : Paper1.State d) (y : NumCore.Vec d),
+  Paper1.Admissible g U →
+    Eq
+      (HSub.hSub (NumCore.pairF (Paper1.entropyVars g U) (Paper1.physFlux g U y))
+        (HMul.hMul (Paper1.entropyFun g U) (NumCore.dot (Paper1.vel U) y)))
+      (NumCore.dot (Paper1.fluxPot U) y)
+XSTMT Paper1.Spec.P1_2_1 :: ∀ (ι κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (F : ι → ι → κ → Real) (w : ι → κ → Real),
+  (∀ (i k : ι), Eq (F k i) (Neg.neg (F i k))) →
+    And (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (k : ι) => F i k) (OfNat.ofNat 0))
+      (Eq (Neg.neg (Finset.univ.sum fun (i : ι) => NumCore.pairF (w i) (Finset.univ.sum fun (k : ι) => F i k)))
+        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+          (Finset.univ.sum fun (i : ι) =>
+            Finset.univ.sum fun (k : ι) => NumCore.pairF (HSub.hSub (w k) (w i)) (F i k))))
+XSTMT Paper1.Spec.P1_2_2 :: ∀ (ι S κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (d : Nat) (w : S → κ → Real) (ψ : S → NumCore.Vec d)
+  (Fec : S → S → NumCore.Vec d → κ → Real) (n : ι → ι → NumCore.Vec d) (u : ι → S),
+  (∀ (i k : ι), Eq (n k i) (Neg.neg (n i k))) →
+    (∀ (a b : S) (y : NumCore.Vec d), Eq (Fec a b y) (Fec b a y)) →
+      (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+        (∀ (a b : S) (y : NumCore.Vec d),
+            Eq (NumCore.pairF (HSub.hSub (w b) (w a)) (Fec a b y)) (NumCore.dot (HSub.hSub (ψ b) (ψ a)) y)) →
+          let beta := fun (i : ι) => Neg.neg (Finset.univ.sum fun (k : ι) => n i k);
+          let Rc := fun (i : ι) => Finset.univ.sum fun (k : ι) => Fec (u i) (u k) (n i k);
+          And
+            (Eq (Neg.neg (Finset.univ.sum fun (i : ι) => NumCore.pairF (w (u i)) (Rc i)))
+              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (Finset.univ.sum fun (i : ι) =>
+                  Finset.univ.sum fun (k : ι) => NumCore.dot (HSub.hSub (ψ (u k)) (ψ (u i))) (n i k))))
+            (Eq
+              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (Finset.univ.sum fun (i : ι) =>
+                  Finset.univ.sum fun (k : ι) => NumCore.dot (HSub.hSub (ψ (u k)) (ψ (u i))) (n i k)))
+              (Finset.univ.sum fun (i : ι) => NumCore.dot (ψ (u i)) (beta i)))
+XSTMT Paper1.Spec.P1_2_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (W : C → Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  M.Valid →
+    (∀ (T : C), Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => W T a) (M.vol T)) →
+      And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.nW W i k) (Neg.neg (M.beta i)))
+        (∀ (i : ι), M.Closed i → Eq (M.beta i) (OfNat.ofNat 0))
+XSTMT Paper1.Spec.P1_2_4 :: ∀ (a b : Real),
+  LT.lt (OfNat.ofNat 0) a →
+    LT.lt (OfNat.ofNat 0) b →
+      And (Eq (NumCore.logMean a b) (NumCore.logMean b a))
+        (And (Eq (NumCore.logMean a a) a)
+          (And (LT.lt (OfNat.ofNat 0) (NumCore.logMean a b))
+            (Eq (HSub.hSub b a) (HMul.hMul (NumCore.logMean a b) (HSub.hSub (Real.log b) (Real.log a))))))
+XSTMT Paper1.Spec.P1_2_5 :: ∀ (d : Nat) (g : Paper1.Gas),
+  And
+    (∀ (Ua Ub : Paper1.State d) (y : NumCore.Vec d),
+      Paper1.Admissible g Ua →
+        Paper1.Admissible g Ub →
+          Eq
+            (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Ub) (Paper1.entropyVars g Ua)) (Paper1.ismailRoe g Ua Ub y))
+            (NumCore.dot (HSub.hSub (Paper1.fluxPot Ub) (Paper1.fluxPot Ua)) y))
+    (And (∀ (Ua Ub : Paper1.State d) (y : NumCore.Vec d), Eq (Paper1.ismailRoe g Ua Ub y) (Paper1.ismailRoe g Ub Ua y))
+      (And (∀ (Ua Ub : Paper1.State d), IsLinearMap Real (Paper1.ismailRoe g Ua Ub))
+        (∀ (U : Paper1.State d) (y : NumCore.Vec d),
+          Paper1.Admissible g U → Eq (Paper1.ismailRoe g U U y) (Paper1.physFlux g U y))))
+XSTMT Paper1.Spec.P1_2_6 :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : Nat) (Fec : S → S → NumCore.Vec d → κ → Real)
+  (n : ι → ι → NumCore.Vec d) (u : ι → S) (ut : ι → κ → Real) (lam eps2 eps4 : ι → ι → Real) (Nstar : ι → Finset ι)
+  (b : ι → κ → Real),
+  (∀ (i k : ι), Eq (n k i) (Neg.neg (n i k))) →
+    (∀ (a b : S) (y : NumCore.Vec d), Eq (Fec a b y) (Fec b a y)) →
+      (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+        (∀ (i k : ι), Eq (lam k i) (lam i k)) →
+          (∀ (i k : ι), Eq (eps2 k i) (eps2 i k)) →
+            (∀ (i k : ι), Eq (eps4 k i) (eps4 i k)) →
+              let L := fun (i : ι) => (Nstar i).sum fun (k : ι) => HSub.hSub (ut k) (ut i);
+              let F := fun (i k : ι) =>
+                HAdd.hAdd (Fec (u i) (u k) (n i k))
+                  (HSMul.hSMul (lam i k)
+                    (HSub.hSub (HSMul.hSMul (eps2 i k) (HSub.hSub (ut i) (ut k)))
+                      (HSMul.hSMul (eps4 i k) (HSub.hSub (L i) (L k)))));
+              And (∀ (i k : ι), Eq (F k i) (Neg.neg (F i k)))
+                (Eq (Finset.univ.sum fun (i : ι) => HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => F i k)) (b i))
+                  (Neg.neg (Finset.univ.sum fun (i : ι) => b i)))
+XSTMT Paper1.Spec.P1_2_7 :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : Nat) (Fec : S → S → NumCore.Vec d → κ → Real)
+  (phys : S → NumCore.Vec d → κ → Real) (n : ι → ι → NumCore.Vec d) (U : S) (ut0 : κ → Real)
+  (lam eps2 eps4 : ι → ι → Real) (Nstar : ι → Finset ι),
+  (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+    (∀ (y : NumCore.Vec d), Eq (Fec U U y) (phys U y)) →
+      let beta := fun (i : ι) => Neg.neg (Finset.univ.sum fun (k : ι) => n i k);
+      let L := fun (i : ι) => (Nstar i).sum fun (_k : ι) => HSub.hSub ut0 ut0;
+      let F := fun (i k : ι) =>
+        HAdd.hAdd (Fec U U (n i k))
+          (HSMul.hSMul (lam i k)
+            (HSub.hSub (HSMul.hSMul (eps2 i k) (HSub.hSub ut0 ut0)) (HSMul.hSMul (eps4 i k) (HSub.hSub (L i) (L k)))));
+      ∀ (i : ι), Eq (HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => F i k)) (phys U (beta i))) (OfNat.ofNat 0)
+XSTMT Paper1.Spec.P1_3_1 :: ∀ (ι σ : Type) [inst : Fintype ι] [inst_1 : Fintype σ] (d : Nat) (ω : σ → Real) (χ : σ → ι → ι → Bool)
+  (n vb : ι → ι → NumCore.Vec d) (cb : ι → ι → Real) (bnd : ι → Real) (i : ι),
+  (∀ (s : σ), LE.le (OfNat.ofNat 0) (ω s)) →
+    Eq (Finset.univ.sum fun (s : σ) => ω s) (OfNat.ofNat 1) →
+      (∀ (k : ι), (Exists fun (s : σ) => Eq (χ s i k) Bool.true) → LT.lt (OfNat.ofNat 0) (Paper1.piShare ω χ i k)) →
+        (∀ (k : ι), (∀ (s : σ), Eq (χ s i k) Bool.false) → Eq (n i k) (OfNat.ofNat 0)) →
+          Eq
+            (Finset.univ.sum fun (s : σ) =>
+              HMul.hMul (ω s) (Paper1.LamOn vb cb bnd (fun (j k : ι) => Paper1.nSplit ω χ n s j k) i))
+            (Paper1.LamOn vb cb bnd n i)
+XSTMT Paper1.Spec.P1_3_2 :: ∀ (ι σ κ : Type) [inst : Fintype ι] [inst_1 : Fintype σ] (ω : σ → Real) (χ : σ → ι → ι → Bool),
+  And
+    (∀ (ut : ι → κ → Real) (Nstar : ι → Finset ι) (i : ι),
+      Eq
+        (Finset.univ.sum fun (s : σ) =>
+          HSMul.hSMul (ω s)
+            ((Nstar i).sum fun (k : ι) => ite (Eq (χ s i k) Bool.true) (HSub.hSub (ut k) (ut i)) (OfNat.ofNat 0)))
+        ((Nstar i).sum fun (k : ι) => HSMul.hSMul (Paper1.piShare ω χ i k) (HSub.hSub (ut k) (ut i))))
+    (∀ (f : ι → ι → Real) (i : ι),
+      Eq
+        (Finset.univ.sum fun (s : σ) =>
+          HMul.hMul (ω s) (Finset.univ.sum fun (k : ι) => ite (Eq (χ s i k) Bool.true) (f i k) (OfNat.ofNat 0)))
+        (Finset.univ.sum fun (k : ι) => HMul.hMul (Paper1.piShare ω χ i k) (f i k)))
+XSTMT Paper1.Spec.P1_3_3 :: ∀ (ι σ κ : Type) [Fintype ι] [inst : Fintype σ] (d : Nat) (ω : σ → Real) (χ : σ → ι → ι → Bool)
+  (n e vb : ι → ι → NumCore.Vec d) (cb : ι → ι → Real) (Lam : ι → Real) (a : Real) (D : κ → Real) (i k : ι),
+  (∀ (s : σ), LE.le (OfNat.ofNat 0) (ω s)) →
+    LT.lt (OfNat.ofNat 0) (Paper1.piShare ω χ i k) →
+      LT.lt (OfNat.ofNat 0) (Paper1.lamHat (vb i k) (cb i k) (e i k) (n i k)) →
+        LT.lt (OfNat.ofNat 0) (Lam i) →
+          LT.lt (OfNat.ofNat 0) (Lam k) →
+            Eq
+              (Finset.univ.sum fun (s : σ) =>
+                HSMul.hSMul (ω s)
+                  (ite (Eq (χ s i k) Bool.true)
+                    (HSMul.hSMul (Paper1.coefOn vb cb e Lam a (fun (j l : ι) => Paper1.nSplit ω χ n s j l) i k) D)
+                    (OfNat.ofNat 0)))
+              (HSMul.hSMul (HMul.hMul (HPow.hPow (Paper1.piShare ω χ i k) a) (Paper1.coefOn vb cb e Lam a n i k)) D)
+XSTMT Paper1.Spec.P1_3_4 :: ∀ (ι : Type) (d : Nat) (n e vb : ι → ι → NumCore.Vec d) (cb : ι → ι → Real) (Lam : ι → Real) (a p : Real) (i k : ι),
+  Eq p (OfNat.ofNat 1) →
+    Eq (HMul.hMul (HPow.hPow p a) (Paper1.coefOn vb cb e Lam a n i k)) (Paper1.coefOn vb cb e Lam a n i k)
+XSTMT Paper1.Spec.P1_4_0 :: ∀ (d : Nat) (g : Paper1.Gas) (P : Paper1.ViscParams) (r T : Real) (v : NumCore.Vec d),
+  LT.lt (OfNat.ofNat 0) r →
+    LT.lt (OfNat.ofNat 0) T →
+      LT.lt (OfNat.ofNat 0) P.R →
+        And
+          (∀ (α : Fin d),
+            Eq
+              (Paper1.entropyVars g (Paper1.primState g r v (HMul.hMul (HMul.hMul r P.R) T))
+                (Paper1.Channel.momentum α))
+              (HDiv.hDiv (v α) (HMul.hMul P.R T)))
+          (And
+            (Eq (Paper1.entropyVars g (Paper1.primState g r v (HMul.hMul (HMul.hMul r P.R) T)) Paper1.Channel.energy)
+              (HDiv.hDiv (Neg.neg (OfNat.ofNat 1)) (HMul.hMul P.R T)))
+            (∀ (Gv : Fin d → Fin d → Real) (GT : NumCore.Vec d) (G : Matrix (Paper1.Channel d) (Fin d) Real),
+              (∀ (α β : Fin d),
+                  Eq (G (Paper1.Channel.momentum α) β)
+                    (HSub.hSub (HDiv.hDiv (Gv α β) (HMul.hMul P.R T))
+                      (HDiv.hDiv (HMul.hMul (v α) (GT β)) (HMul.hMul P.R (HPow.hPow T (OfNat.ofNat 2)))))) →
+                (∀ (β : Fin d),
+                    Eq (G Paper1.Channel.energy β) (HDiv.hDiv (GT β) (HMul.hMul P.R (HPow.hPow T (OfNat.ofNat 2))))) →
+                  Eq
+                    (Paper1.viscFlux P (Paper1.entropyVars g (Paper1.primState g r v (HMul.hMul (HMul.hMul r P.R) T)))
+                      G)
+                    (Paper1.nsFlux P v Gv GT)))
+XSTMT Paper1.Spec.P1_4_1 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : Nat)
+  (M : NumCore.WMesh ι C d) (w : ι → κ → Real) (Fl : C → Matrix κ (Fin d) Real),
+  Eq (Finset.univ.sum fun (i : ι) => NumCore.pairF (w i) (M.galerkinRes Fl i))
+    (Neg.neg
+      (Finset.univ.sum fun (T : C) => HMul.hMul (HMul.hMul (M.ω T) (M.vol T)) (NumCore.frob (M.gradW w T) (Fl T))))
+XSTMT Paper1.Spec.P1_4_2 :: ∀ (d : Nat) (P : Paper1.ViscParams) (wb : Paper1.State d),
+  LE.le d (OfNat.ofNat 3) →
+    LE.le (OfNat.ofNat 0) P.μ →
+      LE.le (OfNat.ofNat 0) P.κ →
+        LT.lt (OfNat.ofNat 0) P.R →
+          LT.lt (wb Paper1.Channel.energy) (OfNat.ofNat 0) →
+            And
+              (∀ (G : Matrix (Paper1.Channel d) (Fin d) Real),
+                LE.le (OfNat.ofNat 0) (NumCore.frob G (Paper1.viscFlux P wb G)))
+              (IsLinearMap Real (Paper1.viscFlux P wb))
+XSTMT Paper1.Spec.P1_4_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (P : Paper1.ViscParams) (w : ι → Paper1.State d),
+  M.Valid →
+    LE.le d (OfNat.ofNat 3) →
+      LE.le (OfNat.ofNat 0) P.μ →
+        LE.le (OfNat.ofNat 0) P.κ →
+          LT.lt (OfNat.ofNat 0) P.R →
+            (∀ (i : ι), LT.lt (w i Paper1.Channel.energy) (OfNat.ofNat 0)) →
+              let wbar := fun (T : C) =>
+                HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HAdd.hAdd d.cast (OfNat.ofNat 1)))
+                  (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => w (DFunLike.coe (M.vert T) a));
+              let Fl := fun (T : C) => Paper1.viscFlux P (wbar T) (M.gradW w T);
+              And (∀ (T : C), LT.lt (wbar T Paper1.Channel.energy) (OfNat.ofNat 0))
+                (And
+                  (Eq (Finset.univ.sum fun (i : ι) => NumCore.pairF (w i) (M.galerkinRes Fl i))
+                    (Neg.neg
+                      (Finset.univ.sum fun (T : C) =>
+                        HMul.hMul (HMul.hMul (M.ω T) (M.vol T)) (NumCore.frob (M.gradW w T) (Fl T)))))
+                  (LE.le (Finset.univ.sum fun (i : ι) => NumCore.pairF (w i) (M.galerkinRes Fl i)) (OfNat.ofNat 0)))
+XSTMT Paper1.Spec.P1_4_3b :: ∀ (d : Nat) (g : Paper1.Gas) (U : Paper1.State d),
+  Paper1.Admissible g U → LT.lt (Paper1.entropyVars g U Paper1.Channel.energy) (OfNat.ofNat 0)
+XSTMT Paper1.Spec.P1_4_4 :: ∀ (d : Nat) (P : Paper1.ViscParams) (wb : Paper1.State d) (G H : Matrix (Paper1.Channel d) (Fin d) Real),
+  Ne (wb Paper1.Channel.energy) (OfNat.ofNat 0) →
+    Eq (NumCore.frob G (Paper1.viscFlux P wb H)) (NumCore.frob H (Paper1.viscFlux P wb G))
+XSTMT Paper1.Spec.P1_5_0a :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d) (i : ι),
+  M.Valid → M.FacetPaired i → M.Closed i
+XSTMT Paper1.Spec.P1_5_0b :: ∀ (n m : Nat) (M : CFDLean.MedianDual.MeshData n m) (i : Fin n),
+  M.Conforming →
+    (∀ (o : M.Occurrence), Eq (M.faceCount (M.faceID o)) (OfNat.ofNat 1) → Not (Membership.mem (M.faceID o) i)) →
+      (Paper1.ofMeshData M).Closed i
+XSTMT Paper1.Spec.P1_5_1 :: ∀ (d : Nat) (T : NumCore.Simplex d),
+  T.Nondeg →
+    And (Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => T.grad a) (OfNat.ofNat 0))
+      (And
+        (∀ (a b c : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+          Eq (NumCore.dot (T.grad a) (HSub.hSub (T.x b) (T.x c)))
+            (HSub.hSub (ite (Eq a b) (OfNat.ofNat 1) (OfNat.ofNat 0)) (ite (Eq a c) (OfNat.ofNat 1) (OfNat.ofNat 0))))
+        (And
+          (Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => NumCore.outer (T.grad a) (T.x a))
+            (OfNat.ofNat 1))
+          (And (LT.lt (OfNat.ofNat 0) T.vol)
+            (Eq (Finset.univ.sum fun (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => T.facet o) (OfNat.ofNat 0)))))
+XSTMT Paper1.Spec.P1_5_2 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d),
+  M.Valid →
+    And (∀ (i k : ι), Ne i k → Eq (NumCore.dot (M.n i k) (M.e i k)) (HMul.hMul (OfNat.ofNat 2) (M.mu i k)))
+      (∀ (i k : ι),
+        Ne i k →
+          (Exists fun (T : C) =>
+              Exists fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                Exists fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                  And (Eq (DFunLike.coe (M.vert T) a) i)
+                    (And (Eq (DFunLike.coe (M.vert T) b) k) (LT.lt (OfNat.ofNat 0) (M.ω T)))) →
+            And (LT.lt (OfNat.ofNat 0) (M.mu i k))
+              (And (Exists fun (t : Real) => And (LT.lt (OfNat.ofNat 0) t) (Eq (M.nu i k) (HSMul.hSMul t (M.e i k))))
+                (Eq (NumCore.len (M.nu i k)) (HDiv.hDiv (NumCore.dot (M.n i k) (M.e i k)) (NumCore.len (M.e i k))))))
+XSTMT Paper1.Spec.P1_5_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d),
+  M.Valid →
+    And
+      (∀ (i : ι),
+        Eq (Finset.univ.sum fun (k : ι) => NumCore.outer (M.c i k) (M.e i k)) (HSMul.hSMul (M.V i) (OfNat.ofNat 1)))
+      (And
+        (∀ (i : ι),
+          M.Closed i →
+            Eq (Finset.univ.sum fun (k : ι) => NumCore.outer (M.n i k) (M.e i k))
+              (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) (M.V i)) (OfNat.ofNat 1)))
+        (And
+          (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (k : ι) => NumCore.outer (M.n i k) (M.e i k))
+            (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) M.volΩ) (OfNat.ofNat 1)))
+          (Eq (Finset.univ.sum fun (i : ι) => M.V i) M.volΩ)))
+XSTMT Paper1.Spec.P1_5_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d),
+  M.Valid →
+    And (∀ (i : ι), M.Closed i → Eq (M.Gtensor M.nu i).trace (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)))
+      (And
+        (Eq
+          (Finset.univ.sum fun (i : ι) =>
+            Finset.univ.sum fun (k : ι) => HMul.hMul (NumCore.len (M.nu i k)) (NumCore.len (M.e i k)))
+          (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) M.volΩ))
+        (And
+          (∀ (i : ι), M.Closed i → LE.le (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)) (M.Gtensor M.n i).trace)
+          (∀ (i : ι),
+            M.Closed i →
+              Iff (Eq (M.Gtensor M.n i).trace (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)))
+                (∀ (k : ι),
+                  Exists fun (t : Real) => And (LE.le (OfNat.ofNat 0) t) (Eq (M.n i k) (HSMul.hSMul t (M.e i k)))))))
+XSTMT Paper1.Spec.P1_5_4b :: ∀ (d : Nat) (V : Real) (h : Fin d → Real),
+  LT.lt (OfNat.ofNat 0) V →
+    (∀ (α : Fin d), LT.lt (OfNat.ofNat 0) (h α)) →
+      let sgn := fun (s : Bool) => ite (Eq s Bool.true) (OfNat.ofNat 1) (Neg.neg (OfNat.ofNat 1));
+      let E := fun (p : Prod (Fin d) Bool) => HSMul.hSMul (HMul.hMul (sgn p.2) (h p.1)) (Pi.single p.1 (OfNat.ofNat 1));
+      let Y := fun (p : Prod (Fin d) Bool) =>
+        HSMul.hSMul (HMul.hMul (sgn p.2) (HDiv.hDiv V (h p.1))) (Pi.single p.1 (OfNat.ofNat 1));
+      And (∀ (p : Prod (Fin d) Bool), Eq (NumCore.WMesh.nuOf (Y p) (E p)) (Y p))
+        (Eq
+          (Finset.univ.sum fun (p : Prod (Fin d) Bool) =>
+            HSMul.hSMul (HMul.hMul (NumCore.len (Y p)) (NumCore.len (E p)))
+              (NumCore.outer (NumCore.WMesh.unit (E p)) (NumCore.WMesh.unit (E p))))
+          (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) V) (OfNat.ofNat 1)))
+XSTMT Paper1.Spec.P1_5_5 :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : Fintype κ] (d : Nat)
+  (M : NumCore.WMesh ι C d) (S : C → ι → ι → NumCore.Vec d) (Fl : C → Matrix κ (Fin d) Real),
+  (∀ (T : C) (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+      Eq (S T (DFunLike.coe (M.vert T) a) (DFunLike.coe (M.vert T) b))
+        (HSMul.hSMul (M.m T) (HSub.hSub (M.g T b) (M.g T a)))) →
+    ∀ (i : ι), Eq (M.fvRes Fl S i) (M.galerkinRes Fl i)
+XSTMT Paper1.Spec.P1_5_6 :: And
+  (∀ (p : CFDLean.MedianDual.Points),
+    LT.lt (OfNat.ofNat 0) (CFDLean.MedianDual.sixVolume p) →
+      And (Paper1.simplexOfPoints p).Nondeg
+        (And (Eq (Paper1.simplexOfPoints p).vol (CFDLean.MedianDual.volume p))
+          (∀ (i k : Fin (OfNat.ofNat 4)),
+            Eq (CFDLean.MedianDual.localInterface p i k)
+              (HSMul.hSMul (HDiv.hDiv (Paper1.simplexOfPoints p).vol (OfNat.ofNat 4))
+                (HSub.hSub ((Paper1.simplexOfPoints p).grad k) ((Paper1.simplexOfPoints p).grad i))))))
+  (∀ (T : NumCore.Simplex (OfNat.ofNat 2)),
+    T.Nondeg →
+      ∀ (i k : Fin (OfNat.ofNat 3)),
+        Ne i k →
+          Eq (Paper1.dualFacet2 T i k)
+            (HSMul.hSMul (HDiv.hDiv T.vol (OfNat.ofNat 3)) (HSub.hSub (T.grad k) (T.grad i))))
+XSTMT Paper1.Spec.P1_5_7 :: ∀ (n m : Nat) (κ : Type) [inst : Fintype κ] (M : CFDLean.MedianDual.MeshData n m)
+  (Fl : Fin m → Matrix κ (Fin (OfNat.ofNat 3)) Real) (i : Fin n),
+  Eq
+    (Finset.univ.sum fun (t : Fin m) =>
+      Finset.univ.sum fun (a : Fin (OfNat.ofNat 4)) =>
+        Finset.univ.sum fun (b : Fin (OfNat.ofNat 4)) =>
+          ite (Eq (DFunLike.coe (M.vertex t) a) i) ((Fl t).mulVec (CFDLean.MedianDual.localInterface (M.points t) a b))
+            (OfNat.ofNat 0))
+    ((Paper1.ofMeshData M).galerkinRes Fl i)
+XSTMT Paper1.Spec.P1_5_8 :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : Fintype κ]
+  (M : NumCore.WMesh ι C (OfNat.ofNat 2)) (Fl : C → Matrix κ (Fin (OfNat.ofNat 2)) Real) (i : ι),
+  M.Valid →
+    Eq
+      (Finset.univ.sum fun (T : C) =>
+        Finset.univ.sum fun (a : Fin (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))) =>
+          Finset.univ.sum fun (b : Fin (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))) =>
+            ite (And (Eq (DFunLike.coe (M.vert T) a) i) (Ne b a))
+              (HSMul.hSMul (M.ω T) ((Fl T).mulVec (Paper1.dualFacet2 (M.simplex T) a b))) (OfNat.ofNat 0))
+      (M.galerkinRes Fl i)
+XSTMT Paper1.Spec.P2_6_1 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (W : C → Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  (∀ (T : C), Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => W T a) (M.vol T)) →
+    And
+      (∀ (i k : ι),
+        Eq (HAdd.hAdd (M.cW W i k) (M.cW W k i)) (HAdd.hAdd (M.B i k) (HSMul.hSMul (OfNat.ofNat 2) (M.EW W i k))))
+      (And (∀ (i k : ι), Eq (M.EW W k i) (M.EW W i k))
+        (And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.EW W i k) (OfNat.ofNat 0))
+          (And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.cW W i k) (OfNat.ofNat 0))
+            (∀ (k : ι), Eq (Finset.univ.sum fun (i : ι) => M.cW W i k) (M.beta k)))))
+XSTMT Paper1.Spec.P2_6_2 :: ∀ (d : Nat) (T : NumCore.Simplex d) (δ : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  LE.le (OfNat.ofNat 1) d →
+    T.Nondeg →
+      Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => δ a) (OfNat.ofNat 0) →
+        Iff
+          (∀ (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+            Ne a b → Eq (HAdd.hAdd (HSMul.hSMul (δ a) (T.grad b)) (HSMul.hSMul (δ b) (T.grad a))) (OfNat.ofNat 0))
+          (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))), Eq (δ a) (OfNat.ofNat 0))
+XSTMT Paper1.Spec.P2_6_3 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        And
+          (∀ (i : ι),
+            Eq (M.beta i)
+              (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) d.cast) (M.areaVec p)) (OfNat.ofNat 0)))
+          (And
+            (∀ (i k : ι),
+              Eq (M.B i k)
+                (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                  ite
+                    (And (Eq (bd p) Bool.true)
+                      (And (Membership.mem (M.facetNodes p) i) (Membership.mem (M.facetNodes p) k)))
+                    (HSMul.hSMul
+                      (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                        (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                      (M.areaVec p))
+                    (OfNat.ofNat 0)))
+            (∀ (i : ι),
+              (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                  Eq (bd p) Bool.true → Not (Membership.mem (M.facetNodes p) i)) →
+                M.Closed i))
+XSTMT Paper1.Spec.P2_6_4 :: ∀ (ι κ : Type) [inst : Fintype ι] [Fintype κ] (d : Nat) (c B : ι → ι → NumCore.Vec d) (β : ι → NumCore.Vec d)
+  (F : ι → Matrix κ (Fin d) Real),
+  (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => c i k) (OfNat.ofNat 0)) →
+    (∀ (k : ι), Eq (Finset.univ.sum fun (i : ι) => c i k) (β k)) →
+      (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => B i k) (β i)) →
+        let n := fun (i k : ι) => HSub.hSub (c i k) (c k i);
+        let s := fun (i k : ι) =>
+          HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HSub.hSub (HAdd.hAdd (c i k) (c k i)) (B i k));
+        ∀ (i : ι),
+          Eq
+            (HAdd.hAdd
+              (HAdd.hAdd
+                (Finset.univ.sum fun (k : ι) =>
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F i) (F k))).mulVec (n i k))
+                (Finset.univ.sum fun (k : ι) => (HSub.hSub (F k) (F i)).mulVec (s i k)))
+              (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (HAdd.hAdd (Finset.univ.sum fun (k : ι) => (F k).mulVec (B i k)) ((F i).mulVec (β i)))))
+            (Finset.univ.sum fun (k : ι) => (F k).mulVec (c i k))
+XSTMT Paper1.Spec.P2_6_5 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : Nat)
+  (M : NumCore.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (w : ι → κ → Real)
+  (ψ : ι → NumCore.Vec d) (Fs : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → ι → κ → Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        let b := fun (i : ι) =>
+          Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+            ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+              ((M.facetNodes p).sum fun (j : ι) => HSMul.hSMul (Paper1.Spec.stdWeight d i j) (Fs p j)) (OfNat.ofNat 0);
+        Eq (Finset.univ.sum fun (i : ι) => HSub.hSub (NumCore.dot (ψ i) (M.beta i)) (NumCore.pairF (w i) (b i)))
+          (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+            ite (Eq (bd p) Bool.true)
+              (HAdd.hAdd
+                (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) d.cast)
+                  ((M.facetNodes p).sum fun (i : ι) =>
+                    HSub.hSub (NumCore.dot (ψ i) (M.areaVec p)) (NumCore.pairF (w i) (Fs p i))))
+                (HMul.hMul
+                  (HDiv.hDiv (OfNat.ofNat 1)
+                    (HMul.hMul (HMul.hMul (OfNat.ofNat 4) d.cast) (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                  ((M.facetNodes p).sum fun (i : ι) =>
+                    (M.facetNodes p).sum fun (j : ι) =>
+                      NumCore.pairF (HSub.hSub (w j) (w i)) (HSub.hSub (Fs p j) (Fs p i)))))
+              (OfNat.ofNat 0))
+XSTMT Paper1.Spec.P2_6_5b :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [Fintype κ] (d : Nat)
+  (M : NumCore.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (F : ι → Matrix κ (Fin d) Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        And
+          (∀ (i : ι),
+            Eq
+              (Finset.univ.sum fun (k : ι) =>
+                (F k).mulVec
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                    (HAdd.hAdd (M.B i k) (ite (Eq i k) (M.beta i) (OfNat.ofNat 0)))))
+              (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                  ((M.facetNodes p).sum fun (j : ι) =>
+                    HSMul.hSMul (Paper1.Spec.stdWeight d i j) ((F j).mulVec (M.areaVec p)))
+                  (OfNat.ofNat 0)))
+          (∀ (i j : ι),
+            Ne i j →
+              Eq (Paper1.Spec.stdWeight d i i)
+                (HMul.hMul (HAdd.hAdd d.cast (OfNat.ofNat 3)) (Paper1.Spec.stdWeight d i j)))
+XSTMT Paper1.Spec.P2_6_6 :: ∀ (d : Nat) (g : Paper1.Gas) (y : NumCore.Vec d),
+  LE.le (OfNat.ofNat 1) d →
+    Ne y (OfNat.ofNat 0) →
+      And
+        (Exists fun (U1 : Paper1.State d) =>
+          Exists fun (U2 : Paper1.State d) =>
+            And (Paper1.Admissible g U1)
+              (And (Paper1.Admissible g U2)
+                (LT.lt (OfNat.ofNat 0)
+                  (NumCore.pairF (HSub.hSub (Paper1.entropyVars g U2) (Paper1.entropyVars g U1))
+                    (HSub.hSub (Paper1.pressFlux g U2 y) (Paper1.pressFlux g U1 y))))))
+        (Exists fun (U1 : Paper1.State d) =>
+          Exists fun (U2 : Paper1.State d) =>
+            And (Paper1.Admissible g U1)
+              (And (Paper1.Admissible g U2)
+                (LT.lt
+                  (NumCore.pairF (HSub.hSub (Paper1.entropyVars g U2) (Paper1.entropyVars g U1))
+                    (HSub.hSub (Paper1.pressFlux g U2 y) (Paper1.pressFlux g U1 y)))
+                  (OfNat.ofNat 0))))
+XSTMT Paper1.Spec.P2_6_7 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [Fintype κ] (d : Nat)
+  (M : NumCore.WMesh ι C d) (F : ι → Matrix κ (Fin d) Real) (i : ι),
+  M.Valid →
+    M.Closed i →
+      And
+        (Eq
+          (Finset.univ.sum fun (k : ι) =>
+            (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F i) (F k))).mulVec (M.n i k))
+          (Finset.univ.sum fun (k : ι) => (F k).mulVec (M.c i k)))
+        (Eq (Finset.univ.sum fun (k : ι) => (F k).mulVec (M.c i k))
+          (Finset.univ.sum fun (T : C) =>
+            Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+              ite (Eq (DFunLike.coe (M.vert T) a) i)
+                (HSMul.hSMul (HMul.hMul (M.ω T) (M.m T))
+                  (Finset.univ.sum fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                    (F (DFunLike.coe (M.vert T) b)).mulVec (M.g T b)))
+                (OfNat.ofNat 0)))
+XSTMT Paper1.Spec.P2_7_1 :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (x : ι → NumCore.Vec d) (i : ι) (lam : ι → Real) (V q0 : Real)
+  (gq : NumCore.Vec d) (H : Matrix (Fin d) (Fin d) Real),
+  Ne V (OfNat.ofNat 0) →
+    H.IsSymm →
+      let q := fun (z : NumCore.Vec d) =>
+        HAdd.hAdd (HAdd.hAdd q0 (NumCore.dot gq z))
+          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (NumCore.dot z (H.mulVec z)));
+      let K :=
+        HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) V))
+          (Finset.univ.sum fun (k : ι) =>
+            HSMul.hSMul (lam k) (NumCore.outer (HSub.hSub (x k) (x i)) (HSub.hSub (x k) (x i))));
+      Eq
+        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+          (Finset.univ.sum fun (k : ι) => HMul.hMul (lam k) (HSub.hSub (q (x k)) (q (x i)))))
+        (HAdd.hAdd
+          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+            (Finset.univ.sum fun (k : ι) =>
+              HMul.hMul (lam k) (NumCore.dot (HAdd.hAdd gq (H.mulVec (x i))) (HSub.hSub (x k) (x i)))))
+          (HMul.hMul V (NumCore.frob K H)))
+XSTMT Paper1.Spec.P2_7_2 :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (e y : ι → NumCore.Vec d) (σ : ι → Real) (V : Real),
+  LT.lt (OfNat.ofNat 0) V →
+    (∀ (k : ι), LE.le (OfNat.ofNat 0) (σ k)) →
+      (∀ (k : ι), LT.lt (OfNat.ofNat 0) (NumCore.dot (y k) (e k))) →
+        let K := fun (z : ι → NumCore.Vec d) =>
+          HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) V))
+            (Finset.univ.sum fun (k : ι) =>
+              HSMul.hSMul (HMul.hMul (σ k) (NumCore.len (z k))) (NumCore.outer (e k) (e k)));
+        let ν := fun (k : ι) => NumCore.WMesh.nuOf (y k) (e k);
+        And
+          (∀ (k : ι),
+            And
+              (Eq (NumCore.len (y k))
+                (HMul.hMul (NumCore.len (ν k))
+                  (HDiv.hDiv (HMul.hMul (NumCore.len (y k)) (NumCore.len (e k))) (NumCore.dot (y k) (e k)))))
+              (LE.le (OfNat.ofNat 1)
+                (HDiv.hDiv (HMul.hMul (NumCore.len (y k)) (NumCore.len (e k))) (NumCore.dot (y k) (e k)))))
+          (And (HSub.hSub (K y) (K ν)).PosSemidef
+            (Iff (Eq (K y) (K ν))
+              (∀ (k : ι),
+                LT.lt (OfNat.ofNat 0) (σ k) →
+                  Exists fun (t : Real) => And (LT.lt (OfNat.ofNat 0) t) (Eq (y k) (HSMul.hSMul t (e k))))))
+XSTMT Paper1.Spec.P2_7_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (σ : ι → ι → Real) (s σmax h : Real) (y : ι → ι → NumCore.Vec d) (i : ι),
+  M.Valid →
+    LT.lt (OfNat.ofNat 0) (M.V i) →
+      let K := fun (z : ι → ι → NumCore.Vec d) =>
+        HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) (M.V i)))
+          (Finset.univ.sum fun (k : ι) =>
+            HSMul.hSMul (HMul.hMul (σ i k) (NumCore.len (z i k))) (NumCore.outer (M.e i k) (M.e i k)));
+      And
+        ((∀ (k : ι), Ne k i → Eq (HMul.hMul (σ i k) (NumCore.len (M.e i k))) s) →
+          Eq (K y) (HSMul.hSMul (HDiv.hDiv s (HMul.hMul (OfNat.ofNat 4) (M.V i))) (M.Gtensor y i)))
+        (And
+          ((∀ (k : ι), Ne k i → Eq (HMul.hMul (σ i k) (NumCore.len (M.e i k))) s) →
+            Eq (K M.nu).trace (HDiv.hDiv (HMul.hMul d.cast s) (OfNat.ofNat 2)))
+          ((∀ (k : ι), And (LE.le (OfNat.ofNat 0) (σ i k)) (LE.le (σ i k) σmax)) →
+            (∀ (k : ι), Ne (M.n i k) (OfNat.ofNat 0) → LE.le (NumCore.len (M.e i k)) h) →
+              LE.le (K M.nu).trace (HMul.hMul (HMul.hMul (HDiv.hDiv d.cast (OfNat.ofNat 2)) σmax) h)))
+XSTMT Paper1.Spec.P2_7_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (vb : ι → ι → NumCore.Vec d) (cb : ι → ι → Real) (σmax : Real),
+  M.Valid →
+    (∀ (i k : ι),
+        And (LE.le (OfNat.ofNat 0) (cb i k))
+          (LE.le (HAdd.hAdd (abs (NumCore.dot (vb i k) (NumCore.WMesh.unit (M.e i k)))) (cb i k)) σmax)) →
+      LE.le
+        (Finset.univ.sum fun (i : ι) =>
+          Finset.univ.sum fun (k : ι) =>
+            HMul.hMul (Paper1.lamHat (vb i k) (cb i k) (M.e i k) (M.n i k)) (NumCore.len (M.e i k)))
+        (HMul.hMul (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) σmax) M.volΩ)
+XSTMT Paper1.Spec.P2_8_0 :: ∀ (d : Nat) (g : Paper1.Gas) (W : Paper1.State d),
+  LT.lt (W Paper1.Channel.energy) (OfNat.ofNat 0) →
+    ExistsUnique fun (U : Paper1.State d) => And (Paper1.Admissible g U) (Eq (Paper1.entropyVars g U) W)
+XSTMT Paper1.Spec.P2_8_1 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [inst_2 : Fintype κ] (d : Nat) (w : S → κ → Real)
+  (ψ : S → NumCore.Vec d) (Fec : S → S → NumCore.Vec d → κ → Real) (u : ι → S) (φ : Q → ι → Real)
+  (N : Q → NumCore.Vec d) (ut : Q → S) (Fs : Q → κ → Real),
+  (∀ (a b : S) (y : NumCore.Vec d), Eq (Fec a b y) (Fec b a y)) →
+    (∀ (a b : S) (y : NumCore.Vec d),
+        Eq (NumCore.pairF (HSub.hSub (w b) (w a)) (Fec a b y)) (NumCore.dot (HSub.hSub (ψ b) (ψ a)) y)) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        (∀ (q : Q), Eq (w (ut q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (w (u k)))) →
+          let beta := fun (i : ι) => Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q);
+          let b := fun (i : ι) =>
+            Finset.univ.sum fun (q : Q) =>
+              HSMul.hSMul (φ q i)
+                (HAdd.hAdd
+                  (HSub.hSub (Fec (u i) (ut q) (N q))
+                    (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec (ut q) (u k) (N q))))
+                  (Fs q));
+          And
+            (Eq
+              (Finset.univ.sum fun (i : ι) =>
+                HSub.hSub (NumCore.dot (ψ (u i)) (beta i)) (NumCore.pairF (w (u i)) (b i)))
+              (Finset.univ.sum fun (q : Q) =>
+                HSub.hSub (NumCore.dot (ψ (ut q)) (N q)) (NumCore.pairF (w (ut q)) (Fs q))))
+            (Eq (Finset.univ.sum fun (i : ι) => b i) (Finset.univ.sum fun (q : Q) => Fs q))
+XSTMT Paper1.Spec.P2_8_2 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : Nat)
+  (Fec : S → S → NumCore.Vec d → κ → Real) (phys : S → NumCore.Vec d → κ → Real) (U : S) (φ : Q → ι → Real)
+  (N : Q → NumCore.Vec d) (n : ι → ι → NumCore.Vec d),
+  (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+    (∀ (y : NumCore.Vec d), Eq (Fec U U y) (phys U y)) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        (∀ (i : ι),
+            Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q))
+              (Neg.neg (Finset.univ.sum fun (k : ι) => n i k))) →
+          let b := fun (i : ι) =>
+            Finset.univ.sum fun (q : Q) =>
+              HSMul.hSMul (φ q i)
+                (HAdd.hAdd
+                  (HSub.hSub (Fec U U (N q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec U U (N q))))
+                  (phys U (N q)));
+          ∀ (i : ι), Eq (HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => Fec U U (n i k))) (b i)) (OfNat.ofNat 0)
+XSTMT Paper1.Spec.P2_8_3 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : Nat)
+  (Fec : S → S → NumCore.Vec d → κ → Real) (Fl : S → Matrix κ (Fin d) Real) (u : ι → S) (φ : Q → ι → Real)
+  (N : Q → NumCore.Vec d) (ut : Q → S),
+  (∀ (a b : S) (y : NumCore.Vec d),
+      Eq (Fec a b y) ((HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (Fl a) (Fl b))).mulVec y)) →
+    (∀ (q : Q), Eq (Fl (ut q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fl (u k)))) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        let beta := fun (i : ι) => Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q);
+        let b := fun (i : ι) =>
+          Finset.univ.sum fun (q : Q) =>
+            HSMul.hSMul (φ q i)
+              (HAdd.hAdd
+                (HSub.hSub (Fec (u i) (ut q) (N q))
+                  (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec (ut q) (u k) (N q))))
+                ((Fl (ut q)).mulVec (N q)));
+        ∀ (i : ι),
+          Eq (b i)
+            (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+              (HAdd.hAdd ((Fl (u i)).mulVec (beta i))
+                (Finset.univ.sum fun (k : ι) =>
+                  (Fl (u k)).mulVec (Finset.univ.sum fun (q : Q) => HSMul.hSMul (HMul.hMul (φ q i) (φ q k)) (N q)))))
+XSTMT Paper1.Spec.P2_8_4 :: ∀ (ι C Q : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : DecidableEq C] [inst_3 : Fintype Q]
+  (d : Nat) (M : NumCore.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool)
+  (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (aq : Q → Real) (φ : Q → ι → Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        (∀ (q : Q), Eq (bd (fq q)) Bool.true) →
+          (∀ (q : Q) (k : ι), Not (Membership.mem (M.facetNodes (fq q)) k) → Eq (φ q k) (OfNat.ofNat 0)) →
+            (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                Eq (bd p) Bool.true →
+                  ∀ (i : ι),
+                    Membership.mem (M.facetNodes p) i →
+                      Eq (Finset.univ.sum fun (q : Q) => ite (Eq (fq q) p) (HMul.hMul (aq q) (φ q i)) (OfNat.ofNat 0))
+                        (HDiv.hDiv (OfNat.ofNat 1) d.cast)) →
+              (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                  Eq (bd p) Bool.true →
+                    ∀ (i : ι),
+                      Membership.mem (M.facetNodes p) i →
+                        ∀ (k : ι),
+                          Membership.mem (M.facetNodes p) k →
+                            Eq
+                              (Finset.univ.sum fun (q : Q) =>
+                                ite (Eq (fq q) p) (HMul.hMul (HMul.hMul (aq q) (φ q i)) (φ q k)) (OfNat.ofNat 0))
+                              (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                                (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))) →
+                let N := fun (q : Q) => HSMul.hSMul (aq q) (M.areaVec (fq q));
+                And (∀ (i : ι), Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q)) (M.beta i))
+                  (∀ (i k : ι),
+                    Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (HMul.hMul (φ q i) (φ q k)) (N q)) (M.B i k))
+XSTMT Paper1.Spec.P2_8_5 :: ∀ (d : Nat) (g : Paper1.Gas) (U : Paper1.State d) (y : NumCore.Vec d),
+  Paper1.Admissible g U →
+    Eq (HSub.hSub (NumCore.dot (Paper1.fluxPot U) y) (NumCore.pairF (Paper1.entropyVars g U) (Paper1.pressFlux g U y)))
+      (OfNat.ofNat 0)
+XSTMT Paper1.Spec.P2_8_6 :: And
+  (∀ (S κ : Type) [inst : Fintype κ] (d : Nat) (w : S → κ → Real) (ψ : S → NumCore.Vec d) (ut ug : S)
+    (N : NumCore.Vec d) (Fs : κ → Real),
+    LE.le (NumCore.pairF (HSub.hSub (w ug) (w ut)) Fs) (NumCore.dot (HSub.hSub (ψ ug) (ψ ut)) N) →
+      LE.le (HSub.hSub (NumCore.dot (ψ ut) N) (NumCore.pairF (w ut) Fs))
+        (HSub.hSub (NumCore.dot (ψ ug) N) (NumCore.pairF (w ug) Fs)))
+  (∀ (d : Nat) (g : Paper1.Gas) (Ut Ug : Paper1.State d) (N : NumCore.Vec d) (lam : Real),
+    Paper1.Admissible g Ut →
+      Paper1.Admissible g Ug →
+        LE.le (OfNat.ofNat 0) lam →
+          LE.le
+            (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Ug) (Paper1.entropyVars g Ut))
+              (HSub.hSub (Paper1.ismailRoe g Ut Ug N) (HSMul.hSMul (HDiv.hDiv lam (OfNat.ofNat 2)) (HSub.hSub Ug Ut))))
+            (NumCore.dot (HSub.hSub (Paper1.fluxPot Ug) (Paper1.fluxPot Ut)) N))
+XSTMT Paper1.Spec.P2_9_0 :: ∀ (κ : Type) [inst : Fintype κ] (d : Nat) (T : NumCore.Simplex d) (K : Matrix κ (Fin d) Real → Matrix κ (Fin d) Real)
+  (P : Matrix κ κ Real) (gw : κ → Real) (walls : Finset (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (c : Real)
+  (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → κ → Real),
+  Paper1.Spec.WallHyp K P gw →
+    Eq
+      (Finset.univ.sum fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+        NumCore.pairF (w b) (HAdd.hAdd (Paper1.Wall.Rvisc T K w b) (Paper1.Wall.Rwall T K P gw walls c w b)))
+      (HAdd.hAdd (HAdd.hAdd (Neg.neg (Paper1.Wall.Dgal T K w)) (Paper1.Wall.PiW T K P gw walls c w))
+        (walls.sum fun (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+          HMul.hMul (HDiv.hDiv (Paper1.Wall.area T o) d.cast)
+            ((Finset.univ.erase o).sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+              NumCore.pairF gw (Paper1.Wall.Fhat T K P gw walls c w o a))))
+XSTMT Paper1.Spec.P2_9_1 :: ∀ (κ : Type) [inst : Fintype κ] (d : Nat) (T : NumCore.Simplex d) (K : Matrix κ (Fin d) Real → Matrix κ (Fin d) Real)
+  (P : Matrix κ κ Real) (gw : κ → Real) (walls : Finset (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (c : Real)
+  (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → κ → Real),
+  Paper1.Spec.WallHyp K P gw →
+    LE.le (OfNat.ofNat 1) d →
+      T.Nondeg →
+        LT.lt (OfNat.ofNat 0) c →
+          And (LE.le (Paper1.Wall.PiW T K P gw walls c w) (HDiv.hDiv (Paper1.Wall.Dgal T K w) c))
+            (LE.le (OfNat.ofNat 1) c →
+              And
+                (LE.le (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) (Paper1.Wall.Dgal T K w))
+                  (HSub.hSub (Paper1.Wall.Dgal T K w) (Paper1.Wall.PiW T K P gw walls c w)))
+                (LE.le (OfNat.ofNat 0)
+                  (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) (Paper1.Wall.Dgal T K w))))
+XSTMT Paper1.Spec.P2_9_2 :: ∀ (κ : Type) [inst : Fintype κ] (d : Nat) (T : NumCore.Simplex d) (K : Matrix κ (Fin d) Real → Matrix κ (Fin d) Real)
+  (P : Matrix κ κ Real) (gw : κ → Real) (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (c : Real) (e : κ → Real),
+  Paper1.Spec.WallHyp K P gw →
+    LE.le (OfNat.ofNat 1) d →
+      T.Nondeg →
+        LT.lt (OfNat.ofNat 0) c →
+          LT.lt c (OfNat.ofNat 1) →
+            Eq (P.mulVec e) e →
+              LT.lt (OfNat.ofNat 0)
+                  (NumCore.frob (Paper1.Wall.outerK e (Paper1.Wall.normal T o))
+                    (K (Paper1.Wall.outerK e (Paper1.Wall.normal T o)))) →
+                Exists fun (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → κ → Real) =>
+                  LT.lt (HSub.hSub (Paper1.Wall.Dgal T K w) (Paper1.Wall.PiW T K P gw (Singleton.singleton o) c w))
+                    (OfNat.ofNat 0)
+XSTMT Paper1.Spec.P2_9_3 :: ∀ (d : Nat) (Pv : Paper1.ViscParams) (wb : Paper1.State d) (N : NumCore.Vec d),
+  LE.le (OfNat.ofNat 1) d →
+    LE.le d (OfNat.ofNat 3) →
+      LT.lt (OfNat.ofNat 0) Pv.μ →
+        LE.le (OfNat.ofNat 0) Pv.κ →
+          LT.lt (OfNat.ofNat 0) Pv.R →
+            LT.lt (wb Paper1.Channel.energy) (OfNat.ofNat 0) →
+              Ne N (OfNat.ofNat 0) →
+                And (Paper1.Spec.WallHyp (Paper1.viscFlux Pv wb) (Paper1.Spec.momProj d) (OfNat.ofNat 0))
+                  (Exists fun (e : Paper1.State d) =>
+                    And (Eq ((Paper1.Spec.momProj d).mulVec e) e)
+                      (LT.lt (OfNat.ofNat 0)
+                        (NumCore.frob (Paper1.Wall.outerK e N) (Paper1.viscFlux Pv wb (Paper1.Wall.outerK e N)))))
+XSTMT Paper1.Spec.P2_9_4 :: ∀ (d : Nat) (g : Paper1.Gas) (R r T Tw : Real) (v : NumCore.Vec d),
+  LT.lt (OfNat.ofNat 0) R →
+    LT.lt (OfNat.ofNat 0) r →
+      LT.lt (OfNat.ofNat 0) T →
+        LT.lt (OfNat.ofNat 0) Tw →
+          And
+            (Iff (Eq v (OfNat.ofNat 0))
+              (∀ (α : Fin d),
+                Eq
+                  (Paper1.entropyVars g (Paper1.primState g r v (HMul.hMul (HMul.hMul r R) T))
+                    (Paper1.Channel.momentum α))
+                  (OfNat.ofNat 0)))
+            (Iff (Eq T Tw)
+              (Eq (Paper1.entropyVars g (Paper1.primState g r v (HMul.hMul (HMul.hMul r R) T)) Paper1.Channel.energy)
+                (HDiv.hDiv (Neg.neg (OfNat.ofNat 1)) (HMul.hMul R Tw))))
+XSTMT Paper1.Spec.P2_10_1 :: ∀ (d : Nat) (g : Paper1.Gas),
+  And
+    (∀ (U : Paper1.SState d),
+      Iff (Eq (Paper1.hatState U) (OfNat.ofNat 0))
+        (Exists fun (a : Real) =>
+          Exists fun (b : Real) =>
+            Eq U (HAdd.hAdd (HSMul.hSMul a Paper1.Spec.nullE) (HSMul.hSMul b Paper1.Spec.nullW))))
+    (∀ (U : Paper1.SState d) (a b : Real),
+      Eq (Paper1.eta0 g (HAdd.hAdd (HAdd.hAdd U (HSMul.hSMul a Paper1.Spec.nullE)) (HSMul.hSMul b Paper1.Spec.nullW)))
+        (Paper1.eta0 g U))
+XSTMT Paper1.Spec.P2_10_2 :: ∀ (d : Nat) (g : Paper1.Gas),
+  And
+    (∀ (U : Paper1.SState d),
+      Paper1.SAdmissible g U → HasFDerivAt (Paper1.eta0 g) (NumCore.pairCLM (Paper1.vEta g U)) U)
+    (And
+      (∀ (U R : Paper1.SState d),
+        Eq (NumCore.pairF (Paper1.vEta g U) R)
+          (NumCore.pairF (Paper1.entropyVars g (Paper1.hatState U)) (Paper1.hatState R)))
+      (∀ (ι : Type) [inst : Fintype ι] (Ut : ι → Real → Paper1.SState d) (V : ι → Real) (R : ι → Paper1.SState d)
+        (t : Real),
+        (∀ (i : ι), Paper1.SAdmissible g (Ut i t)) →
+          (∀ (i : ι), Ne (V i) (OfNat.ofNat 0)) →
+            (∀ (i : ι), HasDerivAt (Ut i) (HSMul.hSMul (Neg.neg (Inv.inv (V i))) (R i)) t) →
+              HasDerivAt (fun (s : Real) => Finset.univ.sum fun (i : ι) => HMul.hMul (V i) (Paper1.eta0 g (Ut i s)))
+                (Neg.neg
+                  (Finset.univ.sum fun (i : ι) =>
+                    NumCore.pairF (Paper1.entropyVars g (Paper1.hatState (Ut i t))) (Paper1.hatState (R i))))
+                t))
+XSTMT Paper1.Spec.P2_10_3 :: ∀ (d : Nat) (g : Paper1.Gas),
+  And (ConvexOn Real (Set.ofPred fun (U : Paper1.SState d) => Paper1.SAdmissible g U) (Paper1.eta0 g))
+    (∀ (U1 U2 : Paper1.SState d),
+      Paper1.SAdmissible g U1 →
+        Paper1.SAdmissible g U2 →
+          And
+            (LE.le (OfNat.ofNat 0) (NumCore.pairF (HSub.hSub (Paper1.vEta g U2) (Paper1.vEta g U1)) (HSub.hSub U2 U1)))
+            (Iff
+              (Eq (NumCore.pairF (HSub.hSub (Paper1.vEta g U2) (Paper1.vEta g U1)) (HSub.hSub U2 U1)) (OfNat.ofNat 0))
+              (Eq (Paper1.hatState U1) (Paper1.hatState U2))))
+XSTMT Paper1.Spec.P2_10_4 :: ∀ (d : Nat) (D : Paper1.SSTPoint.Data d),
+  LT.lt (OfNat.ofNat 0) D.R →
+    LT.lt (OfNat.ofNat 0) D.T →
+      let θ := Paper1.SSTPoint.theta D;
+      And
+        (Eq (Paper1.SSTPoint.Pi D)
+          (HAdd.hAdd
+            (HSub.hSub
+              (HMul.hMul (Neg.neg θ)
+                (HAdd.hAdd
+                  (HAdd.hAdd (HMul.hMul D.μ (Paper1.SSTPoint.Q D))
+                    (HSub.hSub (HMul.hMul D.μt (Paper1.SSTPoint.Q D)) D.Pk))
+                  D.ε))
+              (HDiv.hDiv (HMul.hMul D.κ (NumCore.dot D.GT D.GT)) (HMul.hMul D.R (HPow.hPow D.T (OfNat.ofNat 2)))))
+            (ite (Eq D.withDk Bool.true) (OfNat.ofNat 0)
+              (Neg.neg (HMul.hMul D.Dk (NumCore.dot D.Gk (Paper1.SSTPoint.Gtheta D)))))))
+        (And (LE.le d (OfNat.ofNat 3) → LE.le (OfNat.ofNat 0) (Paper1.SSTPoint.Q D))
+          (And
+            (LE.le d (OfNat.ofNat 3) →
+              Eq D.withDk Bool.true →
+                LE.le (OfNat.ofNat 0) D.μ →
+                  LE.le (OfNat.ofNat 0) D.κ →
+                    LE.le (OfNat.ofNat 0) D.ε →
+                      LE.le D.Pk (HMul.hMul D.μt (Paper1.SSTPoint.Q D)) → LE.le (Paper1.SSTPoint.Pi D) (OfNat.ofNat 0))
+            (LE.le (OfNat.ofNat 0) D.μt →
+              LE.le D.Pk (HMul.hMul D.μt (HMul.hMul (OfNat.ofNat 2) (Paper1.SSTPoint.SS D))) →
+                LE.le (HMul.hMul (Neg.neg θ) (HSub.hSub (HMul.hMul D.μt (Paper1.SSTPoint.Q D)) D.Pk))
+                  (HMul.hMul θ
+                    (HMul.hMul (HMul.hMul (HDiv.hDiv (OfNat.ofNat 2) (OfNat.ofNat 3)) D.μt)
+                      (HPow.hPow (Paper1.SSTPoint.divv D) (OfNat.ofNat 2)))))))
+XSTMT Paper1.Spec.P2_10_5 :: ∀ (ι : Type) [inst : Fintype ι] (mdot : ι → ι → Real) (kv kin bmass : ι → Real),
+  (∀ (i j : ι), Eq (mdot j i) (Neg.neg (mdot i j))) →
+    let kup := fun (i j : ι) => ite (LE.le (OfNat.ofNat 0) (mdot i j)) (kv i) (kv j);
+    let kb := fun (i : ι) => ite (LE.le (OfNat.ofNat 0) (bmass i)) (kv i) (kin i);
+    let X := fun (i : ι) =>
+      HAdd.hAdd (Finset.univ.sum fun (j : ι) => HMul.hMul (mdot i j) (kup i j)) (HMul.hMul (bmass i) (kb i));
+    let Rrho := fun (i : ι) => HAdd.hAdd (Finset.univ.sum fun (j : ι) => mdot i j) (bmass i);
+    And
+      (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (j : ι) => HMul.hMul (mdot i j) (kup i j))
+        (OfNat.ofNat 0))
+      (And
+        (∀ (k0 : Real),
+          (∀ (i : ι), Eq (kv i) k0) → (∀ (i : ι), Eq (kin i) k0) → ∀ (i : ι), Eq (X i) (HMul.hMul k0 (Rrho i)))
+        (∀ (i : ι),
+          Eq (kv i) (OfNat.ofNat 0) →
+            Eq (bmass i) (OfNat.ofNat 0) → (∀ (j : ι), LE.le (OfNat.ofNat 0) (kv j)) → LE.le (X i) (OfNat.ofNat 0)))
+XSTMT Paper1.Spec.P2_10_6 :: ∀ (Pst cl ε : Real),
+  LE.le (OfNat.ofNat 0) ε →
+    LE.le (OfNat.ofNat 0) Pst → LE.le (HSub.hSub (Max.max (OfNat.ofNat 0) (Min.min Pst (HMul.hMul cl ε))) ε) Pst
+XSTMT Paper1.Spec.P2_10_7 :: ∀ (d : Nat) (R μ μt κ : Real) (wb : Paper1.State d) (G : Matrix (Paper1.Channel d) (Fin d) Real),
+  LE.le d (OfNat.ofNat 3) →
+    LT.lt (OfNat.ofNat 0) R →
+      LE.le (OfNat.ofNat 0) μ →
+        LE.le (OfNat.ofNat 0) μt →
+          LE.le (OfNat.ofNat 0) κ →
+            LT.lt (wb Paper1.Channel.energy) (OfNat.ofNat 0) →
+              And
+                (Eq (NumCore.frob G (Paper1.viscFlux { R := R, μ := HAdd.hAdd μ μt, κ := κ } wb G))
+                  (HAdd.hAdd (NumCore.frob G (Paper1.viscFlux { R := R, μ := μ, κ := κ } wb G))
+                    (NumCore.frob G (Paper1.viscFlux { R := R, μ := μt, κ := OfNat.ofNat 0 } wb G))))
+                (And (LE.le (OfNat.ofNat 0) (NumCore.frob G (Paper1.viscFlux { R := R, μ := μ, κ := κ } wb G)))
+                  (LE.le (OfNat.ofNat 0)
+                    (NumCore.frob G (Paper1.viscFlux { R := R, μ := μt, κ := OfNat.ofNat 0 } wb G))))
+XSTMT Paper1.Spec.P2_10_8 :: And
+  (∀ (ι C : Type) [inst : Fintype ι] [inst_1 : Fintype C] (d : Nat) (w Rhat : ι → Paper1.State d)
+    (X Ck Bk Dh Sk Rrho Pst V β2 : ι → Real) (inD : ι → Bool) (kD : Real) (Dgal Dt PiW : C → Real)
+    (Bhat Pi2 Pi4 : Real),
+    (∀ (i : ι), Eq (w i Paper1.Channel.energy) (Neg.neg (β2 i))) →
+      (∀ (i : ι), LE.le (OfNat.ofNat 0) (β2 i)) →
+        (∀ (i : ι), LE.le (OfNat.ofNat 0) (V i)) →
+          (∀ (i : ι), LE.le (OfNat.ofNat 0) (Pst i)) →
+            LE.le (Neg.neg (Finset.univ.sum fun (i : ι) => NumCore.pairF (w i) (Rhat i)))
+                (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                  (Finset.univ.sum fun (T : C) => HSub.hSub (Dgal T) (PiW T))) →
+              LE.le Pi2 (OfNat.ofNat 0) →
+                (∀ (i : ι), Eq (inD i) Bool.false → Eq (X i) (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i))) →
+                  (∀ (i : ι), Eq (inD i) Bool.false → LE.le (Sk i) (Pst i)) →
+                    (∀ (i : ι),
+                        Eq (inD i) Bool.true → LE.le (HSub.hSub (X i) (HMul.hMul kD (Rrho i))) (OfNat.ofNat 0)) →
+                      Eq (Finset.univ.sum fun (T : C) => Dt T)
+                          (Finset.univ.sum fun (i : ι) => HMul.hMul (HMul.hMul (β2 i) (V i)) (Pst i)) →
+                        (∀ (T : C), LE.le (PiW T) (HSub.hSub (Dgal T) (Dt T))) →
+                          let Rk := fun (i : ι) =>
+                            ite (Eq (inD i) Bool.true) (HMul.hMul kD (Rrho i))
+                              (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i)) (HMul.hMul (V i) (Sk i)));
+                          let rate :=
+                            Neg.neg
+                              (Finset.univ.sum fun (i : ι) =>
+                                NumCore.pairF (w i)
+                                  (HAdd.hAdd (Rhat i) (HSMul.hSMul (HSub.hSub (X i) (Rk i)) Paper1.eE)));
+                          And
+                            (LE.le rate
+                              (HSub.hSub
+                                (HSub.hSub
+                                  (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                                    (Finset.univ.sum fun (T : C) => HSub.hSub (HSub.hSub (Dgal T) (Dt T)) (PiW T)))
+                                  (Finset.univ.sum fun (i : ι) =>
+                                    ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                      (HMul.hMul (HMul.hMul (β2 i) (V i)) (HSub.hSub (Pst i) (Sk i)))))
+                                (Finset.univ.sum fun (i : ι) =>
+                                  ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (V i)) (Pst i))
+                                    (OfNat.ofNat 0))))
+                            (And (∀ (T : C), LE.le (OfNat.ofNat 0) (HSub.hSub (HSub.hSub (Dgal T) (Dt T)) (PiW T)))
+                              (And
+                                (∀ (i : ι),
+                                  LE.le (OfNat.ofNat 0)
+                                    (ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                      (HMul.hMul (HMul.hMul (β2 i) (V i)) (HSub.hSub (Pst i) (Sk i)))))
+                                (∀ (i : ι),
+                                  LE.le (OfNat.ofNat 0)
+                                    (ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (V i)) (Pst i))
+                                      (OfNat.ofNat 0))))))
+  (∀ (Dgal Dt PiW c : Real),
+    And (Eq PiW (OfNat.ofNat 0) → LE.le Dt Dgal → LE.le PiW (HSub.hSub Dgal Dt))
+      (LT.lt (OfNat.ofNat 0) c →
+        LE.le PiW (HDiv.hDiv Dgal c) →
+          LE.le Dt (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) Dgal) →
+            LE.le PiW (HSub.hSub Dgal Dt)))
+XSTMT Paper1.Spec.P2_8_0b :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (w : ι → Paper1.State d) (φ : ι → Real),
+  (∀ (k : ι), LT.lt (w k Paper1.Channel.energy) (OfNat.ofNat 0)) →
+    (∀ (k : ι), LE.le (OfNat.ofNat 0) (φ k)) →
+      Eq (Finset.univ.sum fun (k : ι) => φ k) (OfNat.ofNat 1) →
+        LT.lt (Finset.univ.sum (fun (k : ι) => HSMul.hSMul (φ k) (w k)) Paper1.Channel.energy) (OfNat.ofNat 0)
+XSTMT Paper1.Spec.P2_9_2b :: ∀ (d : Nat) (Pv : Paper1.ViscParams) (T : NumCore.Simplex d) (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (c : Real),
+  LE.le (OfNat.ofNat 1) d →
+    LE.le d (OfNat.ofNat 3) →
+      LT.lt (OfNat.ofNat 0) Pv.μ →
+        LE.le (OfNat.ofNat 0) Pv.κ →
+          LT.lt (OfNat.ofNat 0) Pv.R →
+            T.Nondeg →
+              LT.lt (OfNat.ofNat 0) c →
+                LT.lt c (OfNat.ofNat 1) →
+                  Exists fun (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Paper1.State d) =>
+                    And (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))), LT.lt (w a Paper1.Channel.energy) (OfNat.ofNat 0))
+                      (LT.lt
+                        (HSub.hSub (Paper1.Wall.Dgal T (Paper1.viscFlux Pv (Paper1.Spec.vmean w)) w)
+                          (Paper1.Wall.PiW T (Paper1.viscFlux Pv (Paper1.Spec.vmean w)) (Paper1.Spec.momProj d)
+                            (OfNat.ofNat 0) (Singleton.singleton o) c w))
+                        (OfNat.ofNat 0))
+XSTMT Paper1.Spec.P2_10_8b :: ∀ (d : Nat) (T : NumCore.Simplex d) (R μ μt κ c : Real) (P : Matrix (Paper1.Channel d) (Paper1.Channel d) Real)
+  (gw : Paper1.State d) (walls : Finset (Fin (HAdd.hAdd d (OfNat.ofNat 1))))
+  (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Paper1.State d),
+  LE.le (OfNat.ofNat 1) d →
+    LE.le d (OfNat.ofNat 3) →
+      LT.lt (OfNat.ofNat 0) R →
+        LE.le (OfNat.ofNat 0) μ →
+          LE.le (OfNat.ofNat 0) μt →
+            LE.le (OfNat.ofNat 0) κ →
+              T.Nondeg →
+                LT.lt (OfNat.ofNat 0) c →
+                  (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))), LT.lt (w a Paper1.Channel.energy) (OfNat.ofNat 0)) →
+                    Eq P.transpose P →
+                      Eq (HMul.hMul P P) P →
+                        Eq (P.mulVec gw) gw →
+                          let K := Paper1.viscFlux { R := R, μ := HAdd.hAdd μ μt, κ := κ } (Paper1.Spec.vmean w);
+                          let Kt := Paper1.viscFlux { R := R, μ := μt, κ := OfNat.ofNat 0 } (Paper1.Spec.vmean w);
+                          let Dg := Paper1.Wall.Dgal T K w;
+                          let Dt := Paper1.Wall.Dgal T Kt w;
+                          let Pw := Paper1.Wall.PiW T K P gw walls c w;
+                          And (LE.le (OfNat.ofNat 0) Dt)
+                            (And (LE.le Dt Dg)
+                              (And
+                                (Eq walls EmptyCollection.emptyCollection →
+                                  And (Eq Pw (OfNat.ofNat 0)) (LE.le Pw (HSub.hSub Dg Dt)))
+                                (LE.le (OfNat.ofNat 1) c →
+                                  LE.le Dt (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) Dg) →
+                                    LE.le Pw (HSub.hSub Dg Dt))))
+XSTMT Paper1.Spec.P2_10_8c :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : Fintype C] (d : Nat) (g : Paper1.Gas) (Ut : ι → Real → Paper1.SState d)
+  (Vv : ι → Real) (R : ι → Paper1.SState d) (t : Real) (Rhat : ι → Paper1.State d) (X Ck Bk Dh Sk Rrho Pst : ι → Real)
+  (inD : ι → Bool) (kD : Real) (Dgal Dt PiW : C → Real) (Bhat Pi2 Pi4 : Real),
+  (∀ (i : ι), Paper1.SAdmissible g (Ut i t)) →
+    (∀ (i : ι), LT.lt (OfNat.ofNat 0) (Vv i)) →
+      (∀ (i : ι), HasDerivAt (Ut i) (HSMul.hSMul (Neg.neg (Inv.inv (Vv i))) (R i)) t) →
+        let w := fun (i : ι) => Paper1.entropyVars g (Paper1.hatState (Ut i t));
+        let β2 := fun (i : ι) => Neg.neg (w i Paper1.Channel.energy);
+        let Rk := fun (i : ι) =>
+          ite (Eq (inD i) Bool.true) (HMul.hMul kD (Rrho i))
+            (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i)) (HMul.hMul (Vv i) (Sk i)));
+        (∀ (i : ι), Eq (Paper1.hatState (R i)) (HAdd.hAdd (Rhat i) (HSMul.hSMul (HSub.hSub (X i) (Rk i)) Paper1.eE))) →
+          (∀ (i : ι), LE.le (OfNat.ofNat 0) (Pst i)) →
+            LE.le (Neg.neg (Finset.univ.sum fun (i : ι) => NumCore.pairF (w i) (Rhat i)))
+                (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                  (Finset.univ.sum fun (T : C) => HSub.hSub (Dgal T) (PiW T))) →
+              (∀ (i : ι), Eq (inD i) Bool.false → Eq (X i) (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i))) →
+                (∀ (i : ι), Eq (inD i) Bool.false → LE.le (Sk i) (Pst i)) →
+                  (∀ (i : ι), Eq (inD i) Bool.true → LE.le (HSub.hSub (X i) (HMul.hMul kD (Rrho i))) (OfNat.ofNat 0)) →
+                    Eq (Finset.univ.sum fun (T : C) => Dt T)
+                        (Finset.univ.sum fun (i : ι) => HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i)) →
+                      (∀ (T : C), LE.le (PiW T) (HSub.hSub (Dgal T) (Dt T))) →
+                        Exists fun (r : Real) =>
+                          And
+                            (HasDerivAt
+                              (fun (s : Real) =>
+                                Finset.univ.sum fun (i : ι) => HMul.hMul (Vv i) (Paper1.eta0 g (Ut i s)))
+                              r t)
+                            (LE.le r
+                              (HSub.hSub
+                                (HSub.hSub
+                                  (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                                    (Finset.univ.sum fun (T : C) => HSub.hSub (HSub.hSub (Dgal T) (Dt T)) (PiW T)))
+                                  (Finset.univ.sum fun (i : ι) =>
+                                    ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                      (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (HSub.hSub (Pst i) (Sk i)))))
+                                (Finset.univ.sum fun (i : ι) =>
+                                  ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i))
+                                    (OfNat.ofNat 0))))
+XSTMT Paper1.Spec.P3_11_1 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : NumCore.WMesh ι C d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      And (M.Conforming bd → M.FacetBalanced bd)
+        (M.FacetBalanced bd →
+          And
+            (∀ (i : ι),
+              Eq (M.beta i)
+                (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                  ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                    (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) d.cast) (M.areaVec p)) (OfNat.ofNat 0)))
+            (And
+              (∀ (i k : ι),
+                Eq (M.B i k)
+                  (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                    ite
+                      (And (Eq (bd p) Bool.true)
+                        (And (Membership.mem (M.facetNodes p) i) (Membership.mem (M.facetNodes p) k)))
+                      (HSMul.hSMul
+                        (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                          (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                        (M.areaVec p))
+                      (OfNat.ofNat 0)))
+              (∀ (i : ι),
+                (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                    Eq (bd p) Bool.true → Not (Membership.mem (M.facetNodes p) i)) →
+                  M.Closed i)))
+XSTMT Paper1.Spec.P3_11_2 :: And
+  (∀ (T : NumCore.Simplex (OfNat.ofNat 3)) (o a b c : Fin (OfNat.ofNat 4)),
+    T.Nondeg →
+      (List.cons o (List.cons a (List.cons b (List.cons c List.nil)))).Nodup →
+        let nv := Paper1.Spec.cross3 (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.x c) (T.x a));
+        Eq (T.facet o)
+          (HSMul.hSMul
+            (ite (LT.lt (OfNat.ofNat 0) (NumCore.dot nv (HSub.hSub (T.x o) (T.x a))))
+              (Neg.neg (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))) (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)))
+            nv))
+  (∀ (T T' : NumCore.Simplex (OfNat.ofNat 3)) (o a b c o' a' b' c' : Fin (OfNat.ofNat 4)),
+    T.Nondeg →
+      T'.Nondeg →
+        (List.cons o (List.cons a (List.cons b (List.cons c List.nil)))).Nodup →
+          (List.cons o' (List.cons a' (List.cons b' (List.cons c' List.nil)))).Nodup →
+            Eq (T'.x a') (T.x a) →
+              Eq (T'.x b') (T.x b) →
+                Eq (T'.x c') (T.x c) →
+                  let nv := Paper1.Spec.cross3 (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.x c) (T.x a));
+                  LT.lt
+                      (HMul.hMul (NumCore.dot nv (HSub.hSub (T.x o) (T.x a)))
+                        (NumCore.dot nv (HSub.hSub (T'.x o') (T.x a))))
+                      (OfNat.ofNat 0) →
+                    Eq (T'.facet o') (Neg.neg (T.facet o)))
+XSTMT Paper1.Spec.P3_11_3 :: And (Eq Paper1.RefCell.hex.splits.length (OfNat.ofNat 64))
+  (And (Eq Paper1.RefCell.prism.splits.length (OfNat.ofNat 12))
+    (And (Eq Paper1.RefCell.pyramid.splits.length (OfNat.ofNat 6))
+      (And
+        (Eq
+          (Paper1.RefCell.hex.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 8)) =>
+            (BEq.beq (Paper1.RefCell.hex.diagCount q Bool.false) (OfNat.ofNat 32)).and
+              (BEq.beq (Paper1.RefCell.hex.diagCount q Bool.true) (OfNat.ofNat 32)))
+          Bool.true)
+        (And
+          (Eq
+            (Paper1.RefCell.prism.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 6)) =>
+              (BEq.beq (Paper1.RefCell.prism.diagCount q Bool.false) (OfNat.ofNat 6)).and
+                (BEq.beq (Paper1.RefCell.prism.diagCount q Bool.true) (OfNat.ofNat 6)))
+            Bool.true)
+          (And
+            (Eq
+              (Paper1.RefCell.pyramid.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 5)) =>
+                (BEq.beq (Paper1.RefCell.pyramid.diagCount q Bool.false) (OfNat.ofNat 3)).and
+                  (BEq.beq (Paper1.RefCell.pyramid.diagCount q Bool.true) (OfNat.ofNat 3)))
+              Bool.true)
+            (And
+              (Eq
+                (Paper1.RefCell.hex.splits.all fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                  Paper1.RefCell.hex.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 8)) =>
+                    bne (Paper1.RefCell.usesEdge (Paper1.RefCell.hex.pull s.1 s.2) (q.diag Bool.false))
+                      (Paper1.RefCell.usesEdge (Paper1.RefCell.hex.pull s.1 s.2) (q.diag Bool.true)))
+                Bool.true)
+              (And
+                (Eq
+                  (Paper1.RefCell.prism.splits.all fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+                    Paper1.RefCell.prism.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 6)) =>
+                      bne (Paper1.RefCell.usesEdge (Paper1.RefCell.prism.pull s.1 s.2) (q.diag Bool.false))
+                        (Paper1.RefCell.usesEdge (Paper1.RefCell.prism.pull s.1 s.2) (q.diag Bool.true)))
+                  Bool.true)
+                (And
+                  (Eq
+                    (Paper1.RefCell.pyramid.splits.all fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+                      Paper1.RefCell.pyramid.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 5)) =>
+                        bne (Paper1.RefCell.usesEdge (Paper1.RefCell.pyramid.pull s.1 s.2) (q.diag Bool.false))
+                          (Paper1.RefCell.usesEdge (Paper1.RefCell.pyramid.pull s.1 s.2) (q.diag Bool.true)))
+                    Bool.true)
+                  (And
+                    (Eq
+                      (List.countP
+                        (fun (v : Fin (OfNat.ofNat 4)) =>
+                          Paper1.RefCell.usesEdge (Paper1.RefCell.quadPull v)
+                            (Prod.mk ⟨0, Fin.instOfNat⟩ ⟨2, Fin.instOfNat⟩))
+                        (List.finRange (OfNat.ofNat 4)))
+                      (OfNat.ofNat 2))
+                    (Eq
+                      (List.countP
+                        (fun (v : Fin (OfNat.ofNat 4)) =>
+                          Paper1.RefCell.usesEdge (Paper1.RefCell.quadPull v)
+                            (Prod.mk ⟨1, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩))
+                        (List.finRange (OfNat.ofNat 4)))
+                      (OfNat.ofNat 2)))))))))))
+XSTMT Paper1.Spec.P3_12_1 :: And
+  (Eq
+    (List.countP
+      (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+        (List.finRange (OfNat.ofNat 8)).any fun (v : Fin (OfNat.ofNat 8)) =>
+          Paper1.RefCell.containsSimplex (Paper1.RefCell.hex.pull s.1 s.2) (Paper1.RefCell.hexSliver v))
+      Paper1.RefCell.hex.splits)
+    (OfNat.ofNat 32))
+  (Eq
+    ((List.finRange (OfNat.ofNat 8)).all fun (v : Fin (OfNat.ofNat 8)) =>
+      BEq.beq
+        (List.countP
+          (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+            Paper1.RefCell.containsSimplex (Paper1.RefCell.hex.pull s.1 s.2) (Paper1.RefCell.hexSliver v))
+          Paper1.RefCell.hex.splits)
+        (OfNat.ofNat 4))
+    Bool.true)
+XSTMT Paper1.Spec.P3_12_2 :: ∀ (a b : Real),
+  LT.lt (OfNat.ofNat 0) a →
+    LT.lt (OfNat.ofNat 0) b →
+      And
+        (Filter.Tendsto
+          (fun (h : Real) => Paper1.Spec.cosDih (Paper1.Spec.sliverBrick a b h) ⟨1, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)
+          (nhdsWithin (OfNat.ofNat 0) (Set.Ioi (OfNat.ofNat 0))) (nhds (Neg.neg (OfNat.ofNat 1))))
+        (Filter.Tendsto
+          (fun (h : Real) => Paper1.Spec.cosDih (Paper1.Spec.sliverBrick a b h) ⟨0, Fin.instOfNat⟩ ⟨2, Fin.instOfNat⟩)
+          (nhdsWithin (OfNat.ofNat 0) (Set.Ioi (OfNat.ofNat 0))) (nhds (Neg.neg (OfNat.ofNat 1))))
+XSTMT Paper1.Spec.P3_12_3 :: ∀ (σ : Type) [inst : Fintype σ] (ω q : σ → Real) (t : σ),
+  (∀ (s : σ), LE.le (OfNat.ofNat 0) (ω s)) →
+    (∀ (s : σ), LE.le (OfNat.ofNat 0) (q s)) →
+      LE.le (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 16)) (ω t) →
+        LE.le (HDiv.hDiv (q t) (OfNat.ofNat 16)) (Finset.univ.sum fun (s : σ) => HMul.hMul (ω s) (q s))
+XSTMT Paper1.Spec.P3_12_4 :: And (Eq (Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)).length (OfNat.ofNat 8))
+  (And
+    (Eq
+      ((Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)).all
+        fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+        (Paper1.RefCell.hex.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 8))) =>
+          (t.contains s.1).and (t.contains (Paper1.RefCell.hexOpp s.1)))
+      Bool.true)
+    (And
+      (Eq
+        ((Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)).all
+          fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+          (Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)).any
+            fun (s' : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+            (BEq.beq s'.1 (Paper1.RefCell.hexOpp s.1)).and
+              (Paper1.RefCell.sameSplit (Paper1.RefCell.hex.pull s.1 s.2) (Paper1.RefCell.hex.pull s'.1 s'.2)))
+        Bool.true)
+      (And
+        (Eq
+          (Paper1.RefCell.hex.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 8)) =>
+            (BEq.beq
+                  (List.countP
+                    (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                      Paper1.RefCell.usesEdge (Paper1.RefCell.hex.pull s.1 s.2) (q.diag Bool.false))
+                    (Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)))
+                  (OfNat.ofNat 4)).and
+              (BEq.beq
+                (List.countP
+                  (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                    Paper1.RefCell.usesEdge (Paper1.RefCell.hex.pull s.1 s.2) (q.diag Bool.true))
+                  (Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)))
+                (OfNat.ofNat 4)))
+          Bool.true)
+        (And
+          (Eq
+            ((List.cons Paper1.RefCell.hexRz
+                  (List.cons Paper1.RefCell.hexRx (List.cons Paper1.RefCell.hexMx List.nil))).all
+              fun (σ : Fin (OfNat.ofNat 8) → Fin (OfNat.ofNat 8)) =>
+              (Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)).all
+                fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                (Paper1.RefCell.hex.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.hexEdges)).any
+                  fun (s' : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                  Paper1.RefCell.sameSplit (Paper1.RefCell.mapSplit σ (Paper1.RefCell.hex.pull s.1 s.2))
+                    (Paper1.RefCell.hex.pull s'.1 s'.2))
+            Bool.true)
+          (And
+            (Eq (Paper1.RefCell.prism.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.prismEdges)).length
+              Paper1.RefCell.prism.splits.length)
+            (Eq (Paper1.RefCell.pyramid.fanSplits (Paper1.RefCell.nbrOf Paper1.RefCell.pyramidEdges)).length
+              Paper1.RefCell.pyramid.splits.length))))))
+XSTMT Paper1.Spec.P3_12_5 :: ∀ (π : Equiv.Perm (Fin (OfNat.ofNat 3))) (h : Fin (OfNat.ofNat 3) → Real),
+  (∀ (i : Fin (OfNat.ofNat 3)), LT.lt (OfNat.ofNat 0) (h i)) →
+    And (Paper1.Spec.pathSimplex π h).Nondeg
+      (∀ (a b : Fin (OfNat.ofNat 4)),
+        Ne a b →
+          LE.le (NumCore.dot ((Paper1.Spec.pathSimplex π h).grad a) ((Paper1.Spec.pathSimplex π h).grad b))
+            (OfNat.ofNat 0))
+XSTMT Paper1.Spec.P3_13_1 :: ∀ (κ : Type) [inst : Fintype κ] (Φ : (κ → Real) → κ → Real)
+  (B : (κ → Real) → ContinuousLinearMap (RingHom.id Real) (κ → Real) (κ → Real)) (wi wk : κ → Real),
+  (∀ (s : Real),
+      Membership.mem (Set.Icc (OfNat.ofNat 0) (OfNat.ofNat 1)) s →
+        HasFDerivAt Φ (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi))))
+          (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) →
+    ContinuousOn (fun (s : Real) => DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi))
+        (Set.Icc (OfNat.ofNat 0) (OfNat.ofNat 1)) →
+      And
+        (Eq (HSub.hSub (Φ wk) (Φ wi))
+          (intervalIntegral
+            (fun (s : Real) => DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi))
+            (OfNat.ofNat 0) (OfNat.ofNat 1) MeasureTheory.MeasureSpace.volume))
+        (Eq (NumCore.pairF (HSub.hSub wk wi) (HSub.hSub (Φ wk) (Φ wi)))
+          (intervalIntegral
+            (fun (s : Real) =>
+              NumCore.pairF (HSub.hSub wk wi)
+                (DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi)))
+            (OfNat.ofNat 0) (OfNat.ofNat 1) MeasureTheory.MeasureSpace.volume))
+XSTMT Paper1.Spec.P3_13_2 :: ∀ (d : Nat) (g : Paper1.Gas) (U : Paper1.State d) (E : NumCore.Vec d),
+  Paper1.Admissible g U →
+    LT.lt (abs (NumCore.dot (Paper1.vel U) E)) (HMul.hMul (Paper1.Spec.soundSpeed g U) (NumCore.len E)) →
+      ∀ (ε : Real),
+        GT.gt ε (OfNat.ofNat 0) →
+          And
+            (Exists fun (Uk : Paper1.State d) =>
+              And (Paper1.Admissible g Uk)
+                (And (LT.lt (Norm.norm (HSub.hSub Uk U)) ε)
+                  (LT.lt (OfNat.ofNat 0)
+                    (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g U))
+                      (HSub.hSub (Paper1.physFlux g Uk E) (Paper1.physFlux g U E))))))
+            (Exists fun (Uk : Paper1.State d) =>
+              And (Paper1.Admissible g Uk)
+                (And (LT.lt (Norm.norm (HSub.hSub Uk U)) ε)
+                  (LT.lt
+                    (NumCore.pairF (HSub.hSub (Paper1.entropyVars g Uk) (Paper1.entropyVars g U))
+                      (HSub.hSub (Paper1.physFlux g Uk E) (Paper1.physFlux g U E)))
+                    (OfNat.ofNat 0))))
+XSTMT Paper1.Spec.P3_11_2b :: ∀ (T : NumCore.Simplex (OfNat.ofNat 2)) (o a b : Fin (OfNat.ofNat 3)),
+  T.Nondeg →
+    (List.cons o (List.cons a (List.cons b List.nil))).Nodup →
+      Eq (T.facet o)
+        (HSMul.hSMul
+          (ite
+            (LT.lt (OfNat.ofNat 0)
+              (NumCore.dot (Paper1.Spec.perp2 (HSub.hSub (T.x b) (T.x a))) (HSub.hSub (T.x o) (T.x a))))
+            (Neg.neg (OfNat.ofNat 1)) (OfNat.ofNat 1))
+          (Paper1.Spec.perp2 (HSub.hSub (T.x b) (T.x a))))
+XSTMT Paper1.Spec.P3_11_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι] [inst_3 : Fintype C]
+  (M : NumCore.WMesh ι C (OfNat.ofNat 3)) (bd : Prod C (Fin (OfNat.ofNat 4)) → Bool),
+  M.Valid → Paper1.Spec.SideBalanced M bd → M.FacetBalanced bd
+XSTMT Paper1.Spec.P3_11_4b :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι] [inst_3 : Fintype C]
+  (M : NumCore.WMesh ι C (OfNat.ofNat 2)) (bd : Prod C (Fin (OfNat.ofNat 3)) → Bool),
+  M.Valid → Paper1.Spec.SideBalanced2 M bd → M.FacetBalanced bd
+XSTMT Paper1.Spec.P3_11_5 :: And
+  (Eq
+    (Paper1.RefCell.hex.splits.all fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+      (Paper1.RefCell.hex.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 8))) =>
+        (Paper1.Spec.tetFaces t).all fun (f : List (Fin (OfNat.ofNat 8))) =>
+          BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.hex.pull s.1 s.2) f)
+            (ite (Eq (Paper1.Spec.onCellFace Paper1.RefCell.hex f) Bool.true) (OfNat.ofNat 1) (OfNat.ofNat 2)))
+    Bool.true)
+  (And
+    (Eq
+      (Paper1.RefCell.prism.splits.all fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+        (Paper1.RefCell.prism.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 6))) =>
+          (Paper1.Spec.tetFaces t).all fun (f : List (Fin (OfNat.ofNat 6))) =>
+            BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.prism.pull s.1 s.2) f)
+              (ite (Eq (Paper1.Spec.onCellFace Paper1.RefCell.prism f) Bool.true) (OfNat.ofNat 1) (OfNat.ofNat 2)))
+      Bool.true)
+    (Eq
+      (Paper1.RefCell.pyramid.splits.all fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+        (Paper1.RefCell.pyramid.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 5))) =>
+          (Paper1.Spec.tetFaces t).all fun (f : List (Fin (OfNat.ofNat 5))) =>
+            BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.pyramid.pull s.1 s.2) f)
+              (ite (Eq (Paper1.Spec.onCellFace Paper1.RefCell.pyramid f) Bool.true) (OfNat.ofNat 1) (OfNat.ofNat 2)))
+      Bool.true))
+XSTMT Paper1.Spec.P3_11_6 :: And
+  (Eq
+    (Paper1.RefCell.hex.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 8)) =>
+      (HAppend.hAppend (q.tris Bool.false) (q.tris Bool.true)).all fun (f : List (Fin (OfNat.ofNat 8))) =>
+        BEq.beq
+          (HMul.hMul (OfNat.ofNat 2)
+            (List.countP
+              (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.hex.pull s.1 s.2) f) (OfNat.ofNat 1))
+              Paper1.RefCell.hex.splits))
+          Paper1.RefCell.hex.splits.length)
+    Bool.true)
+  (And
+    (Eq
+      (Paper1.RefCell.prism.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 6)) =>
+        (HAppend.hAppend (q.tris Bool.false) (q.tris Bool.true)).all fun (f : List (Fin (OfNat.ofNat 6))) =>
+          BEq.beq
+            (HMul.hMul (OfNat.ofNat 2)
+              (List.countP
+                (fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+                  BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.prism.pull s.1 s.2) f) (OfNat.ofNat 1))
+                Paper1.RefCell.prism.splits))
+            Paper1.RefCell.prism.splits.length)
+      Bool.true)
+    (And
+      (Eq
+        (Paper1.RefCell.prism.tris.all fun (f : List (Fin (OfNat.ofNat 6))) =>
+          BEq.beq
+            (List.countP
+              (fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+                BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.prism.pull s.1 s.2) f) (OfNat.ofNat 1))
+              Paper1.RefCell.prism.splits)
+            Paper1.RefCell.prism.splits.length)
+        Bool.true)
+      (And
+        (Eq
+          (Paper1.RefCell.pyramid.quads.all fun (q : Paper1.RefCell.Quad (OfNat.ofNat 5)) =>
+            (HAppend.hAppend (q.tris Bool.false) (q.tris Bool.true)).all fun (f : List (Fin (OfNat.ofNat 5))) =>
+              BEq.beq
+                (HMul.hMul (OfNat.ofNat 2)
+                  (List.countP
+                    (fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+                      BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.pyramid.pull s.1 s.2) f) (OfNat.ofNat 1))
+                    Paper1.RefCell.pyramid.splits))
+                Paper1.RefCell.pyramid.splits.length)
+          Bool.true)
+        (Eq
+          (Paper1.RefCell.pyramid.tris.all fun (f : List (Fin (OfNat.ofNat 5))) =>
+            BEq.beq
+              (List.countP
+                (fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+                  BEq.beq (Paper1.Spec.faceCount (Paper1.RefCell.pyramid.pull s.1 s.2) f) (OfNat.ofNat 1))
+                Paper1.RefCell.pyramid.splits)
+              Paper1.RefCell.pyramid.splits.length)
+          Bool.true))))
+XSTMT Paper1.Spec.P3_14_1 :: ∀ (ι C Q : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : DecidableEq C]
+  [inst_4 : Fintype Q] (d : Nat) (S : Paper1.Scheme.Data ι C Q d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))))
+  (aq : Q → Real) (u : ι → Paper1.State d),
+  Paper1.Spec.SchemeHyp S bd fq aq u →
+    And
+      (Eq (Finset.univ.sum fun (i : ι) => NumCore.pairF (Paper1.Scheme.w S u i) (Paper1.Scheme.resid S u i))
+        (HAdd.hAdd
+          (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Paper1.Scheme.Bterm S) (Paper1.Scheme.Pi2 S u)) (Paper1.Scheme.Pi4 S u))
+            (Finset.univ.sum fun (T : C) =>
+              HMul.hMul (S.M.ω T) (HSub.hSub (Paper1.Scheme.Dg S u T) (Paper1.Scheme.Pw S u T))))
+          (Paper1.Scheme.wallFlux S u)))
+      (And (LE.le (Paper1.Scheme.Pi2 S u) (OfNat.ofNat 0))
+        (And
+          (LE.le (OfNat.ofNat 1) S.c →
+            ∀ (T : C),
+              And
+                (LE.le (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) S.c)) (Paper1.Scheme.Dg S u T))
+                  (HSub.hSub (Paper1.Scheme.Dg S u T) (Paper1.Scheme.Pw S u T)))
+                (LE.le (OfNat.ofNat 0)
+                  (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) S.c)) (Paper1.Scheme.Dg S u T))))
+          (∀ (i k : ι),
+            Eq
+              (HSub.hSub (HAdd.hAdd (Paper1.Scheme.central S u k i) (Paper1.Scheme.diss2 S u k i))
+                (Paper1.Scheme.diss4 S u k i))
+              (Neg.neg
+                (HSub.hSub (HAdd.hAdd (Paper1.Scheme.central S u i k) (Paper1.Scheme.diss2 S u i k))
+                  (Paper1.Scheme.diss4 S u i k))))))
+XSTMT Paper1.Spec.P3_14_2 :: ∀ (ι C Q : Type) [Fintype ι] [DecidableEq ι] [Fintype C] [inst : Fintype Q] (d : Nat) (S : Paper1.Scheme.Data ι C Q d)
+  (slip : Q → Bool) (ug : Q → Paper1.State d),
+  (∀ (q : Q), Paper1.Admissible S.g (S.ut q)) →
+    (∀ (q : Q), Eq (slip q) Bool.true → Eq (S.Fs q) (Paper1.pressFlux S.g (S.ut q) (S.N q))) →
+      (∀ (q : Q),
+          Eq (slip q) Bool.false →
+            LE.le (NumCore.pairF (HSub.hSub (Paper1.entropyVars S.g (ug q)) (Paper1.entropyVars S.g (S.ut q))) (S.Fs q))
+              (NumCore.dot (HSub.hSub (Paper1.fluxPot (ug q)) (Paper1.fluxPot (S.ut q))) (S.N q))) →
+        LE.le (Paper1.Scheme.Bterm S)
+          (Finset.univ.sum fun (q : Q) =>
+            ite (Eq (slip q) Bool.true) (OfNat.ofNat 0)
+              (HSub.hSub (NumCore.dot (Paper1.fluxPot (ug q)) (S.N q))
+                (NumCore.pairF (Paper1.entropyVars S.g (ug q)) (S.Fs q))))
+XSTMT Paper1.Spec.P3_14_3 :: ∀ (ι C Q : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : DecidableEq C]
+  [inst_4 : Fintype Q] (d : Nat) (S : Paper1.Scheme.Data ι C Q d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))))
+  (aq : Q → Real) (Ut : ι → Real → Paper1.SState d) (Vv : ι → Real) (R : ι → Paper1.SState d) (t : Real)
+  (X Ck Bk Dh Sk Rrho Pst : ι → Real) (inD : ι → Bool) (kD : Real) (Dt : C → Real),
+  let u := fun (i : ι) => Paper1.hatState (Ut i t);
+  Paper1.Spec.SchemeHyp S bd fq aq u →
+    (∀ (i : ι), LT.lt (OfNat.ofNat 0) (Vv i)) →
+      (∀ (i : ι), HasDerivAt (Ut i) (HSMul.hSMul (Neg.neg (Inv.inv (Vv i))) (R i)) t) →
+        let β2 := fun (i : ι) => Neg.neg (Paper1.entropyVars S.g (u i) Paper1.Channel.energy);
+        let Rk := fun (i : ι) =>
+          ite (Eq (inD i) Bool.true) (HMul.hMul kD (Rrho i))
+            (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i)) (HMul.hMul (Vv i) (Sk i)));
+        (∀ (i : ι),
+            Eq (Paper1.hatState (R i))
+              (HAdd.hAdd (Neg.neg (Paper1.Scheme.resid S u i)) (HSMul.hSMul (HSub.hSub (X i) (Rk i)) Paper1.eE))) →
+          (∀ (i : ι), LE.le (OfNat.ofNat 0) (Pst i)) →
+            (∀ (i : ι), Eq (inD i) Bool.false → Eq (X i) (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i))) →
+              (∀ (i : ι), Eq (inD i) Bool.false → LE.le (Sk i) (Pst i)) →
+                (∀ (i : ι), Eq (inD i) Bool.true → LE.le (HSub.hSub (X i) (HMul.hMul kD (Rrho i))) (OfNat.ofNat 0)) →
+                  Eq (Finset.univ.sum fun (T : C) => HMul.hMul (S.M.ω T) (Dt T))
+                      (Finset.univ.sum fun (i : ι) => HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i)) →
+                    (∀ (T : C), LE.le (Paper1.Scheme.Pw S u T) (HSub.hSub (Paper1.Scheme.Dg S u T) (Dt T))) →
+                      Exists fun (r : Real) =>
+                        And
+                          (HasDerivAt
+                            (fun (s : Real) =>
+                              Finset.univ.sum fun (i : ι) => HMul.hMul (Vv i) (Paper1.eta0 S.g (Ut i s)))
+                            r t)
+                          (LE.le r
+                            (HSub.hSub
+                              (HSub.hSub
+                                (HSub.hSub
+                                  (HAdd.hAdd
+                                    (HAdd.hAdd (HAdd.hAdd (Paper1.Scheme.Bterm S) (Paper1.Scheme.wallFlux S u))
+                                      (Paper1.Scheme.Pi2 S u))
+                                    (Paper1.Scheme.Pi4 S u))
+                                  (Finset.univ.sum fun (T : C) =>
+                                    HMul.hMul (S.M.ω T)
+                                      (HSub.hSub (HSub.hSub (Paper1.Scheme.Dg S u T) (Dt T)) (Paper1.Scheme.Pw S u T))))
+                                (Finset.univ.sum fun (i : ι) =>
+                                  ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                    (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (HSub.hSub (Pst i) (Sk i)))))
+                              (Finset.univ.sum fun (i : ι) =>
+                                ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i))
+                                  (OfNat.ofNat 0))))
+XSTMT Paper1.Spec.P3_11_7 :: ∀ (k : Paper1.Mixed.Kind) (A : Matrix (Fin (OfNat.ofNat 3)) (Fin (OfNat.ofNat 3)) Real)
+  (b : NumCore.Vec (OfNat.ofNat 3)),
+  Ne A.det (OfNat.ofNat 0) →
+    let X := fun (a : Fin k.n) => HAdd.hAdd (A.mulVec (k.ref a)) b;
+    let cen := HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) k.n.cast) (Finset.univ.sum fun (a : Fin k.n) => X a);
+    ∀ (s : Prod (Fin k.n) (List Bool)),
+      Membership.mem k.cell.splits s →
+        And
+          (∀ (t : List (Fin k.n)),
+            Membership.mem (k.cell.pull s.1 s.2) t → (Paper1.Mixed.realize X t (Paper1.Spec.kz k)).Nondeg)
+          (And
+            (∀ (t : List (Fin k.n)),
+              Membership.mem (k.cell.pull s.1 s.2) t →
+                ∀ (t' : List (Fin k.n)),
+                  Membership.mem (k.cell.pull s.1 s.2) t' →
+                    ∀ (f : List (Fin k.n)),
+                      Membership.mem (Paper1.Spec.tetFaces t) f →
+                        Eq (Paper1.RefCell.sameSimplex t t') Bool.false →
+                          Eq ((Paper1.Spec.tetFaces t').any (Paper1.RefCell.sameSimplex f)) Bool.true →
+                            Eq (Paper1.Spec.onCellFace k.cell f) Bool.false →
+                              LT.lt
+                                (HMul.hMul
+                                  (Paper1.Spec.sideF X f (Paper1.Spec.kz k)
+                                    (X (Paper1.Mixed.oppV t f (Paper1.Spec.kz k))))
+                                  (Paper1.Spec.sideF X f (Paper1.Spec.kz k)
+                                    (X (Paper1.Mixed.oppV t' f (Paper1.Spec.kz k)))))
+                                (OfNat.ofNat 0))
+            (∀ (t : List (Fin k.n)),
+              Membership.mem (k.cell.pull s.1 s.2) t →
+                ∀ (f : List (Fin k.n)),
+                  Membership.mem (Paper1.Spec.tetFaces t) f →
+                    Eq (Paper1.Spec.onCellFace k.cell f) Bool.true →
+                      LT.lt (OfNat.ofNat 0)
+                        (HMul.hMul
+                          (Paper1.Spec.sideF X f (Paper1.Spec.kz k) (X (Paper1.Mixed.oppV t f (Paper1.Spec.kz k))))
+                          (Paper1.Spec.sideF X f (Paper1.Spec.kz k) cen))))
+XSTMT Paper1.Spec.P3_11_8 :: ∀ (ι Cl : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype Cl] [DecidableEq Cl] (M : Paper1.Mixed.Mesh ι Cl)
+  (bdTris : Finset (Finset ι)),
+  M.Affine →
+    M.Conform bdTris →
+      And M.toW.Valid
+        (M.toW.FacetBalanced
+          fun
+            (p :
+              Prod (Sigma fun (c : Cl) => Fin (M.cell c).kind.tets.length)
+                (Fin (HAdd.hAdd (OfNat.ofNat 3) (OfNat.ofNat 1)))) =>
+          Decidable.decide (Membership.mem bdTris (M.toW.facetNodes p)))

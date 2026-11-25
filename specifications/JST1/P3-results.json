@@ -1,0 +1,146 @@
+{
+  "specification": "specifications/JST1/P3.md",
+  "frozen_hashes": "specifications/JST1/frozen.sha256",
+  "source": {
+    "repository": "JST_Paper_Lean",
+    "branch": "v436",
+    "revision": "afdf4f9b4f98f089af82074bf7e4db99177844ad",
+    "results": "specifications/P3-results.json",
+    "frozen_hashes": "specifications/P3-frozen.sha256",
+    "toolchain_at_freeze": "leanprover/lean4:v4.19.0",
+    "mathlib_at_freeze": "c44e0c8ee63ca166450922a373c7409c5d26b00b",
+    "cfdlean_at_freeze": "3a586a42546cba1784cc79269e3f9d1c5d843f0c"
+  },
+  "folded": "MR-2 (specifications/MR.md): namespace Paper1 -> CFDLean.JST1, NumCore -> CFDLean.Num; statement comparison in evidence/JST1/fold-diff.md",
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "bindings": {
+    "P3-11.1": {
+      "statement": "CFDLean.JST1.Spec.P3_11_1",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11a.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11a",
+      "core_theorem": "CFDLean.Num.WMesh.facetBalanced_boundary"
+    },
+    "P3-11.2": {
+      "statement": "CFDLean.JST1.Spec.P3_11_2",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Geom3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Geom3",
+      "core_theorem": "CFDLean.Num.Simplex.facet_cross3"
+    },
+    "P3-11.3": {
+      "statement": "CFDLean.JST1.Spec.P3_11_3",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11a.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11a"
+    },
+    "P3-12.1": {
+      "statement": "CFDLean.JST1.Spec.P3_12_1",
+      "theorem": "CFDLean.JST1.Proofs.p3_12_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item12Comb.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item12Comb"
+    },
+    "P3-12.2": {
+      "statement": "CFDLean.JST1.Spec.P3_12_2",
+      "theorem": "CFDLean.JST1.Proofs.p3_12_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Geom3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Geom3"
+    },
+    "P3-12.3": {
+      "statement": "CFDLean.JST1.Spec.P3_12_3",
+      "theorem": "CFDLean.JST1.Proofs.p3_12_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item12Comb.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item12Comb"
+    },
+    "P3-12.4": {
+      "statement": "CFDLean.JST1.Spec.P3_12_4",
+      "theorem": "CFDLean.JST1.Proofs.p3_12_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item12Comb.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item12Comb"
+    },
+    "P3-12.5": {
+      "statement": "CFDLean.JST1.Spec.P3_12_5",
+      "theorem": "CFDLean.JST1.Proofs.p3_12_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Geom3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Geom3",
+      "core_theorem": "CFDLean.Num.pathSimplex_nonobtuse"
+    },
+    "P3-13.1": {
+      "statement": "CFDLean.JST1.Spec.P3_13_1",
+      "theorem": "CFDLean.JST1.Proofs.p3_13_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item13.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item13",
+      "core_theorem": "CFDLean.Num.pair_production_integral"
+    },
+    "P3-13.2": {
+      "statement": "CFDLean.JST1.Spec.P3_13_2",
+      "theorem": "CFDLean.JST1.Proofs.p3_13_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item13.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item13"
+    },
+    "P3-11.2b": {
+      "statement": "CFDLean.JST1.Spec.P3_11_2b",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_2b",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11b.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "core_theorem": "CFDLean.Num.Simplex.facet_perp2"
+    },
+    "P3-11.4": {
+      "statement": "CFDLean.JST1.Spec.P3_11_4",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11b.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "core_theorem": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced"
+    },
+    "P3-11.4b": {
+      "statement": "CFDLean.JST1.Spec.P3_11_4b",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_4b",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11b.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "core_theorem": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2"
+    },
+    "P3-11.5": {
+      "statement": "CFDLean.JST1.Spec.P3_11_5",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11b.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b"
+    },
+    "P3-11.6": {
+      "statement": "CFDLean.JST1.Spec.P3_11_6",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11b.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b"
+    },
+    "P3-14.1": {
+      "statement": "CFDLean.JST1.Spec.P3_14_1",
+      "theorem": "CFDLean.JST1.Proofs.p3_14_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item14.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item14"
+    },
+    "P3-14.2": {
+      "statement": "CFDLean.JST1.Spec.P3_14_2",
+      "theorem": "CFDLean.JST1.Proofs.p3_14_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item14.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item14"
+    },
+    "P3-14.3": {
+      "statement": "CFDLean.JST1.Spec.P3_14_3",
+      "theorem": "CFDLean.JST1.Proofs.p3_14_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item14.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item14"
+    },
+    "P3-11.7": {
+      "statement": "CFDLean.JST1.Spec.P3_11_7",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_7",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11c.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11c"
+    },
+    "P3-11.8": {
+      "statement": "CFDLean.JST1.Spec.P3_11_8",
+      "theorem": "CFDLean.JST1.Proofs.p3_11_8",
+      "file": "CFDLean/Papers/JST1/Proofs/Item11c.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11c"
+    }
+  }
+}

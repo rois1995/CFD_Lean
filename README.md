@@ -57,6 +57,7 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Entropy/` | `PairFlux`, `Production`, `Scalar/` (entropy certificates of a two-point flux, periodic cell entropy inequality, Burgers square entropy) |
 | `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux; consistency, monotone and Lipschitz certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, SSP and MUSCL schemes, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
+| `CFDLean/Papers/JST1/` | paper 1 (JST), see below |
 | `CFDLean/Exec/` | executable array kernel (`Kernel`, no imports), its `ℝ` instance, refinement to the mathematical scheme |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
@@ -137,6 +138,22 @@ semidiscrete and algebraic: no time derivative, no fully discrete entropy inequa
 ```bash
 lake comparator --paranoid --config Challenges/BurgersB4.comparator.json
 ```
+## Paper 1 (JST)
+
+Since MR-2 ([MR.md](specifications/MR.md)) the formalization of paper 1 (all 92 statements proved, folded from
+JST_Paper_Lean branch `v436`, commit `afdf4f9`) lives in [`CFDLean/Papers/JST1/`](CFDLean/Papers/JST1) (sub-folders
+`Euler`, `Viscous`, `SST`, `Mixed`, `Geometry`, `Scheme`, `Spec`, `Proofs`; umbrella `CFDLean/Papers/JST1.lean`).
+Namespace `CFDLean.JST1`: statements `CFDLean.JST1.Spec.P*` (`Prop` definitions), proofs `CFDLean.JST1.Proofs.p*`. It
+uses the core `CFDLean.Num` definitions; the 37 proofs whose statement is an MC-N theorem are one-line applications of
+it. The paper's own Euler definitions stay separate from M1.
+
+- Specifications, result maps (`P1`/`P2`/`P3-results.json`), frozen hashes (`frozen.sha256`), `PAPER_GAPS.md`,
+  `REPORT.md`: [`specifications/JST1/`](specifications/JST1); reviews: `reviews/JST1/`.
+- Statement comparison with the JST v4.36 dumps: [`evidence/JST1/fold-diff.md`](evidence/JST1/fold-diff.md)
+  (dump script `scripts/JST1Dump.lean`).
+- `scripts/verify.py` checks the frozen hashes, the 92 bindings in `KernelAudit.lean` (root theorems, standard
+  axioms) and forbidden tokens in `CFDLean/Papers`; the 92 theorems are in the [catalog](catalog/README.md) as
+  milestone `JST1`, status `candidate` (self-checked, AI-reviewed, not independently accepted).
 
 ## Burgers E0 (executable kernel and refinement)
 
@@ -170,6 +187,19 @@ LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py
 ```
 
 This incremental command is not the complete fresh-checkout bootstrap; use the source-only procedure above for the frozen M1 candidate. Project proof terms are checked by Lean's kernel. The current verifier inventories elaborated project modules, retains qualified declaration names, rejects duplicate rows, checks cumulative approved result bindings and their frozen contract hash, and protects accepted M1 source hashes. It reports all logical roots and compiler metadata separately. Run the parser/coverage fixtures with `python3 -m unittest discover -s scripts -p test_verify.py`. Historical M1 review scripts remain tied to the original frozen M1 revision.
+
+## Validation levels
+
+| Level | When | Checks |
+|---|---|---|
+| 1 | every commit | `lake build`; `LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py`; the fixtures `python3 -m unittest discover -s scripts -p test_verify.py`; `sha256sum -c evidence/SHA256SUMS` |
+| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/<name>.comparator.json` for `BurgersB0` .. `BurgersB3` and `JST1` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
+| 3 | optional, only when the user asks | `lake check --paranoid` (five independent kernels over the whole build), run alone, overnight; it needs 10-20 GB RAM per checker |
+
+Level 1 runs with `LEAN_NUM_THREADS=2` and `nice -n 19`, one Lean process at a time. `scripts/verify.py` also pins
+the pretty and raw types (`pp.notation false`, `pp.coercions false`) of every promised theorem in
+`evidence/raw-types.json` (MR-3); a deliberate type change is re-pinned with `python3 scripts/verify.py
+--record-raw-types` and the printed hash in `RAW_TYPES_SHA256`, after review.
 
 ## Review status
 

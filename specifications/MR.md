@@ -50,3 +50,24 @@ behaviour (same accepted revisions, same failures), covered by fixtures.
 
 `lake build`, `verify.py`, fixtures, catalog check, an AI statement review, and `lake check --paranoid` (sandboxed)
 before the merge to `main`.
+
+## Implementation notes (after the frozen scope)
+
+- MR-2: done (`evidence/JST1/fold-diff.md`). The JST1 statements also have a `lake comparator` challenge
+  (`Challenges/JST1.lean`, `Challenges/JST1.comparator.json`, solution `CFDLean/Verification/JST1Verify.lean`).
+- MR-3, raw types: `KernelAudit.lean` prints each theorem type also with `pp.notation false` and
+  `pp.coercions false` (`raw_type`). `scripts/verify.py` pins the pretty and raw types of every promised theorem (M1-M5,
+  MC-N, Burgers, JST1; 355 at MR-3, 411 with B1-B3) in `evidence/raw-types.json` (file hash pinned in the script, file listed in
+  `evidence/SHA256SUMS`) and fails if one changes. The raw types of the accepted v4.19 history cannot be regenerated
+  (no v4.19 build is kept); the raw pin is therefore the v4.36 state at MR-3, and the accepted v4.19 types are still
+  compared (pretty printer, with the MC-T port map) as before.
+- MR-3, table: `INHERITED` in `scripts/verify.py` holds the M2, M3 and M4 differences (stage order, parts, rollback
+  guard, filter order, failure messages); `check_inherited_milestone` replaces the three functions, which remain as
+  one-line wrappers. `scripts/test_verify.py` keeps the former functions verbatim as an oracle and checks identical
+  results and failures on the committed records and on mutations (one changed type per milestone, bindings, stages,
+  rollback, malformed stages, missing rows). M5 is not accepted and has no inherited check.
+- Level 2 review follow-up: the default `lake build` also builds `CFDLean.Verification.*` (`globs` of the `CFDLean`
+  library in `lakefile.toml`), so `lake env lean KernelAudit.lean` works on a fresh checkout. `check_jst1` binds each
+  result ID to the statement of the same name among the 92 statement definitions of the pinned statement files,
+  requires each proof's type to be its statement, and reads the KernelAudit bindings outside comments. The forbidden
+  token scan of `CFDLean/Papers` rejects `axiom` anywhere (also after attributes and modifiers) and `skipKernelTC`.
