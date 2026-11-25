@@ -6,6 +6,7 @@ import os
 import re
 from pathlib import Path
 import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
@@ -80,9 +81,22 @@ B0_BRIDGE_COUNT = 4
 JST1_RESULTS = (("specifications/JST1/P1-results.json", 36), ("specifications/JST1/P2-results.json", 36),
                 ("specifications/JST1/P3-results.json", 20))
 JST1_COUNT = 92
+# MR-3: the pretty and raw types (`pp.notation false`, `pp.coercions false`; field `raw_type` of KernelAudit.lean) of
+# every promised theorem (M1-M5, MC-N, B0, JST1: the catalog index) are pinned in evidence/raw-types.json, whose hash is
+# pinned here; a run fails if a type changes. The accepted v4.19 history has no raw types (they cannot be regenerated),
+# so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
+# current run (for a deliberate, reviewed re-pin) and prints its hash.
+RAW_TYPES = "evidence/raw-types.json"
+RAW_TYPES_SHA256 = "a95f4434724cbc3fee98dec1fd2f8ccec44bff9547a6710bab93e69cf108668f"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"
+# The JST1 `lake comparator` challenge (pinned) states the 92 frozen statements with `sorry` and imports only the
+# JST1 statement modules; the solution module restates each under the same name, bound to its JST1 proof.
+JST1_CHALLENGE = "Challenges/JST1.lean"
+JST1_CHALLENGE_SHA256 = "583a1e7a3e5bea6efeb0984b233278d4c860968043f9e14dadf934e1510fd05e"
+JST1_COMPARATOR = "Challenges/JST1.comparator.json"
+JST1_SOLUTION = "CFDLean.Verification.JST1Verify"
 JST1_ID = re.compile(r"P[1-3]-[0-9]+\.[0-9]+[a-z]?")
 FORBIDDEN_ROOT = "CFDLean/Papers"
 FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|^\s*(private |protected )?axiom\b|native_decide|implemented_by|\bunsafe\b"
@@ -255,22 +269,6 @@ def check_promises(rows, contract, stage, stages=("M2a", "M2b", "M2c", "M2d")):
     return sorted(required)
 
 
-def check_inherited(rows, contract, accepted_contract, accepted_evidence):
-    stages = ["M2a", "M2b", "M2c", "M2d"]
-    active = [r for r in accepted_contract["results"]
-              if stages.index(r["stage"]) <= stages.index(accepted_contract["current_stage"])]
-    current = {r["id"]: r for r in contract["results"]}
-    comparison = {}
-    for inherited in active:
-        if not inherited["declarations"] or current.get(inherited["id"]) != inherited:
-            raise ValueError(f"Accepted {inherited['id']} binding or stage changed")
-        for name in inherited["declarations"]:
-            before = accepted_evidence["declarations"][name]["type"]
-            after = rows[name]["type"]
-            comparison[name] = {"accepted_type": before, "current_type": after}
-            if not same_or_ported_type(name, before, after):
-                raise ValueError(f"Accepted theorem type changed: {name}")
-    return comparison
 
 
 
@@ -304,41 +302,65 @@ def check_m5_layout(contract, approved):
         raise ValueError("M5 result IDs/stages differ from frozen approval")
 
 
-def check_m3_inherited(rows, contract, accepted, evidence):
-    stages = ("M3a", "M3b")
-    current = {(r["id"], p["stage"]): p for r in contract["results"] for p in r["parts"]}
+
+
+# MR-3: one table-driven check of the accepted (inherited) bindings and types of M2, M3 and M4. Each row gives the
+# milestone's stage order, whether its results are split into parts (M3), whether the current stage may not roll back
+# below the accepted one (M4), whether the accepted stages are all filtered before the first binding is checked (M2),
+# and the failure messages of the former per-milestone functions, so the behaviour (accepted revisions, checked
+# bindings, comparisons, failures and their order, also on malformed input) is the same. M2 keeps its stages in a list
+# as before (the message of a failed `index` differs between list and tuple). M5 is not accepted and has no row.
+INHERITED = {
+    "M2": {"stages": ["M2a", "M2b", "M2c", "M2d"], "parts": False, "no_rollback": False, "filter_first": True,
+           "binding_error": "Accepted {id} binding or stage changed", "type_error": "Accepted theorem type changed: {name}"},
+    "M3": {"stages": ("M3a", "M3b"), "parts": True, "no_rollback": False, "filter_first": False,
+           "binding_error": "Accepted {id} part/bindings changed", "type_error": "Accepted M3 type changed: {name}"},
+    "M4": {"stages": ("M4a", "M4b"), "parts": False, "no_rollback": True, "filter_first": False,
+           "binding_error": "Accepted {id} binding/stage changed", "type_error": "Accepted M4 type changed: {name}"},
+}
+
+
+def check_inherited_milestone(milestone, rows, contract, accepted, evidence):
+    """Every binding of `accepted` up to its current stage is unchanged in `contract`, has declarations, and each
+    declaration keeps its accepted type (or its MC-T port type). Returns {name: {accepted_type, current_type}}."""
+    spec = INHERITED[milestone]
+    stages = spec["stages"]
+    if spec["no_rollback"] and stages.index(contract["current_stage"]) < stages.index(accepted["current_stage"]):
+        raise ValueError(f"Accepted {milestone} current stage rolled back")
+
+    def units(record):
+        for result in record["results"]:
+            for unit in (result["parts"] if spec["parts"] else [result]):
+                yield ((result["id"], unit["stage"]) if spec["parts"] else result["id"]), result["id"], unit
+    current = {key: unit for key, _, unit in units(contract)}
+    active = lambda key, result_id, unit: stages.index(unit["stage"]) <= stages.index(accepted["current_stage"])
+    accepted_units = units(accepted)
+    if spec["filter_first"]:
+        accepted_units = [entry for entry in accepted_units if active(*entry)]
     comparisons = {}
-    for result in accepted["results"]:
-        for part in result["parts"]:
-            if stages.index(part["stage"]) > stages.index(accepted["current_stage"]):
-                continue
-            if not part["declarations"] or current.get((result["id"], part["stage"])) != part:
-                raise ValueError(f"Accepted {result['id']} part/bindings changed")
-            for name in part["declarations"]:
-                before, after = evidence["declarations"][name]["type"], rows[name]["type"]
-                if not same_or_ported_type(name, before, after):
-                    raise ValueError(f"Accepted M3 type changed: {name}")
-                comparisons[name] = {"accepted_type": before, "current_type": after}
+    for key, result_id, unit in accepted_units:
+        if not spec["filter_first"] and not active(key, result_id, unit):
+            continue
+        if not unit["declarations"] or current.get(key) != unit:
+            raise ValueError(spec["binding_error"].format(id=result_id))
+        for name in unit["declarations"]:
+            before, after = evidence["declarations"][name]["type"], rows[name]["type"]
+            if not same_or_ported_type(name, before, after):
+                raise ValueError(spec["type_error"].format(name=name))
+            comparisons[name] = {"accepted_type": before, "current_type": after}
     return comparisons
+
+
+def check_inherited(rows, contract, accepted_contract, accepted_evidence):
+    return check_inherited_milestone("M2", rows, contract, accepted_contract, accepted_evidence)
+
+
+def check_m3_inherited(rows, contract, accepted, evidence):
+    return check_inherited_milestone("M3", rows, contract, accepted, evidence)
 
 
 def check_m4_inherited(rows, contract, accepted, evidence):
-    stages = ("M4a", "M4b")
-    if stages.index(contract["current_stage"]) < stages.index(accepted["current_stage"]):
-        raise ValueError("Accepted M4 current stage rolled back")
-    current = {r["id"]: r for r in contract["results"]}
-    comparisons = {}
-    for result in accepted["results"]:
-        if stages.index(result["stage"]) > stages.index(accepted["current_stage"]):
-            continue
-        if not result["declarations"] or current.get(result["id"]) != result:
-            raise ValueError(f"Accepted {result['id']} binding/stage changed")
-        for name in result["declarations"]:
-            before, after = evidence["declarations"][name]["type"], rows[name]["type"]
-            if not same_or_ported_type(name, before, after):
-                raise ValueError(f"Accepted M4 type changed: {name}")
-            comparisons[name] = {"accepted_type": before, "current_type": after}
-    return comparisons
+    return check_inherited_milestone("M4", rows, contract, accepted, evidence)
 
 
 def check_mc_n(rows, record, other_promised, spec_text):
@@ -594,6 +616,37 @@ def check_jst1(rows, records, audit_text, core_theorems):
     return sorted(names), sorted(delegated)
 
 
+def check_jst1_comparator(rows, records, read=read_source):
+    """The JST1 comparator files: the pinned challenge imports only JST1 statement modules and states each frozen
+    statement under the name of a solution theorem; the configuration names exactly those theorems; each solution
+    theorem is a root theorem with standard axioms whose type is its statement and which uses its JST1 proof."""
+    challenge = read(JST1_CHALLENGE)
+    if hashlib.sha256(challenge).hexdigest() != JST1_CHALLENGE_SHA256:
+        raise ValueError("JST1 comparator challenge changed")
+    imports = imported_modules(challenge)
+    if not imports or any(not module.startswith("CFDLean.Papers.JST1.Spec.") for module in imports):
+        raise ValueError("JST1 comparator challenge imports a module outside the JST1 statements")
+    config = json.loads(read(JST1_COMPARATOR))
+    bindings = [binding for record in records for binding in record["bindings"].values()]
+    names = [f"{JST1_SOLUTION}.{binding['theorem'].rsplit('.', 1)[1]}" for binding in bindings]
+    if (config.get("challenge_module") != "Challenges.JST1" or config.get("solution_module") != JST1_SOLUTION
+            or config.get("theorem_names") != names or config.get("definition_names") != []
+            or set(config.get("permitted_axioms", [])) != ALLOWED):
+        raise ValueError("JST1 comparator configuration differs from the result maps")
+    stated = set(re.findall(r"^theorem (\S+) : (\S+) := sorry$", challenge.decode(), re.MULTILINE))
+    for name, binding in zip(names, bindings):
+        if (name.rsplit(".", 1)[1], binding["statement"]) not in stated:
+            raise ValueError(f"JST1 statement not in the comparator challenge: {binding['statement']}")
+        row = rows.get(name)
+        if (row is None or row["kind"] != "theorem" or not row["root"] or row["unsafe"]
+                or set(row["axioms"]) - ALLOWED or row["module"] != JST1_SOLUTION
+                or row["type"] != binding["statement"] or binding["theorem"] not in row["direct"]):
+            raise ValueError(f"JST1 comparator solution theorem wrong: {name}")
+    if len(stated) != len(names):
+        raise ValueError("JST1 comparator challenge states extra theorems")
+    return len(names)
+
+
 def check_forbidden_tokens(paths, read):
     """No forbidden token (sorry, admit, axiom declarations, native_decide, implemented_by, extern, opaque, unsafe) in
     the paper sources."""
@@ -617,11 +670,45 @@ def jst1_catalog_index(records):
     return index
 
 
+def promised_types(rows, names):
+    """{name: {"type", "raw_type"}} for the promised theorems, from the kernel audit records."""
+    types = {}
+    for name in sorted(names):
+        row = rows.get(name)
+        if row is None or row["kind"] != "theorem" or not isinstance(row.get("raw_type"), str):
+            raise ValueError(f"Promised theorem without a raw type: {name}")
+        types[name] = {"type": row["type"], "raw_type": row["raw_type"]}
+    return types
+
+
+def raw_types_record(types):
+    return json.dumps({
+        "description": "MR-3 type pin: pretty type and raw type (pp.notation false, pp.coercions false) of every "
+                       "promised theorem (M1-M5, MC-N, B0, JST1), printed by KernelAudit.lean with Lean v4.36.0. The "
+                       "accepted v4.19 history has no raw types; this pin is the v4.36 state at MR-3.",
+        "theorems": types}, indent=2, ensure_ascii=False) + "\n"
+
+
+def check_raw_types(types, data):
+    """The pinned file covers exactly the promised theorems and every pretty and raw type is unchanged."""
+    if hashlib.sha256(data).hexdigest() != RAW_TYPES_SHA256:
+        raise ValueError("Raw type pin differs from the pinned file")
+    pinned = json.loads(data)["theorems"]
+    if set(pinned) != set(types):
+        raise ValueError("Raw type pin does not cover exactly the promised theorems")
+    for name, entry in types.items():
+        if pinned[name]["raw_type"] != entry["raw_type"]:
+            raise ValueError(f"Promised theorem raw type changed: {name}")
+        if pinned[name]["type"] != entry["type"]:
+            raise ValueError(f"Promised theorem type changed: {name}")
+    return len(types)
+
+
 def git_blob(revision, path):
     return subprocess.check_output(["git", "show", f"{revision}:{path}"], stderr=subprocess.DEVNULL)
 
 
-def main():
+def main(record_raw_types=False):
     os.chdir(ROOT)
     evidence = ROOT / "evidence"
     evidence.mkdir(exist_ok=True)
@@ -675,6 +762,9 @@ def main():
     env = dict(os.environ, MATHLIB_NO_CACHE_ON_UPDATE="1", LAKE_NO_CACHE="1")
     with (evidence / "build.log").open("w") as log:
         subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
+        # The trusted-statement bridges are not in the `CFDLean` umbrella; KernelAudit.lean imports them.
+        subprocess.run(["lake", "build", "CFDLean.Verification.BurgersB0Verify", JST1_SOLUTION], env=env, stdout=log,
+                       stderr=subprocess.STDOUT, check=True)
     result = subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "KernelAudit.lean"],
                             env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     (evidence / "kernel-inventory.log").write_text(result.stdout)
@@ -721,6 +811,7 @@ def main():
         jst1.append(record)
     jst1_frozen = check_jst1_frozen(load_jst1_frozen((ROOT / JST1_FROZEN).read_bytes()), read_source, lean_sources)
     jst1_promised, jst1_delegated = check_jst1(rows, jst1, (ROOT / "KernelAudit.lean").read_text(), mcn_promised)
+    jst1_comparator = check_jst1_comparator(rows, jst1)
     if set(jst1_promised) & (set(promised) | set(mcn_promised) | set(b0_promised)):
         raise ValueError("JST1 rebinds an M1-M5, MC-N or Burgers B0 promised theorem")
     forbidden_scanned = check_forbidden_tokens(
@@ -738,13 +829,20 @@ def main():
     catalog = json.loads((ROOT / CATALOG).read_text(encoding="utf-8"))
     catalog_entries = check_catalog(catalog, catalog_expected, rows)
     check_catalog_readme(catalog, (ROOT / CATALOG_README).read_text(encoding="utf-8"), load_catalog_renderer())
+    types = promised_types(rows, catalog_expected)
+    if record_raw_types:
+        (ROOT / RAW_TYPES).write_text(raw_types_record(types), encoding="utf-8")
+        print(f"Recorded {len(types)} promised types in {RAW_TYPES}, sha256 "
+              f"{hashlib.sha256((ROOT / RAW_TYPES).read_bytes()).hexdigest()}; pin it as RAW_TYPES_SHA256.")
+        return
+    raw_types_checked = check_raw_types(types, (ROOT / RAW_TYPES).read_bytes())
     mcn_sources = check_mc_n_sources(
         lean_sources, read_source, lambda path: git_blob(MC_N_BASE_REVISION, path), moves)
-    inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
-    accepted_m3 = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M3-results.json"))
-    inherited.update(check_m3_inherited(rows, m3, accepted_m3, accepted_evidence))
-    accepted_m4 = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M4-results.json"))
-    inherited.update(check_m4_inherited(rows, m4, accepted_m4, accepted_evidence))
+    inherited = {}
+    for milestone, current_record in [("M2", contract), ("M3", m3), ("M4", m4)]:
+        accepted_record = accepted_contract if milestone == "M2" else json.loads(
+            git_blob(ACCEPTED_BASELINE, f"specifications/{milestone}-results.json"))
+        inherited.update(check_inherited_milestone(milestone, rows, current_record, accepted_record, accepted_evidence))
     (evidence / "inherited-types.json").write_text(json.dumps(inherited, indent=2) + "\n")
     (evidence / "binding-type-diff.json").write_text(json.dumps({name: {
         "accepted_type": accepted_evidence["declarations"][name]["type"]
@@ -765,7 +863,8 @@ def main():
         if revision != package["rev"] or dirty:
             raise ValueError(f"Dependency revision or tracked source mismatch: {package['name']}")
     files = [ROOT / name for name in [".gitignore", "README.md", "lean-toolchain", "lakefile.toml",
-                                     "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean", "StatementChecks.lean"]]
+                                     "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean", "StatementChecks.lean",
+                                     RAW_TYPES]]
     for directory in ["CFDLean", "Challenges", "references", "specifications", "scripts"]:
         files.extend(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)
@@ -810,13 +909,16 @@ def main():
         "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
         "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
         "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,
-        "forbidden_token_scan": {"root": FORBIDDEN_ROOT, "files": forbidden_scanned}
+        "forbidden_token_scan": {"root": FORBIDDEN_ROOT, "files": forbidden_scanned},
+        "jst1_comparator": JST1_COMPARATOR, "jst1_comparator_theorems": jst1_comparator,
+        "raw_types": RAW_TYPES, "raw_types_checked": raw_types_checked
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, "
           f"{len(mcn_promised)} MC-N theorems, {len(b0_promised)} Burgers B0 theorems with {len(b0_bridges)} trusted "
           f"bridge theorems, {len(jst1_promised)} JST1 theorems ({len(jst1_delegated)} delegated to MC-N), "
-          f"{catalog_entries} catalog entries, and all pinned dependencies.")
+          f"{catalog_entries} catalog entries, {raw_types_checked} pinned pretty and raw types, and all pinned "
+          f"dependencies.")
 
 
 if __name__ == "__main__":
-    main()
+    main(record_raw_types=sys.argv[1:] == ["--record-raw-types"])

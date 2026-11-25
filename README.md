@@ -111,6 +111,19 @@ LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py
 
 This incremental command is not the complete fresh-checkout bootstrap; use the source-only procedure above for the frozen M1 candidate. Project proof terms are checked by Lean's kernel. The current verifier inventories elaborated project modules, retains qualified declaration names, rejects duplicate rows, checks cumulative approved result bindings and their frozen contract hash, and protects accepted M1 source hashes. It reports all logical roots and compiler metadata separately. Run the parser/coverage fixtures with `python3 -m unittest discover -s scripts -p test_verify.py`. Historical M1 review scripts remain tied to the original frozen M1 revision.
 
+## Validation levels
+
+| Level | When | Checks |
+|---|---|---|
+| 1 | every commit | `lake build`; `LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py`; the fixtures `python3 -m unittest discover -s scripts -p test_verify.py`; `sha256sum -c evidence/SHA256SUMS` |
+| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/BurgersB0.comparator.json` and `... Challenges/JST1.comparator.json` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
+| 3 | optional, only when the user asks | `lake check --paranoid` (five independent kernels over the whole build), run alone, overnight; it needs 10-20 GB RAM per checker |
+
+Level 1 runs with `LEAN_NUM_THREADS=2` and `nice -n 19`, one Lean process at a time. `scripts/verify.py` also pins
+the pretty and raw types (`pp.notation false`, `pp.coercions false`) of every promised theorem in
+`evidence/raw-types.json` (MR-3); a deliberate type change is re-pinned with `python3 scripts/verify.py
+--record-raw-types` and the printed hash in `RAW_TYPES_SHA256`, after review.
+
 ## Review status
 
 The independent decision is **Accept M1**, with both original review conditions closed. The accepted mathematical revision is `0a88e36b3810cd5adc3881db526ca8a35f81afbb`; documentation follow-up `180ff1be1aa95d943574efd9c05cd4de320a88b6` closed the conditions. See the supplied [final acceptance record](reviews/M1/CFD_Lean_M1_Acceptance.md). The original conditional report and evidence remain intact as review history.

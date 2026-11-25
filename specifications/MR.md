@@ -50,3 +50,19 @@ behaviour (same accepted revisions, same failures), covered by fixtures.
 
 `lake build`, `verify.py`, fixtures, catalog check, an AI statement review, and `lake check --paranoid` (sandboxed)
 before the merge to `main`.
+
+## Implementation notes (after the frozen scope)
+
+- MR-2: done (`evidence/JST1/fold-diff.md`). The JST1 statements also have a `lake comparator` challenge
+  (`Challenges/JST1.lean`, `Challenges/JST1.comparator.json`, solution `CFDLean/Verification/JST1Verify.lean`).
+- MR-3, raw types: `KernelAudit.lean` prints each theorem type also with `pp.notation false` and
+  `pp.coercions false` (`raw_type`). `scripts/verify.py` pins the pretty and raw types of every promised theorem (M1-M5,
+  MC-N, B0, JST1; 355) in `evidence/raw-types.json` (file hash pinned in the script, file listed in
+  `evidence/SHA256SUMS`) and fails if one changes. The raw types of the accepted v4.19 history cannot be regenerated
+  (no v4.19 build is kept); the raw pin is therefore the v4.36 state at MR-3, and the accepted v4.19 types are still
+  compared (pretty printer, with the MC-T port map) as before.
+- MR-3, table: `INHERITED` in `scripts/verify.py` holds the M2, M3 and M4 differences (stage order, parts, rollback
+  guard, filter order, failure messages); `check_inherited_milestone` replaces the three functions, which remain as
+  one-line wrappers. `scripts/test_verify.py` keeps the former functions verbatim as an oracle and checks identical
+  results and failures on the committed records and on mutations (one changed type per milestone, bindings, stages,
+  rollback, malformed stages, missing rows). M5 is not accepted and has no inherited check.

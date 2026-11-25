@@ -1,3 +1,10 @@
+# MR-3 type pin
+
+`raw-types.json` pins the pretty type and the raw type (`pp.notation false`, `pp.coercions false`) of every promised
+theorem (M1-M5, MC-N, Burgers B0, JST1), as printed by `KernelAudit.lean` with Lean v4.36.0. `scripts/verify.py` never
+rewrites it in a normal run and fails if a type differs. The accepted v4.19 history has no raw types (they cannot be
+regenerated), so this pin is the v4.36 state at MR-3 (`specifications/MR.md`).
+
 # Current M5 lumped explicit Euler machine evidence
 
 The M5 scientific proposal received an independent implementation recommendation without mandatory amendments at 3dcb73dce26149673f6669725fc3b371bd95defd. All 28 original payload hashes, the exact reviewed proposal and five deterministic candidate/checkpoint outputs passed before archiving reviews/M5/proposal-3dcb73d unchanged. Its source-byte/visual-inspection limitation remains in the original report. The exact proposal copy, authorization and six-ID map were frozen before mathematics at 9ee58a9a0226844cda835ac0b8285d64891f1dd0. Standing authorization supplies implementation permission, not independent theorem acceptance.

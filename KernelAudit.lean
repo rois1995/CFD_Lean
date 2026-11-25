@@ -1,5 +1,6 @@
 import Integrity
 import CFDLean.Verification.BurgersB0Verify
+import CFDLean.Verification.JST1Verify
 import Lean
 
 open Lean
@@ -32,7 +33,7 @@ run_cmd do
         ("name", toJson n.toString), ("module", toJson modName.toString),
         ("kind", toJson "compiler_metadata_only"), ("unsafe", Json.null),
         ("root", toJson false), ("axioms", toJson ([] : List String)),
-        ("direct", toJson ([] : List String)), ("type", Json.null)]).compress)
+        ("direct", toJson ([] : List String)), ("type", Json.null), ("raw_type", Json.null)]).compress)
       continue
     if (ci matches .axiomInfo _) && !ci.isUnsafe then
       throwError "explicit project axiom {n}"
@@ -49,12 +50,18 @@ run_cmd do
       | none => false
     let typeText ← Lean.Elab.Command.liftTermElabM do
       return toString (← Lean.PrettyPrinter.ppExpr ci.type)
+    -- MR-3: theorem types also without notation and coercions (`raw_type`), compared by `scripts/verify.py`.
+    let rawText ← if ci matches .thmInfo _ then
+        Lean.Elab.Command.liftTermElabM do
+          withOptions (fun o => (o.setBool `pp.notation false).setBool `pp.coercions false) do
+            return Json.str (toString (← Lean.PrettyPrinter.ppExpr ci.type))
+      else pure Json.null
     let record := Json.mkObj [
       ("name", toJson n.toString), ("module", toJson modName.toString),
       ("kind", toJson (kind ci)), ("unsafe", toJson ci.isUnsafe),
       ("root", toJson isRoot), ("axioms", toJson (ax.map Name.toString)),
       ("direct", toJson (direct.map Name.toString)),
-      ("type", toJson typeText)]
+      ("type", toJson typeText), ("raw_type", rawText)]
     logInfo ("CFDLEAN_DECL " ++ record.compress)
     if isRoot then roots := roots.push n
   let mut todo := roots.toList

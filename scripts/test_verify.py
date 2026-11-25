@@ -608,6 +608,244 @@ class JST1Tests(unittest.TestCase):
         self.assertEqual(verify.check_forbidden_tokens(papers, verify.read_source), len(papers))
 
 
+# The three per-milestone inherited-type checks as they were before MR-3 (verbatim, renamed), kept as the oracle that
+# the table-driven verify.check_inherited_milestone must match on every input.
+def legacy_check_inherited(rows, contract, accepted_contract, accepted_evidence):
+    stages = ["M2a", "M2b", "M2c", "M2d"]
+    active = [r for r in accepted_contract["results"]
+              if stages.index(r["stage"]) <= stages.index(accepted_contract["current_stage"])]
+    current = {r["id"]: r for r in contract["results"]}
+    comparison = {}
+    for inherited in active:
+        if not inherited["declarations"] or current.get(inherited["id"]) != inherited:
+            raise ValueError(f"Accepted {inherited['id']} binding or stage changed")
+        for name in inherited["declarations"]:
+            before = accepted_evidence["declarations"][name]["type"]
+            after = rows[name]["type"]
+            comparison[name] = {"accepted_type": before, "current_type": after}
+            if not verify.same_or_ported_type(name, before, after):
+                raise ValueError(f"Accepted theorem type changed: {name}")
+    return comparison
+
+def legacy_check_m3_inherited(rows, contract, accepted, evidence):
+    stages = ("M3a", "M3b")
+    current = {(r["id"], p["stage"]): p for r in contract["results"] for p in r["parts"]}
+    comparisons = {}
+    for result in accepted["results"]:
+        for part in result["parts"]:
+            if stages.index(part["stage"]) > stages.index(accepted["current_stage"]):
+                continue
+            if not part["declarations"] or current.get((result["id"], part["stage"])) != part:
+                raise ValueError(f"Accepted {result['id']} part/bindings changed")
+            for name in part["declarations"]:
+                before, after = evidence["declarations"][name]["type"], rows[name]["type"]
+                if not verify.same_or_ported_type(name, before, after):
+                    raise ValueError(f"Accepted M3 type changed: {name}")
+                comparisons[name] = {"accepted_type": before, "current_type": after}
+    return comparisons
+
+def legacy_check_m4_inherited(rows, contract, accepted, evidence):
+    stages = ("M4a", "M4b")
+    if stages.index(contract["current_stage"]) < stages.index(accepted["current_stage"]):
+        raise ValueError("Accepted M4 current stage rolled back")
+    current = {r["id"]: r for r in contract["results"]}
+    comparisons = {}
+    for result in accepted["results"]:
+        if stages.index(result["stage"]) > stages.index(accepted["current_stage"]):
+            continue
+        if not result["declarations"] or current.get(result["id"]) != result:
+            raise ValueError(f"Accepted {result['id']} binding/stage changed")
+        for name in result["declarations"]:
+            before, after = evidence["declarations"][name]["type"], rows[name]["type"]
+            if not verify.same_or_ported_type(name, before, after):
+                raise ValueError(f"Accepted M4 type changed: {name}")
+            comparisons[name] = {"accepted_type": before, "current_type": after}
+    return comparisons
+
+
+LEGACY_INHERITED = {"M2": legacy_check_inherited, "M3": legacy_check_m3_inherited, "M4": legacy_check_m4_inherited}
+
+
+def outcome(function, *args):
+    try:
+        return "ok", list(function(*args).items())
+    except Exception as error:  # the exact exception type and message are part of the behaviour
+        return type(error).__name__, str(error)
+
+
+class InheritedTableTests(unittest.TestCase):
+    """MR-3: the table-driven inherited check behaves exactly as the former M2/M3/M4 functions, on the committed
+    accepted records (ACCEPTED_BASELINE) and current records, and on mutations of them."""
+
+    @classmethod
+    def setUpClass(cls):
+        root = verify.ROOT
+        show = lambda path: json.loads(verify.git_blob(verify.ACCEPTED_BASELINE, path))
+        cls.evidence = show("evidence/verification.json")
+        cls.accepted = {m: show(f"specifications/{m}-results.json") for m in ("M2", "M3", "M4")}
+        cls.current = {m: json.loads((root / f"specifications/{m}-results.json").read_text()) for m in ("M2", "M3", "M4")}
+        cls.rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
+
+    def same(self, milestone, rows=None, current=None, accepted=None, evidence=None):
+        args = (self.rows if rows is None else rows, self.current[milestone] if current is None else current,
+                self.accepted[milestone] if accepted is None else accepted,
+                self.evidence if evidence is None else evidence)
+        new = outcome(verify.check_inherited_milestone, milestone, *args)
+        self.assertEqual(new, outcome(LEGACY_INHERITED[milestone], *args), msg=milestone)
+        return new
+
+    def declarations(self, milestone):
+        units = [p for r in self.accepted[milestone]["results"] for p in r["parts"]] if milestone == "M3" else \
+            self.accepted[milestone]["results"]
+        return [name for unit in units for name in unit["declarations"]]
+
+    def test_table_covers_the_accepted_milestones(self):
+        self.assertEqual(set(verify.INHERITED), {"M2", "M3", "M4"})
+
+    def test_committed_records_pass_with_identical_comparisons(self):
+        counts = {m: len(self.same(m)[1]) for m in ("M2", "M3", "M4")}
+        self.assertEqual(counts, {"M2": 66, "M3": 51, "M4": 39})
+
+    def test_one_promised_type_changed_per_milestone(self):
+        messages = {"M2": "Accepted theorem type changed: {}", "M3": "Accepted M3 type changed: {}",
+                    "M4": "Accepted M4 type changed: {}"}
+        for milestone, message in messages.items():
+            for name in (self.declarations(milestone)[0], self.declarations(milestone)[-1]):
+                rows = json.loads(json.dumps(self.rows))
+                rows[name]["type"] += " ∧ True"
+                self.assertEqual(self.same(milestone, rows=rows), ("ValueError", message.format(name)))
+
+    def test_binding_stage_and_record_mutations(self):
+        for milestone in ("M2", "M3", "M4"):
+            first = self.accepted[milestone]["results"][0]
+            mutations = []
+            for field, value in [("declarations", []), ("stage", "X"), ("id", "Z-9")]:
+                current = json.loads(json.dumps(self.current[milestone]))
+                unit = current["results"][0]["parts"][0] if milestone == "M3" else current["results"][0]
+                unit[field] = value
+                mutations.append(current)
+            current = json.loads(json.dumps(self.current[milestone]))
+            del current["results"][-1]
+            mutations.append(current)
+            for current in mutations:
+                result = self.same(milestone, current=current)
+                self.assertNotEqual(result[0], "ok", msg=(milestone, first["id"]))
+            # A repeated identical binding is accepted by both (the former functions keyed the current results).
+            current = json.loads(json.dumps(self.current[milestone]))
+            current["results"].append(json.loads(json.dumps(current["results"][0])))
+            self.assertEqual(self.same(milestone, current=current)[0], "ok")
+            accepted = json.loads(json.dumps(self.accepted[milestone]))
+            unit = accepted["results"][1]["parts"][0] if milestone == "M3" else accepted["results"][1]
+            unit["stage"] = "bogus"
+            self.same(milestone, accepted=accepted)
+            accepted = json.loads(json.dumps(self.accepted[milestone]))
+            accepted["current_stage"] = "bogus"
+            self.same(milestone, accepted=accepted)
+            rows = dict(self.rows)
+            del rows[self.declarations(milestone)[0]]
+            self.assertEqual(self.same(milestone, rows=rows)[0], "KeyError")
+            evidence = json.loads(json.dumps(self.evidence))
+            evidence["declarations"][self.declarations(milestone)[0]]["type"] = "forged"
+            self.assertEqual(self.same(milestone, evidence=evidence)[0], "ValueError")
+
+    def test_m2_filters_all_stages_before_checking_bindings(self):
+        accepted = json.loads(json.dumps(self.accepted["M2"]))
+        current = json.loads(json.dumps(self.current["M2"]))
+        current["results"][0]["declarations"] = []
+        accepted["results"][-1]["stage"] = "bogus"
+        self.assertEqual(self.same("M2", current=current, accepted=accepted)[0], "ValueError")
+
+    def test_m4_rollback_and_unaccepted_future_stage(self):
+        current = json.loads(json.dumps(self.current["M4"]))
+        current["current_stage"] = "M4a"
+        self.assertEqual(self.same("M4", current=current), ("ValueError", "Accepted M4 current stage rolled back"))
+        accepted = json.loads(json.dumps(self.accepted["M4"]))
+        accepted["current_stage"] = "M4a"
+        self.assertEqual(self.same("M4", accepted=accepted)[0], "ok")
+
+
+class RawTypeTests(unittest.TestCase):
+    def setUp(self):
+        self.rows = {name: dict(record(name), type=f"T {name}", raw_type=f"R {name}") for name in ("A.x", "A.y")}
+        self.types = verify.promised_types(self.rows, ["A.y", "A.x"])
+        self.data = verify.raw_types_record(self.types).encode()
+        self.original = verify.RAW_TYPES_SHA256
+        verify.RAW_TYPES_SHA256 = verify.hashlib.sha256(self.data).hexdigest()
+
+    def tearDown(self):
+        verify.RAW_TYPES_SHA256 = self.original
+
+    def test_pin_accepts_unchanged_types(self):
+        self.assertEqual(list(self.types), ["A.x", "A.y"])
+        self.assertEqual(verify.check_raw_types(self.types, self.data), 2)
+
+    def test_changed_raw_or_pretty_type_rejected(self):
+        for field in ("raw_type", "type"):
+            types = json.loads(json.dumps(self.types))
+            types["A.x"][field] += " "
+            with self.assertRaises(ValueError, msg=field):
+                verify.check_raw_types(types, self.data)
+
+    def test_cover_and_file_pin(self):
+        with self.assertRaises(ValueError):
+            verify.check_raw_types({"A.x": self.types["A.x"]}, self.data)
+        with self.assertRaises(ValueError):
+            verify.check_raw_types(dict(self.types, **{"A.z": self.types["A.x"]}), self.data)
+        forged = self.data.replace(b"R A.x", b"R A.z")
+        with self.assertRaises(ValueError):
+            verify.check_raw_types(self.types, forged)
+
+    def test_promised_theorem_needs_a_raw_type(self):
+        for change in [{"raw_type": None}, {"kind": "definition"}]:
+            rows = dict(self.rows, **{"A.x": dict(self.rows["A.x"], **change)})
+            with self.assertRaises(ValueError):
+                verify.promised_types(rows, ["A.x"])
+        with self.assertRaises(ValueError):
+            verify.promised_types(self.rows, ["A.missing"])
+
+    def test_committed_pin_covers_the_catalog(self):
+        root = verify.ROOT
+        verify.RAW_TYPES_SHA256 = self.original
+        rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
+        names = [entry["name"] for entry in json.loads((root / verify.CATALOG).read_text(encoding="utf-8"))["theorems"]]
+        types = verify.promised_types(rows, names)
+        self.assertEqual(verify.check_raw_types(types, (root / verify.RAW_TYPES).read_bytes()), len(names))
+
+
+class JST1ComparatorTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        root = verify.ROOT
+        cls.records = [json.loads((root / path).read_text()) for path, _ in verify.JST1_RESULTS]
+        cls.rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
+        cls.files = {path: (root / path).read_bytes() for path in (verify.JST1_CHALLENGE, verify.JST1_COMPARATOR)}
+
+    def check(self, rows=None, files=None):
+        files = self.files if files is None else files
+        return verify.check_jst1_comparator(self.rows if rows is None else rows, self.records, files.__getitem__)
+
+    def test_committed_files_pass(self):
+        self.assertEqual(self.check(), 92)
+
+    def test_challenge_and_configuration_pinned(self):
+        challenge = self.files[verify.JST1_CHALLENGE]
+        config = json.loads(self.files[verify.JST1_COMPARATOR])
+        bad_configs = [dict(config, theorem_names=config["theorem_names"][1:]),
+                       dict(config, permitted_axioms=["propext", "sorryAx"]), dict(config, solution_module="X")]
+        for files in [dict(self.files, **{verify.JST1_CHALLENGE: challenge.replace(b"P1_1_1", b"P1_1_2", 1)})] + [
+                dict(self.files, **{verify.JST1_COMPARATOR: json.dumps(c).encode()}) for c in bad_configs]:
+            with self.assertRaises(ValueError):
+                self.check(files=files)
+
+    def test_solution_theorem_type_axioms_and_proof(self):
+        name = verify.JST1_SOLUTION + ".p2_6_1"
+        for change in [{"type": "CFDLean.JST1.Spec.P2_6_2"}, {"axioms": ["sorryAx"]}, {"direct": []},
+                       {"kind": "definition"}, {"module": "CFDLean.Other"}]:
+            rows = dict(self.rows, **{name: dict(self.rows[name], **change)})
+            with self.assertRaises(ValueError, msg=str(change)):
+                self.check(rows=rows)
+
+
 class MRLayoutTests(unittest.TestCase):
     """MR-1: moved files are found only through the pinned path map and may differ only in their `import` header."""
     OLD = b"import CFDLean.Core.State\nimport Mathlib.Tactic\n\nnamespace CFDLean\ntheorem t : True := trivial\nend CFDLean\n"
