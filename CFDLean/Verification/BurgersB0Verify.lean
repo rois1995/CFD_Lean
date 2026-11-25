@@ -11,11 +11,7 @@ open CFDLean.Burgers.Core
 theorem rusanov_consistency :
     CFDLean.Verification.BurgersB0Challenge.RusanovConsistency := by
   intro u
-  simpa [CFDLean.Verification.BurgersB0Challenge.rusanov,
-    CFDLean.Verification.BurgersB0Challenge.rusanovWaveSpeed,
-    CFDLean.Verification.BurgersB0Challenge.burgersFlux,
-    Rusanov.eval, Rusanov.waveSpeed, physicalFlux] using
-    Rusanov.consistent u
+  exact Rusanov.consistent u
 
 theorem periodic_conservation {I : Type*} [Fintype I] :
     CFDLean.Verification.BurgersB0Challenge.PeriodicConservation I := by
@@ -48,7 +44,6 @@ theorem constant_rhs {I : Type*} :
 theorem forward_euler_sum {I : Type*} [Fintype I] :
     CFDLean.Verification.BurgersB0Challenge.ForwardEulerSum I := by
   intro dt L u hL
-  have h := Time.step_sum dt L u hL
-  simpa [CFDLean.Verification.BurgersB0Challenge.forwardEuler, Time.step] using h
+  exact Time.step_sum dt L u hL
 
 end CFDLean.Verification.BurgersB0Verify
