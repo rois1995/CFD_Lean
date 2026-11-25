@@ -218,6 +218,10 @@
     "CFDLean.Discrete.Periodic.TotalVariation",
     "CFDLean.Entropy.PairFlux",
     "CFDLean.Entropy.Production",
+    "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Entropy.Scalar.Certificates",
+    "CFDLean.Entropy.Scalar.Controls",
+    "CFDLean.Entropy.Scalar.Periodic",
     "CFDLean.Foundations.Basic",
     "CFDLean.Foundations.Coordinates",
     "CFDLean.Foundations.LogMean",
@@ -269,6 +273,8 @@
     "CFDLean.Verification.BurgersB2Verify",
     "CFDLean.Verification.BurgersB3Challenge",
     "CFDLean.Verification.BurgersB3Verify",
+    "CFDLean.Verification.BurgersB4Challenge",
+    "CFDLean.Verification.BurgersB4Verify",
     "Integrity"
   ],
   "closure": {
@@ -277,14 +283,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 2027,
+    "roots": 2080,
     "unsafe_reached": [],
-    "visited": 49111
+    "visited": 49165
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "56ee1e505b2bcd97c274150483751b3e9fb2827f33ebaf6643d9767ddde180e8"
+      "sha256": "79d895aa4b6127720a43eada093b461d2323de76c883ef474f5c6b9ac0f8e388"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -329,6 +335,22 @@
     "CFDLean.Entropy.Production": {
       "path": "CFDLean/Entropy/Production.lean",
       "sha256": "00376e82b2ff1ba8a008145889dfb08cb69a383c6258627bd66c8454fe075f13"
+    },
+    "CFDLean.Entropy.Scalar.Burgers": {
+      "path": "CFDLean/Entropy/Scalar/Burgers.lean",
+      "sha256": "97a2a789a27ae7b4e29f76e54f502133423611852047873c358108267b7e3464"
+    },
+    "CFDLean.Entropy.Scalar.Certificates": {
+      "path": "CFDLean/Entropy/Scalar/Certificates.lean",
+      "sha256": "f16215b0a1b4bce8c8623294df042246e5df177c86b810d26c8c7b78e0f3dba3"
+    },
+    "CFDLean.Entropy.Scalar.Controls": {
+      "path": "CFDLean/Entropy/Scalar/Controls.lean",
+      "sha256": "be83841a1d75e73487a53375844ac45f668a3c530c75b2037b18f63b236acc51"
+    },
+    "CFDLean.Entropy.Scalar.Periodic": {
+      "path": "CFDLean/Entropy/Scalar/Periodic.lean",
+      "sha256": "215f3423b0ef0f7b3b5931321c2522b3282376cccd4faec49719c03e01c2156b"
     },
     "CFDLean.Foundations.Basic": {
       "path": "CFDLean/Foundations/Basic.lean",
@@ -533,6 +555,14 @@
     "CFDLean.Verification.BurgersB3Verify": {
       "path": "CFDLean/Verification/BurgersB3Verify.lean",
       "sha256": "60009e840557b32f5431906f20dc8bea54989d6d7e02a639d821ef072c1608fc"
+    },
+    "CFDLean.Verification.BurgersB4Challenge": {
+      "path": "CFDLean/Verification/BurgersB4Challenge.lean",
+      "sha256": "7f83b6db7ae57cdc30d6385eaac0180c37e0fed4a402176eeccc63018a49a341"
+    },
+    "CFDLean.Verification.BurgersB4Verify": {
+      "path": "CFDLean/Verification/BurgersB4Verify.lean",
+      "sha256": "8ac18861aee992d35f10a63dd3cca2396678b180addcb483e44ee28f14374211"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -7848,6 +7878,119 @@
       "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 3), CFDLean.Boundary.wallTransfer \u03b3 U 0 = 0",
       "unsafe": false
     },
+    "CFDLean.Burgers.EntropyConservativeFlux.consistent": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Scalar.ConservationLaw.flux",
+        "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.law",
+        "CFDLean.Burgers.entropyPotential._proof_1",
+        "CFDLean.Scalar.Consistent"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.consistent",
+      "root": true,
+      "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Scalar.EntropyConservative",
+        "CFDLean.Burgers.entropyPotential._proof_1",
+        "CFDLean.Burgers.entropyVariable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative",
+      "root": true,
+      "type": "CFDLean.Scalar.EntropyConservative CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n  CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.EntropyConservativeFlux.eval": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.entropyPotential._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.eval",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.EntropyConservativeFlux.eval.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.EntropyConservativeFlux.eval",
+        "CFDLean.Burgers.entropyPotential._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.eval.eq_1",
+      "root": true,
+      "type": "\u2200 (a b : \u211d), CFDLean.Burgers.EntropyConservativeFlux.eval a b = (a ^ 2 + a * b + b ^ 2) / 6",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Burgers.EntropyConservativeFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+      "root": true,
+      "type": "CFDLean.Scalar.NumericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+        "CFDLean.Burgers.EntropyConservativeFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux.eq_1",
+      "root": true,
+      "type": "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux = { eval := CFDLean.Burgers.EntropyConservativeFlux.eval }",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds": {
       "axioms": [
         "propext",
@@ -7876,6 +8019,30 @@
       "name": "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
       "root": true,
       "type": "\u2200 (a b : \u211d), |(a + b) / 2| \u2264 CFDLean.Burgers.Rusanov.waveSpeed a b",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.cell_entropy_inequality": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.entropyStable",
+        "CFDLean.Burgers.entropyVariable",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.Rusanov.cell_entropy_inequality",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : \u211d),\n  0 < dx \u2192\n    \u2200 (u : I \u2192 \u211d) (i : I),\n      u i * CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux u i \u2264\n        -(CFDLean.Scalar.FiniteVolume.entropyFlux g CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n                CFDLean.Burgers.Rusanov.numericalFlux u i -\n              CFDLean.Scalar.FiniteVolume.entropyFlux g CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n                CFDLean.Burgers.Rusanov.numericalFlux u (g.prev i)) /\n          dx",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.cfl_of_six": {
@@ -7913,6 +8080,52 @@
       "name": "CFDLean.Burgers.Rusanov.consistent",
       "root": true,
       "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.energy_production_nonpos": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Burgers.Rusanov.entropyStable",
+        "CFDLean.Burgers.entropyVariable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.Rusanov.energy_production_nonpos",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : \u211d),\n  0 < dx \u2192 \u2200 (u : I \u2192 \u211d), \u2211 i, u i * CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux u i \u2264 0",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.entropyStable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Scalar.EntropyStable",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Burgers.entropyPotential._proof_1",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Burgers.entropyVariable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.Rusanov.entropyStable",
+      "root": true,
+      "type": "CFDLean.Scalar.EntropyStable CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n  CFDLean.Burgers.Rusanov.numericalFlux",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.eulerStep": {
@@ -8131,6 +8344,27 @@
       "name": "CFDLean.Burgers.Rusanov.eval_anti_right",
       "root": true,
       "type": "\u2200 (a b b' : \u211d), b \u2264 b' \u2192 CFDLean.Burgers.Rusanov.eval a b' \u2264 CFDLean.Burgers.Rusanov.eval a b",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Burgers.EntropyConservativeFlux.eval",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Burgers.entropyPotential._proof_1",
+        "CFDLean.Burgers.Rusanov.eval._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub",
+      "root": true,
+      "type": "\u2200 (a b : \u211d),\n  CFDLean.Burgers.Rusanov.eval a b =\n    CFDLean.Burgers.EntropyConservativeFlux.eval a b -\n      (CFDLean.Burgers.Rusanov.waveSpeed a b / 2 - (b - a) / 12) * (b - a)",
       "unsafe": false
     },
     "CFDLean.Burgers.Rusanov.eval_lipschitz_left": {
@@ -9556,6 +9790,158 @@
       "name": "CFDLean.Burgers.StabilityControls.zmod2_univ",
       "root": true,
       "type": "Finset.univ = {0, 1}",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyFluxFunction": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.entropyFluxFunction._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyFluxFunction",
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyFluxFunction._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyFluxFunction._proof_1",
+      "root": true,
+      "type": "(2 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyFluxFunction.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.entropyFluxFunction._proof_1",
+        "CFDLean.Burgers.entropyFluxFunction"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyFluxFunction.eq_1",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Burgers.entropyFluxFunction u = u ^ 3 / 3",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyPotential": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.entropyPotential._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyPotential",
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyPotential._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyPotential._proof_1",
+      "root": true,
+      "type": "(5 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyPotential.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Burgers.entropyPotential._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyPotential.eq_1",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Burgers.entropyPotential u = u ^ 3 / 6",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyPotential_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Burgers.entropyFluxFunction._proof_1",
+        "CFDLean.Burgers.entropyFluxFunction",
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Burgers.entropyPotential._proof_1",
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Burgers.entropyVariable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyPotential_eq",
+      "root": true,
+      "type": "\u2200 (u : \u211d),\n  CFDLean.Burgers.entropyPotential u =\n    CFDLean.Burgers.entropyVariable u * CFDLean.Burgers.physicalFlux u - CFDLean.Burgers.entropyFluxFunction u",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyVariable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyVariable",
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.entropyVariable._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyVariable._boxed",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Burgers.entropyVariable.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.entropyVariable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "name": "CFDLean.Burgers.entropyVariable.eq_1",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Burgers.entropyVariable u = u",
       "unsafe": false
     },
     "CFDLean.Burgers.law": {
@@ -37809,6 +38195,59 @@
       "type": "CFDLean.Scalar.ConservationLaw \u2192 CFDLean.Scalar.NumericalFlux \u2192 Prop",
       "unsafe": false
     },
+    "CFDLean.Scalar.EntropyConservative": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Certificates",
+      "name": "CFDLean.Scalar.EntropyConservative",
+      "root": true,
+      "type": "(\u211d \u2192 \u211d) \u2192 (\u211d \u2192 \u211d) \u2192 CFDLean.Scalar.NumericalFlux \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.EntropyConservative.entropyStable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.EntropyStable",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.EntropyConservative"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Certificates",
+      "name": "CFDLean.Scalar.EntropyConservative.entropyStable",
+      "root": true,
+      "type": "\u2200 {v \u03c8 : \u211d \u2192 \u211d} {nf : CFDLean.Scalar.NumericalFlux},\n  CFDLean.Scalar.EntropyConservative v \u03c8 nf \u2192 CFDLean.Scalar.EntropyStable v \u03c8 nf",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.EntropyStable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Certificates",
+      "name": "CFDLean.Scalar.EntropyStable",
+      "root": true,
+      "type": "(\u211d \u2192 \u211d) \u2192 (\u211d \u2192 \u211d) \u2192 CFDLean.Scalar.NumericalFlux \u2192 Prop",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.MinmodBounded": {
       "axioms": [
         "propext",
@@ -37883,6 +38322,79 @@
       "type": "\u2200 {I : Type u_1} (m M : \u211d), Convex \u211d (CFDLean.Scalar.FiniteVolume.boundedStates m M)",
       "unsafe": false
     },
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_equality": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Scalar.EntropyConservative",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_identity",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.cell_entropy_equality",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (v \u03c8 : \u211d \u2192 \u211d) (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.EntropyConservative v \u03c8 nf \u2192\n    \u2200 (u : I \u2192 \u211d) (i : I),\n      v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i =\n        -(CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u i -\n              CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u (g.prev i)) /\n          dx",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_identity": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux._proof_1",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.cell_entropy_identity",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : \u211d) (v \u03c8 : \u211d \u2192 \u211d) (nf : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d)\n  (i : I),\n  v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i +\n      (CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u i -\n          CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u (g.prev i)) /\n        dx =\n    ((v (u (g.next i)) - v (u i)) * nf.eval (u i) (u (g.next i)) - (\u03c8 (u (g.next i)) - \u03c8 (u i)) +\n        ((v (u i) - v (u (g.prev i))) * nf.eval (u (g.prev i)) (u i) - (\u03c8 (u i) - \u03c8 (u (g.prev i))))) /\n      (2 * dx)",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.EntropyStable",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_identity",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : \u211d),\n  0 < dx \u2192\n    \u2200 (v \u03c8 : \u211d \u2192 \u211d) (nf : CFDLean.Scalar.NumericalFlux),\n      CFDLean.Scalar.EntropyStable v \u03c8 nf \u2192\n        \u2200 (u : I \u2192 \u211d) (i : I),\n          v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i \u2264\n            -(CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u i -\n                  CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u (g.prev i)) /\n              dx",
+      "unsafe": false
+    },
     "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one": {
       "axioms": [
         "propext",
@@ -37895,6 +38407,129 @@
       "name": "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one",
       "root": true,
       "type": "\u2200 (dx dt KL KR c d : \u211d),\n  0 < dx \u2192 dt * (3 / 2 * (KL + KR)) \u2264 dx \u2192 c \u2264 dt / dx * (3 / 2 * KR) \u2192 d \u2264 dt / dx * (3 / 2 * KL) \u2192 c + d \u2264 1",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.entropyFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux._proof_1",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.entropyFlux",
+      "root": true,
+      "type": "{I : Type u_2} \u2192 CFDLean.Periodic.Grid I \u2192 (\u211d \u2192 \u211d) \u2192 (\u211d \u2192 \u211d) \u2192 CFDLean.Scalar.NumericalFlux \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.entropyFlux._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.entropyFlux._proof_1",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.entropyFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux._proof_1",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.entropyFlux.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} (g : CFDLean.Periodic.Grid I) (v \u03c8 : \u211d \u2192 \u211d) (nf : CFDLean.Scalar.NumericalFlux) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf u i =\n    (v (u i) + v (u (g.next i))) / 2 * CFDLean.Scalar.FiniteVolume.interfaceFlux g nf u i -\n      (\u03c8 (u i) + \u03c8 (u (g.next i))) / 2",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.entropyFlux_constant": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.ConservationLaw.flux",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux._proof_1",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.Consistent",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux",
+        "CFDLean.Scalar.ConservationLaw",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.entropyFlux_constant",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} (g : CFDLean.Periodic.Grid I) (v \u03c8 : \u211d \u2192 \u211d) (law : CFDLean.Scalar.ConservationLaw)\n  (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.Consistent law nf \u2192\n    \u2200 (c : \u211d) (i : I), CFDLean.Scalar.FiniteVolume.entropyFlux g v \u03c8 nf (fun x => c) i = v c * law.flux c - \u03c8 c",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.EntropyStable",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid.sum_prev",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : \u211d),\n  0 < dx \u2192\n    \u2200 (v \u03c8 : \u211d \u2192 \u211d) (nf : CFDLean.Scalar.NumericalFlux),\n      CFDLean.Scalar.EntropyStable v \u03c8 nf \u2192\n        \u2200 (u : I \u2192 \u211d), \u2211 i, v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i \u2264 0",
+      "unsafe": false
+    },
+    "CFDLean.Scalar.FiniteVolume.entropy_production_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_equality",
+        "CFDLean.Scalar.NumericalFlux",
+        "CFDLean.Periodic.Grid.sum_prev",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Scalar.EntropyConservative",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "name": "CFDLean.Scalar.FiniteVolume.entropy_production_zero",
+      "root": true,
+      "type": "\u2200 {I : Type u_2} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : \u211d) (v \u03c8 : \u211d \u2192 \u211d)\n  (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.EntropyConservative v \u03c8 nf \u2192\n    \u2200 (u : I \u2192 \u211d), \u2211 i, v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i = 0",
       "unsafe": false
     },
     "CFDLean.Scalar.FiniteVolume.exists_ratio": {
@@ -45123,6 +45758,394 @@
       "type": "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
       "unsafe": false
     },
+    "CFDLean.Verification.BurgersB4Challenge.CellEntropyInequality": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.entropyFlux",
+        "CFDLean.Verification.BurgersB4Challenge.rhs"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.CellEntropyInequality",
+      "root": true,
+      "type": "Type u_2 \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.EntropyConservativeFluxProperties": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux",
+        "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux._proof_1",
+        "CFDLean.Verification.BurgersB4Challenge.burgersFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.EntropyConservativeFluxProperties",
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.EntropyProductionNonpos": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.rhs"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.EntropyProductionNonpos",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.RusanovEnergyProduction": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.rhs",
+        "CFDLean.Verification.BurgersB4Challenge.rusanov"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.RusanovEnergyProduction",
+      "root": true,
+      "type": "(I : Type u_2) \u2192 [Fintype I] \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.RusanovEntropyStable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux._proof_1",
+        "CFDLean.Verification.BurgersB4Challenge.rusanov"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.RusanovEntropyStable",
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.burgersFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.burgersFlux",
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.burgersFlux._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.burgersFlux._proof_1",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux._proof_1",
+      "root": true,
+      "type": "(5 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.entropyFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.entropyFlux",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 (\u211d \u2192 \u211d) \u2192 (\u211d \u2192 \u211d) \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.rhs": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.rhs",
+      "root": true,
+      "type": "{I : Type u_1} \u2192 I \u2243 I \u2192 \u211d \u2192 (\u211d \u2192 \u211d \u2192 \u211d) \u2192 (I \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.rhs.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.rhs"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Challenge.rhs.eq_1",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx : \u211d) (F : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB4Challenge.rhs next dx F u i = -(F (u i) (u (next i)) - F (u (next.symm i)) (u i)) / dx",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.rusanov": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersB4Challenge.burgersFlux",
+        "CFDLean.Verification.BurgersB4Challenge.rusanovWaveSpeed"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.rusanov",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Challenge.rusanovWaveSpeed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "CFDLean.Verification.BurgersB4Challenge.rusanovWaveSpeed",
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.cell_entropy_inequality": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Verify.entropyFlux_eq",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Verification.BurgersB4Challenge.CellEntropyInequality",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Verification.BurgersB4Challenge.entropyFlux",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+        "CFDLean.Verification.BurgersB4Challenge.rhs",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB4Verify.rhs_eq",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.cell_entropy_inequality",
+      "root": true,
+      "type": "\u2200 {I : Type u_1}, CFDLean.Verification.BurgersB4Challenge.CellEntropyInequality I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.entropyFlux_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Verification.BurgersB4Challenge.entropyFlux",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.entropyFlux_eq",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (v \u03c8 : \u211d \u2192 \u211d) (F : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB4Challenge.entropyFlux next v \u03c8 F u i =\n    CFDLean.Scalar.FiniteVolume.entropyFlux { next := next } v \u03c8 { eval := F } u i",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.entropy_conservative_flux_properties": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.EntropyConservativeFlux.consistent",
+        "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux",
+        "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative",
+        "CFDLean.Verification.BurgersB4Challenge.entropyConservativeFlux._proof_1",
+        "CFDLean.Verification.BurgersB4Challenge.EntropyConservativeFluxProperties",
+        "CFDLean.Verification.BurgersB4Challenge.burgersFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.entropy_conservative_flux_properties",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB4Challenge.EntropyConservativeFluxProperties",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.entropy_production_nonpos": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Verification.BurgersB4Challenge.rhs",
+        "CFDLean.Verification.BurgersB4Challenge.EntropyProductionNonpos",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB4Verify.rhs_eq"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.entropy_production_nonpos",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB4Challenge.EntropyProductionNonpos I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.rhs_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Verification.BurgersB4Challenge.rhs",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.rhs_eq",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} (next : I \u2243 I) (dx : \u211d) (F : \u211d \u2192 \u211d \u2192 \u211d) (u : I \u2192 \u211d) (i : I),\n  CFDLean.Verification.BurgersB4Challenge.rhs next dx F u i =\n    CFDLean.Scalar.FiniteVolume.rhs { next := next } dx { eval := F } u i",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.rusanov_energy_production": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Rusanov.energy_production_nonpos",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Verification.BurgersB4Challenge.RusanovEnergyProduction",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Scalar.FiniteVolume.rhs",
+        "CFDLean.Verification.BurgersB4Challenge.rhs",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Verification.BurgersB4Verify.rhs_eq",
+        "CFDLean.Verification.BurgersB4Challenge.rusanov"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.rusanov_energy_production",
+      "root": true,
+      "type": "\u2200 {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB4Challenge.RusanovEnergyProduction I",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.rusanov_entropy_stable": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersB4Challenge.RusanovEntropyStable",
+        "CFDLean.Burgers.Rusanov.entropyStable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.rusanov_entropy_stable",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB4Challenge.RusanovEntropyStable",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersB4Verify.rusanov_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Verification.BurgersB4Challenge.rusanov"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersB4Verify",
+      "name": "CFDLean.Verification.BurgersB4Verify.rusanov_eq",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersB4Challenge.rusanov = CFDLean.Burgers.Rusanov.numericalFlux.eval",
+      "unsafe": false
+    },
     "CFDLean.admissible_exists": {
       "axioms": [
         "propext",
@@ -46287,6 +47310,16 @@
       "type": null,
       "unsafe": null
     },
+    "abs._at_.CFDLean.Verification.BurgersB4Challenge.rusanovWaveSpeed.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersB4Challenge",
+      "name": "abs._at_.CFDLean.Verification.BurgersB4Challenge.rusanovWaveSpeed.spec_0",
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "npowRec._at_.CFDLean.squareSum.spec_0": {
       "axioms": [],
       "direct": [],
@@ -46375,7 +47408,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 319,
+  "catalog_entries": 333,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -46502,6 +47535,34 @@
         "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_conservation",
         "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step",
         "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz"
+      ],
+      "independent_acceptance": "pending implementation review"
+    },
+    "B4": {
+      "results": "specifications/Burgers-B4-results.json",
+      "approved_revision": "ab5abc4fa28a18f52e4ae8aff06e8311179d201b",
+      "promised_theorems": [
+        "CFDLean.Burgers.EntropyConservativeFlux.consistent",
+        "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative",
+        "CFDLean.Burgers.Rusanov.cell_entropy_inequality",
+        "CFDLean.Burgers.Rusanov.energy_production_nonpos",
+        "CFDLean.Burgers.Rusanov.entropyStable",
+        "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub",
+        "CFDLean.Burgers.entropyPotential_eq",
+        "CFDLean.Scalar.EntropyConservative.entropyStable",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_equality",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_identity",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+        "CFDLean.Scalar.FiniteVolume.entropyFlux_constant",
+        "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos",
+        "CFDLean.Scalar.FiniteVolume.entropy_production_zero"
+      ],
+      "trusted_bridge_theorems": [
+        "CFDLean.Verification.BurgersB4Verify.cell_entropy_inequality",
+        "CFDLean.Verification.BurgersB4Verify.entropy_conservative_flux_properties",
+        "CFDLean.Verification.BurgersB4Verify.entropy_production_nonpos",
+        "CFDLean.Verification.BurgersB4Verify.rusanov_energy_production",
+        "CFDLean.Verification.BurgersB4Verify.rusanov_entropy_stable"
       ],
       "independent_acceptance": "pending implementation review"
     }

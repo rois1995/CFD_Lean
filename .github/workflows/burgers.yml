@@ -47,9 +47,9 @@ jobs:
           use-github-cache: false
           use-mathlib-cache: true
       - name: Build Burgers modules
-        run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls
+        run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls CFDLean.Entropy.Scalar.Controls
       - name: Check implementation against trusted Burgers statements
-        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify
+        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify CFDLean.Verification.BurgersB4Verify
       - name: Build full package and integrity target
         run: ~/.elan/bin/lake build
       - name: Audit axioms and unsafe dependency closure

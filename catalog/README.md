@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-319 promised theorems, grouped by layer.
+333 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -35,12 +35,13 @@ independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on bran
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
 
-**Burgers** (milestones `B0` .. `B3`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B3-results.json`: the scalar two-point-flux finite-volume
+**Burgers** (milestones `B0` .. `B4`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
 Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
-Runge-Kutta composition and the multi-step results (Time). `FVM` marks the periodic finite-volume statements; the
+Runge-Kutta composition and the multi-step results (Time), the entropy certificates of a two-point flux and the
+semidiscrete entropy inequalities (Entropy framework). `FVM` marks the periodic finite-volume statements; the
 generic time-stepping statements are `method-free`.
 
 **Source.** The contract or result map and the result ID (with stage, or the JST statement for MC-N).
@@ -55,17 +56,17 @@ that this file equals the generated text. Do not edit by hand.
 | Foundations | 8 | 0 | 0 | 0 | 8 |
 | Geometry | 47 | 0 | 35 | 2 | 10 |
 | Discrete operators | 42 | 5 | 29 | 8 | 0 |
-| Entropy framework | 5 | 0 | 4 | 0 | 1 |
+| Entropy framework | 19 | 0 | 16 | 0 | 3 |
 | Physics models | 67 | 0 | 0 | 0 | 67 |
 | Schemes | 71 | 0 | 62 | 1 | 8 |
 | Time | 79 | 0 | 59 | 0 | 20 |
-| **Total** | 319 | 5 | 189 | 11 | 114 |
+| **Total** | 333 | 5 | 201 | 11 | 116 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 16 |
-| FVM | 200 |
-| method-free | 114 |
+| FVM | 212 |
+| method-free | 116 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -79,6 +80,7 @@ that this file equals the generated text. Do not edit by hand.
 | B1 | pending | 9 |
 | B2 | pending | 23 |
 | B3 | pending | 24 |
+| B4 | pending | 14 |
 
 ## Foundations (8)
 
@@ -192,7 +194,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Scalar.FiniteVolume.rightState_mem` | B3-R | FVM | pending | With a limiter in the minmod region the reconstructed right state of an interface keeps the bounds m ≤ u ≤ M. |
 | `CFDLean.Scalar.FiniteVolume.muscl_incremental` | B3-I | FVM | pending | For a monotone flux that is Lipschitz on bounded states and a limiter in the minmod region, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(3/2)KR and 0 ≤ D ≤ (dt/dx)(3/2)KL. |
 
-## Entropy framework (5)
+## Entropy framework (19)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -201,6 +203,20 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.WMesh.standardClosure_entropy` | MC-N.P2-6.5 | FVM | candidate | The standard boundary closure on a conforming mesh produces the lumped facet entropy flux plus a per-facet jump defect. |
 | `CFDLean.Num.quadratureClosure_entropy` | MC-N.P2-8.1 | FVM | candidate | The quadrature boundary closure has an exact boundary entropy identity and conserves Σ_i b_i = Σ_q F*_q. |
 | `CFDLean.Num.pair_production_integral` | MC-N.P3-13.1 | method-free | candidate | The pair entropy production is exactly the path integral of the derivative along the straight segment in entropy variables, with no remainder. |
+| `CFDLean.Scalar.EntropyConservative.entropyStable` | B4-C | method-free | pending | An entropy-conservative two-point flux is entropy stable. |
+| `CFDLean.Scalar.FiniteVolume.entropyFlux_constant` | B4-Q | FVM | pending | On equal states the numerical entropy flux of a consistent flux is v f − ψ. |
+| `CFDLean.Scalar.FiniteVolume.cell_entropy_identity` | B4-I | FVM | pending | Cell entropy identity: v_i L_i + (Q_i − Q_{i−1})/dx is the sum of the two interface entropy defects over 2 dx. |
+| `CFDLean.Scalar.FiniteVolume.cell_entropy_inequality` | B4-I | FVM | pending | For an entropy-stable flux and dx > 0: v_i L_i ≤ −(Q_i − Q_{i−1})/dx in every cell. |
+| `CFDLean.Scalar.FiniteVolume.cell_entropy_equality` | B4-I | FVM | pending | For an entropy-conservative flux: v_i L_i = −(Q_i − Q_{i−1})/dx in every cell. |
+| `CFDLean.Scalar.FiniteVolume.entropy_production_nonpos` | B4-G | FVM | pending | For an entropy-stable flux and dx > 0 the total entropy production Σ v_i L_i on a periodic grid is nonpositive. |
+| `CFDLean.Scalar.FiniteVolume.entropy_production_zero` | B4-G | FVM | pending | For an entropy-conservative flux the total entropy production on a periodic grid is zero. |
+| `CFDLean.Burgers.entropyPotential_eq` | B4-B | method-free | pending | For Burgers and the square entropy the potential u³/6 is v f − q with v = u, f = u²/2, q = u³/3. |
+| `CFDLean.Burgers.EntropyConservativeFlux.consistent` | B4-B | FVM | pending | The flux (a² + ab + b²)/6 is consistent with the Burgers flux. |
+| `CFDLean.Burgers.EntropyConservativeFlux.entropyConservative` | B4-B | FVM | pending | The flux (a² + ab + b²)/6 is entropy conservative for the square entropy of Burgers. |
+| `CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub` | B4-B | FVM | pending | The Burgers Rusanov flux is the entropy-conservative flux minus (α/2 − (b − a)/12)(b − a). |
+| `CFDLean.Burgers.Rusanov.entropyStable` | B4-B | FVM | pending | The Burgers Rusanov flux is entropy stable for the square entropy. |
+| `CFDLean.Burgers.Rusanov.cell_entropy_inequality` | B4-S | FVM | pending | Cell entropy inequality of the Burgers Rusanov operator for the square entropy, dx > 0. |
+| `CFDLean.Burgers.Rusanov.energy_production_nonpos` | B4-S | FVM | pending | The Burgers Rusanov operator does not produce energy: Σ u_i L_i(u) ≤ 0 for dx > 0. |
 
 ## Physics models (67)
 

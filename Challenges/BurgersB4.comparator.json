@@ -1,0 +1,17 @@
+{
+  "challenge_module": "Challenges.BurgersB4",
+  "solution_module": "CFDLean.Verification.BurgersB4Verify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersB4Verify.entropy_conservative_flux_properties",
+    "CFDLean.Verification.BurgersB4Verify.rusanov_entropy_stable",
+    "CFDLean.Verification.BurgersB4Verify.cell_entropy_inequality",
+    "CFDLean.Verification.BurgersB4Verify.entropy_production_nonpos",
+    "CFDLean.Verification.BurgersB4Verify.rusanov_energy_production"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

@@ -54,7 +54,7 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure), `Scalar/` (scalar conservation law), `Burgers/` (physical flux) |
 | `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
 | `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form, convexity, MUSCL reconstruction) |
-| `CFDLean/Entropy/` | `PairFlux`, `Production` |
+| `CFDLean/Entropy/` | `PairFlux`, `Production`, `Scalar/` (entropy certificates of a two-point flux, periodic cell entropy inequality, Burgers square entropy) |
 | `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux; consistency, monotone and Lipschitz certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, SSP and MUSCL schemes, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
 
@@ -121,6 +121,20 @@ constant states. 24 promised theorems, status `pending`. No accuracy claim; the 
 
 ```bash
 lake comparator --paranoid --config Challenges/BurgersB3.comparator.json
+```
+
+## Burgers B4 (entropy layer)
+
+[Burgers B4](references/Burgers-B4.md) implements the [contract](specifications/Burgers-B4.md) that the agent froze
+under the standing authorization. Certificates in Tadmor's form: a two-point flux is entropy stable for an entropy
+variable `v` and a potential `ψ` when `(v(b) - v(a)) F(a, b) ≤ ψ(b) - ψ(a)`. For such a flux and `dx > 0` the periodic
+first-order operator satisfies a cell entropy inequality with an explicit numerical entropy flux, and its total
+entropy production is nonpositive. For Burgers with the square entropy: the flux `(a² + ab + b²)/6` is entropy
+conservative, and the Rusanov flux is entropy stable. 14 promised theorems, status `pending`. The statements are
+semidiscrete and algebraic: no time derivative, no fully discrete entropy inequality. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB4.comparator.json
 ```
 
 ## Development verification
