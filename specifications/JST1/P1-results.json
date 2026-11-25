@@ -1,0 +1,256 @@
+{
+  "specification": "specifications/JST1/P1.md",
+  "statements_module": "CFDLean.JST1.Spec",
+  "frozen_hashes": "specifications/JST1/frozen.sha256",
+  "source": {
+    "repository": "JST_Paper_Lean",
+    "branch": "v436",
+    "revision": "afdf4f9b4f98f089af82074bf7e4db99177844ad",
+    "results": "specifications/P1-results.json",
+    "frozen_hashes": "specifications/P1-frozen.sha256",
+    "toolchain_at_freeze": "leanprover/lean4:v4.19.0",
+    "mathlib_at_freeze": "c44e0c8ee63ca166450922a373c7409c5d26b00b",
+    "cfdlean_at_freeze": "3a586a42546cba1784cc79269e3f9d1c5d843f0c"
+  },
+  "folded": "MR-2 (specifications/MR.md): namespace Paper1 -> CFDLean.JST1, NumCore -> CFDLean.Num; statement comparison in evidence/JST1/fold-diff.md",
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "trivial_consistency_checks": [
+    "P1-2.7",
+    "P1-3.4"
+  ],
+  "bindings": {
+    "P1-1.0": {
+      "statement": "CFDLean.JST1.Spec.P1_1_0",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_0",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-1.1": {
+      "statement": "CFDLean.JST1.Spec.P1_1_1",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-1.2": {
+      "statement": "CFDLean.JST1.Spec.P1_1_2",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-1.3": {
+      "statement": "CFDLean.JST1.Spec.P1_1_3",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-1.4": {
+      "statement": "CFDLean.JST1.Spec.P1_1_4",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-1.5": {
+      "statement": "CFDLean.JST1.Spec.P1_1_5",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-1.6": {
+      "statement": "CFDLean.JST1.Spec.P1_1_6",
+      "theorem": "CFDLean.JST1.Proofs.p1_1_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item1.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1"
+    },
+    "P1-2.0": {
+      "statement": "CFDLean.JST1.Spec.P1_2_0",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_0",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Euler.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Euler"
+    },
+    "P1-2.1": {
+      "statement": "CFDLean.JST1.Spec.P1_2_1",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Generic.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "core_theorem": "CFDLean.Num.antisymmetric_pairFlux"
+    },
+    "P1-2.2": {
+      "statement": "CFDLean.JST1.Spec.P1_2_2",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Generic.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "core_theorem": "CFDLean.Num.entropyConservative_production"
+    },
+    "P1-2.3": {
+      "statement": "CFDLean.JST1.Spec.P1_2_3",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_3",
+      "file": "CFDLean/Papers/JST1/Proofs/MeshAlgebra.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.MeshAlgebra",
+      "core_theorem": "CFDLean.Num.WMesh.nW_row_sum"
+    },
+    "P1-2.4": {
+      "statement": "CFDLean.JST1.Spec.P1_2_4",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Generic.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "core_theorem": "CFDLean.Num.logMean_properties"
+    },
+    "P1-2.5": {
+      "statement": "CFDLean.JST1.Spec.P1_2_5",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Euler.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Euler"
+    },
+    "P1-2.6": {
+      "statement": "CFDLean.JST1.Spec.P1_2_6",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Generic.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "core_theorem": "CFDLean.Num.dissipativePairFlux_conservation"
+    },
+    "P1-2.7": {
+      "statement": "CFDLean.JST1.Spec.P1_2_7",
+      "theorem": "CFDLean.JST1.Proofs.p1_2_7",
+      "file": "CFDLean/Papers/JST1/Proofs/Item2Generic.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "core_theorem": "CFDLean.Num.dissipativePairFlux_freeStream"
+    },
+    "P1-3.1": {
+      "statement": "CFDLean.JST1.Spec.P1_3_1",
+      "theorem": "CFDLean.JST1.Proofs.p1_3_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3"
+    },
+    "P1-3.2": {
+      "statement": "CFDLean.JST1.Spec.P1_3_2",
+      "theorem": "CFDLean.JST1.Proofs.p1_3_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3"
+    },
+    "P1-3.3": {
+      "statement": "CFDLean.JST1.Spec.P1_3_3",
+      "theorem": "CFDLean.JST1.Proofs.p1_3_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3"
+    },
+    "P1-3.4": {
+      "statement": "CFDLean.JST1.Spec.P1_3_4",
+      "theorem": "CFDLean.JST1.Proofs.p1_3_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3"
+    },
+    "P1-4.0": {
+      "statement": "CFDLean.JST1.Spec.P1_4_0",
+      "theorem": "CFDLean.JST1.Proofs.p1_4_0",
+      "file": "CFDLean/Papers/JST1/Proofs/Viscous.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous"
+    },
+    "P1-4.1": {
+      "statement": "CFDLean.JST1.Spec.P1_4_1",
+      "theorem": "CFDLean.JST1.Proofs.p1_4_1",
+      "file": "CFDLean/Papers/JST1/Proofs/MeshAlgebra.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.MeshAlgebra",
+      "core_theorem": "CFDLean.Num.WMesh.galerkin_identity"
+    },
+    "P1-4.2": {
+      "statement": "CFDLean.JST1.Spec.P1_4_2",
+      "theorem": "CFDLean.JST1.Proofs.p1_4_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Viscous.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous"
+    },
+    "P1-4.3": {
+      "statement": "CFDLean.JST1.Spec.P1_4_3",
+      "theorem": "CFDLean.JST1.Proofs.p1_4_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Viscous.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous"
+    },
+    "P1-4.3b": {
+      "statement": "CFDLean.JST1.Spec.P1_4_3b",
+      "theorem": "CFDLean.JST1.Proofs.p1_4_3b",
+      "file": "CFDLean/Papers/JST1/Proofs/Viscous.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous"
+    },
+    "P1-4.4": {
+      "statement": "CFDLean.JST1.Spec.P1_4_4",
+      "theorem": "CFDLean.JST1.Proofs.p1_4_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Viscous.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous"
+    },
+    "P1-5.0a": {
+      "statement": "CFDLean.JST1.Spec.P1_5_0a",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_0a",
+      "file": "CFDLean/Papers/JST1/Proofs/Closure.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Closure",
+      "core_theorem": "CFDLean.Num.WMesh.closed_of_facetPaired"
+    },
+    "P1-5.0b": {
+      "statement": "CFDLean.JST1.Spec.P1_5_0b",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_0b",
+      "file": "CFDLean/Papers/JST1/Proofs/Closure.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Closure",
+      "core_theorem": "CFDLean.Num.ofMeshData_closed"
+    },
+    "P1-5.1": {
+      "statement": "CFDLean.JST1.Spec.P1_5_1",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Simplex.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Simplex",
+      "core_theorem": "CFDLean.Num.Simplex.calculus"
+    },
+    "P1-5.2": {
+      "statement": "CFDLean.JST1.Spec.P1_5_2",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_2",
+      "file": "CFDLean/Papers/JST1/Proofs/DissGeom.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "core_theorem": "CFDLean.Num.WMesh.dissGeom_edge"
+    },
+    "P1-5.3": {
+      "statement": "CFDLean.JST1.Spec.P1_5_3",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_3",
+      "file": "CFDLean/Papers/JST1/Proofs/DissGeom.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "core_theorem": "CFDLean.Num.WMesh.dissGeom_outer"
+    },
+    "P1-5.4": {
+      "statement": "CFDLean.JST1.Spec.P1_5_4",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_4",
+      "file": "CFDLean/Papers/JST1/Proofs/DissGeom.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "core_theorem": "CFDLean.Num.WMesh.dissGeom_calibration"
+    },
+    "P1-5.4b": {
+      "statement": "CFDLean.JST1.Spec.P1_5_4b",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_4b",
+      "file": "CFDLean/Papers/JST1/Proofs/DissGeom.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom"
+    },
+    "P1-5.5": {
+      "statement": "CFDLean.JST1.Spec.P1_5_5",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_5",
+      "file": "CFDLean/Papers/JST1/Proofs/MeshAlgebra.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.MeshAlgebra",
+      "core_theorem": "CFDLean.Num.WMesh.fvRes_eq_galerkinRes"
+    },
+    "P1-5.6": {
+      "statement": "CFDLean.JST1.Spec.P1_5_6",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_6",
+      "file": "CFDLean/Papers/JST1/Proofs/DualFacets3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DualFacets3",
+      "core_theorem": "CFDLean.Num.dualFacets_grad"
+    },
+    "P1-5.7": {
+      "statement": "CFDLean.JST1.Spec.P1_5_7",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_7",
+      "file": "CFDLean/Papers/JST1/Proofs/DualFacets3.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DualFacets3",
+      "core_theorem": "CFDLean.Num.ofMeshData_fv_galerkin"
+    },
+    "P1-5.8": {
+      "statement": "CFDLean.JST1.Spec.P1_5_8",
+      "theorem": "CFDLean.JST1.Proofs.p1_5_8",
+      "file": "CFDLean/Papers/JST1/Proofs/DualFacets.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.DualFacets"
+    }
+  }
+}

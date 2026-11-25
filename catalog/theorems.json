@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -4158,6 +4158,1218 @@
       ],
       "summary": "One MUSCL-Rusanov SSPRK3 step keeps every constant state.",
       "source": "specifications/Burgers-B3-results.json B3-S; references/Burgers-B3.md"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_0",
+      "id": "P1-1.0",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "At admissible Euler states the entropy variables w are the derivative of the entropy U = −ρs/(γ−1).",
+      "source": "specifications/JST1/P1-results.json P1-1.0 (CFDLean.JST1.Spec.P1_1_0)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_1",
+      "id": "P1-1.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Pointwise bounds of the 2×2 thermodynamic pencil of the ideal gas, with their equality cases.",
+      "source": "specifications/JST1/P1-results.json P1-1.1 (CFDLean.JST1.Spec.P1_1_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_2",
+      "id": "P1-1.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For admissible states λ_γ[w]·[u] ≤ [w]·[ũ] ≤ Λ_γ[w]·[u], with ũ the enthalpy state (energy replaced by ρH).",
+      "source": "specifications/JST1/P1-results.json P1-1.2 (CFDLean.JST1.Spec.P1_1_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_3",
+      "id": "P1-1.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "[w]·[u] ≥ 0 for admissible Euler states (convexity of the entropy).",
+      "source": "specifications/JST1/P1-results.json P1-1.3 (CFDLean.JST1.Spec.P1_1_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_4",
+      "id": "P1-1.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "3/4 < λ_γ < 1 < Λ_γ; λ_γ is strictly decreasing in γ > 1, tends to 1 as γ → 1⁺ and to 3/4 as γ → ∞, and 0.8258 < λ_1.4 < 0.8259.",
+      "source": "specifications/JST1/P1-results.json P1-1.4 (CFDLean.JST1.Spec.P1_1_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_5",
+      "id": "P1-1.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The second-difference flux λε2(ũ_i − ũ_k) produces at most −λ_γ ε2 λ [w]·[u] ≤ 0.",
+      "source": "specifications/JST1/P1-results.json P1-1.5 (CFDLean.JST1.Spec.P1_1_5)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_1_6",
+      "id": "P1-1.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item1",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "λ_γ and Λ_γ are the best constants for two states: no larger lower and no smaller upper constant holds.",
+      "source": "specifications/JST1/P1-results.json P1-1.6 (CFDLean.JST1.Spec.P1_1_6)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_0",
+      "id": "P1-2.0",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Euler",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For the Euler equations the entropy flux potential ψ = w·F − Q equals ρv.",
+      "source": "specifications/JST1/P1-results.json P1-2.0 (CFDLean.JST1.Spec.P1_2_0)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_1",
+      "id": "P1-2.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Antisymmetric pair fluxes are globally conservative, and their entropy production is half the sum of entropy-variable jumps times the fluxes.",
+      "source": "specifications/JST1/P1-results.json P1-2.1 (CFDLean.JST1.Spec.P1_2_1; proof delegates to CFDLean.Num.antisymmetric_pairFlux)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_2",
+      "id": "P1-2.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An entropy-conservative central pair flux produces only the boundary term Σ ψ_i·β_i.",
+      "source": "specifications/JST1/P1-results.json P1-2.2 (CFDLean.JST1.Spec.P1_2_2; proof delegates to CFDLean.Num.entropyConservative_production)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_3",
+      "id": "P1-2.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.MeshAlgebra",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For any dual of the P1 operator the edge normals at a node sum to −β_i, and β_i = 0 at a closed vertex.",
+      "source": "specifications/JST1/P1-results.json P1-2.3 (CFDLean.JST1.Spec.P1_2_3; proof delegates to CFDLean.Num.WMesh.nW_row_sum)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_4",
+      "id": "P1-2.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "status": "candidate",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The logarithmic mean of two positive numbers is symmetric, positive, equals a at a = b, and satisfies b − a = L(a,b)(log b − log a).",
+      "source": "specifications/JST1/P1-results.json P1-2.4 (CFDLean.JST1.Spec.P1_2_4; proof delegates to CFDLean.Num.logMean_properties)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_5",
+      "id": "P1-2.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Euler",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Ismail-Roe flux is entropy conservative (Tadmor condition), symmetric, linear in the normal and consistent.",
+      "source": "specifications/JST1/P1-results.json P1-2.5 (CFDLean.JST1.Spec.P1_2_5)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_6",
+      "id": "P1-2.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Central flux plus scalar second/fourth-difference dissipation with symmetric coefficients is antisymmetric and globally conservative.",
+      "source": "specifications/JST1/P1-results.json P1-2.6 (CFDLean.JST1.Spec.P1_2_6; proof delegates to CFDLean.Num.dissipativePairFlux_conservation)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_2_7",
+      "id": "P1-2.7",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item2Generic",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A uniform state with matching boundary data has zero residual for the dissipative pair-flux scheme.",
+      "source": "specifications/JST1/P1-results.json P1-2.7 (CFDLean.JST1.Spec.P1_2_7; proof delegates to CFDLean.Num.dissipativePairFlux_freeStream)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_3_1",
+      "id": "P1-3.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the first part of assumption (A) the mean over the cell splits of the nodal spectral sum Λ_i is Λ_i of the assembled coefficients.",
+      "source": "specifications/JST1/P1-results.json P1-3.1 (CFDLean.JST1.Spec.P1_3_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_3_2",
+      "id": "P1-3.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The means over the cell splits of the linear nodal sums (Laplacian, sensor sums, counts) are exact, without (A).",
+      "source": "specifications/JST1/P1-results.json P1-3.2 (CFDLean.JST1.Spec.P1_3_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_3_3",
+      "id": "P1-3.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under (A) the mean over the splits of the JST pair dissipation is the dissipation with coefficient π^a Φ λ̂.",
+      "source": "specifications/JST1/P1-results.json P1-3.3 (CFDLean.JST1.Spec.P1_3_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_3_4",
+      "id": "P1-3.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item3",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With share 1 (simplex mesh) the split-mean dissipation coefficient is the JST coefficient of eq. (jst).",
+      "source": "specifications/JST1/P1-results.json P1-3.4 (CFDLean.JST1.Spec.P1_3_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_4_0",
+      "id": "P1-4.0",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The momentum and energy entropy variables are v/(RT) and −1/(RT), and the viscous flux of their gradient is the Navier-Stokes flux.",
+      "source": "specifications/JST1/P1-results.json P1-4.0 (CFDLean.JST1.Spec.P1_4_0)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_4_1",
+      "id": "P1-4.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.MeshAlgebra",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "The w-weighted sum of Galerkin residuals is minus the cell-weighted Frobenius product of the P1 gradient of w and the element fluxes.",
+      "source": "specifications/JST1/P1-results.json P1-4.1 (CFDLean.JST1.Spec.P1_4_1; proof delegates to CFDLean.Num.WMesh.galerkin_identity)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_4_2",
+      "id": "P1-4.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The viscous matrix K(w̄) is positive semidefinite and linear (d ≤ 3, Stokes hypothesis, μ, κ ≥ 0, R > 0, w̄_E < 0).",
+      "source": "specifications/JST1/P1-results.json P1-4.2 (CFDLean.JST1.Spec.P1_4_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_4_3",
+      "id": "P1-4.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "The Galerkin viscous operator with one frozen K(w̄_T) per cell dissipates entropy: Σ w_i·R_i = −Σ ω|T| G:KG ≤ 0.",
+      "source": "specifications/JST1/P1-results.json P1-4.3 (CFDLean.JST1.Spec.P1_4_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_4_3b",
+      "id": "P1-4.3b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Admissible Euler states have negative energy entropy variable w_E < 0.",
+      "source": "specifications/JST1/P1-results.json P1-4.3b (CFDLean.JST1.Spec.P1_4_3b)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_4_4",
+      "id": "P1-4.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Viscous",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The viscous matrix is symmetric: G : K H = H : K G.",
+      "source": "specifications/JST1/P1-results.json P1-4.4 (CFDLean.JST1.Spec.P1_4_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_0a",
+      "id": "P1-5.0a",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Closure",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "A facet pairing at a vertex makes it a closed vertex of the P1 operator (zero boundary-matrix row).",
+      "source": "specifications/JST1/P1-results.json P1-5.0a (CFDLean.JST1.Spec.P1_5_0a; proof delegates to CFDLean.Num.WMesh.closed_of_facetPaired)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_0b",
+      "id": "P1-5.0b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Closure",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "In a conforming tetrahedral median-dual mesh a vertex on no boundary face is closed for the induced P1 operator.",
+      "source": "specifications/JST1/P1-results.json P1-5.0b (CFDLean.JST1.Spec.P1_5_0b; proof delegates to CFDLean.Num.ofMeshData_closed)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_1",
+      "id": "P1-5.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Simplex",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a nondegenerate simplex the P1 gradients sum to zero, are dual to the edges, reproduce the identity, and the facet vectors sum to zero.",
+      "source": "specifications/JST1/P1-results.json P1-5.1 (CFDLean.JST1.Spec.P1_5_1; proof delegates to CFDLean.Num.Simplex.calculus)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_2",
+      "id": "P1-5.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Dual normals satisfy n·e = 2μ > 0 on edges, and the edge projection ν is a positive multiple of e with |ν| = n·e/|e|.",
+      "source": "specifications/JST1/P1-results.json P1-5.2 (CFDLean.JST1.Spec.P1_5_2; proof delegates to CFDLean.Num.WMesh.dissGeom_edge)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_3",
+      "id": "P1-5.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "The Galerkin coefficients give Σ c⊗e = V·I, dual normals give Σ n⊗e = 2V·I at closed vertices, and the dual volumes sum to |Ω|.",
+      "source": "specifications/JST1/P1-results.json P1-5.3 (CFDLean.JST1.Spec.P1_5_3; proof delegates to CFDLean.Num.WMesh.dissGeom_outer)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_4",
+      "id": "P1-5.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At closed vertices the edge-projected tensor G(ν) has trace 2dV and G(n) has trace at least 2dV, with equality iff every normal is a nonnegative multiple of its edge.",
+      "source": "specifications/JST1/P1-results.json P1-5.4 (CFDLean.JST1.Spec.P1_5_4; proof delegates to CFDLean.Num.WMesh.dissGeom_calibration)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_4b",
+      "id": "P1-5.4b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DissGeom",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the Cartesian model with box-dual vectors the edge tensors satisfy G(ν) = G(n) = 2V I.",
+      "source": "specifications/JST1/P1-results.json P1-5.4b (CFDLean.JST1.Spec.P1_5_4b)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_5",
+      "id": "P1-5.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.MeshAlgebra",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "With dual facet vectors m_T(g_k − g_i) the finite-volume residual of element fluxes equals the Galerkin residual.",
+      "source": "specifications/JST1/P1-results.json P1-5.5 (CFDLean.JST1.Spec.P1_5_5; proof delegates to CFDLean.Num.WMesh.fvRes_eq_galerkinRes)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_6",
+      "id": "P1-5.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DualFacets3",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "The median-dual facets of a tetrahedron (and of a triangle) are (|T|/(d+1))(g_k − g_i) in terms of P1 gradients.",
+      "source": "specifications/JST1/P1-results.json P1-5.6 (CFDLean.JST1.Spec.P1_5_6; proof delegates to CFDLean.Num.dualFacets_grad)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_7",
+      "id": "P1-5.7",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DualFacets3",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "On a median-dual tetrahedral mesh the finite-volume residual over the dual facets equals the Galerkin residual.",
+      "source": "specifications/JST1/P1-results.json P1-5.7 (CFDLean.JST1.Spec.P1_5_7; proof delegates to CFDLean.Num.ofMeshData_fv_galerkin)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p1_5_8",
+      "id": "P1-5.8",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.DualFacets",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "On a valid triangle mesh the finite-volume residual over the median-dual segments equals the Galerkin residual.",
+      "source": "specifications/JST1/P1-results.json P1-5.8 (CFDLean.JST1.Spec.P1_5_8)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_1",
+      "id": "P2-6.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "For any dual the P1 operator satisfies c + cᵀ = B + 2E with E symmetric with zero row sums, and c has zero row sums and column sums β.",
+      "source": "specifications/JST1/P2-results.json P2-6.1 (CFDLean.JST1.Spec.P2_6_1; proof delegates to CFDLean.Num.WMesh.sbp_defect)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_2",
+      "id": "P2-6.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "On a nondegenerate simplex all off-diagonal SBP defect terms vanish iff the dual weights are the median weights.",
+      "source": "specifications/JST1/P2-results.json P2-6.2 (CFDLean.JST1.Spec.P2_6_2; proof delegates to CFDLean.Num.Simplex.median_defect_iff)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_3",
+      "id": "P2-6.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "On a conforming mesh β and the boundary matrix B are sums over boundary facets, and a vertex on no boundary facet is closed.",
+      "source": "specifications/JST1/P2-results.json P2-6.3 (CFDLean.JST1.Spec.P2_6_3; proof delegates to CFDLean.Num.WMesh.conforming_boundary)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_4",
+      "id": "P2-6.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For row sums 0 and column sums β the edge form plus ½(B F + diag β F) equals the Galerkin form c F.",
+      "source": "specifications/JST1/P2-results.json P2-6.4 (CFDLean.JST1.Spec.P2_6_4; proof delegates to CFDLean.Num.edgeForm_boundary_split)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_5",
+      "id": "P2-6.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The standard boundary closure on a conforming mesh produces the lumped facet entropy flux plus a per-facet jump defect.",
+      "source": "specifications/JST1/P2-results.json P2-6.5 (CFDLean.JST1.Spec.P2_6_5; proof delegates to CFDLean.Num.WMesh.standardClosure_entropy)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_5b",
+      "id": "P2-6.5b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For linear fluxes the standard boundary closure equals ½(B + diag β)F with weights (d+3):1.",
+      "source": "specifications/JST1/P2-results.json P2-6.5b (CFDLean.JST1.Spec.P2_6_5b; proof delegates to CFDLean.Num.WMesh.standardClosure_linear)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_6",
+      "id": "P2-6.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At a slip wall with the pressure flux the boundary closure defect [w]·[F*] takes both signs on admissible states.",
+      "source": "specifications/JST1/P2-results.json P2-6.6 (CFDLean.JST1.Spec.P2_6_6)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_6_7",
+      "id": "P2-6.7",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "At a closed vertex the mean edge flux through the dual normals equals the Galerkin form Σ_k c_ik F_k.",
+      "source": "specifications/JST1/P2-results.json P2-6.7 (CFDLean.JST1.Spec.P2_6_7; proof delegates to CFDLean.Num.WMesh.closed_mean_galerkin)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_7_1",
+      "id": "P2-7.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a quadratic field the weighted edge-difference sum is its first-order part plus V times the dissipation tensor contracted with the Hessian.",
+      "source": "specifications/JST1/P2-results.json P2-7.1 (CFDLean.JST1.Spec.P2_7_1; proof delegates to CFDLean.Num.quadratic_edge_expansion)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_7_2",
+      "id": "P2-7.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The edge dissipation tensor with full normals dominates the edge-projected one in the Loewner order, with equality iff the normals are parallel to the edges.",
+      "source": "specifications/JST1/P2-results.json P2-7.2 (CFDLean.JST1.Spec.P2_7_2; proof delegates to CFDLean.Num.dissTensor_loewner)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_7_3",
+      "id": "P2-7.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under uniform edge scaling the dissipation tensor is s·G/(4V), its projected trace is ds/2, and the trace is bounded by (d/2)σ_max h.",
+      "source": "specifications/JST1/P2-results.json P2-7.3 (CFDLean.JST1.Spec.P2_7_3; proof delegates to CFDLean.Num.WMesh.dissTensor_trace)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_7_4",
+      "id": "P2-7.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The edge dissipation coefficients satisfy Σ λ̂_ik |e_ik| ≤ d σ_max |Ω| (ordered pairs).",
+      "source": "specifications/JST1/P2-results.json P2-7.4 (CFDLean.JST1.Spec.P2_7_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_0",
+      "id": "P2-8.0",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Every w with w_E < 0 is the entropy-variable image of exactly one admissible Euler state (entropy projection).",
+      "source": "specifications/JST1/P2-results.json P2-8.0 (CFDLean.JST1.Spec.P2_8_0)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_1",
+      "id": "P2-8.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The quadrature boundary closure has an exact boundary entropy identity and conserves Σ_i b_i = Σ_q F*_q.",
+      "source": "specifications/JST1/P2-results.json P2-8.1 (CFDLean.JST1.Spec.P2_8_1; proof delegates to CFDLean.Num.quadratureClosure_entropy)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_2",
+      "id": "P2-8.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a uniform state, physical boundary fluxes and matching quadrature normals the quadrature closure has zero residual.",
+      "source": "specifications/JST1/P2-results.json P2-8.2 (CFDLean.JST1.Spec.P2_8_2; proof delegates to CFDLean.Num.quadratureClosure_freeStream)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_3",
+      "id": "P2-8.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For linear fluxes the quadrature closure is ½(F_i β_i + Σ_k F_k Σ_q φ_qi φ_qk N_q).",
+      "source": "specifications/JST1/P2-results.json P2-8.3 (CFDLean.JST1.Spec.P2_8_3; proof delegates to CFDLean.Num.quadratureClosure_linear)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_4",
+      "id": "P2-8.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "A boundary face quadrature rule with the stated moments reproduces β and the boundary matrix B on a conforming mesh.",
+      "source": "specifications/JST1/P2-results.json P2-8.4 (CFDLean.JST1.Spec.P2_8_4; proof delegates to CFDLean.Num.WMesh.faceRule_beta_B)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_5",
+      "id": "P2-8.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At a slip wall with the pressure flux the boundary point term ψ̃·N − w̃·F* vanishes for every admissible state.",
+      "source": "specifications/JST1/P2-results.json P2-8.5 (CFDLean.JST1.Spec.P2_8_5)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_6",
+      "id": "P2-8.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An entropy-stable far-field flux bounds the point term by the ghost entropy flux; Ismail-Roe with Rusanov dissipation λ ≥ 0 is such a flux.",
+      "source": "specifications/JST1/P2-results.json P2-8.6 (CFDLean.JST1.Spec.P2_8_6)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_9_0",
+      "id": "P2-9.0",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "Element balance: the viscous and wall terms of a cell produce −D^gal_T + Π^w_T plus the discrete wall flux.",
+      "source": "specifications/JST1/P2-results.json P2-9.0 (CFDLean.JST1.Spec.P2_9_0)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_9_1",
+      "id": "P2-9.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "Π^w_T ≤ D^gal_T/c for c > 0, so for c ≥ 1 the element term D^gal_T − Π^w_T is at least (1 − 1/c) D^gal_T ≥ 0.",
+      "source": "specifications/JST1/P2-results.json P2-9.1 (CFDLean.JST1.Spec.P2_9_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_9_2",
+      "id": "P2-9.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "c ≥ 1 is sharp for one wall element: for c < 1 there are nodal values with D^gal_T − Π^w_T < 0.",
+      "source": "specifications/JST1/P2-results.json P2-9.2 (CFDLean.JST1.Spec.P2_9_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_9_3",
+      "id": "P2-9.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Navier-Stokes K(w̄) with μ > 0 and the momentum projector satisfy the sharpness hypotheses for every nonzero normal.",
+      "source": "specifications/JST1/P2-results.json P2-9.3 (CFDLean.JST1.Spec.P2_9_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_9_4",
+      "id": "P2-9.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "No-slip and isothermal conditions are linear and constant in entropy variables: v = 0 ⟺ w_m = 0, T = T_w ⟺ w_E = −1/(R T_w).",
+      "source": "specifications/JST1/P2-results.json P2-9.4 (CFDLean.JST1.Spec.P2_9_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_1",
+      "id": "P2-10.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The SST map T has kernel span{e_E + e_k, e_ω}, and the entropy η0 is constant along it.",
+      "source": "specifications/JST1/P2-results.json P2-10.1 (CFDLean.JST1.Spec.P2_10_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_2",
+      "id": "P2-10.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "v^η is the gradient of η0, v^η·R = w(û)·(R_ρ, R_m, R_E − R_k), and the exact semi-discrete entropy rate follows.",
+      "source": "specifications/JST1/P2-results.json P2-10.2 (CFDLean.JST1.Spec.P2_10_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_3",
+      "id": "P2-10.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The SST admissible set is convex, η0 is convex on it, and its gradient is monotone with equality iff T U_1 = T U_2.",
+      "source": "specifications/JST1/P2-results.json P2-10.3 (CFDLean.JST1.Spec.P2_10_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_4",
+      "id": "P2-10.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Pointwise SST entropy production: the Π formula, Q ≥ 0, Π ≤ 0 if P_k ≤ μ_t Q, and the remainder bound.",
+      "source": "specifications/JST1/P2-results.json P2-10.4 (CFDLean.JST1.Spec.P2_10_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_5",
+      "id": "P2-10.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The matched k transport is conservative, reproduces uniform inflow k, and gives X_i ≤ 0 at wall nodes (M5).",
+      "source": "specifications/JST1/P2-results.json P2-10.5 (CFDLean.JST1.Spec.P2_10_5)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_6",
+      "id": "P2-10.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The production limiter P_k = max(0, min(P*, c_l ε)) with ε, P* ≥ 0 satisfies (M4): P_k − ε ≤ P*.",
+      "source": "specifications/JST1/P2-results.json P2-10.6 (CFDLean.JST1.Spec.P2_10_6)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_7",
+      "id": "P2-10.7",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "The Galerkin dissipation with μ + μ_t splits into a laminar part and the turbulent part D_t, both nonnegative.",
+      "source": "specifications/JST1/P2-results.json P2-10.7 (CFDLean.JST1.Spec.P2_10_7)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_8",
+      "id": "P2-10.8",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "SST entropy bound: under (M1)-(M5) and (W_t) the semi-discrete entropy rate of the hat scheme obeys the bound of thm:sst.",
+      "source": "specifications/JST1/P2-results.json P2-10.8 (CFDLean.JST1.Spec.P2_10_8)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_8_0b",
+      "id": "P2-8.0b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Convex combinations of entropy variables with w_E < 0 keep w_E < 0, so the projected boundary state exists.",
+      "source": "specifications/JST1/P2-results.json P2-8.0b (CFDLean.JST1.Spec.P2_8_0b)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_9_2b",
+      "id": "P2-9.2b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2Wall",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "Sharpness with the Navier-Stokes K(w̄_T) and no-slip projector: for c < 1 some admissible nodal values give D^gal_T − Π^w_T < 0.",
+      "source": "specifications/JST1/P2-results.json P2-9.2b (CFDLean.JST1.Spec.P2_9_2b)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_8b",
+      "id": "P2-10.8b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2Wall",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "On one simplex 0 ≤ D_t ≤ D^gal, and (W_t) holds without wall faces or for c ≥ 1 with D_t ≤ (1 − 1/c) D^gal.",
+      "source": "specifications/JST1/P2-results.json P2-10.8b (CFDLean.JST1.Spec.P2_10_8b)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p2_10_8c",
+      "id": "P2-10.8c",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For differentiable SST trajectories the entropy rate d/dt Σ V_i η0(U_i) exists and obeys the bound of P2-10.8.",
+      "source": "specifications/JST1/P2-results.json P2-10.8c (CFDLean.JST1.Spec.P2_10_8c)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_1",
+      "id": "P3-11.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11a",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "Conforming meshes are facet balanced, and on facet-balanced meshes β and B are boundary-facet sums with interior vertices closed.",
+      "source": "specifications/JST1/P3-results.json P3-11.1 (CFDLean.JST1.Spec.P3_11_1; proof delegates to CFDLean.Num.WMesh.facetBalanced_boundary)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_2",
+      "id": "P3-11.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Geom3",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A tetrahedron facet vector is half the cross product of two facet edges oriented away from the opposite vertex; neighbours across a triangle have opposite facet vectors.",
+      "source": "specifications/JST1/P3-results.json P3-11.2 (CFDLean.JST1.Spec.P3_11_2; proof delegates to CFDLean.Num.Simplex.facet_cross3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_3",
+      "id": "P3-11.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11a",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The pulling splits of hexahedron, prism, pyramid and quadrilateral use both diagonals of each quadrilateral face equally often, one per split.",
+      "source": "specifications/JST1/P3-results.json P3-11.3 (CFDLean.JST1.Spec.P3_11_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_12_1",
+      "id": "P3-12.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item12Comb",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Half of the 64 hexahedron pulling splits contain a sliver, and each of the 8 slivers lies in 4 splits (weight 1/16).",
+      "source": "specifications/JST1/P3-results.json P3-12.1 (CFDLean.JST1.Spec.P3_12_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_12_2",
+      "id": "P3-12.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Geom3",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "As the brick thickness tends to zero, two dihedral angles of the sliver tend to 180°.",
+      "source": "specifications/JST1/P3-results.json P3-12.2 (CFDLean.JST1.Spec.P3_12_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_12_3",
+      "id": "P3-12.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item12Comb",
+      "status": "candidate",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A weighted sum of nonnegative forms with weight at least 1/16 on one element is at least 1/16 of that element's form.",
+      "source": "specifications/JST1/P3-results.json P3-12.3 (CFDLean.JST1.Spec.P3_12_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_12_4",
+      "id": "P3-12.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item12Comb",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The neighbour-fan splits of the hexahedron form 4 Kuhn triangulations, face balanced and symmetric; on prisms and pyramids all pulling splits.",
+      "source": "specifications/JST1/P3-results.json P3-12.4 (CFDLean.JST1.Spec.P3_12_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_12_5",
+      "id": "P3-12.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Geom3",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Every Kuhn tetrahedron of a brick is nondegenerate with pairwise nonpositive gradient products (no obtuse dihedral angle).",
+      "source": "specifications/JST1/P3-results.json P3-12.5 (CFDLean.JST1.Spec.P3_12_5; proof delegates to CFDLean.Num.pathSimplex_nonobtuse)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_13_1",
+      "id": "P3-13.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item13",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The pair entropy production is exactly the path integral of the derivative along the straight segment in entropy variables, with no remainder.",
+      "source": "specifications/JST1/P3-results.json P3-13.1 (CFDLean.JST1.Spec.P3_13_1; proof delegates to CFDLean.Num.pair_production_integral)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_13_2",
+      "id": "P3-13.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item13",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For Euler with |v·E| < c|E| the pair term production takes both signs for arbitrarily small admissible jumps.",
+      "source": "specifications/JST1/P3-results.json P3-13.2 (CFDLean.JST1.Spec.P3_13_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_2b",
+      "id": "P3-11.2b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A triangle facet vector is the rotated facet edge pointing away from the opposite vertex.",
+      "source": "specifications/JST1/P3-results.json P3-11.2b (CFDLean.JST1.Spec.P3_11_2b; proof delegates to CFDLean.Num.Simplex.facet_perp2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_4",
+      "id": "P3-11.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a mesh of nondegenerate tetrahedra side balance implies facet balance.",
+      "source": "specifications/JST1/P3-results.json P3-11.4 (CFDLean.JST1.Spec.P3_11_4; proof delegates to CFDLean.Num.WMesh.facetBalanced_of_sideBalanced)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_4b",
+      "id": "P3-11.4b",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a mesh of nondegenerate triangles side balance implies facet balance.",
+      "source": "specifications/JST1/P3-results.json P3-11.4b (CFDLean.JST1.Spec.P3_11_4b; proof delegates to CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_5",
+      "id": "P3-11.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Pulling splits are pseudomanifolds: an interior triangle bounds two sub-tetrahedra, a triangle on the cell boundary one.",
+      "source": "specifications/JST1/P3-results.json P3-11.5 (CFDLean.JST1.Spec.P3_11_5)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_6",
+      "id": "P3-11.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11b",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "With equal split weights each triangle of a quadrilateral cell face has total weight 1/2 and each triangular face weight 1.",
+      "source": "specifications/JST1/P3-results.json P3-11.6 (CFDLean.JST1.Spec.P3_11_6)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_14_1",
+      "id": "P3-14.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item14",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "Entropy balance of the complete scheme: rate = B + Π² + Π⁴ − Σ ω_T(D^gal_T − Π^w_T) + wall flux, with Π² ≤ 0 and element terms ≥ 0 for c ≥ 1.",
+      "source": "specifications/JST1/P3-results.json P3-14.1 (CFDLean.JST1.Spec.P3_14_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_14_2",
+      "id": "P3-14.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item14",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With slip and no-slip wall points and entropy-stable far-field points the boundary term B is at most the sum of ghost entropy fluxes.",
+      "source": "specifications/JST1/P3-results.json P3-14.2 (CFDLean.JST1.Spec.P3_14_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_14_3",
+      "id": "P3-14.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item14",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "SST form of the complete scheme: the entropy rate exists and is bounded as in P3-14.1 with the SST terms of P2-10.8.",
+      "source": "specifications/JST1/P3-results.json P3-14.3 (CFDLean.JST1.Spec.P3_14_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_7",
+      "id": "P3-11.7",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11c",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "In affine cells the pulling-split tetrahedra are nondegenerate, lie on opposite sides of shared interior triangles, and boundary ones lie on the centroid side.",
+      "source": "specifications/JST1/P3-results.json P3-11.7 (CFDLean.JST1.Spec.P3_11_7)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p3_11_8",
+      "id": "P3-11.8",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11c",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A conforming mesh of affine hexahedra, prisms and pyramids averaged over pulling splits is a valid facet-balanced weighted tetrahedral mesh.",
+      "source": "specifications/JST1/P3-results.json P3-11.8 (CFDLean.JST1.Spec.P3_11_8)"
     },
     {
       "name": "CFDLean.Scalar.EntropyConservative.entropyStable",

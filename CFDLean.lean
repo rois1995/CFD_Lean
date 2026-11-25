@@ -62,3 +62,5 @@ import CFDLean.Time.ExplicitEuler
 import CFDLean.Time.Controls
 import CFDLean.Time.ForwardEuler
 import CFDLean.Time.SSP
+
+import CFDLean.Papers.JST1

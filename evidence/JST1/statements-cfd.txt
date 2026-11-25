@@ -1,0 +1,3088 @@
+STMT CFDLean.JST1.Spec.P1_1_0 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g U →
+    HasFDerivAt (CFDLean.JST1.entropyFun g) (CFDLean.Num.pairCLM (CFDLean.JST1.entropyVars g U)) U
+STMT CFDLean.JST1.Spec.P1_1_1 :: ∀ (γ : ℝ),
+  1 < γ →
+    (∀ (a b : ℝ),
+        CFDLean.JST1.lamLow γ * CFDLean.JST1.thermoQ γ a b ≤ CFDLean.JST1.thermoQt γ a b ∧
+          CFDLean.JST1.thermoQt γ a b ≤ CFDLean.JST1.lamHigh γ * CFDLean.JST1.thermoQ γ a b) ∧
+      (∃ a b, (a, b) ≠ (0, 0) ∧ CFDLean.JST1.thermoQt γ a b = CFDLean.JST1.lamLow γ * CFDLean.JST1.thermoQ γ a b) ∧
+        ∃ a b, (a, b) ≠ (0, 0) ∧ CFDLean.JST1.thermoQt γ a b = CFDLean.JST1.lamHigh γ * CFDLean.JST1.thermoQ γ a b
+STMT CFDLean.JST1.Spec.P1_1_2 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (Ui Uk : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g Ui →
+    CFDLean.JST1.Admissible g Uk →
+      let dw := CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui;
+      CFDLean.JST1.lamLow g.γ * CFDLean.Num.pairF dw (Uk - Ui) ≤
+          CFDLean.Num.pairF dw (CFDLean.JST1.enthalpyState g Uk - CFDLean.JST1.enthalpyState g Ui) ∧
+        CFDLean.Num.pairF dw (CFDLean.JST1.enthalpyState g Uk - CFDLean.JST1.enthalpyState g Ui) ≤
+          CFDLean.JST1.lamHigh g.γ * CFDLean.Num.pairF dw (Uk - Ui)
+STMT CFDLean.JST1.Spec.P1_1_3 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (Ui Uk : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g Ui →
+    CFDLean.JST1.Admissible g Uk →
+      0 ≤ CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui) (Uk - Ui)
+STMT CFDLean.JST1.Spec.P1_1_4 :: (∀ (γ : ℝ),
+    1 < γ → 3 / 4 < CFDLean.JST1.lamLow γ ∧ CFDLean.JST1.lamLow γ < 1 ∧ 1 < CFDLean.JST1.lamHigh γ) ∧
+  StrictAntiOn CFDLean.JST1.lamLow (Set.Ioi 1) ∧
+    Filter.Tendsto CFDLean.JST1.lamLow (nhdsWithin 1 (Set.Ioi 1)) (nhds 1) ∧
+      Filter.Tendsto CFDLean.JST1.lamLow Filter.atTop (nhds (3 / 4)) ∧
+        8258 / 10000 < CFDLean.JST1.lamLow (14 / 10) ∧ CFDLean.JST1.lamLow (14 / 10) < 8259 / 10000
+STMT CFDLean.JST1.Spec.P1_1_5 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (Ui Uk : CFDLean.JST1.State d) (lam eps2 : ℝ),
+  CFDLean.JST1.Admissible g Ui →
+    CFDLean.JST1.Admissible g Uk →
+      0 ≤ lam →
+        0 ≤ eps2 →
+          let dw := CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui;
+          let d2 := (lam * eps2) • (CFDLean.JST1.enthalpyState g Ui - CFDLean.JST1.enthalpyState g Uk);
+          CFDLean.Num.pairF dw d2 =
+              -(eps2 * lam) * CFDLean.Num.pairF dw (CFDLean.JST1.enthalpyState g Uk - CFDLean.JST1.enthalpyState g Ui) ∧
+            CFDLean.Num.pairF dw d2 ≤ -CFDLean.JST1.lamLow g.γ * eps2 * lam * CFDLean.Num.pairF dw (Uk - Ui) ∧
+              -CFDLean.JST1.lamLow g.γ * eps2 * lam * CFDLean.Num.pairF dw (Uk - Ui) ≤ 0
+STMT CFDLean.JST1.Spec.P1_1_6 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (ε : ℝ),
+  0 < ε →
+    (∃ Ui Uk,
+        CFDLean.JST1.Admissible g Ui ∧
+          CFDLean.JST1.Admissible g Uk ∧
+            0 < CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui) (Uk - Ui) ∧
+              CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui)
+                  (CFDLean.JST1.enthalpyState g Uk - CFDLean.JST1.enthalpyState g Ui) <
+                (CFDLean.JST1.lamLow g.γ + ε) *
+                  CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui) (Uk - Ui)) ∧
+      ∃ Ui Uk,
+        CFDLean.JST1.Admissible g Ui ∧
+          CFDLean.JST1.Admissible g Uk ∧
+            0 < CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui) (Uk - Ui) ∧
+              (CFDLean.JST1.lamHigh g.γ - ε) *
+                  CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui) (Uk - Ui) <
+                CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g Ui)
+                  (CFDLean.JST1.enthalpyState g Uk - CFDLean.JST1.enthalpyState g Ui)
+STMT CFDLean.JST1.Spec.P1_2_0 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+  CFDLean.JST1.Admissible g U →
+    CFDLean.Num.pairF (CFDLean.JST1.entropyVars g U) (CFDLean.JST1.physFlux g U y) -
+        CFDLean.JST1.entropyFun g U * CFDLean.Num.dot (CFDLean.JST1.vel U) y =
+      CFDLean.Num.dot (CFDLean.JST1.fluxPot U) y
+STMT CFDLean.JST1.Spec.P1_2_1 :: ∀ (ι κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (F : ι → ι → κ → ℝ)
+  (w : ι → κ → ℝ),
+  (∀ (i k : ι), F k i = -F i k) →
+    ∑ i, ∑ k, F i k = 0 ∧
+      -∑ i, CFDLean.Num.pairF (w i) (∑ k, F i k) = 1 / 2 * ∑ i, ∑ k, CFDLean.Num.pairF (w k - w i) (F i k)
+STMT CFDLean.JST1.Spec.P1_2_2 :: ∀ (ι S κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (d : ℕ) (w : S → κ → ℝ)
+  (ψ : S → CFDLean.Num.Vec d) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S),
+  (∀ (i k : ι), n k i = -n i k) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = Fec b a y) →
+      (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+        (∀ (a b : S) (y : CFDLean.Num.Vec d),
+            CFDLean.Num.pairF (w b - w a) (Fec a b y) = CFDLean.Num.dot (ψ b - ψ a) y) →
+          let beta := fun i => -∑ k, n i k;
+          let Rc := fun i => ∑ k, Fec (u i) (u k) (n i k);
+          -∑ i, CFDLean.Num.pairF (w (u i)) (Rc i) = 1 / 2 * ∑ i, ∑ k, CFDLean.Num.dot (ψ (u k) - ψ (u i)) (n i k) ∧
+            1 / 2 * ∑ i, ∑ k, CFDLean.Num.dot (ψ (u k) - ψ (u i)) (n i k) = ∑ i, CFDLean.Num.dot (ψ (u i)) (beta i)
+STMT CFDLean.JST1.Spec.P1_2_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (W : C → Fin (d + 1) → ℝ),
+  M.Valid →
+    (∀ (T : C), ∑ a, W T a = M.vol T) → (∀ (i : ι), ∑ k, M.nW W i k = -M.beta i) ∧ ∀ (i : ι), M.Closed i → M.beta i = 0
+STMT CFDLean.JST1.Spec.P1_2_4 :: ∀ (a b : ℝ),
+  0 < a →
+    0 < b →
+      CFDLean.Num.logMean a b = CFDLean.Num.logMean b a ∧
+        CFDLean.Num.logMean a a = a ∧
+          0 < CFDLean.Num.logMean a b ∧ b - a = CFDLean.Num.logMean a b * (Real.log b - Real.log a)
+STMT CFDLean.JST1.Spec.P1_2_5 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas),
+  (∀ (Ua Ub : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+      CFDLean.JST1.Admissible g Ua →
+        CFDLean.JST1.Admissible g Ub →
+          CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Ub - CFDLean.JST1.entropyVars g Ua)
+              (CFDLean.JST1.ismailRoe g Ua Ub y) =
+            CFDLean.Num.dot (CFDLean.JST1.fluxPot Ub - CFDLean.JST1.fluxPot Ua) y) ∧
+    (∀ (Ua Ub : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+        CFDLean.JST1.ismailRoe g Ua Ub y = CFDLean.JST1.ismailRoe g Ub Ua y) ∧
+      (∀ (Ua Ub : CFDLean.JST1.State d), IsLinearMap ℝ (CFDLean.JST1.ismailRoe g Ua Ub)) ∧
+        ∀ (U : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+          CFDLean.JST1.Admissible g U → CFDLean.JST1.ismailRoe g U U y = CFDLean.JST1.physFlux g U y
+STMT CFDLean.JST1.Spec.P1_2_6 :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : ℕ)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S) (ut : ι → κ → ℝ)
+  (lam eps2 eps4 : ι → ι → ℝ) (Nstar : ι → Finset ι) (b : ι → κ → ℝ),
+  (∀ (i k : ι), n k i = -n i k) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = Fec b a y) →
+      (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+        (∀ (i k : ι), lam k i = lam i k) →
+          (∀ (i k : ι), eps2 k i = eps2 i k) →
+            (∀ (i k : ι), eps4 k i = eps4 i k) →
+              let L := fun i => ∑ k ∈ Nstar i, (ut k - ut i);
+              let F := fun i k =>
+                Fec (u i) (u k) (n i k) + lam i k • (eps2 i k • (ut i - ut k) - eps4 i k • (L i - L k));
+              (∀ (i k : ι), F k i = -F i k) ∧ ∑ i, (-∑ k, F i k - b i) = -∑ i, b i
+STMT CFDLean.JST1.Spec.P1_2_7 :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : ℕ)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (phys : S → CFDLean.Num.Vec d → κ → ℝ) (n : ι → ι → CFDLean.Num.Vec d)
+  (U : S) (ut0 : κ → ℝ) (lam eps2 eps4 : ι → ι → ℝ) (Nstar : ι → Finset ι),
+  (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Fec U U y = phys U y) →
+      let beta := fun i => -∑ k, n i k;
+      let L := fun i => ∑ _k ∈ Nstar i, (ut0 - ut0);
+      let F := fun i k => Fec U U (n i k) + lam i k • (eps2 i k • (ut0 - ut0) - eps4 i k • (L i - L k));
+      ∀ (i : ι), -∑ k, F i k - phys U (beta i) = 0
+STMT CFDLean.JST1.Spec.P1_3_1 :: ∀ (ι σ : Type) [inst : Fintype ι] [inst_1 : Fintype σ] (d : ℕ) (ω : σ → ℝ)
+  (χ : σ → ι → ι → Bool) (n vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → ℝ) (bnd : ι → ℝ) (i : ι),
+  (∀ (s : σ), 0 ≤ ω s) →
+    ∑ s, ω s = 1 →
+      (∀ (k : ι), (∃ s, χ s i k = Bool.true) → 0 < CFDLean.JST1.piShare ω χ i k) →
+        (∀ (k : ι), (∀ (s : σ), χ s i k = Bool.false) → n i k = 0) →
+          ∑ s, ω s * CFDLean.JST1.LamOn vb cb bnd (fun j k => CFDLean.JST1.nSplit ω χ n s j k) i =
+            CFDLean.JST1.LamOn vb cb bnd n i
+STMT CFDLean.JST1.Spec.P1_3_2 :: ∀ (ι σ κ : Type) [inst : Fintype ι] [inst_1 : Fintype σ] (ω : σ → ℝ)
+  (χ : σ → ι → ι → Bool),
+  (∀ (ut : ι → κ → ℝ) (Nstar : ι → Finset ι) (i : ι),
+      (∑ s, ω s • ∑ k ∈ Nstar i, if χ s i k = Bool.true then ut k - ut i else 0) =
+        ∑ k ∈ Nstar i, CFDLean.JST1.piShare ω χ i k • (ut k - ut i)) ∧
+    ∀ (f : ι → ι → ℝ) (i : ι),
+      (∑ s, ω s * ∑ k, if χ s i k = Bool.true then f i k else 0) = ∑ k, CFDLean.JST1.piShare ω χ i k * f i k
+STMT CFDLean.JST1.Spec.P1_3_3 :: ∀ (ι σ κ : Type) [Fintype ι] [inst : Fintype σ] (d : ℕ) (ω : σ → ℝ)
+  (χ : σ → ι → ι → Bool) (n e vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → ℝ) (Lam : ι → ℝ) (a : ℝ) (D : κ → ℝ)
+  (i k : ι),
+  (∀ (s : σ), 0 ≤ ω s) →
+    0 < CFDLean.JST1.piShare ω χ i k →
+      0 < CFDLean.JST1.lamHat (vb i k) (cb i k) (e i k) (n i k) →
+        0 < Lam i →
+          0 < Lam k →
+            (∑ s,
+                ω s •
+                  if χ s i k = Bool.true then
+                    CFDLean.JST1.coefOn vb cb e Lam a (fun j l => CFDLean.JST1.nSplit ω χ n s j l) i k • D
+                  else 0) =
+              (CFDLean.JST1.piShare ω χ i k ^ a * CFDLean.JST1.coefOn vb cb e Lam a n i k) • D
+STMT CFDLean.JST1.Spec.P1_3_4 :: ∀ (ι : Type) (d : ℕ) (n e vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → ℝ)
+  (Lam : ι → ℝ) (a p : ℝ) (i k : ι),
+  p = 1 → p ^ a * CFDLean.JST1.coefOn vb cb e Lam a n i k = CFDLean.JST1.coefOn vb cb e Lam a n i k
+STMT CFDLean.JST1.Spec.P1_4_0 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (P : CFDLean.JST1.ViscParams) (r T : ℝ)
+  (v : CFDLean.Num.Vec d),
+  0 < r →
+    0 < T →
+      0 < P.R →
+        (∀ (α : Fin d),
+            CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (r * P.R * T)) (CFDLean.JST1.Channel.momentum α) =
+              v α / (P.R * T)) ∧
+          CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (r * P.R * T)) CFDLean.JST1.Channel.energy =
+              -1 / (P.R * T) ∧
+            ∀ (Gv : Fin d → Fin d → ℝ) (GT : CFDLean.Num.Vec d) (G : Matrix (CFDLean.JST1.Channel d) (Fin d) ℝ),
+              (∀ (α β : Fin d),
+                  G (CFDLean.JST1.Channel.momentum α) β = Gv α β / (P.R * T) - v α * GT β / (P.R * T ^ 2)) →
+                (∀ (β : Fin d), G CFDLean.JST1.Channel.energy β = GT β / (P.R * T ^ 2)) →
+                  CFDLean.JST1.viscFlux P (CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (r * P.R * T))) G =
+                    CFDLean.JST1.nsFlux P v Gv GT
+STMT CFDLean.JST1.Spec.P1_4_1 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  [inst_3 : Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (w : ι → κ → ℝ) (Fl : C → Matrix κ (Fin d) ℝ),
+  ∑ i, CFDLean.Num.pairF (w i) (M.galerkinRes Fl i) = -∑ T, M.ω T * M.vol T * CFDLean.Num.frob (M.gradW w T) (Fl T)
+STMT CFDLean.JST1.Spec.P1_4_2 :: ∀ (d : ℕ) (P : CFDLean.JST1.ViscParams) (wb : CFDLean.JST1.State d),
+  d ≤ 3 →
+    0 ≤ P.μ →
+      0 ≤ P.κ →
+        0 < P.R →
+          wb CFDLean.JST1.Channel.energy < 0 →
+            (∀ (G : Matrix (CFDLean.JST1.Channel d) (Fin d) ℝ), 0 ≤ CFDLean.Num.frob G (CFDLean.JST1.viscFlux P wb G)) ∧
+              IsLinearMap ℝ (CFDLean.JST1.viscFlux P wb)
+STMT CFDLean.JST1.Spec.P1_4_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (P : CFDLean.JST1.ViscParams) (w : ι → CFDLean.JST1.State d),
+  M.Valid →
+    d ≤ 3 →
+      0 ≤ P.μ →
+        0 ≤ P.κ →
+          0 < P.R →
+            (∀ (i : ι), w i CFDLean.JST1.Channel.energy < 0) →
+              let wbar := fun T => (1 / (↑d + 1)) • ∑ a, w ((M.vert T) a);
+              let Fl := fun T => CFDLean.JST1.viscFlux P (wbar T) (M.gradW w T);
+              (∀ (T : C), wbar T CFDLean.JST1.Channel.energy < 0) ∧
+                ∑ i, CFDLean.Num.pairF (w i) (M.galerkinRes Fl i) =
+                    -∑ T, M.ω T * M.vol T * CFDLean.Num.frob (M.gradW w T) (Fl T) ∧
+                  ∑ i, CFDLean.Num.pairF (w i) (M.galerkinRes Fl i) ≤ 0
+STMT CFDLean.JST1.Spec.P1_4_3b :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g U → CFDLean.JST1.entropyVars g U CFDLean.JST1.Channel.energy < 0
+STMT CFDLean.JST1.Spec.P1_4_4 :: ∀ (d : ℕ) (P : CFDLean.JST1.ViscParams) (wb : CFDLean.JST1.State d)
+  (G H : Matrix (CFDLean.JST1.Channel d) (Fin d) ℝ),
+  wb CFDLean.JST1.Channel.energy ≠ 0 →
+    CFDLean.Num.frob G (CFDLean.JST1.viscFlux P wb H) = CFDLean.Num.frob H (CFDLean.JST1.viscFlux P wb G)
+STMT CFDLean.JST1.Spec.P1_5_0a :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (i : ι), M.Valid → M.FacetPaired i → M.Closed i
+STMT CFDLean.JST1.Spec.P1_5_0b :: ∀ (n m : ℕ) (M : CFDLean.MedianDual.MeshData n m) (i : Fin n),
+  M.Conforming →
+    (∀ (o : M.Occurrence), M.faceCount (M.faceID o) = 1 → i ∉ M.faceID o) → (CFDLean.Num.ofMeshData M).Closed i
+STMT CFDLean.JST1.Spec.P1_5_1 :: ∀ (d : ℕ) (T : CFDLean.Num.Simplex d),
+  T.Nondeg →
+    ∑ a, T.grad a = 0 ∧
+      (∀ (a b c : Fin (d + 1)),
+          CFDLean.Num.dot (T.grad a) (T.x b - T.x c) = (if a = b then 1 else 0) - if a = c then 1 else 0) ∧
+        ∑ a, CFDLean.Num.outer (T.grad a) (T.x a) = 1 ∧ 0 < T.vol ∧ ∑ o, T.facet o = 0
+STMT CFDLean.JST1.Spec.P1_5_2 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    (∀ (i k : ι), i ≠ k → CFDLean.Num.dot (M.n i k) (M.e i k) = 2 * M.mu i k) ∧
+      ∀ (i k : ι),
+        i ≠ k →
+          (∃ T a b, (M.vert T) a = i ∧ (M.vert T) b = k ∧ 0 < M.ω T) →
+            0 < M.mu i k ∧
+              (∃ t, 0 < t ∧ M.nu i k = t • M.e i k) ∧
+                CFDLean.Num.len (M.nu i k) = CFDLean.Num.dot (M.n i k) (M.e i k) / CFDLean.Num.len (M.e i k)
+STMT CFDLean.JST1.Spec.P1_5_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    (∀ (i : ι), ∑ k, CFDLean.Num.outer (M.c i k) (M.e i k) = M.V i • 1) ∧
+      (∀ (i : ι), M.Closed i → ∑ k, CFDLean.Num.outer (M.n i k) (M.e i k) = (2 * M.V i) • 1) ∧
+        ∑ i, ∑ k, CFDLean.Num.outer (M.n i k) (M.e i k) = (2 * M.volΩ) • 1 ∧ ∑ i, M.V i = M.volΩ
+STMT CFDLean.JST1.Spec.P1_5_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    (∀ (i : ι), M.Closed i → (M.Gtensor M.nu i).trace = 2 * ↑d * M.V i) ∧
+      ∑ i, ∑ k, CFDLean.Num.len (M.nu i k) * CFDLean.Num.len (M.e i k) = 2 * ↑d * M.volΩ ∧
+        (∀ (i : ι), M.Closed i → 2 * ↑d * M.V i ≤ (M.Gtensor M.n i).trace) ∧
+          ∀ (i : ι),
+            M.Closed i → ((M.Gtensor M.n i).trace = 2 * ↑d * M.V i ↔ ∀ (k : ι), ∃ t, 0 ≤ t ∧ M.n i k = t • M.e i k)
+STMT CFDLean.JST1.Spec.P1_5_4b :: ∀ (d : ℕ) (V : ℝ) (h : Fin d → ℝ),
+  0 < V →
+    (∀ (α : Fin d), 0 < h α) →
+      let sgn := fun s => if s = Bool.true then 1 else -1;
+      let E := fun p => (sgn p.2 * h p.1) • Pi.single p.1 1;
+      let Y := fun p => (sgn p.2 * (V / h p.1)) • Pi.single p.1 1;
+      (∀ (p : Fin d × Bool), CFDLean.Num.WMesh.nuOf (Y p) (E p) = Y p) ∧
+        ∑ p,
+            (CFDLean.Num.len (Y p) * CFDLean.Num.len (E p)) •
+              CFDLean.Num.outer (CFDLean.Num.WMesh.unit (E p)) (CFDLean.Num.WMesh.unit (E p)) =
+          (2 * V) • 1
+STMT CFDLean.JST1.Spec.P1_5_5 :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  [inst_2 : Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (S : C → ι → ι → CFDLean.Num.Vec d)
+  (Fl : C → Matrix κ (Fin d) ℝ),
+  (∀ (T : C) (a b : Fin (d + 1)), S T ((M.vert T) a) ((M.vert T) b) = M.m T • (M.g T b - M.g T a)) →
+    ∀ (i : ι), M.fvRes Fl S i = M.galerkinRes Fl i
+STMT CFDLean.JST1.Spec.P1_5_6 :: (∀ (p : CFDLean.MedianDual.Points),
+    0 < CFDLean.MedianDual.sixVolume p →
+      (CFDLean.Num.simplexOfPoints p).Nondeg ∧
+        (CFDLean.Num.simplexOfPoints p).vol = CFDLean.MedianDual.volume p ∧
+          ∀ (i k : Fin 4),
+            CFDLean.MedianDual.localInterface p i k =
+              ((CFDLean.Num.simplexOfPoints p).vol / 4) •
+                ((CFDLean.Num.simplexOfPoints p).grad k - (CFDLean.Num.simplexOfPoints p).grad i)) ∧
+  ∀ (T : CFDLean.Num.Simplex 2),
+    T.Nondeg → ∀ (i k : Fin 3), i ≠ k → CFDLean.Num.dualFacet2 T i k = (T.vol / 3) • (T.grad k - T.grad i)
+STMT CFDLean.JST1.Spec.P1_5_7 :: ∀ (n m : ℕ) (κ : Type) [inst : Fintype κ] (M : CFDLean.MedianDual.MeshData n m)
+  (Fl : Fin m → Matrix κ (Fin 3) ℝ) (i : Fin n),
+  (∑ t,
+      ∑ a, ∑ b, if (M.vertex t) a = i then (Fl t).mulVec (CFDLean.MedianDual.localInterface (M.points t) a b) else 0) =
+    (CFDLean.Num.ofMeshData M).galerkinRes Fl i
+STMT CFDLean.JST1.Spec.P1_5_8 :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  [inst_2 : Fintype κ] (M : CFDLean.Num.WMesh ι C 2) (Fl : C → Matrix κ (Fin 2) ℝ) (i : ι),
+  M.Valid →
+    (∑ T,
+        ∑ a,
+          ∑ b,
+            if (M.vert T) a = i ∧ b ≠ a then M.ω T • (Fl T).mulVec (CFDLean.Num.dualFacet2 (M.simplex T) a b) else 0) =
+      M.galerkinRes Fl i
+STMT CFDLean.JST1.Spec.P2_6_1 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (W : C → Fin (d + 1) → ℝ),
+  (∀ (T : C), ∑ a, W T a = M.vol T) →
+    (∀ (i k : ι), M.cW W i k + M.cW W k i = M.B i k + 2 • M.EW W i k) ∧
+      (∀ (i k : ι), M.EW W k i = M.EW W i k) ∧
+        (∀ (i : ι), ∑ k, M.EW W i k = 0) ∧ (∀ (i : ι), ∑ k, M.cW W i k = 0) ∧ ∀ (k : ι), ∑ i, M.cW W i k = M.beta k
+STMT CFDLean.JST1.Spec.P2_6_2 :: ∀ (d : ℕ) (T : CFDLean.Num.Simplex d) (δ : Fin (d + 1) → ℝ),
+  1 ≤ d →
+    T.Nondeg →
+      ∑ a, δ a = 0 →
+        ((∀ (a b : Fin (d + 1)), a ≠ b → δ a • T.grad b + δ b • T.grad a = 0) ↔ ∀ (a : Fin (d + 1)), δ a = 0)
+STMT CFDLean.JST1.Spec.P2_6_3 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        (∀ (i : ι), M.beta i = ∑ p, if bd p = Bool.true ∧ i ∈ M.facetNodes p then (1 / ↑d) • M.areaVec p else 0) ∧
+          (∀ (i k : ι),
+              M.B i k =
+                ∑ p,
+                  if bd p = Bool.true ∧ i ∈ M.facetNodes p ∧ k ∈ M.facetNodes p then
+                    ((1 + if i = k then 1 else 0) / (↑d * (↑d + 1))) • M.areaVec p
+                  else 0) ∧
+            ∀ (i : ι), (∀ (p : C × Fin (d + 1)), bd p = Bool.true → i ∉ M.facetNodes p) → M.Closed i
+STMT CFDLean.JST1.Spec.P2_6_4 :: ∀ (ι κ : Type) [inst : Fintype ι] [Fintype κ] (d : ℕ) (c B : ι → ι → CFDLean.Num.Vec d)
+  (β : ι → CFDLean.Num.Vec d) (F : ι → Matrix κ (Fin d) ℝ),
+  (∀ (i : ι), ∑ k, c i k = 0) →
+    (∀ (k : ι), ∑ i, c i k = β k) →
+      (∀ (i : ι), ∑ k, B i k = β i) →
+        let n := fun i k => c i k - c k i;
+        let s := fun i k => (1 / 2) • (c i k + c k i - B i k);
+        ∀ (i : ι),
+          ∑ k, ((1 / 2) • (F i + F k)).mulVec (n i k) + ∑ k, (F k - F i).mulVec (s i k) +
+              (1 / 2) • (∑ k, (F k).mulVec (B i k) + (F i).mulVec (β i)) =
+            ∑ k, (F k).mulVec (c i k)
+STMT CFDLean.JST1.Spec.P2_6_5 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  [inst_3 : Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool) (w : ι → κ → ℝ)
+  (ψ : ι → CFDLean.Num.Vec d) (Fs : C × Fin (d + 1) → ι → κ → ℝ),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        let b := fun i =>
+          ∑ p,
+            if bd p = Bool.true ∧ i ∈ M.facetNodes p then ∑ j ∈ M.facetNodes p, CFDLean.Num.stdWeight d i j • Fs p j
+            else 0;
+        ∑ i, (CFDLean.Num.dot (ψ i) (M.beta i) - CFDLean.Num.pairF (w i) (b i)) =
+          ∑ p,
+            if bd p = Bool.true then
+              1 / ↑d * ∑ i ∈ M.facetNodes p, (CFDLean.Num.dot (ψ i) (M.areaVec p) - CFDLean.Num.pairF (w i) (Fs p i)) +
+                1 / (4 * ↑d * (↑d + 1)) *
+                  ∑ i ∈ M.facetNodes p, ∑ j ∈ M.facetNodes p, CFDLean.Num.pairF (w j - w i) (Fs p j - Fs p i)
+            else 0
+STMT CFDLean.JST1.Spec.P2_6_5b :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  [Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool) (F : ι → Matrix κ (Fin d) ℝ),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        (∀ (i : ι),
+            ∑ k, (F k).mulVec ((1 / 2) • (M.B i k + if i = k then M.beta i else 0)) =
+              ∑ p,
+                if bd p = Bool.true ∧ i ∈ M.facetNodes p then
+                  ∑ j ∈ M.facetNodes p, CFDLean.Num.stdWeight d i j • (F j).mulVec (M.areaVec p)
+                else 0) ∧
+          ∀ (i j : ι), i ≠ j → CFDLean.Num.stdWeight d i i = (↑d + 3) * CFDLean.Num.stdWeight d i j
+STMT CFDLean.JST1.Spec.P2_6_6 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (y : CFDLean.Num.Vec d),
+  1 ≤ d →
+    y ≠ 0 →
+      (∃ U1 U2,
+          CFDLean.JST1.Admissible g U1 ∧
+            CFDLean.JST1.Admissible g U2 ∧
+              0 <
+                CFDLean.Num.pairF (CFDLean.JST1.entropyVars g U2 - CFDLean.JST1.entropyVars g U1)
+                  (CFDLean.JST1.pressFlux g U2 y - CFDLean.JST1.pressFlux g U1 y)) ∧
+        ∃ U1 U2,
+          CFDLean.JST1.Admissible g U1 ∧
+            CFDLean.JST1.Admissible g U2 ∧
+              CFDLean.Num.pairF (CFDLean.JST1.entropyVars g U2 - CFDLean.JST1.entropyVars g U1)
+                  (CFDLean.JST1.pressFlux g U2 y - CFDLean.JST1.pressFlux g U1 y) <
+                0
+STMT CFDLean.JST1.Spec.P2_6_7 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  [Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (F : ι → Matrix κ (Fin d) ℝ) (i : ι),
+  M.Valid →
+    M.Closed i →
+      ∑ k, ((1 / 2) • (F i + F k)).mulVec (M.n i k) = ∑ k, (F k).mulVec (M.c i k) ∧
+        ∑ k, (F k).mulVec (M.c i k) =
+          ∑ T, ∑ a, if (M.vert T) a = i then (M.ω T * M.m T) • ∑ b, (F ((M.vert T) b)).mulVec (M.g T b) else 0
+STMT CFDLean.JST1.Spec.P2_7_1 :: ∀ (ι : Type) [inst : Fintype ι] (d : ℕ) (x : ι → CFDLean.Num.Vec d) (i : ι)
+  (lam : ι → ℝ) (V q0 : ℝ) (gq : CFDLean.Num.Vec d) (H : Matrix (Fin d) (Fin d) ℝ),
+  V ≠ 0 →
+    H.IsSymm →
+      let q := fun z => q0 + CFDLean.Num.dot gq z + 1 / 2 * CFDLean.Num.dot z (H.mulVec z);
+      let K := (1 / (4 * V)) • ∑ k, lam k • CFDLean.Num.outer (x k - x i) (x k - x i);
+      1 / 2 * ∑ k, lam k * (q (x k) - q (x i)) =
+        1 / 2 * ∑ k, lam k * CFDLean.Num.dot (gq + H.mulVec (x i)) (x k - x i) + V * CFDLean.Num.frob K H
+STMT CFDLean.JST1.Spec.P2_7_2 :: ∀ (ι : Type) [inst : Fintype ι] (d : ℕ) (e y : ι → CFDLean.Num.Vec d) (σ : ι → ℝ)
+  (V : ℝ),
+  0 < V →
+    (∀ (k : ι), 0 ≤ σ k) →
+      (∀ (k : ι), 0 < CFDLean.Num.dot (y k) (e k)) →
+        let K := fun z => (1 / (4 * V)) • ∑ k, (σ k * CFDLean.Num.len (z k)) • CFDLean.Num.outer (e k) (e k);
+        let ν := fun k => CFDLean.Num.WMesh.nuOf (y k) (e k);
+        (∀ (k : ι),
+            CFDLean.Num.len (y k) =
+                CFDLean.Num.len (ν k) * (CFDLean.Num.len (y k) * CFDLean.Num.len (e k) / CFDLean.Num.dot (y k) (e k)) ∧
+              1 ≤ CFDLean.Num.len (y k) * CFDLean.Num.len (e k) / CFDLean.Num.dot (y k) (e k)) ∧
+          (K y - K ν).PosSemidef ∧ (K y = K ν ↔ ∀ (k : ι), 0 < σ k → ∃ t, 0 < t ∧ y k = t • e k)
+STMT CFDLean.JST1.Spec.P2_7_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (σ : ι → ι → ℝ) (s σmax h : ℝ) (y : ι → ι → CFDLean.Num.Vec d) (i : ι),
+  M.Valid →
+    0 < M.V i →
+      let K := fun z =>
+        (1 / (4 * M.V i)) • ∑ k, (σ i k * CFDLean.Num.len (z i k)) • CFDLean.Num.outer (M.e i k) (M.e i k);
+      ((∀ (k : ι), k ≠ i → σ i k * CFDLean.Num.len (M.e i k) = s) → K y = (s / (4 * M.V i)) • M.Gtensor y i) ∧
+        ((∀ (k : ι), k ≠ i → σ i k * CFDLean.Num.len (M.e i k) = s) → (K M.nu).trace = ↑d * s / 2) ∧
+          ((∀ (k : ι), 0 ≤ σ i k ∧ σ i k ≤ σmax) →
+            (∀ (k : ι), M.n i k ≠ 0 → CFDLean.Num.len (M.e i k) ≤ h) → (K M.nu).trace ≤ ↑d / 2 * σmax * h)
+STMT CFDLean.JST1.Spec.P2_7_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → ℝ) (σmax : ℝ),
+  M.Valid →
+    (∀ (i k : ι), 0 ≤ cb i k ∧ |CFDLean.Num.dot (vb i k) (CFDLean.Num.WMesh.unit (M.e i k))| + cb i k ≤ σmax) →
+      ∑ i, ∑ k, CFDLean.JST1.lamHat (vb i k) (cb i k) (M.e i k) (M.n i k) * CFDLean.Num.len (M.e i k) ≤
+        2 * ↑d * σmax * M.volΩ
+STMT CFDLean.JST1.Spec.P2_8_0 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (W : CFDLean.JST1.State d),
+  W CFDLean.JST1.Channel.energy < 0 → ∃! U, CFDLean.JST1.Admissible g U ∧ CFDLean.JST1.entropyVars g U = W
+STMT CFDLean.JST1.Spec.P2_8_1 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [inst_2 : Fintype κ] (d : ℕ)
+  (w : S → κ → ℝ) (ψ : S → CFDLean.Num.Vec d) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (u : ι → S) (φ : Q → ι → ℝ)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S) (Fs : Q → κ → ℝ),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = Fec b a y) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), CFDLean.Num.pairF (w b - w a) (Fec a b y) = CFDLean.Num.dot (ψ b - ψ a) y) →
+      (∀ (q : Q), ∑ k, φ q k = 1) →
+        (∀ (q : Q), w (ut q) = ∑ k, φ q k • w (u k)) →
+          let beta := fun i => ∑ q, φ q i • N q;
+          let b := fun i => ∑ q, φ q i • (Fec (u i) (ut q) (N q) - ∑ k, φ q k • Fec (ut q) (u k) (N q) + Fs q);
+          ∑ i, (CFDLean.Num.dot (ψ (u i)) (beta i) - CFDLean.Num.pairF (w (u i)) (b i)) =
+              ∑ q, (CFDLean.Num.dot (ψ (ut q)) (N q) - CFDLean.Num.pairF (w (ut q)) (Fs q)) ∧
+            ∑ i, b i = ∑ q, Fs q
+STMT CFDLean.JST1.Spec.P2_8_2 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : ℕ)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (phys : S → CFDLean.Num.Vec d → κ → ℝ) (U : S) (φ : Q → ι → ℝ)
+  (N : Q → CFDLean.Num.Vec d) (n : ι → ι → CFDLean.Num.Vec d),
+  (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Fec U U y = phys U y) →
+      (∀ (q : Q), ∑ k, φ q k = 1) →
+        (∀ (i : ι), ∑ q, φ q i • N q = -∑ k, n i k) →
+          let b := fun i => ∑ q, φ q i • (Fec U U (N q) - ∑ k, φ q k • Fec U U (N q) + phys U (N q));
+          ∀ (i : ι), -∑ k, Fec U U (n i k) - b i = 0
+STMT CFDLean.JST1.Spec.P2_8_3 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : ℕ)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (Fl : S → Matrix κ (Fin d) ℝ) (u : ι → S) (φ : Q → ι → ℝ)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = ((1 / 2) • (Fl a + Fl b)).mulVec y) →
+    (∀ (q : Q), Fl (ut q) = ∑ k, φ q k • Fl (u k)) →
+      (∀ (q : Q), ∑ k, φ q k = 1) →
+        let beta := fun i => ∑ q, φ q i • N q;
+        let b := fun i =>
+          ∑ q, φ q i • (Fec (u i) (ut q) (N q) - ∑ k, φ q k • Fec (ut q) (u k) (N q) + (Fl (ut q)).mulVec (N q));
+        ∀ (i : ι), b i = (1 / 2) • ((Fl (u i)).mulVec (beta i) + ∑ k, (Fl (u k)).mulVec (∑ q, (φ q i * φ q k) • N q))
+STMT CFDLean.JST1.Spec.P2_8_4 :: ∀ (ι C Q : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  [inst_2 : DecidableEq C] [inst_3 : Fintype Q] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool)
+  (fq : Q → C × Fin (d + 1)) (aq : Q → ℝ) (φ : Q → ι → ℝ),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        (∀ (q : Q), bd (fq q) = Bool.true) →
+          (∀ (q : Q), ∀ k ∉ M.facetNodes (fq q), φ q k = 0) →
+            (∀ (p : C × Fin (d + 1)),
+                bd p = Bool.true → ∀ i ∈ M.facetNodes p, (∑ q, if fq q = p then aq q * φ q i else 0) = 1 / ↑d) →
+              (∀ (p : C × Fin (d + 1)),
+                  bd p = Bool.true →
+                    ∀ i ∈ M.facetNodes p,
+                      ∀ k ∈ M.facetNodes p,
+                        (∑ q, if fq q = p then aq q * φ q i * φ q k else 0) =
+                          (1 + if i = k then 1 else 0) / (↑d * (↑d + 1))) →
+                let N := fun q => aq q • M.areaVec (fq q);
+                (∀ (i : ι), ∑ q, φ q i • N q = M.beta i) ∧ ∀ (i k : ι), ∑ q, (φ q i * φ q k) • N q = M.B i k
+STMT CFDLean.JST1.Spec.P2_8_5 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+  CFDLean.JST1.Admissible g U →
+    CFDLean.Num.dot (CFDLean.JST1.fluxPot U) y -
+        CFDLean.Num.pairF (CFDLean.JST1.entropyVars g U) (CFDLean.JST1.pressFlux g U y) =
+      0
+STMT CFDLean.JST1.Spec.P2_8_6 :: (∀ (S κ : Type) [inst : Fintype κ] (d : ℕ) (w : S → κ → ℝ) (ψ : S → CFDLean.Num.Vec d)
+    (ut ug : S) (N : CFDLean.Num.Vec d) (Fs : κ → ℝ),
+    CFDLean.Num.pairF (w ug - w ut) Fs ≤ CFDLean.Num.dot (ψ ug - ψ ut) N →
+      CFDLean.Num.dot (ψ ut) N - CFDLean.Num.pairF (w ut) Fs ≤ CFDLean.Num.dot (ψ ug) N - CFDLean.Num.pairF (w ug) Fs) ∧
+  ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (Ut Ug : CFDLean.JST1.State d) (N : CFDLean.Num.Vec d) (lam : ℝ),
+    CFDLean.JST1.Admissible g Ut →
+      CFDLean.JST1.Admissible g Ug →
+        0 ≤ lam →
+          CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Ug - CFDLean.JST1.entropyVars g Ut)
+              (CFDLean.JST1.ismailRoe g Ut Ug N - (lam / 2) • (Ug - Ut)) ≤
+            CFDLean.Num.dot (CFDLean.JST1.fluxPot Ug - CFDLean.JST1.fluxPot Ut) N
+STMT CFDLean.JST1.Spec.P2_9_0 :: ∀ (κ : Type) [inst : Fintype κ] (d : ℕ) (T : CFDLean.Num.Simplex d)
+  (K : Matrix κ (Fin d) ℝ → Matrix κ (Fin d) ℝ) (P : Matrix κ κ ℝ) (gw : κ → ℝ) (walls : Finset (Fin (d + 1))) (c : ℝ)
+  (w : Fin (d + 1) → κ → ℝ),
+  CFDLean.JST1.Spec.WallHyp K P gw →
+    ∑ b, CFDLean.Num.pairF (w b) (CFDLean.JST1.Wall.Rvisc T K w b + CFDLean.JST1.Wall.Rwall T K P gw walls c w b) =
+      -CFDLean.JST1.Wall.Dgal T K w + CFDLean.JST1.Wall.PiW T K P gw walls c w +
+        ∑ o ∈ walls,
+          CFDLean.JST1.Wall.area T o / ↑d *
+            ∑ a ∈ Finset.univ.erase o, CFDLean.Num.pairF gw (CFDLean.JST1.Wall.Fhat T K P gw walls c w o a)
+STMT CFDLean.JST1.Spec.P2_9_1 :: ∀ (κ : Type) [inst : Fintype κ] (d : ℕ) (T : CFDLean.Num.Simplex d)
+  (K : Matrix κ (Fin d) ℝ → Matrix κ (Fin d) ℝ) (P : Matrix κ κ ℝ) (gw : κ → ℝ) (walls : Finset (Fin (d + 1))) (c : ℝ)
+  (w : Fin (d + 1) → κ → ℝ),
+  CFDLean.JST1.Spec.WallHyp K P gw →
+    1 ≤ d →
+      T.Nondeg →
+        0 < c →
+          CFDLean.JST1.Wall.PiW T K P gw walls c w ≤ CFDLean.JST1.Wall.Dgal T K w / c ∧
+            (1 ≤ c →
+              (1 - 1 / c) * CFDLean.JST1.Wall.Dgal T K w ≤
+                  CFDLean.JST1.Wall.Dgal T K w - CFDLean.JST1.Wall.PiW T K P gw walls c w ∧
+                0 ≤ (1 - 1 / c) * CFDLean.JST1.Wall.Dgal T K w)
+STMT CFDLean.JST1.Spec.P2_9_2 :: ∀ (κ : Type) [inst : Fintype κ] (d : ℕ) (T : CFDLean.Num.Simplex d)
+  (K : Matrix κ (Fin d) ℝ → Matrix κ (Fin d) ℝ) (P : Matrix κ κ ℝ) (gw : κ → ℝ) (o : Fin (d + 1)) (c : ℝ) (e : κ → ℝ),
+  CFDLean.JST1.Spec.WallHyp K P gw →
+    1 ≤ d →
+      T.Nondeg →
+        0 < c →
+          c < 1 →
+            P.mulVec e = e →
+              0 <
+                  CFDLean.Num.frob (CFDLean.JST1.Wall.outerK e (CFDLean.JST1.Wall.normal T o))
+                    (K (CFDLean.JST1.Wall.outerK e (CFDLean.JST1.Wall.normal T o))) →
+                ∃ w, CFDLean.JST1.Wall.Dgal T K w - CFDLean.JST1.Wall.PiW T K P gw {o} c w < 0
+STMT CFDLean.JST1.Spec.P2_9_3 :: ∀ (d : ℕ) (Pv : CFDLean.JST1.ViscParams) (wb : CFDLean.JST1.State d)
+  (N : CFDLean.Num.Vec d),
+  1 ≤ d →
+    d ≤ 3 →
+      0 < Pv.μ →
+        0 ≤ Pv.κ →
+          0 < Pv.R →
+            wb CFDLean.JST1.Channel.energy < 0 →
+              N ≠ 0 →
+                CFDLean.JST1.Spec.WallHyp (CFDLean.JST1.viscFlux Pv wb) (CFDLean.JST1.Spec.momProj d) 0 ∧
+                  ∃ e,
+                    (CFDLean.JST1.Spec.momProj d).mulVec e = e ∧
+                      0 <
+                        CFDLean.Num.frob (CFDLean.JST1.Wall.outerK e N)
+                          (CFDLean.JST1.viscFlux Pv wb (CFDLean.JST1.Wall.outerK e N))
+STMT CFDLean.JST1.Spec.P2_9_4 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (R r T Tw : ℝ) (v : CFDLean.Num.Vec d),
+  0 < R →
+    0 < r →
+      0 < T →
+        0 < Tw →
+          (v = 0 ↔
+              ∀ (α : Fin d),
+                CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (r * R * T))
+                    (CFDLean.JST1.Channel.momentum α) =
+                  0) ∧
+            (T = Tw ↔
+              CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (r * R * T)) CFDLean.JST1.Channel.energy =
+                -1 / (R * Tw))
+STMT CFDLean.JST1.Spec.P2_10_1 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas),
+  (∀ (U : CFDLean.JST1.SState d),
+      CFDLean.JST1.hatState U = 0 ↔ ∃ a b, U = a • CFDLean.JST1.Spec.nullE + b • CFDLean.JST1.Spec.nullW) ∧
+    ∀ (U : CFDLean.JST1.SState d) (a b : ℝ),
+      CFDLean.JST1.eta0 g (U + a • CFDLean.JST1.Spec.nullE + b • CFDLean.JST1.Spec.nullW) = CFDLean.JST1.eta0 g U
+STMT CFDLean.JST1.Spec.P2_10_2 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas),
+  (∀ (U : CFDLean.JST1.SState d),
+      CFDLean.JST1.SAdmissible g U →
+        HasFDerivAt (CFDLean.JST1.eta0 g) (CFDLean.Num.pairCLM (CFDLean.JST1.vEta g U)) U) ∧
+    (∀ (U R : CFDLean.JST1.SState d),
+        CFDLean.Num.pairF (CFDLean.JST1.vEta g U) R =
+          CFDLean.Num.pairF (CFDLean.JST1.entropyVars g (CFDLean.JST1.hatState U)) (CFDLean.JST1.hatState R)) ∧
+      ∀ (ι : Type) [inst : Fintype ι] (Ut : ι → ℝ → CFDLean.JST1.SState d) (V : ι → ℝ) (R : ι → CFDLean.JST1.SState d)
+        (t : ℝ),
+        (∀ (i : ι), CFDLean.JST1.SAdmissible g (Ut i t)) →
+          (∀ (i : ι), V i ≠ 0) →
+            (∀ (i : ι), HasDerivAt (Ut i) (-(V i)⁻¹ • R i) t) →
+              HasDerivAt (fun s => ∑ i, V i * CFDLean.JST1.eta0 g (Ut i s))
+                (-∑ i,
+                    CFDLean.Num.pairF (CFDLean.JST1.entropyVars g (CFDLean.JST1.hatState (Ut i t)))
+                      (CFDLean.JST1.hatState (R i)))
+                t
+STMT CFDLean.JST1.Spec.P2_10_3 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas),
+  ConvexOn ℝ {U | CFDLean.JST1.SAdmissible g U} (CFDLean.JST1.eta0 g) ∧
+    ∀ (U1 U2 : CFDLean.JST1.SState d),
+      CFDLean.JST1.SAdmissible g U1 →
+        CFDLean.JST1.SAdmissible g U2 →
+          0 ≤ CFDLean.Num.pairF (CFDLean.JST1.vEta g U2 - CFDLean.JST1.vEta g U1) (U2 - U1) ∧
+            (CFDLean.Num.pairF (CFDLean.JST1.vEta g U2 - CFDLean.JST1.vEta g U1) (U2 - U1) = 0 ↔
+              CFDLean.JST1.hatState U1 = CFDLean.JST1.hatState U2)
+STMT CFDLean.JST1.Spec.P2_10_4 :: ∀ (d : ℕ) (D : CFDLean.JST1.SSTPoint.Data d),
+  0 < D.R →
+    0 < D.T →
+      let θ := CFDLean.JST1.SSTPoint.theta D;
+      (CFDLean.JST1.SSTPoint.Pi D =
+          -θ * (D.μ * CFDLean.JST1.SSTPoint.Q D + (D.μt * CFDLean.JST1.SSTPoint.Q D - D.Pk) + D.ε) -
+              D.κ * CFDLean.Num.dot D.GT D.GT / (D.R * D.T ^ 2) +
+            if D.withDk = Bool.true then 0 else -(D.Dk * CFDLean.Num.dot D.Gk (CFDLean.JST1.SSTPoint.Gtheta D))) ∧
+        (d ≤ 3 → 0 ≤ CFDLean.JST1.SSTPoint.Q D) ∧
+          (d ≤ 3 →
+              D.withDk = Bool.true →
+                0 ≤ D.μ →
+                  0 ≤ D.κ → 0 ≤ D.ε → D.Pk ≤ D.μt * CFDLean.JST1.SSTPoint.Q D → CFDLean.JST1.SSTPoint.Pi D ≤ 0) ∧
+            (0 ≤ D.μt →
+              D.Pk ≤ D.μt * (2 * CFDLean.JST1.SSTPoint.SS D) →
+                -θ * (D.μt * CFDLean.JST1.SSTPoint.Q D - D.Pk) ≤ θ * (2 / 3 * D.μt * CFDLean.JST1.SSTPoint.divv D ^ 2))
+STMT CFDLean.JST1.Spec.P2_10_5 :: ∀ (ι : Type) [inst : Fintype ι] (mdot : ι → ι → ℝ) (kv kin bmass : ι → ℝ),
+  (∀ (i j : ι), mdot j i = -mdot i j) →
+    let kup := fun i j => if 0 ≤ mdot i j then kv i else kv j;
+    let kb := fun i => if 0 ≤ bmass i then kv i else kin i;
+    let X := fun i => ∑ j, mdot i j * kup i j + bmass i * kb i;
+    let Rrho := fun i => ∑ j, mdot i j + bmass i;
+    ∑ i, ∑ j, mdot i j * kup i j = 0 ∧
+      (∀ (k0 : ℝ), (∀ (i : ι), kv i = k0) → (∀ (i : ι), kin i = k0) → ∀ (i : ι), X i = k0 * Rrho i) ∧
+        ∀ (i : ι), kv i = 0 → bmass i = 0 → (∀ (j : ι), 0 ≤ kv j) → X i ≤ 0
+STMT CFDLean.JST1.Spec.P2_10_6 :: ∀ (Pst cl ε : ℝ), 0 ≤ ε → 0 ≤ Pst → Max.max 0 (Min.min Pst (cl * ε)) - ε ≤ Pst
+STMT CFDLean.JST1.Spec.P2_10_7 :: ∀ (d : ℕ) (R μ μt κ : ℝ) (wb : CFDLean.JST1.State d)
+  (G : Matrix (CFDLean.JST1.Channel d) (Fin d) ℝ),
+  d ≤ 3 →
+    0 < R →
+      0 ≤ μ →
+        0 ≤ μt →
+          0 ≤ κ →
+            wb CFDLean.JST1.Channel.energy < 0 →
+              CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μ + μt, κ := κ } wb G) =
+                  CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μ, κ := κ } wb G) +
+                    CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μt, κ := 0 } wb G) ∧
+                0 ≤ CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μ, κ := κ } wb G) ∧
+                  0 ≤ CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μt, κ := 0 } wb G)
+STMT CFDLean.JST1.Spec.P2_10_8 :: (∀ (ι C : Type) [inst : Fintype ι] [inst_1 : Fintype C] (d : ℕ)
+    (w Rhat : ι → CFDLean.JST1.State d) (X Ck Bk Dh Sk Rrho Pst V β2 : ι → ℝ) (inD : ι → Bool) (kD : ℝ)
+    (Dgal Dt PiW : C → ℝ) (Bhat Pi2 Pi4 : ℝ),
+    (∀ (i : ι), w i CFDLean.JST1.Channel.energy = -β2 i) →
+      (∀ (i : ι), 0 ≤ β2 i) →
+        (∀ (i : ι), 0 ≤ V i) →
+          (∀ (i : ι), 0 ≤ Pst i) →
+            -∑ i, CFDLean.Num.pairF (w i) (Rhat i) ≤ Bhat + Pi2 + Pi4 - ∑ T, (Dgal T - PiW T) →
+              Pi2 ≤ 0 →
+                (∀ (i : ι), inD i = Bool.false → X i = Ck i + Bk i + Dh i) →
+                  (∀ (i : ι), inD i = Bool.false → Sk i ≤ Pst i) →
+                    (∀ (i : ι), inD i = Bool.true → X i - kD * Rrho i ≤ 0) →
+                      ∑ T, Dt T = ∑ i, β2 i * V i * Pst i →
+                        (∀ (T : C), PiW T ≤ Dgal T - Dt T) →
+                          let Rk := fun i => if inD i = Bool.true then kD * Rrho i else Ck i + Bk i + Dh i - V i * Sk i;
+                          let rate := -∑ i, CFDLean.Num.pairF (w i) (Rhat i + (X i - Rk i) • CFDLean.JST1.eE);
+                          (rate ≤
+                              (Bhat + Pi2 + Pi4 - ∑ T, (Dgal T - Dt T - PiW T) -
+                                  ∑ i, if inD i = Bool.true then 0 else β2 i * V i * (Pst i - Sk i)) -
+                                ∑ i, if inD i = Bool.true then β2 i * V i * Pst i else 0) ∧
+                            (∀ (T : C), 0 ≤ Dgal T - Dt T - PiW T) ∧
+                              (∀ (i : ι), 0 ≤ if inD i = Bool.true then 0 else β2 i * V i * (Pst i - Sk i)) ∧
+                                ∀ (i : ι), 0 ≤ if inD i = Bool.true then β2 i * V i * Pst i else 0) ∧
+  ∀ (Dgal Dt PiW c : ℝ),
+    (PiW = 0 → Dt ≤ Dgal → PiW ≤ Dgal - Dt) ∧ (0 < c → PiW ≤ Dgal / c → Dt ≤ (1 - 1 / c) * Dgal → PiW ≤ Dgal - Dt)
+STMT CFDLean.JST1.Spec.P2_8_0b :: ∀ (ι : Type) [inst : Fintype ι] (d : ℕ) (w : ι → CFDLean.JST1.State d) (φ : ι → ℝ),
+  (∀ (k : ι), w k CFDLean.JST1.Channel.energy < 0) →
+    (∀ (k : ι), 0 ≤ φ k) → ∑ k, φ k = 1 → (∑ k, φ k • w k) CFDLean.JST1.Channel.energy < 0
+STMT CFDLean.JST1.Spec.P2_9_2b :: ∀ (d : ℕ) (Pv : CFDLean.JST1.ViscParams) (T : CFDLean.Num.Simplex d) (o : Fin (d + 1))
+  (c : ℝ),
+  1 ≤ d →
+    d ≤ 3 →
+      0 < Pv.μ →
+        0 ≤ Pv.κ →
+          0 < Pv.R →
+            T.Nondeg →
+              0 < c →
+                c < 1 →
+                  ∃ w,
+                    (∀ (a : Fin (d + 1)), w a CFDLean.JST1.Channel.energy < 0) ∧
+                      CFDLean.JST1.Wall.Dgal T (CFDLean.JST1.viscFlux Pv (CFDLean.JST1.Spec.vmean w)) w -
+                          CFDLean.JST1.Wall.PiW T (CFDLean.JST1.viscFlux Pv (CFDLean.JST1.Spec.vmean w))
+                            (CFDLean.JST1.Spec.momProj d) 0 {o} c w <
+                        0
+STMT CFDLean.JST1.Spec.P2_10_8b :: ∀ (d : ℕ) (T : CFDLean.Num.Simplex d) (R μ μt κ c : ℝ)
+  (P : Matrix (CFDLean.JST1.Channel d) (CFDLean.JST1.Channel d) ℝ) (gw : CFDLean.JST1.State d)
+  (walls : Finset (Fin (d + 1))) (w : Fin (d + 1) → CFDLean.JST1.State d),
+  1 ≤ d →
+    d ≤ 3 →
+      0 < R →
+        0 ≤ μ →
+          0 ≤ μt →
+            0 ≤ κ →
+              T.Nondeg →
+                0 < c →
+                  (∀ (a : Fin (d + 1)), w a CFDLean.JST1.Channel.energy < 0) →
+                    P.transpose = P →
+                      P * P = P →
+                        P.mulVec gw = gw →
+                          let K := CFDLean.JST1.viscFlux { R := R, μ := μ + μt, κ := κ } (CFDLean.JST1.Spec.vmean w);
+                          let Kt := CFDLean.JST1.viscFlux { R := R, μ := μt, κ := 0 } (CFDLean.JST1.Spec.vmean w);
+                          let Dg := CFDLean.JST1.Wall.Dgal T K w;
+                          let Dt := CFDLean.JST1.Wall.Dgal T Kt w;
+                          let Pw := CFDLean.JST1.Wall.PiW T K P gw walls c w;
+                          0 ≤ Dt ∧
+                            Dt ≤ Dg ∧
+                              (walls = ∅ → Pw = 0 ∧ Pw ≤ Dg - Dt) ∧ (1 ≤ c → Dt ≤ (1 - 1 / c) * Dg → Pw ≤ Dg - Dt)
+STMT CFDLean.JST1.Spec.P2_10_8c :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : Fintype C] (d : ℕ) (g : CFDLean.JST1.Gas)
+  (Ut : ι → ℝ → CFDLean.JST1.SState d) (Vv : ι → ℝ) (R : ι → CFDLean.JST1.SState d) (t : ℝ)
+  (Rhat : ι → CFDLean.JST1.State d) (X Ck Bk Dh Sk Rrho Pst : ι → ℝ) (inD : ι → Bool) (kD : ℝ) (Dgal Dt PiW : C → ℝ)
+  (Bhat Pi2 Pi4 : ℝ),
+  (∀ (i : ι), CFDLean.JST1.SAdmissible g (Ut i t)) →
+    (∀ (i : ι), 0 < Vv i) →
+      (∀ (i : ι), HasDerivAt (Ut i) (-(Vv i)⁻¹ • R i) t) →
+        let w := fun i => CFDLean.JST1.entropyVars g (CFDLean.JST1.hatState (Ut i t));
+        let β2 := fun i => -w i CFDLean.JST1.Channel.energy;
+        let Rk := fun i => if inD i = Bool.true then kD * Rrho i else Ck i + Bk i + Dh i - Vv i * Sk i;
+        (∀ (i : ι), CFDLean.JST1.hatState (R i) = Rhat i + (X i - Rk i) • CFDLean.JST1.eE) →
+          (∀ (i : ι), 0 ≤ Pst i) →
+            -∑ i, CFDLean.Num.pairF (w i) (Rhat i) ≤ Bhat + Pi2 + Pi4 - ∑ T, (Dgal T - PiW T) →
+              (∀ (i : ι), inD i = Bool.false → X i = Ck i + Bk i + Dh i) →
+                (∀ (i : ι), inD i = Bool.false → Sk i ≤ Pst i) →
+                  (∀ (i : ι), inD i = Bool.true → X i - kD * Rrho i ≤ 0) →
+                    ∑ T, Dt T = ∑ i, β2 i * Vv i * Pst i →
+                      (∀ (T : C), PiW T ≤ Dgal T - Dt T) →
+                        ∃ r,
+                          HasDerivAt (fun s => ∑ i, Vv i * CFDLean.JST1.eta0 g (Ut i s)) r t ∧
+                            r ≤
+                              (Bhat + Pi2 + Pi4 - ∑ T, (Dgal T - Dt T - PiW T) -
+                                  ∑ i, if inD i = Bool.true then 0 else β2 i * Vv i * (Pst i - Sk i)) -
+                                ∑ i, if inD i = Bool.true then β2 i * Vv i * Pst i else 0
+STMT CFDLean.JST1.Spec.P3_11_1 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool),
+  M.Valid →
+    1 ≤ d →
+      (M.Conforming bd → M.FacetBalanced bd) ∧
+        (M.FacetBalanced bd →
+          (∀ (i : ι), M.beta i = ∑ p, if bd p = Bool.true ∧ i ∈ M.facetNodes p then (1 / ↑d) • M.areaVec p else 0) ∧
+            (∀ (i k : ι),
+                M.B i k =
+                  ∑ p,
+                    if bd p = Bool.true ∧ i ∈ M.facetNodes p ∧ k ∈ M.facetNodes p then
+                      ((1 + if i = k then 1 else 0) / (↑d * (↑d + 1))) • M.areaVec p
+                    else 0) ∧
+              ∀ (i : ι), (∀ (p : C × Fin (d + 1)), bd p = Bool.true → i ∉ M.facetNodes p) → M.Closed i)
+STMT CFDLean.JST1.Spec.P3_11_2 :: (∀ (T : CFDLean.Num.Simplex 3) (o a b c : Fin 4),
+    T.Nondeg →
+      [o, a, b, c].Nodup →
+        let nv := CFDLean.Num.cross3 (T.x b - T.x a) (T.x c - T.x a);
+        T.facet o = (if 0 < CFDLean.Num.dot nv (T.x o - T.x a) then -(1 / 2) else 1 / 2) • nv) ∧
+  ∀ (T T' : CFDLean.Num.Simplex 3) (o a b c o' a' b' c' : Fin 4),
+    T.Nondeg →
+      T'.Nondeg →
+        [o, a, b, c].Nodup →
+          [o', a', b', c'].Nodup →
+            T'.x a' = T.x a →
+              T'.x b' = T.x b →
+                T'.x c' = T.x c →
+                  let nv := CFDLean.Num.cross3 (T.x b - T.x a) (T.x c - T.x a);
+                  CFDLean.Num.dot nv (T.x o - T.x a) * CFDLean.Num.dot nv (T'.x o' - T.x a) < 0 →
+                    T'.facet o' = -T.facet o
+STMT CFDLean.JST1.Spec.P3_11_3 :: CFDLean.JST1.RefCell.hex.splits.length = 64 ∧
+  CFDLean.JST1.RefCell.prism.splits.length = 12 ∧
+    CFDLean.JST1.RefCell.pyramid.splits.length = 6 ∧
+      (CFDLean.JST1.RefCell.hex.quads.all fun q =>
+            CFDLean.JST1.RefCell.hex.diagCount q Bool.false == 32 &&
+              CFDLean.JST1.RefCell.hex.diagCount q Bool.true == 32) =
+          Bool.true ∧
+        (CFDLean.JST1.RefCell.prism.quads.all fun q =>
+              CFDLean.JST1.RefCell.prism.diagCount q Bool.false == 6 &&
+                CFDLean.JST1.RefCell.prism.diagCount q Bool.true == 6) =
+            Bool.true ∧
+          (CFDLean.JST1.RefCell.pyramid.quads.all fun q =>
+                CFDLean.JST1.RefCell.pyramid.diagCount q Bool.false == 3 &&
+                  CFDLean.JST1.RefCell.pyramid.diagCount q Bool.true == 3) =
+              Bool.true ∧
+            (CFDLean.JST1.RefCell.hex.splits.all fun s =>
+                  CFDLean.JST1.RefCell.hex.quads.all fun q =>
+                    CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.false) !=
+                      CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.true)) =
+                Bool.true ∧
+              (CFDLean.JST1.RefCell.prism.splits.all fun s =>
+                    CFDLean.JST1.RefCell.prism.quads.all fun q =>
+                      CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.prism.pull s.1 s.2) (q.diag Bool.false) !=
+                        CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.prism.pull s.1 s.2) (q.diag Bool.true)) =
+                  Bool.true ∧
+                (CFDLean.JST1.RefCell.pyramid.splits.all fun s =>
+                      CFDLean.JST1.RefCell.pyramid.quads.all fun q =>
+                        CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) (q.diag Bool.false) !=
+                          CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2)
+                            (q.diag Bool.true)) =
+                    Bool.true ∧
+                  List.countP (fun v => CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.quadPull v) (0, 2))
+                        (List.finRange 4) =
+                      2 ∧
+                    List.countP (fun v => CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.quadPull v) (1, 3))
+                        (List.finRange 4) =
+                      2
+STMT CFDLean.JST1.Spec.P3_12_1 :: List.countP
+      (fun s =>
+        (List.finRange 8).any fun v =>
+          CFDLean.JST1.RefCell.containsSimplex (CFDLean.JST1.RefCell.hex.pull s.1 s.2)
+            (CFDLean.JST1.RefCell.hexSliver v))
+      CFDLean.JST1.RefCell.hex.splits =
+    32 ∧
+  ((List.finRange 8).all fun v =>
+      List.countP
+          (fun s =>
+            CFDLean.JST1.RefCell.containsSimplex (CFDLean.JST1.RefCell.hex.pull s.1 s.2)
+              (CFDLean.JST1.RefCell.hexSliver v))
+          CFDLean.JST1.RefCell.hex.splits ==
+        4) =
+    Bool.true
+STMT CFDLean.JST1.Spec.P3_12_2 :: ∀ (a b : ℝ),
+  0 < a →
+    0 < b →
+      Filter.Tendsto (fun h => CFDLean.JST1.Spec.cosDih (CFDLean.JST1.Spec.sliverBrick a b h) 1 3)
+          (nhdsWithin 0 (Set.Ioi 0)) (nhds (-1)) ∧
+        Filter.Tendsto (fun h => CFDLean.JST1.Spec.cosDih (CFDLean.JST1.Spec.sliverBrick a b h) 0 2)
+          (nhdsWithin 0 (Set.Ioi 0)) (nhds (-1))
+STMT CFDLean.JST1.Spec.P3_12_3 :: ∀ (σ : Type) [inst : Fintype σ] (ω q : σ → ℝ) (t : σ),
+  (∀ (s : σ), 0 ≤ ω s) → (∀ (s : σ), 0 ≤ q s) → 1 / 16 ≤ ω t → q t / 16 ≤ ∑ s, ω s * q s
+STMT CFDLean.JST1.Spec.P3_12_4 :: (CFDLean.JST1.RefCell.hex.fanSplits
+        (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).length =
+    8 ∧
+  ((CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).all fun s =>
+        (CFDLean.JST1.RefCell.hex.pull s.1 s.2).all fun t =>
+          t.contains s.1 && t.contains (CFDLean.JST1.RefCell.hexOpp s.1)) =
+      Bool.true ∧
+    ((CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).all fun s =>
+          (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).any fun s' =>
+            s'.1 == CFDLean.JST1.RefCell.hexOpp s.1 &&
+              CFDLean.JST1.RefCell.sameSplit (CFDLean.JST1.RefCell.hex.pull s.1 s.2)
+                (CFDLean.JST1.RefCell.hex.pull s'.1 s'.2)) =
+        Bool.true ∧
+      (CFDLean.JST1.RefCell.hex.quads.all fun q =>
+            List.countP
+                  (fun s => CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.false))
+                  (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)) ==
+                4 &&
+              List.countP
+                  (fun s => CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.true))
+                  (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)) ==
+                4) =
+          Bool.true ∧
+        ([CFDLean.JST1.RefCell.hexRz, CFDLean.JST1.RefCell.hexRx, CFDLean.JST1.RefCell.hexMx].all fun σ =>
+              (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).all
+                fun s =>
+                (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).any
+                  fun s' =>
+                  CFDLean.JST1.RefCell.sameSplit
+                    (CFDLean.JST1.RefCell.mapSplit σ (CFDLean.JST1.RefCell.hex.pull s.1 s.2))
+                    (CFDLean.JST1.RefCell.hex.pull s'.1 s'.2)) =
+            Bool.true ∧
+          (CFDLean.JST1.RefCell.prism.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.prismEdges)).length =
+              CFDLean.JST1.RefCell.prism.splits.length ∧
+            (CFDLean.JST1.RefCell.pyramid.fanSplits
+                  (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.pyramidEdges)).length =
+              CFDLean.JST1.RefCell.pyramid.splits.length
+STMT CFDLean.JST1.Spec.P3_12_5 :: ∀ (π : Equiv.Perm (Fin 3)) (h : Fin 3 → ℝ),
+  (∀ (i : Fin 3), 0 < h i) →
+    (CFDLean.Num.pathSimplex π h).Nondeg ∧
+      ∀ (a b : Fin 4),
+        a ≠ b → CFDLean.Num.dot ((CFDLean.Num.pathSimplex π h).grad a) ((CFDLean.Num.pathSimplex π h).grad b) ≤ 0
+STMT CFDLean.JST1.Spec.P3_13_1 :: ∀ (κ : Type) [inst : Fintype κ] (Φ : (κ → ℝ) → κ → ℝ)
+  (B : (κ → ℝ) → (κ → ℝ) →L[ℝ] κ → ℝ) (wi wk : κ → ℝ),
+  (∀ s ∈ Set.Icc 0 1, HasFDerivAt Φ (B (wi + s • (wk - wi))) (wi + s • (wk - wi))) →
+    ContinuousOn (fun s => (B (wi + s • (wk - wi))) (wk - wi)) (Set.Icc 0 1) →
+      Φ wk - Φ wi = ∫ (s : ℝ) in 0..1, (B (wi + s • (wk - wi))) (wk - wi) ∧
+        CFDLean.Num.pairF (wk - wi) (Φ wk - Φ wi) =
+          ∫ (s : ℝ) in 0..1, CFDLean.Num.pairF (wk - wi) ((B (wi + s • (wk - wi))) (wk - wi))
+STMT CFDLean.JST1.Spec.P3_13_2 :: ∀ (d : ℕ) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d) (E : CFDLean.Num.Vec d),
+  CFDLean.JST1.Admissible g U →
+    |CFDLean.Num.dot (CFDLean.JST1.vel U) E| < CFDLean.JST1.Spec.soundSpeed g U * CFDLean.Num.len E →
+      ∀ ε > 0,
+        (∃ Uk,
+            CFDLean.JST1.Admissible g Uk ∧
+              ‖Uk - U‖ < ε ∧
+                0 <
+                  CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g U)
+                    (CFDLean.JST1.physFlux g Uk E - CFDLean.JST1.physFlux g U E)) ∧
+          ∃ Uk,
+            CFDLean.JST1.Admissible g Uk ∧
+              ‖Uk - U‖ < ε ∧
+                CFDLean.Num.pairF (CFDLean.JST1.entropyVars g Uk - CFDLean.JST1.entropyVars g U)
+                    (CFDLean.JST1.physFlux g Uk E - CFDLean.JST1.physFlux g U E) <
+                  0
+STMT CFDLean.JST1.Spec.P3_11_2b :: ∀ (T : CFDLean.Num.Simplex 2) (o a b : Fin 3),
+  T.Nondeg →
+    [o, a, b].Nodup →
+      T.facet o =
+        (if 0 < CFDLean.Num.dot (CFDLean.Num.perp2 (T.x b - T.x a)) (T.x o - T.x a) then -1 else 1) •
+          CFDLean.Num.perp2 (T.x b - T.x a)
+STMT CFDLean.JST1.Spec.P3_11_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι]
+  [inst_3 : Fintype C] (M : CFDLean.Num.WMesh ι C 3) (bd : C × Fin 4 → Bool),
+  M.Valid → CFDLean.Num.SideBalanced M bd → M.FacetBalanced bd
+STMT CFDLean.JST1.Spec.P3_11_4b :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι]
+  [inst_3 : Fintype C] (M : CFDLean.Num.WMesh ι C 2) (bd : C × Fin 3 → Bool),
+  M.Valid → CFDLean.Num.SideBalanced2 M bd → M.FacetBalanced bd
+STMT CFDLean.JST1.Spec.P3_11_5 :: (CFDLean.JST1.RefCell.hex.splits.all fun s =>
+      (CFDLean.JST1.RefCell.hex.pull s.1 s.2).all fun t =>
+        (CFDLean.JST1.Spec.tetFaces t).all fun f =>
+          CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.hex.pull s.1 s.2) f ==
+            if CFDLean.JST1.Spec.onCellFace CFDLean.JST1.RefCell.hex f = Bool.true then 1 else 2) =
+    Bool.true ∧
+  (CFDLean.JST1.RefCell.prism.splits.all fun s =>
+        (CFDLean.JST1.RefCell.prism.pull s.1 s.2).all fun t =>
+          (CFDLean.JST1.Spec.tetFaces t).all fun f =>
+            CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.prism.pull s.1 s.2) f ==
+              if CFDLean.JST1.Spec.onCellFace CFDLean.JST1.RefCell.prism f = Bool.true then 1 else 2) =
+      Bool.true ∧
+    (CFDLean.JST1.RefCell.pyramid.splits.all fun s =>
+        (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2).all fun t =>
+          (CFDLean.JST1.Spec.tetFaces t).all fun f =>
+            CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) f ==
+              if CFDLean.JST1.Spec.onCellFace CFDLean.JST1.RefCell.pyramid f = Bool.true then 1 else 2) =
+      Bool.true
+STMT CFDLean.JST1.Spec.P3_11_6 :: (CFDLean.JST1.RefCell.hex.quads.all fun q =>
+      (q.tris Bool.false ++ q.tris Bool.true).all fun f =>
+        2 *
+            List.countP (fun s => CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.hex.pull s.1 s.2) f == 1)
+              CFDLean.JST1.RefCell.hex.splits ==
+          CFDLean.JST1.RefCell.hex.splits.length) =
+    Bool.true ∧
+  (CFDLean.JST1.RefCell.prism.quads.all fun q =>
+        (q.tris Bool.false ++ q.tris Bool.true).all fun f =>
+          2 *
+              List.countP (fun s => CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.prism.pull s.1 s.2) f == 1)
+                CFDLean.JST1.RefCell.prism.splits ==
+            CFDLean.JST1.RefCell.prism.splits.length) =
+      Bool.true ∧
+    (CFDLean.JST1.RefCell.prism.tris.all fun f =>
+          List.countP (fun s => CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.prism.pull s.1 s.2) f == 1)
+              CFDLean.JST1.RefCell.prism.splits ==
+            CFDLean.JST1.RefCell.prism.splits.length) =
+        Bool.true ∧
+      (CFDLean.JST1.RefCell.pyramid.quads.all fun q =>
+            (q.tris Bool.false ++ q.tris Bool.true).all fun f =>
+              2 *
+                  List.countP (fun s => CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) f == 1)
+                    CFDLean.JST1.RefCell.pyramid.splits ==
+                CFDLean.JST1.RefCell.pyramid.splits.length) =
+          Bool.true ∧
+        (CFDLean.JST1.RefCell.pyramid.tris.all fun f =>
+            List.countP (fun s => CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) f == 1)
+                CFDLean.JST1.RefCell.pyramid.splits ==
+              CFDLean.JST1.RefCell.pyramid.splits.length) =
+          Bool.true
+STMT CFDLean.JST1.Spec.P3_14_1 :: ∀ (ι C Q : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  [inst_3 : DecidableEq C] [inst_4 : Fintype Q] (d : ℕ) (S : CFDLean.JST1.Scheme.Data ι C Q d)
+  (bd : C × Fin (d + 1) → Bool) (fq : Q → C × Fin (d + 1)) (aq : Q → ℝ) (u : ι → CFDLean.JST1.State d),
+  CFDLean.JST1.Spec.SchemeHyp S bd fq aq u →
+    ∑ i, CFDLean.Num.pairF (CFDLean.JST1.Scheme.w S u i) (CFDLean.JST1.Scheme.resid S u i) =
+        CFDLean.JST1.Scheme.Bterm S + CFDLean.JST1.Scheme.Pi2 S u + CFDLean.JST1.Scheme.Pi4 S u -
+            ∑ T, S.M.ω T * (CFDLean.JST1.Scheme.Dg S u T - CFDLean.JST1.Scheme.Pw S u T) +
+          CFDLean.JST1.Scheme.wallFlux S u ∧
+      CFDLean.JST1.Scheme.Pi2 S u ≤ 0 ∧
+        (1 ≤ S.c →
+            ∀ (T : C),
+              (1 - 1 / S.c) * CFDLean.JST1.Scheme.Dg S u T ≤
+                  CFDLean.JST1.Scheme.Dg S u T - CFDLean.JST1.Scheme.Pw S u T ∧
+                0 ≤ (1 - 1 / S.c) * CFDLean.JST1.Scheme.Dg S u T) ∧
+          ∀ (i k : ι),
+            CFDLean.JST1.Scheme.central S u k i + CFDLean.JST1.Scheme.diss2 S u k i -
+                CFDLean.JST1.Scheme.diss4 S u k i =
+              -(CFDLean.JST1.Scheme.central S u i k + CFDLean.JST1.Scheme.diss2 S u i k -
+                  CFDLean.JST1.Scheme.diss4 S u i k)
+STMT CFDLean.JST1.Spec.P3_14_2 :: ∀ (ι C Q : Type) [Fintype ι] [DecidableEq ι] [Fintype C] [inst : Fintype Q] (d : ℕ)
+  (S : CFDLean.JST1.Scheme.Data ι C Q d) (slip : Q → Bool) (ug : Q → CFDLean.JST1.State d),
+  (∀ (q : Q), CFDLean.JST1.Admissible S.g (S.ut q)) →
+    (∀ (q : Q), slip q = Bool.true → S.Fs q = CFDLean.JST1.pressFlux S.g (S.ut q) (S.N q)) →
+      (∀ (q : Q),
+          slip q = Bool.false →
+            CFDLean.Num.pairF (CFDLean.JST1.entropyVars S.g (ug q) - CFDLean.JST1.entropyVars S.g (S.ut q)) (S.Fs q) ≤
+              CFDLean.Num.dot (CFDLean.JST1.fluxPot (ug q) - CFDLean.JST1.fluxPot (S.ut q)) (S.N q)) →
+        CFDLean.JST1.Scheme.Bterm S ≤
+          ∑ q,
+            if slip q = Bool.true then 0
+            else
+              CFDLean.Num.dot (CFDLean.JST1.fluxPot (ug q)) (S.N q) -
+                CFDLean.Num.pairF (CFDLean.JST1.entropyVars S.g (ug q)) (S.Fs q)
+STMT CFDLean.JST1.Spec.P3_14_3 :: ∀ (ι C Q : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  [inst_3 : DecidableEq C] [inst_4 : Fintype Q] (d : ℕ) (S : CFDLean.JST1.Scheme.Data ι C Q d)
+  (bd : C × Fin (d + 1) → Bool) (fq : Q → C × Fin (d + 1)) (aq : Q → ℝ) (Ut : ι → ℝ → CFDLean.JST1.SState d)
+  (Vv : ι → ℝ) (R : ι → CFDLean.JST1.SState d) (t : ℝ) (X Ck Bk Dh Sk Rrho Pst : ι → ℝ) (inD : ι → Bool) (kD : ℝ)
+  (Dt : C → ℝ),
+  let u := fun i => CFDLean.JST1.hatState (Ut i t);
+  CFDLean.JST1.Spec.SchemeHyp S bd fq aq u →
+    (∀ (i : ι), 0 < Vv i) →
+      (∀ (i : ι), HasDerivAt (Ut i) (-(Vv i)⁻¹ • R i) t) →
+        let β2 := fun i => -CFDLean.JST1.entropyVars S.g (u i) CFDLean.JST1.Channel.energy;
+        let Rk := fun i => if inD i = Bool.true then kD * Rrho i else Ck i + Bk i + Dh i - Vv i * Sk i;
+        (∀ (i : ι), CFDLean.JST1.hatState (R i) = -CFDLean.JST1.Scheme.resid S u i + (X i - Rk i) • CFDLean.JST1.eE) →
+          (∀ (i : ι), 0 ≤ Pst i) →
+            (∀ (i : ι), inD i = Bool.false → X i = Ck i + Bk i + Dh i) →
+              (∀ (i : ι), inD i = Bool.false → Sk i ≤ Pst i) →
+                (∀ (i : ι), inD i = Bool.true → X i - kD * Rrho i ≤ 0) →
+                  ∑ T, S.M.ω T * Dt T = ∑ i, β2 i * Vv i * Pst i →
+                    (∀ (T : C), CFDLean.JST1.Scheme.Pw S u T ≤ CFDLean.JST1.Scheme.Dg S u T - Dt T) →
+                      ∃ r,
+                        HasDerivAt (fun s => ∑ i, Vv i * CFDLean.JST1.eta0 S.g (Ut i s)) r t ∧
+                          r ≤
+                            (CFDLean.JST1.Scheme.Bterm S + CFDLean.JST1.Scheme.wallFlux S u +
+                                      CFDLean.JST1.Scheme.Pi2 S u +
+                                    CFDLean.JST1.Scheme.Pi4 S u -
+                                  ∑ T, S.M.ω T * (CFDLean.JST1.Scheme.Dg S u T - Dt T - CFDLean.JST1.Scheme.Pw S u T) -
+                                ∑ i, if inD i = Bool.true then 0 else β2 i * Vv i * (Pst i - Sk i)) -
+                              ∑ i, if inD i = Bool.true then β2 i * Vv i * Pst i else 0
+STMT CFDLean.JST1.Spec.P3_11_7 :: ∀ (k : CFDLean.JST1.Mixed.Kind) (A : Matrix (Fin 3) (Fin 3) ℝ)
+  (b : CFDLean.Num.Vec 3),
+  A.det ≠ 0 →
+    let X := fun a => A.mulVec (k.ref a) + b;
+    let cen := (1 / ↑k.n) • ∑ a, X a;
+    ∀ s ∈ k.cell.splits,
+      (∀ t ∈ k.cell.pull s.1 s.2, (CFDLean.JST1.Mixed.realize X t (CFDLean.JST1.Spec.kz k)).Nondeg) ∧
+        (∀ t ∈ k.cell.pull s.1 s.2,
+            ∀ t' ∈ k.cell.pull s.1 s.2,
+              ∀ f ∈ CFDLean.JST1.Spec.tetFaces t,
+                CFDLean.JST1.RefCell.sameSimplex t t' = Bool.false →
+                  (CFDLean.JST1.Spec.tetFaces t').any (CFDLean.JST1.RefCell.sameSimplex f) = Bool.true →
+                    CFDLean.JST1.Spec.onCellFace k.cell f = Bool.false →
+                      CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k)
+                            (X (CFDLean.JST1.Mixed.oppV t f (CFDLean.JST1.Spec.kz k))) *
+                          CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k)
+                            (X (CFDLean.JST1.Mixed.oppV t' f (CFDLean.JST1.Spec.kz k))) <
+                        0) ∧
+          ∀ t ∈ k.cell.pull s.1 s.2,
+            ∀ f ∈ CFDLean.JST1.Spec.tetFaces t,
+              CFDLean.JST1.Spec.onCellFace k.cell f = Bool.true →
+                0 <
+                  CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k)
+                      (X (CFDLean.JST1.Mixed.oppV t f (CFDLean.JST1.Spec.kz k))) *
+                    CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k) cen
+STMT CFDLean.JST1.Spec.P3_11_8 :: ∀ (ι Cl : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype Cl]
+  [DecidableEq Cl] (M : CFDLean.JST1.Mixed.Mesh ι Cl) (bdTris : Finset (Finset ι)),
+  M.Affine →
+    M.Conform bdTris → M.toW.Valid ∧ M.toW.FacetBalanced fun p => Decidable.decide (M.toW.facetNodes p ∈ bdTris)
+XSTMT CFDLean.JST1.Spec.P1_1_0 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g U →
+    HasFDerivAt (CFDLean.JST1.entropyFun g) (CFDLean.Num.pairCLM (CFDLean.JST1.entropyVars g U)) U
+XSTMT CFDLean.JST1.Spec.P1_1_1 :: ∀ (γ : Real),
+  LT.lt (OfNat.ofNat 1) γ →
+    And
+      (∀ (a b : Real),
+        And (LE.le (HMul.hMul (CFDLean.JST1.lamLow γ) (CFDLean.JST1.thermoQ γ a b)) (CFDLean.JST1.thermoQt γ a b))
+          (LE.le (CFDLean.JST1.thermoQt γ a b) (HMul.hMul (CFDLean.JST1.lamHigh γ) (CFDLean.JST1.thermoQ γ a b))))
+      (And
+        (Exists fun (a : Real) =>
+          Exists fun (b : Real) =>
+            And (Ne (Prod.mk a b) (Prod.mk (OfNat.ofNat 0) (OfNat.ofNat 0)))
+              (Eq (CFDLean.JST1.thermoQt γ a b) (HMul.hMul (CFDLean.JST1.lamLow γ) (CFDLean.JST1.thermoQ γ a b))))
+        (Exists fun (a : Real) =>
+          Exists fun (b : Real) =>
+            And (Ne (Prod.mk a b) (Prod.mk (OfNat.ofNat 0) (OfNat.ofNat 0)))
+              (Eq (CFDLean.JST1.thermoQt γ a b) (HMul.hMul (CFDLean.JST1.lamHigh γ) (CFDLean.JST1.thermoQ γ a b)))))
+XSTMT CFDLean.JST1.Spec.P1_1_2 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (Ui Uk : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g Ui →
+    CFDLean.JST1.Admissible g Uk →
+      let dw := HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui);
+      And
+        (LE.le (HMul.hMul (CFDLean.JST1.lamLow g.γ) (CFDLean.Num.pairF dw (HSub.hSub Uk Ui)))
+          (CFDLean.Num.pairF dw (HSub.hSub (CFDLean.JST1.enthalpyState g Uk) (CFDLean.JST1.enthalpyState g Ui))))
+        (LE.le (CFDLean.Num.pairF dw (HSub.hSub (CFDLean.JST1.enthalpyState g Uk) (CFDLean.JST1.enthalpyState g Ui)))
+          (HMul.hMul (CFDLean.JST1.lamHigh g.γ) (CFDLean.Num.pairF dw (HSub.hSub Uk Ui))))
+XSTMT CFDLean.JST1.Spec.P1_1_3 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (Ui Uk : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g Ui →
+    CFDLean.JST1.Admissible g Uk →
+      LE.le (OfNat.ofNat 0)
+        (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+          (HSub.hSub Uk Ui))
+XSTMT CFDLean.JST1.Spec.P1_1_4 :: And
+  (∀ (γ : Real),
+    LT.lt (OfNat.ofNat 1) γ →
+      And (LT.lt (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 4)) (CFDLean.JST1.lamLow γ))
+        (And (LT.lt (CFDLean.JST1.lamLow γ) (OfNat.ofNat 1)) (LT.lt (OfNat.ofNat 1) (CFDLean.JST1.lamHigh γ))))
+  (And (StrictAntiOn CFDLean.JST1.lamLow (Set.Ioi (OfNat.ofNat 1)))
+    (And
+      (Filter.Tendsto CFDLean.JST1.lamLow (nhdsWithin (OfNat.ofNat 1) (Set.Ioi (OfNat.ofNat 1))) (nhds (OfNat.ofNat 1)))
+      (And (Filter.Tendsto CFDLean.JST1.lamLow Filter.atTop (nhds (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 4))))
+        (And
+          (LT.lt (HDiv.hDiv (OfNat.ofNat 8258) (OfNat.ofNat 10000))
+            (CFDLean.JST1.lamLow (HDiv.hDiv (OfNat.ofNat 14) (OfNat.ofNat 10))))
+          (LT.lt (CFDLean.JST1.lamLow (HDiv.hDiv (OfNat.ofNat 14) (OfNat.ofNat 10)))
+            (HDiv.hDiv (OfNat.ofNat 8259) (OfNat.ofNat 10000)))))))
+XSTMT CFDLean.JST1.Spec.P1_1_5 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (Ui Uk : CFDLean.JST1.State d) (lam eps2 : Real),
+  CFDLean.JST1.Admissible g Ui →
+    CFDLean.JST1.Admissible g Uk →
+      LE.le (OfNat.ofNat 0) lam →
+        LE.le (OfNat.ofNat 0) eps2 →
+          let dw := HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui);
+          let d2 :=
+            HSMul.hSMul (HMul.hMul lam eps2)
+              (HSub.hSub (CFDLean.JST1.enthalpyState g Ui) (CFDLean.JST1.enthalpyState g Uk));
+          And
+            (Eq (CFDLean.Num.pairF dw d2)
+              (HMul.hMul (Neg.neg (HMul.hMul eps2 lam))
+                (CFDLean.Num.pairF dw (HSub.hSub (CFDLean.JST1.enthalpyState g Uk) (CFDLean.JST1.enthalpyState g Ui)))))
+            (And
+              (LE.le (CFDLean.Num.pairF dw d2)
+                (HMul.hMul (HMul.hMul (HMul.hMul (Neg.neg (CFDLean.JST1.lamLow g.γ)) eps2) lam)
+                  (CFDLean.Num.pairF dw (HSub.hSub Uk Ui))))
+              (LE.le
+                (HMul.hMul (HMul.hMul (HMul.hMul (Neg.neg (CFDLean.JST1.lamLow g.γ)) eps2) lam)
+                  (CFDLean.Num.pairF dw (HSub.hSub Uk Ui)))
+                (OfNat.ofNat 0)))
+XSTMT CFDLean.JST1.Spec.P1_1_6 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (ε : Real),
+  LT.lt (OfNat.ofNat 0) ε →
+    And
+      (Exists fun (Ui : CFDLean.JST1.State d) =>
+        Exists fun (Uk : CFDLean.JST1.State d) =>
+          And (CFDLean.JST1.Admissible g Ui)
+            (And (CFDLean.JST1.Admissible g Uk)
+              (And
+                (LT.lt (OfNat.ofNat 0)
+                  (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+                    (HSub.hSub Uk Ui)))
+                (LT.lt
+                  (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+                    (HSub.hSub (CFDLean.JST1.enthalpyState g Uk) (CFDLean.JST1.enthalpyState g Ui)))
+                  (HMul.hMul (HAdd.hAdd (CFDLean.JST1.lamLow g.γ) ε)
+                    (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+                      (HSub.hSub Uk Ui)))))))
+      (Exists fun (Ui : CFDLean.JST1.State d) =>
+        Exists fun (Uk : CFDLean.JST1.State d) =>
+          And (CFDLean.JST1.Admissible g Ui)
+            (And (CFDLean.JST1.Admissible g Uk)
+              (And
+                (LT.lt (OfNat.ofNat 0)
+                  (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+                    (HSub.hSub Uk Ui)))
+                (LT.lt
+                  (HMul.hMul (HSub.hSub (CFDLean.JST1.lamHigh g.γ) ε)
+                    (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+                      (HSub.hSub Uk Ui)))
+                  (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g Ui))
+                    (HSub.hSub (CFDLean.JST1.enthalpyState g Uk) (CFDLean.JST1.enthalpyState g Ui)))))))
+XSTMT CFDLean.JST1.Spec.P1_2_0 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+  CFDLean.JST1.Admissible g U →
+    Eq
+      (HSub.hSub (CFDLean.Num.pairF (CFDLean.JST1.entropyVars g U) (CFDLean.JST1.physFlux g U y))
+        (HMul.hMul (CFDLean.JST1.entropyFun g U) (CFDLean.Num.dot (CFDLean.JST1.vel U) y)))
+      (CFDLean.Num.dot (CFDLean.JST1.fluxPot U) y)
+XSTMT CFDLean.JST1.Spec.P1_2_1 :: ∀ (ι κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (F : ι → ι → κ → Real) (w : ι → κ → Real),
+  (∀ (i k : ι), Eq (F k i) (Neg.neg (F i k))) →
+    And (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (k : ι) => F i k) (OfNat.ofNat 0))
+      (Eq (Neg.neg (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (Finset.univ.sum fun (k : ι) => F i k)))
+        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+          (Finset.univ.sum fun (i : ι) =>
+            Finset.univ.sum fun (k : ι) => CFDLean.Num.pairF (HSub.hSub (w k) (w i)) (F i k))))
+XSTMT CFDLean.JST1.Spec.P1_2_2 :: ∀ (ι S κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (d : Nat) (w : S → κ → Real) (ψ : S → CFDLean.Num.Vec d)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S),
+  (∀ (i k : ι), Eq (n k i) (Neg.neg (n i k))) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Eq (Fec a b y) (Fec b a y)) →
+      (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+        (∀ (a b : S) (y : CFDLean.Num.Vec d),
+            Eq (CFDLean.Num.pairF (HSub.hSub (w b) (w a)) (Fec a b y)) (CFDLean.Num.dot (HSub.hSub (ψ b) (ψ a)) y)) →
+          let beta := fun (i : ι) => Neg.neg (Finset.univ.sum fun (k : ι) => n i k);
+          let Rc := fun (i : ι) => Finset.univ.sum fun (k : ι) => Fec (u i) (u k) (n i k);
+          And
+            (Eq (Neg.neg (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w (u i)) (Rc i)))
+              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (Finset.univ.sum fun (i : ι) =>
+                  Finset.univ.sum fun (k : ι) => CFDLean.Num.dot (HSub.hSub (ψ (u k)) (ψ (u i))) (n i k))))
+            (Eq
+              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (Finset.univ.sum fun (i : ι) =>
+                  Finset.univ.sum fun (k : ι) => CFDLean.Num.dot (HSub.hSub (ψ (u k)) (ψ (u i))) (n i k)))
+              (Finset.univ.sum fun (i : ι) => CFDLean.Num.dot (ψ (u i)) (beta i)))
+XSTMT CFDLean.JST1.Spec.P1_2_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (W : C → Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  M.Valid →
+    (∀ (T : C), Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => W T a) (M.vol T)) →
+      And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.nW W i k) (Neg.neg (M.beta i)))
+        (∀ (i : ι), M.Closed i → Eq (M.beta i) (OfNat.ofNat 0))
+XSTMT CFDLean.JST1.Spec.P1_2_4 :: ∀ (a b : Real),
+  LT.lt (OfNat.ofNat 0) a →
+    LT.lt (OfNat.ofNat 0) b →
+      And (Eq (CFDLean.Num.logMean a b) (CFDLean.Num.logMean b a))
+        (And (Eq (CFDLean.Num.logMean a a) a)
+          (And (LT.lt (OfNat.ofNat 0) (CFDLean.Num.logMean a b))
+            (Eq (HSub.hSub b a) (HMul.hMul (CFDLean.Num.logMean a b) (HSub.hSub (Real.log b) (Real.log a))))))
+XSTMT CFDLean.JST1.Spec.P1_2_5 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas),
+  And
+    (∀ (Ua Ub : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+      CFDLean.JST1.Admissible g Ua →
+        CFDLean.JST1.Admissible g Ub →
+          Eq
+            (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Ub) (CFDLean.JST1.entropyVars g Ua))
+              (CFDLean.JST1.ismailRoe g Ua Ub y))
+            (CFDLean.Num.dot (HSub.hSub (CFDLean.JST1.fluxPot Ub) (CFDLean.JST1.fluxPot Ua)) y))
+    (And
+      (∀ (Ua Ub : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+        Eq (CFDLean.JST1.ismailRoe g Ua Ub y) (CFDLean.JST1.ismailRoe g Ub Ua y))
+      (And (∀ (Ua Ub : CFDLean.JST1.State d), IsLinearMap Real (CFDLean.JST1.ismailRoe g Ua Ub))
+        (∀ (U : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+          CFDLean.JST1.Admissible g U → Eq (CFDLean.JST1.ismailRoe g U U y) (CFDLean.JST1.physFlux g U y))))
+XSTMT CFDLean.JST1.Spec.P1_2_6 :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : Nat) (Fec : S → S → CFDLean.Num.Vec d → κ → Real)
+  (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S) (ut : ι → κ → Real) (lam eps2 eps4 : ι → ι → Real) (Nstar : ι → Finset ι)
+  (b : ι → κ → Real),
+  (∀ (i k : ι), Eq (n k i) (Neg.neg (n i k))) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Eq (Fec a b y) (Fec b a y)) →
+      (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+        (∀ (i k : ι), Eq (lam k i) (lam i k)) →
+          (∀ (i k : ι), Eq (eps2 k i) (eps2 i k)) →
+            (∀ (i k : ι), Eq (eps4 k i) (eps4 i k)) →
+              let L := fun (i : ι) => (Nstar i).sum fun (k : ι) => HSub.hSub (ut k) (ut i);
+              let F := fun (i k : ι) =>
+                HAdd.hAdd (Fec (u i) (u k) (n i k))
+                  (HSMul.hSMul (lam i k)
+                    (HSub.hSub (HSMul.hSMul (eps2 i k) (HSub.hSub (ut i) (ut k)))
+                      (HSMul.hSMul (eps4 i k) (HSub.hSub (L i) (L k)))));
+              And (∀ (i k : ι), Eq (F k i) (Neg.neg (F i k)))
+                (Eq (Finset.univ.sum fun (i : ι) => HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => F i k)) (b i))
+                  (Neg.neg (Finset.univ.sum fun (i : ι) => b i)))
+XSTMT CFDLean.JST1.Spec.P1_2_7 :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : Nat) (Fec : S → S → CFDLean.Num.Vec d → κ → Real)
+  (phys : S → CFDLean.Num.Vec d → κ → Real) (n : ι → ι → CFDLean.Num.Vec d) (U : S) (ut0 : κ → Real)
+  (lam eps2 eps4 : ι → ι → Real) (Nstar : ι → Finset ι),
+  (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Eq (Fec U U y) (phys U y)) →
+      let beta := fun (i : ι) => Neg.neg (Finset.univ.sum fun (k : ι) => n i k);
+      let L := fun (i : ι) => (Nstar i).sum fun (_k : ι) => HSub.hSub ut0 ut0;
+      let F := fun (i k : ι) =>
+        HAdd.hAdd (Fec U U (n i k))
+          (HSMul.hSMul (lam i k)
+            (HSub.hSub (HSMul.hSMul (eps2 i k) (HSub.hSub ut0 ut0)) (HSMul.hSMul (eps4 i k) (HSub.hSub (L i) (L k)))));
+      ∀ (i : ι), Eq (HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => F i k)) (phys U (beta i))) (OfNat.ofNat 0)
+XSTMT CFDLean.JST1.Spec.P1_3_1 :: ∀ (ι σ : Type) [inst : Fintype ι] [inst_1 : Fintype σ] (d : Nat) (ω : σ → Real) (χ : σ → ι → ι → Bool)
+  (n vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → Real) (bnd : ι → Real) (i : ι),
+  (∀ (s : σ), LE.le (OfNat.ofNat 0) (ω s)) →
+    Eq (Finset.univ.sum fun (s : σ) => ω s) (OfNat.ofNat 1) →
+      (∀ (k : ι),
+          (Exists fun (s : σ) => Eq (χ s i k) Bool.true) → LT.lt (OfNat.ofNat 0) (CFDLean.JST1.piShare ω χ i k)) →
+        (∀ (k : ι), (∀ (s : σ), Eq (χ s i k) Bool.false) → Eq (n i k) (OfNat.ofNat 0)) →
+          Eq
+            (Finset.univ.sum fun (s : σ) =>
+              HMul.hMul (ω s) (CFDLean.JST1.LamOn vb cb bnd (fun (j k : ι) => CFDLean.JST1.nSplit ω χ n s j k) i))
+            (CFDLean.JST1.LamOn vb cb bnd n i)
+XSTMT CFDLean.JST1.Spec.P1_3_2 :: ∀ (ι σ κ : Type) [inst : Fintype ι] [inst_1 : Fintype σ] (ω : σ → Real) (χ : σ → ι → ι → Bool),
+  And
+    (∀ (ut : ι → κ → Real) (Nstar : ι → Finset ι) (i : ι),
+      Eq
+        (Finset.univ.sum fun (s : σ) =>
+          HSMul.hSMul (ω s)
+            ((Nstar i).sum fun (k : ι) => ite (Eq (χ s i k) Bool.true) (HSub.hSub (ut k) (ut i)) (OfNat.ofNat 0)))
+        ((Nstar i).sum fun (k : ι) => HSMul.hSMul (CFDLean.JST1.piShare ω χ i k) (HSub.hSub (ut k) (ut i))))
+    (∀ (f : ι → ι → Real) (i : ι),
+      Eq
+        (Finset.univ.sum fun (s : σ) =>
+          HMul.hMul (ω s) (Finset.univ.sum fun (k : ι) => ite (Eq (χ s i k) Bool.true) (f i k) (OfNat.ofNat 0)))
+        (Finset.univ.sum fun (k : ι) => HMul.hMul (CFDLean.JST1.piShare ω χ i k) (f i k)))
+XSTMT CFDLean.JST1.Spec.P1_3_3 :: ∀ (ι σ κ : Type) [Fintype ι] [inst : Fintype σ] (d : Nat) (ω : σ → Real) (χ : σ → ι → ι → Bool)
+  (n e vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → Real) (Lam : ι → Real) (a : Real) (D : κ → Real) (i k : ι),
+  (∀ (s : σ), LE.le (OfNat.ofNat 0) (ω s)) →
+    LT.lt (OfNat.ofNat 0) (CFDLean.JST1.piShare ω χ i k) →
+      LT.lt (OfNat.ofNat 0) (CFDLean.JST1.lamHat (vb i k) (cb i k) (e i k) (n i k)) →
+        LT.lt (OfNat.ofNat 0) (Lam i) →
+          LT.lt (OfNat.ofNat 0) (Lam k) →
+            Eq
+              (Finset.univ.sum fun (s : σ) =>
+                HSMul.hSMul (ω s)
+                  (ite (Eq (χ s i k) Bool.true)
+                    (HSMul.hSMul
+                      (CFDLean.JST1.coefOn vb cb e Lam a (fun (j l : ι) => CFDLean.JST1.nSplit ω χ n s j l) i k) D)
+                    (OfNat.ofNat 0)))
+              (HSMul.hSMul
+                (HMul.hMul (HPow.hPow (CFDLean.JST1.piShare ω χ i k) a) (CFDLean.JST1.coefOn vb cb e Lam a n i k)) D)
+XSTMT CFDLean.JST1.Spec.P1_3_4 :: ∀ (ι : Type) (d : Nat) (n e vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → Real) (Lam : ι → Real) (a p : Real) (i k : ι),
+  Eq p (OfNat.ofNat 1) →
+    Eq (HMul.hMul (HPow.hPow p a) (CFDLean.JST1.coefOn vb cb e Lam a n i k)) (CFDLean.JST1.coefOn vb cb e Lam a n i k)
+XSTMT CFDLean.JST1.Spec.P1_4_0 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (P : CFDLean.JST1.ViscParams) (r T : Real) (v : CFDLean.Num.Vec d),
+  LT.lt (OfNat.ofNat 0) r →
+    LT.lt (OfNat.ofNat 0) T →
+      LT.lt (OfNat.ofNat 0) P.R →
+        And
+          (∀ (α : Fin d),
+            Eq
+              (CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (HMul.hMul (HMul.hMul r P.R) T))
+                (CFDLean.JST1.Channel.momentum α))
+              (HDiv.hDiv (v α) (HMul.hMul P.R T)))
+          (And
+            (Eq
+              (CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (HMul.hMul (HMul.hMul r P.R) T))
+                CFDLean.JST1.Channel.energy)
+              (HDiv.hDiv (Neg.neg (OfNat.ofNat 1)) (HMul.hMul P.R T)))
+            (∀ (Gv : Fin d → Fin d → Real) (GT : CFDLean.Num.Vec d) (G : Matrix (CFDLean.JST1.Channel d) (Fin d) Real),
+              (∀ (α β : Fin d),
+                  Eq (G (CFDLean.JST1.Channel.momentum α) β)
+                    (HSub.hSub (HDiv.hDiv (Gv α β) (HMul.hMul P.R T))
+                      (HDiv.hDiv (HMul.hMul (v α) (GT β)) (HMul.hMul P.R (HPow.hPow T (OfNat.ofNat 2)))))) →
+                (∀ (β : Fin d),
+                    Eq (G CFDLean.JST1.Channel.energy β)
+                      (HDiv.hDiv (GT β) (HMul.hMul P.R (HPow.hPow T (OfNat.ofNat 2))))) →
+                  Eq
+                    (CFDLean.JST1.viscFlux P
+                      (CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (HMul.hMul (HMul.hMul r P.R) T))) G)
+                    (CFDLean.JST1.nsFlux P v Gv GT)))
+XSTMT CFDLean.JST1.Spec.P1_4_1 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (w : ι → κ → Real) (Fl : C → Matrix κ (Fin d) Real),
+  Eq (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (M.galerkinRes Fl i))
+    (Neg.neg
+      (Finset.univ.sum fun (T : C) => HMul.hMul (HMul.hMul (M.ω T) (M.vol T)) (CFDLean.Num.frob (M.gradW w T) (Fl T))))
+XSTMT CFDLean.JST1.Spec.P1_4_2 :: ∀ (d : Nat) (P : CFDLean.JST1.ViscParams) (wb : CFDLean.JST1.State d),
+  LE.le d (OfNat.ofNat 3) →
+    LE.le (OfNat.ofNat 0) P.μ →
+      LE.le (OfNat.ofNat 0) P.κ →
+        LT.lt (OfNat.ofNat 0) P.R →
+          LT.lt (wb CFDLean.JST1.Channel.energy) (OfNat.ofNat 0) →
+            And
+              (∀ (G : Matrix (CFDLean.JST1.Channel d) (Fin d) Real),
+                LE.le (OfNat.ofNat 0) (CFDLean.Num.frob G (CFDLean.JST1.viscFlux P wb G)))
+              (IsLinearMap Real (CFDLean.JST1.viscFlux P wb))
+XSTMT CFDLean.JST1.Spec.P1_4_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (P : CFDLean.JST1.ViscParams) (w : ι → CFDLean.JST1.State d),
+  M.Valid →
+    LE.le d (OfNat.ofNat 3) →
+      LE.le (OfNat.ofNat 0) P.μ →
+        LE.le (OfNat.ofNat 0) P.κ →
+          LT.lt (OfNat.ofNat 0) P.R →
+            (∀ (i : ι), LT.lt (w i CFDLean.JST1.Channel.energy) (OfNat.ofNat 0)) →
+              let wbar := fun (T : C) =>
+                HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HAdd.hAdd d.cast (OfNat.ofNat 1)))
+                  (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => w (DFunLike.coe (M.vert T) a));
+              let Fl := fun (T : C) => CFDLean.JST1.viscFlux P (wbar T) (M.gradW w T);
+              And (∀ (T : C), LT.lt (wbar T CFDLean.JST1.Channel.energy) (OfNat.ofNat 0))
+                (And
+                  (Eq (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (M.galerkinRes Fl i))
+                    (Neg.neg
+                      (Finset.univ.sum fun (T : C) =>
+                        HMul.hMul (HMul.hMul (M.ω T) (M.vol T)) (CFDLean.Num.frob (M.gradW w T) (Fl T)))))
+                  (LE.le (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (M.galerkinRes Fl i)) (OfNat.ofNat 0)))
+XSTMT CFDLean.JST1.Spec.P1_4_3b :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),
+  CFDLean.JST1.Admissible g U → LT.lt (CFDLean.JST1.entropyVars g U CFDLean.JST1.Channel.energy) (OfNat.ofNat 0)
+XSTMT CFDLean.JST1.Spec.P1_4_4 :: ∀ (d : Nat) (P : CFDLean.JST1.ViscParams) (wb : CFDLean.JST1.State d)
+  (G H : Matrix (CFDLean.JST1.Channel d) (Fin d) Real),
+  Ne (wb CFDLean.JST1.Channel.energy) (OfNat.ofNat 0) →
+    Eq (CFDLean.Num.frob G (CFDLean.JST1.viscFlux P wb H)) (CFDLean.Num.frob H (CFDLean.JST1.viscFlux P wb G))
+XSTMT CFDLean.JST1.Spec.P1_5_0a :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d) (i : ι),
+  M.Valid → M.FacetPaired i → M.Closed i
+XSTMT CFDLean.JST1.Spec.P1_5_0b :: ∀ (n m : Nat) (M : CFDLean.MedianDual.MeshData n m) (i : Fin n),
+  M.Conforming →
+    (∀ (o : M.Occurrence), Eq (M.faceCount (M.faceID o)) (OfNat.ofNat 1) → Not (Membership.mem (M.faceID o) i)) →
+      (CFDLean.Num.ofMeshData M).Closed i
+XSTMT CFDLean.JST1.Spec.P1_5_1 :: ∀ (d : Nat) (T : CFDLean.Num.Simplex d),
+  T.Nondeg →
+    And (Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => T.grad a) (OfNat.ofNat 0))
+      (And
+        (∀ (a b c : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+          Eq (CFDLean.Num.dot (T.grad a) (HSub.hSub (T.x b) (T.x c)))
+            (HSub.hSub (ite (Eq a b) (OfNat.ofNat 1) (OfNat.ofNat 0)) (ite (Eq a c) (OfNat.ofNat 1) (OfNat.ofNat 0))))
+        (And
+          (Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => CFDLean.Num.outer (T.grad a) (T.x a))
+            (OfNat.ofNat 1))
+          (And (LT.lt (OfNat.ofNat 0) T.vol)
+            (Eq (Finset.univ.sum fun (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => T.facet o) (OfNat.ofNat 0)))))
+XSTMT CFDLean.JST1.Spec.P1_5_2 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    And (∀ (i k : ι), Ne i k → Eq (CFDLean.Num.dot (M.n i k) (M.e i k)) (HMul.hMul (OfNat.ofNat 2) (M.mu i k)))
+      (∀ (i k : ι),
+        Ne i k →
+          (Exists fun (T : C) =>
+              Exists fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                Exists fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                  And (Eq (DFunLike.coe (M.vert T) a) i)
+                    (And (Eq (DFunLike.coe (M.vert T) b) k) (LT.lt (OfNat.ofNat 0) (M.ω T)))) →
+            And (LT.lt (OfNat.ofNat 0) (M.mu i k))
+              (And (Exists fun (t : Real) => And (LT.lt (OfNat.ofNat 0) t) (Eq (M.nu i k) (HSMul.hSMul t (M.e i k))))
+                (Eq (CFDLean.Num.len (M.nu i k))
+                  (HDiv.hDiv (CFDLean.Num.dot (M.n i k) (M.e i k)) (CFDLean.Num.len (M.e i k))))))
+XSTMT CFDLean.JST1.Spec.P1_5_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    And
+      (∀ (i : ι),
+        Eq (Finset.univ.sum fun (k : ι) => CFDLean.Num.outer (M.c i k) (M.e i k)) (HSMul.hSMul (M.V i) (OfNat.ofNat 1)))
+      (And
+        (∀ (i : ι),
+          M.Closed i →
+            Eq (Finset.univ.sum fun (k : ι) => CFDLean.Num.outer (M.n i k) (M.e i k))
+              (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) (M.V i)) (OfNat.ofNat 1)))
+        (And
+          (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (k : ι) => CFDLean.Num.outer (M.n i k) (M.e i k))
+            (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) M.volΩ) (OfNat.ofNat 1)))
+          (Eq (Finset.univ.sum fun (i : ι) => M.V i) M.volΩ)))
+XSTMT CFDLean.JST1.Spec.P1_5_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    And (∀ (i : ι), M.Closed i → Eq (M.Gtensor M.nu i).trace (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)))
+      (And
+        (Eq
+          (Finset.univ.sum fun (i : ι) =>
+            Finset.univ.sum fun (k : ι) => HMul.hMul (CFDLean.Num.len (M.nu i k)) (CFDLean.Num.len (M.e i k)))
+          (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) M.volΩ))
+        (And
+          (∀ (i : ι), M.Closed i → LE.le (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)) (M.Gtensor M.n i).trace)
+          (∀ (i : ι),
+            M.Closed i →
+              Iff (Eq (M.Gtensor M.n i).trace (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)))
+                (∀ (k : ι),
+                  Exists fun (t : Real) => And (LE.le (OfNat.ofNat 0) t) (Eq (M.n i k) (HSMul.hSMul t (M.e i k)))))))
+XSTMT CFDLean.JST1.Spec.P1_5_4b :: ∀ (d : Nat) (V : Real) (h : Fin d → Real),
+  LT.lt (OfNat.ofNat 0) V →
+    (∀ (α : Fin d), LT.lt (OfNat.ofNat 0) (h α)) →
+      let sgn := fun (s : Bool) => ite (Eq s Bool.true) (OfNat.ofNat 1) (Neg.neg (OfNat.ofNat 1));
+      let E := fun (p : Prod (Fin d) Bool) => HSMul.hSMul (HMul.hMul (sgn p.2) (h p.1)) (Pi.single p.1 (OfNat.ofNat 1));
+      let Y := fun (p : Prod (Fin d) Bool) =>
+        HSMul.hSMul (HMul.hMul (sgn p.2) (HDiv.hDiv V (h p.1))) (Pi.single p.1 (OfNat.ofNat 1));
+      And (∀ (p : Prod (Fin d) Bool), Eq (CFDLean.Num.WMesh.nuOf (Y p) (E p)) (Y p))
+        (Eq
+          (Finset.univ.sum fun (p : Prod (Fin d) Bool) =>
+            HSMul.hSMul (HMul.hMul (CFDLean.Num.len (Y p)) (CFDLean.Num.len (E p)))
+              (CFDLean.Num.outer (CFDLean.Num.WMesh.unit (E p)) (CFDLean.Num.WMesh.unit (E p))))
+          (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) V) (OfNat.ofNat 1)))
+XSTMT CFDLean.JST1.Spec.P1_5_5 :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (S : C → ι → ι → CFDLean.Num.Vec d) (Fl : C → Matrix κ (Fin d) Real),
+  (∀ (T : C) (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+      Eq (S T (DFunLike.coe (M.vert T) a) (DFunLike.coe (M.vert T) b))
+        (HSMul.hSMul (M.m T) (HSub.hSub (M.g T b) (M.g T a)))) →
+    ∀ (i : ι), Eq (M.fvRes Fl S i) (M.galerkinRes Fl i)
+XSTMT CFDLean.JST1.Spec.P1_5_6 :: And
+  (∀ (p : CFDLean.MedianDual.Points),
+    LT.lt (OfNat.ofNat 0) (CFDLean.MedianDual.sixVolume p) →
+      And (CFDLean.Num.simplexOfPoints p).Nondeg
+        (And (Eq (CFDLean.Num.simplexOfPoints p).vol (CFDLean.MedianDual.volume p))
+          (∀ (i k : Fin (OfNat.ofNat 4)),
+            Eq (CFDLean.MedianDual.localInterface p i k)
+              (HSMul.hSMul (HDiv.hDiv (CFDLean.Num.simplexOfPoints p).vol (OfNat.ofNat 4))
+                (HSub.hSub ((CFDLean.Num.simplexOfPoints p).grad k) ((CFDLean.Num.simplexOfPoints p).grad i))))))
+  (∀ (T : CFDLean.Num.Simplex (OfNat.ofNat 2)),
+    T.Nondeg →
+      ∀ (i k : Fin (OfNat.ofNat 3)),
+        Ne i k →
+          Eq (CFDLean.Num.dualFacet2 T i k)
+            (HSMul.hSMul (HDiv.hDiv T.vol (OfNat.ofNat 3)) (HSub.hSub (T.grad k) (T.grad i))))
+XSTMT CFDLean.JST1.Spec.P1_5_7 :: ∀ (n m : Nat) (κ : Type) [inst : Fintype κ] (M : CFDLean.MedianDual.MeshData n m)
+  (Fl : Fin m → Matrix κ (Fin (OfNat.ofNat 3)) Real) (i : Fin n),
+  Eq
+    (Finset.univ.sum fun (t : Fin m) =>
+      Finset.univ.sum fun (a : Fin (OfNat.ofNat 4)) =>
+        Finset.univ.sum fun (b : Fin (OfNat.ofNat 4)) =>
+          ite (Eq (DFunLike.coe (M.vertex t) a) i) ((Fl t).mulVec (CFDLean.MedianDual.localInterface (M.points t) a b))
+            (OfNat.ofNat 0))
+    ((CFDLean.Num.ofMeshData M).galerkinRes Fl i)
+XSTMT CFDLean.JST1.Spec.P1_5_8 :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : Fintype κ]
+  (M : CFDLean.Num.WMesh ι C (OfNat.ofNat 2)) (Fl : C → Matrix κ (Fin (OfNat.ofNat 2)) Real) (i : ι),
+  M.Valid →
+    Eq
+      (Finset.univ.sum fun (T : C) =>
+        Finset.univ.sum fun (a : Fin (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))) =>
+          Finset.univ.sum fun (b : Fin (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))) =>
+            ite (And (Eq (DFunLike.coe (M.vert T) a) i) (Ne b a))
+              (HSMul.hSMul (M.ω T) ((Fl T).mulVec (CFDLean.Num.dualFacet2 (M.simplex T) a b))) (OfNat.ofNat 0))
+      (M.galerkinRes Fl i)
+XSTMT CFDLean.JST1.Spec.P2_6_1 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (W : C → Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  (∀ (T : C), Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => W T a) (M.vol T)) →
+    And
+      (∀ (i k : ι),
+        Eq (HAdd.hAdd (M.cW W i k) (M.cW W k i)) (HAdd.hAdd (M.B i k) (HSMul.hSMul (OfNat.ofNat 2) (M.EW W i k))))
+      (And (∀ (i k : ι), Eq (M.EW W k i) (M.EW W i k))
+        (And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.EW W i k) (OfNat.ofNat 0))
+          (And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.cW W i k) (OfNat.ofNat 0))
+            (∀ (k : ι), Eq (Finset.univ.sum fun (i : ι) => M.cW W i k) (M.beta k)))))
+XSTMT CFDLean.JST1.Spec.P2_6_2 :: ∀ (d : Nat) (T : CFDLean.Num.Simplex d) (δ : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  LE.le (OfNat.ofNat 1) d →
+    T.Nondeg →
+      Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => δ a) (OfNat.ofNat 0) →
+        Iff
+          (∀ (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+            Ne a b → Eq (HAdd.hAdd (HSMul.hSMul (δ a) (T.grad b)) (HSMul.hSMul (δ b) (T.grad a))) (OfNat.ofNat 0))
+          (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))), Eq (δ a) (OfNat.ofNat 0))
+XSTMT CFDLean.JST1.Spec.P2_6_3 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        And
+          (∀ (i : ι),
+            Eq (M.beta i)
+              (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) d.cast) (M.areaVec p)) (OfNat.ofNat 0)))
+          (And
+            (∀ (i k : ι),
+              Eq (M.B i k)
+                (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                  ite
+                    (And (Eq (bd p) Bool.true)
+                      (And (Membership.mem (M.facetNodes p) i) (Membership.mem (M.facetNodes p) k)))
+                    (HSMul.hSMul
+                      (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                        (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                      (M.areaVec p))
+                    (OfNat.ofNat 0)))
+            (∀ (i : ι),
+              (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                  Eq (bd p) Bool.true → Not (Membership.mem (M.facetNodes p) i)) →
+                M.Closed i))
+XSTMT CFDLean.JST1.Spec.P2_6_4 :: ∀ (ι κ : Type) [inst : Fintype ι] [Fintype κ] (d : Nat) (c B : ι → ι → CFDLean.Num.Vec d) (β : ι → CFDLean.Num.Vec d)
+  (F : ι → Matrix κ (Fin d) Real),
+  (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => c i k) (OfNat.ofNat 0)) →
+    (∀ (k : ι), Eq (Finset.univ.sum fun (i : ι) => c i k) (β k)) →
+      (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => B i k) (β i)) →
+        let n := fun (i k : ι) => HSub.hSub (c i k) (c k i);
+        let s := fun (i k : ι) =>
+          HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HSub.hSub (HAdd.hAdd (c i k) (c k i)) (B i k));
+        ∀ (i : ι),
+          Eq
+            (HAdd.hAdd
+              (HAdd.hAdd
+                (Finset.univ.sum fun (k : ι) =>
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F i) (F k))).mulVec (n i k))
+                (Finset.univ.sum fun (k : ι) => (HSub.hSub (F k) (F i)).mulVec (s i k)))
+              (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (HAdd.hAdd (Finset.univ.sum fun (k : ι) => (F k).mulVec (B i k)) ((F i).mulVec (β i)))))
+            (Finset.univ.sum fun (k : ι) => (F k).mulVec (c i k))
+XSTMT CFDLean.JST1.Spec.P2_6_5 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (w : ι → κ → Real)
+  (ψ : ι → CFDLean.Num.Vec d) (Fs : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → ι → κ → Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        let b := fun (i : ι) =>
+          Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+            ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+              ((M.facetNodes p).sum fun (j : ι) => HSMul.hSMul (CFDLean.Num.stdWeight d i j) (Fs p j)) (OfNat.ofNat 0);
+        Eq (Finset.univ.sum fun (i : ι) => HSub.hSub (CFDLean.Num.dot (ψ i) (M.beta i)) (CFDLean.Num.pairF (w i) (b i)))
+          (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+            ite (Eq (bd p) Bool.true)
+              (HAdd.hAdd
+                (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) d.cast)
+                  ((M.facetNodes p).sum fun (i : ι) =>
+                    HSub.hSub (CFDLean.Num.dot (ψ i) (M.areaVec p)) (CFDLean.Num.pairF (w i) (Fs p i))))
+                (HMul.hMul
+                  (HDiv.hDiv (OfNat.ofNat 1)
+                    (HMul.hMul (HMul.hMul (OfNat.ofNat 4) d.cast) (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                  ((M.facetNodes p).sum fun (i : ι) =>
+                    (M.facetNodes p).sum fun (j : ι) =>
+                      CFDLean.Num.pairF (HSub.hSub (w j) (w i)) (HSub.hSub (Fs p j) (Fs p i)))))
+              (OfNat.ofNat 0))
+XSTMT CFDLean.JST1.Spec.P2_6_5b :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool)
+  (F : ι → Matrix κ (Fin d) Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        And
+          (∀ (i : ι),
+            Eq
+              (Finset.univ.sum fun (k : ι) =>
+                (F k).mulVec
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                    (HAdd.hAdd (M.B i k) (ite (Eq i k) (M.beta i) (OfNat.ofNat 0)))))
+              (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                  ((M.facetNodes p).sum fun (j : ι) =>
+                    HSMul.hSMul (CFDLean.Num.stdWeight d i j) ((F j).mulVec (M.areaVec p)))
+                  (OfNat.ofNat 0)))
+          (∀ (i j : ι),
+            Ne i j →
+              Eq (CFDLean.Num.stdWeight d i i)
+                (HMul.hMul (HAdd.hAdd d.cast (OfNat.ofNat 3)) (CFDLean.Num.stdWeight d i j)))
+XSTMT CFDLean.JST1.Spec.P2_6_6 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (y : CFDLean.Num.Vec d),
+  LE.le (OfNat.ofNat 1) d →
+    Ne y (OfNat.ofNat 0) →
+      And
+        (Exists fun (U1 : CFDLean.JST1.State d) =>
+          Exists fun (U2 : CFDLean.JST1.State d) =>
+            And (CFDLean.JST1.Admissible g U1)
+              (And (CFDLean.JST1.Admissible g U2)
+                (LT.lt (OfNat.ofNat 0)
+                  (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g U2) (CFDLean.JST1.entropyVars g U1))
+                    (HSub.hSub (CFDLean.JST1.pressFlux g U2 y) (CFDLean.JST1.pressFlux g U1 y))))))
+        (Exists fun (U1 : CFDLean.JST1.State d) =>
+          Exists fun (U2 : CFDLean.JST1.State d) =>
+            And (CFDLean.JST1.Admissible g U1)
+              (And (CFDLean.JST1.Admissible g U2)
+                (LT.lt
+                  (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g U2) (CFDLean.JST1.entropyVars g U1))
+                    (HSub.hSub (CFDLean.JST1.pressFlux g U2 y) (CFDLean.JST1.pressFlux g U1 y)))
+                  (OfNat.ofNat 0))))
+XSTMT CFDLean.JST1.Spec.P2_6_7 :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (F : ι → Matrix κ (Fin d) Real) (i : ι),
+  M.Valid →
+    M.Closed i →
+      And
+        (Eq
+          (Finset.univ.sum fun (k : ι) =>
+            (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F i) (F k))).mulVec (M.n i k))
+          (Finset.univ.sum fun (k : ι) => (F k).mulVec (M.c i k)))
+        (Eq (Finset.univ.sum fun (k : ι) => (F k).mulVec (M.c i k))
+          (Finset.univ.sum fun (T : C) =>
+            Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+              ite (Eq (DFunLike.coe (M.vert T) a) i)
+                (HSMul.hSMul (HMul.hMul (M.ω T) (M.m T))
+                  (Finset.univ.sum fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                    (F (DFunLike.coe (M.vert T) b)).mulVec (M.g T b)))
+                (OfNat.ofNat 0)))
+XSTMT CFDLean.JST1.Spec.P2_7_1 :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (x : ι → CFDLean.Num.Vec d) (i : ι) (lam : ι → Real) (V q0 : Real)
+  (gq : CFDLean.Num.Vec d) (H : Matrix (Fin d) (Fin d) Real),
+  Ne V (OfNat.ofNat 0) →
+    H.IsSymm →
+      let q := fun (z : CFDLean.Num.Vec d) =>
+        HAdd.hAdd (HAdd.hAdd q0 (CFDLean.Num.dot gq z))
+          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (CFDLean.Num.dot z (H.mulVec z)));
+      let K :=
+        HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) V))
+          (Finset.univ.sum fun (k : ι) =>
+            HSMul.hSMul (lam k) (CFDLean.Num.outer (HSub.hSub (x k) (x i)) (HSub.hSub (x k) (x i))));
+      Eq
+        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+          (Finset.univ.sum fun (k : ι) => HMul.hMul (lam k) (HSub.hSub (q (x k)) (q (x i)))))
+        (HAdd.hAdd
+          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+            (Finset.univ.sum fun (k : ι) =>
+              HMul.hMul (lam k) (CFDLean.Num.dot (HAdd.hAdd gq (H.mulVec (x i))) (HSub.hSub (x k) (x i)))))
+          (HMul.hMul V (CFDLean.Num.frob K H)))
+XSTMT CFDLean.JST1.Spec.P2_7_2 :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (e y : ι → CFDLean.Num.Vec d) (σ : ι → Real) (V : Real),
+  LT.lt (OfNat.ofNat 0) V →
+    (∀ (k : ι), LE.le (OfNat.ofNat 0) (σ k)) →
+      (∀ (k : ι), LT.lt (OfNat.ofNat 0) (CFDLean.Num.dot (y k) (e k))) →
+        let K := fun (z : ι → CFDLean.Num.Vec d) =>
+          HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) V))
+            (Finset.univ.sum fun (k : ι) =>
+              HSMul.hSMul (HMul.hMul (σ k) (CFDLean.Num.len (z k))) (CFDLean.Num.outer (e k) (e k)));
+        let ν := fun (k : ι) => CFDLean.Num.WMesh.nuOf (y k) (e k);
+        And
+          (∀ (k : ι),
+            And
+              (Eq (CFDLean.Num.len (y k))
+                (HMul.hMul (CFDLean.Num.len (ν k))
+                  (HDiv.hDiv (HMul.hMul (CFDLean.Num.len (y k)) (CFDLean.Num.len (e k)))
+                    (CFDLean.Num.dot (y k) (e k)))))
+              (LE.le (OfNat.ofNat 1)
+                (HDiv.hDiv (HMul.hMul (CFDLean.Num.len (y k)) (CFDLean.Num.len (e k))) (CFDLean.Num.dot (y k) (e k)))))
+          (And (HSub.hSub (K y) (K ν)).PosSemidef
+            (Iff (Eq (K y) (K ν))
+              (∀ (k : ι),
+                LT.lt (OfNat.ofNat 0) (σ k) →
+                  Exists fun (t : Real) => And (LT.lt (OfNat.ofNat 0) t) (Eq (y k) (HSMul.hSMul t (e k))))))
+XSTMT CFDLean.JST1.Spec.P2_7_3 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (σ : ι → ι → Real) (s σmax h : Real) (y : ι → ι → CFDLean.Num.Vec d) (i : ι),
+  M.Valid →
+    LT.lt (OfNat.ofNat 0) (M.V i) →
+      let K := fun (z : ι → ι → CFDLean.Num.Vec d) =>
+        HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) (M.V i)))
+          (Finset.univ.sum fun (k : ι) =>
+            HSMul.hSMul (HMul.hMul (σ i k) (CFDLean.Num.len (z i k))) (CFDLean.Num.outer (M.e i k) (M.e i k)));
+      And
+        ((∀ (k : ι), Ne k i → Eq (HMul.hMul (σ i k) (CFDLean.Num.len (M.e i k))) s) →
+          Eq (K y) (HSMul.hSMul (HDiv.hDiv s (HMul.hMul (OfNat.ofNat 4) (M.V i))) (M.Gtensor y i)))
+        (And
+          ((∀ (k : ι), Ne k i → Eq (HMul.hMul (σ i k) (CFDLean.Num.len (M.e i k))) s) →
+            Eq (K M.nu).trace (HDiv.hDiv (HMul.hMul d.cast s) (OfNat.ofNat 2)))
+          ((∀ (k : ι), And (LE.le (OfNat.ofNat 0) (σ i k)) (LE.le (σ i k) σmax)) →
+            (∀ (k : ι), Ne (M.n i k) (OfNat.ofNat 0) → LE.le (CFDLean.Num.len (M.e i k)) h) →
+              LE.le (K M.nu).trace (HMul.hMul (HMul.hMul (HDiv.hDiv d.cast (OfNat.ofNat 2)) σmax) h)))
+XSTMT CFDLean.JST1.Spec.P2_7_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (vb : ι → ι → CFDLean.Num.Vec d) (cb : ι → ι → Real) (σmax : Real),
+  M.Valid →
+    (∀ (i k : ι),
+        And (LE.le (OfNat.ofNat 0) (cb i k))
+          (LE.le (HAdd.hAdd (abs (CFDLean.Num.dot (vb i k) (CFDLean.Num.WMesh.unit (M.e i k)))) (cb i k)) σmax)) →
+      LE.le
+        (Finset.univ.sum fun (i : ι) =>
+          Finset.univ.sum fun (k : ι) =>
+            HMul.hMul (CFDLean.JST1.lamHat (vb i k) (cb i k) (M.e i k) (M.n i k)) (CFDLean.Num.len (M.e i k)))
+        (HMul.hMul (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) σmax) M.volΩ)
+XSTMT CFDLean.JST1.Spec.P2_8_0 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (W : CFDLean.JST1.State d),
+  LT.lt (W CFDLean.JST1.Channel.energy) (OfNat.ofNat 0) →
+    ExistsUnique fun (U : CFDLean.JST1.State d) =>
+      And (CFDLean.JST1.Admissible g U) (Eq (CFDLean.JST1.entropyVars g U) W)
+XSTMT CFDLean.JST1.Spec.P2_8_1 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [inst_2 : Fintype κ] (d : Nat) (w : S → κ → Real)
+  (ψ : S → CFDLean.Num.Vec d) (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (u : ι → S) (φ : Q → ι → Real)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S) (Fs : Q → κ → Real),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d), Eq (Fec a b y) (Fec b a y)) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d),
+        Eq (CFDLean.Num.pairF (HSub.hSub (w b) (w a)) (Fec a b y)) (CFDLean.Num.dot (HSub.hSub (ψ b) (ψ a)) y)) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        (∀ (q : Q), Eq (w (ut q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (w (u k)))) →
+          let beta := fun (i : ι) => Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q);
+          let b := fun (i : ι) =>
+            Finset.univ.sum fun (q : Q) =>
+              HSMul.hSMul (φ q i)
+                (HAdd.hAdd
+                  (HSub.hSub (Fec (u i) (ut q) (N q))
+                    (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec (ut q) (u k) (N q))))
+                  (Fs q));
+          And
+            (Eq
+              (Finset.univ.sum fun (i : ι) =>
+                HSub.hSub (CFDLean.Num.dot (ψ (u i)) (beta i)) (CFDLean.Num.pairF (w (u i)) (b i)))
+              (Finset.univ.sum fun (q : Q) =>
+                HSub.hSub (CFDLean.Num.dot (ψ (ut q)) (N q)) (CFDLean.Num.pairF (w (ut q)) (Fs q))))
+            (Eq (Finset.univ.sum fun (i : ι) => b i) (Finset.univ.sum fun (q : Q) => Fs q))
+XSTMT CFDLean.JST1.Spec.P2_8_2 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : Nat)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (phys : S → CFDLean.Num.Vec d → κ → Real) (U : S) (φ : Q → ι → Real)
+  (N : Q → CFDLean.Num.Vec d) (n : ι → ι → CFDLean.Num.Vec d),
+  (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Eq (Fec U U y) (phys U y)) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        (∀ (i : ι),
+            Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q))
+              (Neg.neg (Finset.univ.sum fun (k : ι) => n i k))) →
+          let b := fun (i : ι) =>
+            Finset.univ.sum fun (q : Q) =>
+              HSMul.hSMul (φ q i)
+                (HAdd.hAdd
+                  (HSub.hSub (Fec U U (N q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec U U (N q))))
+                  (phys U (N q)));
+          ∀ (i : ι), Eq (HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => Fec U U (n i k))) (b i)) (OfNat.ofNat 0)
+XSTMT CFDLean.JST1.Spec.P2_8_3 :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : Nat)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (Fl : S → Matrix κ (Fin d) Real) (u : ι → S) (φ : Q → ι → Real)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d),
+      Eq (Fec a b y) ((HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (Fl a) (Fl b))).mulVec y)) →
+    (∀ (q : Q), Eq (Fl (ut q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fl (u k)))) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        let beta := fun (i : ι) => Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q);
+        let b := fun (i : ι) =>
+          Finset.univ.sum fun (q : Q) =>
+            HSMul.hSMul (φ q i)
+              (HAdd.hAdd
+                (HSub.hSub (Fec (u i) (ut q) (N q))
+                  (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec (ut q) (u k) (N q))))
+                ((Fl (ut q)).mulVec (N q)));
+        ∀ (i : ι),
+          Eq (b i)
+            (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+              (HAdd.hAdd ((Fl (u i)).mulVec (beta i))
+                (Finset.univ.sum fun (k : ι) =>
+                  (Fl (u k)).mulVec (Finset.univ.sum fun (q : Q) => HSMul.hSMul (HMul.hMul (φ q i) (φ q k)) (N q)))))
+XSTMT CFDLean.JST1.Spec.P2_8_4 :: ∀ (ι C Q : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : DecidableEq C] [inst_3 : Fintype Q]
+  (d : Nat) (M : CFDLean.Num.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool)
+  (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (aq : Q → Real) (φ : Q → ι → Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        (∀ (q : Q), Eq (bd (fq q)) Bool.true) →
+          (∀ (q : Q) (k : ι), Not (Membership.mem (M.facetNodes (fq q)) k) → Eq (φ q k) (OfNat.ofNat 0)) →
+            (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                Eq (bd p) Bool.true →
+                  ∀ (i : ι),
+                    Membership.mem (M.facetNodes p) i →
+                      Eq (Finset.univ.sum fun (q : Q) => ite (Eq (fq q) p) (HMul.hMul (aq q) (φ q i)) (OfNat.ofNat 0))
+                        (HDiv.hDiv (OfNat.ofNat 1) d.cast)) →
+              (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                  Eq (bd p) Bool.true →
+                    ∀ (i : ι),
+                      Membership.mem (M.facetNodes p) i →
+                        ∀ (k : ι),
+                          Membership.mem (M.facetNodes p) k →
+                            Eq
+                              (Finset.univ.sum fun (q : Q) =>
+                                ite (Eq (fq q) p) (HMul.hMul (HMul.hMul (aq q) (φ q i)) (φ q k)) (OfNat.ofNat 0))
+                              (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                                (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))) →
+                let N := fun (q : Q) => HSMul.hSMul (aq q) (M.areaVec (fq q));
+                And (∀ (i : ι), Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q)) (M.beta i))
+                  (∀ (i k : ι),
+                    Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (HMul.hMul (φ q i) (φ q k)) (N q)) (M.B i k))
+XSTMT CFDLean.JST1.Spec.P2_8_5 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),
+  CFDLean.JST1.Admissible g U →
+    Eq
+      (HSub.hSub (CFDLean.Num.dot (CFDLean.JST1.fluxPot U) y)
+        (CFDLean.Num.pairF (CFDLean.JST1.entropyVars g U) (CFDLean.JST1.pressFlux g U y)))
+      (OfNat.ofNat 0)
+XSTMT CFDLean.JST1.Spec.P2_8_6 :: And
+  (∀ (S κ : Type) [inst : Fintype κ] (d : Nat) (w : S → κ → Real) (ψ : S → CFDLean.Num.Vec d) (ut ug : S)
+    (N : CFDLean.Num.Vec d) (Fs : κ → Real),
+    LE.le (CFDLean.Num.pairF (HSub.hSub (w ug) (w ut)) Fs) (CFDLean.Num.dot (HSub.hSub (ψ ug) (ψ ut)) N) →
+      LE.le (HSub.hSub (CFDLean.Num.dot (ψ ut) N) (CFDLean.Num.pairF (w ut) Fs))
+        (HSub.hSub (CFDLean.Num.dot (ψ ug) N) (CFDLean.Num.pairF (w ug) Fs)))
+  (∀ (d : Nat) (g : CFDLean.JST1.Gas) (Ut Ug : CFDLean.JST1.State d) (N : CFDLean.Num.Vec d) (lam : Real),
+    CFDLean.JST1.Admissible g Ut →
+      CFDLean.JST1.Admissible g Ug →
+        LE.le (OfNat.ofNat 0) lam →
+          LE.le
+            (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Ug) (CFDLean.JST1.entropyVars g Ut))
+              (HSub.hSub (CFDLean.JST1.ismailRoe g Ut Ug N)
+                (HSMul.hSMul (HDiv.hDiv lam (OfNat.ofNat 2)) (HSub.hSub Ug Ut))))
+            (CFDLean.Num.dot (HSub.hSub (CFDLean.JST1.fluxPot Ug) (CFDLean.JST1.fluxPot Ut)) N))
+XSTMT CFDLean.JST1.Spec.P2_9_0 :: ∀ (κ : Type) [inst : Fintype κ] (d : Nat) (T : CFDLean.Num.Simplex d)
+  (K : Matrix κ (Fin d) Real → Matrix κ (Fin d) Real) (P : Matrix κ κ Real) (gw : κ → Real)
+  (walls : Finset (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (c : Real) (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → κ → Real),
+  CFDLean.JST1.Spec.WallHyp K P gw →
+    Eq
+      (Finset.univ.sum fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+        CFDLean.Num.pairF (w b)
+          (HAdd.hAdd (CFDLean.JST1.Wall.Rvisc T K w b) (CFDLean.JST1.Wall.Rwall T K P gw walls c w b)))
+      (HAdd.hAdd (HAdd.hAdd (Neg.neg (CFDLean.JST1.Wall.Dgal T K w)) (CFDLean.JST1.Wall.PiW T K P gw walls c w))
+        (walls.sum fun (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+          HMul.hMul (HDiv.hDiv (CFDLean.JST1.Wall.area T o) d.cast)
+            ((Finset.univ.erase o).sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+              CFDLean.Num.pairF gw (CFDLean.JST1.Wall.Fhat T K P gw walls c w o a))))
+XSTMT CFDLean.JST1.Spec.P2_9_1 :: ∀ (κ : Type) [inst : Fintype κ] (d : Nat) (T : CFDLean.Num.Simplex d)
+  (K : Matrix κ (Fin d) Real → Matrix κ (Fin d) Real) (P : Matrix κ κ Real) (gw : κ → Real)
+  (walls : Finset (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (c : Real) (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → κ → Real),
+  CFDLean.JST1.Spec.WallHyp K P gw →
+    LE.le (OfNat.ofNat 1) d →
+      T.Nondeg →
+        LT.lt (OfNat.ofNat 0) c →
+          And (LE.le (CFDLean.JST1.Wall.PiW T K P gw walls c w) (HDiv.hDiv (CFDLean.JST1.Wall.Dgal T K w) c))
+            (LE.le (OfNat.ofNat 1) c →
+              And
+                (LE.le
+                  (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) (CFDLean.JST1.Wall.Dgal T K w))
+                  (HSub.hSub (CFDLean.JST1.Wall.Dgal T K w) (CFDLean.JST1.Wall.PiW T K P gw walls c w)))
+                (LE.le (OfNat.ofNat 0)
+                  (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) (CFDLean.JST1.Wall.Dgal T K w))))
+XSTMT CFDLean.JST1.Spec.P2_9_2 :: ∀ (κ : Type) [inst : Fintype κ] (d : Nat) (T : CFDLean.Num.Simplex d)
+  (K : Matrix κ (Fin d) Real → Matrix κ (Fin d) Real) (P : Matrix κ κ Real) (gw : κ → Real)
+  (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (c : Real) (e : κ → Real),
+  CFDLean.JST1.Spec.WallHyp K P gw →
+    LE.le (OfNat.ofNat 1) d →
+      T.Nondeg →
+        LT.lt (OfNat.ofNat 0) c →
+          LT.lt c (OfNat.ofNat 1) →
+            Eq (P.mulVec e) e →
+              LT.lt (OfNat.ofNat 0)
+                  (CFDLean.Num.frob (CFDLean.JST1.Wall.outerK e (CFDLean.JST1.Wall.normal T o))
+                    (K (CFDLean.JST1.Wall.outerK e (CFDLean.JST1.Wall.normal T o)))) →
+                Exists fun (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → κ → Real) =>
+                  LT.lt
+                    (HSub.hSub (CFDLean.JST1.Wall.Dgal T K w)
+                      (CFDLean.JST1.Wall.PiW T K P gw (Singleton.singleton o) c w))
+                    (OfNat.ofNat 0)
+XSTMT CFDLean.JST1.Spec.P2_9_3 :: ∀ (d : Nat) (Pv : CFDLean.JST1.ViscParams) (wb : CFDLean.JST1.State d) (N : CFDLean.Num.Vec d),
+  LE.le (OfNat.ofNat 1) d →
+    LE.le d (OfNat.ofNat 3) →
+      LT.lt (OfNat.ofNat 0) Pv.μ →
+        LE.le (OfNat.ofNat 0) Pv.κ →
+          LT.lt (OfNat.ofNat 0) Pv.R →
+            LT.lt (wb CFDLean.JST1.Channel.energy) (OfNat.ofNat 0) →
+              Ne N (OfNat.ofNat 0) →
+                And
+                  (CFDLean.JST1.Spec.WallHyp (CFDLean.JST1.viscFlux Pv wb) (CFDLean.JST1.Spec.momProj d)
+                    (OfNat.ofNat 0))
+                  (Exists fun (e : CFDLean.JST1.State d) =>
+                    And (Eq ((CFDLean.JST1.Spec.momProj d).mulVec e) e)
+                      (LT.lt (OfNat.ofNat 0)
+                        (CFDLean.Num.frob (CFDLean.JST1.Wall.outerK e N)
+                          (CFDLean.JST1.viscFlux Pv wb (CFDLean.JST1.Wall.outerK e N)))))
+XSTMT CFDLean.JST1.Spec.P2_9_4 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (R r T Tw : Real) (v : CFDLean.Num.Vec d),
+  LT.lt (OfNat.ofNat 0) R →
+    LT.lt (OfNat.ofNat 0) r →
+      LT.lt (OfNat.ofNat 0) T →
+        LT.lt (OfNat.ofNat 0) Tw →
+          And
+            (Iff (Eq v (OfNat.ofNat 0))
+              (∀ (α : Fin d),
+                Eq
+                  (CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (HMul.hMul (HMul.hMul r R) T))
+                    (CFDLean.JST1.Channel.momentum α))
+                  (OfNat.ofNat 0)))
+            (Iff (Eq T Tw)
+              (Eq
+                (CFDLean.JST1.entropyVars g (CFDLean.JST1.primState g r v (HMul.hMul (HMul.hMul r R) T))
+                  CFDLean.JST1.Channel.energy)
+                (HDiv.hDiv (Neg.neg (OfNat.ofNat 1)) (HMul.hMul R Tw))))
+XSTMT CFDLean.JST1.Spec.P2_10_1 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas),
+  And
+    (∀ (U : CFDLean.JST1.SState d),
+      Iff (Eq (CFDLean.JST1.hatState U) (OfNat.ofNat 0))
+        (Exists fun (a : Real) =>
+          Exists fun (b : Real) =>
+            Eq U (HAdd.hAdd (HSMul.hSMul a CFDLean.JST1.Spec.nullE) (HSMul.hSMul b CFDLean.JST1.Spec.nullW))))
+    (∀ (U : CFDLean.JST1.SState d) (a b : Real),
+      Eq
+        (CFDLean.JST1.eta0 g
+          (HAdd.hAdd (HAdd.hAdd U (HSMul.hSMul a CFDLean.JST1.Spec.nullE)) (HSMul.hSMul b CFDLean.JST1.Spec.nullW)))
+        (CFDLean.JST1.eta0 g U))
+XSTMT CFDLean.JST1.Spec.P2_10_2 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas),
+  And
+    (∀ (U : CFDLean.JST1.SState d),
+      CFDLean.JST1.SAdmissible g U → HasFDerivAt (CFDLean.JST1.eta0 g) (CFDLean.Num.pairCLM (CFDLean.JST1.vEta g U)) U)
+    (And
+      (∀ (U R : CFDLean.JST1.SState d),
+        Eq (CFDLean.Num.pairF (CFDLean.JST1.vEta g U) R)
+          (CFDLean.Num.pairF (CFDLean.JST1.entropyVars g (CFDLean.JST1.hatState U)) (CFDLean.JST1.hatState R)))
+      (∀ (ι : Type) [inst : Fintype ι] (Ut : ι → Real → CFDLean.JST1.SState d) (V : ι → Real)
+        (R : ι → CFDLean.JST1.SState d) (t : Real),
+        (∀ (i : ι), CFDLean.JST1.SAdmissible g (Ut i t)) →
+          (∀ (i : ι), Ne (V i) (OfNat.ofNat 0)) →
+            (∀ (i : ι), HasDerivAt (Ut i) (HSMul.hSMul (Neg.neg (Inv.inv (V i))) (R i)) t) →
+              HasDerivAt
+                (fun (s : Real) => Finset.univ.sum fun (i : ι) => HMul.hMul (V i) (CFDLean.JST1.eta0 g (Ut i s)))
+                (Neg.neg
+                  (Finset.univ.sum fun (i : ι) =>
+                    CFDLean.Num.pairF (CFDLean.JST1.entropyVars g (CFDLean.JST1.hatState (Ut i t)))
+                      (CFDLean.JST1.hatState (R i))))
+                t))
+XSTMT CFDLean.JST1.Spec.P2_10_3 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas),
+  And (ConvexOn Real (Set.ofPred fun (U : CFDLean.JST1.SState d) => CFDLean.JST1.SAdmissible g U) (CFDLean.JST1.eta0 g))
+    (∀ (U1 U2 : CFDLean.JST1.SState d),
+      CFDLean.JST1.SAdmissible g U1 →
+        CFDLean.JST1.SAdmissible g U2 →
+          And
+            (LE.le (OfNat.ofNat 0)
+              (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.vEta g U2) (CFDLean.JST1.vEta g U1)) (HSub.hSub U2 U1)))
+            (Iff
+              (Eq (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.vEta g U2) (CFDLean.JST1.vEta g U1)) (HSub.hSub U2 U1))
+                (OfNat.ofNat 0))
+              (Eq (CFDLean.JST1.hatState U1) (CFDLean.JST1.hatState U2))))
+XSTMT CFDLean.JST1.Spec.P2_10_4 :: ∀ (d : Nat) (D : CFDLean.JST1.SSTPoint.Data d),
+  LT.lt (OfNat.ofNat 0) D.R →
+    LT.lt (OfNat.ofNat 0) D.T →
+      let θ := CFDLean.JST1.SSTPoint.theta D;
+      And
+        (Eq (CFDLean.JST1.SSTPoint.Pi D)
+          (HAdd.hAdd
+            (HSub.hSub
+              (HMul.hMul (Neg.neg θ)
+                (HAdd.hAdd
+                  (HAdd.hAdd (HMul.hMul D.μ (CFDLean.JST1.SSTPoint.Q D))
+                    (HSub.hSub (HMul.hMul D.μt (CFDLean.JST1.SSTPoint.Q D)) D.Pk))
+                  D.ε))
+              (HDiv.hDiv (HMul.hMul D.κ (CFDLean.Num.dot D.GT D.GT)) (HMul.hMul D.R (HPow.hPow D.T (OfNat.ofNat 2)))))
+            (ite (Eq D.withDk Bool.true) (OfNat.ofNat 0)
+              (Neg.neg (HMul.hMul D.Dk (CFDLean.Num.dot D.Gk (CFDLean.JST1.SSTPoint.Gtheta D)))))))
+        (And (LE.le d (OfNat.ofNat 3) → LE.le (OfNat.ofNat 0) (CFDLean.JST1.SSTPoint.Q D))
+          (And
+            (LE.le d (OfNat.ofNat 3) →
+              Eq D.withDk Bool.true →
+                LE.le (OfNat.ofNat 0) D.μ →
+                  LE.le (OfNat.ofNat 0) D.κ →
+                    LE.le (OfNat.ofNat 0) D.ε →
+                      LE.le D.Pk (HMul.hMul D.μt (CFDLean.JST1.SSTPoint.Q D)) →
+                        LE.le (CFDLean.JST1.SSTPoint.Pi D) (OfNat.ofNat 0))
+            (LE.le (OfNat.ofNat 0) D.μt →
+              LE.le D.Pk (HMul.hMul D.μt (HMul.hMul (OfNat.ofNat 2) (CFDLean.JST1.SSTPoint.SS D))) →
+                LE.le (HMul.hMul (Neg.neg θ) (HSub.hSub (HMul.hMul D.μt (CFDLean.JST1.SSTPoint.Q D)) D.Pk))
+                  (HMul.hMul θ
+                    (HMul.hMul (HMul.hMul (HDiv.hDiv (OfNat.ofNat 2) (OfNat.ofNat 3)) D.μt)
+                      (HPow.hPow (CFDLean.JST1.SSTPoint.divv D) (OfNat.ofNat 2)))))))
+XSTMT CFDLean.JST1.Spec.P2_10_5 :: ∀ (ι : Type) [inst : Fintype ι] (mdot : ι → ι → Real) (kv kin bmass : ι → Real),
+  (∀ (i j : ι), Eq (mdot j i) (Neg.neg (mdot i j))) →
+    let kup := fun (i j : ι) => ite (LE.le (OfNat.ofNat 0) (mdot i j)) (kv i) (kv j);
+    let kb := fun (i : ι) => ite (LE.le (OfNat.ofNat 0) (bmass i)) (kv i) (kin i);
+    let X := fun (i : ι) =>
+      HAdd.hAdd (Finset.univ.sum fun (j : ι) => HMul.hMul (mdot i j) (kup i j)) (HMul.hMul (bmass i) (kb i));
+    let Rrho := fun (i : ι) => HAdd.hAdd (Finset.univ.sum fun (j : ι) => mdot i j) (bmass i);
+    And
+      (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (j : ι) => HMul.hMul (mdot i j) (kup i j))
+        (OfNat.ofNat 0))
+      (And
+        (∀ (k0 : Real),
+          (∀ (i : ι), Eq (kv i) k0) → (∀ (i : ι), Eq (kin i) k0) → ∀ (i : ι), Eq (X i) (HMul.hMul k0 (Rrho i)))
+        (∀ (i : ι),
+          Eq (kv i) (OfNat.ofNat 0) →
+            Eq (bmass i) (OfNat.ofNat 0) → (∀ (j : ι), LE.le (OfNat.ofNat 0) (kv j)) → LE.le (X i) (OfNat.ofNat 0)))
+XSTMT CFDLean.JST1.Spec.P2_10_6 :: ∀ (Pst cl ε : Real),
+  LE.le (OfNat.ofNat 0) ε →
+    LE.le (OfNat.ofNat 0) Pst → LE.le (HSub.hSub (Max.max (OfNat.ofNat 0) (Min.min Pst (HMul.hMul cl ε))) ε) Pst
+XSTMT CFDLean.JST1.Spec.P2_10_7 :: ∀ (d : Nat) (R μ μt κ : Real) (wb : CFDLean.JST1.State d) (G : Matrix (CFDLean.JST1.Channel d) (Fin d) Real),
+  LE.le d (OfNat.ofNat 3) →
+    LT.lt (OfNat.ofNat 0) R →
+      LE.le (OfNat.ofNat 0) μ →
+        LE.le (OfNat.ofNat 0) μt →
+          LE.le (OfNat.ofNat 0) κ →
+            LT.lt (wb CFDLean.JST1.Channel.energy) (OfNat.ofNat 0) →
+              And
+                (Eq (CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := HAdd.hAdd μ μt, κ := κ } wb G))
+                  (HAdd.hAdd (CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μ, κ := κ } wb G))
+                    (CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μt, κ := OfNat.ofNat 0 } wb G))))
+                (And
+                  (LE.le (OfNat.ofNat 0) (CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μ, κ := κ } wb G)))
+                  (LE.le (OfNat.ofNat 0)
+                    (CFDLean.Num.frob G (CFDLean.JST1.viscFlux { R := R, μ := μt, κ := OfNat.ofNat 0 } wb G))))
+XSTMT CFDLean.JST1.Spec.P2_10_8 :: And
+  (∀ (ι C : Type) [inst : Fintype ι] [inst_1 : Fintype C] (d : Nat) (w Rhat : ι → CFDLean.JST1.State d)
+    (X Ck Bk Dh Sk Rrho Pst V β2 : ι → Real) (inD : ι → Bool) (kD : Real) (Dgal Dt PiW : C → Real)
+    (Bhat Pi2 Pi4 : Real),
+    (∀ (i : ι), Eq (w i CFDLean.JST1.Channel.energy) (Neg.neg (β2 i))) →
+      (∀ (i : ι), LE.le (OfNat.ofNat 0) (β2 i)) →
+        (∀ (i : ι), LE.le (OfNat.ofNat 0) (V i)) →
+          (∀ (i : ι), LE.le (OfNat.ofNat 0) (Pst i)) →
+            LE.le (Neg.neg (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (Rhat i)))
+                (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                  (Finset.univ.sum fun (T : C) => HSub.hSub (Dgal T) (PiW T))) →
+              LE.le Pi2 (OfNat.ofNat 0) →
+                (∀ (i : ι), Eq (inD i) Bool.false → Eq (X i) (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i))) →
+                  (∀ (i : ι), Eq (inD i) Bool.false → LE.le (Sk i) (Pst i)) →
+                    (∀ (i : ι),
+                        Eq (inD i) Bool.true → LE.le (HSub.hSub (X i) (HMul.hMul kD (Rrho i))) (OfNat.ofNat 0)) →
+                      Eq (Finset.univ.sum fun (T : C) => Dt T)
+                          (Finset.univ.sum fun (i : ι) => HMul.hMul (HMul.hMul (β2 i) (V i)) (Pst i)) →
+                        (∀ (T : C), LE.le (PiW T) (HSub.hSub (Dgal T) (Dt T))) →
+                          let Rk := fun (i : ι) =>
+                            ite (Eq (inD i) Bool.true) (HMul.hMul kD (Rrho i))
+                              (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i)) (HMul.hMul (V i) (Sk i)));
+                          let rate :=
+                            Neg.neg
+                              (Finset.univ.sum fun (i : ι) =>
+                                CFDLean.Num.pairF (w i)
+                                  (HAdd.hAdd (Rhat i) (HSMul.hSMul (HSub.hSub (X i) (Rk i)) CFDLean.JST1.eE)));
+                          And
+                            (LE.le rate
+                              (HSub.hSub
+                                (HSub.hSub
+                                  (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                                    (Finset.univ.sum fun (T : C) => HSub.hSub (HSub.hSub (Dgal T) (Dt T)) (PiW T)))
+                                  (Finset.univ.sum fun (i : ι) =>
+                                    ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                      (HMul.hMul (HMul.hMul (β2 i) (V i)) (HSub.hSub (Pst i) (Sk i)))))
+                                (Finset.univ.sum fun (i : ι) =>
+                                  ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (V i)) (Pst i))
+                                    (OfNat.ofNat 0))))
+                            (And (∀ (T : C), LE.le (OfNat.ofNat 0) (HSub.hSub (HSub.hSub (Dgal T) (Dt T)) (PiW T)))
+                              (And
+                                (∀ (i : ι),
+                                  LE.le (OfNat.ofNat 0)
+                                    (ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                      (HMul.hMul (HMul.hMul (β2 i) (V i)) (HSub.hSub (Pst i) (Sk i)))))
+                                (∀ (i : ι),
+                                  LE.le (OfNat.ofNat 0)
+                                    (ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (V i)) (Pst i))
+                                      (OfNat.ofNat 0))))))
+  (∀ (Dgal Dt PiW c : Real),
+    And (Eq PiW (OfNat.ofNat 0) → LE.le Dt Dgal → LE.le PiW (HSub.hSub Dgal Dt))
+      (LT.lt (OfNat.ofNat 0) c →
+        LE.le PiW (HDiv.hDiv Dgal c) →
+          LE.le Dt (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) Dgal) →
+            LE.le PiW (HSub.hSub Dgal Dt)))
+XSTMT CFDLean.JST1.Spec.P2_8_0b :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (w : ι → CFDLean.JST1.State d) (φ : ι → Real),
+  (∀ (k : ι), LT.lt (w k CFDLean.JST1.Channel.energy) (OfNat.ofNat 0)) →
+    (∀ (k : ι), LE.le (OfNat.ofNat 0) (φ k)) →
+      Eq (Finset.univ.sum fun (k : ι) => φ k) (OfNat.ofNat 1) →
+        LT.lt (Finset.univ.sum (fun (k : ι) => HSMul.hSMul (φ k) (w k)) CFDLean.JST1.Channel.energy) (OfNat.ofNat 0)
+XSTMT CFDLean.JST1.Spec.P2_9_2b :: ∀ (d : Nat) (Pv : CFDLean.JST1.ViscParams) (T : CFDLean.Num.Simplex d) (o : Fin (HAdd.hAdd d (OfNat.ofNat 1)))
+  (c : Real),
+  LE.le (OfNat.ofNat 1) d →
+    LE.le d (OfNat.ofNat 3) →
+      LT.lt (OfNat.ofNat 0) Pv.μ →
+        LE.le (OfNat.ofNat 0) Pv.κ →
+          LT.lt (OfNat.ofNat 0) Pv.R →
+            T.Nondeg →
+              LT.lt (OfNat.ofNat 0) c →
+                LT.lt c (OfNat.ofNat 1) →
+                  Exists fun (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → CFDLean.JST1.State d) =>
+                    And
+                      (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+                        LT.lt (w a CFDLean.JST1.Channel.energy) (OfNat.ofNat 0))
+                      (LT.lt
+                        (HSub.hSub (CFDLean.JST1.Wall.Dgal T (CFDLean.JST1.viscFlux Pv (CFDLean.JST1.Spec.vmean w)) w)
+                          (CFDLean.JST1.Wall.PiW T (CFDLean.JST1.viscFlux Pv (CFDLean.JST1.Spec.vmean w))
+                            (CFDLean.JST1.Spec.momProj d) (OfNat.ofNat 0) (Singleton.singleton o) c w))
+                        (OfNat.ofNat 0))
+XSTMT CFDLean.JST1.Spec.P2_10_8b :: ∀ (d : Nat) (T : CFDLean.Num.Simplex d) (R μ μt κ c : Real)
+  (P : Matrix (CFDLean.JST1.Channel d) (CFDLean.JST1.Channel d) Real) (gw : CFDLean.JST1.State d)
+  (walls : Finset (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (w : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → CFDLean.JST1.State d),
+  LE.le (OfNat.ofNat 1) d →
+    LE.le d (OfNat.ofNat 3) →
+      LT.lt (OfNat.ofNat 0) R →
+        LE.le (OfNat.ofNat 0) μ →
+          LE.le (OfNat.ofNat 0) μt →
+            LE.le (OfNat.ofNat 0) κ →
+              T.Nondeg →
+                LT.lt (OfNat.ofNat 0) c →
+                  (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))), LT.lt (w a CFDLean.JST1.Channel.energy) (OfNat.ofNat 0)) →
+                    Eq P.transpose P →
+                      Eq (HMul.hMul P P) P →
+                        Eq (P.mulVec gw) gw →
+                          let K :=
+                            CFDLean.JST1.viscFlux { R := R, μ := HAdd.hAdd μ μt, κ := κ } (CFDLean.JST1.Spec.vmean w);
+                          let Kt :=
+                            CFDLean.JST1.viscFlux { R := R, μ := μt, κ := OfNat.ofNat 0 } (CFDLean.JST1.Spec.vmean w);
+                          let Dg := CFDLean.JST1.Wall.Dgal T K w;
+                          let Dt := CFDLean.JST1.Wall.Dgal T Kt w;
+                          let Pw := CFDLean.JST1.Wall.PiW T K P gw walls c w;
+                          And (LE.le (OfNat.ofNat 0) Dt)
+                            (And (LE.le Dt Dg)
+                              (And
+                                (Eq walls EmptyCollection.emptyCollection →
+                                  And (Eq Pw (OfNat.ofNat 0)) (LE.le Pw (HSub.hSub Dg Dt)))
+                                (LE.le (OfNat.ofNat 1) c →
+                                  LE.le Dt (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) c)) Dg) →
+                                    LE.le Pw (HSub.hSub Dg Dt))))
+XSTMT CFDLean.JST1.Spec.P2_10_8c :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : Fintype C] (d : Nat) (g : CFDLean.JST1.Gas)
+  (Ut : ι → Real → CFDLean.JST1.SState d) (Vv : ι → Real) (R : ι → CFDLean.JST1.SState d) (t : Real)
+  (Rhat : ι → CFDLean.JST1.State d) (X Ck Bk Dh Sk Rrho Pst : ι → Real) (inD : ι → Bool) (kD : Real)
+  (Dgal Dt PiW : C → Real) (Bhat Pi2 Pi4 : Real),
+  (∀ (i : ι), CFDLean.JST1.SAdmissible g (Ut i t)) →
+    (∀ (i : ι), LT.lt (OfNat.ofNat 0) (Vv i)) →
+      (∀ (i : ι), HasDerivAt (Ut i) (HSMul.hSMul (Neg.neg (Inv.inv (Vv i))) (R i)) t) →
+        let w := fun (i : ι) => CFDLean.JST1.entropyVars g (CFDLean.JST1.hatState (Ut i t));
+        let β2 := fun (i : ι) => Neg.neg (w i CFDLean.JST1.Channel.energy);
+        let Rk := fun (i : ι) =>
+          ite (Eq (inD i) Bool.true) (HMul.hMul kD (Rrho i))
+            (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i)) (HMul.hMul (Vv i) (Sk i)));
+        (∀ (i : ι),
+            Eq (CFDLean.JST1.hatState (R i))
+              (HAdd.hAdd (Rhat i) (HSMul.hSMul (HSub.hSub (X i) (Rk i)) CFDLean.JST1.eE))) →
+          (∀ (i : ι), LE.le (OfNat.ofNat 0) (Pst i)) →
+            LE.le (Neg.neg (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (Rhat i)))
+                (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                  (Finset.univ.sum fun (T : C) => HSub.hSub (Dgal T) (PiW T))) →
+              (∀ (i : ι), Eq (inD i) Bool.false → Eq (X i) (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i))) →
+                (∀ (i : ι), Eq (inD i) Bool.false → LE.le (Sk i) (Pst i)) →
+                  (∀ (i : ι), Eq (inD i) Bool.true → LE.le (HSub.hSub (X i) (HMul.hMul kD (Rrho i))) (OfNat.ofNat 0)) →
+                    Eq (Finset.univ.sum fun (T : C) => Dt T)
+                        (Finset.univ.sum fun (i : ι) => HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i)) →
+                      (∀ (T : C), LE.le (PiW T) (HSub.hSub (Dgal T) (Dt T))) →
+                        Exists fun (r : Real) =>
+                          And
+                            (HasDerivAt
+                              (fun (s : Real) =>
+                                Finset.univ.sum fun (i : ι) => HMul.hMul (Vv i) (CFDLean.JST1.eta0 g (Ut i s)))
+                              r t)
+                            (LE.le r
+                              (HSub.hSub
+                                (HSub.hSub
+                                  (HSub.hSub (HAdd.hAdd (HAdd.hAdd Bhat Pi2) Pi4)
+                                    (Finset.univ.sum fun (T : C) => HSub.hSub (HSub.hSub (Dgal T) (Dt T)) (PiW T)))
+                                  (Finset.univ.sum fun (i : ι) =>
+                                    ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                      (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (HSub.hSub (Pst i) (Sk i)))))
+                                (Finset.univ.sum fun (i : ι) =>
+                                  ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i))
+                                    (OfNat.ofNat 0))))
+XSTMT CFDLean.JST1.Spec.P3_11_1 :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      And (M.Conforming bd → M.FacetBalanced bd)
+        (M.FacetBalanced bd →
+          And
+            (∀ (i : ι),
+              Eq (M.beta i)
+                (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                  ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                    (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) d.cast) (M.areaVec p)) (OfNat.ofNat 0)))
+            (And
+              (∀ (i k : ι),
+                Eq (M.B i k)
+                  (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                    ite
+                      (And (Eq (bd p) Bool.true)
+                        (And (Membership.mem (M.facetNodes p) i) (Membership.mem (M.facetNodes p) k)))
+                      (HSMul.hSMul
+                        (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                          (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                        (M.areaVec p))
+                      (OfNat.ofNat 0)))
+              (∀ (i : ι),
+                (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                    Eq (bd p) Bool.true → Not (Membership.mem (M.facetNodes p) i)) →
+                  M.Closed i)))
+XSTMT CFDLean.JST1.Spec.P3_11_2 :: And
+  (∀ (T : CFDLean.Num.Simplex (OfNat.ofNat 3)) (o a b c : Fin (OfNat.ofNat 4)),
+    T.Nondeg →
+      (List.cons o (List.cons a (List.cons b (List.cons c List.nil)))).Nodup →
+        let nv := CFDLean.Num.cross3 (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.x c) (T.x a));
+        Eq (T.facet o)
+          (HSMul.hSMul
+            (ite (LT.lt (OfNat.ofNat 0) (CFDLean.Num.dot nv (HSub.hSub (T.x o) (T.x a))))
+              (Neg.neg (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))) (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)))
+            nv))
+  (∀ (T T' : CFDLean.Num.Simplex (OfNat.ofNat 3)) (o a b c o' a' b' c' : Fin (OfNat.ofNat 4)),
+    T.Nondeg →
+      T'.Nondeg →
+        (List.cons o (List.cons a (List.cons b (List.cons c List.nil)))).Nodup →
+          (List.cons o' (List.cons a' (List.cons b' (List.cons c' List.nil)))).Nodup →
+            Eq (T'.x a') (T.x a) →
+              Eq (T'.x b') (T.x b) →
+                Eq (T'.x c') (T.x c) →
+                  let nv := CFDLean.Num.cross3 (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.x c) (T.x a));
+                  LT.lt
+                      (HMul.hMul (CFDLean.Num.dot nv (HSub.hSub (T.x o) (T.x a)))
+                        (CFDLean.Num.dot nv (HSub.hSub (T'.x o') (T.x a))))
+                      (OfNat.ofNat 0) →
+                    Eq (T'.facet o') (Neg.neg (T.facet o)))
+XSTMT CFDLean.JST1.Spec.P3_11_3 :: And (Eq CFDLean.JST1.RefCell.hex.splits.length (OfNat.ofNat 64))
+  (And (Eq CFDLean.JST1.RefCell.prism.splits.length (OfNat.ofNat 12))
+    (And (Eq CFDLean.JST1.RefCell.pyramid.splits.length (OfNat.ofNat 6))
+      (And
+        (Eq
+          (CFDLean.JST1.RefCell.hex.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 8)) =>
+            (BEq.beq (CFDLean.JST1.RefCell.hex.diagCount q Bool.false) (OfNat.ofNat 32)).and
+              (BEq.beq (CFDLean.JST1.RefCell.hex.diagCount q Bool.true) (OfNat.ofNat 32)))
+          Bool.true)
+        (And
+          (Eq
+            (CFDLean.JST1.RefCell.prism.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 6)) =>
+              (BEq.beq (CFDLean.JST1.RefCell.prism.diagCount q Bool.false) (OfNat.ofNat 6)).and
+                (BEq.beq (CFDLean.JST1.RefCell.prism.diagCount q Bool.true) (OfNat.ofNat 6)))
+            Bool.true)
+          (And
+            (Eq
+              (CFDLean.JST1.RefCell.pyramid.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 5)) =>
+                (BEq.beq (CFDLean.JST1.RefCell.pyramid.diagCount q Bool.false) (OfNat.ofNat 3)).and
+                  (BEq.beq (CFDLean.JST1.RefCell.pyramid.diagCount q Bool.true) (OfNat.ofNat 3)))
+              Bool.true)
+            (And
+              (Eq
+                (CFDLean.JST1.RefCell.hex.splits.all fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                  CFDLean.JST1.RefCell.hex.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 8)) =>
+                    bne (CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.false))
+                      (CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.true)))
+                Bool.true)
+              (And
+                (Eq
+                  (CFDLean.JST1.RefCell.prism.splits.all fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+                    CFDLean.JST1.RefCell.prism.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 6)) =>
+                      bne (CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.prism.pull s.1 s.2) (q.diag Bool.false))
+                        (CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.prism.pull s.1 s.2) (q.diag Bool.true)))
+                  Bool.true)
+                (And
+                  (Eq
+                    (CFDLean.JST1.RefCell.pyramid.splits.all fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+                      CFDLean.JST1.RefCell.pyramid.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 5)) =>
+                        bne
+                          (CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2)
+                            (q.diag Bool.false))
+                          (CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2)
+                            (q.diag Bool.true)))
+                    Bool.true)
+                  (And
+                    (Eq
+                      (List.countP
+                        (fun (v : Fin (OfNat.ofNat 4)) =>
+                          CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.quadPull v)
+                            (Prod.mk ⟨0, Fin.instOfNat⟩ ⟨2, Fin.instOfNat⟩))
+                        (List.finRange (OfNat.ofNat 4)))
+                      (OfNat.ofNat 2))
+                    (Eq
+                      (List.countP
+                        (fun (v : Fin (OfNat.ofNat 4)) =>
+                          CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.quadPull v)
+                            (Prod.mk ⟨1, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩))
+                        (List.finRange (OfNat.ofNat 4)))
+                      (OfNat.ofNat 2)))))))))))
+XSTMT CFDLean.JST1.Spec.P3_12_1 :: And
+  (Eq
+    (List.countP
+      (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+        (List.finRange (OfNat.ofNat 8)).any fun (v : Fin (OfNat.ofNat 8)) =>
+          CFDLean.JST1.RefCell.containsSimplex (CFDLean.JST1.RefCell.hex.pull s.1 s.2)
+            (CFDLean.JST1.RefCell.hexSliver v))
+      CFDLean.JST1.RefCell.hex.splits)
+    (OfNat.ofNat 32))
+  (Eq
+    ((List.finRange (OfNat.ofNat 8)).all fun (v : Fin (OfNat.ofNat 8)) =>
+      BEq.beq
+        (List.countP
+          (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+            CFDLean.JST1.RefCell.containsSimplex (CFDLean.JST1.RefCell.hex.pull s.1 s.2)
+              (CFDLean.JST1.RefCell.hexSliver v))
+          CFDLean.JST1.RefCell.hex.splits)
+        (OfNat.ofNat 4))
+    Bool.true)
+XSTMT CFDLean.JST1.Spec.P3_12_2 :: ∀ (a b : Real),
+  LT.lt (OfNat.ofNat 0) a →
+    LT.lt (OfNat.ofNat 0) b →
+      And
+        (Filter.Tendsto
+          (fun (h : Real) =>
+            CFDLean.JST1.Spec.cosDih (CFDLean.JST1.Spec.sliverBrick a b h) ⟨1, Fin.instOfNat⟩ ⟨3, Fin.instOfNat⟩)
+          (nhdsWithin (OfNat.ofNat 0) (Set.Ioi (OfNat.ofNat 0))) (nhds (Neg.neg (OfNat.ofNat 1))))
+        (Filter.Tendsto
+          (fun (h : Real) =>
+            CFDLean.JST1.Spec.cosDih (CFDLean.JST1.Spec.sliverBrick a b h) ⟨0, Fin.instOfNat⟩ ⟨2, Fin.instOfNat⟩)
+          (nhdsWithin (OfNat.ofNat 0) (Set.Ioi (OfNat.ofNat 0))) (nhds (Neg.neg (OfNat.ofNat 1))))
+XSTMT CFDLean.JST1.Spec.P3_12_3 :: ∀ (σ : Type) [inst : Fintype σ] (ω q : σ → Real) (t : σ),
+  (∀ (s : σ), LE.le (OfNat.ofNat 0) (ω s)) →
+    (∀ (s : σ), LE.le (OfNat.ofNat 0) (q s)) →
+      LE.le (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 16)) (ω t) →
+        LE.le (HDiv.hDiv (q t) (OfNat.ofNat 16)) (Finset.univ.sum fun (s : σ) => HMul.hMul (ω s) (q s))
+XSTMT CFDLean.JST1.Spec.P3_12_4 :: And
+  (Eq (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).length
+    (OfNat.ofNat 8))
+  (And
+    (Eq
+      ((CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).all
+        fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+        (CFDLean.JST1.RefCell.hex.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 8))) =>
+          (t.contains s.1).and (t.contains (CFDLean.JST1.RefCell.hexOpp s.1)))
+      Bool.true)
+    (And
+      (Eq
+        ((CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).all
+          fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+          (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).any
+            fun (s' : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+            (BEq.beq s'.1 (CFDLean.JST1.RefCell.hexOpp s.1)).and
+              (CFDLean.JST1.RefCell.sameSplit (CFDLean.JST1.RefCell.hex.pull s.1 s.2)
+                (CFDLean.JST1.RefCell.hex.pull s'.1 s'.2)))
+        Bool.true)
+      (And
+        (Eq
+          (CFDLean.JST1.RefCell.hex.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 8)) =>
+            (BEq.beq
+                  (List.countP
+                    (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                      CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.false))
+                    (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)))
+                  (OfNat.ofNat 4)).and
+              (BEq.beq
+                (List.countP
+                  (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                    CFDLean.JST1.RefCell.usesEdge (CFDLean.JST1.RefCell.hex.pull s.1 s.2) (q.diag Bool.true))
+                  (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)))
+                (OfNat.ofNat 4)))
+          Bool.true)
+        (And
+          (Eq
+            ((List.cons CFDLean.JST1.RefCell.hexRz
+                  (List.cons CFDLean.JST1.RefCell.hexRx (List.cons CFDLean.JST1.RefCell.hexMx List.nil))).all
+              fun (σ : Fin (OfNat.ofNat 8) → Fin (OfNat.ofNat 8)) =>
+              (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).all
+                fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                (CFDLean.JST1.RefCell.hex.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.hexEdges)).any
+                  fun (s' : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                  CFDLean.JST1.RefCell.sameSplit
+                    (CFDLean.JST1.RefCell.mapSplit σ (CFDLean.JST1.RefCell.hex.pull s.1 s.2))
+                    (CFDLean.JST1.RefCell.hex.pull s'.1 s'.2))
+            Bool.true)
+          (And
+            (Eq
+              (CFDLean.JST1.RefCell.prism.fanSplits (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.prismEdges)).length
+              CFDLean.JST1.RefCell.prism.splits.length)
+            (Eq
+              (CFDLean.JST1.RefCell.pyramid.fanSplits
+                  (CFDLean.JST1.RefCell.nbrOf CFDLean.JST1.RefCell.pyramidEdges)).length
+              CFDLean.JST1.RefCell.pyramid.splits.length))))))
+XSTMT CFDLean.JST1.Spec.P3_12_5 :: ∀ (π : Equiv.Perm (Fin (OfNat.ofNat 3))) (h : Fin (OfNat.ofNat 3) → Real),
+  (∀ (i : Fin (OfNat.ofNat 3)), LT.lt (OfNat.ofNat 0) (h i)) →
+    And (CFDLean.Num.pathSimplex π h).Nondeg
+      (∀ (a b : Fin (OfNat.ofNat 4)),
+        Ne a b →
+          LE.le (CFDLean.Num.dot ((CFDLean.Num.pathSimplex π h).grad a) ((CFDLean.Num.pathSimplex π h).grad b))
+            (OfNat.ofNat 0))
+XSTMT CFDLean.JST1.Spec.P3_13_1 :: ∀ (κ : Type) [inst : Fintype κ] (Φ : (κ → Real) → κ → Real)
+  (B : (κ → Real) → ContinuousLinearMap (RingHom.id Real) (κ → Real) (κ → Real)) (wi wk : κ → Real),
+  (∀ (s : Real),
+      Membership.mem (Set.Icc (OfNat.ofNat 0) (OfNat.ofNat 1)) s →
+        HasFDerivAt Φ (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi))))
+          (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) →
+    ContinuousOn (fun (s : Real) => DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi))
+        (Set.Icc (OfNat.ofNat 0) (OfNat.ofNat 1)) →
+      And
+        (Eq (HSub.hSub (Φ wk) (Φ wi))
+          (intervalIntegral
+            (fun (s : Real) => DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi))
+            (OfNat.ofNat 0) (OfNat.ofNat 1) MeasureTheory.MeasureSpace.volume))
+        (Eq (CFDLean.Num.pairF (HSub.hSub wk wi) (HSub.hSub (Φ wk) (Φ wi)))
+          (intervalIntegral
+            (fun (s : Real) =>
+              CFDLean.Num.pairF (HSub.hSub wk wi)
+                (DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi)))
+            (OfNat.ofNat 0) (OfNat.ofNat 1) MeasureTheory.MeasureSpace.volume))
+XSTMT CFDLean.JST1.Spec.P3_13_2 :: ∀ (d : Nat) (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d) (E : CFDLean.Num.Vec d),
+  CFDLean.JST1.Admissible g U →
+    LT.lt (abs (CFDLean.Num.dot (CFDLean.JST1.vel U) E))
+        (HMul.hMul (CFDLean.JST1.Spec.soundSpeed g U) (CFDLean.Num.len E)) →
+      ∀ (ε : Real),
+        GT.gt ε (OfNat.ofNat 0) →
+          And
+            (Exists fun (Uk : CFDLean.JST1.State d) =>
+              And (CFDLean.JST1.Admissible g Uk)
+                (And (LT.lt (Norm.norm (HSub.hSub Uk U)) ε)
+                  (LT.lt (OfNat.ofNat 0)
+                    (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g U))
+                      (HSub.hSub (CFDLean.JST1.physFlux g Uk E) (CFDLean.JST1.physFlux g U E))))))
+            (Exists fun (Uk : CFDLean.JST1.State d) =>
+              And (CFDLean.JST1.Admissible g Uk)
+                (And (LT.lt (Norm.norm (HSub.hSub Uk U)) ε)
+                  (LT.lt
+                    (CFDLean.Num.pairF (HSub.hSub (CFDLean.JST1.entropyVars g Uk) (CFDLean.JST1.entropyVars g U))
+                      (HSub.hSub (CFDLean.JST1.physFlux g Uk E) (CFDLean.JST1.physFlux g U E)))
+                    (OfNat.ofNat 0))))
+XSTMT CFDLean.JST1.Spec.P3_11_2b :: ∀ (T : CFDLean.Num.Simplex (OfNat.ofNat 2)) (o a b : Fin (OfNat.ofNat 3)),
+  T.Nondeg →
+    (List.cons o (List.cons a (List.cons b List.nil))).Nodup →
+      Eq (T.facet o)
+        (HSMul.hSMul
+          (ite
+            (LT.lt (OfNat.ofNat 0)
+              (CFDLean.Num.dot (CFDLean.Num.perp2 (HSub.hSub (T.x b) (T.x a))) (HSub.hSub (T.x o) (T.x a))))
+            (Neg.neg (OfNat.ofNat 1)) (OfNat.ofNat 1))
+          (CFDLean.Num.perp2 (HSub.hSub (T.x b) (T.x a))))
+XSTMT CFDLean.JST1.Spec.P3_11_4 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι] [inst_3 : Fintype C]
+  (M : CFDLean.Num.WMesh ι C (OfNat.ofNat 3)) (bd : Prod C (Fin (OfNat.ofNat 4)) → Bool),
+  M.Valid → CFDLean.Num.SideBalanced M bd → M.FacetBalanced bd
+XSTMT CFDLean.JST1.Spec.P3_11_4b :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι] [inst_3 : Fintype C]
+  (M : CFDLean.Num.WMesh ι C (OfNat.ofNat 2)) (bd : Prod C (Fin (OfNat.ofNat 3)) → Bool),
+  M.Valid → CFDLean.Num.SideBalanced2 M bd → M.FacetBalanced bd
+XSTMT CFDLean.JST1.Spec.P3_11_5 :: And
+  (Eq
+    (CFDLean.JST1.RefCell.hex.splits.all fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+      (CFDLean.JST1.RefCell.hex.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 8))) =>
+        (CFDLean.JST1.Spec.tetFaces t).all fun (f : List (Fin (OfNat.ofNat 8))) =>
+          BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.hex.pull s.1 s.2) f)
+            (ite (Eq (CFDLean.JST1.Spec.onCellFace CFDLean.JST1.RefCell.hex f) Bool.true) (OfNat.ofNat 1)
+              (OfNat.ofNat 2)))
+    Bool.true)
+  (And
+    (Eq
+      (CFDLean.JST1.RefCell.prism.splits.all fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+        (CFDLean.JST1.RefCell.prism.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 6))) =>
+          (CFDLean.JST1.Spec.tetFaces t).all fun (f : List (Fin (OfNat.ofNat 6))) =>
+            BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.prism.pull s.1 s.2) f)
+              (ite (Eq (CFDLean.JST1.Spec.onCellFace CFDLean.JST1.RefCell.prism f) Bool.true) (OfNat.ofNat 1)
+                (OfNat.ofNat 2)))
+      Bool.true)
+    (Eq
+      (CFDLean.JST1.RefCell.pyramid.splits.all fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+        (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2).all fun (t : List (Fin (OfNat.ofNat 5))) =>
+          (CFDLean.JST1.Spec.tetFaces t).all fun (f : List (Fin (OfNat.ofNat 5))) =>
+            BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) f)
+              (ite (Eq (CFDLean.JST1.Spec.onCellFace CFDLean.JST1.RefCell.pyramid f) Bool.true) (OfNat.ofNat 1)
+                (OfNat.ofNat 2)))
+      Bool.true))
+XSTMT CFDLean.JST1.Spec.P3_11_6 :: And
+  (Eq
+    (CFDLean.JST1.RefCell.hex.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 8)) =>
+      (HAppend.hAppend (q.tris Bool.false) (q.tris Bool.true)).all fun (f : List (Fin (OfNat.ofNat 8))) =>
+        BEq.beq
+          (HMul.hMul (OfNat.ofNat 2)
+            (List.countP
+              (fun (s : Prod (Fin (OfNat.ofNat 8)) (List Bool)) =>
+                BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.hex.pull s.1 s.2) f) (OfNat.ofNat 1))
+              CFDLean.JST1.RefCell.hex.splits))
+          CFDLean.JST1.RefCell.hex.splits.length)
+    Bool.true)
+  (And
+    (Eq
+      (CFDLean.JST1.RefCell.prism.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 6)) =>
+        (HAppend.hAppend (q.tris Bool.false) (q.tris Bool.true)).all fun (f : List (Fin (OfNat.ofNat 6))) =>
+          BEq.beq
+            (HMul.hMul (OfNat.ofNat 2)
+              (List.countP
+                (fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+                  BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.prism.pull s.1 s.2) f) (OfNat.ofNat 1))
+                CFDLean.JST1.RefCell.prism.splits))
+            CFDLean.JST1.RefCell.prism.splits.length)
+      Bool.true)
+    (And
+      (Eq
+        (CFDLean.JST1.RefCell.prism.tris.all fun (f : List (Fin (OfNat.ofNat 6))) =>
+          BEq.beq
+            (List.countP
+              (fun (s : Prod (Fin (OfNat.ofNat 6)) (List Bool)) =>
+                BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.prism.pull s.1 s.2) f) (OfNat.ofNat 1))
+              CFDLean.JST1.RefCell.prism.splits)
+            CFDLean.JST1.RefCell.prism.splits.length)
+        Bool.true)
+      (And
+        (Eq
+          (CFDLean.JST1.RefCell.pyramid.quads.all fun (q : CFDLean.JST1.RefCell.Quad (OfNat.ofNat 5)) =>
+            (HAppend.hAppend (q.tris Bool.false) (q.tris Bool.true)).all fun (f : List (Fin (OfNat.ofNat 5))) =>
+              BEq.beq
+                (HMul.hMul (OfNat.ofNat 2)
+                  (List.countP
+                    (fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+                      BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) f)
+                        (OfNat.ofNat 1))
+                    CFDLean.JST1.RefCell.pyramid.splits))
+                CFDLean.JST1.RefCell.pyramid.splits.length)
+          Bool.true)
+        (Eq
+          (CFDLean.JST1.RefCell.pyramid.tris.all fun (f : List (Fin (OfNat.ofNat 5))) =>
+            BEq.beq
+              (List.countP
+                (fun (s : Prod (Fin (OfNat.ofNat 5)) (List Bool)) =>
+                  BEq.beq (CFDLean.JST1.Spec.faceCount (CFDLean.JST1.RefCell.pyramid.pull s.1 s.2) f) (OfNat.ofNat 1))
+                CFDLean.JST1.RefCell.pyramid.splits)
+              CFDLean.JST1.RefCell.pyramid.splits.length)
+          Bool.true))))
+XSTMT CFDLean.JST1.Spec.P3_14_1 :: ∀ (ι C Q : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : DecidableEq C]
+  [inst_4 : Fintype Q] (d : Nat) (S : CFDLean.JST1.Scheme.Data ι C Q d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))))
+  (aq : Q → Real) (u : ι → CFDLean.JST1.State d),
+  CFDLean.JST1.Spec.SchemeHyp S bd fq aq u →
+    And
+      (Eq
+        (Finset.univ.sum fun (i : ι) =>
+          CFDLean.Num.pairF (CFDLean.JST1.Scheme.w S u i) (CFDLean.JST1.Scheme.resid S u i))
+        (HAdd.hAdd
+          (HSub.hSub
+            (HAdd.hAdd (HAdd.hAdd (CFDLean.JST1.Scheme.Bterm S) (CFDLean.JST1.Scheme.Pi2 S u))
+              (CFDLean.JST1.Scheme.Pi4 S u))
+            (Finset.univ.sum fun (T : C) =>
+              HMul.hMul (S.M.ω T) (HSub.hSub (CFDLean.JST1.Scheme.Dg S u T) (CFDLean.JST1.Scheme.Pw S u T))))
+          (CFDLean.JST1.Scheme.wallFlux S u)))
+      (And (LE.le (CFDLean.JST1.Scheme.Pi2 S u) (OfNat.ofNat 0))
+        (And
+          (LE.le (OfNat.ofNat 1) S.c →
+            ∀ (T : C),
+              And
+                (LE.le
+                  (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) S.c)) (CFDLean.JST1.Scheme.Dg S u T))
+                  (HSub.hSub (CFDLean.JST1.Scheme.Dg S u T) (CFDLean.JST1.Scheme.Pw S u T)))
+                (LE.le (OfNat.ofNat 0)
+                  (HMul.hMul (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) S.c))
+                    (CFDLean.JST1.Scheme.Dg S u T))))
+          (∀ (i k : ι),
+            Eq
+              (HSub.hSub (HAdd.hAdd (CFDLean.JST1.Scheme.central S u k i) (CFDLean.JST1.Scheme.diss2 S u k i))
+                (CFDLean.JST1.Scheme.diss4 S u k i))
+              (Neg.neg
+                (HSub.hSub (HAdd.hAdd (CFDLean.JST1.Scheme.central S u i k) (CFDLean.JST1.Scheme.diss2 S u i k))
+                  (CFDLean.JST1.Scheme.diss4 S u i k))))))
+XSTMT CFDLean.JST1.Spec.P3_14_2 :: ∀ (ι C Q : Type) [Fintype ι] [DecidableEq ι] [Fintype C] [inst : Fintype Q] (d : Nat)
+  (S : CFDLean.JST1.Scheme.Data ι C Q d) (slip : Q → Bool) (ug : Q → CFDLean.JST1.State d),
+  (∀ (q : Q), CFDLean.JST1.Admissible S.g (S.ut q)) →
+    (∀ (q : Q), Eq (slip q) Bool.true → Eq (S.Fs q) (CFDLean.JST1.pressFlux S.g (S.ut q) (S.N q))) →
+      (∀ (q : Q),
+          Eq (slip q) Bool.false →
+            LE.le
+              (CFDLean.Num.pairF
+                (HSub.hSub (CFDLean.JST1.entropyVars S.g (ug q)) (CFDLean.JST1.entropyVars S.g (S.ut q))) (S.Fs q))
+              (CFDLean.Num.dot (HSub.hSub (CFDLean.JST1.fluxPot (ug q)) (CFDLean.JST1.fluxPot (S.ut q))) (S.N q))) →
+        LE.le (CFDLean.JST1.Scheme.Bterm S)
+          (Finset.univ.sum fun (q : Q) =>
+            ite (Eq (slip q) Bool.true) (OfNat.ofNat 0)
+              (HSub.hSub (CFDLean.Num.dot (CFDLean.JST1.fluxPot (ug q)) (S.N q))
+                (CFDLean.Num.pairF (CFDLean.JST1.entropyVars S.g (ug q)) (S.Fs q))))
+XSTMT CFDLean.JST1.Spec.P3_14_3 :: ∀ (ι C Q : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : DecidableEq C]
+  [inst_4 : Fintype Q] (d : Nat) (S : CFDLean.JST1.Scheme.Data ι C Q d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))))
+  (aq : Q → Real) (Ut : ι → Real → CFDLean.JST1.SState d) (Vv : ι → Real) (R : ι → CFDLean.JST1.SState d) (t : Real)
+  (X Ck Bk Dh Sk Rrho Pst : ι → Real) (inD : ι → Bool) (kD : Real) (Dt : C → Real),
+  let u := fun (i : ι) => CFDLean.JST1.hatState (Ut i t);
+  CFDLean.JST1.Spec.SchemeHyp S bd fq aq u →
+    (∀ (i : ι), LT.lt (OfNat.ofNat 0) (Vv i)) →
+      (∀ (i : ι), HasDerivAt (Ut i) (HSMul.hSMul (Neg.neg (Inv.inv (Vv i))) (R i)) t) →
+        let β2 := fun (i : ι) => Neg.neg (CFDLean.JST1.entropyVars S.g (u i) CFDLean.JST1.Channel.energy);
+        let Rk := fun (i : ι) =>
+          ite (Eq (inD i) Bool.true) (HMul.hMul kD (Rrho i))
+            (HSub.hSub (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i)) (HMul.hMul (Vv i) (Sk i)));
+        (∀ (i : ι),
+            Eq (CFDLean.JST1.hatState (R i))
+              (HAdd.hAdd (Neg.neg (CFDLean.JST1.Scheme.resid S u i))
+                (HSMul.hSMul (HSub.hSub (X i) (Rk i)) CFDLean.JST1.eE))) →
+          (∀ (i : ι), LE.le (OfNat.ofNat 0) (Pst i)) →
+            (∀ (i : ι), Eq (inD i) Bool.false → Eq (X i) (HAdd.hAdd (HAdd.hAdd (Ck i) (Bk i)) (Dh i))) →
+              (∀ (i : ι), Eq (inD i) Bool.false → LE.le (Sk i) (Pst i)) →
+                (∀ (i : ι), Eq (inD i) Bool.true → LE.le (HSub.hSub (X i) (HMul.hMul kD (Rrho i))) (OfNat.ofNat 0)) →
+                  Eq (Finset.univ.sum fun (T : C) => HMul.hMul (S.M.ω T) (Dt T))
+                      (Finset.univ.sum fun (i : ι) => HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i)) →
+                    (∀ (T : C),
+                        LE.le (CFDLean.JST1.Scheme.Pw S u T) (HSub.hSub (CFDLean.JST1.Scheme.Dg S u T) (Dt T))) →
+                      Exists fun (r : Real) =>
+                        And
+                          (HasDerivAt
+                            (fun (s : Real) =>
+                              Finset.univ.sum fun (i : ι) => HMul.hMul (Vv i) (CFDLean.JST1.eta0 S.g (Ut i s)))
+                            r t)
+                          (LE.le r
+                            (HSub.hSub
+                              (HSub.hSub
+                                (HSub.hSub
+                                  (HAdd.hAdd
+                                    (HAdd.hAdd
+                                      (HAdd.hAdd (CFDLean.JST1.Scheme.Bterm S) (CFDLean.JST1.Scheme.wallFlux S u))
+                                      (CFDLean.JST1.Scheme.Pi2 S u))
+                                    (CFDLean.JST1.Scheme.Pi4 S u))
+                                  (Finset.univ.sum fun (T : C) =>
+                                    HMul.hMul (S.M.ω T)
+                                      (HSub.hSub (HSub.hSub (CFDLean.JST1.Scheme.Dg S u T) (Dt T))
+                                        (CFDLean.JST1.Scheme.Pw S u T))))
+                                (Finset.univ.sum fun (i : ι) =>
+                                  ite (Eq (inD i) Bool.true) (OfNat.ofNat 0)
+                                    (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (HSub.hSub (Pst i) (Sk i)))))
+                              (Finset.univ.sum fun (i : ι) =>
+                                ite (Eq (inD i) Bool.true) (HMul.hMul (HMul.hMul (β2 i) (Vv i)) (Pst i))
+                                  (OfNat.ofNat 0))))
+XSTMT CFDLean.JST1.Spec.P3_11_7 :: ∀ (k : CFDLean.JST1.Mixed.Kind) (A : Matrix (Fin (OfNat.ofNat 3)) (Fin (OfNat.ofNat 3)) Real)
+  (b : CFDLean.Num.Vec (OfNat.ofNat 3)),
+  Ne A.det (OfNat.ofNat 0) →
+    let X := fun (a : Fin k.n) => HAdd.hAdd (A.mulVec (k.ref a)) b;
+    let cen := HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) k.n.cast) (Finset.univ.sum fun (a : Fin k.n) => X a);
+    ∀ (s : Prod (Fin k.n) (List Bool)),
+      Membership.mem k.cell.splits s →
+        And
+          (∀ (t : List (Fin k.n)),
+            Membership.mem (k.cell.pull s.1 s.2) t → (CFDLean.JST1.Mixed.realize X t (CFDLean.JST1.Spec.kz k)).Nondeg)
+          (And
+            (∀ (t : List (Fin k.n)),
+              Membership.mem (k.cell.pull s.1 s.2) t →
+                ∀ (t' : List (Fin k.n)),
+                  Membership.mem (k.cell.pull s.1 s.2) t' →
+                    ∀ (f : List (Fin k.n)),
+                      Membership.mem (CFDLean.JST1.Spec.tetFaces t) f →
+                        Eq (CFDLean.JST1.RefCell.sameSimplex t t') Bool.false →
+                          Eq ((CFDLean.JST1.Spec.tetFaces t').any (CFDLean.JST1.RefCell.sameSimplex f)) Bool.true →
+                            Eq (CFDLean.JST1.Spec.onCellFace k.cell f) Bool.false →
+                              LT.lt
+                                (HMul.hMul
+                                  (CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k)
+                                    (X (CFDLean.JST1.Mixed.oppV t f (CFDLean.JST1.Spec.kz k))))
+                                  (CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k)
+                                    (X (CFDLean.JST1.Mixed.oppV t' f (CFDLean.JST1.Spec.kz k)))))
+                                (OfNat.ofNat 0))
+            (∀ (t : List (Fin k.n)),
+              Membership.mem (k.cell.pull s.1 s.2) t →
+                ∀ (f : List (Fin k.n)),
+                  Membership.mem (CFDLean.JST1.Spec.tetFaces t) f →
+                    Eq (CFDLean.JST1.Spec.onCellFace k.cell f) Bool.true →
+                      LT.lt (OfNat.ofNat 0)
+                        (HMul.hMul
+                          (CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k)
+                            (X (CFDLean.JST1.Mixed.oppV t f (CFDLean.JST1.Spec.kz k))))
+                          (CFDLean.JST1.Spec.sideF X f (CFDLean.JST1.Spec.kz k) cen))))
+XSTMT CFDLean.JST1.Spec.P3_11_8 :: ∀ (ι Cl : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype Cl] [DecidableEq Cl]
+  (M : CFDLean.JST1.Mixed.Mesh ι Cl) (bdTris : Finset (Finset ι)),
+  M.Affine →
+    M.Conform bdTris →
+      And M.toW.Valid
+        (M.toW.FacetBalanced
+          fun
+            (p :
+              Prod (Sigma fun (c : Cl) => Fin (M.cell c).kind.tets.length)
+                (Fin (HAdd.hAdd (OfNat.ofNat 3) (OfNat.ofNat 1)))) =>
+          Decidable.decide (Membership.mem bdTris (M.toW.facetNodes p)))
+JST1DEP CFDLean.JST1.LamOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.LamOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.X -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.X -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell._sizeOf_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.b -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.centroid -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.centroid -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk.inj -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk.injEq -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.mk.sizeOf_spec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.noConfusionType -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.rec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Cell.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Kind.ref -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Kind.ref -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.Affine -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh._sizeOf_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk.inj -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk.injEq -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.mk.sizeOf_spec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.noConfusionType -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.pos -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.rec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.Mesh.toW -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Mixed.Mesh.toW -> CFDLean.Num.WMesh.mk
+JST1DEP CFDLean.JST1.Mixed.cross -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.cross -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.realize -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Mixed.realize -> CFDLean.Num.Simplex.mk
+JST1DEP CFDLean.JST1.Mixed.realize -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.realize -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.sideOf -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.sideOf -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Mixed.sideOf -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.SSTPoint.Data.GT -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.Gk -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data._sizeOf_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk.inj -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk.injEq -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.mk.sizeOf_spec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.noConfusionType -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.rec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Data.v -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.SSTPoint.Gtheta -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Bterm -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Scheme.Bterm -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Scheme.Data.M -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.N -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data._sizeOf_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data._sizeOf_1 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data._sizeOf_1 -> CFDLean.Num.WMesh._sizeOf_inst
+JST1DEP CFDLean.JST1.Scheme.Data.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.casesOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.casesOn -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.casesOn -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk._flat_ctor -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk._flat_ctor -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk._flat_ctor -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk.inj -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk.inj -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk.injEq -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk.injEq -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk.noConfusion -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk.noConfusion -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk.sizeOf_spec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.mk.sizeOf_spec -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.mk.sizeOf_spec -> CFDLean.Num.WMesh._sizeOf_inst
+JST1DEP CFDLean.JST1.Scheme.Data.noConfusion -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.noConfusion -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.noConfusionType -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.noConfusionType -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.rec -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.rec -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.recOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Scheme.Data.recOn -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Data.recOn -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Scheme.Dg -> CFDLean.Num.WMesh.simplex
+JST1DEP CFDLean.JST1.Scheme.Pi2 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Scheme.Pi4 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Scheme.Pw -> CFDLean.Num.WMesh.simplex
+JST1DEP CFDLean.JST1.Scheme.central -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Scheme.visc -> CFDLean.Num.WMesh.galerkinRes
+JST1DEP CFDLean.JST1.Scheme.visc -> CFDLean.Num.WMesh.gradW
+JST1DEP CFDLean.JST1.Scheme.wall -> CFDLean.Num.WMesh.simplex
+JST1DEP CFDLean.JST1.Scheme.wall -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Scheme.wall -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Scheme.wallFlux -> CFDLean.Num.WMesh.simplex
+JST1DEP CFDLean.JST1.Scheme.wallFlux -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Scheme.wallFlux -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Scheme.wloc -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Spec.P1_1_0 -> CFDLean.Num.pairCLM
+JST1DEP CFDLean.JST1.Spec.P1_1_2 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_1_3 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_1_5 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_1_6 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_2_0 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_2_0 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P1_2_0 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_2_1 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_2_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_2_2 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P1_2_2 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.WMesh.nW
+JST1DEP CFDLean.JST1.Spec.P1_2_3 -> CFDLean.Num.WMesh.vol
+JST1DEP CFDLean.JST1.Spec.P1_2_4 -> CFDLean.Num.logMean
+JST1DEP CFDLean.JST1.Spec.P1_2_5 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_2_5 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P1_2_5 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_2_6 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_2_7 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_3_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_3_3 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_3_4 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_4_0 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.WMesh.galerkinRes
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.WMesh.gradW
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.WMesh.vol
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P1_4_1 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_4_2 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh.galerkinRes
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh.gradW
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh.vol
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P1_4_3 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P1_4_4 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P1_5_0a -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_5_0a -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P1_5_0a -> CFDLean.Num.WMesh.FacetPaired
+JST1DEP CFDLean.JST1.Spec.P1_5_0a -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.MedianDual.MeshData
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.MedianDual.MeshData.Conforming
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.MedianDual.MeshData.Occurrence
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.MedianDual.MeshData.faceCount
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.MedianDual.MeshData.faceID
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P1_5_0b -> CFDLean.Num.ofMeshData
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Simplex.facet
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Simplex.vol
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Simplex.x
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P1_5_1 -> CFDLean.Num.outer
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.e
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.mu
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.nu
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P1_5_2 -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.V
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.c
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.e
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.WMesh.volΩ
+JST1DEP CFDLean.JST1.Spec.P1_5_3 -> CFDLean.Num.outer
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.Gtensor
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.V
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.e
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.nu
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.WMesh.volΩ
+JST1DEP CFDLean.JST1.Spec.P1_5_4 -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P1_5_4b -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_5_4b -> CFDLean.Num.WMesh.nuOf
+JST1DEP CFDLean.JST1.Spec.P1_5_4b -> CFDLean.Num.WMesh.unit
+JST1DEP CFDLean.JST1.Spec.P1_5_4b -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P1_5_4b -> CFDLean.Num.outer
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.WMesh.fvRes
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.WMesh.g
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.WMesh.galerkinRes
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.WMesh.m
+JST1DEP CFDLean.JST1.Spec.P1_5_5 -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.MedianDual.Points
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.MedianDual.localInterface
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.MedianDual.sixVolume
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.MedianDual.volume
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.Simplex.vol
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.dualFacet2
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Num.simplexOfPoints
+JST1DEP CFDLean.JST1.Spec.P1_5_6 -> CFDLean.Vector
+JST1DEP CFDLean.JST1.Spec.P1_5_7 -> CFDLean.MedianDual.MeshData
+JST1DEP CFDLean.JST1.Spec.P1_5_7 -> CFDLean.MedianDual.MeshData.points
+JST1DEP CFDLean.JST1.Spec.P1_5_7 -> CFDLean.MedianDual.MeshData.vertex
+JST1DEP CFDLean.JST1.Spec.P1_5_7 -> CFDLean.MedianDual.localInterface
+JST1DEP CFDLean.JST1.Spec.P1_5_7 -> CFDLean.Num.WMesh.galerkinRes
+JST1DEP CFDLean.JST1.Spec.P1_5_7 -> CFDLean.Num.ofMeshData
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.WMesh.galerkinRes
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.WMesh.simplex
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.P1_5_8 -> CFDLean.Num.dualFacet2
+JST1DEP CFDLean.JST1.Spec.P2_10_2 -> CFDLean.Num.pairCLM
+JST1DEP CFDLean.JST1.Spec.P2_10_2 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_10_3 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_10_4 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_10_7 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P2_10_8 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_10_8b -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P2_10_8b -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P2_10_8c -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.WMesh.B
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.WMesh.EW
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.WMesh.cW
+JST1DEP CFDLean.JST1.Spec.P2_6_1 -> CFDLean.Num.WMesh.vol
+JST1DEP CFDLean.JST1.Spec.P2_6_2 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P2_6_2 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P2_6_2 -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Spec.P2_6_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.B
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.Conforming
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.areaVec
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P2_6_3 -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.P2_6_4 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.WMesh.Conforming
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.WMesh.areaVec
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_6_5 -> CFDLean.Num.stdWeight
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh.B
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh.Conforming
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh.areaVec
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.P2_6_5b -> CFDLean.Num.stdWeight
+JST1DEP CFDLean.JST1.Spec.P2_6_6 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_6_6 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.c
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.g
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.m
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.vert
+JST1DEP CFDLean.JST1.Spec.P2_6_7 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.P2_7_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_7_1 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_7_1 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P2_7_1 -> CFDLean.Num.outer
+JST1DEP CFDLean.JST1.Spec.P2_7_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_7_2 -> CFDLean.Num.WMesh.nuOf
+JST1DEP CFDLean.JST1.Spec.P2_7_2 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_7_2 -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P2_7_2 -> CFDLean.Num.outer
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh.Gtensor
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh.V
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh.e
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.WMesh.nu
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P2_7_3 -> CFDLean.Num.outer
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.WMesh.e
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.WMesh.n
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.WMesh.unit
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.WMesh.volΩ
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_7_4 -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P2_8_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_8_1 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_8_1 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_8_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_8_3 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh.B
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh.Conforming
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh.areaVec
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P2_8_4 -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.P2_8_5 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_8_5 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_8_5 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_8_6 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_8_6 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P2_8_6 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_9_0 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P2_9_0 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P2_9_1 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P2_9_1 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P2_9_2 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P2_9_2 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P2_9_2 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P2_9_2b -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P2_9_2b -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P2_9_3 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P2_9_3 -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.P2_9_4 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.B
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.Closed
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.Conforming
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.FacetBalanced
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.areaVec
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.beta
+JST1DEP CFDLean.JST1.Spec.P3_11_1 -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.Simplex.facet
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.Simplex.x
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.cross3
+JST1DEP CFDLean.JST1.Spec.P3_11_2 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.Simplex.facet
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.Simplex.x
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P3_11_2b -> CFDLean.Num.perp2
+JST1DEP CFDLean.JST1.Spec.P3_11_4 -> CFDLean.Num.SideBalanced
+JST1DEP CFDLean.JST1.Spec.P3_11_4 -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P3_11_4 -> CFDLean.Num.WMesh.FacetBalanced
+JST1DEP CFDLean.JST1.Spec.P3_11_4 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P3_11_4b -> CFDLean.Num.SideBalanced2
+JST1DEP CFDLean.JST1.Spec.P3_11_4b -> CFDLean.Num.WMesh
+JST1DEP CFDLean.JST1.Spec.P3_11_4b -> CFDLean.Num.WMesh.FacetBalanced
+JST1DEP CFDLean.JST1.Spec.P3_11_4b -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P3_11_7 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P3_11_7 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_11_8 -> CFDLean.Num.WMesh.FacetBalanced
+JST1DEP CFDLean.JST1.Spec.P3_11_8 -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.P3_11_8 -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.P3_12_5 -> CFDLean.Num.Simplex.Nondeg
+JST1DEP CFDLean.JST1.Spec.P3_12_5 -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Spec.P3_12_5 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P3_12_5 -> CFDLean.Num.pathSimplex
+JST1DEP CFDLean.JST1.Spec.P3_13_1 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P3_13_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_13_2 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P3_13_2 -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.P3_13_2 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P3_14_1 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.P3_14_1 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P3_14_2 -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.P3_14_2 -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.P3_14_2 -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Spec.P3_14_3 -> CFDLean.Num.WMesh.ω
+JST1DEP CFDLean.JST1.Spec.SchemeHyp -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.SchemeHyp -> CFDLean.Num.WMesh.FacetBalanced
+JST1DEP CFDLean.JST1.Spec.SchemeHyp -> CFDLean.Num.WMesh.Valid
+JST1DEP CFDLean.JST1.Spec.SchemeHyp -> CFDLean.Num.WMesh.areaVec
+JST1DEP CFDLean.JST1.Spec.SchemeHyp -> CFDLean.Num.WMesh.facetNodes
+JST1DEP CFDLean.JST1.Spec.WallHyp -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Spec.cosDih -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.cosDih -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.cosDih -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Spec.cosDih -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.Spec.cosDih -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Spec.sideF -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.sideF -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Spec.sliverBrick -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Spec.sliverBrick -> CFDLean.Num.Simplex.mk
+JST1DEP CFDLean.JST1.Spec.sliverBrick -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Wall.Dgal -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Dgal -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Dgal -> CFDLean.Num.Simplex.vol
+JST1DEP CFDLean.JST1.Wall.Dgal -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Wall.Fhat -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Fhat -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.PiW -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.PiW -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.PiW -> CFDLean.Num.pairF
+JST1DEP CFDLean.JST1.Wall.Rvisc -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Rvisc -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Rvisc -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Wall.Rvisc -> CFDLean.Num.Simplex.vol
+JST1DEP CFDLean.JST1.Wall.Rwall -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Rwall -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Rwall -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Wall.Xf -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Xf -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.Xf -> CFDLean.Num.frob
+JST1DEP CFDLean.JST1.Wall.area -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.area -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.area -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Wall.area -> CFDLean.Num.Simplex.vol
+JST1DEP CFDLean.JST1.Wall.area -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Wall.gradT -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.gradT -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.gradT -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Wall.hf -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.hf -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.hf -> CFDLean.Num.Simplex.vol
+JST1DEP CFDLean.JST1.Wall.normal -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.normal -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.normal -> CFDLean.Num.Simplex.grad
+JST1DEP CFDLean.JST1.Wall.normal -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Wall.normal -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Wall.normal -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.Wall.outerK -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Wall.outerK -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.Wall.sigmaF -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.Wall.sigmaF -> CFDLean.Num.Simplex
+JST1DEP CFDLean.JST1.coefOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.coefOn -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.entropyVars -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.fluxPot -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.ismailRoe -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.ismailRoe -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.ismailRoe -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.ismailRoe -> CFDLean.Num.logMean
+JST1DEP CFDLean.JST1.lamHat -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.lamHat -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.lamHat -> CFDLean.Num.WMesh.nuOf
+JST1DEP CFDLean.JST1.lamHat -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.lamHat -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.mom -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.nSplit -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.nSplit -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.nsFlux -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.nsFlux -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.physFlux -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.physFlux -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.physFlux -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.pressFlux -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.pressFlux -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.pressure -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.primState -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.primState -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.primState -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.radFull -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.radFull -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.radFull -> CFDLean.Num.dot
+JST1DEP CFDLean.JST1.radFull -> CFDLean.Num.len
+JST1DEP CFDLean.JST1.vel -> CFDLean.Num.Vec
+JST1DEP CFDLean.JST1.viscFlux -> CFDLean.Num.Vec
