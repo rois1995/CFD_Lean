@@ -7,3 +7,6 @@
 - Consequence: MC-T is pushed on branch `core-v436` without an independent human review. Its status is
   "implemented, self-checked (AI statement review), not independently accepted; review waived by the user".
   This record does not accept any result. `main` and the accepted pins are unchanged; merging is the user's decision.
+- 2026-11-25, the user: "I allow you to merge with main whenever you feel confident to do so". Merge condition used
+  by the agent: verifier and fixtures green on the merge result, AI statement review without blocking findings,
+  pushed branch first.
