@@ -58,7 +58,7 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
                   "Time")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending"}
+                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
 # to its definitions and theorems,
@@ -88,6 +88,13 @@ BURGERS = {
            "challenge": "Challenges/BurgersB2.lean",
            "challenge_sha256": "ae6053bc7aef69b19bd1a34cf54eb7aee63cb604169708674b16356484644f24",
            "count": 23, "bridges": 7},
+    "B3": {"results": "specifications/Burgers-B3-results.json",
+           "approved": "9dedd67443d87cce0cca530fd0b4c8f9b6d7d21e",
+           "statements": "CFDLean/Verification/BurgersB3Challenge.lean",
+           "statements_sha256": "977a2e63064d9667d94b136cff163e201be25028d81449efc54c1c152abf4d8d",
+           "challenge": "Challenges/BurgersB3.lean",
+           "challenge_sha256": "c6640bad33466c96c48d13da23e43ce55df18db39efa9f91aa133ab6b08fd357",
+           "count": 24, "bridges": 8},
 }
 
 

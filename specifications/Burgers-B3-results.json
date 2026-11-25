@@ -1,0 +1,238 @@
+{
+  "contract": "specifications/Burgers-B3.md",
+  "contract_sha256": "a53a3f70f259bc7aa484e02241ada5108f6812aed59a7afd470394a33610bd00",
+  "approval_record": "specifications/Burgers-B3-approval.md",
+  "approved_revision": "9dedd67443d87cce0cca530fd0b4c8f9b6d7d21e",
+  "source_map": "references/Burgers-B3.md",
+  "trusted_statement_review": "reviews/Burgers-B3/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "B3-L",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.MinmodBounded",
+        "CFDLean.Scalar.FiniteVolume.minmod"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.zero_minmodBounded"
+      ]
+    },
+    {
+      "id": "B3-R",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.FiniteVolume.musclFlux",
+        "CFDLean.Scalar.FiniteVolume.musclRhs"
+      ],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.half_slope_mem"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.musclRhs_zero",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero",
+        "CFDLean.Scalar.FiniteVolume.musclRhs_constant",
+        "CFDLean.Scalar.FiniteVolume.leftState_mem",
+        "CFDLean.Scalar.FiniteVolume.rightState_mem"
+      ]
+    },
+    {
+      "id": "B3-K",
+      "definitions": [
+        "CFDLean.Scalar.LipschitzOnBounds"
+      ],
+      "supporting": [
+        "CFDLean.Scalar.LipschitzOnBounds.nonneg",
+        "CFDLean.Burgers.Rusanov.waveSpeed_abs_le",
+        "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds"
+      ],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_left",
+        "CFDLean.Burgers.Rusanov.eval_lipschitz_right",
+        "CFDLean.Burgers.Rusanov.lipschitzOnBounds"
+      ]
+    },
+    {
+      "id": "B3-I",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.slope_combo",
+        "CFDLean.Scalar.FiniteVolume.sign_transfer",
+        "CFDLean.Scalar.FiniteVolume.exists_ratio",
+        "CFDLean.Scalar.FiniteVolume.rightState_sub",
+        "CFDLean.Scalar.FiniteVolume.leftState_sub",
+        "CFDLean.Scalar.FiniteVolume.flux_right_increment",
+        "CFDLean.Scalar.FiniteVolume.flux_left_increment",
+        "CFDLean.Scalar.FiniteVolume.muscl_incremental_false_without_nonneg"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.muscl_incremental"
+      ]
+    },
+    {
+      "id": "B3-T",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.muscl_step_eq_self_of_le",
+        "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_mem"
+      ]
+    },
+    {
+      "id": "B3-S",
+      "definitions": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step"
+      ],
+      "supporting": [
+        "CFDLean.Burgers.Rusanov.cfl_of_six",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_mem",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmod_iterate_stable"
+      ],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_constant",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_constant",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_constant"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Scalar.LipschitzOnBounds": "CFDLean.Schemes.Scalar.Lipschitz",
+    "CFDLean.Scalar.LipschitzOnBounds.nonneg": "CFDLean.Schemes.Scalar.Lipschitz",
+    "CFDLean.Scalar.FiniteVolume.MinmodBounded": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.minmod": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.slope": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.leftState": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.rightState": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.musclFlux": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.musclRhs": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.zero_minmodBounded": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.musclRhs_zero": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.musclRhs_constant": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.half_slope_mem": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.leftState_mem": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.rightState_mem": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.slope_combo": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.sign_transfer": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.exists_ratio": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.rightState_sub": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.leftState_sub": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.flux_right_increment": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.flux_left_increment": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.muscl_incremental": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.muscl_incremental_false_without_nonneg": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.muscl_step_eq_self_of_le": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Scalar.FiniteVolume.muscl_step_mem": "CFDLean.Discrete.Periodic.Muscl",
+    "CFDLean.Burgers.Rusanov.waveSpeed_abs_le": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.eval_lipschitz_left": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.eval_lipschitz_right": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.lipschitzOnBounds": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.cfl_of_six": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_mem": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_mem": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_minmod_totalVariation_le": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmod_iterate_stable": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_sum": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_constant": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_constant": "CFDLean.Schemes.Burgers.RusanovMuscl",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_constant": "CFDLean.Schemes.Burgers.RusanovMuscl"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersB3Challenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersB3Challenge",
+    "statements_sha256": "977a2e63064d9667d94b136cff163e201be25028d81449efc54c1c152abf4d8d",
+    "bridge_module": "CFDLean.Verification.BurgersB3Verify",
+    "comparator_challenge": "Challenges/BurgersB3.lean",
+    "comparator_challenge_module": "Challenges.BurgersB3",
+    "comparator_challenge_sha256": "c6640bad33466c96c48d13da23e43ce55df18db39efa9f91aa133ab6b08fd357",
+    "comparator_config": "Challenges/BurgersB3.comparator.json",
+    "bindings": [
+      {
+        "id": "B3-L",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MinmodProperties",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.minmod_properties",
+        "type": "CFDLean.Verification.BurgersB3Challenge.MinmodProperties",
+        "uses": "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded"
+      },
+      {
+        "id": "B3-K",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz",
+        "type": "CFDLean.Verification.BurgersB3Challenge.RusanovLipschitz",
+        "uses": "CFDLean.Burgers.Rusanov.eval_lipschitz_left"
+      },
+      {
+        "id": "B3-S",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.muscl_euler_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclEulerMultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable"
+      },
+      {
+        "id": "B3-S",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2MultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable"
+      },
+      {
+        "id": "B3-S",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3MultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable"
+      },
+      {
+        "id": "B3-S",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.muscl_euler_conservation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclEulerConservation I",
+        "uses": "CFDLean.Burgers.Rusanov.musclEulerStep_sum"
+      },
+      {
+        "id": "B3-S",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_conservation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK2Conservation I",
+        "uses": "CFDLean.Burgers.Rusanov.musclSsprk2Step_sum"
+      },
+      {
+        "id": "B3-S",
+        "statement": "CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation",
+        "theorem": "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_conservation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3Challenge.MusclSSPRK3Conservation I",
+        "uses": "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum"
+      }
+    ]
+  }
+}

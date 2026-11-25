@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-295 promised theorems, grouped by layer.
+319 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -35,12 +35,13 @@ independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on bran
 - `method-free`: pure algebra/analysis of states, fluxes, the Roe matrix, the log mean, single-simplex calculus,
   primal-mesh combinatorics and facet/side balance, entropy-production calculus, and the pointwise Euler step.
 
-**Burgers** (milestones `B0`, `B1`, `B2`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B2-results.json`: the scalar two-point-flux finite-volume
-core on a periodic grid, the incremental-form stability lemmas and the convexity of bounded states and of the total
-variation (Discrete operators, Schemes), the Burgers Rusanov flux (Schemes), the Forward Euler step, its stability
-under a CFL hypothesis, the generic SSP Runge-Kutta composition and the multi-step results (Time). `FVM` marks the
-periodic finite-volume statements; the generic time-stepping statements are `method-free`.
+**Burgers** (milestones `B0` .. `B3`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B3-results.json`: the scalar two-point-flux finite-volume
+core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
+variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
+Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
+Runge-Kutta composition and the multi-step results (Time). `FVM` marks the periodic finite-volume statements; the
+generic time-stepping statements are `method-free`.
 
 **Source.** The contract or result map and the result ID (with stage, or the JST statement for MC-N).
 
@@ -53,17 +54,17 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 8 | 0 | 0 | 0 | 8 |
 | Geometry | 47 | 0 | 35 | 2 | 10 |
-| Discrete operators | 34 | 5 | 21 | 8 | 0 |
+| Discrete operators | 42 | 5 | 29 | 8 | 0 |
 | Entropy framework | 5 | 0 | 4 | 0 | 1 |
 | Physics models | 67 | 0 | 0 | 0 | 67 |
-| Schemes | 68 | 0 | 59 | 1 | 8 |
-| Time | 66 | 0 | 46 | 0 | 20 |
-| **Total** | 295 | 5 | 165 | 11 | 114 |
+| Schemes | 71 | 0 | 62 | 1 | 8 |
+| Time | 79 | 0 | 59 | 0 | 20 |
+| **Total** | 319 | 5 | 189 | 11 | 114 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 16 |
-| FVM | 176 |
+| FVM | 200 |
 | method-free | 114 |
 
 | Milestone | Status | Theorems |
@@ -77,6 +78,7 @@ that this file equals the generated text. Do not edit by hand.
 | B0 | pending | 12 |
 | B1 | pending | 9 |
 | B2 | pending | 23 |
+| B3 | pending | 24 |
 
 ## Foundations (8)
 
@@ -143,7 +145,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2` | MC-N.P3-11.4b | method-free | candidate | On a mesh of nondegenerate triangles side balance implies facet balance. |
 | `CFDLean.Num.dualFacets_grad` | MC-N.P1-5.6 | FEM + FVM | candidate | The median-dual facets of a tetrahedron (and of a triangle) are (\|T\|/(d+1))(g_k − g_i) in terms of P1 gradients. |
 
-## Discrete operators (34)
+## Discrete operators (42)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -181,6 +183,14 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds` | B1-X | FVM | pending | An incremental-form update with C_i, D_{i-1} ≥ 0 and C_i + D_{i-1} ≤ 1 keeps every lower and upper bound of the old state at cell i. |
 | `CFDLean.Scalar.FiniteVolume.boundedStates_convex` | B2-B | FVM | pending | The set of cell functions with m ≤ u_j ≤ M in every cell is convex. |
 | `CFDLean.Scalar.FiniteVolume.totalVariation_convexOn` | B2-B | FVM | pending | The periodic total variation is a convex functional on every convex set of states. |
+| `CFDLean.Scalar.FiniteVolume.minmod_minmodBounded` | B3-L | FVM | pending | The minmod limiter has the sign of both differences and is not larger than either in absolute value. |
+| `CFDLean.Scalar.FiniteVolume.zero_minmodBounded` | B3-L | FVM | pending | The zero limiter (first-order reconstruction) satisfies the limiter certificate. |
+| `CFDLean.Scalar.FiniteVolume.musclRhs_zero` | B3-R | FVM | pending | With the zero limiter the MUSCL right-hand side is the first-order flux-difference right-hand side. |
+| `CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero` | B3-R | FVM | pending | The periodic MUSCL right-hand side sums to zero for every two-point flux and every limiter. |
+| `CFDLean.Scalar.FiniteVolume.musclRhs_constant` | B3-R | FVM | pending | The MUSCL right-hand side is zero on a constant state, for every flux and every limiter. |
+| `CFDLean.Scalar.FiniteVolume.leftState_mem` | B3-R | FVM | pending | With a limiter in the minmod region the reconstructed left state of an interface keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Scalar.FiniteVolume.rightState_mem` | B3-R | FVM | pending | With a limiter in the minmod region the reconstructed right state of an interface keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Scalar.FiniteVolume.muscl_incremental` | B3-I | FVM | pending | For a monotone flux that is Lipschitz on bounded states and a limiter in the minmod region, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(3/2)KR and 0 ≤ D ≤ (dt/dx)(3/2)KL. |
 
 ## Entropy framework (5)
 
@@ -264,7 +274,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Roe.Spectral.roe_swap` | M2-O | method-free | accepted | The shifted Roe matrix, projectors and dissipation are symmetric in the two states. |
 | `CFDLean.Boundary.wall_pressure_pos` | M4-W | method-free | accepted | An admissible state has positive pressure. |
 
-## Schemes (68)
+## Schemes (71)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -336,8 +346,11 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed` | B1-I | FVM | pending | The mean of two states is bounded in absolute value by the Rusanov wave speed max(\|a\|, \|b\|). |
 | `CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate` | B1-I | FVM | pending | The Burgers Rusanov Forward Euler step is in incremental form with C = (dt/dx)(a − ū)/2 and D = (dt/dx)(a + ū)/2. |
 | `CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds` | B2-B | FVM | pending | For states between m and M the Rusanov wave speed is at most max(\|m\|, \|M\|). |
+| `CFDLean.Burgers.Rusanov.eval_lipschitz_left` | B3-K | FVM | pending | For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the left state with constant 2A. |
+| `CFDLean.Burgers.Rusanov.eval_lipschitz_right` | B3-K | FVM | pending | For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the right state with constant 2A. |
+| `CFDLean.Burgers.Rusanov.lipschitzOnBounds` | B3-K | FVM | pending | Lipschitz certificate of the Burgers Rusanov flux on states between m and M with constants 2 max(\|m\|, \|M\|). |
 
-## Time (66)
+## Time (79)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -407,3 +420,16 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.ssprk3Step_sum` | B2-S | FVM | pending | For dx ≠ 0 one Burgers Rusanov SSPRK3 step keeps the total sum of the cell values. |
 | `CFDLean.Burgers.Rusanov.ssprk2Step_constant` | B2-S | FVM | pending | One Burgers Rusanov SSPRK2 step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.ssprk3Step_constant` | B2-S | FVM | pending | One Burgers Rusanov SSPRK3 step keeps every constant state. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le` | B3-T | FVM | pending | Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step does not increase the total variation of a state with m ≤ u ≤ M. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_mem` | B3-T | FVM | pending | Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_mem` | B3-S | FVM | pending | Under 6 · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step keeps the bounds, for every limiter in the minmod region. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le` | B3-S | FVM | pending | Under 6 · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step does not increase the total variation. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable` | B3-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with one dt from the initial bounds. |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable` | B3-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable` | B3-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_sum` | B3-S | FVM | pending | For dx ≠ 0 one MUSCL-Rusanov Forward Euler step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_sum` | B3-S | FVM | pending | For dx ≠ 0 one MUSCL-Rusanov SSPRK2 step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_sum` | B3-S | FVM | pending | For dx ≠ 0 one MUSCL-Rusanov SSPRK3 step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_constant` | B3-S | FVM | pending | One MUSCL-Rusanov Forward Euler step keeps every constant state. |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
