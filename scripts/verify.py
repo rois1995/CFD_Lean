@@ -58,7 +58,22 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
                   "Time")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate"}
+                  "MC-N": "candidate", "JST1": "candidate"}
+# MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
+# and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
+# the 92 bindings of the P1-P3 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
+# by the audit run) and its theorem is a root theorem with standard axioms in its module; a binding with a
+# `core_theorem` (the 37 MC-N statements) must use that MC-N theorem directly. CFDLean/Papers has no forbidden token.
+JST1_RESULTS = (("specifications/JST1/P1-results.json", 36), ("specifications/JST1/P2-results.json", 36),
+                ("specifications/JST1/P3-results.json", 20))
+JST1_COUNT = 92
+JST1_ROOT = "CFDLean/Papers/JST1/"
+JST1_FROZEN = "specifications/JST1/frozen.sha256"
+JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"
+JST1_ID = re.compile(r"P[1-3]-[0-9]+\.[0-9]+[a-z]?")
+FORBIDDEN_ROOT = "CFDLean/Papers"
+FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|^\s*(private |protected )?axiom\b|native_decide|implemented_by|\bunsafe\b"
+                       r"|\bopaque\b|@\[extern", re.MULTILINE)
 
 
 def load_port_map(data):
@@ -419,8 +434,96 @@ def load_catalog_renderer():
     return module.render
 
 
+def load_jst1_frozen(data):
+    """The pinned JST1 frozen list as {path: sha256}; every listed path is a Lean file of the paper or of the core."""
+    if hashlib.sha256(data).hexdigest() != JST1_FROZEN_SHA256:
+        raise ValueError("JST1 frozen hash list differs from the pinned list")
+    entries = {}
+    for line in data.decode().splitlines():
+        match = re.fullmatch(r"([0-9a-f]{64})  (CFDLean/\S+\.lean)", line)
+        if match is None or match.group(2) in entries:
+            raise ValueError(f"Malformed JST1 frozen hash line: {line!r}")
+        entries[match.group(2)] = match.group(1)
+    if not entries:
+        raise ValueError("Empty JST1 frozen hash list")
+    return entries
+
+
+def check_jst1_frozen(entries, read, paths):
+    """Every frozen file has its hash, and every JST1 statement or definition file (all of CFDLean/Papers/JST1 except
+    Proofs/) is frozen."""
+    for path, digest in sorted(entries.items()):
+        try:
+            data = read(path)
+        except (OSError, KeyError):
+            raise ValueError(f"JST1 frozen file missing: {path}")
+        if hashlib.sha256(data).hexdigest() != digest:
+            raise ValueError(f"JST1 frozen file changed: {path}")
+    unfrozen = [path for path in paths if path.startswith(JST1_ROOT) and not path.startswith(JST1_ROOT + "Proofs/")
+                and path not in entries]
+    if unfrozen:
+        raise ValueError(f"JST1 statement or definition file not frozen: {unfrozen[0]}")
+    return len(entries)
+
+
+def check_jst1(rows, records, audit_text, core_theorems):
+    """The 92 JST1 bindings: unique IDs and names in CFDLean.JST1, each bound in the audit, each a root theorem with
+    standard axioms in its module, the statement a definition, and a delegated binding uses its MC-N theorem."""
+    bindings = [(result_id, binding) for record in records for result_id, binding in record["bindings"].items()]
+    ids = [result_id for result_id, _ in bindings]
+    names = [binding["theorem"] for _, binding in bindings]
+    if (len(bindings) != JST1_COUNT or len(set(ids)) != len(ids) or len(set(names)) != len(names)
+            or any(not JST1_ID.fullmatch(result_id) for result_id in ids)):
+        raise ValueError("JST1 result bindings differ from the frozen scope")
+    bound = set(re.findall(r"^example : (\S+) := (\S+)$", audit_text, re.MULTILINE))
+    delegated = []
+    for result_id, binding in bindings:
+        statement, name = binding["statement"], binding["theorem"]
+        if not statement.startswith("CFDLean.JST1.Spec.") or not name.startswith("CFDLean.JST1.Proofs."):
+            raise ValueError(f"JST1 binding outside the paper namespace: {result_id}")
+        if (statement, name) not in bound:
+            raise ValueError(f"JST1 binding not in the kernel audit: {result_id}")
+        row = rows.get(name)
+        if (row is None or row["kind"] != "theorem" or not row["root"] or row["unsafe"]
+                or set(row["axioms"]) - ALLOWED):
+            raise ValueError(f"Missing JST1 theorem: {name}")
+        if row["module"] != binding["module"] or binding["file"] != binding["module"].replace(".", "/") + ".lean":
+            raise ValueError(f"JST1 theorem outside its module: {name}")
+        if rows.get(statement, {}).get("kind") != "definition":
+            raise ValueError(f"JST1 statement is not a definition: {statement}")
+        core = binding.get("core_theorem")
+        if core is not None:
+            if core not in core_theorems or core not in row["direct"]:
+                raise ValueError(f"JST1 delegation does not use its MC-N theorem: {name}")
+            delegated.append(name)
+    return sorted(names), sorted(delegated)
+
+
+def check_forbidden_tokens(paths, read):
+    """No forbidden token (sorry, admit, axiom declarations, native_decide, implemented_by, extern, opaque, unsafe) in
+    the paper sources."""
+    for path in paths:
+        match = FORBIDDEN.search(read(path).decode())
+        if match:
+            raise ValueError(f"Forbidden token {match.group(0).strip()!r} in {path}")
+    if not paths:
+        raise ValueError("No source scanned for forbidden tokens")
+    return len(paths)
+
+
+def jst1_catalog_index(records):
+    """JST1 theorem name -> ("JST1", result ID)."""
+    index = {}
+    for record in records:
+        for result_id, binding in record["bindings"].items():
+            if binding["theorem"] in index:
+                raise ValueError(f"Promised theorem bound twice: {binding['theorem']}")
+            index[binding["theorem"]] = ("JST1", result_id)
+    return index
+
+
 def git_blob(revision, path):
-    return subprocess.check_output(["git", "show", f"{revision}:{path}"])
+    return subprocess.check_output(["git", "show", f"{revision}:{path}"], stderr=subprocess.DEVNULL)
 
 
 def main():
@@ -504,21 +607,34 @@ def main():
     if hashlib.sha256(mcn_spec).hexdigest() != mcn["specification_sha256"]:
         raise ValueError("MC-N scope differs from the recorded specification")
     mcn_promised = check_mc_n(rows, mcn, promised, mcn_spec.decode())
+    lean_sources = sorted(str(path.relative_to(ROOT)) for path in (ROOT / "CFDLean").rglob("*.lean"))
+    jst1 = []
+    for path, count in JST1_RESULTS:
+        record = json.loads((ROOT / path).read_text())
+        if len(record["bindings"]) != count or record["frozen_hashes"] != JST1_FROZEN:
+            raise ValueError(f"JST1 result map differs from the frozen scope: {path}")
+        jst1.append(record)
+    jst1_frozen = check_jst1_frozen(load_jst1_frozen((ROOT / JST1_FROZEN).read_bytes()), read_source, lean_sources)
+    jst1_promised, jst1_delegated = check_jst1(rows, jst1, (ROOT / "KernelAudit.lean").read_text(), mcn_promised)
+    if set(jst1_promised) & (set(promised) | set(mcn_promised)):
+        raise ValueError("JST1 rebinds an M1-M5 or MC-N promised theorem")
+    forbidden_scanned = check_forbidden_tokens(
+        [path for path in lean_sources if path.startswith(FORBIDDEN_ROOT + "/")], read_source)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
-    for milestone, record in [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)]:
-        index = catalog_index(milestone, record)
+    for milestone, index in [(m, catalog_index(m, r)) for m, r in
+                             [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)]] + [
+                                ("JST1", jst1_catalog_index(jst1))]:
         if set(index) & set(catalog_expected):
             raise ValueError(f"{milestone} rebinds a theorem promised by another milestone")
         catalog_expected.update(index)
     if {name for name, (milestone, _) in catalog_expected.items() if milestone != "M1"} != set(promised) | set(
-            mcn_promised):
+            mcn_promised) | set(jst1_promised):
         raise ValueError("Catalog promise index differs from the active promised theorems")
     catalog = json.loads((ROOT / CATALOG).read_text(encoding="utf-8"))
     catalog_entries = check_catalog(catalog, catalog_expected, rows)
     check_catalog_readme(catalog, (ROOT / CATALOG_README).read_text(encoding="utf-8"), load_catalog_renderer())
     mcn_sources = check_mc_n_sources(
-        sorted(str(path.relative_to(ROOT)) for path in (ROOT / "CFDLean").rglob("*.lean")),
-        read_source, lambda path: git_blob(MC_N_BASE_REVISION, path), moves)
+        lean_sources, read_source, lambda path: git_blob(MC_N_BASE_REVISION, path), moves)
     inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
     accepted_m3 = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M3-results.json"))
     inherited.update(check_m3_inherited(rows, m3, accepted_m3, accepted_evidence))
@@ -584,10 +700,14 @@ def main():
         "mc_n_results": MC_N_RESULTS, "mc_n_promised_theorems": mcn_promised,
         "mc_n_base_revision": MC_N_BASE_REVISION, "mc_n_unchanged_sources": mcn_sources,
         "catalog": CATALOG, "catalog_entries": catalog_entries,
-        "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files
+        "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
+        "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
+        "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,
+        "forbidden_token_scan": {"root": FORBIDDEN_ROOT, "files": forbidden_scanned}
     }, indent=2) + "\n")
     print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, "
-          f"{len(mcn_promised)} MC-N theorems, {catalog_entries} catalog entries, and all pinned dependencies.")
+          f"{len(mcn_promised)} MC-N theorems, {len(jst1_promised)} JST1 theorems ({len(jst1_delegated)} delegated to "
+          f"MC-N), {catalog_entries} catalog entries, and all pinned dependencies.")
 
 
 if __name__ == "__main__":

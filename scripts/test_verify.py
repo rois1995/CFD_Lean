@@ -379,6 +379,7 @@ class CatalogTests(unittest.TestCase):
             {"id": "M5-U", "stage": "M5", "declarations": ["CFDLean.Time.u"]}]}))
         self.expected.update(verify.catalog_index("MC-N", {"results": [
             {"id": "MC-N.P1-2.4", "theorem": "CFDLean.Num.n", "module": "CFDLean.Foundations.LogMean"}]}))
+        self.expected.update(verify.jst1_catalog_index([{"bindings": {"P1-2.4": {"theorem": "CFDLean.JST1.Proofs.p"}}}]))
         self.rows, entries = {}, []
         for name, (milestone, result_id) in self.expected.items():
             row = record(name)
@@ -403,7 +404,7 @@ class CatalogTests(unittest.TestCase):
             verify.catalog_index("M2", {"results": [{"id": "M2-J", "stage": "M2a", "declarations": ["A.x", "A.x"]}]})
 
     def test_exact_cover_accepted(self):
-        self.assertEqual(verify.check_catalog(self.catalog, self.expected, self.rows), 6)
+        self.assertEqual(verify.check_catalog(self.catalog, self.expected, self.rows), 7)
 
     def test_missing_extra_or_duplicate_rejected(self):
         entries = self.catalog["theorems"]
@@ -416,9 +417,11 @@ class CatalogTests(unittest.TestCase):
         m2 = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "M2")
         m1 = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "M1")
         mcn = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "MC-N")
+        jst1 = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "JST1")
         for index, change in [(m2, {"layer": "Numerics"}), (m2, {"methods": []}), (m2, {"methods": ["FVM", "FEM"]}),
                               (m2, {"methods": ["FEM", "method-free"]}), (m2, {"methods": "FVM"}),
-                              (m2, {"status": "pending"}), (mcn, {"status": "accepted"}), (m2, {"milestone": "M3"}),
+                              (m2, {"status": "pending"}), (mcn, {"status": "accepted"}),
+                              (jst1, {"status": "accepted"}), (jst1, {"id": "P1-2.5"}), (jst1, {"milestone": "MC-N"}), (m2, {"milestone": "M3"}),
                               (m2, {"id": "M2-A"}), (m1, {"id": "M2-J"}), (m2, {"summary": " "}),
                               (m2, {"module": "Other"}), (m2, {"extra": 1})]:
             with self.assertRaises(ValueError, msg=str(change)):
@@ -432,12 +435,12 @@ class CatalogTests(unittest.TestCase):
     def test_both_methods_and_method_free_accepted(self):
         catalog = self.mutated(0, methods=["FEM", "FVM"])
         catalog["theorems"][1]["methods"] = ["method-free"]
-        self.assertEqual(verify.check_catalog(catalog, self.expected, self.rows), 6)
+        self.assertEqual(verify.check_catalog(catalog, self.expected, self.rows), 7)
 
     def test_readme_must_equal_generated_text(self):
         render = verify.load_catalog_renderer()
         text = render(self.catalog)
-        self.assertIn("## Geometry (6)", text)
+        self.assertIn("## Geometry (7)", text)
         verify.check_catalog_readme(self.catalog, text, render)
         with self.assertRaises(ValueError):
             verify.check_catalog_readme(self.catalog, text + "edit\n", render)
@@ -449,12 +452,159 @@ class CatalogTests(unittest.TestCase):
                                 ("M4", "specifications/M4-results.json"), ("M5", "specifications/M5-results.json"),
                                 ("MC-N", verify.MC_N_RESULTS)]:
             expected.update(verify.catalog_index(milestone, json.loads((root / path).read_text())))
+        expected.update(verify.jst1_catalog_index([json.loads((root / path).read_text())
+                                                   for path, _ in verify.JST1_RESULTS]))
         catalog = json.loads((root / verify.CATALOG).read_text(encoding="utf-8"))
-        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT)
+        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT + verify.JST1_COUNT)
         rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
         self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
         verify.check_catalog_readme(catalog, (root / verify.CATALOG_README).read_text(encoding="utf-8"),
                                     verify.load_catalog_renderer())
+
+
+class JST1Tests(unittest.TestCase):
+    def setUp(self):
+        self.records, self.rows, lines = [], {}, []
+        for paper, count in [("P1", 36), ("P2", 36), ("P3", 20)]:
+            bindings = {}
+            for i in range(count):
+                rid, suffix = f"{paper}-{i // 10 + 1}.{i % 10}", f"{paper}_{i}"
+                module = "CFDLean.Papers.JST1.Proofs.Item" + paper
+                binding = {"statement": f"CFDLean.JST1.Spec.{suffix}", "theorem": f"CFDLean.JST1.Proofs.p{suffix}",
+                           "file": module.replace(".", "/") + ".lean", "module": module}
+                row = record(binding["theorem"], ["propext"])
+                row.update(module=module, direct=[])
+                if paper == "P1" and i < 5:
+                    binding["core_theorem"] = f"CFDLean.Num.c{i}"
+                    row["direct"] = [binding["core_theorem"]]
+                self.rows[binding["theorem"]] = row
+                self.rows[binding["statement"]] = dict(record(binding["statement"]), kind="definition", root=True)
+                bindings[rid] = binding
+                lines.append(f"example : {binding['statement']} := {binding['theorem']}")
+            self.records.append({"bindings": bindings})
+        self.audit = "import Integrity\n" + "\n".join(lines) + "\n"
+        self.core = [f"CFDLean.Num.c{i}" for i in range(5)]
+
+    def check(self, records=None, rows=None, audit=None):
+        return verify.check_jst1(self.rows if rows is None else rows, self.records if records is None else records,
+                                 self.audit if audit is None else audit, self.core)
+
+    def mutated_binding(self, **change):
+        records = json.loads(json.dumps(self.records))
+        records[0]["bindings"]["P1-1.0"].update(change)
+        return records
+
+    def test_all_bindings_accepted(self):
+        names, delegated = self.check()
+        self.assertEqual((len(names), len(delegated)), (verify.JST1_COUNT, 5))
+
+    def test_binding_must_be_in_audit(self):
+        line = "example : CFDLean.JST1.Spec.P1_0 := CFDLean.JST1.Proofs.pP1_0\n"
+        self.assertIn(line, self.audit)
+        for audit in [self.audit.replace(line, ""), self.audit.replace(line, "-- " + line),
+                      self.audit.replace(line, line.replace("pP1_0", "pP1_1"))]:
+            with self.assertRaises(ValueError):
+                self.check(audit=audit)
+
+    def test_theorem_kind_axioms_module_and_statement(self):
+        name, statement = "CFDLean.JST1.Proofs.pP1_7", "CFDLean.JST1.Spec.P1_7"
+        for mutate in [lambda rows: rows.pop(name), lambda rows: rows[name].update(kind="definition"),
+                       lambda rows: rows[name].update(root=False), lambda rows: rows[name].update(unsafe=True),
+                       lambda rows: rows[name].update(axioms=["sorryAx"]),
+                       lambda rows: rows[name].update(axioms=["propext", "CFDLean.myAxiom"]),
+                       lambda rows: rows[name].update(module="CFDLean.Papers.JST1.Proofs.Other"),
+                       lambda rows: rows[statement].update(kind="theorem"), lambda rows: rows.pop(statement)]:
+            rows = json.loads(json.dumps(self.rows))
+            mutate(rows)
+            with self.assertRaises(ValueError):
+                self.check(rows=rows)
+        rows = json.loads(json.dumps(self.rows))
+        rows[name]["axioms"] = ["Quot.sound", "Classical.choice", "propext"]
+        self.check(rows=rows)
+
+    def test_delegation_must_use_core_theorem(self):
+        rows = json.loads(json.dumps(self.rows))
+        rows["CFDLean.JST1.Proofs.pP1_0"]["direct"] = []
+        with self.assertRaises(ValueError):
+            self.check(rows=rows)
+        with self.assertRaises(ValueError):
+            self.check(records=self.mutated_binding(core_theorem="CFDLean.Num.other"))
+
+    def test_scope_ids_and_namespace(self):
+        records = json.loads(json.dumps(self.records))
+        del records[2]["bindings"]["P3-1.0"]
+        bad = [records, self.records + [{"bindings": {"P4-1.0": self.records[0]["bindings"]["P1-1.0"]}}],
+               self.mutated_binding(theorem="CFDLean.JST1.Proofs.pP1_1"),
+               self.mutated_binding(statement="Paper1.Spec.P1_0"),
+               self.mutated_binding(file="CFDLean/Papers/JST1/Proofs/Other.lean")]
+        renamed = json.loads(json.dumps(self.records))
+        renamed[0]["bindings"]["P1-x"] = renamed[0]["bindings"].pop("P1-1.0")
+        for records in bad + [renamed]:
+            with self.assertRaises(ValueError):
+                self.check(records=records)
+
+    def test_frozen_list_pinned_and_well_formed(self):
+        data = (verify.ROOT / verify.JST1_FROZEN).read_bytes()
+        entries = verify.load_jst1_frozen(data)
+        self.assertIn("CFDLean/Papers/JST1/Spec/Item1.lean", entries)
+        self.assertTrue(all(not path.startswith("CFDLean/Papers/JST1/Proofs/") for path in entries))
+        with self.assertRaises(ValueError):
+            verify.load_jst1_frozen(data + b"0" * 64 + b"  CFDLean/Papers/JST1/Spec/New.lean\n")
+        original = verify.JST1_FROZEN_SHA256
+        try:
+            for bad in [b"", b"abc  CFDLean/A.lean\n", b"0" * 64 + b" CFDLean/A.lean\n",
+                        b"0" * 64 + b"  scripts/A.py\n", (b"0" * 64 + b"  CFDLean/A.lean\n") * 2]:
+                verify.JST1_FROZEN_SHA256 = verify.hashlib.sha256(bad).hexdigest()
+                with self.assertRaises(ValueError, msg=bad):
+                    verify.load_jst1_frozen(bad)
+        finally:
+            verify.JST1_FROZEN_SHA256 = original
+
+    def test_frozen_hashes_and_coverage(self):
+        files = {"CFDLean/Papers/JST1/Spec/A.lean": b"def P : Prop := True\n",
+                 "CFDLean/Papers/JST1/Proofs/A.lean": b"theorem p : P := trivial\n",
+                 "CFDLean/Geometry/Simplex.lean": b"def cross3 := 0\n"}
+        entries = {path: verify.hashlib.sha256(data).hexdigest() for path, data in files.items() if "Proofs" not in path}
+        self.assertEqual(verify.check_jst1_frozen(entries, files.__getitem__, sorted(files)), 2)
+        for changed in [dict(files, **{"CFDLean/Papers/JST1/Spec/A.lean": b"def P : Prop := False\n"}),
+                        dict(files, **{"CFDLean/Geometry/Simplex.lean": b"def cross3 := 1\n"}),
+                        {k: v for k, v in files.items() if k != "CFDLean/Geometry/Simplex.lean"}]:
+            with self.assertRaises(ValueError):
+                verify.check_jst1_frozen(entries, changed.__getitem__, sorted(changed))
+        extra = dict(files, **{"CFDLean/Papers/JST1/Euler/New.lean": b"def x := 0\n"})
+        with self.assertRaises(ValueError):
+            verify.check_jst1_frozen(entries, extra.__getitem__, sorted(extra))
+
+    def test_forbidden_tokens(self):
+        clean = {"CFDLean/Papers/JST1/A.lean": b"theorem t : True := trivial -- the axioms are printed\n"}
+        self.assertEqual(verify.check_forbidden_tokens(sorted(clean), clean.__getitem__), 1)
+        for text in [b"theorem t : False := sorry\n", b"theorem t : False := by admit\n", b"axiom bad : False\n",
+                     b"  private axiom bad : False\n", b"example : 2 = 2 := by native_decide\n",
+                     b"@[implemented_by f] def g := 0\n", b"unsafe def g := 0\n", b"opaque g : Nat\n",
+                     b"@[extern \"c\"] def g := 0\n"]:
+            files = dict(clean, **{"CFDLean/Papers/JST1/B.lean": text})
+            with self.assertRaises(ValueError, msg=text):
+                verify.check_forbidden_tokens(sorted(files), files.__getitem__)
+        with self.assertRaises(ValueError):
+            verify.check_forbidden_tokens([], clean.__getitem__)
+
+    def test_committed_results_and_audit(self):
+        root = verify.ROOT
+        records = []
+        for path, count in verify.JST1_RESULTS:
+            record = json.loads((root / path).read_text())
+            self.assertEqual((len(record["bindings"]), record["frozen_hashes"]), (count, verify.JST1_FROZEN))
+            records.append(record)
+        audit = (root / "KernelAudit.lean").read_text()
+        rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
+        mcn = [r["theorem"] for r in json.loads((root / verify.MC_N_RESULTS).read_text())["results"]]
+        names, delegated = verify.check_jst1(rows, records, audit, mcn)
+        self.assertEqual((len(names), len(delegated)), (92, 37))
+        sources = sorted(str(p.relative_to(root)) for p in (root / "CFDLean").rglob("*.lean"))
+        verify.check_jst1_frozen(verify.load_jst1_frozen((root / verify.JST1_FROZEN).read_bytes()),
+                                 verify.read_source, sources)
+        papers = [p for p in sources if p.startswith(verify.FORBIDDEN_ROOT + "/")]
+        self.assertEqual(verify.check_forbidden_tokens(papers, verify.read_source), len(papers))
 
 
 class MRLayoutTests(unittest.TestCase):

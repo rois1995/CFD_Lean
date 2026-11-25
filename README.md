@@ -57,10 +57,28 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
 | `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls |
+| `CFDLean/Papers/JST1/` | paper 1 (JST), see below |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
 verifier finds an accepted source at its new path only through this map and accepts it only if it equals the accepted
 (or MC-T port) file except for the `import` header.
+
+## Paper 1 (JST)
+
+Since MR-2 ([MR.md](specifications/MR.md)) the formalization of paper 1 (all 92 statements proved, folded from
+JST_Paper_Lean branch `v436`, commit `afdf4f9`) lives in [`CFDLean/Papers/JST1/`](CFDLean/Papers/JST1) (sub-folders
+`Euler`, `Viscous`, `SST`, `Mixed`, `Geometry`, `Scheme`, `Spec`, `Proofs`; umbrella `CFDLean/Papers/JST1.lean`).
+Namespace `CFDLean.JST1`: statements `CFDLean.JST1.Spec.P*` (`Prop` definitions), proofs `CFDLean.JST1.Proofs.p*`. It
+uses the core `CFDLean.Num` definitions; the 37 proofs whose statement is an MC-N theorem are one-line applications of
+it. The paper's own Euler definitions stay separate from M1.
+
+- Specifications, result maps (`P1`/`P2`/`P3-results.json`), frozen hashes (`frozen.sha256`), `PAPER_GAPS.md`,
+  `REPORT.md`: [`specifications/JST1/`](specifications/JST1); reviews: `reviews/JST1/`.
+- Statement comparison with the JST v4.36 dumps: [`evidence/JST1/fold-diff.md`](evidence/JST1/fold-diff.md)
+  (dump script `scripts/JST1Dump.lean`).
+- `scripts/verify.py` checks the frozen hashes, the 92 bindings in `KernelAudit.lean` (root theorems, standard
+  axioms) and forbidden tokens in `CFDLean/Papers`; the 92 theorems are in the [catalog](catalog/README.md) as
+  milestone `JST1`, status `candidate` (self-checked, AI-reviewed, not independently accepted).
 
 ## Development verification
 

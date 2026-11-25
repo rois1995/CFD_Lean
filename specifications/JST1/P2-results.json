@@ -1,0 +1,250 @@
+{
+  "specification": "specifications/JST1/P2.md",
+  "statements_module": "CFDLean/Papers/JST1/Spec/Item6..10.lean, CFDLean/Papers/JST1/Spec/Addendum2.lean",
+  "frozen_hashes": "specifications/JST1/frozen.sha256",
+  "source": {
+    "repository": "JST_Paper_Lean",
+    "branch": "v436",
+    "revision": "afdf4f9b4f98f089af82074bf7e4db99177844ad",
+    "results": "specifications/P2-results.json",
+    "frozen_hashes": "specifications/P2-frozen.sha256",
+    "toolchain_at_freeze": "leanprover/lean4:v4.19.0",
+    "mathlib_at_freeze": "c44e0c8ee63ca166450922a373c7409c5d26b00b",
+    "cfdlean_at_freeze": "3a586a42546cba1784cc79269e3f9d1c5d843f0c"
+  },
+  "folded": "MR-2 (specifications/MR.md): namespace Paper1 -> CFDLean.JST1, NumCore -> CFDLean.Num; statement comparison in evidence/JST1/fold-diff.md",
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "bindings": {
+    "P2-6.1": {
+      "statement": "CFDLean.JST1.Spec.P2_6_1",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.WMesh.sbp_defect"
+    },
+    "P2-6.2": {
+      "statement": "CFDLean.JST1.Spec.P2_6_2",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.Simplex.median_defect_iff"
+    },
+    "P2-6.3": {
+      "statement": "CFDLean.JST1.Spec.P2_6_3",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.WMesh.conforming_boundary"
+    },
+    "P2-6.4": {
+      "statement": "CFDLean.JST1.Spec.P2_6_4",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.edgeForm_boundary_split"
+    },
+    "P2-6.5": {
+      "statement": "CFDLean.JST1.Spec.P2_6_5",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.WMesh.standardClosure_entropy"
+    },
+    "P2-6.5b": {
+      "statement": "CFDLean.JST1.Spec.P2_6_5b",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_5b",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.WMesh.standardClosure_linear"
+    },
+    "P2-6.6": {
+      "statement": "CFDLean.JST1.Spec.P2_6_6",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6"
+    },
+    "P2-6.7": {
+      "statement": "CFDLean.JST1.Spec.P2_6_7",
+      "theorem": "CFDLean.JST1.Proofs.p2_6_7",
+      "file": "CFDLean/Papers/JST1/Proofs/Item6.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item6",
+      "core_theorem": "CFDLean.Num.WMesh.closed_mean_galerkin"
+    },
+    "P2-7.1": {
+      "statement": "CFDLean.JST1.Spec.P2_7_1",
+      "theorem": "CFDLean.JST1.Proofs.p2_7_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item7.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "core_theorem": "CFDLean.Num.quadratic_edge_expansion"
+    },
+    "P2-7.2": {
+      "statement": "CFDLean.JST1.Spec.P2_7_2",
+      "theorem": "CFDLean.JST1.Proofs.p2_7_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item7.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "core_theorem": "CFDLean.Num.dissTensor_loewner"
+    },
+    "P2-7.3": {
+      "statement": "CFDLean.JST1.Spec.P2_7_3",
+      "theorem": "CFDLean.JST1.Proofs.p2_7_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item7.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7",
+      "core_theorem": "CFDLean.Num.WMesh.dissTensor_trace"
+    },
+    "P2-7.4": {
+      "statement": "CFDLean.JST1.Spec.P2_7_4",
+      "theorem": "CFDLean.JST1.Proofs.p2_7_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item7.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item7"
+    },
+    "P2-8.0": {
+      "statement": "CFDLean.JST1.Spec.P2_8_0",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_0",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8"
+    },
+    "P2-8.1": {
+      "statement": "CFDLean.JST1.Spec.P2_8_1",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "core_theorem": "CFDLean.Num.quadratureClosure_entropy"
+    },
+    "P2-8.2": {
+      "statement": "CFDLean.JST1.Spec.P2_8_2",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "core_theorem": "CFDLean.Num.quadratureClosure_freeStream"
+    },
+    "P2-8.3": {
+      "statement": "CFDLean.JST1.Spec.P2_8_3",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "core_theorem": "CFDLean.Num.quadratureClosure_linear"
+    },
+    "P2-8.4": {
+      "statement": "CFDLean.JST1.Spec.P2_8_4",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8",
+      "core_theorem": "CFDLean.Num.WMesh.faceRule_beta_B"
+    },
+    "P2-8.5": {
+      "statement": "CFDLean.JST1.Spec.P2_8_5",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8"
+    },
+    "P2-8.6": {
+      "statement": "CFDLean.JST1.Spec.P2_8_6",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item8.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item8"
+    },
+    "P2-9.0": {
+      "statement": "CFDLean.JST1.Spec.P2_9_0",
+      "theorem": "CFDLean.JST1.Proofs.p2_9_0",
+      "file": "CFDLean/Papers/JST1/Proofs/Item9.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9"
+    },
+    "P2-9.1": {
+      "statement": "CFDLean.JST1.Spec.P2_9_1",
+      "theorem": "CFDLean.JST1.Proofs.p2_9_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item9.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9"
+    },
+    "P2-9.2": {
+      "statement": "CFDLean.JST1.Spec.P2_9_2",
+      "theorem": "CFDLean.JST1.Proofs.p2_9_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item9.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9"
+    },
+    "P2-9.3": {
+      "statement": "CFDLean.JST1.Spec.P2_9_3",
+      "theorem": "CFDLean.JST1.Proofs.p2_9_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item9.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9"
+    },
+    "P2-9.4": {
+      "statement": "CFDLean.JST1.Spec.P2_9_4",
+      "theorem": "CFDLean.JST1.Proofs.p2_9_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item9.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item9"
+    },
+    "P2-10.1": {
+      "statement": "CFDLean.JST1.Spec.P2_10_1",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.2": {
+      "statement": "CFDLean.JST1.Spec.P2_10_2",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.3": {
+      "statement": "CFDLean.JST1.Spec.P2_10_3",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.4": {
+      "statement": "CFDLean.JST1.Spec.P2_10_4",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.5": {
+      "statement": "CFDLean.JST1.Spec.P2_10_5",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.6": {
+      "statement": "CFDLean.JST1.Spec.P2_10_6",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.7": {
+      "statement": "CFDLean.JST1.Spec.P2_10_7",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_7",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-10.8": {
+      "statement": "CFDLean.JST1.Spec.P2_10_8",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_8",
+      "file": "CFDLean/Papers/JST1/Proofs/Item10.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item10"
+    },
+    "P2-8.0b": {
+      "statement": "CFDLean.JST1.Spec.P2_8_0b",
+      "theorem": "CFDLean.JST1.Proofs.p2_8_0b",
+      "file": "CFDLean/Papers/JST1/Proofs/Addendum2.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2"
+    },
+    "P2-9.2b": {
+      "statement": "CFDLean.JST1.Spec.P2_9_2b",
+      "theorem": "CFDLean.JST1.Proofs.p2_9_2b",
+      "file": "CFDLean/Papers/JST1/Proofs/Addendum2Wall.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2Wall"
+    },
+    "P2-10.8b": {
+      "statement": "CFDLean.JST1.Spec.P2_10_8b",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_8b",
+      "file": "CFDLean/Papers/JST1/Proofs/Addendum2Wall.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2Wall"
+    },
+    "P2-10.8c": {
+      "statement": "CFDLean.JST1.Spec.P2_10_8c",
+      "theorem": "CFDLean.JST1.Proofs.p2_10_8c",
+      "file": "CFDLean/Papers/JST1/Proofs/Addendum2.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Addendum2"
+    }
+  }
+}
