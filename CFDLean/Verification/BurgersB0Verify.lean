@@ -34,12 +34,7 @@ theorem constant_rhs {I : Type*} :
   have hc : Consistent law nf := by
     intro u
     exact hcons u
-  have h := FiniteVolume.rhs_constant g dx c law nf hc i
-  simpa [CFDLean.Verification.BurgersB0Challenge.rhs,
-    CFDLean.Verification.BurgersB0Challenge.interfaceFlux,
-    CFDLean.Verification.BurgersB0Challenge.prev,
-    FiniteVolume.rhs, FiniteVolume.interfaceFlux,
-    PeriodicGrid.prev, g, law, nf] using h
+  exact FiniteVolume.rhs_constant g dx c law nf hc i
 
 theorem forward_euler_sum {I : Type*} [Fintype I] :
     CFDLean.Verification.BurgersB0Challenge.ForwardEulerSum I := by
