@@ -139,17 +139,17 @@ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
 
 example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
     (hx : (decode x).Admissible g) (hy : (decode y).Admissible g) (hn : dot n n = 1) :
-    ∃ bas : Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix g x y n (bas j) = roeSpeed g x y n i • bas j :=
+    ∃ bas : Module.Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix g x y n (bas j) = roeSpeed g x y n i • bas j :=
   roe_complete_basis g x y n hg hx hy hn
 
 example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g) (hn : dot n n = 1)
-    (tb : Basis (Fin 2) ℝ (tangent n)) :
+    (tb : Module.Basis (Fin 2) ℝ (tangent n)) :
     Submodule.span ℝ ({contact (averageVelocity x y)} ∪ Set.range (fun i => shear (averageVelocity x y) (tb i))) =
       Module.End.eigenspace (roeMatrix g x y n).toLinearMap (dot (averageVelocity x y) n) :=
   roe_convective_tangent_span g x y n hg hn tb
 
 example (n : Vector 3) (hn : dot n n = 1) :
-    Module.finrank ℝ (tangent n) = 2 ∧ Nonempty (Basis (Fin 2) ℝ (tangent n)) :=
+    Module.finrank ℝ (tangent n) = 2 ∧ Nonempty (Module.Basis (Fin 2) ℝ (tangent n)) :=
   ⟨tangent_dimension n hn, exists_tangent_basis n hn⟩
 
 example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
@@ -161,7 +161,7 @@ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
 
 example {ι : Type*} [Fintype ι] (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
     (hx : (decode x).Admissible g) (hy : (decode y).Admissible g) (hn : dot n n = 1)
-    (bas : Basis ι ℝ E) (speeds : ι → ℝ) (he : ∀ i, roeMatrix g x y n (bas i) = speeds i • bas i) :
+    (bas : Module.Basis ι ℝ E) (speeds : ι → ℝ) (he : ∀ i, roeMatrix g x y n (bas i) = speeds i • bas i) :
     dissipation g x y n = bas.equivFun.symm.toLinearMap.comp
       ((diagonal (fun i => |speeds i|)).comp bas.equivFun.toLinearMap) :=
   roe_absolute_basis g x y n hg hx hy hn bas speeds he
@@ -297,7 +297,7 @@ example (g : ℝ) (x y : StateCoordinates) (S : Vector 3) (hS : S ≠ 0) :
       (encode (physicalFlux g (decode x) S) + encode (physicalFlux g (decode y) S)) -
       (Real.sqrt (squareSum S) / 2) •
         dissipation g x y (fun i => S i / Real.sqrt (squareSum S)) (y - x) := by
-  rw [roeFluxCoordinates, if_neg hS]
+  rw [roeFluxCoordinates, ite_eq_right hS]
   rfl
 
 example : numericalFlux 2 ((Primitive.mk 2 ![3, 0, 0] 5).toConservative 2)
@@ -327,7 +327,7 @@ theorem contact_coordinates (u : ℝ) : encode (contactLeft u) = ![1, u, 0, 0, 1
     encode (contactRight u) = ![4, 4 * u, 0, 0, 1 + 2 * u ^ 2] := by
   constructor <;> ext i <;> fin_cases i <;>
     norm_num [contactLeft, contactRight, Primitive.toConservative, encode, squareSum_three]
-  all_goals ring1
+  ring1
 
 example : numericalFlux 2 (contactLeft 0) (contactRight 0) ![1, 0, 0] = ⟨0, ![1, 0, 0], 0⟩ := by
   generalize hxe : encode (contactLeft 0) = x
@@ -359,7 +359,7 @@ theorem contact_averages (u : ℝ) : averageVelocity (encode (contactLeft u)) (e
   have hv : averageVelocity (![1, u, 0, 0, 1 + u ^ 2 / 2]) (![4, 4 * u, 0, 0, 1 + 2 * u ^ 2]) = ![u, 0, 0] := by
     funext i
     fin_cases i <;> norm_num [averageVelocity, weight, root, velocity, decode]
-    all_goals ring1
+    ring1
   have hH : averageEnthalpy 2 (![1, u, 0, 0, 1 + u ^ 2 / 2]) (![4, 4 * u, 0, 0, 1 + 2 * u ^ 2]) = 1 + u ^ 2 / 2 := by
     norm_num [averageEnthalpy, weight, root, enthalpy, coordinatePressure, Conservative.pressure, decode, squareSum_three]
     ring1
@@ -499,7 +499,7 @@ def oneEdge : Interfaces (Fin 2) (Fin 1) (Fin 0) where
 example (i : Fin 2) : residual oneEdge (fun _ => (![24, 92, 0, 0, 228] : StateCoordinates))
     Fin.elim0 i = if i = 0 then ![24, 92, 0, 0, 228] else ![-24, -92, 0, 0, -228] := by
   fin_cases i <;> ext j <;> fin_cases j <;>
-    norm_num [residual, incidence, oneEdge, Fin.sum_univ_succ]
+    norm_num [Assembly.residual, incidence, oneEdge, Fin.sum_univ_succ]
 
 def cycle : Interfaces (Fin 3) (Fin 3) (Fin 1) where
   tail := id
@@ -515,12 +515,12 @@ example (i : Fin 3) : residual cycle cycleFlux (fun _ => ![1, 0, 0, 0, 0]) i =
   have h21 : (2 : Fin 3) ≠ 1 := by decide
   fin_cases i
   · ext j
-    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+    fin_cases j <;> norm_num [Assembly.residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
   · ext j
-    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+    fin_cases j <;> norm_num [Assembly.residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
   · change residual cycle cycleFlux (fun _ => ![1, 0, 0, 0, 0]) (2 : Fin 3) = ![-4, 3, -3, 5, -4]
     ext j
-    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+    fin_cases j <;> norm_num [Assembly.residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
 
 def closedPair : Interfaces (Fin 2) (Fin 1) (Fin 2) where
   tail _ := 0
@@ -534,7 +534,7 @@ def pairBoundary (b : Fin 2) : Vector 3 := if b = 0 then ![-1, 0, 0] else ![1, 0
 
 theorem pair_closed (i : Fin 2) : metricDefect closedPair pairArea pairBoundary i = 0 := by
   fin_cases i <;> ext j <;> fin_cases j <;>
-    norm_num [metricDefect, residual, incidence, closedPair, pairArea, pairBoundary, Fin.sum_univ_succ]
+    norm_num [metricDefect, Assembly.residual, incidence, closedPair, pairArea, pairBoundary, Fin.sum_univ_succ]
 
 example : resting.Admissible 2 := by
   norm_num [resting, Primitive.toConservative, Conservative.Admissible, Conservative.pressure, squareSum_three]
@@ -554,7 +554,7 @@ theorem incompatible_actual_roe : residual closedPair (roeTransfer closedPair 2 
     exact roeTransfer_consistency closedPair 2 resting pairArea e
   rw [hf]
   ext j
-  fin_cases j <;> norm_num [residual, incidence, closedPair, pairArea, pairBoundary, incompatibleBoundary,
+  fin_cases j <;> norm_num [Assembly.residual, incidence, closedPair, pairArea, pairBoundary, incompatibleBoundary,
     physicalTransfer, resting, physicalFlux, Primitive.toConservative, Conservative.pressure,
     encode, squareSum_three, dot_three, Fin.sum_univ_succ]
 

@@ -121,7 +121,7 @@ theorem negative_axis_flux : prescribedExteriorRoeTransfer 2 (moving 0 1) (movin
     ext j
     fin_cases j <;> norm_num [encode, Controls.moving]
   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
-  rw [roeFluxCoordinates, if_neg (neg_ne_zero.mpr Controls.axis_ne), hd]
+  rw [roeFluxCoordinates, ite_eq_right (neg_ne_zero.mpr Controls.axis_ne), hd]
   ext j
   fin_cases j <;> norm_num [coordinateFlux, encode, physicalFlux, decode, Controls.moving,
     Conservative.pressure, dot_three, squareSum_three, area, Controls.axis]

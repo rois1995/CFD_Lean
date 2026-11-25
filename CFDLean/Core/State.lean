@@ -1,4 +1,4 @@
-import Mathlib.Data.Real.Basic
+import Mathlib.Basic.Real.Basic
 import Mathlib.Algebra.BigOperators.Field
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.Ring.Basic
@@ -50,6 +50,7 @@ theorem squareSum_div (v : Vector d) (a : ℝ) :
     squareSum (fun i => v i / a) = squareSum v / a ^ 2 := by
   simp only [squareSum, div_pow, Finset.sum_div]
 
+set_option linter.unusedVariables false in
 theorem pressure_toConservative (γ : ℝ) (W : Primitive d)
     (hγ : γ ≠ 1) (hρ : W.density ≠ 0) :
     (W.toConservative γ).pressure γ = W.pressure := by

@@ -61,8 +61,8 @@ theorem hasFDerivAt_pressure (γ : ℝ) (x : StateCoordinates) (hρ : x 0 ≠ 0)
   convert hp using 1
   · funext y
     rw [pressure_formula]
-    simp only [projection, ContinuousLinearMap.proj_apply, Function.comp_apply,
-      div_eq_mul_inv, mul_inv_rev, pow_two]
+    simp only [projection, ContinuousLinearMap.proj_apply, Pi.sub_apply, Pi.add_apply,
+      Pi.mul_apply, Function.comp_apply, div_eq_mul_inv, mul_inv_rev, pow_two]
     ring1
   · ext v
     simp [pressureDifferential, velocity, decode, projection, squareSum_three]
@@ -82,6 +82,8 @@ theorem hasFDerivAt_normalVelocity (n : Vector 3) (x : StateCoordinates) (hρ : 
   have hi := (hasDerivAt_inv hρ).comp_hasFDerivAt x ((projection 0).hasFDerivAt (x := x))
   have h := (hasFDerivAt_normalMomentum n x).mul hi
   convert h using 1
+  · funext v
+    simp [decode, dot_three, div_eq_mul_inv]
   ext v
   simp [normalIncrement, normalMomentum, velocity, decode, projection, dot_three]
   field_simp [hρ]
@@ -151,6 +153,7 @@ theorem isOpen_admissible (γ : ℝ) :
     (hasFDerivAt_pressure γ x (ne_of_gt hx.1)).continuousAt.eventually (Ioi_mem_nhds hx.2)
   exact Filter.mem_of_superset (Filter.inter_mem h1 h2) (fun _ h => h)
 
+set_option cleanup.letToHave false in
 theorem jacobian_action (γ : ℝ) (U V : Conservative 3) (n : Vector 3) :
     let u := fun i => U.momentum i / U.density
     let q := dot u n
@@ -165,7 +168,7 @@ theorem jacobian_action (γ : ℝ) (U V : Conservative 3) (n : Vector 3) :
     enthalpy, coordinatePressure, decode_encode]
   funext i
   fin_cases i <;>
-    simp [projection, encode, decode, velocity, enthalpy, coordinatePressure,
+    simp [projection, encode, decode, velocity,
       Conservative.pressure, dot_three, squareSum_three, div_eq_mul_inv, mul_inv_rev] <;> ring1
 
 theorem coordinateFlux_zero (γ : ℝ) : coordinateFlux γ (0 : Vector 3) = fun _ => 0 := by

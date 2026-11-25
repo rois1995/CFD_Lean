@@ -11,7 +11,9 @@ attribute [local simp] Matrix.cons_val_two Matrix.cons_val_three Matrix.cons_val
   intro i j hij
   rcases fin4_cases i with rfl | rfl | rfl | rfl <;>
     rcases fin4_cases j with rfl | rfl | rfl | rfl
-  all_goals first | rfl | (exfalso; apply h; simp [sixVolume, determinant, cross, dot_three, hij] <;> ring)
+  all_goals first | rfl | exfalso
+  all_goals apply h; simp [sixVolume, determinant, cross, dot_three, hij]
+  all_goals ring
 
  def oneCell (p : Points) (hp : 0 < sixVolume p) : MeshData 4 1 where
   position := p
@@ -55,7 +57,6 @@ attribute [local simp] Matrix.cons_val_two Matrix.cons_val_three Matrix.cons_val
   ext q
   fin_cases q <;> norm_num [assembledArea, Fin.sum_univ_one, Fin.sum_univ_four, standard, oneCell, points,
     localInterface_eq, faceVector, standardPoints, triangle, cross]
-  all_goals simp +decide
 
  theorem standard_closed (a : Fin 4) :
     Assembly.metricDefect standard.interfaces standard.edgeArea standard.boundaryArea a = 0 :=

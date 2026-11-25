@@ -115,7 +115,9 @@ theorem transfer_compatible (γ : ℝ) (k : Kind) (U V : Conservative 3) (T : Ve
   cases k with
   | slipWall => exact (wall_eq_physical_iff γ U T).mpr (hWall (by decide))
   | inviscidSymmetryTraction => exact (wall_eq_physical_iff γ U T).mpr (hWall (by decide))
-  | prescribedExteriorRoe => simpa only [transfer, hMatch rfl] using prescribed_consistency γ U T
+  | prescribedExteriorRoe =>
+    simp only [transfer, hMatch rfl]
+    exact prescribed_consistency γ U T
 
 theorem stationary_common_defect (m : Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind)
     (V : B → Conservative 3) (U : Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (i : N)
@@ -146,7 +148,7 @@ theorem residual_boundary_difference (m : Assembly.Interfaces N E B) (f : E → 
   apply Finset.sum_congr rfl
   intro b _
   by_cases ho : m.owner b = i
-  · simp only [if_pos ho]
+  · simp only [ite_eq_left ho]
     module
   · simp [ho]
 

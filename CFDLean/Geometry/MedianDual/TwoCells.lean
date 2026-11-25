@@ -44,12 +44,12 @@ theorem lower_hull_bound : convexHull ℝ (Set.range (twoCells.points 1)) ⊆ {x
     change a * x 2 + b * y 2 ≤ 0
     exact add_nonpos (mul_nonpos_of_nonneg_of_nonpos ha hx) (mul_nonpos_of_nonneg_of_nonpos hb hy)
 
-theorem shared_triangle (x : Vector 3) (hx : upperRegion x) (hz : x 2 = 0) :
+theorem shared_triangle (x : Vector 3) (hx : x ∈ upperRegion) (hz : x 2 = 0) :
     x ∈ convexHull ℝ (twoCells.position '' (sharedNodes : Set (Fin 5))) := by
   refine mem_convexHull_of_exists_fintype
     (![1-x 0-x 1,x 0,x 1] : Fin 3 → ℝ) (![![0,0,0],![1,0,0],![0,1,0]] : Fin 3 → Vector 3) ?_ ?_ ?_ ?_
   · intro i
-    fin_cases i <;> simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two]
+    fin_cases i <;> simp only
     · change 0 ≤ 1 - x 0 - x 1
       have := hx.2.2.2; linarith
     · exact hx.1
@@ -93,16 +93,20 @@ theorem two_cells_conforming : twoCells.Conforming := by
   · intro a b _ _ hab
     have hp : Function.Injective twoPosition := by
       intro a b hab
-      fin_cases a <;> fin_cases b <;> first | rfl | (have h0 := congrFun hab 0; have h1 := congrFun hab 1; have h2 := congrFun hab 2; norm_num [twoPosition] at h0 h1 h2)
+      fin_cases a <;> fin_cases b <;> first | rfl | (have h0 := congrFun hab 0; have h1 := congrFun hab 1; have h2 := congrFun hab 2; revert h0 h1 h2; norm_num [twoPosition])
     exact hp hab
   · intro t u htu
     fin_cases t <;> fin_cases u
     · exact False.elim (htu rfl)
     · change convexHull ℝ (Set.range (twoCells.points 0)) ∩ convexHull ℝ (Set.range (twoCells.points 1)) = _
-      simpa only [two_shared] using two_hull_intersection
+      have h := two_hull_intersection
+      rw [← two_shared] at h
+      exact h
     · change convexHull ℝ (Set.range (twoCells.points 1)) ∩ convexHull ℝ (Set.range (twoCells.points 0)) = _
       rw [Set.inter_comm, Finset.inter_comm]
-      simpa only [two_shared] using two_hull_intersection
+      have h := two_hull_intersection
+      rw [← two_shared] at h
+      exact h
     · exact False.elim (htu rfl)
   · intro F
     exact twoCells.faceCount_le_cells F
@@ -122,7 +126,6 @@ theorem two_cells_closed (a : Fin 5) :
 theorem two_cells_volume (a : Fin 5) : twoCells.dualVolume a = if a.val < 3 then 1/12 else 1/24 := by
   rw [dualVolume_formula]
   fin_cases a <;> norm_num [Fin.exists_fin_succ, Fin.sum_univ_two, cellNodes, volume, points, twoCells, twoVertex, upperVertex, lowerVertex, twoPosition, sixVolume, determinant, cross, dot_three]
-  all_goals simp +decide <;> norm_num
 
 theorem two_cells_total_volume : (∑ a, twoCells.dualVolume a) = 1/3 := by
   rw [volume_partition_raw]
@@ -130,8 +133,8 @@ theorem two_cells_total_volume : (∑ a, twoCells.dualVolume a) = 1/3 := by
 
 theorem two_cells_assembled_area : twoCells.assembledArea 0 1 = ![1/6,1/12,0] := by
   simp +decide only [assembledArea, Fin.sum_univ_two, Fin.sum_univ_four, twoCells, twoVertex,
-    upperVertex, lowerVertex, Function.Embedding.coeFn_mk, Matrix.cons_val_zero,
-    Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three, ite_true, ite_false, zero_add, add_zero]
+    upperVertex, lowerVertex,
+    ite_true, ite_false, zero_add, add_zero]
   ext q
   fin_cases q <;> norm_num [points, twoCells, twoVertex, upperVertex, lowerVertex, twoPosition,
     localInterface_eq, faceVector, triangle, cross]

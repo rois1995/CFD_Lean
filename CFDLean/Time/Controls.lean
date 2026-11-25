@@ -36,7 +36,7 @@ theorem standard_boundary_total (i : Fin 4) :
     obtain ⟨t,j⟩ := o
     fin_cases t
     fin_cases j <;> decide
-  simp only [hc, if_true]
+  simp only [hc, ite_true]
   rw [Fintype.sum_prod_type]
   ext j
   fin_cases i <;> fin_cases j <;>
@@ -44,7 +44,6 @@ theorem standard_boundary_total (i : Fin 4) :
       MedianDual.MeshData.faceID, MedianDual.MeshData.faceNodes, MedianDual.MeshData.faceArea,
       MedianDual.MeshData.points, MedianDual.Controls.standard, MedianDual.Controls.oneCell,
       MedianDual.Controls.standardPoints, MedianDual.faceVector, MedianDual.triangle, MedianDual.cross, boundaryTotals]
-  all_goals simp +decide
 
 def r : StateCoordinates := ![1/6,0,0,1/6,5/12]
 
@@ -117,7 +116,7 @@ theorem hot_cold_negative_axis : prescribedExteriorRoeTransfer 2 (moving 0 3) (m
     ext j
     fin_cases j <;> norm_num [encode, Boundary.Controls.moving]
   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
-  rw [roeFluxCoordinates, if_neg (neg_ne_zero.mpr Boundary.Controls.axis_ne), hd]
+  rw [roeFluxCoordinates, ite_eq_right (neg_ne_zero.mpr Boundary.Controls.axis_ne), hd]
   ext j
   fin_cases j <;> norm_num [coordinateFlux, encode, physicalFlux, decode, Boundary.Controls.moving,
     Conservative.pressure, dot_three, squareSum_three, area, Boundary.Controls.axis]
@@ -245,16 +244,15 @@ theorem transported_fields_nonconstant : twoCells.dualVolume 0 ≠ twoCells.dual
     twoData (primalFace twoCells Boundary.AssemblyControls.twoOpen) ≠ twoData (primalFace twoCells Boundary.AssemblyControls.twoWall) := by
   refine ⟨?_,?_,?_,?_⟩
   · rw [MedianDual.Controls.two_cells_volume, MedianDual.Controls.two_cells_volume]
-    rw [if_pos (by decide : (0 : Fin 5).val < 3), if_neg (by decide : ¬(3 : Fin 5).val < 3)]
+    rw [ite_eq_left (by decide : (0 : Fin 5).val < 3), ite_eq_right (by decide : ¬(3 : Fin 5).val < 3)]
     norm_num
   · simp only [twoSteps, show (0 : Fin 5).val = 0 from rfl, show (3 : Fin 5).val = 3 from rfl]
     norm_num
   · intro h
     have hh := congrArg Conservative.energy h
     norm_num [Boundary.AssemblyControls.varyingStates, Boundary.Controls.moving, Fin.reduceFinMk] at hh
-    all_goals simp +decide at hh
   · have hf : primalFace twoCells Boundary.AssemblyControls.twoWall ≠ primalFace twoCells Boundary.AssemblyControls.twoOpen := by decide
-    simp only [twoData, if_pos rfl, if_neg hf]
+    simp only [twoData, ite_eq_right hf]
     intro h
     have hh := congrArg Conservative.energy h
     norm_num [Boundary.Controls.moving] at hh

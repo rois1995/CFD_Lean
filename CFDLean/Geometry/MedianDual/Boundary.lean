@@ -29,10 +29,11 @@ theorem ownedPatch_local (M : MeshData n m) (a : M.Occurrence) (i : Fin n) :
       simp [h, hv, faceArea]
   simp_rw [he]
   rw [← Finset.sum_erase_add _ _ (Finset.mem_univ a.2)]
-  simp only [if_pos rfl, add_zero]
-  rw [Finset.sum_congr rfl (fun j hj => if_neg (Finset.ne_of_mem_erase hj))]
-  simpa only [ownedPatch, faceID, faceNodes, if_true, add_zero] using
-    (M.index_indicator a.1 (Finset.univ.erase a.2) i ((1/3 : ℝ) • M.faceArea a)).symm
+  rw [ite_eq_left rfl, add_zero]
+  rw [Finset.sum_congr rfl (fun j hj => ite_eq_right (Finset.ne_of_mem_erase hj))]
+  simp only [ownedPatch, faceID, faceNodes]
+  convert (M.index_indicator a.1 (Finset.univ.erase a.2) i ((1/3 : ℝ) • M.faceArea a)).symm
+  exact ite_congr rfl (fun _ => rfl) (fun _ => rfl)
 
 theorem faceCount_pos (M : MeshData n m) (a : M.Occurrence) : 0 < M.faceCount (M.faceID a) := by
   apply Finset.card_pos.mpr
@@ -107,7 +108,7 @@ theorem boundary_sum (M : MeshData n m) (i : Fin n) :
   apply Finset.sum_congr rfl
   intro a _
   by_cases h : M.faceCount (M.faceID a) = 1
-  · simp [h, ownedPatch, and_comm, ite_and]
+  · simp [h, ownedPatch]
   · simp [h]
 
 theorem all_patches_boundary (M : MeshData n m) (h : M.Conforming) (i : Fin n) :

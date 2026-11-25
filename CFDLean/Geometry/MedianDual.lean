@@ -17,7 +17,8 @@ theorem dualVolume_formula (M : MeshData n m) (a : Fin n) :
   simp_rw [localDualVolume_eq]
   apply Finset.sum_congr rfl
   intro t _
-  simpa only [cellNodes] using M.index_indicator t Finset.univ a (volume (M.points t) / 4)
+  simp only [cellNodes]
+  exact M.index_indicator t Finset.univ a (volume (M.points t) / 4)
 
 theorem cellVolume_pos (M : MeshData n m) (t : Fin m) : 0 < volume (M.points t) := by
   have h := M.positive t
@@ -35,7 +36,7 @@ theorem dualVolume_pos (M : MeshData n m) (a : Fin n) (ha : M.Used a) : 0 < M.du
     split_ifs
     · exact le_of_lt (div_pos (M.cellVolume_pos u) (by norm_num))
     · exact le_rfl
-  · exact ⟨t, Finset.mem_univ _, by rw [if_pos hm]; exact div_pos (M.cellVolume_pos t) (by norm_num)⟩
+  · exact ⟨t, Finset.mem_univ _, by rw [ite_eq_left hm]; exact div_pos (M.cellVolume_pos t) (by norm_num)⟩
 
 theorem dualVolume_unused (M : MeshData n m) (a : Fin n) (ha : ¬M.Used a) : M.dualVolume a = 0 := by
   rw [M.dualVolume_formula]
@@ -45,7 +46,7 @@ theorem dualVolume_unused (M : MeshData n m) (a : Fin n) (ha : ¬M.Used a) : M.d
     intro h
     obtain ⟨i, hi⟩ := (M.mem_cellNodes t a).mp h
     exact ha ⟨t, i, hi⟩
-  rw [if_neg hm]
+  rw [ite_eq_right hm]
 
 theorem volume_partition_raw (M : MeshData n m) : ∑ a, M.dualVolume a = ∑ t, volume (M.points t) := by
   unfold dualVolume
@@ -53,8 +54,8 @@ theorem volume_partition_raw (M : MeshData n m) : ∑ a, M.dualVolume a = ∑ t,
   apply Finset.sum_congr rfl
   intro t _
   rw [Finset.sum_comm]
-  simp only [Finset.sum_ite_eq', Finset.mem_univ, if_true, localDualVolume_eq]
-  simp [Fin.sum_univ_four]
+  simp only [localDualVolume_eq]
+  simp
   ring
 
 theorem volume_partition (M : MeshData n m) (_h : M.Conforming) :
@@ -93,7 +94,7 @@ theorem metric_closed (M : MeshData n m) (h : M.Conforming) (a : Fin n) :
   apply Finset.sum_eq_zero
   intro i _
   by_cases hi : M.vertex t i = a
-  · simp only [if_pos hi]
+  · simp only [ite_eq_left hi]
     exact local_closure (M.points t) i
   · simp [hi]
 

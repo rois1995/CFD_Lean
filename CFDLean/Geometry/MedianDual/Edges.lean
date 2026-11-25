@@ -36,7 +36,7 @@ theorem assembledArea_reverse (M : MeshData n m) (a b : Fin n) :
   apply Finset.sum_congr rfl
   intro j _
   by_cases h : M.vertex t i = a ∧ M.vertex t j = b
-  · rw [if_pos ⟨h.2, h.1⟩, if_pos h]
+  · rw [ite_eq_left ⟨h.2, h.1⟩, ite_eq_left h]
     exact localInterface_reverse _ _ _
   · have h' : ¬(M.vertex t j = b ∧ M.vertex t i = a) := fun hh => h hh.symm
     simp [h, h']
@@ -64,7 +64,7 @@ theorem assembledArea_support (M : MeshData n m) (a b : Fin n)
   intro i _
   apply Finset.sum_eq_zero
   intro j _
-  rw [if_neg]
+  rw [ite_eq_right]
   rintro ⟨rfl, rfl⟩
   exact h ⟨t, (M.mem_cellNodes t _).mpr ⟨i, rfl⟩, (M.mem_cellNodes t _).mpr ⟨j, rfl⟩⟩
 

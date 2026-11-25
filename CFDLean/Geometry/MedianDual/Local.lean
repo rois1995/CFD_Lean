@@ -60,7 +60,7 @@ theorem faceVector_opposite_dot (p : Points) (i : Fin 4) :
 
 theorem faceVector_tangent (p : Points) (i j : Fin 4) (h : i.val ≠ j.val) :
     dot (faceVector p i) (p j - faceBase p i) = 0 := by
-  fin_cases i <;> fin_cases j <;> norm_num at h ⊢ <;>
+  fin_cases i <;> fin_cases j <;> revert h <;> norm_num <;>
     simp [faceVector, faceBase, triangle, cross, dot_three] <;> ring
 
 theorem frameSign_abs (i j k l : Fin 4) : |frameSign i j k l| = 1 := by
@@ -69,7 +69,7 @@ theorem frameSign_abs (i j k l : Fin 4) : |frameSign i j k l| = 1 := by
 theorem ordered_determinant (p : Points) (i j k l : Fin 4) (h : valid i j k l) :
     determinant (p j - p i) (p k - p i) (p l - p i) = frameSign i j k l * sixVolume p := by
   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
-    norm_num [valid, frameSign] at h ⊢ <;> simp [sixVolume, determinant, cross, dot_three] <;> ring
+    revert h <;> norm_num [valid, frameSign] <;> simp [sixVolume, determinant, cross, dot_three] <;> ring
 
 theorem fin4_cases (i : Fin 4) : i = 0 ∨ i = 1 ∨ i = 2 ∨ i = 3 := by
   fin_cases i <;> decide
@@ -80,7 +80,7 @@ theorem frame_sum (p : Points) (i j k l : Fin 4) (h : valid i j k l) :
     rcases fin4_cases j with rfl | rfl | rfl | rfl <;>
     rcases fin4_cases k with rfl | rfl | rfl | rfl <;>
     rcases fin4_cases l with rfl | rfl | rfl | rfl <;>
-    norm_num [valid] at h ⊢ <;> ac_rfl
+    revert h <;> norm_num [valid] <;> ac_rfl
 
 theorem barycentric_determinant (a b c d : Vector 3) :
     determinant ((1 / 2 : ℝ) • (a + b) - a) ((1 / 3 : ℝ) • (a + b + c) - a)
@@ -143,7 +143,8 @@ theorem localInterface_eq (p : Points) (i j : Fin 4) :
     simp +decide only [localInterface, Fin.sum_univ_four, valid, add_zero, zero_add, ite_true, ite_false]
   all_goals
     ext q
-    fin_cases q <;> (simp +decide [outwardTriangle, frameSign, midpoint, faceCenter, cellCenter, faceVector, triangle, cross] <;> ring)
+    fin_cases q <;> simp +decide [outwardTriangle, frameSign, midpoint, faceCenter, cellCenter, faceVector, triangle, cross]
+    all_goals ring
 
 set_option maxHeartbeats 1000000 in
 theorem localPatch_eq (p : Points) (opp owner : Fin 4) :
@@ -191,12 +192,12 @@ theorem flagBoundary_sum (p : Points) (i j k l : Fin 4) : ∑ r, flagBoundary p 
 theorem frameSign_swapJK (i j k l : Fin 4) (h : valid i j k l) :
     frameSign i k j l = -frameSign i j k l := by
   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
-    norm_num [valid, frameSign] at h ⊢
+    revert h <;> norm_num [valid, frameSign]
 
 theorem frameSign_swapKL (i j k l : Fin 4) (h : valid i j k l) :
     frameSign i j l k = -frameSign i j k l := by
   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
-    norm_num [valid, frameSign] at h ⊢
+    revert h <;> norm_num [valid, frameSign]
 
 theorem faceCenter_swap (p : Points) (i j k : Fin 4) : faceCenter p i k j = faceCenter p i j k := by
   unfold faceCenter

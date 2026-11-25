@@ -1,7 +1,7 @@
 import CFDLean.Core.PhysicalFlux
 import Mathlib.Data.Fin.VecNotation
 import Mathlib.Algebra.BigOperators.Fin
-import Mathlib.Data.Real.Sqrt
+import Mathlib.Analysis.Real.Sqrt
 import Mathlib.Tactic.FinCases
 
 noncomputable section

@@ -182,7 +182,7 @@ theorem triangle_same_nodes (x : Fin n → Vector 3) (a b c d e f : Fin n)
     have hh : f ∈ ({a, b, c} : Finset (Fin n)) := hs ▸ (by simp)
     simpa using hh
   rcases hD with rfl | rfl | rfl <;> rcases hE with rfl | rfl | rfl <;> rcases hF with rfl | rfl | rfl
-  all_goals try simp_all
+  all_goals simp_all
   all_goals
     first
     | left

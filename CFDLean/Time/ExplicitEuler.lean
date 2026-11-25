@@ -50,7 +50,7 @@ theorem held_amount [Fintype N] (used : N → Prop) (v τ : N → ℝ) (R : N �
   classical
   have hi (i : N) : v i • encode (heldStep used v τ R U i) = v i • encode (U i) - τ i • R i := by
     by_cases h : used i
-    · simpa only [heldStep, if_pos h] using euler_amount (v i) (τ i) (hv i h) (R i) (U i)
+    · simpa only [heldStep, ite_eq_left h] using euler_amount (v i) (τ i) (hv i h) (R i) (U i)
     · simp [heldStep, h, hR i h]
   simp only [amount, hi, Finset.sum_sub_distrib]
 
@@ -211,7 +211,9 @@ theorem mesh_energy_balance (M : MedianDual.MeshData n m) (γ : ℝ) (k : Finset
       (∑ i, M.dualVolume i * (U i).energy) - dt * ∑ b,
         if Boundary.patchKind M k b = .prescribedExteriorRoe then
           Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b)) (Boundary.patchExterior M V b) (M.boundaryArea b) 4 else 0 := by
-  simpa only [Boundary.patchTransfer, Boundary.transfer_energy] using mesh_component_balance M γ k V U dt 4
+  have h := mesh_component_balance M γ k V U dt 4
+  simp only [Boundary.patchTransfer, Boundary.transfer_energy] at h
+  exact h
 
 theorem encode_momentum (U : Conservative 3) (j : Fin 3) : encode U j.castSucc.succ = U.momentum j := by
   fin_cases j <;> rfl

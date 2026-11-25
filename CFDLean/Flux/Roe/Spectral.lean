@@ -115,7 +115,7 @@ theorem shifted_acoustic (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (s :
 
 theorem A_eq_shift (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (v : E) :
     A γ u H n v = dot u n • v + shift γ u H n v := by
-  simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply]
+  simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self]
   module
 
 theorem acoustic_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (s : ℝ)
@@ -185,7 +185,7 @@ theorem projector_on_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c
 
 theorem multiplier_offset (c : ℝ) (hc : c ≠ 0) (i j : Fin 3) :
     multiplier c (offset c i) j = if i = j then 1 else 0 := by
-  fin_cases i <;> fin_cases j <;> norm_num [multiplier, offset] <;> field_simp [hc] <;> ring1
+  fin_cases i <;> fin_cases j <;> norm_num [multiplier, offset] <;> field_simp [hc] <;> norm_num
 
 theorem projector_on_shift_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
     (hc : c ≠ 0) (i j : Fin 3) (v : E)
@@ -211,6 +211,7 @@ theorem shift_projector (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : 
     rw [h3]
     match_scalars
     field_simp [hc0]
+    norm_num
   · change shift γ u H n (plus γ u H n c v) = c • plus γ u H n c v
     rw [plus_apply γ u H n c hn hc, map_smul, shifted_acoustic γ u H n c hn hc]
     module
@@ -246,9 +247,11 @@ theorem spectral_decomposition (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3
   intro v
   rw [A_eq_shift]
   simp only [speed, offset, minus, zero, plus, Matrix.cons_val_zero, Matrix.cons_val_one,
-    Matrix.cons_val_two, LinearMap.add_apply, LinearMap.sub_apply, LinearMap.smul_apply,
-    Module.End.one_apply]
-  match_scalars <;> field_simp [hc]
+    Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail, Function.comp_apply, Fin.succ_zero_eq_one,
+    LinearMap.add_apply, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self]
+  match_scalars
+  · ring1
+  all_goals field_simp [hc]
   all_goals ring1
 
 theorem projector_range (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
@@ -265,7 +268,7 @@ theorem projector_range (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : 
   · intro hv
     have he := Module.End.mem_eigenspace_iff.mp hv
     have hs : shift γ u H n v = offset c i • v := by
-      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply]
+      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self]
       rw [he]
       unfold speed
       module
@@ -330,7 +333,7 @@ theorem convective_eq_kernel (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) 
   constructor
   · intro he
     have hs : shift γ u H n v = 0 := by
-      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply, he, sub_self]
+      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self, he, sub_self]
     have hb : b u n v = 0 := by
       have h := congrArg (fun w : E => w 0) hs
       rw [shift_apply] at h
@@ -399,7 +402,7 @@ theorem speed_injective (u n : Vector 3) (c : ℝ) (hc : 0 < c) :
 theorem complete_eigenbasis (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
     (hn : dot n n = 1) (hc : c ^ 2 = (γ - 1) * (H - squareSum u / 2)) (hcpos : 0 < c)
     (hg : γ - 1 ≠ 0) :
-    ∃ bas : Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, A γ u H n (bas j) = speed u n c i • bas j := by
+    ∃ bas : Module.Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, A γ u H n (bas j) = speed u n c i • bas j := by
   let spaces := fun i : Fin 3 => Module.End.eigenspace (A γ u H n) (speed u n c i)
   have hi : iSupIndep spaces :=
     (Module.End.eigenspaces_iSupIndep (A γ u H n)).comp (speed_injective u n c hcpos)
@@ -407,7 +410,7 @@ theorem complete_eigenbasis (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (
   have hd := DirectSum.isInternal_submodule_of_iSupIndep_of_iSup_eq_top hi hs
   let bs := fun i : Fin 3 => Module.finBasis ℝ (spaces i)
   let index := (Σ i : Fin 3, Fin (Module.finrank ℝ (spaces i)))
-  let basis : Basis index ℝ E := hd.collectedBasis bs
+  let basis : Module.Basis index ℝ E := hd.collectedBasis bs
   have hcard : Fintype.card index = 5 := by
     simp [index, Fintype.card_sigma, spaces,
       eigenspace_dimensions γ u H n c hn hc (ne_of_gt hcpos) hg, Fin.sum_univ_succ]
@@ -415,7 +418,7 @@ theorem complete_eigenbasis (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (
   refine ⟨basis.reindex e, ?_⟩
   intro j
   refine ⟨(e.symm j).1, ?_⟩
-  simp only [Basis.reindex_apply]
+  simp only [Module.Basis.reindex_apply]
   exact Module.End.mem_eigenspace_iff.mp (hd.collectedBasis_mem bs (e.symm j))
 
 theorem eigenvalue_exhaustive (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c μ : ℝ)
@@ -423,7 +426,7 @@ theorem eigenvalue_exhaustive (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
     (v : E) (hv : v ≠ 0) (he : A γ u H n v = μ • v) :
     ∃ i : Fin 3, μ = speed u n c i := by
   have hN : shift γ u H n v = (μ - dot u n) • v := by
-    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply, he]
+    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self, he]
     module
   have h2 : (shift γ u H n ^ 2) v = (μ - dot u n) ^ 2 • v := by
     change shift γ u H n (shift γ u H n v) = _
@@ -451,7 +454,7 @@ theorem absolute_on_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c 
     absolute γ u H n c v = |μ| • v := by
   obtain ⟨i, rfl⟩ := eigenvalue_exhaustive γ u H n c μ hn hc v hv he
   have hN : shift γ u H n v = offset c i • v := by
-    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply, he, speed]
+    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self, he, speed]
     module
   have hp (j : Fin 3) := projector_on_shift_eigen γ u H n c hc0 i j v hN
   change |speed u n c 0| • projector γ u H n c 0 v +
@@ -468,7 +471,7 @@ def diagonal {ι : Type*} (a : ι → ℝ) : (ι → ℝ) →ₗ[ℝ] (ι → �
 theorem absolute_basis_representation {ι : Type*} [Fintype ι]
     (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
     (hn : dot n n = 1) (hc : c ^ 2 = (γ - 1) * (H - squareSum u / 2)) (hc0 : c ≠ 0)
-    (bas : Basis ι ℝ E) (μ : ι → ℝ) (he : ∀ i, A γ u H n (bas i) = μ i • bas i) :
+    (bas : Module.Basis ι ℝ E) (μ : ι → ℝ) (he : ∀ i, A γ u H n (bas i) = μ i • bas i) :
     absolute γ u H n c = bas.equivFun.symm.toLinearMap.comp
       ((diagonal (fun i => |μ i|)).comp bas.equivFun.toLinearMap) := by
   classical
@@ -480,8 +483,8 @@ theorem absolute_basis_representation {ι : Type*} [Fintype ι]
   rw [map_smul, bas.equivFun.apply_symm_apply]
   funext j
   by_cases h : i = j
-  · subst j; simp [diagonal, Basis.equivFun_self]
-  · simp [diagonal, Basis.equivFun_self, h]
+  · subst j; simp [diagonal]
+  · simp [diagonal, h]
 
 def normal (n : Vector 3) : Vector 3 →ₗ[ℝ] ℝ where
   toFun t := dot t n
@@ -492,8 +495,8 @@ def tangent (n : Vector 3) : Submodule ℝ (Vector 3) := LinearMap.ker (normal n
 
 def shearMap (u : Vector 3) : Vector 3 →ₗ[ℝ] E where
   toFun := shear u
-  map_add' t s := by ext i; fin_cases i <;> simp [shear, dot_three]; all_goals ring1
-  map_smul' r t := by ext i; fin_cases i <;> simp [shear, dot_three]; all_goals ring1
+  map_add' t s := by ext i; fin_cases i <;> simp [shear, dot_three]; ring1
+  map_smul' r t := by ext i; fin_cases i <;> simp [shear, dot_three]; ring1
 
 theorem normal_surjective (n : Vector 3) (hn : dot n n = 1) : Function.Surjective (normal n) := by
   intro r
@@ -510,7 +513,7 @@ theorem tangent_dimension (n : Vector 3) (hn : dot n n = 1) : Module.finrank ℝ
   change Module.finrank ℝ (LinearMap.ker (normal n)) = 2
   omega
 
-noncomputable def tangentBasis (n : Vector 3) (hn : dot n n = 1) : Basis (Fin 2) ℝ (tangent n) :=
+noncomputable def tangentBasis (n : Vector 3) (hn : dot n n = 1) : Module.Basis (Fin 2) ℝ (tangent n) :=
   Module.finBasisOfFinrankEq ℝ _ (tangent_dimension n hn)
 
 theorem convective_decomposition (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
@@ -534,10 +537,10 @@ theorem convective_decomposition (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector
   · simp only [squareSum_three] at ht
     funext i
     fin_cases i <;> simp [t, contact, shear, dot_three, squareSum_three]
-    all_goals nlinarith [ht]
+    nlinarith [ht]
 
 theorem convective_tangent_span (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
-    (hn : dot n n = 1) (hg : γ - 1 ≠ 0) (tb : Basis (Fin 2) ℝ (tangent n)) :
+    (hn : dot n n = 1) (hg : γ - 1 ≠ 0) (tb : Module.Basis (Fin 2) ℝ (tangent n)) :
     Submodule.span ℝ ({contact u} ∪ Set.range (fun i => shear u (tb i))) =
       Module.End.eigenspace (A γ u H n) (dot u n) := by
   apply le_antisymm
@@ -554,7 +557,8 @@ theorem convective_tangent_span (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 
     let tt : tangent n := ⟨t, ht⟩
     have ht' : t = tb.repr tt 0 • (tb 0 : Vector 3) + tb.repr tt 1 • (tb 1 : Vector 3) := by
       have h := congrArg (fun w : tangent n => (w : Vector 3)) (tb.sum_repr tt)
-      simpa [Fin.sum_univ_succ, tt] using h.symm
+      simp only [Fin.sum_univ_two, Submodule.coe_add, Submodule.coe_smul] at h
+      exact h.symm
     have hs : shear u t = tb.repr tt 0 • shear u (tb 0) + tb.repr tt 1 • shear u (tb 1) := by
       change shearMap u t = _
       rw [ht', map_add, map_smul, map_smul]
@@ -567,7 +571,9 @@ theorem convective_tangent_span (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 
         (Submodule.smul_mem _ _ (Submodule.subset_span (Or.inr ⟨1, rfl⟩)))
 
 theorem dot_reverse (u n : Vector 3) : dot u (-n) = -dot u n := by
-  simpa using dot_mul u n (-1)
+  have h := dot_mul u n (-1)
+  simp only [neg_one_mul] at h
+  exact h
 
 theorem A_reverse (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) : A γ u H (-n) = -A γ u H n := by
   unfold A
@@ -577,11 +583,12 @@ theorem A_reverse (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) : A γ u H 
   have h := congrArg (fun f : E →L[ℝ] E => f v i) (operator_smul γ u H (-1) n)
   change operator γ u H (-n) v i = -(operator γ u H n v i)
   change operator γ u H (fun j => (-1 : ℝ) * n j) v i = (-1 : ℝ) * operator γ u H n v i at h
-  simpa only [neg_one_mul] using h
+  simp only [neg_one_mul] at h
+  exact h
 
 theorem shift_reverse (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) :
     shift γ u H (-n) = -shift γ u H n := by
-  simp only [shift, A_reverse, dot_reverse, neg_smul]
+  simp only [shift, A_reverse, dot_reverse]
   module
 
 theorem speed_reverse (u n : Vector 3) (c : ℝ) (i : Fin 3) :
@@ -691,7 +698,7 @@ theorem roe_projector_ranks (i : Fin 3) :
   exact roe_dimensions γ x y n hγ hx hy hn i
 
 theorem roe_complete_basis :
-    ∃ bas : Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix γ x y n (bas j) = roeSpeed γ x y n i • bas j :=
+    ∃ bas : Module.Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix γ x y n (bas j) = roeSpeed γ x y n i • bas j :=
   complete_eigenbasis γ _ _ n _ hn (sound_parameters γ x y hγ hx hy).2
     (sound_parameters γ x y hγ hx hy).1 (ne_of_gt (sub_pos.mpr hγ))
 
@@ -702,13 +709,13 @@ theorem roe_spectral_decomposition :
   spectral_decomposition γ _ _ n _ (ne_of_gt (sound_parameters γ x y hγ hx hy).1)
 
 omit hx hy in
-theorem roe_convective_tangent_span (tb : Basis (Fin 2) ℝ (tangent n)) :
+theorem roe_convective_tangent_span (tb : Module.Basis (Fin 2) ℝ (tangent n)) :
     Submodule.span ℝ ({contact (averageVelocity x y)} ∪
       Set.range (fun i => shear (averageVelocity x y) (tb i))) =
       Module.End.eigenspace (roeMatrix γ x y n).toLinearMap (dot (averageVelocity x y) n) :=
   convective_tangent_span γ _ _ n hn (ne_of_gt (sub_pos.mpr hγ)) tb
 
-theorem roe_absolute_basis {ι : Type*} [Fintype ι] (bas : Basis ι ℝ E) (μ : ι → ℝ)
+theorem roe_absolute_basis {ι : Type*} [Fintype ι] (bas : Module.Basis ι ℝ E) (μ : ι → ℝ)
     (he : ∀ i, roeMatrix γ x y n (bas i) = μ i • bas i) :
     dissipation γ x y n = bas.equivFun.symm.toLinearMap.comp
       ((diagonal (fun i => |μ i|)).comp bas.equivFun.toLinearMap) :=
@@ -723,7 +730,7 @@ theorem roe_absolute_eigen (μ : ℝ) (v : E) (hv : v ≠ 0)
 end Physical
 
 theorem exists_tangent_basis (n : Vector 3) (hn : dot n n = 1) :
-    Nonempty (Basis (Fin 2) ℝ (tangent n)) := ⟨tangentBasis n hn⟩
+    Nonempty (Module.Basis (Fin 2) ℝ (tangent n)) := ⟨tangentBasis n hn⟩
 
 theorem roe_matrix_reverse (γ : ℝ) (x y : E) (n : Vector 3) :
     roeMatrix γ x y (-n) = -roeMatrix γ x y n := by

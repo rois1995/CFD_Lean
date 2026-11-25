@@ -1,0 +1,998 @@
+diff --git a/CFDLean/Boundary/Assembly.lean b/CFDLean/Boundary/Assembly.lean
+index da3e91d..47ba8ad 100644
+--- a/CFDLean/Boundary/Assembly.lean
++++ b/CFDLean/Boundary/Assembly.lean
+@@ -115,7 +115,9 @@ theorem transfer_compatible (γ : ℝ) (k : Kind) (U V : Conservative 3) (T : Ve
+   cases k with
+   | slipWall => exact (wall_eq_physical_iff γ U T).mpr (hWall (by decide))
+   | inviscidSymmetryTraction => exact (wall_eq_physical_iff γ U T).mpr (hWall (by decide))
+-  | prescribedExteriorRoe => simpa only [transfer, hMatch rfl] using prescribed_consistency γ U T
++  | prescribedExteriorRoe =>
++    simp only [transfer, hMatch rfl]
++    exact prescribed_consistency γ U T
+ 
+ theorem stationary_common_defect (m : Assembly.Interfaces N E B) (γ : ℝ) (k : B → Kind)
+     (V : B → Conservative 3) (U : Conservative 3) (S : E → Vector 3) (T : B → Vector 3) (i : N)
+@@ -146,7 +148,7 @@ theorem residual_boundary_difference (m : Assembly.Interfaces N E B) (f : E →
+   apply Finset.sum_congr rfl
+   intro b _
+   by_cases ho : m.owner b = i
+-  · simp only [if_pos ho]
++  · simp only [ite_eq_left ho]
+     module
+   · simp [ho]
+ 
+diff --git a/CFDLean/Boundary/AssemblyControls.lean b/CFDLean/Boundary/AssemblyControls.lean
+index 7657778..7ac409a 100644
+--- a/CFDLean/Boundary/AssemblyControls.lean
++++ b/CFDLean/Boundary/AssemblyControls.lean
+@@ -121,7 +121,7 @@ theorem negative_axis_flux : prescribedExteriorRoeTransfer 2 (moving 0 1) (movin
+     ext j
+     fin_cases j <;> norm_num [encode, Controls.moving]
+   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
+-  rw [roeFluxCoordinates, if_neg (neg_ne_zero.mpr Controls.axis_ne), hd]
++  rw [roeFluxCoordinates, ite_eq_right (neg_ne_zero.mpr Controls.axis_ne), hd]
+   ext j
+   fin_cases j <;> norm_num [coordinateFlux, encode, physicalFlux, decode, Controls.moving,
+     Conservative.pressure, dot_three, squareSum_three, area, Controls.axis]
+diff --git a/CFDLean/Boundary/Controls.lean b/CFDLean/Boundary/Controls.lean
+index eaad631..017ffa5 100644
+--- a/CFDLean/Boundary/Controls.lean
++++ b/CFDLean/Boundary/Controls.lean
+@@ -120,7 +120,7 @@ theorem reflected_roe : prescribedExteriorRoeTransfer 2 reflectedOwner reflected
+     ext i
+     fin_cases i <;> norm_num [encode, reflectedOwner, reflectedExterior, moving]
+   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
+-  rw [roeFluxCoordinates, if_neg axis_ne, hd]
++  rw [roeFluxCoordinates, ite_eq_right axis_ne, hd]
+   ext i
+   fin_cases i <;> norm_num [coordinateFlux, encode, physicalFlux, decode, reflectedOwner, reflectedExterior,
+     moving, Conservative.pressure, dot_three, squareSum_three, area, axis]
+@@ -145,7 +145,7 @@ theorem mismatching_exterior : prescribedExteriorRoeTransfer 2 (moving 0 1) (mov
+     ext i
+     fin_cases i <;> norm_num [encode, moving]
+   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
+-  rw [roeFluxCoordinates, if_neg axis_ne, hd]
++  rw [roeFluxCoordinates, ite_eq_right axis_ne, hd]
+   ext i
+   fin_cases i <;> norm_num [coordinateFlux, encode, physicalFlux, decode, moving,
+     Conservative.pressure, dot_three, squareSum_three, area, axis]
+diff --git a/CFDLean/Core/Coordinates.lean b/CFDLean/Core/Coordinates.lean
+index 76ef074..1a2d493 100644
+--- a/CFDLean/Core/Coordinates.lean
++++ b/CFDLean/Core/Coordinates.lean
+@@ -1,7 +1,7 @@
+ import CFDLean.Core.PhysicalFlux
+ import Mathlib.Data.Fin.VecNotation
+ import Mathlib.Algebra.BigOperators.Fin
+-import Mathlib.Data.Real.Sqrt
++import Mathlib.Analysis.Real.Sqrt
+ import Mathlib.Tactic.FinCases
+ 
+ noncomputable section
+diff --git a/CFDLean/Core/PhysicalJacobian.lean b/CFDLean/Core/PhysicalJacobian.lean
+index aba4500..7498a1a 100644
+--- a/CFDLean/Core/PhysicalJacobian.lean
++++ b/CFDLean/Core/PhysicalJacobian.lean
+@@ -61,8 +61,8 @@ theorem hasFDerivAt_pressure (γ : ℝ) (x : StateCoordinates) (hρ : x 0 ≠ 0)
+   convert hp using 1
+   · funext y
+     rw [pressure_formula]
+-    simp only [projection, ContinuousLinearMap.proj_apply, Function.comp_apply,
+-      div_eq_mul_inv, mul_inv_rev, pow_two]
++    simp only [projection, ContinuousLinearMap.proj_apply, Pi.sub_apply, Pi.add_apply,
++      Pi.mul_apply, Function.comp_apply, div_eq_mul_inv, mul_inv_rev, pow_two]
+     ring1
+   · ext v
+     simp [pressureDifferential, velocity, decode, projection, squareSum_three]
+@@ -82,6 +82,8 @@ theorem hasFDerivAt_normalVelocity (n : Vector 3) (x : StateCoordinates) (hρ :
+   have hi := (hasDerivAt_inv hρ).comp_hasFDerivAt x ((projection 0).hasFDerivAt (x := x))
+   have h := (hasFDerivAt_normalMomentum n x).mul hi
+   convert h using 1
++  · funext v
++    simp [decode, dot_three, div_eq_mul_inv]
+   ext v
+   simp [normalIncrement, normalMomentum, velocity, decode, projection, dot_three]
+   field_simp [hρ]
+@@ -151,6 +153,7 @@ theorem isOpen_admissible (γ : ℝ) :
+     (hasFDerivAt_pressure γ x (ne_of_gt hx.1)).continuousAt.eventually (Ioi_mem_nhds hx.2)
+   exact Filter.mem_of_superset (Filter.inter_mem h1 h2) (fun _ h => h)
+ 
++set_option cleanup.letToHave false in
+ theorem jacobian_action (γ : ℝ) (U V : Conservative 3) (n : Vector 3) :
+     let u := fun i => U.momentum i / U.density
+     let q := dot u n
+@@ -165,7 +168,7 @@ theorem jacobian_action (γ : ℝ) (U V : Conservative 3) (n : Vector 3) :
+     enthalpy, coordinatePressure, decode_encode]
+   funext i
+   fin_cases i <;>
+-    simp [projection, encode, decode, velocity, enthalpy, coordinatePressure,
++    simp [projection, encode, decode, velocity,
+       Conservative.pressure, dot_three, squareSum_three, div_eq_mul_inv, mul_inv_rev] <;> ring1
+ 
+ theorem coordinateFlux_zero (γ : ℝ) : coordinateFlux γ (0 : Vector 3) = fun _ => 0 := by
+diff --git a/CFDLean/Core/State.lean b/CFDLean/Core/State.lean
+index d11703f..d3c8e47 100644
+--- a/CFDLean/Core/State.lean
++++ b/CFDLean/Core/State.lean
+@@ -1,4 +1,4 @@
+-import Mathlib.Data.Real.Basic
++import Mathlib.Basic.Real.Basic
+ import Mathlib.Algebra.BigOperators.Field
+ import Mathlib.Tactic.FieldSimp
+ import Mathlib.Tactic.Ring.Basic
+@@ -50,6 +50,7 @@ theorem squareSum_div (v : Vector d) (a : ℝ) :
+     squareSum (fun i => v i / a) = squareSum v / a ^ 2 := by
+   simp only [squareSum, div_pow, Finset.sum_div]
+ 
++set_option linter.unusedVariables false in
+ theorem pressure_toConservative (γ : ℝ) (W : Primitive d)
+     (hγ : γ ≠ 1) (hρ : W.density ≠ 0) :
+     (W.toConservative γ).pressure γ = W.pressure := by
+diff --git a/CFDLean/Flux/Roe/Flux.lean b/CFDLean/Flux/Roe/Flux.lean
+index 97938a2..cda4dd4 100644
+--- a/CFDLean/Flux/Roe/Flux.lean
++++ b/CFDLean/Flux/Roe/Flux.lean
+@@ -40,7 +40,6 @@ theorem unitNormal_scale (a : ℝ) (S : Vector 3) (ha : 0 < a) (hS : S ≠ 0) :
+   funext i
+   simp only [unitNormal, area_scale a S (le_of_lt ha)]
+   field_simp [ne_of_gt ha, ne_of_gt (area_pos S hS)]
+-  ring1
+ 
+ theorem coordinateFlux_scale (γ a : ℝ) (S : Vector 3) (x : StateCoordinates) :
+     coordinateFlux γ (fun i => a * S i) x = a • coordinateFlux γ S x := by
+@@ -88,7 +87,7 @@ theorem roeFluxCoordinates_consistency (γ : ℝ) (x : StateCoordinates) (S : Ve
+   by_cases hS : S = 0
+   · subst S
+     simp [roeFluxCoordinates_zero, coordinateFlux_zero]
+-  · rw [roeFluxCoordinates, if_neg hS, sub_self, map_zero]
++  · rw [roeFluxCoordinates, ite_eq_right hS, sub_self, map_zero]
+     module
+ 
+ theorem roeFluxCoordinates_reverse (γ : ℝ) (x y : StateCoordinates) (S : Vector 3) :
+@@ -97,7 +96,7 @@ theorem roeFluxCoordinates_reverse (γ : ℝ) (x y : StateCoordinates) (S : Vect
+   by_cases hS : S = 0
+   · subst S
+     simp [roeFluxCoordinates_zero]
+-  · rw [roeFluxCoordinates, if_neg (neg_ne_zero.mpr hS), roeFluxCoordinates, if_neg hS,
++  · rw [roeFluxCoordinates, ite_eq_right (neg_ne_zero.mpr hS), roeFluxCoordinates, ite_eq_right hS,
+       area_neg, unitNormal_neg, coordinateFlux_neg, coordinateFlux_neg]
+     rw [(Spectral.roe_swap γ x y (-unitNormal S)).2.2, Spectral.roe_absolute_reverse]
+     have h : x - y = -(y - x) := by module
+@@ -125,7 +124,7 @@ theorem roeFluxCoordinates_scale (γ a : ℝ) (x y : StateCoordinates) (S : Vect
+         have hi := congrFun h i
+         change a * S i = 0 at hi
+         exact (mul_eq_zero.mp hi).resolve_left ha0
+-      rw [roeFluxCoordinates, if_neg hAS, roeFluxCoordinates, if_neg hS,
++      rw [roeFluxCoordinates, ite_eq_right hAS, roeFluxCoordinates, ite_eq_right hS,
+         coordinateFlux_scale, coordinateFlux_scale, area_scale a S ha, unitNormal_scale a S hap hS]
+       module
+ 
+@@ -204,7 +203,7 @@ theorem roeFluxCoordinates_upwind_left (γ : ℝ) (x y : StateCoordinates) (S :
+     (hup : soundSpeed γ x y ≤ dot (averageVelocity x y) (unitNormal S)) :
+     roeFluxCoordinates γ x y S = coordinateFlux γ S x := by
+   classical
+-  rw [roeFluxCoordinates, if_neg hS, dissipation_upwind_left γ x y _ hγ hx hy hup]
++  rw [roeFluxCoordinates, ite_eq_right hS, dissipation_upwind_left γ x y _ hγ hx hy hup]
+   have hs := integrated_secant γ S x y hγ hx hy hS
+   change area S • roeMatrix γ x y (unitNormal S) (y - x) =
+     coordinateFlux γ S y - coordinateFlux γ S x at hs
+@@ -220,7 +219,7 @@ theorem roeFluxCoordinates_upwind_right (γ : ℝ) (x y : StateCoordinates) (S :
+     (hup : dot (averageVelocity x y) (unitNormal S) ≤ -soundSpeed γ x y) :
+     roeFluxCoordinates γ x y S = coordinateFlux γ S y := by
+   classical
+-  rw [roeFluxCoordinates, if_neg hS, dissipation_upwind_right γ x y _ hγ hx hy hup]
++  rw [roeFluxCoordinates, ite_eq_right hS, dissipation_upwind_right γ x y _ hγ hx hy hup]
+   have hs := integrated_secant γ S x y hγ hx hy hS
+   change area S • roeMatrix γ x y (unitNormal S) (y - x) =
+     coordinateFlux γ S y - coordinateFlux γ S x at hs
+@@ -265,7 +264,7 @@ theorem roeFluxCoordinates_central_of_zero (γ : ℝ) (x y : StateCoordinates) (
+     (he : roeMatrix γ x y (unitNormal S) (y - x) = 0) :
+     roeFluxCoordinates γ x y S = (1 / 2 : ℝ) • (coordinateFlux γ S x + coordinateFlux γ S y) := by
+   classical
+-  rw [roeFluxCoordinates, if_neg hS,
++  rw [roeFluxCoordinates, ite_eq_right hS,
+     dissipation_zero_of_matrix_zero γ x y _ hγ hx hy (unitNormal_dot_self S hS) _ he, smul_zero, sub_zero]
+ 
+ /-- Approved receding-state endpoints, formed through the accepted primitive conversion. -/
+diff --git a/CFDLean/Flux/Roe/Linearization.lean b/CFDLean/Flux/Roe/Linearization.lean
+index 41a65fa..93f9a22 100644
+--- a/CFDLean/Flux/Roe/Linearization.lean
++++ b/CFDLean/Flux/Roe/Linearization.lean
+@@ -98,10 +98,10 @@ theorem parameter_state (γ : ℝ) (x : StateCoordinates) (hγ : γ ≠ 0) (hx :
+   have hr0 := ne_of_gt (root_pos x hx)
+   funext i
+   fin_cases i <;>
+-    simp [parameterState, parameter, velocity, enthalpy, pressure_formula, decode, squareSum_three]
++    simp [parameterState, parameter, velocity, enthalpy, pressure_formula, decode]
+   all_goals rw [← hr]
+   all_goals field_simp [hγ, hr0]
+-  all_goals ring1
++  ring1
+ 
+ theorem parameter_flux (γ : ℝ) (n : Vector 3) (x : StateCoordinates)
+     (hγ : γ ≠ 0) (hx : 0 < x 0) :
+@@ -155,6 +155,7 @@ theorem midpoint_pos (γ : ℝ) (x y : StateCoordinates) (hx : 0 < x 0) (hy : 0
+   change 0 < (root x + root y) / 2
+   exact div_pos (root_sum_pos x y hx hy) (by norm_num)
+ 
++open Fin.NatCast in
+ theorem midpoint_velocity (γ : ℝ) (x y : StateCoordinates) (hx : 0 < x 0) (hy : 0 < y 0) :
+     (fun i : Fin 3 => midpoint γ x y i.succ / midpoint γ x y 0) = averageVelocity x y := by
+   have hw := ne_of_gt (root_sum_pos x y hx hy)
+@@ -168,13 +169,14 @@ theorem midpoint_enthalpy (γ : ℝ) (x y : StateCoordinates) (hx : 0 < x 0) (hy
+   simp [midpoint, parameter, averageEnthalpy, weight, add_comm (root y) (root x)]
+   field_simp [hw]
+ 
++open Fin.NatCast in
+ theorem operator_B (γ : ℝ) (n : Vector 3) (z : StateCoordinates) (hγ : γ ≠ 0) (hz : z 0 ≠ 0) :
+     (operator γ (fun i => z i.succ / z 0) (z 4 / z 0) n).comp (B γ z) = C γ n z := by
+   unfold operator
+   rw [assemble_eq_pi]
+   ext v i
+   fin_cases i <;> simp [B, C, pressureGradient, normalMomentum, projection, dot_three, squareSum_three]
+-  all_goals try field_simp [hγ, hz]
++  all_goals field_simp [hγ, hz]
+   all_goals ring1
+ 
+ theorem roeMatrix_B (γ : ℝ) (n : Vector 3) (x y : StateCoordinates)
+@@ -211,16 +213,19 @@ theorem hasFDerivAt_parameterState (γ : ℝ) (z : StateCoordinates) :
+   fin_cases i
+   · convert h0.mul h0 using 1
+     · funext y; simp [parameterState, projection, pow_two]
+-    · ext v; simp [B, projection]; ring1
++    · ext v; simp [projection]; ring1
+   · convert h0.mul h1 using 1
+-    ext v; simp [B, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert h0.mul h2 using 1
+-    ext v; simp [B, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert h0.mul h3 using 1
+-    ext v; simp [B, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert ((h0.mul h4).add (hQ.const_mul ((γ - 1) / 2))).mul_const (1 / γ) using 1
+     · funext y; simp [parameterState, projection, pow_two, div_eq_mul_inv]
+-    · ext v; simp [B, projection]; ring1
++    · ext v; simp [projection]; ring1
+ 
+ theorem hasFDerivAt_parameterPressure (γ : ℝ) (z : StateCoordinates) :
+     HasFDerivAt (parameterPressure γ) (pressureGradient γ z) z := by
+@@ -253,15 +258,20 @@ theorem hasFDerivAt_parameterFlux (γ : ℝ) (n : Vector 3) (z : StateCoordinate
+   intro i
+   fin_cases i
+   · convert h0.mul hq using 1
+-    ext v; simp [C, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert (h1.mul hq).add (hp.mul_const (n 0)) using 1
+-    ext v; simp [C, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert (h2.mul hq).add (hp.mul_const (n 1)) using 1
+-    ext v; simp [C, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert (h3.mul hq).add (hp.mul_const (n 2)) using 1
+-    ext v; simp [C, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+   · convert h4.mul hq using 1
+-    ext v; simp [C, projection]; ring1
++    · rfl
++    ext v; simp [projection]; ring1
+ 
+ theorem roeMatrix_CB_inverse (γ : ℝ) (n : Vector 3) (x y : StateCoordinates)
+     (hγ : 1 < γ) (hx : (decode x).Admissible γ) (hy : (decode y).Admissible γ) :
+@@ -307,26 +317,24 @@ theorem operator_continuous (γ : ℝ) (n : Vector 3) :
+     simp only [squareSum_three]
+     exact (((hu 0).pow 2).add ((hu 1).pow 2)).add ((hu 2).pow 2)
+   have hb : Continuous (fun p : Vector 3 × ℝ => normalMomentum n - dot p.1 n • projection 0) :=
+-    continuous_const.sub (hq.smul continuous_const)
++    by fun_prop
+   have hp : Continuous (fun p : Vector 3 × ℝ => (γ - 1) • (projection 4 -
+       (p.1 0 • projection 1 + p.1 1 • projection 2 + p.1 2 • projection 3) +
+       (squareSum p.1 / 2) • projection 0)) :=
+-    continuous_const.smul ((continuous_const.sub
+-      ((((hu 0).smul continuous_const).add ((hu 1).smul continuous_const)).add
+-        ((hu 2).smul continuous_const))).add ((hs.div_const 2).smul continuous_const))
++    by fun_prop
+   have hr0 : Continuous (fun _ : Vector 3 × ℝ => normalMomentum n) := continuous_const
+   have hr (i : Fin 3) (j : Fin 5) : Continuous (fun p : Vector 3 × ℝ =>
+       dot p.1 n • projection j + p.1 i • (normalMomentum n - dot p.1 n • projection 0) +
+       n i • ((γ - 1) • (projection 4 -
+         (p.1 0 • projection 1 + p.1 1 • projection 2 + p.1 2 • projection 3) +
+         (squareSum p.1 / 2) • projection 0))) :=
+-    ((hq.smul continuous_const).add ((hu i).smul hb)).add (continuous_const.smul hp)
++    by fun_prop
+   have hE : Continuous (fun p : Vector 3 × ℝ => dot p.1 n • (projection 4 +
+       (γ - 1) • (projection 4 -
+         (p.1 0 • projection 1 + p.1 1 • projection 2 + p.1 2 • projection 3) +
+         (squareSum p.1 / 2) • projection 0)) +
+       p.2 • (normalMomentum n - dot p.1 n • projection 0)) :=
+-    (hq.smul (continuous_const.add hp)).add (continuous_snd.smul hb)
++    by fun_prop
+   exact ((((hr0.const_clm_comp (embed 0)).add ((hr 0 1).const_clm_comp (embed 1))).add
+     ((hr 1 2).const_clm_comp (embed 2))).add ((hr 2 3).const_clm_comp (embed 3))).add
+       (hE.const_clm_comp (embed 4))
+diff --git a/CFDLean/Flux/Roe/Spectral.lean b/CFDLean/Flux/Roe/Spectral.lean
+index c8d59ba..4455766 100644
+--- a/CFDLean/Flux/Roe/Spectral.lean
++++ b/CFDLean/Flux/Roe/Spectral.lean
+@@ -115,7 +115,7 @@ theorem shifted_acoustic (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (s :
+ 
+ theorem A_eq_shift (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (v : E) :
+     A γ u H n v = dot u n • v + shift γ u H n v := by
+-  simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply]
++  simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self]
+   module
+ 
+ theorem acoustic_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (s : ℝ)
+@@ -185,7 +185,7 @@ theorem projector_on_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c
+ 
+ theorem multiplier_offset (c : ℝ) (hc : c ≠ 0) (i j : Fin 3) :
+     multiplier c (offset c i) j = if i = j then 1 else 0 := by
+-  fin_cases i <;> fin_cases j <;> norm_num [multiplier, offset] <;> field_simp [hc] <;> ring1
++  fin_cases i <;> fin_cases j <;> norm_num [multiplier, offset] <;> field_simp [hc] <;> norm_num
+ 
+ theorem projector_on_shift_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
+     (hc : c ≠ 0) (i j : Fin 3) (v : E)
+@@ -211,6 +211,7 @@ theorem shift_projector (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c :
+     rw [h3]
+     match_scalars
+     field_simp [hc0]
++    norm_num
+   · change shift γ u H n (plus γ u H n c v) = c • plus γ u H n c v
+     rw [plus_apply γ u H n c hn hc, map_smul, shifted_acoustic γ u H n c hn hc]
+     module
+@@ -246,9 +247,11 @@ theorem spectral_decomposition (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3
+   intro v
+   rw [A_eq_shift]
+   simp only [speed, offset, minus, zero, plus, Matrix.cons_val_zero, Matrix.cons_val_one,
+-    Matrix.cons_val_two, LinearMap.add_apply, LinearMap.sub_apply, LinearMap.smul_apply,
+-    Module.End.one_apply]
+-  match_scalars <;> field_simp [hc]
++    Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail, Function.comp_apply, Fin.succ_zero_eq_one,
++    LinearMap.add_apply, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self]
++  match_scalars
++  · ring1
++  all_goals field_simp [hc]
+   all_goals ring1
+ 
+ theorem projector_range (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
+@@ -265,7 +268,7 @@ theorem projector_range (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c :
+   · intro hv
+     have he := Module.End.mem_eigenspace_iff.mp hv
+     have hs : shift γ u H n v = offset c i • v := by
+-      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply]
++      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self]
+       rw [he]
+       unfold speed
+       module
+@@ -330,7 +333,7 @@ theorem convective_eq_kernel (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
+   constructor
+   · intro he
+     have hs : shift γ u H n v = 0 := by
+-      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply, he, sub_self]
++      simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self, he, sub_self]
+     have hb : b u n v = 0 := by
+       have h := congrArg (fun w : E => w 0) hs
+       rw [shift_apply] at h
+@@ -399,7 +402,7 @@ theorem speed_injective (u n : Vector 3) (c : ℝ) (hc : 0 < c) :
+ theorem complete_eigenbasis (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
+     (hn : dot n n = 1) (hc : c ^ 2 = (γ - 1) * (H - squareSum u / 2)) (hcpos : 0 < c)
+     (hg : γ - 1 ≠ 0) :
+-    ∃ bas : Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, A γ u H n (bas j) = speed u n c i • bas j := by
++    ∃ bas : Module.Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, A γ u H n (bas j) = speed u n c i • bas j := by
+   let spaces := fun i : Fin 3 => Module.End.eigenspace (A γ u H n) (speed u n c i)
+   have hi : iSupIndep spaces :=
+     (Module.End.eigenspaces_iSupIndep (A γ u H n)).comp (speed_injective u n c hcpos)
+@@ -407,7 +410,7 @@ theorem complete_eigenbasis (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (
+   have hd := DirectSum.isInternal_submodule_of_iSupIndep_of_iSup_eq_top hi hs
+   let bs := fun i : Fin 3 => Module.finBasis ℝ (spaces i)
+   let index := (Σ i : Fin 3, Fin (Module.finrank ℝ (spaces i)))
+-  let basis : Basis index ℝ E := hd.collectedBasis bs
++  let basis : Module.Basis index ℝ E := hd.collectedBasis bs
+   have hcard : Fintype.card index = 5 := by
+     simp [index, Fintype.card_sigma, spaces,
+       eigenspace_dimensions γ u H n c hn hc (ne_of_gt hcpos) hg, Fin.sum_univ_succ]
+@@ -415,7 +418,7 @@ theorem complete_eigenbasis (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (
+   refine ⟨basis.reindex e, ?_⟩
+   intro j
+   refine ⟨(e.symm j).1, ?_⟩
+-  simp only [Basis.reindex_apply]
++  simp only [Module.Basis.reindex_apply]
+   exact Module.End.mem_eigenspace_iff.mp (hd.collectedBasis_mem bs (e.symm j))
+ 
+ theorem eigenvalue_exhaustive (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c μ : ℝ)
+@@ -423,7 +426,7 @@ theorem eigenvalue_exhaustive (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
+     (v : E) (hv : v ≠ 0) (he : A γ u H n v = μ • v) :
+     ∃ i : Fin 3, μ = speed u n c i := by
+   have hN : shift γ u H n v = (μ - dot u n) • v := by
+-    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply, he]
++    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self, he]
+     module
+   have h2 : (shift γ u H n ^ 2) v = (μ - dot u n) ^ 2 • v := by
+     change shift γ u H n (shift γ u H n v) = _
+@@ -451,7 +454,7 @@ theorem absolute_on_eigen (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c
+     absolute γ u H n c v = |μ| • v := by
+   obtain ⟨i, rfl⟩ := eigenvalue_exhaustive γ u H n c μ hn hc v hv he
+   have hN : shift γ u H n v = offset c i • v := by
+-    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, Module.End.one_apply, he, speed]
++    simp only [shift, LinearMap.sub_apply, LinearMap.smul_apply, one_apply_eq_self, he, speed]
+     module
+   have hp (j : Fin 3) := projector_on_shift_eigen γ u H n c hc0 i j v hN
+   change |speed u n c 0| • projector γ u H n c 0 v +
+@@ -468,7 +471,7 @@ def diagonal {ι : Type*} (a : ι → ℝ) : (ι → ℝ) →ₗ[ℝ] (ι → 
+ theorem absolute_basis_representation {ι : Type*} [Fintype ι]
+     (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) (c : ℝ)
+     (hn : dot n n = 1) (hc : c ^ 2 = (γ - 1) * (H - squareSum u / 2)) (hc0 : c ≠ 0)
+-    (bas : Basis ι ℝ E) (μ : ι → ℝ) (he : ∀ i, A γ u H n (bas i) = μ i • bas i) :
++    (bas : Module.Basis ι ℝ E) (μ : ι → ℝ) (he : ∀ i, A γ u H n (bas i) = μ i • bas i) :
+     absolute γ u H n c = bas.equivFun.symm.toLinearMap.comp
+       ((diagonal (fun i => |μ i|)).comp bas.equivFun.toLinearMap) := by
+   classical
+@@ -480,8 +483,8 @@ theorem absolute_basis_representation {ι : Type*} [Fintype ι]
+   rw [map_smul, bas.equivFun.apply_symm_apply]
+   funext j
+   by_cases h : i = j
+-  · subst j; simp [diagonal, Basis.equivFun_self]
+-  · simp [diagonal, Basis.equivFun_self, h]
++  · subst j; simp [diagonal]
++  · simp [diagonal, h]
+ 
+ def normal (n : Vector 3) : Vector 3 →ₗ[ℝ] ℝ where
+   toFun t := dot t n
+@@ -492,8 +495,8 @@ def tangent (n : Vector 3) : Submodule ℝ (Vector 3) := LinearMap.ker (normal n
+ 
+ def shearMap (u : Vector 3) : Vector 3 →ₗ[ℝ] E where
+   toFun := shear u
+-  map_add' t s := by ext i; fin_cases i <;> simp [shear, dot_three]; all_goals ring1
+-  map_smul' r t := by ext i; fin_cases i <;> simp [shear, dot_three]; all_goals ring1
++  map_add' t s := by ext i; fin_cases i <;> simp [shear, dot_three]; ring1
++  map_smul' r t := by ext i; fin_cases i <;> simp [shear, dot_three]; ring1
+ 
+ theorem normal_surjective (n : Vector 3) (hn : dot n n = 1) : Function.Surjective (normal n) := by
+   intro r
+@@ -510,7 +513,7 @@ theorem tangent_dimension (n : Vector 3) (hn : dot n n = 1) : Module.finrank ℝ
+   change Module.finrank ℝ (LinearMap.ker (normal n)) = 2
+   omega
+ 
+-noncomputable def tangentBasis (n : Vector 3) (hn : dot n n = 1) : Basis (Fin 2) ℝ (tangent n) :=
++noncomputable def tangentBasis (n : Vector 3) (hn : dot n n = 1) : Module.Basis (Fin 2) ℝ (tangent n) :=
+   Module.finBasisOfFinrankEq ℝ _ (tangent_dimension n hn)
+ 
+ theorem convective_decomposition (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
+@@ -534,10 +537,10 @@ theorem convective_decomposition (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector
+   · simp only [squareSum_three] at ht
+     funext i
+     fin_cases i <;> simp [t, contact, shear, dot_three, squareSum_three]
+-    all_goals nlinarith [ht]
++    nlinarith [ht]
+ 
+ theorem convective_tangent_span (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3)
+-    (hn : dot n n = 1) (hg : γ - 1 ≠ 0) (tb : Basis (Fin 2) ℝ (tangent n)) :
++    (hn : dot n n = 1) (hg : γ - 1 ≠ 0) (tb : Module.Basis (Fin 2) ℝ (tangent n)) :
+     Submodule.span ℝ ({contact u} ∪ Set.range (fun i => shear u (tb i))) =
+       Module.End.eigenspace (A γ u H n) (dot u n) := by
+   apply le_antisymm
+@@ -554,7 +557,8 @@ theorem convective_tangent_span (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector
+     let tt : tangent n := ⟨t, ht⟩
+     have ht' : t = tb.repr tt 0 • (tb 0 : Vector 3) + tb.repr tt 1 • (tb 1 : Vector 3) := by
+       have h := congrArg (fun w : tangent n => (w : Vector 3)) (tb.sum_repr tt)
+-      simpa [Fin.sum_univ_succ, tt] using h.symm
++      simp only [Fin.sum_univ_two, Submodule.coe_add, Submodule.coe_smul] at h
++      exact h.symm
+     have hs : shear u t = tb.repr tt 0 • shear u (tb 0) + tb.repr tt 1 • shear u (tb 1) := by
+       change shearMap u t = _
+       rw [ht', map_add, map_smul, map_smul]
+@@ -567,7 +571,9 @@ theorem convective_tangent_span (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector
+         (Submodule.smul_mem _ _ (Submodule.subset_span (Or.inr ⟨1, rfl⟩)))
+ 
+ theorem dot_reverse (u n : Vector 3) : dot u (-n) = -dot u n := by
+-  simpa using dot_mul u n (-1)
++  have h := dot_mul u n (-1)
++  simp only [neg_one_mul] at h
++  exact h
+ 
+ theorem A_reverse (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) : A γ u H (-n) = -A γ u H n := by
+   unfold A
+@@ -577,11 +583,12 @@ theorem A_reverse (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) : A γ u H
+   have h := congrArg (fun f : E →L[ℝ] E => f v i) (operator_smul γ u H (-1) n)
+   change operator γ u H (-n) v i = -(operator γ u H n v i)
+   change operator γ u H (fun j => (-1 : ℝ) * n j) v i = (-1 : ℝ) * operator γ u H n v i at h
+-  simpa only [neg_one_mul] using h
++  simp only [neg_one_mul] at h
++  exact h
+ 
+ theorem shift_reverse (γ : ℝ) (u : Vector 3) (H : ℝ) (n : Vector 3) :
+     shift γ u H (-n) = -shift γ u H n := by
+-  simp only [shift, A_reverse, dot_reverse, neg_smul]
++  simp only [shift, A_reverse, dot_reverse]
+   module
+ 
+ theorem speed_reverse (u n : Vector 3) (c : ℝ) (i : Fin 3) :
+@@ -691,7 +698,7 @@ theorem roe_projector_ranks (i : Fin 3) :
+   exact roe_dimensions γ x y n hγ hx hy hn i
+ 
+ theorem roe_complete_basis :
+-    ∃ bas : Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix γ x y n (bas j) = roeSpeed γ x y n i • bas j :=
++    ∃ bas : Module.Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix γ x y n (bas j) = roeSpeed γ x y n i • bas j :=
+   complete_eigenbasis γ _ _ n _ hn (sound_parameters γ x y hγ hx hy).2
+     (sound_parameters γ x y hγ hx hy).1 (ne_of_gt (sub_pos.mpr hγ))
+ 
+@@ -702,13 +709,13 @@ theorem roe_spectral_decomposition :
+   spectral_decomposition γ _ _ n _ (ne_of_gt (sound_parameters γ x y hγ hx hy).1)
+ 
+ omit hx hy in
+-theorem roe_convective_tangent_span (tb : Basis (Fin 2) ℝ (tangent n)) :
++theorem roe_convective_tangent_span (tb : Module.Basis (Fin 2) ℝ (tangent n)) :
+     Submodule.span ℝ ({contact (averageVelocity x y)} ∪
+       Set.range (fun i => shear (averageVelocity x y) (tb i))) =
+       Module.End.eigenspace (roeMatrix γ x y n).toLinearMap (dot (averageVelocity x y) n) :=
+   convective_tangent_span γ _ _ n hn (ne_of_gt (sub_pos.mpr hγ)) tb
+ 
+-theorem roe_absolute_basis {ι : Type*} [Fintype ι] (bas : Basis ι ℝ E) (μ : ι → ℝ)
++theorem roe_absolute_basis {ι : Type*} [Fintype ι] (bas : Module.Basis ι ℝ E) (μ : ι → ℝ)
+     (he : ∀ i, roeMatrix γ x y n (bas i) = μ i • bas i) :
+     dissipation γ x y n = bas.equivFun.symm.toLinearMap.comp
+       ((diagonal (fun i => |μ i|)).comp bas.equivFun.toLinearMap) :=
+@@ -723,7 +730,7 @@ theorem roe_absolute_eigen (μ : ℝ) (v : E) (hv : v ≠ 0)
+ end Physical
+ 
+ theorem exists_tangent_basis (n : Vector 3) (hn : dot n n = 1) :
+-    Nonempty (Basis (Fin 2) ℝ (tangent n)) := ⟨tangentBasis n hn⟩
++    Nonempty (Module.Basis (Fin 2) ℝ (tangent n)) := ⟨tangentBasis n hn⟩
+ 
+ theorem roe_matrix_reverse (γ : ℝ) (x y : E) (n : Vector 3) :
+     roeMatrix γ x y (-n) = -roeMatrix γ x y n := by
+diff --git a/CFDLean/Geometry/MedianDual.lean b/CFDLean/Geometry/MedianDual.lean
+index 1bd4142..fe47098 100644
+--- a/CFDLean/Geometry/MedianDual.lean
++++ b/CFDLean/Geometry/MedianDual.lean
+@@ -17,7 +17,8 @@ theorem dualVolume_formula (M : MeshData n m) (a : Fin n) :
+   simp_rw [localDualVolume_eq]
+   apply Finset.sum_congr rfl
+   intro t _
+-  simpa only [cellNodes] using M.index_indicator t Finset.univ a (volume (M.points t) / 4)
++  simp only [cellNodes]
++  exact M.index_indicator t Finset.univ a (volume (M.points t) / 4)
+ 
+ theorem cellVolume_pos (M : MeshData n m) (t : Fin m) : 0 < volume (M.points t) := by
+   have h := M.positive t
+@@ -35,7 +36,7 @@ theorem dualVolume_pos (M : MeshData n m) (a : Fin n) (ha : M.Used a) : 0 < M.du
+     split_ifs
+     · exact le_of_lt (div_pos (M.cellVolume_pos u) (by norm_num))
+     · exact le_rfl
+-  · exact ⟨t, Finset.mem_univ _, by rw [if_pos hm]; exact div_pos (M.cellVolume_pos t) (by norm_num)⟩
++  · exact ⟨t, Finset.mem_univ _, by rw [ite_eq_left hm]; exact div_pos (M.cellVolume_pos t) (by norm_num)⟩
+ 
+ theorem dualVolume_unused (M : MeshData n m) (a : Fin n) (ha : ¬M.Used a) : M.dualVolume a = 0 := by
+   rw [M.dualVolume_formula]
+@@ -45,7 +46,7 @@ theorem dualVolume_unused (M : MeshData n m) (a : Fin n) (ha : ¬M.Used a) : M.d
+     intro h
+     obtain ⟨i, hi⟩ := (M.mem_cellNodes t a).mp h
+     exact ha ⟨t, i, hi⟩
+-  rw [if_neg hm]
++  rw [ite_eq_right hm]
+ 
+ theorem volume_partition_raw (M : MeshData n m) : ∑ a, M.dualVolume a = ∑ t, volume (M.points t) := by
+   unfold dualVolume
+@@ -53,8 +54,8 @@ theorem volume_partition_raw (M : MeshData n m) : ∑ a, M.dualVolume a = ∑ t,
+   apply Finset.sum_congr rfl
+   intro t _
+   rw [Finset.sum_comm]
+-  simp only [Finset.sum_ite_eq', Finset.mem_univ, if_true, localDualVolume_eq]
+-  simp [Fin.sum_univ_four]
++  simp only [localDualVolume_eq]
++  simp
+   ring
+ 
+ theorem volume_partition (M : MeshData n m) (_h : M.Conforming) :
+@@ -93,7 +94,7 @@ theorem metric_closed (M : MeshData n m) (h : M.Conforming) (a : Fin n) :
+   apply Finset.sum_eq_zero
+   intro i _
+   by_cases hi : M.vertex t i = a
+-  · simp only [if_pos hi]
++  · simp only [ite_eq_left hi]
+     exact local_closure (M.points t) i
+   · simp [hi]
+ 
+diff --git a/CFDLean/Geometry/MedianDual/Boundary.lean b/CFDLean/Geometry/MedianDual/Boundary.lean
+index a71519b..11b2d6a 100644
+--- a/CFDLean/Geometry/MedianDual/Boundary.lean
++++ b/CFDLean/Geometry/MedianDual/Boundary.lean
+@@ -29,10 +29,11 @@ theorem ownedPatch_local (M : MeshData n m) (a : M.Occurrence) (i : Fin n) :
+       simp [h, hv, faceArea]
+   simp_rw [he]
+   rw [← Finset.sum_erase_add _ _ (Finset.mem_univ a.2)]
+-  simp only [if_pos rfl, add_zero]
+-  rw [Finset.sum_congr rfl (fun j hj => if_neg (Finset.ne_of_mem_erase hj))]
+-  simpa only [ownedPatch, faceID, faceNodes, if_true, add_zero] using
+-    (M.index_indicator a.1 (Finset.univ.erase a.2) i ((1/3 : ℝ) • M.faceArea a)).symm
++  rw [ite_eq_left rfl, add_zero]
++  rw [Finset.sum_congr rfl (fun j hj => ite_eq_right (Finset.ne_of_mem_erase hj))]
++  simp only [ownedPatch, faceID, faceNodes]
++  convert (M.index_indicator a.1 (Finset.univ.erase a.2) i ((1/3 : ℝ) • M.faceArea a)).symm
++  exact ite_congr rfl (fun _ => rfl) (fun _ => rfl)
+ 
+ theorem faceCount_pos (M : MeshData n m) (a : M.Occurrence) : 0 < M.faceCount (M.faceID a) := by
+   apply Finset.card_pos.mpr
+@@ -107,7 +108,7 @@ theorem boundary_sum (M : MeshData n m) (i : Fin n) :
+   apply Finset.sum_congr rfl
+   intro a _
+   by_cases h : M.faceCount (M.faceID a) = 1
+-  · simp [h, ownedPatch, and_comm, ite_and]
++  · simp [h, ownedPatch]
+   · simp [h]
+ 
+ theorem all_patches_boundary (M : MeshData n m) (h : M.Conforming) (i : Fin n) :
+diff --git a/CFDLean/Geometry/MedianDual/Controls.lean b/CFDLean/Geometry/MedianDual/Controls.lean
+index 7c5b944..d6e8dd0 100644
+--- a/CFDLean/Geometry/MedianDual/Controls.lean
++++ b/CFDLean/Geometry/MedianDual/Controls.lean
+@@ -11,7 +11,9 @@ attribute [local simp] Matrix.cons_val_two Matrix.cons_val_three Matrix.cons_val
+   intro i j hij
+   rcases fin4_cases i with rfl | rfl | rfl | rfl <;>
+     rcases fin4_cases j with rfl | rfl | rfl | rfl
+-  all_goals first | rfl | (exfalso; apply h; simp [sixVolume, determinant, cross, dot_three, hij] <;> ring)
++  all_goals first | rfl | exfalso
++  all_goals apply h; simp [sixVolume, determinant, cross, dot_three, hij]
++  all_goals ring
+ 
+  def oneCell (p : Points) (hp : 0 < sixVolume p) : MeshData 4 1 where
+   position := p
+@@ -55,7 +57,6 @@ attribute [local simp] Matrix.cons_val_two Matrix.cons_val_three Matrix.cons_val
+   ext q
+   fin_cases q <;> norm_num [assembledArea, Fin.sum_univ_one, Fin.sum_univ_four, standard, oneCell, points,
+     localInterface_eq, faceVector, standardPoints, triangle, cross]
+-  all_goals simp +decide
+ 
+  theorem standard_closed (a : Fin 4) :
+     Assembly.metricDefect standard.interfaces standard.edgeArea standard.boundaryArea a = 0 :=
+diff --git a/CFDLean/Geometry/MedianDual/Edges.lean b/CFDLean/Geometry/MedianDual/Edges.lean
+index ccad0d7..f98ecd4 100644
+--- a/CFDLean/Geometry/MedianDual/Edges.lean
++++ b/CFDLean/Geometry/MedianDual/Edges.lean
+@@ -36,7 +36,7 @@ theorem assembledArea_reverse (M : MeshData n m) (a b : Fin n) :
+   apply Finset.sum_congr rfl
+   intro j _
+   by_cases h : M.vertex t i = a ∧ M.vertex t j = b
+-  · rw [if_pos ⟨h.2, h.1⟩, if_pos h]
++  · rw [ite_eq_left ⟨h.2, h.1⟩, ite_eq_left h]
+     exact localInterface_reverse _ _ _
+   · have h' : ¬(M.vertex t j = b ∧ M.vertex t i = a) := fun hh => h hh.symm
+     simp [h, h']
+@@ -64,7 +64,7 @@ theorem assembledArea_support (M : MeshData n m) (a b : Fin n)
+   intro i _
+   apply Finset.sum_eq_zero
+   intro j _
+-  rw [if_neg]
++  rw [ite_eq_right]
+   rintro ⟨rfl, rfl⟩
+   exact h ⟨t, (M.mem_cellNodes t _).mpr ⟨i, rfl⟩, (M.mem_cellNodes t _).mpr ⟨j, rfl⟩⟩
+ 
+diff --git a/CFDLean/Geometry/MedianDual/Local.lean b/CFDLean/Geometry/MedianDual/Local.lean
+index c0c1857..4cb7158 100644
+--- a/CFDLean/Geometry/MedianDual/Local.lean
++++ b/CFDLean/Geometry/MedianDual/Local.lean
+@@ -60,7 +60,7 @@ theorem faceVector_opposite_dot (p : Points) (i : Fin 4) :
+ 
+ theorem faceVector_tangent (p : Points) (i j : Fin 4) (h : i.val ≠ j.val) :
+     dot (faceVector p i) (p j - faceBase p i) = 0 := by
+-  fin_cases i <;> fin_cases j <;> norm_num at h ⊢ <;>
++  fin_cases i <;> fin_cases j <;> revert h <;> norm_num <;>
+     simp [faceVector, faceBase, triangle, cross, dot_three] <;> ring
+ 
+ theorem frameSign_abs (i j k l : Fin 4) : |frameSign i j k l| = 1 := by
+@@ -69,7 +69,7 @@ theorem frameSign_abs (i j k l : Fin 4) : |frameSign i j k l| = 1 := by
+ theorem ordered_determinant (p : Points) (i j k l : Fin 4) (h : valid i j k l) :
+     determinant (p j - p i) (p k - p i) (p l - p i) = frameSign i j k l * sixVolume p := by
+   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
+-    norm_num [valid, frameSign] at h ⊢ <;> simp [sixVolume, determinant, cross, dot_three] <;> ring
++    revert h <;> norm_num [valid, frameSign] <;> simp [sixVolume, determinant, cross, dot_three] <;> ring
+ 
+ theorem fin4_cases (i : Fin 4) : i = 0 ∨ i = 1 ∨ i = 2 ∨ i = 3 := by
+   fin_cases i <;> decide
+@@ -80,7 +80,7 @@ theorem frame_sum (p : Points) (i j k l : Fin 4) (h : valid i j k l) :
+     rcases fin4_cases j with rfl | rfl | rfl | rfl <;>
+     rcases fin4_cases k with rfl | rfl | rfl | rfl <;>
+     rcases fin4_cases l with rfl | rfl | rfl | rfl <;>
+-    norm_num [valid] at h ⊢ <;> ac_rfl
++    revert h <;> norm_num [valid] <;> ac_rfl
+ 
+ theorem barycentric_determinant (a b c d : Vector 3) :
+     determinant ((1 / 2 : ℝ) • (a + b) - a) ((1 / 3 : ℝ) • (a + b + c) - a)
+@@ -143,7 +143,8 @@ theorem localInterface_eq (p : Points) (i j : Fin 4) :
+     simp +decide only [localInterface, Fin.sum_univ_four, valid, add_zero, zero_add, ite_true, ite_false]
+   all_goals
+     ext q
+-    fin_cases q <;> (simp +decide [outwardTriangle, frameSign, midpoint, faceCenter, cellCenter, faceVector, triangle, cross] <;> ring)
++    fin_cases q <;> simp +decide [outwardTriangle, frameSign, midpoint, faceCenter, cellCenter, faceVector, triangle, cross]
++    all_goals ring
+ 
+ set_option maxHeartbeats 1000000 in
+ theorem localPatch_eq (p : Points) (opp owner : Fin 4) :
+@@ -191,12 +192,12 @@ theorem flagBoundary_sum (p : Points) (i j k l : Fin 4) : ∑ r, flagBoundary p
+ theorem frameSign_swapJK (i j k l : Fin 4) (h : valid i j k l) :
+     frameSign i k j l = -frameSign i j k l := by
+   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
+-    norm_num [valid, frameSign] at h ⊢
++    revert h <;> norm_num [valid, frameSign]
+ 
+ theorem frameSign_swapKL (i j k l : Fin 4) (h : valid i j k l) :
+     frameSign i j l k = -frameSign i j k l := by
+   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
+-    norm_num [valid, frameSign] at h ⊢
++    revert h <;> norm_num [valid, frameSign]
+ 
+ theorem faceCenter_swap (p : Points) (i j k : Fin 4) : faceCenter p i k j = faceCenter p i j k := by
+   unfold faceCenter
+diff --git a/CFDLean/Geometry/MedianDual/Mesh.lean b/CFDLean/Geometry/MedianDual/Mesh.lean
+index 0cca769..eef2439 100644
+--- a/CFDLean/Geometry/MedianDual/Mesh.lean
++++ b/CFDLean/Geometry/MedianDual/Mesh.lean
+@@ -182,7 +182,7 @@ theorem triangle_same_nodes (x : Fin n → Vector 3) (a b c d e f : Fin n)
+     have hh : f ∈ ({a, b, c} : Finset (Fin n)) := hs ▸ (by simp)
+     simpa using hh
+   rcases hD with rfl | rfl | rfl <;> rcases hE with rfl | rfl | rfl <;> rcases hF with rfl | rfl | rfl
+-  all_goals try simp_all
++  all_goals simp_all
+   all_goals
+     first
+     | left
+diff --git a/CFDLean/Geometry/MedianDual/RoeAggregation.lean b/CFDLean/Geometry/MedianDual/RoeAggregation.lean
+index f53b92f..2fbc443 100644
+--- a/CFDLean/Geometry/MedianDual/RoeAggregation.lean
++++ b/CFDLean/Geometry/MedianDual/RoeAggregation.lean
+@@ -44,7 +44,7 @@ theorem dissipation_mass (n : Vector 3) (hn : dot n n = 1) :
+ theorem mass_formula (S : Vector 3) (hS : S ≠ 0) :
+     roeFluxCoordinates 2 cold hot S 0 = -3 * Real.sqrt 5 * area S / 10 := by
+   have hj : hot - cold = jump := by ext i; fin_cases i <;> norm_num [hot, cold, jump]
+-  rw [roeFluxCoordinates, if_neg hS, hj]
++  rw [roeFluxCoordinates, ite_eq_right hS, hj]
+   change (1/2 : ℝ) * (coordinateFlux 2 S cold 0 + coordinateFlux 2 S hot 0) -
+     (area S / 2) * (dissipation 2 cold hot (unitNormal S) jump 0) = _
+   rw [dissipation_mass _ (unitNormal_dot_self S hS)]
+diff --git a/CFDLean/Geometry/MedianDual/TwoCells.lean b/CFDLean/Geometry/MedianDual/TwoCells.lean
+index 34eccc1..5787d2c 100644
+--- a/CFDLean/Geometry/MedianDual/TwoCells.lean
++++ b/CFDLean/Geometry/MedianDual/TwoCells.lean
+@@ -44,12 +44,12 @@ theorem lower_hull_bound : convexHull ℝ (Set.range (twoCells.points 1)) ⊆ {x
+     change a * x 2 + b * y 2 ≤ 0
+     exact add_nonpos (mul_nonpos_of_nonneg_of_nonpos ha hx) (mul_nonpos_of_nonneg_of_nonpos hb hy)
+ 
+-theorem shared_triangle (x : Vector 3) (hx : upperRegion x) (hz : x 2 = 0) :
++theorem shared_triangle (x : Vector 3) (hx : x ∈ upperRegion) (hz : x 2 = 0) :
+     x ∈ convexHull ℝ (twoCells.position '' (sharedNodes : Set (Fin 5))) := by
+   refine mem_convexHull_of_exists_fintype
+     (![1-x 0-x 1,x 0,x 1] : Fin 3 → ℝ) (![![0,0,0],![1,0,0],![0,1,0]] : Fin 3 → Vector 3) ?_ ?_ ?_ ?_
+   · intro i
+-    fin_cases i <;> simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two]
++    fin_cases i <;> simp only
+     · change 0 ≤ 1 - x 0 - x 1
+       have := hx.2.2.2; linarith
+     · exact hx.1
+@@ -93,16 +93,20 @@ theorem two_cells_conforming : twoCells.Conforming := by
+   · intro a b _ _ hab
+     have hp : Function.Injective twoPosition := by
+       intro a b hab
+-      fin_cases a <;> fin_cases b <;> first | rfl | (have h0 := congrFun hab 0; have h1 := congrFun hab 1; have h2 := congrFun hab 2; norm_num [twoPosition] at h0 h1 h2)
++      fin_cases a <;> fin_cases b <;> first | rfl | (have h0 := congrFun hab 0; have h1 := congrFun hab 1; have h2 := congrFun hab 2; revert h0 h1 h2; norm_num [twoPosition])
+     exact hp hab
+   · intro t u htu
+     fin_cases t <;> fin_cases u
+     · exact False.elim (htu rfl)
+     · change convexHull ℝ (Set.range (twoCells.points 0)) ∩ convexHull ℝ (Set.range (twoCells.points 1)) = _
+-      simpa only [two_shared] using two_hull_intersection
++      have h := two_hull_intersection
++      rw [← two_shared] at h
++      exact h
+     · change convexHull ℝ (Set.range (twoCells.points 1)) ∩ convexHull ℝ (Set.range (twoCells.points 0)) = _
+       rw [Set.inter_comm, Finset.inter_comm]
+-      simpa only [two_shared] using two_hull_intersection
++      have h := two_hull_intersection
++      rw [← two_shared] at h
++      exact h
+     · exact False.elim (htu rfl)
+   · intro F
+     exact twoCells.faceCount_le_cells F
+@@ -122,7 +126,6 @@ theorem two_cells_closed (a : Fin 5) :
+ theorem two_cells_volume (a : Fin 5) : twoCells.dualVolume a = if a.val < 3 then 1/12 else 1/24 := by
+   rw [dualVolume_formula]
+   fin_cases a <;> norm_num [Fin.exists_fin_succ, Fin.sum_univ_two, cellNodes, volume, points, twoCells, twoVertex, upperVertex, lowerVertex, twoPosition, sixVolume, determinant, cross, dot_three]
+-  all_goals simp +decide <;> norm_num
+ 
+ theorem two_cells_total_volume : (∑ a, twoCells.dualVolume a) = 1/3 := by
+   rw [volume_partition_raw]
+@@ -130,8 +133,8 @@ theorem two_cells_total_volume : (∑ a, twoCells.dualVolume a) = 1/3 := by
+ 
+ theorem two_cells_assembled_area : twoCells.assembledArea 0 1 = ![1/6,1/12,0] := by
+   simp +decide only [assembledArea, Fin.sum_univ_two, Fin.sum_univ_four, twoCells, twoVertex,
+-    upperVertex, lowerVertex, Function.Embedding.coeFn_mk, Matrix.cons_val_zero,
+-    Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three, ite_true, ite_false, zero_add, add_zero]
++    upperVertex, lowerVertex,
++    ite_true, ite_false, zero_add, add_zero]
+   ext q
+   fin_cases q <;> norm_num [points, twoCells, twoVertex, upperVertex, lowerVertex, twoPosition,
+     localInterface_eq, faceVector, triangle, cross]
+diff --git a/CFDLean/Time/Controls.lean b/CFDLean/Time/Controls.lean
+index 97abe2b..badae71 100644
+--- a/CFDLean/Time/Controls.lean
++++ b/CFDLean/Time/Controls.lean
+@@ -36,7 +36,7 @@ theorem standard_boundary_total (i : Fin 4) :
+     obtain ⟨t,j⟩ := o
+     fin_cases t
+     fin_cases j <;> decide
+-  simp only [hc, if_true]
++  simp only [hc, ite_true]
+   rw [Fintype.sum_prod_type]
+   ext j
+   fin_cases i <;> fin_cases j <;>
+@@ -44,7 +44,6 @@ theorem standard_boundary_total (i : Fin 4) :
+       MedianDual.MeshData.faceID, MedianDual.MeshData.faceNodes, MedianDual.MeshData.faceArea,
+       MedianDual.MeshData.points, MedianDual.Controls.standard, MedianDual.Controls.oneCell,
+       MedianDual.Controls.standardPoints, MedianDual.faceVector, MedianDual.triangle, MedianDual.cross, boundaryTotals]
+-  all_goals simp +decide
+ 
+ def r : StateCoordinates := ![1/6,0,0,1/6,5/12]
+ 
+@@ -117,7 +116,7 @@ theorem hot_cold_negative_axis : prescribedExteriorRoeTransfer 2 (moving 0 3) (m
+     ext j
+     fin_cases j <;> norm_num [encode, Boundary.Controls.moving]
+   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
+-  rw [roeFluxCoordinates, if_neg (neg_ne_zero.mpr Boundary.Controls.axis_ne), hd]
++  rw [roeFluxCoordinates, ite_eq_right (neg_ne_zero.mpr Boundary.Controls.axis_ne), hd]
+   ext j
+   fin_cases j <;> norm_num [coordinateFlux, encode, physicalFlux, decode, Boundary.Controls.moving,
+     Conservative.pressure, dot_three, squareSum_three, area, Boundary.Controls.axis]
+@@ -245,16 +244,15 @@ theorem transported_fields_nonconstant : twoCells.dualVolume 0 ≠ twoCells.dual
+     twoData (primalFace twoCells Boundary.AssemblyControls.twoOpen) ≠ twoData (primalFace twoCells Boundary.AssemblyControls.twoWall) := by
+   refine ⟨?_,?_,?_,?_⟩
+   · rw [MedianDual.Controls.two_cells_volume, MedianDual.Controls.two_cells_volume]
+-    rw [if_pos (by decide : (0 : Fin 5).val < 3), if_neg (by decide : ¬(3 : Fin 5).val < 3)]
++    rw [ite_eq_left (by decide : (0 : Fin 5).val < 3), ite_eq_right (by decide : ¬(3 : Fin 5).val < 3)]
+     norm_num
+   · simp only [twoSteps, show (0 : Fin 5).val = 0 from rfl, show (3 : Fin 5).val = 3 from rfl]
+     norm_num
+   · intro h
+     have hh := congrArg Conservative.energy h
+     norm_num [Boundary.AssemblyControls.varyingStates, Boundary.Controls.moving, Fin.reduceFinMk] at hh
+-    all_goals simp +decide at hh
+   · have hf : primalFace twoCells Boundary.AssemblyControls.twoWall ≠ primalFace twoCells Boundary.AssemblyControls.twoOpen := by decide
+-    simp only [twoData, if_pos rfl, if_neg hf]
++    simp only [twoData, ite_eq_right hf]
+     intro h
+     have hh := congrArg Conservative.energy h
+     norm_num [Boundary.Controls.moving] at hh
+diff --git a/CFDLean/Time/ExplicitEuler.lean b/CFDLean/Time/ExplicitEuler.lean
+index d39ab63..171843b 100644
+--- a/CFDLean/Time/ExplicitEuler.lean
++++ b/CFDLean/Time/ExplicitEuler.lean
+@@ -50,7 +50,7 @@ theorem held_amount [Fintype N] (used : N → Prop) (v τ : N → ℝ) (R : N 
+   classical
+   have hi (i : N) : v i • encode (heldStep used v τ R U i) = v i • encode (U i) - τ i • R i := by
+     by_cases h : used i
+-    · simpa only [heldStep, if_pos h] using euler_amount (v i) (τ i) (hv i h) (R i) (U i)
++    · simpa only [heldStep, ite_eq_left h] using euler_amount (v i) (τ i) (hv i h) (R i) (U i)
+     · simp [heldStep, h, hR i h]
+   simp only [amount, hi, Finset.sum_sub_distrib]
+ 
+@@ -211,7 +211,9 @@ theorem mesh_energy_balance (M : MedianDual.MeshData n m) (γ : ℝ) (k : Finset
+       (∑ i, M.dualVolume i * (U i).energy) - dt * ∑ b,
+         if Boundary.patchKind M k b = .prescribedExteriorRoe then
+           Boundary.prescribedExteriorRoeTransfer γ (U (M.interfaces.owner b)) (Boundary.patchExterior M V b) (M.boundaryArea b) 4 else 0 := by
+-  simpa only [Boundary.patchTransfer, Boundary.transfer_energy] using mesh_component_balance M γ k V U dt 4
++  have h := mesh_component_balance M γ k V U dt 4
++  simp only [Boundary.patchTransfer, Boundary.transfer_energy] at h
++  exact h
+ 
+ theorem encode_momentum (U : Conservative 3) (j : Fin 3) : encode U j.castSucc.succ = U.momentum j := by
+   fin_cases j <;> rfl
+diff --git a/StatementChecks.lean b/StatementChecks.lean
+index f2082f8..dc58743 100644
+--- a/StatementChecks.lean
++++ b/StatementChecks.lean
+@@ -139,17 +139,17 @@ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
+ 
+ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
+     (hx : (decode x).Admissible g) (hy : (decode y).Admissible g) (hn : dot n n = 1) :
+-    ∃ bas : Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix g x y n (bas j) = roeSpeed g x y n i • bas j :=
++    ∃ bas : Module.Basis (Fin 5) ℝ E, ∀ j, ∃ i : Fin 3, roeMatrix g x y n (bas j) = roeSpeed g x y n i • bas j :=
+   roe_complete_basis g x y n hg hx hy hn
+ 
+ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g) (hn : dot n n = 1)
+-    (tb : Basis (Fin 2) ℝ (tangent n)) :
++    (tb : Module.Basis (Fin 2) ℝ (tangent n)) :
+     Submodule.span ℝ ({contact (averageVelocity x y)} ∪ Set.range (fun i => shear (averageVelocity x y) (tb i))) =
+       Module.End.eigenspace (roeMatrix g x y n).toLinearMap (dot (averageVelocity x y) n) :=
+   roe_convective_tangent_span g x y n hg hn tb
+ 
+ example (n : Vector 3) (hn : dot n n = 1) :
+-    Module.finrank ℝ (tangent n) = 2 ∧ Nonempty (Basis (Fin 2) ℝ (tangent n)) :=
++    Module.finrank ℝ (tangent n) = 2 ∧ Nonempty (Module.Basis (Fin 2) ℝ (tangent n)) :=
+   ⟨tangent_dimension n hn, exists_tangent_basis n hn⟩
+ 
+ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
+@@ -161,7 +161,7 @@ example (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
+ 
+ example {ι : Type*} [Fintype ι] (g : ℝ) (x y : E) (n : Vector 3) (hg : 1 < g)
+     (hx : (decode x).Admissible g) (hy : (decode y).Admissible g) (hn : dot n n = 1)
+-    (bas : Basis ι ℝ E) (speeds : ι → ℝ) (he : ∀ i, roeMatrix g x y n (bas i) = speeds i • bas i) :
++    (bas : Module.Basis ι ℝ E) (speeds : ι → ℝ) (he : ∀ i, roeMatrix g x y n (bas i) = speeds i • bas i) :
+     dissipation g x y n = bas.equivFun.symm.toLinearMap.comp
+       ((diagonal (fun i => |speeds i|)).comp bas.equivFun.toLinearMap) :=
+   roe_absolute_basis g x y n hg hx hy hn bas speeds he
+@@ -297,7 +297,7 @@ example (g : ℝ) (x y : StateCoordinates) (S : Vector 3) (hS : S ≠ 0) :
+       (encode (physicalFlux g (decode x) S) + encode (physicalFlux g (decode y) S)) -
+       (Real.sqrt (squareSum S) / 2) •
+         dissipation g x y (fun i => S i / Real.sqrt (squareSum S)) (y - x) := by
+-  rw [roeFluxCoordinates, if_neg hS]
++  rw [roeFluxCoordinates, ite_eq_right hS]
+   rfl
+ 
+ example : numericalFlux 2 ((Primitive.mk 2 ![3, 0, 0] 5).toConservative 2)
+@@ -327,7 +327,7 @@ theorem contact_coordinates (u : ℝ) : encode (contactLeft u) = ![1, u, 0, 0, 1
+     encode (contactRight u) = ![4, 4 * u, 0, 0, 1 + 2 * u ^ 2] := by
+   constructor <;> ext i <;> fin_cases i <;>
+     norm_num [contactLeft, contactRight, Primitive.toConservative, encode, squareSum_three]
+-  all_goals ring1
++  ring1
+ 
+ example : numericalFlux 2 (contactLeft 0) (contactRight 0) ![1, 0, 0] = ⟨0, ![1, 0, 0], 0⟩ := by
+   generalize hxe : encode (contactLeft 0) = x
+@@ -359,7 +359,7 @@ theorem contact_averages (u : ℝ) : averageVelocity (encode (contactLeft u)) (e
+   have hv : averageVelocity (![1, u, 0, 0, 1 + u ^ 2 / 2]) (![4, 4 * u, 0, 0, 1 + 2 * u ^ 2]) = ![u, 0, 0] := by
+     funext i
+     fin_cases i <;> norm_num [averageVelocity, weight, root, velocity, decode]
+-    all_goals ring1
++    ring1
+   have hH : averageEnthalpy 2 (![1, u, 0, 0, 1 + u ^ 2 / 2]) (![4, 4 * u, 0, 0, 1 + 2 * u ^ 2]) = 1 + u ^ 2 / 2 := by
+     norm_num [averageEnthalpy, weight, root, enthalpy, coordinatePressure, Conservative.pressure, decode, squareSum_three]
+     ring1
+@@ -499,7 +499,7 @@ def oneEdge : Interfaces (Fin 2) (Fin 1) (Fin 0) where
+ example (i : Fin 2) : residual oneEdge (fun _ => (![24, 92, 0, 0, 228] : StateCoordinates))
+     Fin.elim0 i = if i = 0 then ![24, 92, 0, 0, 228] else ![-24, -92, 0, 0, -228] := by
+   fin_cases i <;> ext j <;> fin_cases j <;>
+-    norm_num [residual, incidence, oneEdge, Fin.sum_univ_succ]
++    norm_num [Assembly.residual, incidence, oneEdge, Fin.sum_univ_succ]
+ 
+ def cycle : Interfaces (Fin 3) (Fin 3) (Fin 1) where
+   tail := id
+@@ -515,12 +515,12 @@ example (i : Fin 3) : residual cycle cycleFlux (fun _ => ![1, 0, 0, 0, 0]) i =
+   have h21 : (2 : Fin 3) ≠ 1 := by decide
+   fin_cases i
+   · ext j
+-    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
++    fin_cases j <;> norm_num [Assembly.residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+   · ext j
+-    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
++    fin_cases j <;> norm_num [Assembly.residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+   · change residual cycle cycleFlux (fun _ => ![1, 0, 0, 0, 0]) (2 : Fin 3) = ![-4, 3, -3, 5, -4]
+     ext j
+-    fin_cases j <;> norm_num [residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
++    fin_cases j <;> norm_num [Assembly.residual, incidence, cycle, cycleFlux, Fin.sum_univ_succ, h20, h21, Ne.symm h20, Ne.symm h21]
+ 
+ def closedPair : Interfaces (Fin 2) (Fin 1) (Fin 2) where
+   tail _ := 0
+@@ -534,7 +534,7 @@ def pairBoundary (b : Fin 2) : Vector 3 := if b = 0 then ![-1, 0, 0] else ![1, 0
+ 
+ theorem pair_closed (i : Fin 2) : metricDefect closedPair pairArea pairBoundary i = 0 := by
+   fin_cases i <;> ext j <;> fin_cases j <;>
+-    norm_num [metricDefect, residual, incidence, closedPair, pairArea, pairBoundary, Fin.sum_univ_succ]
++    norm_num [metricDefect, Assembly.residual, incidence, closedPair, pairArea, pairBoundary, Fin.sum_univ_succ]
+ 
+ example : resting.Admissible 2 := by
+   norm_num [resting, Primitive.toConservative, Conservative.Admissible, Conservative.pressure, squareSum_three]
+@@ -554,7 +554,7 @@ theorem incompatible_actual_roe : residual closedPair (roeTransfer closedPair 2
+     exact roeTransfer_consistency closedPair 2 resting pairArea e
+   rw [hf]
+   ext j
+-  fin_cases j <;> norm_num [residual, incidence, closedPair, pairArea, pairBoundary, incompatibleBoundary,
++  fin_cases j <;> norm_num [Assembly.residual, incidence, closedPair, pairArea, pairBoundary, incompatibleBoundary,
+     physicalTransfer, resting, physicalFlux, Primitive.toConservative, Conservative.pressure,
+     encode, squareSum_three, dot_three, Fin.sum_univ_succ]
+ 

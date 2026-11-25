@@ -44,7 +44,7 @@ theorem dissipation_mass (n : Vector 3) (hn : dot n n = 1) :
 theorem mass_formula (S : Vector 3) (hS : S ≠ 0) :
     roeFluxCoordinates 2 cold hot S 0 = -3 * Real.sqrt 5 * area S / 10 := by
   have hj : hot - cold = jump := by ext i; fin_cases i <;> norm_num [hot, cold, jump]
-  rw [roeFluxCoordinates, if_neg hS, hj]
+  rw [roeFluxCoordinates, ite_eq_right hS, hj]
   change (1/2 : ℝ) * (coordinateFlux 2 S cold 0 + coordinateFlux 2 S hot 0) -
     (area S / 2) * (dissipation 2 cold hot (unitNormal S) jump 0) = _
   rw [dissipation_mass _ (unitNormal_dot_self S hS)]

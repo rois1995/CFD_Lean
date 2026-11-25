@@ -120,7 +120,7 @@ theorem reflected_roe : prescribedExteriorRoeTransfer 2 reflectedOwner reflected
     ext i
     fin_cases i <;> norm_num [encode, reflectedOwner, reflectedExterior, moving]
   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
-  rw [roeFluxCoordinates, if_neg axis_ne, hd]
+  rw [roeFluxCoordinates, ite_eq_right axis_ne, hd]
   ext i
   fin_cases i <;> norm_num [coordinateFlux, encode, physicalFlux, decode, reflectedOwner, reflectedExterior,
     moving, Conservative.pressure, dot_three, squareSum_three, area, axis]
@@ -145,7 +145,7 @@ theorem mismatching_exterior : prescribedExteriorRoeTransfer 2 (moving 0 1) (mov
     ext i
     fin_cases i <;> norm_num [encode, moving]
   simp only [prescribedExteriorRoeTransfer, numericalFlux, encode_decode]
-  rw [roeFluxCoordinates, if_neg axis_ne, hd]
+  rw [roeFluxCoordinates, ite_eq_right axis_ne, hd]
   ext i
   fin_cases i <;> norm_num [coordinateFlux, encode, physicalFlux, decode, moving,
     Conservative.pressure, dot_three, squareSum_three, area, axis]

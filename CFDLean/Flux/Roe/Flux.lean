@@ -40,7 +40,6 @@ theorem unitNormal_scale (a : ℝ) (S : Vector 3) (ha : 0 < a) (hS : S ≠ 0) :
   funext i
   simp only [unitNormal, area_scale a S (le_of_lt ha)]
   field_simp [ne_of_gt ha, ne_of_gt (area_pos S hS)]
-  ring1
 
 theorem coordinateFlux_scale (γ a : ℝ) (S : Vector 3) (x : StateCoordinates) :
     coordinateFlux γ (fun i => a * S i) x = a • coordinateFlux γ S x := by
@@ -88,7 +87,7 @@ theorem roeFluxCoordinates_consistency (γ : ℝ) (x : StateCoordinates) (S : Ve
   by_cases hS : S = 0
   · subst S
     simp [roeFluxCoordinates_zero, coordinateFlux_zero]
-  · rw [roeFluxCoordinates, if_neg hS, sub_self, map_zero]
+  · rw [roeFluxCoordinates, ite_eq_right hS, sub_self, map_zero]
     module
 
 theorem roeFluxCoordinates_reverse (γ : ℝ) (x y : StateCoordinates) (S : Vector 3) :
@@ -97,7 +96,7 @@ theorem roeFluxCoordinates_reverse (γ : ℝ) (x y : StateCoordinates) (S : Vect
   by_cases hS : S = 0
   · subst S
     simp [roeFluxCoordinates_zero]
-  · rw [roeFluxCoordinates, if_neg (neg_ne_zero.mpr hS), roeFluxCoordinates, if_neg hS,
+  · rw [roeFluxCoordinates, ite_eq_right (neg_ne_zero.mpr hS), roeFluxCoordinates, ite_eq_right hS,
       area_neg, unitNormal_neg, coordinateFlux_neg, coordinateFlux_neg]
     rw [(Spectral.roe_swap γ x y (-unitNormal S)).2.2, Spectral.roe_absolute_reverse]
     have h : x - y = -(y - x) := by module
@@ -125,7 +124,7 @@ theorem roeFluxCoordinates_scale (γ a : ℝ) (x y : StateCoordinates) (S : Vect
         have hi := congrFun h i
         change a * S i = 0 at hi
         exact (mul_eq_zero.mp hi).resolve_left ha0
-      rw [roeFluxCoordinates, if_neg hAS, roeFluxCoordinates, if_neg hS,
+      rw [roeFluxCoordinates, ite_eq_right hAS, roeFluxCoordinates, ite_eq_right hS,
         coordinateFlux_scale, coordinateFlux_scale, area_scale a S ha, unitNormal_scale a S hap hS]
       module
 
@@ -204,7 +203,7 @@ theorem roeFluxCoordinates_upwind_left (γ : ℝ) (x y : StateCoordinates) (S : 
     (hup : soundSpeed γ x y ≤ dot (averageVelocity x y) (unitNormal S)) :
     roeFluxCoordinates γ x y S = coordinateFlux γ S x := by
   classical
-  rw [roeFluxCoordinates, if_neg hS, dissipation_upwind_left γ x y _ hγ hx hy hup]
+  rw [roeFluxCoordinates, ite_eq_right hS, dissipation_upwind_left γ x y _ hγ hx hy hup]
   have hs := integrated_secant γ S x y hγ hx hy hS
   change area S • roeMatrix γ x y (unitNormal S) (y - x) =
     coordinateFlux γ S y - coordinateFlux γ S x at hs
@@ -220,7 +219,7 @@ theorem roeFluxCoordinates_upwind_right (γ : ℝ) (x y : StateCoordinates) (S :
     (hup : dot (averageVelocity x y) (unitNormal S) ≤ -soundSpeed γ x y) :
     roeFluxCoordinates γ x y S = coordinateFlux γ S y := by
   classical
-  rw [roeFluxCoordinates, if_neg hS, dissipation_upwind_right γ x y _ hγ hx hy hup]
+  rw [roeFluxCoordinates, ite_eq_right hS, dissipation_upwind_right γ x y _ hγ hx hy hup]
   have hs := integrated_secant γ S x y hγ hx hy hS
   change area S • roeMatrix γ x y (unitNormal S) (y - x) =
     coordinateFlux γ S y - coordinateFlux γ S x at hs
@@ -265,7 +264,7 @@ theorem roeFluxCoordinates_central_of_zero (γ : ℝ) (x y : StateCoordinates) (
     (he : roeMatrix γ x y (unitNormal S) (y - x) = 0) :
     roeFluxCoordinates γ x y S = (1 / 2 : ℝ) • (coordinateFlux γ S x + coordinateFlux γ S y) := by
   classical
-  rw [roeFluxCoordinates, if_neg hS,
+  rw [roeFluxCoordinates, ite_eq_right hS,
     dissipation_zero_of_matrix_zero γ x y _ hγ hx hy (unitNormal_dot_self S hS) _ he, smul_zero, sub_zero]
 
 /-- Approved receding-state endpoints, formed through the accepted primitive conversion. -/

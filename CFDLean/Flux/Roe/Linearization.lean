@@ -98,10 +98,10 @@ theorem parameter_state (γ : ℝ) (x : StateCoordinates) (hγ : γ ≠ 0) (hx :
   have hr0 := ne_of_gt (root_pos x hx)
   funext i
   fin_cases i <;>
-    simp [parameterState, parameter, velocity, enthalpy, pressure_formula, decode, squareSum_three]
+    simp [parameterState, parameter, velocity, enthalpy, pressure_formula, decode]
   all_goals rw [← hr]
   all_goals field_simp [hγ, hr0]
-  all_goals ring1
+  ring1
 
 theorem parameter_flux (γ : ℝ) (n : Vector 3) (x : StateCoordinates)
     (hγ : γ ≠ 0) (hx : 0 < x 0) :
@@ -155,6 +155,7 @@ theorem midpoint_pos (γ : ℝ) (x y : StateCoordinates) (hx : 0 < x 0) (hy : 0 
   change 0 < (root x + root y) / 2
   exact div_pos (root_sum_pos x y hx hy) (by norm_num)
 
+open Fin.NatCast in
 theorem midpoint_velocity (γ : ℝ) (x y : StateCoordinates) (hx : 0 < x 0) (hy : 0 < y 0) :
     (fun i : Fin 3 => midpoint γ x y i.succ / midpoint γ x y 0) = averageVelocity x y := by
   have hw := ne_of_gt (root_sum_pos x y hx hy)
@@ -168,13 +169,14 @@ theorem midpoint_enthalpy (γ : ℝ) (x y : StateCoordinates) (hx : 0 < x 0) (hy
   simp [midpoint, parameter, averageEnthalpy, weight, add_comm (root y) (root x)]
   field_simp [hw]
 
+open Fin.NatCast in
 theorem operator_B (γ : ℝ) (n : Vector 3) (z : StateCoordinates) (hγ : γ ≠ 0) (hz : z 0 ≠ 0) :
     (operator γ (fun i => z i.succ / z 0) (z 4 / z 0) n).comp (B γ z) = C γ n z := by
   unfold operator
   rw [assemble_eq_pi]
   ext v i
   fin_cases i <;> simp [B, C, pressureGradient, normalMomentum, projection, dot_three, squareSum_three]
-  all_goals try field_simp [hγ, hz]
+  all_goals field_simp [hγ, hz]
   all_goals ring1
 
 theorem roeMatrix_B (γ : ℝ) (n : Vector 3) (x y : StateCoordinates)
@@ -211,16 +213,19 @@ theorem hasFDerivAt_parameterState (γ : ℝ) (z : StateCoordinates) :
   fin_cases i
   · convert h0.mul h0 using 1
     · funext y; simp [parameterState, projection, pow_two]
-    · ext v; simp [B, projection]; ring1
+    · ext v; simp [projection]; ring1
   · convert h0.mul h1 using 1
-    ext v; simp [B, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert h0.mul h2 using 1
-    ext v; simp [B, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert h0.mul h3 using 1
-    ext v; simp [B, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert ((h0.mul h4).add (hQ.const_mul ((γ - 1) / 2))).mul_const (1 / γ) using 1
     · funext y; simp [parameterState, projection, pow_two, div_eq_mul_inv]
-    · ext v; simp [B, projection]; ring1
+    · ext v; simp [projection]; ring1
 
 theorem hasFDerivAt_parameterPressure (γ : ℝ) (z : StateCoordinates) :
     HasFDerivAt (parameterPressure γ) (pressureGradient γ z) z := by
@@ -253,15 +258,20 @@ theorem hasFDerivAt_parameterFlux (γ : ℝ) (n : Vector 3) (z : StateCoordinate
   intro i
   fin_cases i
   · convert h0.mul hq using 1
-    ext v; simp [C, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert (h1.mul hq).add (hp.mul_const (n 0)) using 1
-    ext v; simp [C, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert (h2.mul hq).add (hp.mul_const (n 1)) using 1
-    ext v; simp [C, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert (h3.mul hq).add (hp.mul_const (n 2)) using 1
-    ext v; simp [C, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
   · convert h4.mul hq using 1
-    ext v; simp [C, projection]; ring1
+    · rfl
+    ext v; simp [projection]; ring1
 
 theorem roeMatrix_CB_inverse (γ : ℝ) (n : Vector 3) (x y : StateCoordinates)
     (hγ : 1 < γ) (hx : (decode x).Admissible γ) (hy : (decode y).Admissible γ) :
@@ -307,26 +317,24 @@ theorem operator_continuous (γ : ℝ) (n : Vector 3) :
     simp only [squareSum_three]
     exact (((hu 0).pow 2).add ((hu 1).pow 2)).add ((hu 2).pow 2)
   have hb : Continuous (fun p : Vector 3 × ℝ => normalMomentum n - dot p.1 n • projection 0) :=
-    continuous_const.sub (hq.smul continuous_const)
+    by fun_prop
   have hp : Continuous (fun p : Vector 3 × ℝ => (γ - 1) • (projection 4 -
       (p.1 0 • projection 1 + p.1 1 • projection 2 + p.1 2 • projection 3) +
       (squareSum p.1 / 2) • projection 0)) :=
-    continuous_const.smul ((continuous_const.sub
-      ((((hu 0).smul continuous_const).add ((hu 1).smul continuous_const)).add
-        ((hu 2).smul continuous_const))).add ((hs.div_const 2).smul continuous_const))
+    by fun_prop
   have hr0 : Continuous (fun _ : Vector 3 × ℝ => normalMomentum n) := continuous_const
   have hr (i : Fin 3) (j : Fin 5) : Continuous (fun p : Vector 3 × ℝ =>
       dot p.1 n • projection j + p.1 i • (normalMomentum n - dot p.1 n • projection 0) +
       n i • ((γ - 1) • (projection 4 -
         (p.1 0 • projection 1 + p.1 1 • projection 2 + p.1 2 • projection 3) +
         (squareSum p.1 / 2) • projection 0))) :=
-    ((hq.smul continuous_const).add ((hu i).smul hb)).add (continuous_const.smul hp)
+    by fun_prop
   have hE : Continuous (fun p : Vector 3 × ℝ => dot p.1 n • (projection 4 +
       (γ - 1) • (projection 4 -
         (p.1 0 • projection 1 + p.1 1 • projection 2 + p.1 2 • projection 3) +
         (squareSum p.1 / 2) • projection 0)) +
       p.2 • (normalMomentum n - dot p.1 n • projection 0)) :=
-    (hq.smul (continuous_const.add hp)).add (continuous_snd.smul hb)
+    by fun_prop
   exact ((((hr0.const_clm_comp (embed 0)).add ((hr 0 1).const_clm_comp (embed 1))).add
     ((hr 1 2).const_clm_comp (embed 2))).add ((hr 2 3).const_clm_comp (embed 3))).add
       (hE.const_clm_comp (embed 4))
