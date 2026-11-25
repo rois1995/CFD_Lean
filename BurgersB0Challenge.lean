@@ -14,8 +14,8 @@ def rusanov (uL uR : ℝ) : ℝ :=
   (burgersFlux uL + burgersFlux uR) / 2 -
     rusanovWaveSpeed uL uR / 2 * (uR - uL)
 
-def Consistent (physicalFlux numericalFlux : ℝ → ℝ → ℝ) : Prop :=
-  ∀ u, numericalFlux u u = physicalFlux u u
+def Consistent (physicalFlux : ℝ → ℝ) (numericalFlux : ℝ → ℝ → ℝ) : Prop :=
+  ∀ u, numericalFlux u u = physicalFlux u
 
 def RusanovConsistency : Prop :=
   ∀ u, rusanov u u = burgersFlux u
@@ -41,7 +41,7 @@ def PeriodicConservation (I : Type*) [Fintype I] : Prop :=
 def ConstantRhs (I : Type*) : Prop :=
   ∀ (next : I ≃ I) (dx : ℝ) (physicalFlux : ℝ → ℝ)
     (numericalFlux : ℝ → ℝ → ℝ),
-    (∀ u, numericalFlux u u = physicalFlux u) →
+    Consistent physicalFlux numericalFlux →
     ∀ c i, rhs next dx numericalFlux (fun _ : I => c) i = 0
 
 def forwardEuler (dt : ℝ) (L : (I → ℝ) → I → ℝ) (u : I → ℝ) : I → ℝ :=
