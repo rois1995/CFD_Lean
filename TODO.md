@@ -7,8 +7,10 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
 1. **M5 acceptance.** The M5 lumped explicit Euler step waits for its independent implementation review
    (`reviews/M5/Reviewer_Prompt.md`). The review refers to the v4.19 commit; its theorems are unchanged in the v4.36
    port (`specifications/MC-port-types.json`).
-2. **Burgers B0.** Contract frozen on `main` (`specifications/Burgers-B0.md`, commit 9e4418d). The implementation
-   must now target Lean v4.36.0 (`git pull`, then `lake exe cache get`).
+2. **Burgers B0.** Implemented on branch `burgers-b0-implementation` (PR 2) on Lean v4.36.0 in the layered folders
+   (`specifications/Burgers-B0-layout.md`, `references/Burgers-B0.md`); result map, catalog entries, verifier check
+   and `lake comparator` challenge are in place. Open: independent review, then merge. Next: B1 (CFL, monotonicity
+   or TVD for the first-order scheme), with frozen statements before implementation.
 3. **M6 composition** (original roadmap in `specifications/M2-proposal.md`): multi-step evolution on top of M5.
 4. **Fold paper 1 into CFD_Lean.** The JST_Paper_Lean formalization (92 proved statements: P1, P2, P3, branch
    `v436`) becomes a CFD_Lean module (e.g. `CFDLean/Papers/JST1/`), using `CFDLean.Num` and the M1 Euler states
