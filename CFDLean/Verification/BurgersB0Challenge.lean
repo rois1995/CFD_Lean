@@ -34,9 +34,9 @@ def rhs (next : I ≃ I) (dx : ℝ) (numericalFlux : ℝ → ℝ → ℝ)
       interfaceFlux next numericalFlux u (prev next i)) / dx
 
 def PeriodicConservation (I : Type*) [Fintype I] : Prop :=
-  ∀ (next : I ≃ I) (dx : ℝ) (hdx : dx ≠ 0)
+  ∀ (next : I ≃ I) (dx : ℝ)
     (numericalFlux : ℝ → ℝ → ℝ) (u : I → ℝ),
-    ∑ i, rhs next dx numericalFlux u i = 0
+    dx ≠ 0 → ∑ i, rhs next dx numericalFlux u i = 0
 
 def ConstantRhs (I : Type*) : Prop :=
   ∀ (next : I ≃ I) (dx : ℝ) (physicalFlux : ℝ → ℝ)
