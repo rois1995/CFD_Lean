@@ -1,6 +1,6 @@
 # Burgers B1 proposal: total-variation and maximum-principle stability of the first-order scheme
 
-Status: **proposal for review; no B1 statement is frozen by this document**.
+Status: **proposal; superseded by the frozen contract `specifications/Burgers-B1.md` (approved 2026-11-25)**.
 
 Base: Burgers B0 (`specifications/Burgers-B0.md`, implementation on branch `burgers-b0-implementation`, PR 2).
 Toolchain: Lean v4.36.0. Exact real arithmetic. No new dependency.
