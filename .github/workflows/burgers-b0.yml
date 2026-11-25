@@ -8,8 +8,7 @@ on:
       - 'CFDLean/Burgers/**'
       - 'CFDLean/Burgers.lean'
       - 'CFDLean.lean'
-      - 'BurgersB0Challenge.lean'
-      - 'BurgersB0Verify.lean'
+      - 'CFDLean/Verification/**'
       - 'KernelAudit.lean'
       - 'Integrity.lean'
       - 'lean-toolchain'
@@ -23,8 +22,7 @@ on:
       - 'CFDLean/Burgers/**'
       - 'CFDLean/Burgers.lean'
       - 'CFDLean.lean'
-      - 'BurgersB0Challenge.lean'
-      - 'BurgersB0Verify.lean'
+      - 'CFDLean/Verification/**'
       - 'KernelAudit.lean'
       - 'Integrity.lean'
       - 'lean-toolchain'
@@ -57,7 +55,7 @@ jobs:
       - name: Build Burgers B0
         run: ~/.elan/bin/lake build CFDLean.Burgers
       - name: Check implementation against trusted B0 statements
-        run: ~/.elan/bin/lake env lean -DwarningAsError=true BurgersB0Verify.lean
+        run: ~/.elan/bin/lake build CFDLean.Verification.BurgersB0Verify
       - name: Build full CFDLean library
         run: ~/.elan/bin/lake build CFDLean
       - name: Audit axioms and unsafe dependency closure
