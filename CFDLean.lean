@@ -36,3 +36,5 @@ import CFDLean.Schemes.Boundary.AssemblyControls
 
 import CFDLean.Time.ExplicitEuler
 import CFDLean.Time.Controls
+
+import CFDLean.Burgers

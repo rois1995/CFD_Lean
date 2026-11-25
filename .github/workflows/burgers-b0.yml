@@ -1,0 +1,62 @@
+name: Burgers B0 verification
+
+on:
+  push:
+    branches:
+      - burgers-b0-implementation
+    paths:
+      - 'CFDLean/Burgers/**'
+      - 'CFDLean/Burgers.lean'
+      - 'CFDLean.lean'
+      - 'CFDLean/Verification/**'
+      - 'KernelAudit.lean'
+      - 'Integrity.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/burgers-b0.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'CFDLean/Burgers/**'
+      - 'CFDLean/Burgers.lean'
+      - 'CFDLean.lean'
+      - 'CFDLean/Verification/**'
+      - 'KernelAudit.lean'
+      - 'Integrity.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/burgers-b0.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: burgers-b0-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Install pinned Lean and Mathlib cache
+        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: true
+      - name: Build Burgers B0
+        run: ~/.elan/bin/lake build CFDLean.Burgers
+      - name: Check implementation against trusted B0 statements
+        run: ~/.elan/bin/lake build CFDLean.Verification.BurgersB0Verify
+      - name: Build full package and integrity target
+        run: ~/.elan/bin/lake build
+      - name: Audit axioms and unsafe dependency closure
+        run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
