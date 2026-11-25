@@ -1,0 +1,847 @@
+STMT CFDLean.Num.logMean_properties :: ∀ (a b : ℝ),
+  0 < a →
+    0 < b →
+      CFDLean.Num.logMean a b = CFDLean.Num.logMean b a ∧
+        CFDLean.Num.logMean a a = a ∧
+          0 < CFDLean.Num.logMean a b ∧ b - a = CFDLean.Num.logMean a b * (Real.log b - Real.log a)
+STMT CFDLean.Num.Simplex.calculus :: ∀ (d : ℕ) (T : CFDLean.Num.Simplex d),
+  T.Nondeg →
+    ∑ a, T.grad a = 0 ∧
+      (∀ (a b c : Fin (d + 1)),
+          CFDLean.Num.dot (T.grad a) (T.x b - T.x c) = (if a = b then 1 else 0) - if a = c then 1 else 0) ∧
+        ∑ a, CFDLean.Num.outer (T.grad a) (T.x a) = 1 ∧ 0 < T.vol ∧ ∑ o, T.facet o = 0
+STMT CFDLean.Num.Simplex.facet_cross3 :: (∀ (T : CFDLean.Num.Simplex 3) (o a b c : Fin 4),
+    T.Nondeg →
+      [o, a, b, c].Nodup →
+        let nv := CFDLean.Num.cross3 (T.x b - T.x a) (T.x c - T.x a);
+        T.facet o = (if 0 < CFDLean.Num.dot nv (T.x o - T.x a) then -(1 / 2) else 1 / 2) • nv) ∧
+  ∀ (T T' : CFDLean.Num.Simplex 3) (o a b c o' a' b' c' : Fin 4),
+    T.Nondeg →
+      T'.Nondeg →
+        [o, a, b, c].Nodup →
+          [o', a', b', c'].Nodup →
+            T'.x a' = T.x a →
+              T'.x b' = T.x b →
+                T'.x c' = T.x c →
+                  let nv := CFDLean.Num.cross3 (T.x b - T.x a) (T.x c - T.x a);
+                  CFDLean.Num.dot nv (T.x o - T.x a) * CFDLean.Num.dot nv (T'.x o' - T.x a) < 0 →
+                    T'.facet o' = -T.facet o
+STMT CFDLean.Num.Simplex.facet_perp2 :: ∀ (T : CFDLean.Num.Simplex 2) (o a b : Fin 3),
+  T.Nondeg →
+    [o, a, b].Nodup →
+      T.facet o =
+        (if 0 < CFDLean.Num.dot (CFDLean.Num.perp2 (T.x b - T.x a)) (T.x o - T.x a) then -1 else 1) •
+          CFDLean.Num.perp2 (T.x b - T.x a)
+STMT CFDLean.Num.pathSimplex_nonobtuse :: ∀ (π : Equiv.Perm (Fin 3)) (h : Fin 3 → ℝ),
+  (∀ (i : Fin 3), 0 < h i) →
+    (CFDLean.Num.pathSimplex π h).Nondeg ∧
+      ∀ (a b : Fin 4),
+        a ≠ b → CFDLean.Num.dot ((CFDLean.Num.pathSimplex π h).grad a) ((CFDLean.Num.pathSimplex π h).grad b) ≤ 0
+STMT CFDLean.Num.WMesh.nW_row_sum :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (W : C → Fin (d + 1) → ℝ),
+  M.Valid →
+    (∀ (T : C), ∑ a, W T a = M.vol T) → (∀ (i : ι), ∑ k, M.nW W i k = -M.beta i) ∧ ∀ (i : ι), M.Closed i → M.beta i = 0
+STMT CFDLean.Num.WMesh.sbp_defect :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (W : C → Fin (d + 1) → ℝ),
+  (∀ (T : C), ∑ a, W T a = M.vol T) →
+    (∀ (i k : ι), M.cW W i k + M.cW W k i = M.B i k + 2 • M.EW W i k) ∧
+      (∀ (i k : ι), M.EW W k i = M.EW W i k) ∧
+        (∀ (i : ι), ∑ k, M.EW W i k = 0) ∧ (∀ (i : ι), ∑ k, M.cW W i k = 0) ∧ ∀ (k : ι), ∑ i, M.cW W i k = M.beta k
+STMT CFDLean.Num.Simplex.median_defect_iff :: ∀ (d : ℕ) (T : CFDLean.Num.Simplex d) (δ : Fin (d + 1) → ℝ),
+  1 ≤ d →
+    T.Nondeg →
+      ∑ a, δ a = 0 →
+        ((∀ (a b : Fin (d + 1)), a ≠ b → δ a • T.grad b + δ b • T.grad a = 0) ↔ ∀ (a : Fin (d + 1)), δ a = 0)
+STMT CFDLean.Num.WMesh.dissGeom_edge :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : ℕ)
+  (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    (∀ (i k : ι), i ≠ k → CFDLean.Num.dot (M.n i k) (M.e i k) = 2 * M.mu i k) ∧
+      ∀ (i k : ι),
+        i ≠ k →
+          (∃ T a b, (M.vert T) a = i ∧ (M.vert T) b = k ∧ 0 < M.ω T) →
+            0 < M.mu i k ∧
+              (∃ t, 0 < t ∧ M.nu i k = t • M.e i k) ∧
+                CFDLean.Num.len (M.nu i k) = CFDLean.Num.dot (M.n i k) (M.e i k) / CFDLean.Num.len (M.e i k)
+STMT CFDLean.Num.WMesh.dissGeom_outer :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C]
+  (d : ℕ) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    (∀ (i : ι), ∑ k, CFDLean.Num.outer (M.c i k) (M.e i k) = M.V i • 1) ∧
+      (∀ (i : ι), M.Closed i → ∑ k, CFDLean.Num.outer (M.n i k) (M.e i k) = (2 * M.V i) • 1) ∧
+        ∑ i, ∑ k, CFDLean.Num.outer (M.n i k) (M.e i k) = (2 * M.volΩ) • 1 ∧ ∑ i, M.V i = M.volΩ
+STMT CFDLean.Num.WMesh.dissGeom_calibration :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : Fintype C] (d : ℕ) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    (∀ (i : ι), M.Closed i → (M.Gtensor M.nu i).trace = 2 * ↑d * M.V i) ∧
+      ∑ i, ∑ k, CFDLean.Num.len (M.nu i k) * CFDLean.Num.len (M.e i k) = 2 * ↑d * M.volΩ ∧
+        (∀ (i : ι), M.Closed i → 2 * ↑d * M.V i ≤ (M.Gtensor M.n i).trace) ∧
+          ∀ (i : ι),
+            M.Closed i → ((M.Gtensor M.n i).trace = 2 * ↑d * M.V i ↔ ∀ (k : ι), ∃ t, 0 ≤ t ∧ M.n i k = t • M.e i k)
+STMT CFDLean.Num.quadratic_edge_expansion :: ∀ (ι : Type) [inst : Fintype ι] (d : ℕ) (x : ι → CFDLean.Num.Vec d) (i : ι)
+  (lam : ι → ℝ) (V q0 : ℝ) (gq : CFDLean.Num.Vec d) (H : Matrix (Fin d) (Fin d) ℝ),
+  V ≠ 0 →
+    H.IsSymm →
+      let q := fun z => q0 + CFDLean.Num.dot gq z + 1 / 2 * CFDLean.Num.dot z (H.mulVec z);
+      let K := (1 / (4 * V)) • ∑ k, lam k • CFDLean.Num.outer (x k - x i) (x k - x i);
+      1 / 2 * ∑ k, lam k * (q (x k) - q (x i)) =
+        1 / 2 * ∑ k, lam k * CFDLean.Num.dot (gq + H.mulVec (x i)) (x k - x i) + V * CFDLean.Num.frob K H
+STMT CFDLean.Num.dissTensor_loewner :: ∀ (ι : Type) [inst : Fintype ι] (d : ℕ) (e y : ι → CFDLean.Num.Vec d) (σ : ι → ℝ)
+  (V : ℝ),
+  0 < V →
+    (∀ (k : ι), 0 ≤ σ k) →
+      (∀ (k : ι), 0 < CFDLean.Num.dot (y k) (e k)) →
+        let K := fun z => (1 / (4 * V)) • ∑ k, (σ k * CFDLean.Num.len (z k)) • CFDLean.Num.outer (e k) (e k);
+        let ν := fun k => CFDLean.Num.WMesh.nuOf (y k) (e k);
+        (∀ (k : ι),
+            CFDLean.Num.len (y k) =
+                CFDLean.Num.len (ν k) * (CFDLean.Num.len (y k) * CFDLean.Num.len (e k) / CFDLean.Num.dot (y k) (e k)) ∧
+              1 ≤ CFDLean.Num.len (y k) * CFDLean.Num.len (e k) / CFDLean.Num.dot (y k) (e k)) ∧
+          (K y - K ν).PosSemidef ∧ (K y = K ν ↔ ∀ (k : ι), 0 < σ k → ∃ t, 0 < t ∧ y k = t • e k)
+STMT CFDLean.Num.WMesh.dissTensor_trace :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : Fintype C] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (σ : ι → ι → ℝ) (s σmax h : ℝ)
+  (y : ι → ι → CFDLean.Num.Vec d) (i : ι),
+  M.Valid →
+    0 < M.V i →
+      let K := fun z =>
+        (1 / (4 * M.V i)) • ∑ k, (σ i k * CFDLean.Num.len (z i k)) • CFDLean.Num.outer (M.e i k) (M.e i k);
+      ((∀ (k : ι), k ≠ i → σ i k * CFDLean.Num.len (M.e i k) = s) → K y = (s / (4 * M.V i)) • M.Gtensor y i) ∧
+        ((∀ (k : ι), k ≠ i → σ i k * CFDLean.Num.len (M.e i k) = s) → (K M.nu).trace = ↑d * s / 2) ∧
+          ((∀ (k : ι), 0 ≤ σ i k ∧ σ i k ≤ σmax) →
+            (∀ (k : ι), M.n i k ≠ 0 → CFDLean.Num.len (M.e i k) ≤ h) → (K M.nu).trace ≤ ↑d / 2 * σmax * h)
+STMT CFDLean.Num.WMesh.closed_of_facetPaired :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (i : ι), M.Valid → M.FacetPaired i → M.Closed i
+STMT CFDLean.Num.WMesh.conforming_boundary :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        (∀ (i : ι), M.beta i = ∑ p, if bd p = Bool.true ∧ i ∈ M.facetNodes p then (1 / ↑d) • M.areaVec p else 0) ∧
+          (∀ (i k : ι),
+              M.B i k =
+                ∑ p,
+                  if bd p = Bool.true ∧ i ∈ M.facetNodes p ∧ k ∈ M.facetNodes p then
+                    ((1 + if i = k then 1 else 0) / (↑d * (↑d + 1))) • M.areaVec p
+                  else 0) ∧
+            ∀ (i : ι), (∀ (p : C × Fin (d + 1)), bd p = Bool.true → i ∉ M.facetNodes p) → M.Closed i
+STMT CFDLean.Num.WMesh.facetBalanced_boundary :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool),
+  M.Valid →
+    1 ≤ d →
+      (M.Conforming bd → M.FacetBalanced bd) ∧
+        (M.FacetBalanced bd →
+          (∀ (i : ι), M.beta i = ∑ p, if bd p = Bool.true ∧ i ∈ M.facetNodes p then (1 / ↑d) • M.areaVec p else 0) ∧
+            (∀ (i k : ι),
+                M.B i k =
+                  ∑ p,
+                    if bd p = Bool.true ∧ i ∈ M.facetNodes p ∧ k ∈ M.facetNodes p then
+                      ((1 + if i = k then 1 else 0) / (↑d * (↑d + 1))) • M.areaVec p
+                    else 0) ∧
+              ∀ (i : ι), (∀ (p : C × Fin (d + 1)), bd p = Bool.true → i ∉ M.facetNodes p) → M.Closed i)
+STMT CFDLean.Num.WMesh.facetBalanced_of_sideBalanced :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : LinearOrder ι] [inst_3 : Fintype C] (M : CFDLean.Num.WMesh ι C 3) (bd : C × Fin 4 → Bool),
+  M.Valid → CFDLean.Num.SideBalanced M bd → M.FacetBalanced bd
+STMT CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : LinearOrder ι] [inst_3 : Fintype C] (M : CFDLean.Num.WMesh ι C 2) (bd : C × Fin 3 → Bool),
+  M.Valid → CFDLean.Num.SideBalanced2 M bd → M.FacetBalanced bd
+STMT CFDLean.Num.antisymmetric_pairFlux :: ∀ (ι κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (F : ι → ι → κ → ℝ)
+  (w : ι → κ → ℝ),
+  (∀ (i k : ι), F k i = -F i k) →
+    ∑ i, ∑ k, F i k = 0 ∧
+      -∑ i, CFDLean.Num.pairF (w i) (∑ k, F i k) = 1 / 2 * ∑ i, ∑ k, CFDLean.Num.pairF (w k - w i) (F i k)
+STMT CFDLean.Num.entropyConservative_production :: ∀ (ι S κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (d : ℕ)
+  (w : S → κ → ℝ) (ψ : S → CFDLean.Num.Vec d) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (n : ι → ι → CFDLean.Num.Vec d)
+  (u : ι → S),
+  (∀ (i k : ι), n k i = -n i k) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = Fec b a y) →
+      (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+        (∀ (a b : S) (y : CFDLean.Num.Vec d),
+            CFDLean.Num.pairF (w b - w a) (Fec a b y) = CFDLean.Num.dot (ψ b - ψ a) y) →
+          let beta := fun i => -∑ k, n i k;
+          let Rc := fun i => ∑ k, Fec (u i) (u k) (n i k);
+          -∑ i, CFDLean.Num.pairF (w (u i)) (Rc i) = 1 / 2 * ∑ i, ∑ k, CFDLean.Num.dot (ψ (u k) - ψ (u i)) (n i k) ∧
+            1 / 2 * ∑ i, ∑ k, CFDLean.Num.dot (ψ (u k) - ψ (u i)) (n i k) = ∑ i, CFDLean.Num.dot (ψ (u i)) (beta i)
+STMT CFDLean.Num.dissipativePairFlux_conservation :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ]
+  (d : ℕ) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S) (ut : ι → κ → ℝ)
+  (lam eps2 eps4 : ι → ι → ℝ) (Nstar : ι → Finset ι) (b : ι → κ → ℝ),
+  (∀ (i k : ι), n k i = -n i k) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = Fec b a y) →
+      (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+        (∀ (i k : ι), lam k i = lam i k) →
+          (∀ (i k : ι), eps2 k i = eps2 i k) →
+            (∀ (i k : ι), eps4 k i = eps4 i k) →
+              let L := fun i => ∑ k ∈ Nstar i, (ut k - ut i);
+              let F := fun i k =>
+                Fec (u i) (u k) (n i k) + lam i k • (eps2 i k • (ut i - ut k) - eps4 i k • (L i - L k));
+              (∀ (i k : ι), F k i = -F i k) ∧ ∑ i, (-∑ k, F i k - b i) = -∑ i, b i
+STMT CFDLean.Num.dissipativePairFlux_freeStream :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ]
+  (d : ℕ) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (phys : S → CFDLean.Num.Vec d → κ → ℝ)
+  (n : ι → ι → CFDLean.Num.Vec d) (U : S) (ut0 : κ → ℝ) (lam eps2 eps4 : ι → ι → ℝ) (Nstar : ι → Finset ι),
+  (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Fec U U y = phys U y) →
+      let beta := fun i => -∑ k, n i k;
+      let L := fun i => ∑ _k ∈ Nstar i, (ut0 - ut0);
+      let F := fun i k => Fec U U (n i k) + lam i k • (eps2 i k • (ut0 - ut0) - eps4 i k • (L i - L k));
+      ∀ (i : ι), -∑ k, F i k - phys U (beta i) = 0
+STMT CFDLean.Num.edgeForm_boundary_split :: ∀ (ι κ : Type) [inst : Fintype ι] [Fintype κ] (d : ℕ)
+  (c B : ι → ι → CFDLean.Num.Vec d) (β : ι → CFDLean.Num.Vec d) (F : ι → Matrix κ (Fin d) ℝ),
+  (∀ (i : ι), ∑ k, c i k = 0) →
+    (∀ (k : ι), ∑ i, c i k = β k) →
+      (∀ (i : ι), ∑ k, B i k = β i) →
+        let n := fun i k => c i k - c k i;
+        let s := fun i k => (1 / 2) • (c i k + c k i - B i k);
+        ∀ (i : ι),
+          ∑ k, ((1 / 2) • (F i + F k)).mulVec (n i k) + ∑ k, (F k - F i).mulVec (s i k) +
+              (1 / 2) • (∑ k, (F k).mulVec (B i k) + (F i).mulVec (β i)) =
+            ∑ k, (F k).mulVec (c i k)
+STMT CFDLean.Num.WMesh.standardClosure_entropy :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool)
+  (w : ι → κ → ℝ) (ψ : ι → CFDLean.Num.Vec d) (Fs : C × Fin (d + 1) → ι → κ → ℝ),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        let b := fun i =>
+          ∑ p,
+            if bd p = Bool.true ∧ i ∈ M.facetNodes p then ∑ j ∈ M.facetNodes p, CFDLean.Num.stdWeight d i j • Fs p j
+            else 0;
+        ∑ i, (CFDLean.Num.dot (ψ i) (M.beta i) - CFDLean.Num.pairF (w i) (b i)) =
+          ∑ p,
+            if bd p = Bool.true then
+              1 / ↑d * ∑ i ∈ M.facetNodes p, (CFDLean.Num.dot (ψ i) (M.areaVec p) - CFDLean.Num.pairF (w i) (Fs p i)) +
+                1 / (4 * ↑d * (↑d + 1)) *
+                  ∑ i ∈ M.facetNodes p, ∑ j ∈ M.facetNodes p, CFDLean.Num.pairF (w j - w i) (Fs p j - Fs p i)
+            else 0
+STMT CFDLean.Num.WMesh.standardClosure_linear :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : Fintype C] [Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool)
+  (F : ι → Matrix κ (Fin d) ℝ),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        (∀ (i : ι),
+            ∑ k, (F k).mulVec ((1 / 2) • (M.B i k + if i = k then M.beta i else 0)) =
+              ∑ p,
+                if bd p = Bool.true ∧ i ∈ M.facetNodes p then
+                  ∑ j ∈ M.facetNodes p, CFDLean.Num.stdWeight d i j • (F j).mulVec (M.areaVec p)
+                else 0) ∧
+          ∀ (i j : ι), i ≠ j → CFDLean.Num.stdWeight d i i = (↑d + 3) * CFDLean.Num.stdWeight d i j
+STMT CFDLean.Num.quadratureClosure_entropy :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q]
+  [inst_2 : Fintype κ] (d : ℕ) (w : S → κ → ℝ) (ψ : S → CFDLean.Num.Vec d) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ)
+  (u : ι → S) (φ : Q → ι → ℝ) (N : Q → CFDLean.Num.Vec d) (ut : Q → S) (Fs : Q → κ → ℝ),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = Fec b a y) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), CFDLean.Num.pairF (w b - w a) (Fec a b y) = CFDLean.Num.dot (ψ b - ψ a) y) →
+      (∀ (q : Q), ∑ k, φ q k = 1) →
+        (∀ (q : Q), w (ut q) = ∑ k, φ q k • w (u k)) →
+          let beta := fun i => ∑ q, φ q i • N q;
+          let b := fun i => ∑ q, φ q i • (Fec (u i) (ut q) (N q) - ∑ k, φ q k • Fec (ut q) (u k) (N q) + Fs q);
+          ∑ i, (CFDLean.Num.dot (ψ (u i)) (beta i) - CFDLean.Num.pairF (w (u i)) (b i)) =
+              ∑ q, (CFDLean.Num.dot (ψ (ut q)) (N q) - CFDLean.Num.pairF (w (ut q)) (Fs q)) ∧
+            ∑ i, b i = ∑ q, Fs q
+STMT CFDLean.Num.quadratureClosure_freeStream :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ]
+  (d : ℕ) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (phys : S → CFDLean.Num.Vec d → κ → ℝ) (U : S) (φ : Q → ι → ℝ)
+  (N : Q → CFDLean.Num.Vec d) (n : ι → ι → CFDLean.Num.Vec d),
+  (∀ (a b : S), IsLinearMap ℝ (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Fec U U y = phys U y) →
+      (∀ (q : Q), ∑ k, φ q k = 1) →
+        (∀ (i : ι), ∑ q, φ q i • N q = -∑ k, n i k) →
+          let b := fun i => ∑ q, φ q i • (Fec U U (N q) - ∑ k, φ q k • Fec U U (N q) + phys U (N q));
+          ∀ (i : ι), -∑ k, Fec U U (n i k) - b i = 0
+STMT CFDLean.Num.quadratureClosure_linear :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ]
+  (d : ℕ) (Fec : S → S → CFDLean.Num.Vec d → κ → ℝ) (Fl : S → Matrix κ (Fin d) ℝ) (u : ι → S) (φ : Q → ι → ℝ)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d), Fec a b y = ((1 / 2) • (Fl a + Fl b)).mulVec y) →
+    (∀ (q : Q), Fl (ut q) = ∑ k, φ q k • Fl (u k)) →
+      (∀ (q : Q), ∑ k, φ q k = 1) →
+        let beta := fun i => ∑ q, φ q i • N q;
+        let b := fun i =>
+          ∑ q, φ q i • (Fec (u i) (ut q) (N q) - ∑ k, φ q k • Fec (ut q) (u k) (N q) + (Fl (ut q)).mulVec (N q));
+        ∀ (i : ι), b i = (1 / 2) • ((Fl (u i)).mulVec (beta i) + ∑ k, (Fl (u k)).mulVec (∑ q, (φ q i * φ q k) • N q))
+STMT CFDLean.Num.WMesh.faceRule_beta_B :: ∀ (ι C Q : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  [inst_2 : DecidableEq C] [inst_3 : Fintype Q] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (bd : C × Fin (d + 1) → Bool)
+  (fq : Q → C × Fin (d + 1)) (aq : Q → ℝ) (φ : Q → ι → ℝ),
+  M.Valid →
+    1 ≤ d →
+      M.Conforming bd →
+        (∀ (q : Q), bd (fq q) = Bool.true) →
+          (∀ (q : Q), ∀ k ∉ M.facetNodes (fq q), φ q k = 0) →
+            (∀ (p : C × Fin (d + 1)),
+                bd p = Bool.true → ∀ i ∈ M.facetNodes p, (∑ q, if fq q = p then aq q * φ q i else 0) = 1 / ↑d) →
+              (∀ (p : C × Fin (d + 1)),
+                  bd p = Bool.true →
+                    ∀ i ∈ M.facetNodes p,
+                      ∀ k ∈ M.facetNodes p,
+                        (∑ q, if fq q = p then aq q * φ q i * φ q k else 0) =
+                          (1 + if i = k then 1 else 0) / (↑d * (↑d + 1))) →
+                let N := fun q => aq q • M.areaVec (fq q);
+                (∀ (i : ι), ∑ q, φ q i • N q = M.beta i) ∧ ∀ (i k : ι), ∑ q, (φ q i * φ q k) • N q = M.B i k
+STMT CFDLean.Num.WMesh.galerkin_identity :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (w : ι → κ → ℝ)
+  (Fl : C → Matrix κ (Fin d) ℝ),
+  ∑ i, CFDLean.Num.pairF (w i) (M.galerkinRes Fl i) = -∑ T, M.ω T * M.vol T * CFDLean.Num.frob (M.gradW w T) (Fl T)
+STMT CFDLean.Num.WMesh.fvRes_eq_galerkinRes :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C]
+  [inst_2 : Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (S : C → ι → ι → CFDLean.Num.Vec d)
+  (Fl : C → Matrix κ (Fin d) ℝ),
+  (∀ (T : C) (a b : Fin (d + 1)), S T ((M.vert T) a) ((M.vert T) b) = M.m T • (M.g T b - M.g T a)) →
+    ∀ (i : ι), M.fvRes Fl S i = M.galerkinRes Fl i
+STMT CFDLean.Num.WMesh.closed_mean_galerkin :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι]
+  [inst_2 : Fintype C] [Fintype κ] (d : ℕ) (M : CFDLean.Num.WMesh ι C d) (F : ι → Matrix κ (Fin d) ℝ) (i : ι),
+  M.Valid →
+    M.Closed i →
+      ∑ k, ((1 / 2) • (F i + F k)).mulVec (M.n i k) = ∑ k, (F k).mulVec (M.c i k) ∧
+        ∑ k, (F k).mulVec (M.c i k) =
+          ∑ T, ∑ a, if (M.vert T) a = i then (M.ω T * M.m T) • ∑ b, (F ((M.vert T) b)).mulVec (M.g T b) else 0
+STMT CFDLean.Num.pair_production_integral :: ∀ (κ : Type) [inst : Fintype κ] (Φ : (κ → ℝ) → κ → ℝ)
+  (B : (κ → ℝ) → (κ → ℝ) →L[ℝ] κ → ℝ) (wi wk : κ → ℝ),
+  (∀ s ∈ Set.Icc 0 1, HasFDerivAt Φ (B (wi + s • (wk - wi))) (wi + s • (wk - wi))) →
+    ContinuousOn (fun s => (B (wi + s • (wk - wi))) (wk - wi)) (Set.Icc 0 1) →
+      Φ wk - Φ wi = ∫ (s : ℝ) in 0..1, (B (wi + s • (wk - wi))) (wk - wi) ∧
+        CFDLean.Num.pairF (wk - wi) (Φ wk - Φ wi) =
+          ∫ (s : ℝ) in 0..1, CFDLean.Num.pairF (wk - wi) ((B (wi + s • (wk - wi))) (wk - wi))
+STMT CFDLean.Num.ofMeshData_closed :: ∀ (n m : ℕ) (M : CFDLean.MedianDual.MeshData n m) (i : Fin n),
+  M.Conforming →
+    (∀ (o : M.Occurrence), M.faceCount (M.faceID o) = 1 → i ∉ M.faceID o) → (CFDLean.Num.ofMeshData M).Closed i
+STMT CFDLean.Num.dualFacets_grad :: (∀ (p : CFDLean.MedianDual.Points),
+    0 < CFDLean.MedianDual.sixVolume p →
+      (CFDLean.Num.simplexOfPoints p).Nondeg ∧
+        (CFDLean.Num.simplexOfPoints p).vol = CFDLean.MedianDual.volume p ∧
+          ∀ (i k : Fin 4),
+            CFDLean.MedianDual.localInterface p i k =
+              ((CFDLean.Num.simplexOfPoints p).vol / 4) •
+                ((CFDLean.Num.simplexOfPoints p).grad k - (CFDLean.Num.simplexOfPoints p).grad i)) ∧
+  ∀ (T : CFDLean.Num.Simplex 2),
+    T.Nondeg → ∀ (i k : Fin 3), i ≠ k → CFDLean.Num.dualFacet2 T i k = (T.vol / 3) • (T.grad k - T.grad i)
+STMT CFDLean.Num.ofMeshData_fv_galerkin :: ∀ (n m : ℕ) (κ : Type) [inst : Fintype κ]
+  (M : CFDLean.MedianDual.MeshData n m) (Fl : Fin m → Matrix κ (Fin 3) ℝ) (i : Fin n),
+  (∑ t,
+      ∑ a, ∑ b, if (M.vertex t) a = i then (Fl t).mulVec (CFDLean.MedianDual.localInterface (M.points t) a b) else 0) =
+    (CFDLean.Num.ofMeshData M).galerkinRes Fl i
+XSTMT CFDLean.Num.logMean_properties :: ∀ (a b : Real),
+  LT.lt (OfNat.ofNat 0) a →
+    LT.lt (OfNat.ofNat 0) b →
+      And (Eq (CFDLean.Num.logMean a b) (CFDLean.Num.logMean b a))
+        (And (Eq (CFDLean.Num.logMean a a) a)
+          (And (LT.lt (OfNat.ofNat 0) (CFDLean.Num.logMean a b))
+            (Eq (HSub.hSub b a) (HMul.hMul (CFDLean.Num.logMean a b) (HSub.hSub (Real.log b) (Real.log a))))))
+XSTMT CFDLean.Num.Simplex.calculus :: ∀ (d : Nat) (T : CFDLean.Num.Simplex d),
+  T.Nondeg →
+    And (Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => T.grad a) (OfNat.ofNat 0))
+      (And
+        (∀ (a b c : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+          Eq (CFDLean.Num.dot (T.grad a) (HSub.hSub (T.x b) (T.x c)))
+            (HSub.hSub (ite (Eq a b) (OfNat.ofNat 1) (OfNat.ofNat 0)) (ite (Eq a c) (OfNat.ofNat 1) (OfNat.ofNat 0))))
+        (And
+          (Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => CFDLean.Num.outer (T.grad a) (T.x a))
+            (OfNat.ofNat 1))
+          (And (LT.lt (OfNat.ofNat 0) T.vol)
+            (Eq (Finset.univ.sum fun (o : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => T.facet o) (OfNat.ofNat 0)))))
+XSTMT CFDLean.Num.Simplex.facet_cross3 :: And
+  (∀ (T : CFDLean.Num.Simplex (OfNat.ofNat 3)) (o a b c : Fin (OfNat.ofNat 4)),
+    T.Nondeg →
+      (List.cons o (List.cons a (List.cons b (List.cons c List.nil)))).Nodup →
+        let nv := CFDLean.Num.cross3 (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.x c) (T.x a));
+        Eq (T.facet o)
+          (HSMul.hSMul
+            (ite (LT.lt (OfNat.ofNat 0) (CFDLean.Num.dot nv (HSub.hSub (T.x o) (T.x a))))
+              (Neg.neg (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))) (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)))
+            nv))
+  (∀ (T T' : CFDLean.Num.Simplex (OfNat.ofNat 3)) (o a b c o' a' b' c' : Fin (OfNat.ofNat 4)),
+    T.Nondeg →
+      T'.Nondeg →
+        (List.cons o (List.cons a (List.cons b (List.cons c List.nil)))).Nodup →
+          (List.cons o' (List.cons a' (List.cons b' (List.cons c' List.nil)))).Nodup →
+            Eq (T'.x a') (T.x a) →
+              Eq (T'.x b') (T.x b) →
+                Eq (T'.x c') (T.x c) →
+                  let nv := CFDLean.Num.cross3 (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.x c) (T.x a));
+                  LT.lt
+                      (HMul.hMul (CFDLean.Num.dot nv (HSub.hSub (T.x o) (T.x a)))
+                        (CFDLean.Num.dot nv (HSub.hSub (T'.x o') (T.x a))))
+                      (OfNat.ofNat 0) →
+                    Eq (T'.facet o') (Neg.neg (T.facet o)))
+XSTMT CFDLean.Num.Simplex.facet_perp2 :: ∀ (T : CFDLean.Num.Simplex (OfNat.ofNat 2)) (o a b : Fin (OfNat.ofNat 3)),
+  T.Nondeg →
+    (List.cons o (List.cons a (List.cons b List.nil))).Nodup →
+      Eq (T.facet o)
+        (HSMul.hSMul
+          (ite
+            (LT.lt (OfNat.ofNat 0)
+              (CFDLean.Num.dot (CFDLean.Num.perp2 (HSub.hSub (T.x b) (T.x a))) (HSub.hSub (T.x o) (T.x a))))
+            (Neg.neg (OfNat.ofNat 1)) (OfNat.ofNat 1))
+          (CFDLean.Num.perp2 (HSub.hSub (T.x b) (T.x a))))
+XSTMT CFDLean.Num.pathSimplex_nonobtuse :: ∀ (π : Equiv.Perm (Fin (OfNat.ofNat 3))) (h : Fin (OfNat.ofNat 3) → Real),
+  (∀ (i : Fin (OfNat.ofNat 3)), LT.lt (OfNat.ofNat 0) (h i)) →
+    And (CFDLean.Num.pathSimplex π h).Nondeg
+      (∀ (a b : Fin (OfNat.ofNat 4)),
+        Ne a b →
+          LE.le (CFDLean.Num.dot ((CFDLean.Num.pathSimplex π h).grad a) ((CFDLean.Num.pathSimplex π h).grad b))
+            (OfNat.ofNat 0))
+XSTMT CFDLean.Num.WMesh.nW_row_sum :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (W : C → Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  M.Valid →
+    (∀ (T : C), Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => W T a) (M.vol T)) →
+      And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.nW W i k) (Neg.neg (M.beta i)))
+        (∀ (i : ι), M.Closed i → Eq (M.beta i) (OfNat.ofNat 0))
+XSTMT CFDLean.Num.WMesh.sbp_defect :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (W : C → Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  (∀ (T : C), Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => W T a) (M.vol T)) →
+    And
+      (∀ (i k : ι),
+        Eq (HAdd.hAdd (M.cW W i k) (M.cW W k i)) (HAdd.hAdd (M.B i k) (HSMul.hSMul (OfNat.ofNat 2) (M.EW W i k))))
+      (And (∀ (i k : ι), Eq (M.EW W k i) (M.EW W i k))
+        (And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.EW W i k) (OfNat.ofNat 0))
+          (And (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => M.cW W i k) (OfNat.ofNat 0))
+            (∀ (k : ι), Eq (Finset.univ.sum fun (i : ι) => M.cW W i k) (M.beta k)))))
+XSTMT CFDLean.Num.Simplex.median_defect_iff :: ∀ (d : Nat) (T : CFDLean.Num.Simplex d) (δ : Fin (HAdd.hAdd d (OfNat.ofNat 1)) → Real),
+  LE.le (OfNat.ofNat 1) d →
+    T.Nondeg →
+      Eq (Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) => δ a) (OfNat.ofNat 0) →
+        Iff
+          (∀ (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+            Ne a b → Eq (HAdd.hAdd (HSMul.hSMul (δ a) (T.grad b)) (HSMul.hSMul (δ b) (T.grad a))) (OfNat.ofNat 0))
+          (∀ (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))), Eq (δ a) (OfNat.ofNat 0))
+XSTMT CFDLean.Num.WMesh.dissGeom_edge :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    And (∀ (i k : ι), Ne i k → Eq (CFDLean.Num.dot (M.n i k) (M.e i k)) (HMul.hMul (OfNat.ofNat 2) (M.mu i k)))
+      (∀ (i k : ι),
+        Ne i k →
+          (Exists fun (T : C) =>
+              Exists fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                Exists fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                  And (Eq (DFunLike.coe (M.vert T) a) i)
+                    (And (Eq (DFunLike.coe (M.vert T) b) k) (LT.lt (OfNat.ofNat 0) (M.ω T)))) →
+            And (LT.lt (OfNat.ofNat 0) (M.mu i k))
+              (And (Exists fun (t : Real) => And (LT.lt (OfNat.ofNat 0) t) (Eq (M.nu i k) (HSMul.hSMul t (M.e i k))))
+                (Eq (CFDLean.Num.len (M.nu i k))
+                  (HDiv.hDiv (CFDLean.Num.dot (M.n i k) (M.e i k)) (CFDLean.Num.len (M.e i k))))))
+XSTMT CFDLean.Num.WMesh.dissGeom_outer :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    And
+      (∀ (i : ι),
+        Eq (Finset.univ.sum fun (k : ι) => CFDLean.Num.outer (M.c i k) (M.e i k)) (HSMul.hSMul (M.V i) (OfNat.ofNat 1)))
+      (And
+        (∀ (i : ι),
+          M.Closed i →
+            Eq (Finset.univ.sum fun (k : ι) => CFDLean.Num.outer (M.n i k) (M.e i k))
+              (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) (M.V i)) (OfNat.ofNat 1)))
+        (And
+          (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (k : ι) => CFDLean.Num.outer (M.n i k) (M.e i k))
+            (HSMul.hSMul (HMul.hMul (OfNat.ofNat 2) M.volΩ) (OfNat.ofNat 1)))
+          (Eq (Finset.univ.sum fun (i : ι) => M.V i) M.volΩ)))
+XSTMT CFDLean.Num.WMesh.dissGeom_calibration :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d),
+  M.Valid →
+    And (∀ (i : ι), M.Closed i → Eq (M.Gtensor M.nu i).trace (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)))
+      (And
+        (Eq
+          (Finset.univ.sum fun (i : ι) =>
+            Finset.univ.sum fun (k : ι) => HMul.hMul (CFDLean.Num.len (M.nu i k)) (CFDLean.Num.len (M.e i k)))
+          (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) M.volΩ))
+        (And
+          (∀ (i : ι), M.Closed i → LE.le (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)) (M.Gtensor M.n i).trace)
+          (∀ (i : ι),
+            M.Closed i →
+              Iff (Eq (M.Gtensor M.n i).trace (HMul.hMul (HMul.hMul (OfNat.ofNat 2) d.cast) (M.V i)))
+                (∀ (k : ι),
+                  Exists fun (t : Real) => And (LE.le (OfNat.ofNat 0) t) (Eq (M.n i k) (HSMul.hSMul t (M.e i k)))))))
+XSTMT CFDLean.Num.quadratic_edge_expansion :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (x : ι → CFDLean.Num.Vec d) (i : ι) (lam : ι → Real) (V q0 : Real)
+  (gq : CFDLean.Num.Vec d) (H : Matrix (Fin d) (Fin d) Real),
+  Ne V (OfNat.ofNat 0) →
+    H.IsSymm →
+      let q := fun (z : CFDLean.Num.Vec d) =>
+        HAdd.hAdd (HAdd.hAdd q0 (CFDLean.Num.dot gq z))
+          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (CFDLean.Num.dot z (H.mulVec z)));
+      let K :=
+        HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) V))
+          (Finset.univ.sum fun (k : ι) =>
+            HSMul.hSMul (lam k) (CFDLean.Num.outer (HSub.hSub (x k) (x i)) (HSub.hSub (x k) (x i))));
+      Eq
+        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+          (Finset.univ.sum fun (k : ι) => HMul.hMul (lam k) (HSub.hSub (q (x k)) (q (x i)))))
+        (HAdd.hAdd
+          (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+            (Finset.univ.sum fun (k : ι) =>
+              HMul.hMul (lam k) (CFDLean.Num.dot (HAdd.hAdd gq (H.mulVec (x i))) (HSub.hSub (x k) (x i)))))
+          (HMul.hMul V (CFDLean.Num.frob K H)))
+XSTMT CFDLean.Num.dissTensor_loewner :: ∀ (ι : Type) [inst : Fintype ι] (d : Nat) (e y : ι → CFDLean.Num.Vec d) (σ : ι → Real) (V : Real),
+  LT.lt (OfNat.ofNat 0) V →
+    (∀ (k : ι), LE.le (OfNat.ofNat 0) (σ k)) →
+      (∀ (k : ι), LT.lt (OfNat.ofNat 0) (CFDLean.Num.dot (y k) (e k))) →
+        let K := fun (z : ι → CFDLean.Num.Vec d) =>
+          HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) V))
+            (Finset.univ.sum fun (k : ι) =>
+              HSMul.hSMul (HMul.hMul (σ k) (CFDLean.Num.len (z k))) (CFDLean.Num.outer (e k) (e k)));
+        let ν := fun (k : ι) => CFDLean.Num.WMesh.nuOf (y k) (e k);
+        And
+          (∀ (k : ι),
+            And
+              (Eq (CFDLean.Num.len (y k))
+                (HMul.hMul (CFDLean.Num.len (ν k))
+                  (HDiv.hDiv (HMul.hMul (CFDLean.Num.len (y k)) (CFDLean.Num.len (e k)))
+                    (CFDLean.Num.dot (y k) (e k)))))
+              (LE.le (OfNat.ofNat 1)
+                (HDiv.hDiv (HMul.hMul (CFDLean.Num.len (y k)) (CFDLean.Num.len (e k))) (CFDLean.Num.dot (y k) (e k)))))
+          (And (HSub.hSub (K y) (K ν)).PosSemidef
+            (Iff (Eq (K y) (K ν))
+              (∀ (k : ι),
+                LT.lt (OfNat.ofNat 0) (σ k) →
+                  Exists fun (t : Real) => And (LT.lt (OfNat.ofNat 0) t) (Eq (y k) (HSMul.hSMul t (e k))))))
+XSTMT CFDLean.Num.WMesh.dissTensor_trace :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (σ : ι → ι → Real) (s σmax h : Real) (y : ι → ι → CFDLean.Num.Vec d) (i : ι),
+  M.Valid →
+    LT.lt (OfNat.ofNat 0) (M.V i) →
+      let K := fun (z : ι → ι → CFDLean.Num.Vec d) =>
+        HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (HMul.hMul (OfNat.ofNat 4) (M.V i)))
+          (Finset.univ.sum fun (k : ι) =>
+            HSMul.hSMul (HMul.hMul (σ i k) (CFDLean.Num.len (z i k))) (CFDLean.Num.outer (M.e i k) (M.e i k)));
+      And
+        ((∀ (k : ι), Ne k i → Eq (HMul.hMul (σ i k) (CFDLean.Num.len (M.e i k))) s) →
+          Eq (K y) (HSMul.hSMul (HDiv.hDiv s (HMul.hMul (OfNat.ofNat 4) (M.V i))) (M.Gtensor y i)))
+        (And
+          ((∀ (k : ι), Ne k i → Eq (HMul.hMul (σ i k) (CFDLean.Num.len (M.e i k))) s) →
+            Eq (K M.nu).trace (HDiv.hDiv (HMul.hMul d.cast s) (OfNat.ofNat 2)))
+          ((∀ (k : ι), And (LE.le (OfNat.ofNat 0) (σ i k)) (LE.le (σ i k) σmax)) →
+            (∀ (k : ι), Ne (M.n i k) (OfNat.ofNat 0) → LE.le (CFDLean.Num.len (M.e i k)) h) →
+              LE.le (K M.nu).trace (HMul.hMul (HMul.hMul (HDiv.hDiv d.cast (OfNat.ofNat 2)) σmax) h)))
+XSTMT CFDLean.Num.WMesh.closed_of_facetPaired :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d) (i : ι),
+  M.Valid → M.FacetPaired i → M.Closed i
+XSTMT CFDLean.Num.WMesh.conforming_boundary :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        And
+          (∀ (i : ι),
+            Eq (M.beta i)
+              (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) d.cast) (M.areaVec p)) (OfNat.ofNat 0)))
+          (And
+            (∀ (i k : ι),
+              Eq (M.B i k)
+                (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                  ite
+                    (And (Eq (bd p) Bool.true)
+                      (And (Membership.mem (M.facetNodes p) i) (Membership.mem (M.facetNodes p) k)))
+                    (HSMul.hSMul
+                      (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                        (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                      (M.areaVec p))
+                    (OfNat.ofNat 0)))
+            (∀ (i : ι),
+              (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                  Eq (bd p) Bool.true → Not (Membership.mem (M.facetNodes p) i)) →
+                M.Closed i))
+XSTMT CFDLean.Num.WMesh.facetBalanced_boundary :: ∀ (ι C : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] (d : Nat) (M : CFDLean.Num.WMesh ι C d)
+  (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      And (M.Conforming bd → M.FacetBalanced bd)
+        (M.FacetBalanced bd →
+          And
+            (∀ (i : ι),
+              Eq (M.beta i)
+                (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                  ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                    (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) d.cast) (M.areaVec p)) (OfNat.ofNat 0)))
+            (And
+              (∀ (i k : ι),
+                Eq (M.B i k)
+                  (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                    ite
+                      (And (Eq (bd p) Bool.true)
+                        (And (Membership.mem (M.facetNodes p) i) (Membership.mem (M.facetNodes p) k)))
+                      (HSMul.hSMul
+                        (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                          (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                        (M.areaVec p))
+                      (OfNat.ofNat 0)))
+              (∀ (i : ι),
+                (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                    Eq (bd p) Bool.true → Not (Membership.mem (M.facetNodes p) i)) →
+                  M.Closed i)))
+XSTMT CFDLean.Num.WMesh.facetBalanced_of_sideBalanced :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι] [inst_3 : Fintype C]
+  (M : CFDLean.Num.WMesh ι C (OfNat.ofNat 3)) (bd : Prod C (Fin (OfNat.ofNat 4)) → Bool),
+  M.Valid → CFDLean.Num.SideBalanced M bd → M.FacetBalanced bd
+XSTMT CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2 :: ∀ (ι C : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : LinearOrder ι] [inst_3 : Fintype C]
+  (M : CFDLean.Num.WMesh ι C (OfNat.ofNat 2)) (bd : Prod C (Fin (OfNat.ofNat 3)) → Bool),
+  M.Valid → CFDLean.Num.SideBalanced2 M bd → M.FacetBalanced bd
+XSTMT CFDLean.Num.antisymmetric_pairFlux :: ∀ (ι κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (F : ι → ι → κ → Real) (w : ι → κ → Real),
+  (∀ (i k : ι), Eq (F k i) (Neg.neg (F i k))) →
+    And (Eq (Finset.univ.sum fun (i : ι) => Finset.univ.sum fun (k : ι) => F i k) (OfNat.ofNat 0))
+      (Eq (Neg.neg (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (Finset.univ.sum fun (k : ι) => F i k)))
+        (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+          (Finset.univ.sum fun (i : ι) =>
+            Finset.univ.sum fun (k : ι) => CFDLean.Num.pairF (HSub.hSub (w k) (w i)) (F i k))))
+XSTMT CFDLean.Num.entropyConservative_production :: ∀ (ι S κ : Type) [inst : Fintype ι] [inst_1 : Fintype κ] (d : Nat) (w : S → κ → Real) (ψ : S → CFDLean.Num.Vec d)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S),
+  (∀ (i k : ι), Eq (n k i) (Neg.neg (n i k))) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Eq (Fec a b y) (Fec b a y)) →
+      (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+        (∀ (a b : S) (y : CFDLean.Num.Vec d),
+            Eq (CFDLean.Num.pairF (HSub.hSub (w b) (w a)) (Fec a b y)) (CFDLean.Num.dot (HSub.hSub (ψ b) (ψ a)) y)) →
+          let beta := fun (i : ι) => Neg.neg (Finset.univ.sum fun (k : ι) => n i k);
+          let Rc := fun (i : ι) => Finset.univ.sum fun (k : ι) => Fec (u i) (u k) (n i k);
+          And
+            (Eq (Neg.neg (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w (u i)) (Rc i)))
+              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (Finset.univ.sum fun (i : ι) =>
+                  Finset.univ.sum fun (k : ι) => CFDLean.Num.dot (HSub.hSub (ψ (u k)) (ψ (u i))) (n i k))))
+            (Eq
+              (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (Finset.univ.sum fun (i : ι) =>
+                  Finset.univ.sum fun (k : ι) => CFDLean.Num.dot (HSub.hSub (ψ (u k)) (ψ (u i))) (n i k)))
+              (Finset.univ.sum fun (i : ι) => CFDLean.Num.dot (ψ (u i)) (beta i)))
+XSTMT CFDLean.Num.dissipativePairFlux_conservation :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : Nat) (Fec : S → S → CFDLean.Num.Vec d → κ → Real)
+  (n : ι → ι → CFDLean.Num.Vec d) (u : ι → S) (ut : ι → κ → Real) (lam eps2 eps4 : ι → ι → Real) (Nstar : ι → Finset ι)
+  (b : ι → κ → Real),
+  (∀ (i k : ι), Eq (n k i) (Neg.neg (n i k))) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d), Eq (Fec a b y) (Fec b a y)) →
+      (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+        (∀ (i k : ι), Eq (lam k i) (lam i k)) →
+          (∀ (i k : ι), Eq (eps2 k i) (eps2 i k)) →
+            (∀ (i k : ι), Eq (eps4 k i) (eps4 i k)) →
+              let L := fun (i : ι) => (Nstar i).sum fun (k : ι) => HSub.hSub (ut k) (ut i);
+              let F := fun (i k : ι) =>
+                HAdd.hAdd (Fec (u i) (u k) (n i k))
+                  (HSMul.hSMul (lam i k)
+                    (HSub.hSub (HSMul.hSMul (eps2 i k) (HSub.hSub (ut i) (ut k)))
+                      (HSMul.hSMul (eps4 i k) (HSub.hSub (L i) (L k)))));
+              And (∀ (i k : ι), Eq (F k i) (Neg.neg (F i k)))
+                (Eq (Finset.univ.sum fun (i : ι) => HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => F i k)) (b i))
+                  (Neg.neg (Finset.univ.sum fun (i : ι) => b i)))
+XSTMT CFDLean.Num.dissipativePairFlux_freeStream :: ∀ (ι S κ : Type) [inst : Fintype ι] [DecidableEq ι] [Fintype κ] (d : Nat) (Fec : S → S → CFDLean.Num.Vec d → κ → Real)
+  (phys : S → CFDLean.Num.Vec d → κ → Real) (n : ι → ι → CFDLean.Num.Vec d) (U : S) (ut0 : κ → Real)
+  (lam eps2 eps4 : ι → ι → Real) (Nstar : ι → Finset ι),
+  (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Eq (Fec U U y) (phys U y)) →
+      let beta := fun (i : ι) => Neg.neg (Finset.univ.sum fun (k : ι) => n i k);
+      let L := fun (i : ι) => (Nstar i).sum fun (_k : ι) => HSub.hSub ut0 ut0;
+      let F := fun (i k : ι) =>
+        HAdd.hAdd (Fec U U (n i k))
+          (HSMul.hSMul (lam i k)
+            (HSub.hSub (HSMul.hSMul (eps2 i k) (HSub.hSub ut0 ut0)) (HSMul.hSMul (eps4 i k) (HSub.hSub (L i) (L k)))));
+      ∀ (i : ι), Eq (HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => F i k)) (phys U (beta i))) (OfNat.ofNat 0)
+XSTMT CFDLean.Num.edgeForm_boundary_split :: ∀ (ι κ : Type) [inst : Fintype ι] [Fintype κ] (d : Nat) (c B : ι → ι → CFDLean.Num.Vec d) (β : ι → CFDLean.Num.Vec d)
+  (F : ι → Matrix κ (Fin d) Real),
+  (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => c i k) (OfNat.ofNat 0)) →
+    (∀ (k : ι), Eq (Finset.univ.sum fun (i : ι) => c i k) (β k)) →
+      (∀ (i : ι), Eq (Finset.univ.sum fun (k : ι) => B i k) (β i)) →
+        let n := fun (i k : ι) => HSub.hSub (c i k) (c k i);
+        let s := fun (i k : ι) =>
+          HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HSub.hSub (HAdd.hAdd (c i k) (c k i)) (B i k));
+        ∀ (i : ι),
+          Eq
+            (HAdd.hAdd
+              (HAdd.hAdd
+                (Finset.univ.sum fun (k : ι) =>
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F i) (F k))).mulVec (n i k))
+                (Finset.univ.sum fun (k : ι) => (HSub.hSub (F k) (F i)).mulVec (s i k)))
+              (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                (HAdd.hAdd (Finset.univ.sum fun (k : ι) => (F k).mulVec (B i k)) ((F i).mulVec (β i)))))
+            (Finset.univ.sum fun (k : ι) => (F k).mulVec (c i k))
+XSTMT CFDLean.Num.WMesh.standardClosure_entropy :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool) (w : ι → κ → Real)
+  (ψ : ι → CFDLean.Num.Vec d) (Fs : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → ι → κ → Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        let b := fun (i : ι) =>
+          Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+            ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+              ((M.facetNodes p).sum fun (j : ι) => HSMul.hSMul (CFDLean.Num.stdWeight d i j) (Fs p j)) (OfNat.ofNat 0);
+        Eq (Finset.univ.sum fun (i : ι) => HSub.hSub (CFDLean.Num.dot (ψ i) (M.beta i)) (CFDLean.Num.pairF (w i) (b i)))
+          (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+            ite (Eq (bd p) Bool.true)
+              (HAdd.hAdd
+                (HMul.hMul (HDiv.hDiv (OfNat.ofNat 1) d.cast)
+                  ((M.facetNodes p).sum fun (i : ι) =>
+                    HSub.hSub (CFDLean.Num.dot (ψ i) (M.areaVec p)) (CFDLean.Num.pairF (w i) (Fs p i))))
+                (HMul.hMul
+                  (HDiv.hDiv (OfNat.ofNat 1)
+                    (HMul.hMul (HMul.hMul (OfNat.ofNat 4) d.cast) (HAdd.hAdd d.cast (OfNat.ofNat 1))))
+                  ((M.facetNodes p).sum fun (i : ι) =>
+                    (M.facetNodes p).sum fun (j : ι) =>
+                      CFDLean.Num.pairF (HSub.hSub (w j) (w i)) (HSub.hSub (Fs p j) (Fs p i)))))
+              (OfNat.ofNat 0))
+XSTMT CFDLean.Num.WMesh.standardClosure_linear :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool)
+  (F : ι → Matrix κ (Fin d) Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        And
+          (∀ (i : ι),
+            Eq
+              (Finset.univ.sum fun (k : ι) =>
+                (F k).mulVec
+                  (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+                    (HAdd.hAdd (M.B i k) (ite (Eq i k) (M.beta i) (OfNat.ofNat 0)))))
+              (Finset.univ.sum fun (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) =>
+                ite (And (Eq (bd p) Bool.true) (Membership.mem (M.facetNodes p) i))
+                  ((M.facetNodes p).sum fun (j : ι) =>
+                    HSMul.hSMul (CFDLean.Num.stdWeight d i j) ((F j).mulVec (M.areaVec p)))
+                  (OfNat.ofNat 0)))
+          (∀ (i j : ι),
+            Ne i j →
+              Eq (CFDLean.Num.stdWeight d i i)
+                (HMul.hMul (HAdd.hAdd d.cast (OfNat.ofNat 3)) (CFDLean.Num.stdWeight d i j)))
+XSTMT CFDLean.Num.quadratureClosure_entropy :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [inst_2 : Fintype κ] (d : Nat) (w : S → κ → Real)
+  (ψ : S → CFDLean.Num.Vec d) (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (u : ι → S) (φ : Q → ι → Real)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S) (Fs : Q → κ → Real),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d), Eq (Fec a b y) (Fec b a y)) →
+    (∀ (a b : S) (y : CFDLean.Num.Vec d),
+        Eq (CFDLean.Num.pairF (HSub.hSub (w b) (w a)) (Fec a b y)) (CFDLean.Num.dot (HSub.hSub (ψ b) (ψ a)) y)) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        (∀ (q : Q), Eq (w (ut q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (w (u k)))) →
+          let beta := fun (i : ι) => Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q);
+          let b := fun (i : ι) =>
+            Finset.univ.sum fun (q : Q) =>
+              HSMul.hSMul (φ q i)
+                (HAdd.hAdd
+                  (HSub.hSub (Fec (u i) (ut q) (N q))
+                    (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec (ut q) (u k) (N q))))
+                  (Fs q));
+          And
+            (Eq
+              (Finset.univ.sum fun (i : ι) =>
+                HSub.hSub (CFDLean.Num.dot (ψ (u i)) (beta i)) (CFDLean.Num.pairF (w (u i)) (b i)))
+              (Finset.univ.sum fun (q : Q) =>
+                HSub.hSub (CFDLean.Num.dot (ψ (ut q)) (N q)) (CFDLean.Num.pairF (w (ut q)) (Fs q))))
+            (Eq (Finset.univ.sum fun (i : ι) => b i) (Finset.univ.sum fun (q : Q) => Fs q))
+XSTMT CFDLean.Num.quadratureClosure_freeStream :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : Nat)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (phys : S → CFDLean.Num.Vec d → κ → Real) (U : S) (φ : Q → ι → Real)
+  (N : Q → CFDLean.Num.Vec d) (n : ι → ι → CFDLean.Num.Vec d),
+  (∀ (a b : S), IsLinearMap Real (Fec a b)) →
+    (∀ (y : CFDLean.Num.Vec d), Eq (Fec U U y) (phys U y)) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        (∀ (i : ι),
+            Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q))
+              (Neg.neg (Finset.univ.sum fun (k : ι) => n i k))) →
+          let b := fun (i : ι) =>
+            Finset.univ.sum fun (q : Q) =>
+              HSMul.hSMul (φ q i)
+                (HAdd.hAdd
+                  (HSub.hSub (Fec U U (N q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec U U (N q))))
+                  (phys U (N q)));
+          ∀ (i : ι), Eq (HSub.hSub (Neg.neg (Finset.univ.sum fun (k : ι) => Fec U U (n i k))) (b i)) (OfNat.ofNat 0)
+XSTMT CFDLean.Num.quadratureClosure_linear :: ∀ (ι Q S κ : Type) [inst : Fintype ι] [inst_1 : Fintype Q] [Fintype κ] (d : Nat)
+  (Fec : S → S → CFDLean.Num.Vec d → κ → Real) (Fl : S → Matrix κ (Fin d) Real) (u : ι → S) (φ : Q → ι → Real)
+  (N : Q → CFDLean.Num.Vec d) (ut : Q → S),
+  (∀ (a b : S) (y : CFDLean.Num.Vec d),
+      Eq (Fec a b y) ((HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (Fl a) (Fl b))).mulVec y)) →
+    (∀ (q : Q), Eq (Fl (ut q)) (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fl (u k)))) →
+      (∀ (q : Q), Eq (Finset.univ.sum fun (k : ι) => φ q k) (OfNat.ofNat 1)) →
+        let beta := fun (i : ι) => Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q);
+        let b := fun (i : ι) =>
+          Finset.univ.sum fun (q : Q) =>
+            HSMul.hSMul (φ q i)
+              (HAdd.hAdd
+                (HSub.hSub (Fec (u i) (ut q) (N q))
+                  (Finset.univ.sum fun (k : ι) => HSMul.hSMul (φ q k) (Fec (ut q) (u k) (N q))))
+                ((Fl (ut q)).mulVec (N q)));
+        ∀ (i : ι),
+          Eq (b i)
+            (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))
+              (HAdd.hAdd ((Fl (u i)).mulVec (beta i))
+                (Finset.univ.sum fun (k : ι) =>
+                  (Fl (u k)).mulVec (Finset.univ.sum fun (q : Q) => HSMul.hSMul (HMul.hMul (φ q i) (φ q k)) (N q)))))
+XSTMT CFDLean.Num.WMesh.faceRule_beta_B :: ∀ (ι C Q : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : DecidableEq C] [inst_3 : Fintype Q]
+  (d : Nat) (M : CFDLean.Num.WMesh ι C d) (bd : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1))) → Bool)
+  (fq : Q → Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))) (aq : Q → Real) (φ : Q → ι → Real),
+  M.Valid →
+    LE.le (OfNat.ofNat 1) d →
+      M.Conforming bd →
+        (∀ (q : Q), Eq (bd (fq q)) Bool.true) →
+          (∀ (q : Q) (k : ι), Not (Membership.mem (M.facetNodes (fq q)) k) → Eq (φ q k) (OfNat.ofNat 0)) →
+            (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                Eq (bd p) Bool.true →
+                  ∀ (i : ι),
+                    Membership.mem (M.facetNodes p) i →
+                      Eq (Finset.univ.sum fun (q : Q) => ite (Eq (fq q) p) (HMul.hMul (aq q) (φ q i)) (OfNat.ofNat 0))
+                        (HDiv.hDiv (OfNat.ofNat 1) d.cast)) →
+              (∀ (p : Prod C (Fin (HAdd.hAdd d (OfNat.ofNat 1)))),
+                  Eq (bd p) Bool.true →
+                    ∀ (i : ι),
+                      Membership.mem (M.facetNodes p) i →
+                        ∀ (k : ι),
+                          Membership.mem (M.facetNodes p) k →
+                            Eq
+                              (Finset.univ.sum fun (q : Q) =>
+                                ite (Eq (fq q) p) (HMul.hMul (HMul.hMul (aq q) (φ q i)) (φ q k)) (OfNat.ofNat 0))
+                              (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) (ite (Eq i k) (OfNat.ofNat 1) (OfNat.ofNat 0)))
+                                (HMul.hMul d.cast (HAdd.hAdd d.cast (OfNat.ofNat 1))))) →
+                let N := fun (q : Q) => HSMul.hSMul (aq q) (M.areaVec (fq q));
+                And (∀ (i : ι), Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (φ q i) (N q)) (M.beta i))
+                  (∀ (i k : ι),
+                    Eq (Finset.univ.sum fun (q : Q) => HSMul.hSMul (HMul.hMul (φ q i) (φ q k)) (N q)) (M.B i k))
+XSTMT CFDLean.Num.WMesh.galerkin_identity :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [inst_3 : Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (w : ι → κ → Real) (Fl : C → Matrix κ (Fin d) Real),
+  Eq (Finset.univ.sum fun (i : ι) => CFDLean.Num.pairF (w i) (M.galerkinRes Fl i))
+    (Neg.neg
+      (Finset.univ.sum fun (T : C) => HMul.hMul (HMul.hMul (M.ω T) (M.vol T)) (CFDLean.Num.frob (M.gradW w T) (Fl T))))
+XSTMT CFDLean.Num.WMesh.fvRes_eq_galerkinRes :: ∀ (ι C κ : Type) [Fintype ι] [inst : DecidableEq ι] [inst_1 : Fintype C] [inst_2 : Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (S : C → ι → ι → CFDLean.Num.Vec d) (Fl : C → Matrix κ (Fin d) Real),
+  (∀ (T : C) (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),
+      Eq (S T (DFunLike.coe (M.vert T) a) (DFunLike.coe (M.vert T) b))
+        (HSMul.hSMul (M.m T) (HSub.hSub (M.g T b) (M.g T a)))) →
+    ∀ (i : ι), Eq (M.fvRes Fl S i) (M.galerkinRes Fl i)
+XSTMT CFDLean.Num.WMesh.closed_mean_galerkin :: ∀ (ι C κ : Type) [inst : Fintype ι] [inst_1 : DecidableEq ι] [inst_2 : Fintype C] [Fintype κ] (d : Nat)
+  (M : CFDLean.Num.WMesh ι C d) (F : ι → Matrix κ (Fin d) Real) (i : ι),
+  M.Valid →
+    M.Closed i →
+      And
+        (Eq
+          (Finset.univ.sum fun (k : ι) =>
+            (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F i) (F k))).mulVec (M.n i k))
+          (Finset.univ.sum fun (k : ι) => (F k).mulVec (M.c i k)))
+        (Eq (Finset.univ.sum fun (k : ι) => (F k).mulVec (M.c i k))
+          (Finset.univ.sum fun (T : C) =>
+            Finset.univ.sum fun (a : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+              ite (Eq (DFunLike.coe (M.vert T) a) i)
+                (HSMul.hSMul (HMul.hMul (M.ω T) (M.m T))
+                  (Finset.univ.sum fun (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) =>
+                    (F (DFunLike.coe (M.vert T) b)).mulVec (M.g T b)))
+                (OfNat.ofNat 0)))
+XSTMT CFDLean.Num.pair_production_integral :: ∀ (κ : Type) [inst : Fintype κ] (Φ : (κ → Real) → κ → Real)
+  (B : (κ → Real) → ContinuousLinearMap (RingHom.id Real) (κ → Real) (κ → Real)) (wi wk : κ → Real),
+  (∀ (s : Real),
+      Membership.mem (Set.Icc (OfNat.ofNat 0) (OfNat.ofNat 1)) s →
+        HasFDerivAt Φ (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi))))
+          (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) →
+    ContinuousOn (fun (s : Real) => DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi))
+        (Set.Icc (OfNat.ofNat 0) (OfNat.ofNat 1)) →
+      And
+        (Eq (HSub.hSub (Φ wk) (Φ wi))
+          (intervalIntegral
+            (fun (s : Real) => DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi))
+            (OfNat.ofNat 0) (OfNat.ofNat 1) MeasureTheory.MeasureSpace.volume))
+        (Eq (CFDLean.Num.pairF (HSub.hSub wk wi) (HSub.hSub (Φ wk) (Φ wi)))
+          (intervalIntegral
+            (fun (s : Real) =>
+              CFDLean.Num.pairF (HSub.hSub wk wi)
+                (DFunLike.coe (B (HAdd.hAdd wi (HSMul.hSMul s (HSub.hSub wk wi)))) (HSub.hSub wk wi)))
+            (OfNat.ofNat 0) (OfNat.ofNat 1) MeasureTheory.MeasureSpace.volume))
+XSTMT CFDLean.Num.ofMeshData_closed :: ∀ (n m : Nat) (M : CFDLean.MedianDual.MeshData n m) (i : Fin n),
+  M.Conforming →
+    (∀ (o : M.Occurrence), Eq (M.faceCount (M.faceID o)) (OfNat.ofNat 1) → Not (Membership.mem (M.faceID o) i)) →
+      (CFDLean.Num.ofMeshData M).Closed i
+XSTMT CFDLean.Num.dualFacets_grad :: And
+  (∀ (p : CFDLean.MedianDual.Points),
+    LT.lt (OfNat.ofNat 0) (CFDLean.MedianDual.sixVolume p) →
+      And (CFDLean.Num.simplexOfPoints p).Nondeg
+        (And (Eq (CFDLean.Num.simplexOfPoints p).vol (CFDLean.MedianDual.volume p))
+          (∀ (i k : Fin (OfNat.ofNat 4)),
+            Eq (CFDLean.MedianDual.localInterface p i k)
+              (HSMul.hSMul (HDiv.hDiv (CFDLean.Num.simplexOfPoints p).vol (OfNat.ofNat 4))
+                (HSub.hSub ((CFDLean.Num.simplexOfPoints p).grad k) ((CFDLean.Num.simplexOfPoints p).grad i))))))
+  (∀ (T : CFDLean.Num.Simplex (OfNat.ofNat 2)),
+    T.Nondeg →
+      ∀ (i k : Fin (OfNat.ofNat 3)),
+        Ne i k →
+          Eq (CFDLean.Num.dualFacet2 T i k)
+            (HSMul.hSMul (HDiv.hDiv T.vol (OfNat.ofNat 3)) (HSub.hSub (T.grad k) (T.grad i))))
+XSTMT CFDLean.Num.ofMeshData_fv_galerkin :: ∀ (n m : Nat) (κ : Type) [inst : Fintype κ] (M : CFDLean.MedianDual.MeshData n m)
+  (Fl : Fin m → Matrix κ (Fin (OfNat.ofNat 3)) Real) (i : Fin n),
+  Eq
+    (Finset.univ.sum fun (t : Fin m) =>
+      Finset.univ.sum fun (a : Fin (OfNat.ofNat 4)) =>
+        Finset.univ.sum fun (b : Fin (OfNat.ofNat 4)) =>
+          ite (Eq (DFunLike.coe (M.vertex t) a) i) ((Fl t).mulVec (CFDLean.MedianDual.localInterface (M.points t) a b))
+            (OfNat.ofNat 0))
+    ((CFDLean.Num.ofMeshData M).galerkinRes Fl i)

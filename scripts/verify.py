@@ -26,6 +26,14 @@ MC_PORT_MAP = "specifications/MC-port-types.json"
 MC_PORT_MAP_SHA256 = "e333f9a76687ea7ca34e6b60b86bcb096b2e4696124393a7e439c4c91365dc8c"
 MC_PORT_COUNT = 199
 _PORT_MAP = None
+# MC-N: numerical core library (namespace CFDLean.Num) moved from JST_Paper_Lean. The check is additive: every
+# promised MC-N theorem is a kernel-checked root theorem with standard axioms in its CFDLean.Num module, and no
+# pre-existing CFDLean source (M1-M5) differs from the MC-N base revision.
+MC_N_RESULTS = "specifications/MC-N-results.json"
+MC_N_BASE_REVISION = "497b356610429c0760597724551b746605e038ba"
+MC_N_COUNT = 37
+MC_N_MODULES = {"CFDLean.Num." + name for name in
+                ["Basic", "LogMean", "Simplex", "Mesh", "Boundary", "PairFlux", "Galerkin", "Production", "Bridge"]}
 
 
 def load_port_map(data):
@@ -191,6 +199,49 @@ def check_m4_inherited(rows, contract, accepted, evidence):
     return comparisons
 
 
+def check_mc_n(rows, record, other_promised, spec_text):
+    results = record["results"]
+    ids = [r["id"] for r in results]
+    names = [r["theorem"] for r in results]
+    if (len(results) != MC_N_COUNT or len(set(ids)) != len(ids) or len(set(names)) != len(names)
+            or any(not i.startswith("MC-N.") for i in ids)):
+        raise ValueError("MC-N result bindings differ from the frozen scope")
+    for module in MC_N_MODULES:
+        if f"`{module.rsplit('.', 1)[1]}`" not in spec_text:
+            raise ValueError(f"MC-N module not in the frozen module list: {module}")
+    for result in results:
+        name = result["theorem"]
+        if result["module"] not in MC_N_MODULES or not name.startswith("CFDLean.Num."):
+            raise ValueError(f"MC-N theorem outside the numerical core: {name}")
+        row = rows.get(name)
+        if (row is None or row["kind"] != "theorem" or not row["root"] or row["unsafe"]
+                or set(row["axioms"]) - ALLOWED):
+            raise ValueError(f"Missing MC-N theorem: {name}")
+        if row["module"] != result["module"]:
+            raise ValueError(f"MC-N theorem outside its module: {name}")
+    if set(names) & set(other_promised):
+        raise ValueError("MC-N rebinds an M1-M5 promised theorem")
+    return sorted(names)
+
+
+def check_mc_n_sources(paths, read, base):
+    """Pre-existing CFDLean sources (M1-M5) are byte-identical to the MC-N base; only the umbrella changes."""
+    checked = 0
+    for path in paths:
+        if path == "CFDLean.lean" or path.startswith("CFDLean/Num/") or path == "CFDLean/Num.lean":
+            continue
+        try:
+            before = base(path)
+        except subprocess.CalledProcessError:
+            continue
+        if read(path) != before:
+            raise ValueError(f"MC-N changed an M1-M5 source: {path}")
+        checked += 1
+    if not checked:
+        raise ValueError("No M1-M5 source compared with the MC-N base")
+    return checked
+
+
 def git_blob(revision, path):
     return subprocess.check_output(["git", "show", f"{revision}:{path}"])
 
@@ -267,6 +318,14 @@ def main():
     m4_promised = check_promises(rows, m4, m4["current_stage"], ("M4a", "M4b"))
     m5_promised = check_promises(rows, m5, m5["current_stage"], ("M5",))
     promised = sorted(set(m2_promised + m3_promised + m4_promised + m5_promised))
+    mcn = json.loads((ROOT / MC_N_RESULTS).read_text())
+    mcn_spec = (ROOT / mcn["specification"]).read_bytes()
+    if hashlib.sha256(mcn_spec).hexdigest() != mcn["specification_sha256"]:
+        raise ValueError("MC-N scope differs from the recorded specification")
+    mcn_promised = check_mc_n(rows, mcn, promised, mcn_spec.decode())
+    mcn_sources = check_mc_n_sources(
+        sorted(str(path.relative_to(ROOT)) for path in (ROOT / "CFDLean").rglob("*.lean")),
+        lambda path: (ROOT / path).read_bytes(), lambda path: git_blob(MC_N_BASE_REVISION, path))
     inherited = check_inherited(rows, contract, accepted_contract, accepted_evidence)
     accepted_m3 = json.loads(git_blob(ACCEPTED_BASELINE, "specifications/M3-results.json"))
     inherited.update(check_m3_inherited(rows, m3, accepted_m3, accepted_evidence))
@@ -328,9 +387,12 @@ def main():
         "m4_independent_acceptance": "accepted at " + M4_ACCEPTED_REVISION,
         "m5_approval_record": m5["approval_record"],
         "m5_proposal_review": "reviews/M5/proposal-3dcb73d/report/Review_Record.json",
-        "m5_independent_acceptance": "pending implementation review"
+        "m5_independent_acceptance": "pending implementation review",
+        "mc_n_results": MC_N_RESULTS, "mc_n_promised_theorems": mcn_promised,
+        "mc_n_base_revision": MC_N_BASE_REVISION, "mc_n_unchanged_sources": mcn_sources
     }, indent=2) + "\n")
-    print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, and all pinned dependencies.")
+    print(f"Verified {len(rows)} qualified inventory records, {len(promised)} promised theorems, "
+          f"{len(mcn_promised)} MC-N theorems, and all pinned dependencies.")
 
 
 if __name__ == "__main__":

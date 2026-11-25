@@ -33,6 +33,16 @@ accepted source only if it equals its accepted revision or the reviewed port rev
 only through the pinned map. Status: implemented and AI-reviewed; independent human review waived by the user
 ([MC-approval.md](specifications/MC-approval.md)). The v4.19 sections below are kept as history.
 
+## MC-N: numerical core library (`CFDLean.Num`)
+
+`CFDLean/Num/{Basic,LogMean,Simplex,Mesh,Boundary,PairFlux,Galerkin,Production,Bridge}.lean` (umbrella
+`CFDLean.Num`) hold the generic simplex/mesh/pair-flux results moved from JST_Paper_Lean (`v436`, `afdf4f9`): scope
+[MC-N.md](specifications/MC-N.md), bindings [MC-N-results.json](specifications/MC-N-results.json) (37 theorems),
+statement map [evidence/mc-n-map.md](evidence/mc-n-map.md). Definitions are copied verbatim (namespace change only);
+each JST `Prop` body is the type of a directly stated theorem, identical up to the namespace of its constants. Proof
+helpers live in `CFDLean.Num.Internal`. The verifier checks that every MC-N theorem is a root theorem with standard
+axioms in its module and that no pre-existing (M1-M5) `CFDLean` source differs from the MC-N base `497b356`.
+
 ## Development verification
 
 Lean: `leanprover/lean4:v4.19.0`. Mathlib: `c44e0c8ee63ca166450922a373c7409c5d26b00b`. Transitive dependencies are pinned in lake-manifest.json.

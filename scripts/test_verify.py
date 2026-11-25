@@ -303,3 +303,63 @@ class PortMapTests(unittest.TestCase):
         self.assertFalse(verify.same_or_ported_type("a", "old", "forged", mapping))
         self.assertFalse(verify.same_or_ported_type("b", "old", "new", mapping))
         self.assertFalse(verify.same_or_ported_type("c", "old", "new", mapping))
+
+
+class MCNTests(unittest.TestCase):
+    SPEC = " ".join(f"`{name}`" for name in
+                    ["Basic", "LogMean", "Simplex", "Mesh", "Boundary", "PairFlux", "Galerkin", "Production", "Bridge"])
+
+    def setUp(self):
+        self.results = [{"id": f"MC-N.X-{i}", "theorem": f"CFDLean.Num.t{i}", "module": "CFDLean.Num.Mesh"}
+                        for i in range(verify.MC_N_COUNT)]
+        self.rows = {}
+        for r in self.results:
+            row = record(r["theorem"], ["propext"])
+            row["module"] = r["module"]
+            self.rows[r["theorem"]] = row
+
+    def check(self, results=None, rows=None, other=()):
+        return verify.check_mc_n(self.rows if rows is None else rows,
+                                 {"results": self.results if results is None else results}, list(other), self.SPEC)
+
+    def test_all_promised_theorems_accepted(self):
+        self.assertEqual(len(self.check()), verify.MC_N_COUNT)
+
+    def test_missing_wrong_kind_or_axiom_rejected(self):
+        for mutate in [lambda rows, n: rows.pop(n),
+                       lambda rows, n: rows[n].update(kind="definition"),
+                       lambda rows, n: rows[n].update(root=False),
+                       lambda rows, n: rows[n].update(axioms=["sorryAx"]),
+                       lambda rows, n: rows[n].update(module="CFDLean.Num.Bridge")]:
+            rows = json.loads(json.dumps(self.rows))
+            mutate(rows, "CFDLean.Num.t0")
+            with self.assertRaises(ValueError):
+                self.check(rows=rows)
+
+    def test_scope_count_ids_and_namespace_frozen(self):
+        for results in [self.results[1:], self.results[:-1] + self.results[:1],
+                        [dict(self.results[0], theorem="CFDLean.Time.t0")] + self.results[1:],
+                        [dict(self.results[0], module="CFDLean.Time.Controls")] + self.results[1:],
+                        [dict(self.results[0], id="M5-X")] + self.results[1:]]:
+            with self.assertRaises(ValueError):
+                self.check(results=results)
+
+    def test_cannot_rebind_m1_m5_theorem(self):
+        with self.assertRaises(ValueError):
+            self.check(other=["CFDLean.Num.t3"])
+
+    def test_m1_m5_sources_frozen(self):
+        base = {"CFDLean/Core/State.lean": b"a", "CFDLean/Time/Controls.lean": b"b"}
+        current = dict(base, **{"CFDLean/Num/Mesh.lean": b"new", "CFDLean/Num.lean": b"new"})
+        paths = sorted(current)
+
+        def blob(path):
+            if path not in base:
+                raise verify.subprocess.CalledProcessError(128, "git")
+            return base[path]
+        self.assertEqual(verify.check_mc_n_sources(paths, current.__getitem__, blob), 2)
+        current["CFDLean/Time/Controls.lean"] = b"weakened"
+        with self.assertRaises(ValueError):
+            verify.check_mc_n_sources(paths, current.__getitem__, blob)
+        with self.assertRaises(ValueError):
+            verify.check_mc_n_sources(["CFDLean/Num/Mesh.lean"], current.__getitem__, blob)
