@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Challenges.BurgersB1",
+  "solution_module": "CFDLean.Verification.BurgersB1Verify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersB1Verify.rusanov_monotone",
+    "CFDLean.Verification.BurgersB1Verify.harten_total_variation",
+    "CFDLean.Verification.BurgersB1Verify.incremental_bounds",
+    "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation",
+    "CFDLean.Verification.BurgersB1Verify.rusanov_bounds"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

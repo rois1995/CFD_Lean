@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, B1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -3430,6 +3430,123 @@
       ],
       "summary": "For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the discrete integral dx · Σ u.",
       "source": "specifications/Burgers-B0-results.json B0-S; references/Burgers-B0.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le",
+      "id": "B1-H",
+      "milestone": "B1",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Harten lemma: an incremental-form update with C, D ≥ 0 and C + D ≤ 1 at every interface does not increase the periodic total variation.",
+      "source": "specifications/Burgers-B1-results.json B1-H; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds",
+      "id": "B1-X",
+      "milestone": "B1",
+      "module": "CFDLean.Discrete.Periodic.TotalVariation",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An incremental-form update with C_i, D_{i-1} ≥ 0 and C_i + D_{i-1} ≤ 1 keeps every lower and upper bound of the old state at cell i.",
+      "source": "specifications/Burgers-B1-results.json B1-X; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.monotone",
+      "id": "B1-M",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov flux is nondecreasing in the left state and nonincreasing in the right state.",
+      "source": "specifications/Burgers-B1-results.json B1-M; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed",
+      "id": "B1-I",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The mean of two states is bounded in absolute value by the Rusanov wave speed max(|a|, |b|).",
+      "source": "specifications/Burgers-B1-results.json B1-I; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate",
+      "id": "B1-I",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov Forward Euler step is in incremental form with C = (dt/dx)(a − ū)/2 and D = (dt/dx)(a + ū)/2.",
+      "source": "specifications/Burgers-B1-results.json B1-I; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.step_totalVariation_le",
+      "id": "B1-S",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx > 0, dt ≥ 0 and dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step does not increase the total variation, on any periodic grid.",
+      "source": "specifications/Burgers-B1-results.json B1-S; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.step_bounds",
+      "id": "B1-S",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For dx > 0, dt ≥ 0 and 2 · dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step keeps every lower and upper bound of the old state.",
+      "source": "specifications/Burgers-B1-results.json B1-S; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le",
+      "id": "B1-S",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Total variation under the per-interface CFL hypothesis for the assembled scheme on ZMod N.",
+      "source": "specifications/Burgers-B1-results.json B1-S; references/Burgers-B1.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds",
+      "id": "B1-S",
+      "milestone": "B1",
+      "module": "CFDLean.Schemes.Burgers.RusanovStability",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds under the per-interface CFL 1/2 hypothesis for the assembled scheme on ZMod N.",
+      "source": "specifications/Burgers-B1-results.json B1-S; references/Burgers-B1.md"
     }
   ]
 }
