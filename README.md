@@ -51,16 +51,34 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | Folder | Content |
 |---|---|
 | `CFDLean/Foundations/` | `Basic`, `LogMean`, state `Coordinates` |
-| `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure) |
+| `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure), `Scalar/` (scalar conservation law), `Burgers/` (physical flux) |
 | `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
-| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly` |
+| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation) |
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
-| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls) |
-| `CFDLean/Time/` | explicit Euler step and its controls |
+| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux and consistency certificate), `Burgers/` (Rusanov flux, assembled scheme, controls) |
+| `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
 verifier finds an accepted source at its new path only through this map and accepts it only if it equals the accepted
 (or MC-T port) file except for the `import` header.
+
+## Burgers B0 (scalar finite-volume core)
+
+[Burgers B0](references/Burgers-B0.md) implements the frozen [contract](specifications/Burgers-B0.md): exact-real 1D
+inviscid Burgers, periodic uniform grid, two-point flux, Rusanov flux, Forward Euler. Burgers-specific
+declarations are in `CFDLean.Burgers`, generic ones in `CFDLean.Scalar`, `CFDLean.Periodic` and
+`CFDLean.Time.ForwardEuler`; the modules follow the layered folders ([layout note](specifications/Burgers-B0-layout.md)).
+The [result map](specifications/Burgers-B0-results.json) binds the six result IDs (12 promised theorems, catalog status
+`pending`). Independent acceptance is pending. B0 makes no CFL, monotonicity, TVD, entropy, convergence, positivity,
+order, floating-point or executable-refinement claim.
+
+The trusted B0 statements are in `CFDLean/Verification/BurgersB0Challenge.lean` (Mathlib only, hash-pinned in
+`scripts/verify.py`); `CFDLean/Verification/BurgersB0Verify.lean` proves them from the implementation. To judge the
+bridge against the challenge with Lean's kernel and five external checkers in a `bwrap` sandbox, run:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB0.comparator.json
+```
 
 ## Development verification
 

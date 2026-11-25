@@ -1,0 +1,72 @@
+name: Burgers B0 verification
+
+on:
+  push:
+    branches:
+      - burgers-b0-implementation
+    paths: &paths
+      - 'CFDLean/**'
+      - 'CFDLean.lean'
+      - 'Challenges/**'
+      - 'KernelAudit.lean'
+      - 'Integrity.lean'
+      - 'StatementChecks.lean'
+      - 'catalog/**'
+      - 'evidence/**'
+      - 'scripts/**'
+      - 'specifications/**'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/burgers-b0.yml'
+  pull_request:
+    branches:
+      - main
+    paths: *paths
+  workflow_dispatch:
+
+concurrency:
+  group: burgers-b0-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Install pinned Lean and Mathlib cache
+        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: true
+      - name: Build Burgers B0
+        run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls
+      - name: Check implementation against trusted B0 statements
+        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify
+      - name: Build full package and integrity target
+        run: ~/.elan/bin/lake build
+      - name: Audit axioms and unsafe dependency closure
+        run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
+      - name: Verifier fixtures
+        run: PATH="$HOME/.elan/bin:$PATH" python3 -m unittest discover -s scripts -p test_verify.py
+      - name: Verify frozen contracts, result maps, catalog and trusted B0 files
+        run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py
+      - name: Committed evidence equals regenerated evidence
+        run: >
+          git diff --exit-code -- evidence/verification.json evidence/kernel-inventory.log
+          evidence/inherited-types.json evidence/bindings-diff.patch evidence/binding-type-diff.json
+          evidence/SHA256SUMS
+      - name: Install bubblewrap sandbox
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+      - name: Judge the B0 bridge against the trusted challenge (kernel and five external checkers)
+        run: ~/.elan/bin/lake comparator --paranoid --config Challenges/BurgersB0.comparator.json

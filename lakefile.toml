@@ -17,3 +17,8 @@ name = "CFDLean"
 
 [[lean_lib]]
 name = "Integrity"
+
+# Challenge modules for `lake comparator`. They state trusted theorems with `sorry` holes, so they are not a default
+# target and no library module imports them.
+[[lean_lib]]
+name = "Challenges"
