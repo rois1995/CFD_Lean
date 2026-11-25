@@ -39503,5 +39503,7 @@
     "CFDLean.Num.quadratureClosure_linear"
   ],
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
-  "mc_n_unchanged_sources": 23
+  "mc_n_unchanged_sources": 23,
+  "catalog": "catalog/theorems.json",
+  "catalog_entries": 251
 }

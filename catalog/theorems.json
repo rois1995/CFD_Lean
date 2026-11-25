@@ -1,0 +1,3279 @@
+{
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "theorems": [
+    {
+      "name": "CFDLean.squareSum_mul",
+      "id": "M1-aux",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Scaling a vector by a multiplies its sum of squares by a².",
+      "source": "references/M1.md map row 'Finite sum scaling identities'; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.squareSum_div",
+      "id": "M1-aux",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Dividing a vector by a divides its sum of squares by a².",
+      "source": "references/M1.md map row 'Finite sum scaling identities'; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.pressure_toConservative",
+      "id": "M1-1",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ ≠ 1 and ρ ≠ 0 the pressure of a converted primitive state is its prescribed pressure.",
+      "source": "specifications/M1.md target 1; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.primitive_roundTrip",
+      "id": "M1-1",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ ≠ 1 and ρ ≠ 0 converting a primitive state to conservative and back returns it.",
+      "source": "specifications/M1.md target 1; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.conservative_roundTrip",
+      "id": "M1-2",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ ≠ 1 and ρ ≠ 0 converting a conservative state to primitive and back returns it.",
+      "source": "specifications/M1.md target 2; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.primitive_admissible_toConservative",
+      "id": "M1-3",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ > 1 an admissible primitive state converts to an admissible conservative state.",
+      "source": "specifications/M1.md target 3; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.conservative_admissible_toPrimitive",
+      "id": "M1-3",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "An admissible conservative state converts to an admissible primitive state.",
+      "source": "specifications/M1.md target 3; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.admissible_iff_internalEnergy_pos",
+      "id": "M1-4",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ > 1 a conservative state is admissible iff ρ > 0 and its energy exceeds the kinetic energy Q(m)/(2ρ).",
+      "source": "specifications/M1.md target 4; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.admissible_exists",
+      "id": "M1-5",
+      "milestone": "M1",
+      "module": "CFDLean.Core.State",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ > 1 the admissible conservative domain is nonempty in every dimension.",
+      "source": "specifications/M1.md target 5; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.dot_add",
+      "id": "M1-6",
+      "milestone": "M1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The dot product is additive in its second argument.",
+      "source": "specifications/M1.md target 6; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.dot_mul",
+      "id": "M1-6",
+      "milestone": "M1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The dot product is homogeneous in its second argument.",
+      "source": "specifications/M1.md target 6; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.physicalFlux_add",
+      "id": "M1-6",
+      "milestone": "M1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The physical Euler flux is additive in the oriented area vector.",
+      "source": "specifications/M1.md target 6; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.physicalFlux_mul",
+      "id": "M1-6",
+      "milestone": "M1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The physical Euler flux scales linearly with the oriented area vector.",
+      "source": "specifications/M1.md target 6; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.physicalFlux_reverse",
+      "id": "M1-6",
+      "milestone": "M1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Reversing the oriented area vector negates the physical Euler flux.",
+      "source": "specifications/M1.md target 6; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.physicalFlux_zero",
+      "id": "M1-6",
+      "milestone": "M1",
+      "module": "CFDLean.Core.PhysicalFlux",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The physical Euler flux through a zero area vector is zero.",
+      "source": "specifications/M1.md target 6; accepted list: Integrity.lean"
+    },
+    {
+      "name": "CFDLean.Coordinates.decode_encode",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.Coordinates",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Decoding the five-coordinate encoding of a 3D conservative state returns the state.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.Coordinates.encode_decode",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.Coordinates",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Encoding a decoded five-coordinate vector returns the vector.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_coordinateFlux",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For nonzero density the explicit physical Jacobian is the Fréchet derivative of the fixed-normal Euler flux in state coordinates.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.PhysicalJacobian.isOpen_admissible",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The admissible set is open in state coordinates.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.Coordinates.unitNormal_dot_self",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.Coordinates",
+      "status": "accepted",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The unit normal of a nonzero area vector has unit length.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_integratedFlux",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For nonzero density and area the derivative of the area-integrated flux is the area times the Jacobian at the unit normal.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.PhysicalJacobian.jacobian_action",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The physical Jacobian applied to a perturbation is given by the explicit formula in velocity, normal speed, pressure perturbation and total enthalpy.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.PhysicalJacobian.hasFDerivAt_zeroArea",
+      "id": "M2-J",
+      "milestone": "M2",
+      "module": "CFDLean.Core.PhysicalJacobian",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The flux through a zero area vector has zero derivative at every state.",
+      "source": "specifications/M2.md M2-J (stage M2a)"
+    },
+    {
+      "name": "CFDLean.Roe.root_pos",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The square-root density used by the Roe average is positive for positive density.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.root_sum_pos",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The sum of the two square-root densities is positive for positive densities.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.weight_pos",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Each Roe averaging weight is positive for positive densities.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.weight_lt_one",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Each Roe averaging weight is smaller than one for positive densities.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.weight_sum",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The two Roe averaging weights sum to one.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.averages_swap",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe-averaged velocity, enthalpy and sound-speed square are symmetric in the two states.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.variance_identity",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The averaged sound-speed square is the weighted mean of the endpoint sound-speed squares plus a velocity-jump variance term.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.soundSquare_pos",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ > 1 and admissible states the averaged sound-speed square is positive.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.soundSpeed_pos",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ > 1 and admissible states the averaged sound speed is positive.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.soundSpeed_sq",
+      "id": "M2-A",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Averages",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For γ > 1 and admissible states the averaged sound speed squares to the averaged sound-speed square.",
+      "source": "specifications/M2.md M2-A (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.parameter_state",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The state recovered from Roe's parameter vector is the original state.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.parameter_flux",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The flux recovered from Roe's parameter vector is the physical coordinate flux.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.hasFDerivAt_parameterState",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "B is the Fréchet derivative of the parameter-to-state map.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.hasFDerivAt_parameterFlux",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "C is the Fréchet derivative of the parameter-to-flux map.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.state_midpoint_jump",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The state jump is B at the parameter midpoint applied to the parameter jump.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.flux_midpoint_jump",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The flux jump is C at the parameter midpoint applied to the parameter jump.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.midpoint_pos",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The parameter midpoint of two positive-density states has positive first component.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.B_bijective",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "B is bijective for γ ≠ 0 and nonzero first parameter component.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.inverseB_B",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The explicit inverse of B is a left inverse.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.B_inverseB",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The explicit inverse of B is a right inverse.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.operator_B",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe operator at the parameter velocity and enthalpy composed with B equals C.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.roeMatrix_B",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe matrix composed with B at the parameter midpoint equals C at the midpoint.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.roeMatrix_CB_inverse",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For admissible states the Roe matrix is C composed with the inverse of B at the parameter midpoint.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.secant_identity",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For admissible states the Roe matrix maps the state jump to the flux jump (Roe property U).",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.integrated_secant",
+      "id": "M2-R",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For admissible states and nonzero area the area-scaled Roe matrix at the unit normal maps the state jump to the integrated flux jump.",
+      "source": "specifications/M2.md M2-R (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.roeMatrix_continuousOn",
+      "id": "M2-L",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe matrix is jointly continuous on pairs of admissible states.",
+      "source": "specifications/M2.md M2-L (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.roeMatrix_diagonal",
+      "id": "M2-L",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "At two equal positive-density states the Roe matrix is the physical Jacobian.",
+      "source": "specifications/M2.md M2-L (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.hasFDerivAt_diagonal",
+      "id": "M2-L",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "At an admissible state the equal-state Roe matrix is the derivative of the physical flux.",
+      "source": "specifications/M2.md M2-L (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.roeMatrix_equal_state_limit",
+      "id": "M2-L",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Linearization",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe matrix tends to the physical Jacobian as both states tend to the same admissible state.",
+      "source": "specifications/M2.md M2-L (stage M2b)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.sound_parameters",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For admissible states the averaged sound speed is positive and its square is (γ−1)(H̄ − Q(ū)/2).",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_cubic",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The shifted Roe matrix satisfies the cubic identity (Ã − q̄)³ = c̄²(Ã − q̄) for a unit normal.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_eigenvectors",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The acoustic, contact and shear vectors are eigenvectors of the Roe matrix with speeds q̄ ∓ c̄ and q̄.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_projector_algebra",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The three Roe spectral projectors are idempotent and have zero mutual products.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_projector_sum",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The three Roe spectral projectors sum to the identity.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_projector_ranges",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Each Roe projector's range is the eigenspace of its wave speed.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_dimensions",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe eigenspaces have dimensions 1, 3 and 1.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_projector_ranks",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe projectors have ranks 1, 3 and 1.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_complete_basis",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe matrix has a complete basis of five eigenvectors.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_spectral_decomposition",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe matrix is the speed-weighted sum of its three spectral projectors.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_convective_tangent_span",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The contact vector and the shear vectors of any tangent basis span the convective eigenspace.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.tangent_dimension",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The plane tangent to a unit normal has dimension 2.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.exists_tangent_basis",
+      "id": "M2-E",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The plane tangent to a unit normal has a basis.",
+      "source": "specifications/M2.md M2-E (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_absolute_basis",
+      "id": "M2-D",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe dissipation operator equals R diag(|speeds|) R⁻¹ for every complete eigenbasis R.",
+      "source": "specifications/M2.md M2-D (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_absolute_eigen",
+      "id": "M2-D",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Every eigenvector of the Roe matrix with eigenvalue μ is an eigenvector of the dissipation operator with eigenvalue |μ|.",
+      "source": "specifications/M2.md M2-D (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_matrix_reverse",
+      "id": "M2-O",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Reversing the normal negates the Roe matrix.",
+      "source": "specifications/M2.md M2-O (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_shift_reverse",
+      "id": "M2-O",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Reversing the normal negates the shifted Roe matrix.",
+      "source": "specifications/M2.md M2-O (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_projector_reverse",
+      "id": "M2-O",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Reversing the normal exchanges the two acoustic projectors.",
+      "source": "specifications/M2.md M2-O (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_speed_reverse",
+      "id": "M2-O",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Reversing the normal negates the Roe wave speeds and reverses their order.",
+      "source": "specifications/M2.md M2-O (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_absolute_reverse",
+      "id": "M2-O",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe dissipation operator is invariant under normal reversal.",
+      "source": "specifications/M2.md M2-O (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.Spectral.roe_swap",
+      "id": "M2-O",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Spectral",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The shifted Roe matrix, projectors and dissipation are symmetric in the two states.",
+      "source": "specifications/M2.md M2-O (stage M2c)"
+    },
+    {
+      "name": "CFDLean.Roe.numericalFlux_consistency",
+      "id": "M2-F1",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe numerical flux of two equal states is the physical flux.",
+      "source": "specifications/M2.md M2-F1 (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.numericalFlux_reverse",
+      "id": "M2-F2",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Swapping the states and reversing the area vector negates the Roe numerical flux.",
+      "source": "specifications/M2.md M2-F2 (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.numericalFlux_zero",
+      "id": "M2-F3",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe numerical flux through a zero area vector is zero.",
+      "source": "specifications/M2.md M2-F3 (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.numericalFlux_scale",
+      "id": "M2-F3",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe numerical flux scales linearly with nonnegative multiples of the area vector.",
+      "source": "specifications/M2.md M2-F3 (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.numericalFlux_upwind_left",
+      "id": "M2-F4",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "If the Roe normal speed is at least the averaged sound speed, the Roe flux is the left physical flux (sonic case included).",
+      "source": "specifications/M2.md M2-F4 (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.numericalFlux_upwind_right",
+      "id": "M2-F4",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "If the Roe normal speed is at most minus the averaged sound speed, the Roe flux is the right physical flux (sonic case included).",
+      "source": "specifications/M2.md M2-F4 (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.witness_intermediate_coordinates",
+      "id": "M2-C",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Roe intermediate state of the receding-state witness has the stated exact coordinates.",
+      "source": "specifications/M2.md M2-C (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Roe.positivity_counterexample",
+      "id": "M2-C",
+      "milestone": "M2",
+      "module": "CFDLean.Flux.Roe.Flux",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Two admissible states with positive averaged sound-speed square have a Roe intermediate state with negative density.",
+      "source": "specifications/M2.md M2-C (stage M2d)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_tail",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Edge incidence is +1 at the tail node.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_head",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Edge incidence is −1 at the head node.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_other",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Edge incidence is 0 at a node that is neither tail nor head.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_eq_one",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Edge incidence is +1 exactly at the tail node.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_eq_neg_one",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Edge incidence is −1 exactly at the head node.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_sum",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The incidences of an edge sum to zero over all nodes.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.incidence_smul",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Incidence times a vector is the vector at the tail minus the vector at the head.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.residual_outgoing",
+      "id": "M3-I",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The assembled residual is outgoing tail transfers minus incoming head transfers plus owned boundary transfers.",
+      "source": "specifications/M3.md M3-I (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.global_balance",
+      "id": "M3-R",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For arbitrary edge and boundary transfers the nodal residuals sum to the total boundary transfer.",
+      "source": "specifications/M3.md M3-R (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.roe_global_balance",
+      "id": "M3-R",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With Roe edge transfers the nodal residuals sum to the total boundary transfer.",
+      "source": "specifications/M3.md M3-R (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.outwardTransfer_eq",
+      "id": "M3-O",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The outward Roe transfer of an edge at a node is the incidence times the edge Roe transfer.",
+      "source": "specifications/M3.md M3-O (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.residual_reverse",
+      "id": "M3-O",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Reversing a set of edges and negating their transfers leaves every assembled residual unchanged.",
+      "source": "specifications/M3.md M3-O (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.roe_residual_reverse",
+      "id": "M3-O",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Reversing a set of edges, with swapped endpoints and reversed area vectors, leaves every Roe residual unchanged.",
+      "source": "specifications/M3.md M3-O (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.residual_reindex",
+      "id": "M3-O",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The assembled residual commutes with relabeling of nodes, edges and boundary pieces.",
+      "source": "specifications/M3.md M3-O (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.roe_residual_reindex",
+      "id": "M3-O",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Roe residual commutes with relabeling of nodes, edges and boundary pieces with transported data.",
+      "source": "specifications/M3.md M3-O (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.roeTransfer_zero",
+      "id": "M3-O",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An edge with zero area vector has zero Roe transfer.",
+      "source": "specifications/M3.md M3-O (stage M3a)"
+    },
+    {
+      "name": "CFDLean.MedianDual.faceVector_sum",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The four face area vectors of a tetrahedron sum to zero.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.flagBoundary_sum",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The boundary area vectors of each median-dual flag tetrahedron sum to zero.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.outwardTriangle_dot",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The outward dual triangle of a flag dotted with its edge vector is one 24th of six times the tetrahedron volume.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.localInterface_reverse",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Local median-dual interface vectors are antisymmetric in their two nodes.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.localPatch_eq",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A local boundary patch is one third of the face vector, or zero at the vertex opposite the face.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.sum_internal_one",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The first family of internal flag faces cancels when summed over the flags of a vertex.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.sum_internal_two",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The second family of internal flag faces cancels when summed over the flags of a vertex.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.flag_boundaries_identify",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The flag boundary vectors of a vertex sum to its local hull vector.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.localHull_identification",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The local hull vector of a vertex is the sum of its interface vectors and boundary patches.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.local_closure",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "In one tetrahedron the interface vectors and boundary patches of each vertex sum to zero.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.mem_faceNodes",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Mesh",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A node lies on face j of a cell iff it is a cell vertex other than vertex j.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.face_membership",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Mesh",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A three-node set lies in a cell iff it is one of the cell's faces.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.faceArea_cancel",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Mesh",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a conforming mesh two distinct occurrences of the same primal face have opposite area vectors.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.assembledArea_reverse",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Edges",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Assembled median-dual edge area vectors are antisymmetric.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.assembledArea_row",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Edges",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The assembled areas at a node sum to its local interface vectors summed over all cells.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.edge_incidence_sum",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Edges",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The incidence-signed edge areas at a node equal the row sum of assembled areas.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.ownedPatch_local",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Boundary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The patch area a node owns on a face occurrence is the corresponding local patch.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.interior_cancel",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Boundary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh the patches on interior faces cancel at every node.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.boundaryKey_injective",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Boundary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A boundary record is determined by its face and owner key.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.boundaryKey_range",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Boundary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Boundary keys are exactly the pairs of a face used once and a node on that face.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.all_patches_boundary",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Boundary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh all patches at a node sum to the areas of its boundary records.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.metric_closed",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh the median dual of every node is metrically closed (zero metric defect).",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.roe_boundary_balance",
+      "id": "M3-G",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a concrete median-dual mesh the Roe residuals sum to the total boundary transfer.",
+      "source": "specifications/M3.md M3-G (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.flag_card",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A tetrahedron has 24 median-dual flags.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.vertexFlags_card",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Each tetrahedron vertex has 6 median-dual flags.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.flag_determinant",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Each flag's signed six-volume is its frame sign times one 24th of the tetrahedron's.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.flag_volume",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Each flag's volume is one 24th of the tetrahedron's volume.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.localDualVolume_eq",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual.Local",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The local dual volume of a vertex in a tetrahedron is a quarter of its volume.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.dualVolume_formula",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A node's dual volume is the sum of Vol(T)/4 over its incident cells.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.dualVolume_pos",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Used nodes have positive dual volume.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.dualVolume_unused",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Unused nodes have zero dual volume.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.volume_partition",
+      "id": "M3-V",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh the dual volumes sum to the total cell volume.",
+      "source": "specifications/M3.md M3-V (stage M3b)"
+    },
+    {
+      "name": "CFDLean.Assembly.constant_state_residual",
+      "id": "M3-C",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a common state with physical boundary transfers the residual is the physical flux through the metric defect.",
+      "source": "specifications/M3.md M3-C (stage M3a)"
+    },
+    {
+      "name": "CFDLean.Assembly.constant_state_closed",
+      "id": "M3-C",
+      "milestone": "M3",
+      "module": "CFDLean.Discretization.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A common state with physical boundary transfers has zero residual at every node with zero metric defect.",
+      "source": "specifications/M3.md M3-C (stage M3a)"
+    },
+    {
+      "name": "CFDLean.MedianDual.MeshData.constant_state",
+      "id": "M3-C",
+      "milestone": "M3",
+      "module": "CFDLean.Geometry.MedianDual",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming median-dual mesh a common state with physical boundary transfers has zero residual.",
+      "source": "specifications/M3.md M3-C (stage M3b)"
+    },
+    {
+      "name": "CFDLean.Boundary.boundary_record_unique",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A boundary record is determined by its primal face and owner node.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.boundary_record_range",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Boundary records exist exactly for the faces used once and the nodes on them.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.patchKind_coherent",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The boundary kind is the same on all records of one primal face.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.patchExterior_coherent",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The prescribed exterior state is the same on all records of one primal face.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.patchTransfer_wall",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a slip-wall record the patch transfer is the wall transfer at the owner state.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.patchTransfer_symmetry",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On an inviscid symmetry record the patch transfer is the wall transfer at the owner state.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.patchTransfer_prescribed",
+      "id": "M4-B",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a prescribed-exterior record the patch transfer is the Roe transfer between owner and exterior states.",
+      "source": "specifications/M4.md M4-B (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_mass",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer has zero mass component.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_energy",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer has zero energy component.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_momentum",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer's momentum is the owner pressure times the area vector.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_zero",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer through a zero area vector is zero.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_add",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer is additive in the area vector.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_smul",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer is homogeneous in the area vector.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_reverse",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Reversing the area vector negates the wall transfer.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_pressure_pos",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "An admissible state has positive pressure.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_eq_physical_iff",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The wall transfer equals the physical flux iff the normal momentum is zero.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.wall_eq_physical_iff_normalVelocity",
+      "id": "M4-W",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For positive density and nonzero area the wall transfer equals the physical flux iff the normal velocity is zero.",
+      "source": "specifications/M4.md M4-W (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.prescribed_consistency",
+      "id": "M4-P",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The prescribed-exterior Roe transfer with exterior state equal to the owner state is the physical flux.",
+      "source": "specifications/M4.md M4-P (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.prescribed_zero",
+      "id": "M4-P",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The prescribed-exterior transfer through a zero area vector is zero.",
+      "source": "specifications/M4.md M4-P (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.prescribed_scale",
+      "id": "M4-P",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The prescribed-exterior transfer scales with nonnegative multiples of the area vector.",
+      "source": "specifications/M4.md M4-P (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.prescribed_reverse",
+      "id": "M4-P",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Swapping owner and exterior states and reversing the area negates the prescribed-exterior transfer.",
+      "source": "specifications/M4.md M4-P (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.prescribed_upwind_owner",
+      "id": "M4-P",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If the Roe normal speed is at least the sound speed the prescribed-exterior transfer is the owner's physical flux.",
+      "source": "specifications/M4.md M4-P (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.prescribed_upwind_exterior",
+      "id": "M4-P",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Stationary",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If the Roe normal speed is at most minus the sound speed the prescribed-exterior transfer is the exterior physical flux.",
+      "source": "specifications/M4.md M4-P (stage M4a)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_global_balance",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With the selected boundary transfers the nodal residuals sum to the total boundary transfer.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_mixed_balance",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The total residual splits into prescribed-exterior Roe transfers and wall/symmetry transfers.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_mass_balance",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The total mass residual is the mass transfer through prescribed-exterior faces only.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_energy_balance",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The total energy residual is the energy transfer through prescribed-exterior faces only.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_momentum_balance",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The total momentum residual is the prescribed-exterior momentum transfer plus the wall/symmetry pressure forces.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.meshResidual_eq",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The concrete mesh residual is the M3 Roe residual with the selected patch transfers.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.mesh_global_balance",
+      "id": "M4-R",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a concrete mesh the nodal residuals sum to the total patch transfer.",
+      "source": "specifications/M4.md M4-R (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.constructed_transfer_reindex",
+      "id": "M4-O",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The constructed boundary transfers commute with relabeling, including boundary kinds and exterior data.",
+      "source": "specifications/M4.md M4-O (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_residual_reindex",
+      "id": "M4-O",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The stationary residual commutes with relabeling of nodes, edges and boundary records.",
+      "source": "specifications/M4.md M4-O (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.mesh_residual_reindex",
+      "id": "M4-O",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The concrete mesh residual commutes with relabeling of nodes, edges and boundary records.",
+      "source": "specifications/M4.md M4-O (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.transfer_compatible",
+      "id": "M4-C",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With wall tangency or a matching exterior state the boundary transfer is the physical transfer.",
+      "source": "specifications/M4.md M4-C (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_common_defect",
+      "id": "M4-C",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a common state with compatible boundaries the residual is the physical flux through the metric defect.",
+      "source": "specifications/M4.md M4-C (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_common_closed",
+      "id": "M4-C",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a common state with compatible boundaries the residual vanishes at every node with zero metric defect.",
+      "source": "specifications/M4.md M4-C (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.stationary_common_correction",
+      "id": "M4-C",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a common state the residual is the defect flux plus the owned differences between constructed and physical transfers.",
+      "source": "specifications/M4.md M4-C (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.mesh_constant_state",
+      "id": "M4-C",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh a common admissible state with tangent walls and matching exterior data has zero residual.",
+      "source": "specifications/M4.md M4-C (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Boundary.mesh_common_correction",
+      "id": "M4-C",
+      "milestone": "M4",
+      "module": "CFDLean.Boundary.Assembly",
+      "status": "accepted",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh a common state's residual is the owned sum of patch transfer minus physical transfer.",
+      "source": "specifications/M4.md M4-C (stage M4b)"
+    },
+    {
+      "name": "CFDLean.Time.euler_coordinates",
+      "id": "M5-U",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The explicit Euler step subtracts (τ/v) times the residual in state coordinates.",
+      "source": "specifications/M5.md M5-U (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.euler_zero_step",
+      "id": "M5-U",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A zero time step leaves the state unchanged.",
+      "source": "specifications/M5.md M5-U (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.euler_zero_residual",
+      "id": "M5-U",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A zero residual leaves the state unchanged.",
+      "source": "specifications/M5.md M5-U (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.euler_amount",
+      "id": "M5-U",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For nonzero volume the step changes the amount v·U by −τ times the residual.",
+      "source": "specifications/M5.md M5-U (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_point_amount",
+      "id": "M5-U",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At a used node the mesh step changes the dual-volume amount by −τ times the old-state residual.",
+      "source": "specifications/M5.md M5-U (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_zero_step",
+      "id": "M5-U",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Zero time steps leave every nodal state unchanged.",
+      "source": "specifications/M5.md M5-U (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_used_volume_pos",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Used nodes have positive dual volume.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.tail_used",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The tail of every edge is a used node.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.head_used",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The head of every edge is a used node.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.owner_used",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The owner of every boundary record is a used node.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_residual_unused",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The mesh residual vanishes at unused nodes.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_step_used",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At a used node the mesh step is the explicit Euler update with its dual volume.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_step_unused",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At an unused node the mesh step holds the state.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_amount_used",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The total amount equals the amount summed over used nodes only.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.unused_all",
+      "id": "M5-V",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "In the unused-node control the unused node has zero volume, zero residual and a held state.",
+      "source": "specifications/M5.md M5-V (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_amount_change",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The step changes the total amount by minus the step-weighted sum of nodal residuals.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_common_balance",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a common step on used nodes the total amount changes by −dt times the total patch transfer.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_common_balance_physical",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For admissible nodal and exterior states and a common nonnegative step the total amount changes by −dt times the total patch transfer.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_component_balance",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a common step each amount component changes by −dt times its total boundary transfer.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_mass_balance",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a common step the total mass changes only by the prescribed-exterior mass transfer.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_energy_balance",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a common step the total energy changes only by the prescribed-exterior energy transfer.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_momentum_balance",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a common step the total momentum changes by the prescribed-exterior transfer and the wall/symmetry pressure forces.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_traction_mass",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With only wall/symmetry boundaries a common step conserves total mass.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_traction_energy",
+      "id": "M5-B",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With only wall/symmetry boundaries a common step conserves total energy.",
+      "source": "specifications/M5.md M5-B (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.weighted_residual",
+      "id": "M5-L",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Node-weighted residuals sum to step differences across edges times edge transfers plus owner-weighted boundary transfers.",
+      "source": "specifications/M5.md M5-L (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_local_balance",
+      "id": "M5-L",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With local steps the total amount changes by the edge step-difference defect plus owner-weighted boundary transfers.",
+      "source": "specifications/M5.md M5-L (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_local_balance_physical",
+      "id": "M5-L",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For admissible data and nonnegative local steps the same edge-defect balance holds with the actual Roe transfers.",
+      "source": "specifications/M5.md M5-L (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.local_amount_change",
+      "id": "M5-L",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "In the standard control unequal local steps change the total amount by an exact nonzero vector.",
+      "source": "specifications/M5.md M5-L (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.local_nonconservation",
+      "id": "M5-L",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "In the standard control unequal local steps do not conserve the total amount.",
+      "source": "specifications/M5.md M5-L (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.local_updated_admissible",
+      "id": "M5-L",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "In the standard local-step control every updated state is admissible.",
+      "source": "specifications/M5.md M5-L (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_common_state",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a conforming mesh a compatible common admissible state is preserved by any nonnegative steps.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.standard_mixed_common",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the standard tetrahedron with mixed boundary kinds a compatible moving state is preserved.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.standard_wall_rest",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the all-wall standard tetrahedron a state at rest is preserved.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.oblique_rest",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the oblique all-symmetry tetrahedron a state at rest is preserved.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.two_cell_common",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the two-cell mesh with mixed boundaries a compatible moving state is preserved.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.hot_cold_residual",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An incompatible hot/cold boundary control has the stated exact nonzero residual.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.negative_density_update",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A large step in the hot/cold control produces the stated update with negative density.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.negative_update_not_admissible",
+      "id": "M5-C",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The large-step hot/cold update is not admissible.",
+      "source": "specifications/M5.md M5-C (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.held_reindex",
+      "id": "M5-O",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The held explicit step commutes with relabeling of nodes and transported data.",
+      "source": "specifications/M5.md M5-O (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.amount_reindex",
+      "id": "M5-O",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The total amount is invariant under relabeling of nodes.",
+      "source": "specifications/M5.md M5-O (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.mesh_step_reindex",
+      "id": "M5-O",
+      "milestone": "M5",
+      "module": "CFDLean.Time.ExplicitEuler",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The mesh step commutes with relabeling of nodes, edges and boundary records with fully transported residual data.",
+      "source": "specifications/M5.md M5-O (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.transported_nonconstant",
+      "id": "M5-O",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The relabeled two-cell step with nonconstant transported data equals the original step.",
+      "source": "specifications/M5.md M5-O (stage M5)"
+    },
+    {
+      "name": "CFDLean.Time.Controls.transported_fields_nonconstant",
+      "id": "M5-O",
+      "milestone": "M5",
+      "module": "CFDLean.Time.Controls",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "In the relabeling control the volumes, steps, states and exterior data differ between the swapped nodes and faces.",
+      "source": "specifications/M5.md M5-O (stage M5)"
+    },
+    {
+      "name": "CFDLean.Num.logMean_properties",
+      "id": "MC-N.P1-2.4",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.LogMean",
+      "status": "candidate",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The logarithmic mean of two positive numbers is symmetric, positive, equals a at a = b, and satisfies b − a = L(a,b)(log b − log a).",
+      "source": "specifications/MC-N-results.json MC-N.P1-2.4 (JST Paper1.Spec.P1_2_4)"
+    },
+    {
+      "name": "CFDLean.Num.Simplex.calculus",
+      "id": "MC-N.P1-5.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Simplex",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a nondegenerate simplex the P1 gradients sum to zero, are dual to the edges, reproduce the identity, and the facet vectors sum to zero.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.1 (JST Paper1.Spec.P1_5_1)"
+    },
+    {
+      "name": "CFDLean.Num.Simplex.facet_cross3",
+      "id": "MC-N.P3-11.2",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Simplex",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A tetrahedron facet vector is half the cross product of two facet edges oriented away from the opposite vertex; neighbours across a triangle have opposite facet vectors.",
+      "source": "specifications/MC-N-results.json MC-N.P3-11.2 (JST Paper1.Spec.P3_11_2)"
+    },
+    {
+      "name": "CFDLean.Num.Simplex.facet_perp2",
+      "id": "MC-N.P3-11.2b",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Simplex",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A triangle facet vector is the rotated facet edge pointing away from the opposite vertex.",
+      "source": "specifications/MC-N-results.json MC-N.P3-11.2b (JST Paper1.Spec.P3_11_2b)"
+    },
+    {
+      "name": "CFDLean.Num.pathSimplex_nonobtuse",
+      "id": "MC-N.P3-12.5",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Simplex",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Every Kuhn tetrahedron of a brick is nondegenerate with pairwise nonpositive gradient products (no obtuse dihedral angle).",
+      "source": "specifications/MC-N-results.json MC-N.P3-12.5 (JST Paper1.Spec.P3_12_5)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.nW_row_sum",
+      "id": "MC-N.P1-2.3",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For any dual of the P1 operator the edge normals at a node sum to −β_i, and β_i = 0 at a closed vertex.",
+      "source": "specifications/MC-N-results.json MC-N.P1-2.3 (JST Paper1.Spec.P1_2_3)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.sbp_defect",
+      "id": "MC-N.P2-6.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "For any dual the P1 operator satisfies c + cᵀ = B + 2E with E symmetric with zero row sums, and c has zero row sums and column sums β.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.1 (JST Paper1.Spec.P2_6_1)"
+    },
+    {
+      "name": "CFDLean.Num.Simplex.median_defect_iff",
+      "id": "MC-N.P2-6.2",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "On a nondegenerate simplex all off-diagonal SBP defect terms vanish iff the dual weights are the median weights.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.2 (JST Paper1.Spec.P2_6_2)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.dissGeom_edge",
+      "id": "MC-N.P1-5.2",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Dual normals satisfy n·e = 2μ > 0 on edges, and the edge projection ν is a positive multiple of e with |ν| = n·e/|e|.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.2 (JST Paper1.Spec.P1_5_2)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.dissGeom_outer",
+      "id": "MC-N.P1-5.3",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "The Galerkin coefficients give Σ c⊗e = V·I, dual normals give Σ n⊗e = 2V·I at closed vertices, and the dual volumes sum to |Ω|.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.3 (JST Paper1.Spec.P1_5_3)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.dissGeom_calibration",
+      "id": "MC-N.P1-5.4",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At closed vertices the edge-projected tensor G(ν) has trace 2dV and G(n) has trace at least 2dV, with equality iff every normal is a nonnegative multiple of its edge.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.4 (JST Paper1.Spec.P1_5_4)"
+    },
+    {
+      "name": "CFDLean.Num.quadratic_edge_expansion",
+      "id": "MC-N.P2-7.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a quadratic field the weighted edge-difference sum is its first-order part plus V times the dissipation tensor contracted with the Hessian.",
+      "source": "specifications/MC-N-results.json MC-N.P2-7.1 (JST Paper1.Spec.P2_7_1)"
+    },
+    {
+      "name": "CFDLean.Num.dissTensor_loewner",
+      "id": "MC-N.P2-7.2",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The edge dissipation tensor with full normals dominates the edge-projected one in the Loewner order, with equality iff the normals are parallel to the edges.",
+      "source": "specifications/MC-N-results.json MC-N.P2-7.2 (JST Paper1.Spec.P2_7_2)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.dissTensor_trace",
+      "id": "MC-N.P2-7.3",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Mesh",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under uniform edge scaling the dissipation tensor is s·G/(4V), its projected trace is ds/2, and the trace is bounded by (d/2)σ_max h.",
+      "source": "specifications/MC-N-results.json MC-N.P2-7.3 (JST Paper1.Spec.P2_7_3)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.closed_of_facetPaired",
+      "id": "MC-N.P1-5.0a",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Boundary",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "A facet pairing at a vertex makes it a closed vertex of the P1 operator (zero boundary-matrix row).",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.0a (JST Paper1.Spec.P1_5_0a)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.conforming_boundary",
+      "id": "MC-N.P2-6.3",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Boundary",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "On a conforming mesh β and the boundary matrix B are sums over boundary facets, and a vertex on no boundary facet is closed.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.3 (JST Paper1.Spec.P2_6_3)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.facetBalanced_boundary",
+      "id": "MC-N.P3-11.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Boundary",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "Conforming meshes are facet balanced, and on facet-balanced meshes β and B are boundary-facet sums with interior vertices closed.",
+      "source": "specifications/MC-N-results.json MC-N.P3-11.1 (JST Paper1.Spec.P3_11_1)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced",
+      "id": "MC-N.P3-11.4",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Boundary",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a mesh of nondegenerate tetrahedra side balance implies facet balance.",
+      "source": "specifications/MC-N-results.json MC-N.P3-11.4 (JST Paper1.Spec.P3_11_4)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.facetBalanced_of_sideBalanced2",
+      "id": "MC-N.P3-11.4b",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Boundary",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "On a mesh of nondegenerate triangles side balance implies facet balance.",
+      "source": "specifications/MC-N-results.json MC-N.P3-11.4b (JST Paper1.Spec.P3_11_4b)"
+    },
+    {
+      "name": "CFDLean.Num.antisymmetric_pairFlux",
+      "id": "MC-N.P1-2.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Antisymmetric pair fluxes are globally conservative, and their entropy production is half the sum of entropy-variable jumps times the fluxes.",
+      "source": "specifications/MC-N-results.json MC-N.P1-2.1 (JST Paper1.Spec.P1_2_1)"
+    },
+    {
+      "name": "CFDLean.Num.entropyConservative_production",
+      "id": "MC-N.P1-2.2",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An entropy-conservative central pair flux produces only the boundary term Σ ψ_i·β_i.",
+      "source": "specifications/MC-N-results.json MC-N.P1-2.2 (JST Paper1.Spec.P1_2_2)"
+    },
+    {
+      "name": "CFDLean.Num.dissipativePairFlux_conservation",
+      "id": "MC-N.P1-2.6",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Central flux plus scalar second/fourth-difference dissipation with symmetric coefficients is antisymmetric and globally conservative.",
+      "source": "specifications/MC-N-results.json MC-N.P1-2.6 (JST Paper1.Spec.P1_2_6)"
+    },
+    {
+      "name": "CFDLean.Num.dissipativePairFlux_freeStream",
+      "id": "MC-N.P1-2.7",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A uniform state with matching boundary data has zero residual for the dissipative pair-flux scheme.",
+      "source": "specifications/MC-N-results.json MC-N.P1-2.7 (JST Paper1.Spec.P1_2_7)"
+    },
+    {
+      "name": "CFDLean.Num.edgeForm_boundary_split",
+      "id": "MC-N.P2-6.4",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For row sums 0 and column sums β the edge form plus ½(B F + diag β F) equals the Galerkin form c F.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.4 (JST Paper1.Spec.P2_6_4)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.standardClosure_entropy",
+      "id": "MC-N.P2-6.5",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The standard boundary closure on a conforming mesh produces the lumped facet entropy flux plus a per-facet jump defect.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.5 (JST Paper1.Spec.P2_6_5)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.standardClosure_linear",
+      "id": "MC-N.P2-6.5b",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "For linear fluxes the standard boundary closure equals ½(B + diag β)F with weights (d+3):1.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.5b (JST Paper1.Spec.P2_6_5b)"
+    },
+    {
+      "name": "CFDLean.Num.quadratureClosure_entropy",
+      "id": "MC-N.P2-8.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The quadrature boundary closure has an exact boundary entropy identity and conserves Σ_i b_i = Σ_q F*_q.",
+      "source": "specifications/MC-N-results.json MC-N.P2-8.1 (JST Paper1.Spec.P2_8_1)"
+    },
+    {
+      "name": "CFDLean.Num.quadratureClosure_freeStream",
+      "id": "MC-N.P2-8.2",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With a uniform state, physical boundary fluxes and matching quadrature normals the quadrature closure has zero residual.",
+      "source": "specifications/MC-N-results.json MC-N.P2-8.2 (JST Paper1.Spec.P2_8_2)"
+    },
+    {
+      "name": "CFDLean.Num.quadratureClosure_linear",
+      "id": "MC-N.P2-8.3",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For linear fluxes the quadrature closure is ½(F_i β_i + Σ_k F_k Σ_q φ_qi φ_qk N_q).",
+      "source": "specifications/MC-N-results.json MC-N.P2-8.3 (JST Paper1.Spec.P2_8_3)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.faceRule_beta_B",
+      "id": "MC-N.P2-8.4",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.PairFlux",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "A boundary face quadrature rule with the stated moments reproduces β and the boundary matrix B on a conforming mesh.",
+      "source": "specifications/MC-N-results.json MC-N.P2-8.4 (JST Paper1.Spec.P2_8_4)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.galerkin_identity",
+      "id": "MC-N.P1-4.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Galerkin",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM"
+      ],
+      "summary": "The w-weighted sum of Galerkin residuals is minus the cell-weighted Frobenius product of the P1 gradient of w and the element fluxes.",
+      "source": "specifications/MC-N-results.json MC-N.P1-4.1 (JST Paper1.Spec.P1_4_1)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.fvRes_eq_galerkinRes",
+      "id": "MC-N.P1-5.5",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Galerkin",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "With dual facet vectors m_T(g_k − g_i) the finite-volume residual of element fluxes equals the Galerkin residual.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.5 (JST Paper1.Spec.P1_5_5)"
+    },
+    {
+      "name": "CFDLean.Num.WMesh.closed_mean_galerkin",
+      "id": "MC-N.P2-6.7",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Galerkin",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "At a closed vertex the mean edge flux through the dual normals equals the Galerkin form Σ_k c_ik F_k.",
+      "source": "specifications/MC-N-results.json MC-N.P2-6.7 (JST Paper1.Spec.P2_6_7)"
+    },
+    {
+      "name": "CFDLean.Num.pair_production_integral",
+      "id": "MC-N.P3-13.1",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Production",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The pair entropy production is exactly the path integral of the derivative along the straight segment in entropy variables, with no remainder.",
+      "source": "specifications/MC-N-results.json MC-N.P3-13.1 (JST Paper1.Spec.P3_13_1)"
+    },
+    {
+      "name": "CFDLean.Num.ofMeshData_closed",
+      "id": "MC-N.P1-5.0b",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Bridge",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "In a conforming tetrahedral median-dual mesh a vertex on no boundary face is closed for the induced P1 operator.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.0b (JST Paper1.Spec.P1_5_0b)"
+    },
+    {
+      "name": "CFDLean.Num.dualFacets_grad",
+      "id": "MC-N.P1-5.6",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Bridge",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "The median-dual facets of a tetrahedron (and of a triangle) are (|T|/(d+1))(g_k − g_i) in terms of P1 gradients.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.6 (JST Paper1.Spec.P1_5_6)"
+    },
+    {
+      "name": "CFDLean.Num.ofMeshData_fv_galerkin",
+      "id": "MC-N.P1-5.7",
+      "milestone": "MC-N",
+      "module": "CFDLean.Num.Bridge",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "On a median-dual tetrahedral mesh the finite-volume residual over the dual facets equals the Galerkin residual.",
+      "source": "specifications/MC-N-results.json MC-N.P1-5.7 (JST Paper1.Spec.P1_5_7)"
+    }
+  ]
+}

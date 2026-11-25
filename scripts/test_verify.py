@@ -363,3 +363,94 @@ class MCNTests(unittest.TestCase):
             verify.check_mc_n_sources(paths, current.__getitem__, blob)
         with self.assertRaises(ValueError):
             verify.check_mc_n_sources(["CFDLean/Num/Mesh.lean"], current.__getitem__, blob)
+
+
+class CatalogTests(unittest.TestCase):
+    INTEGRITY = "import CFDLean\n#print axioms m1_a\n#print axioms m1_b\n"
+
+    def setUp(self):
+        self.expected = verify.m1_accepted_theorems(self.INTEGRITY)
+        self.expected.update(verify.catalog_index("M2", {"results": [
+            {"id": "M2-J", "stage": "M2a", "declarations": ["CFDLean.R.j"]}]}))
+        self.expected.update(verify.catalog_index("M3", {"results": [
+            {"id": "M3-G", "parts": [{"stage": "M3b", "declarations": ["CFDLean.G.g"]}]}]}))
+        self.expected.update(verify.catalog_index("M5", {"results": [
+            {"id": "M5-U", "stage": "M5", "declarations": ["CFDLean.Time.u"]}]}))
+        self.expected.update(verify.catalog_index("MC-N", {"results": [
+            {"id": "MC-N.P1-2.4", "theorem": "CFDLean.Num.n", "module": "CFDLean.Num.LogMean"}]}))
+        self.rows, entries = {}, []
+        for name, (milestone, result_id) in self.expected.items():
+            row = record(name)
+            row["module"] = "Mod." + name
+            self.rows[name] = row
+            entries.append({"name": name, "id": result_id or "M1-1", "milestone": milestone,
+                            "module": row["module"], "status": verify.CATALOG_STATUS[milestone],
+                            "layer": "Geometry", "methods": ["FVM"], "summary": "s.", "source": "spec ID"})
+        self.catalog = {"theorems": entries}
+
+    def mutated(self, index, **change):
+        entries = [dict(entry) for entry in self.catalog["theorems"]]
+        entries[index].update(change)
+        return {"theorems": entries}
+
+    def test_m1_list_and_index(self):
+        self.assertEqual(set(verify.m1_accepted_theorems(self.INTEGRITY)), {"CFDLean.m1_a", "CFDLean.m1_b"})
+        for text in ["import CFDLean\n", self.INTEGRITY + "#print axioms m1_a\n"]:
+            with self.assertRaises(ValueError):
+                verify.m1_accepted_theorems(text)
+        with self.assertRaises(ValueError):
+            verify.catalog_index("M2", {"results": [{"id": "M2-J", "stage": "M2a", "declarations": ["A.x", "A.x"]}]})
+
+    def test_exact_cover_accepted(self):
+        self.assertEqual(verify.check_catalog(self.catalog, self.expected, self.rows), 6)
+
+    def test_missing_extra_or_duplicate_rejected(self):
+        entries = self.catalog["theorems"]
+        extra = dict(entries[0], name="CFDLean.extra")
+        for bad in [entries[1:], entries + [extra], entries + entries[:1]]:
+            with self.assertRaises(ValueError):
+                verify.check_catalog({"theorems": bad}, self.expected, self.rows)
+
+    def test_invalid_values_rejected(self):
+        m2 = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "M2")
+        m1 = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "M1")
+        mcn = next(i for i, e in enumerate(self.catalog["theorems"]) if e["milestone"] == "MC-N")
+        for index, change in [(m2, {"layer": "Numerics"}), (m2, {"methods": []}), (m2, {"methods": ["FVM", "FEM"]}),
+                              (m2, {"methods": ["FEM", "method-free"]}), (m2, {"methods": "FVM"}),
+                              (m2, {"status": "pending"}), (mcn, {"status": "accepted"}), (m2, {"milestone": "M3"}),
+                              (m2, {"id": "M2-A"}), (m1, {"id": "M2-J"}), (m2, {"summary": " "}),
+                              (m2, {"module": "Other"}), (m2, {"extra": 1})]:
+            with self.assertRaises(ValueError, msg=str(change)):
+                verify.check_catalog(self.mutated(index, **change), self.expected, self.rows)
+        name = self.catalog["theorems"][m2]["name"]
+        for kind, root in [("definition", True), ("theorem", False)]:
+            rows = dict(self.rows, **{name: dict(self.rows[name], kind=kind, root=root)})
+            with self.assertRaises(ValueError):
+                verify.check_catalog(self.catalog, self.expected, rows)
+
+    def test_both_methods_and_method_free_accepted(self):
+        catalog = self.mutated(0, methods=["FEM", "FVM"])
+        catalog["theorems"][1]["methods"] = ["method-free"]
+        self.assertEqual(verify.check_catalog(catalog, self.expected, self.rows), 6)
+
+    def test_readme_must_equal_generated_text(self):
+        render = verify.load_catalog_renderer()
+        text = render(self.catalog)
+        self.assertIn("## Geometry (6)", text)
+        verify.check_catalog_readme(self.catalog, text, render)
+        with self.assertRaises(ValueError):
+            verify.check_catalog_readme(self.catalog, text + "edit\n", render)
+
+    def test_committed_catalog_covers_result_maps(self):
+        root = verify.ROOT
+        expected = verify.m1_accepted_theorems((root / "Integrity.lean").read_text())
+        for milestone, path in [("M2", "specifications/M2-results.json"), ("M3", "specifications/M3-results.json"),
+                                ("M4", "specifications/M4-results.json"), ("M5", "specifications/M5-results.json"),
+                                ("MC-N", verify.MC_N_RESULTS)]:
+            expected.update(verify.catalog_index(milestone, json.loads((root / path).read_text())))
+        catalog = json.loads((root / verify.CATALOG).read_text(encoding="utf-8"))
+        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT)
+        rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
+        self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
+        verify.check_catalog_readme(catalog, (root / verify.CATALOG_README).read_text(encoding="utf-8"),
+                                    verify.load_catalog_renderer())
