@@ -1,0 +1,20 @@
+{
+  "challenge_module": "Challenges.BurgersB3",
+  "solution_module": "CFDLean.Verification.BurgersB3Verify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersB3Verify.minmod_properties",
+    "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz",
+    "CFDLean.Verification.BurgersB3Verify.muscl_euler_multi_step",
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_multi_step",
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step",
+    "CFDLean.Verification.BurgersB3Verify.muscl_euler_conservation",
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk2_conservation",
+    "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_conservation"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

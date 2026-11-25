@@ -53,9 +53,9 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Foundations/` | `Basic`, `LogMean`, state `Coordinates` |
 | `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure), `Scalar/` (scalar conservation law), `Burgers/` (physical flux) |
 | `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
-| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form) |
+| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form, convexity, MUSCL reconstruction) |
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
-| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux, consistency and monotone certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, controls) |
+| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux; consistency, monotone and Lipschitz certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, SSP and MUSCL schemes, controls) |
 | `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
@@ -106,6 +106,21 @@ and constant states. 23 promised theorems, status `pending`. No order-of-accurac
 
 ```bash
 lake comparator --paranoid --config Challenges/BurgersB2.comparator.json
+```
+
+## Burgers B3 (MUSCL reconstruction)
+
+[Burgers B3](references/Burgers-B3.md) implements the [contract](specifications/Burgers-B3.md) that the agent froze
+under the standing authorization. Generic part (`CFDLean/Discrete/Periodic/Muscl.lean`): for a limiter in the minmod
+region (certificate `MinmodBounded`) and a monotone two-point flux that is Lipschitz on bounded states, the
+Forward-Euler step of the MUSCL scheme is in Harten's incremental form with bounded nonnegative coefficients; so it
+keeps bounds and does not increase the total variation under `dt · (3/2)(KL + KR) ≤ dx`. Burgers part: the Rusanov
+flux has Lipschitz constants `2 max(|m|, |M|)`; with `6 · dt · max(|m|, |M|) ≤ dx` the MUSCL-Rusanov scheme with
+Forward Euler, SSPRK2 or SSPRK3 keeps the bounds and is TVD for every number of steps, and keeps the total sum and
+constant states. 24 promised theorems, status `pending`. No accuracy claim; the CFL constant is not sharp. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB3.comparator.json
 ```
 
 ## Development verification
