@@ -19,7 +19,7 @@ theorem rusanov_consistency :
 
 theorem periodic_conservation {I : Type*} [Fintype I] :
     CFDLean.Verification.BurgersB0Challenge.PeriodicConservation I := by
-  intro next dx hdx numericalFlux u
+  intro next dx numericalFlux u hdx
   let g : PeriodicGrid I := ⟨next⟩
   let nf : NumericalFlux := ⟨numericalFlux⟩
   have h := FiniteVolume.rhs_sum_zero g dx hdx nf u
