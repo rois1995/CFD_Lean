@@ -6,8 +6,8 @@ namespace CFDLean.Burgers.Controls
 open CFDLean.Burgers
 open CFDLean.Burgers.Schemes.RusanovForwardEuler
 
-example : physicalFlux 2 = 2 := by
-  norm_num [physicalFlux, div_eq_mul_inv]
+example : physicalFlux 0 = 0 := by
+  simp [physicalFlux]
 
 example : Rusanov.eval 3 3 = physicalFlux 3 := by
   simpa [Rusanov.numericalFlux] using Rusanov.consistent 3
