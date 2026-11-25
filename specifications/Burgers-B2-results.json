@@ -1,0 +1,188 @@
+{
+  "contract": "specifications/Burgers-B2.md",
+  "contract_sha256": "8b096a6aa2611b4a7cdb8bb843fbe6b1a542e7a87b4a241d03227fd7a6698308",
+  "approval_record": "specifications/Burgers-B2-approval.md",
+  "approved_revision": "a4c271a44c6fa74b0caffc10546e5ab956b41bca",
+  "source_map": "references/Burgers-B2.md",
+  "trusted_statement_review": "reviews/Burgers-B2/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "B2-R",
+      "definitions": [
+        "CFDLean.Time.SSP.ssprk2",
+        "CFDLean.Time.SSP.ssprk3"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Time.SSP.ssprk2_forwardEuler"
+      ]
+    },
+    {
+      "id": "B2-C",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Time.SSP.ssprk2_mem",
+        "CFDLean.Time.SSP.ssprk3_mem",
+        "CFDLean.Time.SSP.ssprk2_le",
+        "CFDLean.Time.SSP.ssprk3_le"
+      ]
+    },
+    {
+      "id": "B2-N",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Time.SSP.iterate_mem",
+        "CFDLean.Time.SSP.iterate_le"
+      ]
+    },
+    {
+      "id": "B2-L",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Time.SSP.ssprk2_fixed",
+        "CFDLean.Time.SSP.ssprk3_fixed",
+        "CFDLean.Time.SSP.ssprk2_linear",
+        "CFDLean.Time.SSP.ssprk3_linear"
+      ]
+    },
+    {
+      "id": "B2-B",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Scalar.FiniteVolume.totalSum",
+        "CFDLean.Burgers.Rusanov.eulerStep"
+      ],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.totalSum_apply",
+        "CFDLean.Burgers.Rusanov.eulerStep_sum",
+        "CFDLean.Burgers.Rusanov.eulerStep_constant",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_eq_eulerStep"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.boundedStates_convex",
+        "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn",
+        "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds",
+        "CFDLean.Burgers.Rusanov.eulerStep_mem",
+        "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le"
+      ]
+    },
+    {
+      "id": "B2-S",
+      "definitions": [
+        "CFDLean.Burgers.Rusanov.ssprk2Step",
+        "CFDLean.Burgers.Rusanov.ssprk3Step"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable",
+        "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable",
+        "CFDLean.Burgers.Rusanov.ssprk2Step_sum",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_sum",
+        "CFDLean.Burgers.Rusanov.ssprk2Step_constant",
+        "CFDLean.Burgers.Rusanov.ssprk3Step_constant"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Time.SSP.ssprk2": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk3": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk2_forwardEuler": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk2_mem": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk3_mem": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk2_le": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk3_le": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.iterate_mem": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.iterate_le": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk2_fixed": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk3_fixed": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk2_linear": "CFDLean.Time.SSP",
+    "CFDLean.Time.SSP.ssprk3_linear": "CFDLean.Time.SSP",
+    "CFDLean.Scalar.FiniteVolume.boundedStates": "CFDLean.Discrete.Periodic.Convexity",
+    "CFDLean.Scalar.FiniteVolume.boundedStates_convex": "CFDLean.Discrete.Periodic.Convexity",
+    "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn": "CFDLean.Discrete.Periodic.Convexity",
+    "CFDLean.Scalar.FiniteVolume.totalSum": "CFDLean.Discrete.Periodic.Convexity",
+    "CFDLean.Scalar.FiniteVolume.totalSum_apply": "CFDLean.Discrete.Periodic.Convexity",
+    "CFDLean.Burgers.Rusanov.eulerStep": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.eulerStep_mem": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.eulerStep_sum": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.eulerStep_constant": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk2Step": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk3Step": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk2Step_sum": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk3Step_sum": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk2Step_constant": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Rusanov.ssprk3Step_constant": "CFDLean.Schemes.Burgers.RusanovSSP",
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_eq_eulerStep": "CFDLean.Schemes.Burgers.RusanovSSP"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersB2Challenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersB2Challenge",
+    "statements_sha256": "445e3cf8c17a53ba5e9f55a911bf5070fff187144ad48c12126fe7186124af75",
+    "bridge_module": "CFDLean.Verification.BurgersB2Verify",
+    "comparator_challenge": "Challenges/BurgersB2.lean",
+    "comparator_challenge_module": "Challenges.BurgersB2",
+    "comparator_challenge_sha256": "ae6053bc7aef69b19bd1a34cf54eb7aee63cb604169708674b16356484644f24",
+    "comparator_config": "Challenges/BurgersB2.comparator.json",
+    "bindings": [
+      {
+        "id": "B2-C",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.SSPRK2Convex",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.ssprk2_convex",
+        "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V],\n  CFDLean.Verification.BurgersB2Challenge.SSPRK2Convex V",
+        "uses": "CFDLean.Time.SSP.ssprk2_le"
+      },
+      {
+        "id": "B2-C",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.SSPRK3Convex",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.ssprk3_convex",
+        "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V],\n  CFDLean.Verification.BurgersB2Challenge.SSPRK3Convex V",
+        "uses": "CFDLean.Time.SSP.ssprk3_le"
+      },
+      {
+        "id": "B2-S",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.EulerMultiStep",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.euler_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.EulerMultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable"
+      },
+      {
+        "id": "B2-S",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.SSPRK2MultiStep",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.ssprk2_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK2MultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable"
+      },
+      {
+        "id": "B2-S",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK3MultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable"
+      },
+      {
+        "id": "B2-S",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.SSPRK2Conservation",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.ssprk2_conservation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK2Conservation I",
+        "uses": "CFDLean.Burgers.Rusanov.ssprk2Step_sum"
+      },
+      {
+        "id": "B2-S",
+        "statement": "CFDLean.Verification.BurgersB2Challenge.SSPRK3Conservation",
+        "theorem": "CFDLean.Verification.BurgersB2Verify.ssprk3_conservation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB2Challenge.SSPRK3Conservation I",
+        "uses": "CFDLean.Burgers.Rusanov.ssprk3Step_sum"
+      }
+    ]
+  }
+}

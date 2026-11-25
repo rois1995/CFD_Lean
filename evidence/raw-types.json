@@ -237,9 +237,45 @@
       "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux",
       "raw_type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux"
     },
+    "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          ∀ (n : ℕ),\n            (CFDLean.Burgers.Rusanov.eulerStep g dx dt)^[n] u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M ∧\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.eulerStep g dx dt)^[n] u) ≤\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (u : I → Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u →\n            ∀ (n : Nat),\n              And\n                (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                  (Nat.iterate (CFDLean.Burgers.Rusanov.eulerStep g dx dt) n u))\n                (LE.le\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.eulerStep g dx dt) n u))\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g u))"
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_mem": {
+      "type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Burgers.Rusanov.eulerStep g dx dt u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M",
+      "raw_type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (u : I → Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u →\n            Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) (CFDLean.Burgers.Rusanov.eulerStep g dx dt u)"
+    },
+    "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.eulerStep g dx dt u) ≤\n            CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (u : I → Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u →\n            LE.le (CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.eulerStep g dx dt u))\n              (CFDLean.Scalar.FiniteVolume.totalVariation g u)"
+    },
     "CFDLean.Burgers.Rusanov.monotone": {
       "type": "CFDLean.Scalar.MonotoneFlux CFDLean.Burgers.Rusanov.numericalFlux",
       "raw_type": "CFDLean.Scalar.MonotoneFlux CFDLean.Burgers.Rusanov.numericalFlux"
+    },
+    "CFDLean.Burgers.Rusanov.ssprk2Step_constant": {
+      "type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : ℝ),\n  (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt fun x => c) = fun x => c",
+      "raw_type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : Real),\n  Eq (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt fun x => c) fun x => c"
+    },
+    "CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          ∀ (n : ℕ),\n            (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt)^[n] u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M ∧\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.ssprk2Step g dx dt)^[n] u) ≤\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (u : I → Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u →\n            ∀ (n : Nat),\n              And\n                (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                  (Nat.iterate (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt) n u))\n                (LE.le\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.ssprk2Step g dx dt) n u))\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g u))"
+    },
+    "CFDLean.Burgers.Rusanov.ssprk2Step_sum": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : ℝ),\n  dx ≠ 0 → ∀ (u : I → ℝ), ∑ i, CFDLean.Burgers.Rusanov.ssprk2Step g dx dt u i = ∑ i, u i",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : Real),\n  Ne dx (OfNat.ofNat 0) →\n    ∀ (u : I → Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Burgers.Rusanov.ssprk2Step g dx dt u i) (Finset.univ.sum fun i => u i)"
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step_constant": {
+      "type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : ℝ),\n  (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt fun x => c) = fun x => c",
+      "raw_type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt c : Real),\n  Eq (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt fun x => c) fun x => c"
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          ∀ (n : ℕ),\n            (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt)^[n] u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M ∧\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.ssprk3Step g dx dt)^[n] u) ≤\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (u : I → Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u →\n            ∀ (n : Nat),\n              And\n                (Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M)\n                  (Nat.iterate (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt) n u))\n                (LE.le\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g\n                    (Nat.iterate (CFDLean.Burgers.Rusanov.ssprk3Step g dx dt) n u))\n                  (CFDLean.Scalar.FiniteVolume.totalVariation g u))"
+    },
+    "CFDLean.Burgers.Rusanov.ssprk3Step_sum": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : ℝ),\n  dx ≠ 0 → ∀ (u : I → ℝ), ∑ i, CFDLean.Burgers.Rusanov.ssprk3Step g dx dt u i = ∑ i, u i",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : Real),\n  Ne dx (OfNat.ofNat 0) →\n    ∀ (u : I → Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Burgers.Rusanov.ssprk3Step g dx dt u i) (Finset.univ.sum fun i => u i)"
     },
     "CFDLean.Burgers.Rusanov.step_bounds": {
       "type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx dt : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      ∀ (u : I → ℝ) (m M : ℝ),\n        (∀ (i : I), 2 * (dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i))) ≤ dx) →\n          (∀ (j : I), m ≤ u j) →\n            (∀ (j : I), u j ≤ M) →\n              ∀ (i : I),\n                m ≤\n                    CFDLean.Time.ForwardEuler.step dt\n                      (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u i ∧\n                  CFDLean.Time.ForwardEuler.step dt\n                      (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u i ≤\n                    M",
@@ -252,6 +288,10 @@
     "CFDLean.Burgers.Rusanov.step_totalVariation_le": {
       "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      ∀ (u : I → ℝ),\n        (∀ (i : I), dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (g.next i)) ≤ dx) →\n          CFDLean.Scalar.FiniteVolume.totalVariation g\n              (CFDLean.Time.ForwardEuler.step dt\n                (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u) ≤\n            CFDLean.Scalar.FiniteVolume.totalVariation g u",
       "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      ∀ (u : I → Real),\n        (∀ (i : I), LE.le (HMul.hMul dt (CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (DFunLike.coe g.next i)))) dx) →\n          LE.le\n            (CFDLean.Scalar.FiniteVolume.totalVariation g\n              (CFDLean.Time.ForwardEuler.step dt\n                (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux) u))\n            (CFDLean.Scalar.FiniteVolume.totalVariation g u)"
+    },
+    "CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds": {
+      "type": "∀ (m M a b : ℝ), m ≤ a ∧ a ≤ M → m ≤ b ∧ b ≤ M → CFDLean.Burgers.Rusanov.waveSpeed a b ≤ max |m| |M|",
+      "raw_type": "∀ (m M a b : Real),\n  And (LE.le m a) (LE.le a M) →\n    And (LE.le m b) (LE.le b M) → LE.le (CFDLean.Burgers.Rusanov.waveSpeed a b) (max (abs m) (abs M))"
     },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant": {
       "type": "∀ {N : ℕ} [inst : NeZero N] (dx c : ℝ),\n  (CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete dx fun x => c) = fun x => 0",
@@ -1193,6 +1233,10 @@
       "type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / √3, 0, 0, 0, 5 / 2 - 2 * √3]",
       "raw_type": "Eq (CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate)\n  (Matrix.vecCons (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 2) (Real.sqrt (OfNat.ofNat 3))))\n    (Matrix.vecCons (OfNat.ofNat 0)\n      (Matrix.vecCons (OfNat.ofNat 0)\n        (Matrix.vecCons (OfNat.ofNat 0)\n          (Matrix.vecCons\n            (HSub.hSub (HDiv.hDiv (OfNat.ofNat 5) (OfNat.ofNat 2))\n              (HMul.hMul (OfNat.ofNat 2) (Real.sqrt (OfNat.ofNat 3))))\n            Matrix.vecEmpty)))))"
     },
+    "CFDLean.Scalar.FiniteVolume.boundedStates_convex": {
+      "type": "∀ {I : Type u_1} (m M : ℝ), Convex ℝ (CFDLean.Scalar.FiniteVolume.boundedStates m M)",
+      "raw_type": "∀ {I : Type u_1} (m M : Real), Convex Real (CFDLean.Scalar.FiniteVolume.boundedStates m M)"
+    },
     "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero": {
       "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I → ℝ),\n  ∑ i,\n      (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i -\n        CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) =\n    0",
       "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux)\n  (u : I → Real),\n  Eq\n    (Finset.univ.sum fun i =>\n      HSub.hSub (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i)\n        (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)))\n    (OfNat.ofNat 0)"
@@ -1212,6 +1256,10 @@
     "CFDLean.Scalar.FiniteVolume.rhs_sum_zero": {
       "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : ℝ),\n  dx ≠ 0 →\n    ∀ (numFlux : CFDLean.Scalar.NumericalFlux) (u : I → ℝ), ∑ i, CFDLean.Scalar.FiniteVolume.rhs g dx numFlux u i = 0",
       "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : Real),\n  Ne dx (OfNat.ofNat 0) →\n    ∀ (numFlux : CFDLean.Scalar.NumericalFlux) (u : I → Real),\n      Eq (Finset.univ.sum fun i => CFDLean.Scalar.FiniteVolume.rhs g dx numFlux u i) (OfNat.ofNat 0)"
+    },
+    "CFDLean.Scalar.FiniteVolume.totalVariation_convexOn": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (S : Set (I → ℝ)),\n  Convex ℝ S → ConvexOn ℝ S (CFDLean.Scalar.FiniteVolume.totalVariation g)",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (S : Set (I → Real)),\n  Convex Real S → ConvexOn Real S (CFDLean.Scalar.FiniteVolume.totalVariation g)"
     },
     "CFDLean.Time.Controls.hot_cold_residual": {
       "type": "CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n    CFDLean.Time.Controls.coldFace (fun x => CFDLean.Time.Controls.moving 0 3) 0 =\n  ![1 / 12, 1 / 6, 0, 0, 1 / 3]",
@@ -1276,6 +1324,50 @@
     "CFDLean.Time.ForwardEuler.step_zero_rhs": {
       "type": "∀ {I : Type u_1} (dt : ℝ) (L : (I → ℝ) → I → ℝ) (u : I → ℝ),\n  (L u = fun x => 0) → CFDLean.Time.ForwardEuler.step dt L u = u",
       "raw_type": "∀ {I : Type u_1} (dt : Real) (L : (I → Real) → I → Real) (u : I → Real),\n  (Eq (L u) fun x => OfNat.ofNat 0) → Eq (CFDLean.Time.ForwardEuler.step dt L u) u"
+    },
+    "CFDLean.Time.SSP.iterate_le": {
+      "type": "∀ {V : Type u_1} (T : V → V) (S : Set V) (Φ : V → ℝ),\n  (∀ u ∈ S, T u ∈ S) → (∀ u ∈ S, Φ (T u) ≤ Φ u) → ∀ u ∈ S, ∀ (n : ℕ), Φ (T^[n] u) ≤ Φ u",
+      "raw_type": "∀ {V : Type u_1} (T : V → V) (S : Set V) (Φ : V → Real),\n  (∀ (u : V), Membership.mem S u → Membership.mem S (T u)) →\n    (∀ (u : V), Membership.mem S u → LE.le (Φ (T u)) (Φ u)) →\n      ∀ (u : V), Membership.mem S u → ∀ (n : Nat), LE.le (Φ (Nat.iterate T n u)) (Φ u)"
+    },
+    "CFDLean.Time.SSP.iterate_mem": {
+      "type": "∀ {V : Type u_1} (T : V → V) (S : Set V), (∀ u ∈ S, T u ∈ S) → ∀ u ∈ S, ∀ (n : ℕ), T^[n] u ∈ S",
+      "raw_type": "∀ {V : Type u_1} (T : V → V) (S : Set V),\n  (∀ (u : V), Membership.mem S u → Membership.mem S (T u)) →\n    ∀ (u : V), Membership.mem S u → ∀ (n : Nat), Membership.mem S (Nat.iterate T n u)"
+    },
+    "CFDLean.Time.SSP.ssprk2_fixed": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (c : V),\n  E c = c → CFDLean.Time.SSP.ssprk2 E c = c",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V) (c : V),\n  Eq (E c) c → Eq (CFDLean.Time.SSP.ssprk2 E c) c"
+    },
+    "CFDLean.Time.SSP.ssprk2_forwardEuler": {
+      "type": "∀ {I : Type u_2} (dt : ℝ) (L : (I → ℝ) → I → ℝ) (u : I → ℝ) (i : I),\n  CFDLean.Time.SSP.ssprk2 (CFDLean.Time.ForwardEuler.step dt L) u i =\n    u i + dt / 2 * (L u i + L (CFDLean.Time.ForwardEuler.step dt L u) i)",
+      "raw_type": "∀ {I : Type u_2} (dt : Real) (L : (I → Real) → I → Real) (u : I → Real) (i : I),\n  Eq (CFDLean.Time.SSP.ssprk2 (CFDLean.Time.ForwardEuler.step dt L) u i)\n    (HAdd.hAdd (u i)\n      (HMul.hMul (HDiv.hDiv dt (OfNat.ofNat 2)) (HAdd.hAdd (L u i) (L (CFDLean.Time.ForwardEuler.step dt L u) i))))"
+    },
+    "CFDLean.Time.SSP.ssprk2_le": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (S : Set V) (Φ : V → ℝ),\n  ConvexOn ℝ S Φ → (∀ u ∈ S, E u ∈ S) → (∀ u ∈ S, Φ (E u) ≤ Φ u) → ∀ u ∈ S, Φ (CFDLean.Time.SSP.ssprk2 E u) ≤ Φ u",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V) (S : Set V) (Φ : V → Real),\n  ConvexOn Real S Φ →\n    (∀ (u : V), Membership.mem S u → Membership.mem S (E u)) →\n      (∀ (u : V), Membership.mem S u → LE.le (Φ (E u)) (Φ u)) →\n        ∀ (u : V), Membership.mem S u → LE.le (Φ (CFDLean.Time.SSP.ssprk2 E u)) (Φ u)"
+    },
+    "CFDLean.Time.SSP.ssprk2_linear": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (ℓ : V →ₗ[ℝ] ℝ),\n  (∀ (u : V), ℓ (E u) = ℓ u) → ∀ (u : V), ℓ (CFDLean.Time.SSP.ssprk2 E u) = ℓ u",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V)\n  (ℓ : LinearMap (RingHom.id Real) V Real),\n  (∀ (u : V), Eq (DFunLike.coe ℓ (E u)) (DFunLike.coe ℓ u)) →\n    ∀ (u : V), Eq (DFunLike.coe ℓ (CFDLean.Time.SSP.ssprk2 E u)) (DFunLike.coe ℓ u)"
+    },
+    "CFDLean.Time.SSP.ssprk2_mem": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (S : Set V),\n  Convex ℝ S → (∀ u ∈ S, E u ∈ S) → ∀ u ∈ S, CFDLean.Time.SSP.ssprk2 E u ∈ S",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V) (S : Set V),\n  Convex Real S →\n    (∀ (u : V), Membership.mem S u → Membership.mem S (E u)) →\n      ∀ (u : V), Membership.mem S u → Membership.mem S (CFDLean.Time.SSP.ssprk2 E u)"
+    },
+    "CFDLean.Time.SSP.ssprk3_fixed": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (c : V),\n  E c = c → CFDLean.Time.SSP.ssprk3 E c = c",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V) (c : V),\n  Eq (E c) c → Eq (CFDLean.Time.SSP.ssprk3 E c) c"
+    },
+    "CFDLean.Time.SSP.ssprk3_le": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (S : Set V) (Φ : V → ℝ),\n  ConvexOn ℝ S Φ → (∀ u ∈ S, E u ∈ S) → (∀ u ∈ S, Φ (E u) ≤ Φ u) → ∀ u ∈ S, Φ (CFDLean.Time.SSP.ssprk3 E u) ≤ Φ u",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V) (S : Set V) (Φ : V → Real),\n  ConvexOn Real S Φ →\n    (∀ (u : V), Membership.mem S u → Membership.mem S (E u)) →\n      (∀ (u : V), Membership.mem S u → LE.le (Φ (E u)) (Φ u)) →\n        ∀ (u : V), Membership.mem S u → LE.le (Φ (CFDLean.Time.SSP.ssprk3 E u)) (Φ u)"
+    },
+    "CFDLean.Time.SSP.ssprk3_linear": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (ℓ : V →ₗ[ℝ] ℝ),\n  (∀ (u : V), ℓ (E u) = ℓ u) → ∀ (u : V), ℓ (CFDLean.Time.SSP.ssprk3 E u) = ℓ u",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V)\n  (ℓ : LinearMap (RingHom.id Real) V Real),\n  (∀ (u : V), Eq (DFunLike.coe ℓ (E u)) (DFunLike.coe ℓ u)) →\n    ∀ (u : V), Eq (DFunLike.coe ℓ (CFDLean.Time.SSP.ssprk3 E u)) (DFunLike.coe ℓ u)"
+    },
+    "CFDLean.Time.SSP.ssprk3_mem": {
+      "type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module ℝ V] (E : V → V) (S : Set V),\n  Convex ℝ S → (∀ u ∈ S, E u ∈ S) → ∀ u ∈ S, CFDLean.Time.SSP.ssprk3 E u ∈ S",
+      "raw_type": "∀ {V : Type u_1} [inst : AddCommGroup V] [inst_1 : _root_.Module Real V] (E : V → V) (S : Set V),\n  Convex Real S →\n    (∀ (u : V), Membership.mem S u → Membership.mem S (E u)) →\n      ∀ (u : V), Membership.mem S u → Membership.mem S (CFDLean.Time.SSP.ssprk3 E u)"
     },
     "CFDLean.Time.amount_reindex": {
       "type": "∀ {N : Type u_1} {N' : Type u_2} [inst : Fintype N] [inst_1 : Fintype N'] (n : N ≃ N') (v : N → ℝ)\n  (U : N → CFDLean.Conservative 3),\n  (CFDLean.Time.amount (fun x => v (n.symm x)) fun x => U (n.symm x)) = CFDLean.Time.amount v U",

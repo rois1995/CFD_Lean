@@ -1,0 +1,19 @@
+{
+  "challenge_module": "Challenges.BurgersB2",
+  "solution_module": "CFDLean.Verification.BurgersB2Verify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersB2Verify.ssprk2_convex",
+    "CFDLean.Verification.BurgersB2Verify.ssprk3_convex",
+    "CFDLean.Verification.BurgersB2Verify.euler_multi_step",
+    "CFDLean.Verification.BurgersB2Verify.ssprk2_multi_step",
+    "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step",
+    "CFDLean.Verification.BurgersB2Verify.ssprk2_conservation",
+    "CFDLean.Verification.BurgersB2Verify.ssprk3_conservation"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

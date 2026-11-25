@@ -57,7 +57,7 @@ before the merge to `main`.
   (`Challenges/JST1.lean`, `Challenges/JST1.comparator.json`, solution `CFDLean/Verification/JST1Verify.lean`).
 - MR-3, raw types: `KernelAudit.lean` prints each theorem type also with `pp.notation false` and
   `pp.coercions false` (`raw_type`). `scripts/verify.py` pins the pretty and raw types of every promised theorem (M1-M5,
-  MC-N, Burgers, JST1; 355 at MR-3, 364 with B1) in `evidence/raw-types.json` (file hash pinned in the script, file listed in
+  MC-N, Burgers, JST1; 355 at MR-3, 387 with B1 and B2) in `evidence/raw-types.json` (file hash pinned in the script, file listed in
   `evidence/SHA256SUMS`) and fails if one changes. The raw types of the accepted v4.19 history cannot be regenerated
   (no v4.19 build is kept); the raw pin is therefore the v4.36 state at MR-3, and the accepted v4.19 types are still
   compared (pretty printer, with the MC-T port map) as before.

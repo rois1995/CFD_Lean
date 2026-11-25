@@ -1106,6 +1106,9 @@ class BurgersTests(unittest.TestCase):
             return {"config.json": json.dumps(base).encode()}
         self.rejects([
             lambda rows, record, files, pins: rows["V.claim"].update(type="∀ {I : Type u_1}, S.Other I"),
+            lambda rows, record, files, pins: (rows["V.claim"].update(type="∀ {I : Type u_1}, S.Claim I → False"),
+                                               record["trusted"]["bindings"][0].update(
+                                                   type="∀ {I : Type u_1}, S.Claim I → False")),
             lambda rows, record, files, pins: (rows["V.claim"].update(type="True"),
                                                record["trusted"]["bindings"][0].update(type="True")),
             lambda rows, record, files, pins: rows["V.claim"].update(direct=["S.Claim"]),

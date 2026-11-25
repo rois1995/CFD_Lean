@@ -56,7 +56,7 @@ imports every module. Namespaces and declaration names did not change (the MC-N 
 | `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form) |
 | `CFDLean/Entropy/` | `PairFlux`, `Production` |
 | `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux, consistency and monotone certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, controls) |
-| `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step |
+| `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
 | `CFDLean/Papers/JST1/` | paper 1 (JST), see below |
 
 The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
@@ -96,6 +96,19 @@ is pending. Comparator:
 lake comparator --paranoid --config Challenges/BurgersB1.comparator.json
 ```
 
+## Burgers B2 (SSP time stepping, multi-step stability)
+
+[Burgers B2](references/Burgers-B2.md) implements the [contract](specifications/Burgers-B2.md) that the agent froze
+under the standing authorization. Generic part (`CFDLean/Time/SSP.lean`): SSPRK2 and SSPRK3 in Shu-Osher form over any
+one-step map keep every convex set and every convex bound that the map keeps. Burgers part: with `dx > 0`, `dt ≥ 0`,
+initial bounds `m ≤ u ≤ M` and `2 · dt · max(|m|, |M|) ≤ dx`, the Rusanov scheme with Forward Euler, SSPRK2 or SSPRK3
+keeps the bounds and does not increase the total variation for every number of steps; the SSP steps keep the total sum
+and constant states. 23 promised theorems, status `pending`. No order-of-accuracy claim. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB2.comparator.json
+```
+
 ## Paper 1 (JST)
 
 Since MR-2 ([MR.md](specifications/MR.md)) the formalization of paper 1 (all 92 statements proved, folded from
@@ -131,7 +144,7 @@ This incremental command is not the complete fresh-checkout bootstrap; use the s
 | Level | When | Checks |
 |---|---|---|
 | 1 | every commit | `lake build`; `LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py`; the fixtures `python3 -m unittest discover -s scripts -p test_verify.py`; `sha256sum -c evidence/SHA256SUMS` |
-| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/<name>.comparator.json` for `BurgersB0`, `BurgersB1` and `JST1` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
+| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/<name>.comparator.json` for `BurgersB0`, `BurgersB1`, `BurgersB2` and `JST1` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
 | 3 | optional, only when the user asks | `lake check --paranoid` (five independent kernels over the whole build), run alone, overnight; it needs 10-20 GB RAM per checker |
 
 Level 1 runs with `LEAN_NUM_THREADS=2` and `nice -n 19`, one Lean process at a time. `scripts/verify.py` also pins
