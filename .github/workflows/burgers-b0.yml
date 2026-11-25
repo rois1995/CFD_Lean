@@ -1,0 +1,46 @@
+name: Burgers B0 Lean build
+
+on:
+  push:
+    branches:
+      - burgers-b0-implementation
+    paths:
+      - 'CFDLean/Burgers/**'
+      - 'CFDLean/Burgers.lean'
+      - 'CFDLean.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/burgers-b0.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'CFDLean/Burgers/**'
+      - 'CFDLean/Burgers.lean'
+      - 'CFDLean.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/burgers-b0.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Install Lean and Mathlib cache
+        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: true
+      - name: Build CFDLean
+        run: ~/.elan/bin/lake build CFDLean
