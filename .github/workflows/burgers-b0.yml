@@ -1,4 +1,4 @@
-name: Burgers B0 Lean build
+name: Burgers B0 verification
 
 on:
   push:
@@ -8,6 +8,10 @@ on:
       - 'CFDLean/Burgers/**'
       - 'CFDLean/Burgers.lean'
       - 'CFDLean.lean'
+      - 'BurgersB0Challenge.lean'
+      - 'BurgersB0Verify.lean'
+      - 'KernelAudit.lean'
+      - 'Integrity.lean'
       - 'lean-toolchain'
       - 'lakefile.toml'
       - 'lake-manifest.json'
@@ -19,6 +23,10 @@ on:
       - 'CFDLean/Burgers/**'
       - 'CFDLean/Burgers.lean'
       - 'CFDLean.lean'
+      - 'BurgersB0Challenge.lean'
+      - 'BurgersB0Verify.lean'
+      - 'KernelAudit.lean'
+      - 'Integrity.lean'
       - 'lean-toolchain'
       - 'lakefile.toml'
       - 'lake-manifest.json'
@@ -29,14 +37,14 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
-      - name: Install Lean and Mathlib cache
+      - name: Install pinned Lean and Mathlib cache
         uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
         with:
           auto-config: false
@@ -44,3 +52,7 @@ jobs:
           use-mathlib-cache: true
       - name: Build CFDLean
         run: ~/.elan/bin/lake build CFDLean
+      - name: Check implementation against trusted B0 statements
+        run: ~/.elan/bin/lake env lean -DwarningAsError=true BurgersB0Verify.lean
+      - name: Audit axioms and unsafe dependency closure
+        run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
