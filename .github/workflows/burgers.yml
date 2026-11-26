@@ -68,13 +68,15 @@ jobs:
       - name: Add swap space for the external checkers
         run: |
           free -h
+          df -h / /mnt || true
+          # preinstalled toolkits that this job does not use
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
           sudo swapoff -a || true
           sudo rm -f /mnt/swapfile /swapfile
-          if df --output=avail -BG /mnt 2>/dev/null | tail -1 | tr -dc '0-9' | awk '{exit !($1 >= 24)}'; then SWAP=/mnt/swapfile; else SWAP=/swapfile; fi
-          sudo fallocate -l 20G "$SWAP" || sudo dd if=/dev/zero of="$SWAP" bs=1M count=20480
-          sudo chmod 600 "$SWAP"
-          sudo mkswap "$SWAP"
-          sudo swapon "$SWAP"
+          sudo fallocate -l 16G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
           free -h
           df -h / /mnt || true
       - name: Install bubblewrap sandbox
