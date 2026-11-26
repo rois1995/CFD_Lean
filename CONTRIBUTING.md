@@ -62,6 +62,9 @@ review are implementation evidence. Record independent acceptance when the revie
 
 ## Validation
 
+For new or slow proofs, follow the [Lean performance guide](docs/LEAN_PERFORMANCE.md) (measured patterns for fast
+kernel checks, memory cap, measuring build time).
+
 For documentation changes, check relative links and run `git diff --check`. Review the file list for scope. If a document
 is covered by [evidence/SHA256SUMS](evidence/SHA256SUMS), regenerate the manifest with the verifier and check the diff.
 
