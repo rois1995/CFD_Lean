@@ -132,9 +132,10 @@ axiom outside the three standard ones, no unsafe declaration),
 
 ## Design notes for E1--E4
 
-- E1 (floating point): the `Scalar` class is the place to attach an error model. A statement of the form "the `Float`
-  run stays within a bound of the real run" needs a formal model of IEEE arithmetic, which Lean core does not provide
-  for `Float` (its operations are opaque).
+- E1 (machine arithmetic) defines a backend-specific error or refinement contract for the existing `Scalar` kernel.
+  The pinned Lean toolchain provides logical models for basic `Float` and `Float32` operations. See the
+  [E1 design scope](../roadmap/NEXT.md#priority-2---e1-machine-arithmetic-strategy) for the model coverage and the
+  separate obligation to relate machine execution to the exact-real algorithm.
 - E2--E4 (parallel, GPU, MPI): the refinement is stated through `Represents` and `RefinedBy`, which do not depend on
   how an array is computed. A partitioned kernel with halo cells can be proved to refine the same `eulerStepArray`
   (local stencil correctness under valid halos), without a change of the mathematical layer.

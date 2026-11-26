@@ -24,7 +24,7 @@ The project already contains:
 The main near-term concerns are no longer simply "add another scheme". They are:
 
 1. close the scientific/review backlog on the implemented Burgers milestones;
-2. use non-uniform fixed 1D finite volume as the next geometry/abstraction stress test;
+2. align Burgers and Euler on one uniform periodic 1D solver, and use non-uniform cells as the next geometry test;
 3. choose a credible machine-arithmetic verification strategy for E1;
 4. begin run provenance/output infrastructure suitable for future formally grounded reference simulations;
 5. continue M6 and selected mathematical extensions without breaking the long-term architecture.
@@ -113,6 +113,7 @@ Keep this index short.
 
 - Update `CURRENT.md` when project status materially changes.
 - Update `NEXT.md` when priorities or concrete milestones change.
+- Check off completed roadmap items in the PR that completes them. [Contributor guide](CONTRIBUTING.md)
 - Move speculative items to `FUTURE.md`.
 - Update `SEQUENCING.md` when concrete experience changes implementation prerequisites or trigger conditions.
 - Change `PRINCIPLES.md` only for deliberate architectural decisions.

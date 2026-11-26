@@ -203,7 +203,8 @@ Proving that code implements a scheme is not by itself a convergence or physical
 Do not generalize merely because a future feature can be imagined. Introduce abstractions when a concrete milestone
 needs them, while ensuring current APIs do not unnecessarily rule out known future requirements.
 
-The first planned stress test for the present scalar FV abstractions is a non-uniform fixed 1D mesh.
+Exercise model and geometry changes independently. Use Burgers and Euler on the same uniform periodic 1D method
+to test the model interface, and use a non-uniform fixed 1D mesh to test geometry.
 
 
 ## 17. New equation systems enter through capabilities, not solver clones
@@ -226,3 +227,25 @@ is genuinely shared.
 Do not force every PDE into one universal conservation-law interface. Constrained systems such as incompressible flow
 may require a different solver structure while still reusing geometry, gradients, time integration, linear solvers and
 execution refinement.
+
+## 18. Arithmetic precision belongs to the execution backend
+
+Keep generic `Physics`, `Geometry`, `Discrete`, `Schemes`, `Entropy`, and `Time` mathematics independent of machine
+types such as `Float` and `Float32`. Preserve arithmetic polymorphism in executable kernels where practical. Select
+precision in execution and refinement layers. If the algorithm itself depends on a representation, state that
+dependence explicitly in its specification.
+
+Keep the path to a certified run explicit.
+
+```text
+mathematical scheme over ℝ
+  -> generic numerical kernel with exact-real refinement
+  -> selected arithmetic backend
+  -> backend-specific refinement or error certificate
+  -> certified run under the certificate's hypotheses
+```
+
+The kernel interpreted over `ℝ`, binary32 and binary64 implementations, arbitrary precision, interval enclosures,
+and mixed precision are distinct realizations with distinct proof obligations. Extending an exact-real guarantee to
+a machine run requires a theorem relating the selected backend to the exact algorithm under stated hypotheses.
+An optimized or parallel implementation has its own refinement obligations, including any change in reduction order.

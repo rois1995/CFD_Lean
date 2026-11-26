@@ -125,9 +125,45 @@ def checkK : Bool :=
 
 end Check
 
-theorem checkK_hex : checkK .hex = true := by decide +kernel
-theorem checkK_prism : checkK .prism = true := by decide +kernel
-theorem checkK_pyr : checkK .pyr = true := by decide +kernel
+/-! The same checks with the cell data as plain arguments. The kernel then evaluates the case split on `Kind`
+(`Kind.cell`, `refZ`) once, in the `rfl` step below, instead of inside every loop iteration; this makes the closed
+computations about 40 times faster. -/
+
+section Generic
+variable {n : ℕ} (C : Cell3 n) (R : Fin n → Z3) (S : Z3) (z : Fin n)
+
+def cenZg (a0 a1 a2 : Fin n) : ℤ :=
+  let P := R a0
+  dtZ (crsZ (subZ (R a1) P) (subZ (R a2) P)) (subZ S ((n : ℤ) * P.1, (n : ℤ) * P.2.1, (n : ℤ) * P.2.2))
+
+def sFg (f : List (Fin n)) (v : Fin n) : ℤ := sideZ (R (f.getD 0 z)) (R (f.getD 1 z)) (R (f.getD 2 z)) (R v)
+
+def cFg (f : List (Fin n)) : ℤ := cenZg R S (f.getD 0 z) (f.getD 1 z) (f.getD 2 z)
+
+def checkKg : Bool :=
+  C.splits.all fun s => (C.pull s.1 s.2).all fun t =>
+    (sFg R z (t.take 3) (t.getD 3 z) != 0) &&
+    (tetFaces t).all fun f =>
+      ((C.pull s.1 s.2).all fun t' => sameSimplex t t' || !((tetFaces t').any (sameSimplex f)) ||
+         onCellFace C f || decide (sFg R z f (oppV t f z) * sFg R z f (oppV t' f z) < 0)) &&
+      (!onCellFace C f || decide (0 < sFg R z f (oppV t f z) * cFg R S z f))
+
+end Generic
+
+/-- Reference coordinates of the three cells as plain functions. -/
+def hexR : Fin 8 → Z3 := ![(0, 0, 0), (1, 0, 0), (1, 1, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (1, 1, 1), (0, 1, 1)]
+def prismR : Fin 6 → Z3 := ![(0, 0, 0), (1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (0, 1, 1)]
+def pyrR : Fin 5 → Z3 := ![(0, 0, 0), (2, 0, 0), (2, 2, 0), (0, 2, 0), (1, 1, 2)]
+
+theorem checkK_hex : checkK .hex = true := by
+  rw [show checkK .hex = checkKg RefCell.hex hexR (4, 4, 4) 0 from rfl]
+  decide +kernel
+theorem checkK_prism : checkK .prism = true := by
+  rw [show checkK .prism = checkKg RefCell.prism prismR (2, 2, 3) 0 from rfl]
+  decide +kernel
+theorem checkK_pyr : checkK .pyr = true := by
+  rw [show checkK .pyr = checkKg RefCell.pyramid pyrR (5, 5, 2) 0 from rfl]
+  decide +kernel
 
 theorem checkK_all (k : Kind) : checkK k = true := by
   cases k
@@ -164,9 +200,38 @@ def localOK (k : Kind) : Bool :=
       (!(quadAny k a0 a1 a2 && triAny k a0 a1 a2) &&
         2 * (k.tets.map (termZ k a0 a1 a2)).sum == shareZ k a0 a1 a2 * Int.sign (cenZ k a0 a1 a2))
 
-theorem localOK_hex : localOK .hex = true := by decide +kernel
-theorem localOK_prism : localOK .prism = true := by decide +kernel
-theorem localOK_pyr : localOK .pyr = true := by decide +kernel
+section Generic
+variable {n : ℕ} (C : Cell3 n) (R : Fin n → Z3) (S : Z3)
+
+def termZg (a0 a1 a2 : Fin n) (t : List (Fin n)) : ℤ :=
+  if t.contains a0 && t.contains a1 && t.contains a2 then
+    (t.map fun v => if inF a0 a1 a2 v then 0 else Int.sign (sideZ (R a0) (R a1) (R a2) (R v))).sum
+  else 0
+def quadAnyg (a0 a1 a2 : Fin n) : Bool :=
+  (quadTris C).any fun f => f.contains a0 && f.contains a1 && f.contains a2
+def triAnyg (a0 a1 a2 : Fin n) : Bool :=
+  C.tris.any fun f => f.contains a0 && f.contains a1 && f.contains a2
+def shareZg (a0 a1 a2 : Fin n) : ℤ :=
+  if quadAnyg C a0 a1 a2 then C.splits.length else if triAnyg C a0 a1 a2 then 2 * C.splits.length else 0
+
+def localOKg : Bool :=
+  (List.finRange n).all fun a0 => (List.finRange n).all fun a1 => (List.finRange n).all fun a2 =>
+    a0 == a1 || a0 == a2 || a1 == a2 ||
+      (!(quadAnyg C a0 a1 a2 && triAnyg C a0 a1 a2) &&
+        2 * ((C.splits.flatMap fun s => C.pull s.1 s.2).map (termZg R a0 a1 a2)).sum ==
+          shareZg C a0 a1 a2 * Int.sign (cenZg R S a0 a1 a2))
+
+end Generic
+
+theorem localOK_hex : localOK .hex = true := by
+  rw [show localOK .hex = localOKg RefCell.hex hexR (4, 4, 4) from rfl]
+  decide +kernel
+theorem localOK_prism : localOK .prism = true := by
+  rw [show localOK .prism = localOKg RefCell.prism prismR (2, 2, 3) from rfl]
+  decide +kernel
+theorem localOK_pyr : localOK .pyr = true := by
+  rw [show localOK .pyr = localOKg RefCell.pyramid pyrR (5, 5, 2) from rfl]
+  decide +kernel
 
 theorem localOK_all (k : Kind) : localOK k = true := by
   cases k

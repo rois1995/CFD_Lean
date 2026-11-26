@@ -4,16 +4,37 @@ Give the milestone or roadmap item, scope, and validation results in the PR desc
 [architecture guide](ARCHITECTURE.md) shows where code belongs. Match adjacent module, namespace and declaration
 naming, and use [the root umbrella](CFDLean.lean) for new public library exports when applicable.
 
+In the PR that completes a roadmap item, check it off with `- [x]` in [roadmap/NEXT.md](roadmap/NEXT.md).
+For partial work, check off the completed deliverables and keep the overall item open.
+
 ## Branches and releases
 
 - Base task branches on `develop` and target `develop` with the PR. [Integration CI](.github/workflows/integration.yml)
   builds the package and executable, runs the verifier and fixtures, and compares committed evidence.
+  To also run every trusted challenge with the paranoid comparator on a `develop` PR, add the `paranoid` label to the
+  PR. You can also start [the paranoid workflow](.github/workflows/paranoid.yml) for a branch from the Actions tab.
+  This check is optional, and the release PR runs it again.
+- Integration CI reuses the compiled modules of unchanged files from a build cache (restored from the same PR or
+  from `develop`, which [Develop build cache](.github/workflows/develop-cache.yml) refreshes after each merge). Lake
+  validates its saved build traces and rebuilds artifacts whose recorded inputs no longer match, so source and import
+  changes invalidate affected modules transitively. Release verification never uses this cache and builds everything
+  from scratch.
 - Promote `develop` to `main` through a release PR. [Release verification](.github/workflows/release.yml) runs the
   integration checks and every trusted challenge with the paranoid comparator. Use a merge commit for the release.
 - For an emergency fix, branch `hotfix/<topic>` from `main` and open a PR into `main` through the same release gate.
   Bring `main` back into `develop` through an integration PR after a release or hotfix to keep the branches aligned.
 - Use PRs for all changes to `develop` and `main`. Update the PR branch against the target and resolve review
   conversations before merging.
+
+### Owner override for CI
+
+The repository owner `rois1995` can explicitly override required CI on PRs into `develop` or `main`.
+Use `gh pr merge <number> --admin --merge --match-head-commit <reviewed-head-sha>` for the exact PR head reviewed.
+This also bypasses GitHub's up-to-date check. On `main`, it bypasses the CI check of the release PR source, so verify
+that the PR comes from `develop` or a same-repository `hotfix/` branch. Record the reason and any checks run in the PR.
+Both branches still require pull requests and resolved review conversations, and block force pushes and deletion.
+
+### Release tags
 
 Tag a verified release with an annotated `vMAJOR.MINOR.PATCH` tag on its exact `main` merge commit. Record that commit,
 the passing release PR and the catalog, specification and evidence paths in the release notes. Build `burgers1d` from
@@ -46,8 +67,15 @@ review are implementation evidence. Record independent acceptance when the revie
 
 ## Validation
 
+For new or slow proofs, follow the [Lean performance guide](docs/LEAN_PERFORMANCE.md) (measured patterns for fast
+kernel checks, memory cap, measuring build time).
+
 For documentation changes, check relative links and run `git diff --check`. Review the file list for scope. If a document
 is covered by [evidence/SHA256SUMS](evidence/SHA256SUMS), regenerate the manifest with the verifier and check the diff.
+
+For `develop` PRs that only add or edit ordinary Markdown in `docs/`, `roadmap/`, `AGENTS.md`, `ARCHITECTURE.md`,
+`CONTRIBUTING.md`, or `TODO.md`, Integration CI runs the link, anchor, whitespace, and checksum checks without building
+Lean. Other changes use full integration verification. Release PRs use the full release gate.
 
 For Lean, contracts or verification tooling, use the pinned [Lean toolchain](lean-toolchain) and [Lake manifest](lake-manifest.json).
 Run the following from the repository root. See the [shared verification workflow](.github/workflows/lean-verification.yml)

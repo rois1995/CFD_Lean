@@ -5,11 +5,12 @@ belong in `FUTURE.md`; persistent architectural rules belong in `PRINCIPLES.md`.
 
 Status date: 2026-11-26.
 
-## Immediate work package 0 - branch governance and release workflow
+## Completed work package 0 - branch governance and release workflow
 
-Introduce a protected integration/release branch model before further routine development.
+The protected integration and release flow is in use. [Integration PR #14](https://github.com/rois1995/CFD_Lean/pull/14) ·
+[Release PR #15](https://github.com/rois1995/CFD_Lean/pull/15) · [Sync PR #16](https://github.com/rois1995/CFD_Lean/pull/16)
 
-Target flow:
+### Branch flow
 
 ```text
 feature / milestone branch
@@ -34,33 +35,33 @@ Branch semantics:
 - scientific acceptance remains separate from Git branch status: merging to `main` does not by itself make theorem
   statements independently accepted.
 
-Deliverables:
+### Deliverables
 
-1. Create `develop` from the current `main`.
-2. Protect both `develop` and `main` against direct/force pushes and deletion; require pull requests.
-3. Require the ordinary CI gate for PRs into `develop`.
-4. Require the full release/paranoid gate for PRs into `main`.
-5. Split the current monolithic GitHub Actions workflow into at least:
-   - ordinary CI for feature/milestone PRs targeting `develop`;
-   - release verification for `develop -> main`, including every trusted challenge and
-     `lake comparator --paranoid`.
-6. Keep required release checks free of restrictive path filters that could cause a required check to be skipped.
-7. Require the target branch to be up to date before merge and require review conversations to be resolved.
-8. Document the hotfix path:
-   `main -> hotfix/... -> PR to main -> full release gate -> merge/back-port main into develop`.
-9. Define the release/tagging convention so a tag identifies an exact `main` commit together with its theorem
-   catalog, specifications, executable and verification evidence.
-10. Update `AGENTS.md` / contributor guidance so agents and humans never write directly to `main` or `develop`
-    after this migration.
-11. Keep CI acceptance and scientific acceptance explicitly distinct in documentation and automation.
+- [x] Create `develop` from `main`.
+- [x] Protect both `develop` and `main` against direct pushes, force pushes, and deletion, and require pull requests.
+- [x] Require the ordinary CI gate for PRs into `develop`.
+- [x] Require the full release and paranoid gate for PRs into `main`.
+- [x] Split the original GitHub Actions workflow into ordinary integration CI and release verification. Release
+  verification runs `lake comparator --paranoid` for every trusted challenge.
+- [x] Run required release checks on every PR into `main`.
+- [x] Require an up-to-date PR branch and resolved review conversations before merge.
+- [x] Document the hotfix path and the PR that brings `main` back into `develop`.
+- [x] Define the release tag convention so a tag identifies an exact `main` commit with its theorem catalog,
+  specifications, executable and verification evidence.
+- [x] Update `AGENTS.md` and contributor guidance to require PRs for changes to `main` and `develop`.
+- [x] Keep CI acceptance and scientific acceptance distinct in documentation and automation.
+- [x] Add lightweight Integration CI for navigation-only Markdown changes.
+- [x] Add a repository-owner PR-only override for required CI on `develop` and `main`.
 
-Suggested protection policy:
+### Protection policy
 
 - `develop`: PR required, ordinary CI required, up-to-date branch required, conversations resolved, force pushes
   and deletion disabled.
 - `main`: PR required, full release/paranoid verification required, up-to-date branch required, conversations
   resolved, force pushes and deletion disabled; normally only release PRs from `develop` (plus emergency hotfixes)
   should target it.
+
+The owner can explicitly override the CI rules on either branch when merging a PR. [CI override procedure](../CONTRIBUTING.md#owner-override-for-ci)
 
 Do not require signed commits or linear history initially unless a concrete provenance/security requirement justifies
 the extra friction. A release merge commit from `develop` to `main` is acceptable and provides a useful release
@@ -111,9 +112,44 @@ Deliverables:
 The goal is to locate a concept, its authoritative artifacts, its status and its validation commands from the docs and
 generated indexes.
 
-## Priority 1 - non-uniform fixed 1D finite volume
+## Priority 1 - shared 1D finite volume for Burgers and Euler
 
-Use a non-uniform fixed Burgers mesh as the next architectural stress test before ALE or AMR.
+Start the next Euler proposal on the uniform periodic, cell-centered grid used by Burgers. Hold the geometry,
+numerical flux family and time integrator fixed so that the state and physical model are the only changes.
+This is a new line alongside the multidimensional median-dual M1–M6 milestones.
+
+1. **Use the existing Euler physics in one dimension.** Specialize `Conservative d` and `physicalFlux` to
+   `d = 1` and positive unit face orientation. The three conserved quantities are density, momentum and total
+   energy. Use the existing ideal-gas pressure and admissibility domain. Start with homogeneous Burgers and Euler.
+   A later balance law can supply a physical source and will need a discrete source contribution in its balance.
+   [Euler state](../CFDLean/Physics/Euler/State.lean) · [Oriented flux](../CFDLean/Physics/Euler/PhysicalFlux.lean)
+2. **Propose one first-order step with two instantiations.** Share the periodic neighbors, Rusanov flux formula,
+   face-flux difference and Forward Euler update. The model supplies the physical flux and a speed estimate.
+   Recover the existing Burgers choice exactly. For Euler, specify the endpoint estimate using velocity and sound
+   speed on admissible states and state the speed hypothesis needed for each claim.
+   [Burgers Rusanov](../CFDLean/Schemes/Burgers/Rusanov.lean) · [Periodic residual](../CFDLean/Discrete/Periodic/FiniteVolume.lean)
+3. **First acceptance target.** Prove equality to the existing Burgers update for every state on the supported
+   uniform periodic grids. For Euler, prove equal-state flux consistency, preservation of admissible constants and
+   periodic conservation of mass, momentum and energy. Include a nonconstant control for face orientation and the
+   update sign. Freeze the proposal before implementing these results.
+4. **Select one physical model per run.** The planned executable takes an explicit model argument, for example
+   `lake exe fv1d --model burgers` or `lake exe fv1d --model euler`. Dispatch once in the driver and advance the
+   selected state through the shared array traversal and time loop. Preserve `burgers1d` as a Burgers entry point
+   with its existing arguments and defaults. Compare its output with the equivalent `fv1d --model burgers` run.
+   Reuse the existing SSP composition lemmas. Scope Euler density/pressure positivity under a specified CFL
+   condition before claiming admissible multi-step evolution. Higher-order reconstruction and entropy require
+   their own system hypotheses and proofs. Prove exact-real refinement for each model and certify machine error
+   under E1. Keep backend arithmetic separate from the conserved state.
+   [SSP](../CFDLean/Time/SSP.lean) · [Burgers refinement](../CFDLean/Exec/Refinement.lean)
+5. **Extend dimension after the 1D comparison.** A periodic Euler density wave with constant pressure and velocity
+   gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
+   mesh. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
+   with a cell-centered method needs an explicit statement about the control volumes and transfers being compared.
+
+### Non-uniform fixed 1D finite volume
+
+Use Burgers to test geometry independently of the Euler model change. Apply the shared first-order step to both
+models on this mesh once their uniform-grid specializations are established.
 
 Target components:
 
@@ -131,17 +167,34 @@ composition layers.
 
 ## Priority 2 - E1 machine arithmetic strategy
 
-The executable already uses the same kernel shape at `Real` and `Float`, but only the real-arithmetic refinement is
-proved.
+The Burgers array kernels already use `Scalar α`, with `ScalarSign α` where a limiter needs a sign test. The current
+refinement theorems cover the kernel interpreted over `ℝ`. The native driver selects Lean `Float` (binary64). E1 starts
+with a design proposal defining an arithmetic backend and its refinement contract. Backend implementations follow
+when the contract or a concrete use case justifies them. [Kernel](../CFDLean/Exec/Kernel.lean) ·
+[Limiter kernel](../CFDLean/Exec/LimiterKernel.lean) · [Driver](../Main.lean)
 
-Before committing to a large floating-point development, write a small design proposal comparing viable routes:
+| Capability | Scope for E1 |
+|---|---|
+| Kernel arithmetic (`Scalar`) | Minimal operations and constants used to advance the state, including `abs` and `max` for the Burgers flux. `ScalarSign` supplies the sign test for limiters that need it. |
+| Runtime arithmetic (illustrative `RuntimeScalar`) | Parsing, formatting, conversions such as `Nat` to the backend scalar, and finite/NaN checks. Keep initialization, I/O and diagnostic reporting at the driver boundary. |
+| Optional math | Operations such as `sqrt`, `sin`/`cos` and `exp`/`log`, required only by the component using them. The current driver uses `Float.sin` and `Float.acos` to initialize its sinusoid and `Float.abs` in its scaling and formatting. |
+| Arithmetic certification | Relate backend values and operations to `ℝ`. State the domain, arithmetic and runtime assumptions, and the error bound or enclosure that a step or run would certify. |
 
-- a formal IEEE model and a theorem relating it to the executable operations;
-- interval/enclosure arithmetic for a reference mode;
-- reproducible/exact accumulator techniques for selected reductions;
-- external verified arithmetic kernels with a narrow trusted/refinement interface.
+The capability names illustrate design roles. Introduce an interface only when a concrete consumer needs one.
 
-The required deliverable is a precise statement of what a future `Float` result could be certified to mean.
+Lean v4.36.0 defines `Float` and `Float32` as wrappers around the bit-pattern models `Float.Model` (binary64) and
+`Float32.Model` (binary32). Basic operations such as addition and division have logical definitions through those models
+and native implementations at runtime. Driver functions such as `Float.sin` and `Float.acos` are opaque in the logic.
+E1 should inventory the operations it relies on, use model definitions where applicable, and state the assumptions
+linking the selected native operations to the model. A solver-level relation to `ℝ` is a separate proof obligation.
+[Toolchain pin](../lean-toolchain) ·
+[Pinned `Float` source](https://raw.githubusercontent.com/leanprover/lean4/v4.36.0/src/Init/Data/Float/Float.lean) ·
+[Pinned `Float32` source](https://raw.githubusercontent.com/leanprover/lean4/v4.36.0/src/Init/Data/Float/Float32.lean)
+
+Compare using the Lean models, a separate IEEE model or external verified arithmetic, and interval enclosures for a
+reference run. The future backend family may include binary32, binary64, wider IEEE formats, arbitrary or
+multiprecision arithmetic, interval arithmetic, and mixed precision with explicit conversions. Deterministic reference
+arithmetic may use reproducible or exact accumulators for selected reductions.
 
 ## Priority 3 - verified-run provenance and basic solver output
 
@@ -170,8 +223,9 @@ Candidates, to be proposed/frozen separately:
 
 ## Priority 5 - M6 composition
 
-Continue the original Euler roadmap with multi-step evolution on top of M5
-(`specifications/M2-proposal.md`).
+Keep M6 on the median-dual track. When proposing it, reconcile the one-step composition in the
+[original milestone table](../specifications/M2-proposal.md) with the assembled step already supplied by
+[M5](../references/M5.md), and specify any multi-step claim and its admissibility hypotheses separately.
 
 Keep the generic time-evolution interfaces compatible with future variable-step and implicit methods.
 
