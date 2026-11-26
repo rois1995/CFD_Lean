@@ -1,0 +1,20 @@
+{
+  "challenge_module": "Challenges.BurgersE0c",
+  "solution_module": "CFDLean.Verification.BurgersE0cVerify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersE0cVerify.real_sign_is_standard",
+    "CFDLean.Verification.BurgersE0cVerify.kernel_slope_is_limiter",
+    "CFDLean.Verification.BurgersE0cVerify.limiter_euler_step_refines",
+    "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_step_refines",
+    "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_refines",
+    "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_sum",
+    "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_bounds",
+    "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_total_variation"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

@@ -60,7 +60,7 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending",
-                  "B4": "pending", "E0": "pending", "E0b": "pending", "B3b": "pending",
+                  "B4": "pending", "E0": "pending", "E0b": "pending", "B3b": "pending", "E0c": "pending",
                   "JST1": "candidate"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
@@ -146,6 +146,30 @@ BURGERS = {
             "challenge": "Challenges/BurgersB3b.lean",
             "challenge_sha256": "6fdf5dd9246e642d0f6d92ff391b582525b1b8e9a7a59180a94dcbda462b7679",
             "count": 40, "bridges": 6},
+    # E0c: as E0b, with the limiter kernel and the real sign test as further trusted inputs.
+    "E0c": {"results": "specifications/Burgers-E0c-results.json",
+            "approved": "001ec26c88a0742d9c0be9e728099c6408bfac6b",
+            "statements": "CFDLean/Verification/BurgersE0cChallenge.lean",
+            "statements_sha256": "ef191f896ce59f9b26aa20ab06c3e12d791d8efd179cee4456cd40ce1193cdb4",
+            "challenge": "Challenges/BurgersE0c.lean",
+            "challenge_sha256": "1b03e40d241e2a6435b7d713a3b9ab62ba86c1cd54c8191477ce40363ef12f91",
+            "trusted_inputs": {
+                "CFDLean.Exec.Kernel": {
+                    "path": "CFDLean/Exec/Kernel.lean",
+                    "sha256": "5a01cf45d28ff448ef4a9e823d5c9c6ebb23819ebea49045139b953b90b692ac"},
+                "CFDLean.Exec.RealScalar": {
+                    "path": "CFDLean/Exec/RealScalar.lean",
+                    "sha256": "1ffa874a796385474f160a5508233bf91d48a356d655477beacb78e9ca5ad17c"},
+                "CFDLean.Exec.MusclKernel": {
+                    "path": "CFDLean/Exec/MusclKernel.lean",
+                    "sha256": "adf7819d7da436a969a52c76443f61b2661691da03f2d8dd7086f8aa9acac380"},
+                "CFDLean.Exec.LimiterKernel": {
+                    "path": "CFDLean/Exec/LimiterKernel.lean",
+                    "sha256": "ca3223409971be33a593ed31d8e28f64a55e74a083711393ed96db7c9bf32e50"},
+                "CFDLean.Exec.RealScalarSign": {
+                    "path": "CFDLean/Exec/RealScalarSign.lean",
+                    "sha256": "d0959ddb8e4b4cda2b31b5cc1947ae3bbea5cfb7450ad8f0d12334497d43a6e2"}},
+            "count": 19, "bridges": 8},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -163,7 +187,7 @@ JST1_COUNT = 112
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "40116f7235e166e4d07d015f1e843638b582e017e941d5e94ac4a783425e65ca"
+RAW_TYPES_SHA256 = "4a4be8d17a5b51bbdb8d466ced38dfb30c1df8772289b3f2481a2eb6bc4a3173"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "79c1e9dc3b386c9db8661ccec898124a0bfdb7c386304db5876d7dbf084a3c0a"

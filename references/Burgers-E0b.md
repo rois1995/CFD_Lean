@@ -12,10 +12,12 @@ instance and every B0--B4, E0, Euler M1--M5 source are unchanged.
 ## Run it
 
 ```bash
-lake exe burgers1d 200 200 0.15 --muscl     # MUSCL-minmod with SSPRK3
+lake exe burgers1d 200 200 0.15 --limiter minmod     # MUSCL-minmod with SSPRK3
 lake exe burgers1d 200 200 0.4              # first order, as in E0
 ```
 
+Since E0c the limiter is chosen with `--limiter NAME`, and `--muscl` alone is the unlimited scheme; at the time of E0b
+`--muscl` meant minmod. The output below is the E0b format; the numbers are the same with `--limiter minmod`.
 The first output line names the scheme. The note line gives the proved hypothesis for real arithmetic: `cfl <= 0.5`
 for the first-order scheme, `cfl <= 1/6` for MUSCL. Exit codes: 0 normal, 1 bad arguments, 2 non-finite result.
 
@@ -68,7 +70,7 @@ for bounds and total variation: `6 · dt · max(|m|, |M|) ≤ dx`.
 ### E0b-X — executable
 
 - Definition run by the flag: `musclSsprk3StepArray`. Built and run in CI. Reference output for
-  `burgers1d 200 200 0.15 --muscl`:
+  `burgers1d 200 200 0.15 --muscl` (E0b; now `--limiter minmod`):
 
 ```text
 N = 200  steps = 200  cfl = 0.150000  dx = 5.000000000000e-3  dt = 5.000411258885e-4  scheme = MUSCL-minmod

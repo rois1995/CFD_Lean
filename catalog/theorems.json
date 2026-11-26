@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -6776,6 +6776,253 @@
       ],
       "summary": "The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3.",
       "source": "specifications/Burgers-B3b-results.json B3b-N; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterEulerStepArray_size",
+      "id": "E0c-K",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL Euler step with a limiter choice returns an array of the same size.",
+      "source": "specifications/Burgers-E0c-results.json E0c-K; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSsprk2StepArray_size",
+      "id": "E0c-K",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL SSPRK2 step with a limiter choice returns an array of the same size.",
+      "source": "specifications/Burgers-E0c-results.json E0c-K; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSsprk3StepArray_size",
+      "id": "E0c-K",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL SSPRK3 step with a limiter choice returns an array of the same size.",
+      "source": "specifications/Burgers-E0c-results.json E0c-K; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.isPos_eq",
+      "id": "E0c-L",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic the kernel sign test is the decision of 0 < x.",
+      "source": "specifications/Burgers-E0c-results.json E0c-L; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSlope_eq",
+      "id": "E0c-L",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic the kernel slope of each limiter (none, minmod, MC, superbee, van Leer, van Albada) is its mathematical slope function.",
+      "source": "specifications/Burgers-E0c-results.json E0c-L; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.Limiter.slopeBounded",
+      "id": "E0c-L",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The slope function of every kernel limiter except none is θ-bounded with the constant of that limiter.",
+      "source": "specifications/Burgers-E0c-results.json E0c-L; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.Limiter.theta_le_two",
+      "id": "E0c-L",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The bound constant of every kernel limiter is at most 2.",
+      "source": "specifications/Burgers-E0c-results.json E0c-L; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterEulerStepArray_refines",
+      "id": "E0c-S",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter, also none: the kernel MUSCL Euler step of an array that represents u represents the MUSCL-Rusanov Forward Euler step of u with that slope function.",
+      "source": "specifications/Burgers-E0c-results.json E0c-S; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSsprk2StepArray_refines",
+      "id": "E0c-S",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step.",
+      "source": "specifications/Burgers-E0c-results.json E0c-S; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSsprk3StepArray_refines",
+      "id": "E0c-S",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step.",
+      "source": "specifications/Burgers-E0c-results.json E0c-S; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterEulerStepArray_minmod",
+      "id": "E0c-S",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With the minmod choice the limiter kernel Euler step is the E0b MUSCL kernel step, for every arithmetic.",
+      "source": "specifications/Burgers-E0c-results.json E0c-S; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSsprk2StepArray_minmod",
+      "id": "E0c-S",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With the minmod choice the limiter kernel SSPRK2 step is the E0b one, for every arithmetic.",
+      "source": "specifications/Burgers-E0c-results.json E0c-S; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.limiterSsprk3StepArray_minmod",
+      "id": "E0c-S",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With the minmod choice the limiter kernel SSPRK3 step is the E0b one, for every arithmetic.",
+      "source": "specifications/Burgers-E0c-results.json E0c-S; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_limiterEulerStepArray_sum",
+      "id": "E0c-T",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries, for every limiter and for the unlimited scheme.",
+      "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_limiterSsprk3StepArray_sum",
+      "id": "E0c-T",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries, for every limiter and for the unlimited scheme.",
+      "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_limiterEulerStepArray_bounds",
+      "id": "E0c-T",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter except none, with dx > 0, dt ≥ 0 and (4 + 2θ) · dt · max(|m|, |M|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps.",
+      "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_limiterSsprk3StepArray_bounds",
+      "id": "E0c-T",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same bounds result after k kernel MUSCL SSPRK3 steps.",
+      "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le",
+      "id": "E0c-T",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries.",
+      "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le",
+      "id": "E0c-T",
+      "milestone": "E0c",
+      "module": "CFDLean.Exec.LimiterRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries.",
+      "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
     }
   ]
 }

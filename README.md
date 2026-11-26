@@ -199,13 +199,33 @@ does not change. With real arithmetic the kernel computes the mathematical MUSCL
 transfer to the arrays: bounds and total variation after `k` steps under `6 · dt · max(|m|, |M|) ≤ dx`, and the sum.
 
 ```bash
-lake exe burgers1d 200 200 0.15 --muscl
+lake exe burgers1d 200 200 0.15 --limiter minmod     # since E0c; `--muscl` alone is now the unlimited scheme
 ```
 
 Nothing is proved about `Float`, the driver or the compiler. 14 promised theorems, status `pending`. Comparator:
 
 ```bash
 lake comparator --paranoid --config Challenges/BurgersE0b.comparator.json
+```
+
+## Burgers E0c (limiter choice in the program)
+
+[Burgers E0c](references/Burgers-E0c.md) implements the [contract](specifications/Burgers-E0c.md) that the agent froze
+after the user asked for "unlimited by default, limiter on top". `CFDLean/Exec/LimiterKernel.lean` is the MUSCL array
+kernel with a limiter choice: none, minmod, MC, superbee, van Leer, van Albada. With real arithmetic it computes the
+B3b scheme for every choice; the sum is kept for every choice, and bounds and total variation are kept for every
+limiter except none under `(4 + 2θ) · dt · max(|m|, |M|) ≤ dx`.
+
+```bash
+lake exe burgers1d 200 600 0.12 --muscl               # unlimited: overshoots after the shock forms
+lake exe burgers1d 200 600 0.12 --limiter vanleer     # limited: stays in the initial bounds
+```
+
+`--muscl` alone now means no limiter (in E0b it meant minmod). Nothing is proved about `Float`, the driver or the
+compiler. 19 promised theorems, status `pending`. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersE0c.comparator.json
 ```
 
 ## Development verification

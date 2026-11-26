@@ -50,14 +50,16 @@ jobs:
       - name: Build Burgers modules
         run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls CFDLean.Schemes.Burgers.LimiterControls CFDLean.Entropy.Scalar.Controls
       - name: Check implementation against trusted Burgers statements
-        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify CFDLean.Verification.BurgersB3bVerify CFDLean.Verification.BurgersB4Verify CFDLean.Verification.BurgersE0Verify CFDLean.Verification.BurgersE0bVerify
+        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify CFDLean.Verification.BurgersB3bVerify CFDLean.Verification.BurgersB4Verify CFDLean.Verification.BurgersE0Verify CFDLean.Verification.BurgersE0bVerify CFDLean.Verification.BurgersE0cVerify
       - name: Build full package and integrity target
         run: ~/.elan/bin/lake build
       - name: Build and run the native Burgers executable (Float kernel, not verified arithmetic)
         run: |
           ~/.elan/bin/lake build burgers1d
           ./.lake/build/bin/burgers1d 200 200 0.4
-          ./.lake/build/bin/burgers1d 200 200 0.15 --muscl
+          ./.lake/build/bin/burgers1d 200 200 0.12 --muscl
+          ./.lake/build/bin/burgers1d 200 200 0.12 --limiter vanleer
+          ./.lake/build/bin/burgers1d 200 200 0.15 --limiter minmod
       - name: Audit axioms and unsafe dependency closure
         run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
       - name: Verifier fixtures
