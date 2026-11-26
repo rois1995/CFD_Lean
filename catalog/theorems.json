@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, FV1D, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -7063,6 +7063,58 @@
       ],
       "summary": "Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries.",
       "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.Burgers.fv1d_step_eq",
+      "id": "FV1D-B",
+      "milestone": "FV1D",
+      "module": "CFDLean.Schemes.Burgers.FV1D",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The shared periodic Rusanov update agrees with the assembled B0 Forward Euler step in every cell.",
+      "source": "references/FV1D.md"
+    },
+    {
+      "name": "CFDLean.Euler1D.face_consistent",
+      "id": "FV1D-F",
+      "milestone": "FV1D",
+      "module": "CFDLean.Schemes.Euler.FV1D",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On equal admissible states the Euler numerical flux equals the M1 positive-unit-face flux.",
+      "source": "references/FV1D.md"
+    },
+    {
+      "name": "CFDLean.Euler1D.step_constant",
+      "id": "FV1D-K",
+      "milestone": "FV1D",
+      "module": "CFDLean.Schemes.Euler.FV1D",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One periodic Euler step preserves each admissible constant state.",
+      "source": "references/FV1D.md"
+    },
+    {
+      "name": "CFDLean.Euler1D.component_balance",
+      "id": "FV1D-C",
+      "milestone": "FV1D",
+      "module": "CFDLean.Schemes.Euler.FV1D",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One common step conserves the discrete integrals of density, x-momentum and total energy.",
+      "source": "references/FV1D.md"
     }
   ]
 }

@@ -36,6 +36,13 @@ These are treated as different realizations of shared numerical concepts rather 
   Roe numerical flux, median-dual geometry, boundary transfers, residual assembly and explicit Euler stepping.
 - M6 multi-step composition remains open.
 
+## Shared periodic 1D finite volume
+
+FV1D implements one exact-real Rusanov–Forward Euler step for Burgers and ideal-gas Euler on the same
+uniform periodic grid. The four frozen results cover B0 agreement, M1 equal-state flux, constant states and
+conservation of the three Euler quantities. Independent implementation acceptance is pending.
+[Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
+
 ## Burgers line
 
 Merged into `main`:

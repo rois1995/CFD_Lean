@@ -447,7 +447,7 @@ class CatalogTests(unittest.TestCase):
         expected = verify.m1_accepted_theorems((root / "Integrity.lean").read_text())
         for milestone, path in [("M2", "specifications/M2-results.json"), ("M3", "specifications/M3-results.json"),
                                 ("M4", "specifications/M4-results.json"), ("M5", "specifications/M5-results.json"),
-                                ("MC-N", verify.MC_N_RESULTS)] + [
+                                ("FV1D", "specifications/FV1D-results.json"), ("MC-N", verify.MC_N_RESULTS)] + [
                                     (m, pins["results"]) for m, pins in verify.BURGERS.items()]:
             expected.update(verify.catalog_index(milestone, json.loads((root / path).read_text())))
         expected.update(verify.jst1_catalog_index([json.loads((root / path).read_text())
