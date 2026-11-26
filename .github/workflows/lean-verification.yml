@@ -42,6 +42,26 @@ jobs:
           docs_only=$(python3 .github/scripts/check_docs.py "$BASE_SHA" "$HEAD_SHA")
           echo "Documentation fast path: $docs_only" >&2
           echo "only=$docs_only" >> "$GITHUB_OUTPUT"
+      # The runner has 2 cores, 7.6 GB of memory and no swap (measured in the build log). A Lean process with Mathlib
+      # loaded needs about 7 GB, the heavy JST1 kernel checks 9-12 GB, and the paper-1 comparator with the five
+      # external checkers about 13 GB in one checker (con-ron, measured locally). Without swap, two large Lean
+      # processes thrash the page cache and a module can take ten times longer. Swap keeps both builds and checks
+      # complete and much faster.
+      - name: Add swap space
+        if: steps.docs.outputs.only != 'true'
+        run: |
+          free -h
+          df -h / /mnt || true
+          # preinstalled toolkits that this job does not use
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile /swapfile
+          sudo fallocate -l 16G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+          df -h / /mnt || true
       - name: Install pinned Lean and Mathlib cache
         if: steps.docs.outputs.only != 'true'
         uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
@@ -148,23 +168,6 @@ jobs:
             evidence/RAW_TYPES_SHA256.txt
           retention-days: 7
           if-no-files-found: warn
-      # The paper-1 comparator with the five external checkers needs about 13 GB of memory in one checker (con-ron,
-      # measured locally). The runner has less, and the step was cancelled there. More swap keeps the check complete.
-      - name: Add swap space for the external checkers
-        if: inputs.release
-        run: |
-          free -h
-          df -h / /mnt || true
-          # preinstalled toolkits that this job does not use
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
-          sudo swapoff -a || true
-          sudo rm -f /mnt/swapfile /swapfile
-          sudo fallocate -l 16G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          free -h
-          df -h / /mnt || true
       - name: Install bubblewrap sandbox
         if: inputs.release
         run: |
