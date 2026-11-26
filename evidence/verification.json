@@ -377,9 +377,9 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 4763,
+    "roots": 4790,
     "unsafe_reached": [],
-    "visited": 64079
+    "visited": 64106
   },
   "source_modules": {
     "CFDLean": {
@@ -628,7 +628,7 @@
     },
     "CFDLean.Papers.JST1.Proofs.Item11cBase": {
       "path": "CFDLean/Papers/JST1/Proofs/Item11cBase.lean",
-      "sha256": "eadbd05c36daee0c1d9a36774566e65b94c3c8de0fdbac72e30974f9d5db9ce9"
+      "sha256": "228b61f2edd29d9f4073a443e1a85acfcc61ebe70679fa2c246b2b226f5a625b"
     },
     "CFDLean.Papers.JST1.Proofs.Item12Comb": {
       "path": "CFDLean/Papers/JST1/Proofs/Item12Comb.lean",
@@ -672,7 +672,7 @@
     },
     "CFDLean.Papers.JST1.Proofs.Item22": {
       "path": "CFDLean/Papers/JST1/Proofs/Item22.lean",
-      "sha256": "3c6483ed662fd27d1d4bee06148155d01ba736a293fff5ae774f5553e3b2d578"
+      "sha256": "79d4953fc211783f31818bf3f40de5b590b11cd97203e4e368225c867d82b181"
     },
     "CFDLean.Papers.JST1.Proofs.Item2Euler": {
       "path": "CFDLean/Papers/JST1/Proofs/Item2Euler.lean",
@@ -24844,6 +24844,27 @@
       "type": null,
       "unsafe": null
     },
+    "CFDLean.JST1.Proofs.Asm11.hexTets_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Mixed.Kind.n",
+        "CFDLean.JST1.Mixed.Kind.hex",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Mixed.Kind.tets"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.hexTets_eq",
+      "raw_type": "Eq CFDLean.JST1.Mixed.Kind.hex.tets (CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.hex)",
+      "root": true,
+      "type": "CFDLean.JST1.Mixed.Kind.hex.tets = CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.hex",
+      "unsafe": false
+    },
     "CFDLean.JST1.Proofs.Asm11.inF": {
       "axioms": [
         "propext",
@@ -25001,12 +25022,21 @@
         "Quot.sound"
       ],
       "direct": [
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex1",
+        "CFDLean.JST1.Proofs.Asm11.localOKg.eq_1",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex5",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex7",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex4",
         "CFDLean.JST1.Mixed.Kind.hex",
         "CFDLean.JST1.Proofs.Asm11.localOK",
         "CFDLean.JST1.RefCell.hex",
-        "CFDLean.JST1.Proofs.Asm11.localOK_hex._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex0",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex3",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex2",
         "CFDLean.JST1.Proofs.Asm11.localOKg",
-        "CFDLean.JST1.Proofs.Asm11.hexR"
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex6"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
@@ -25016,7 +25046,7 @@
       "type": "CFDLean.JST1.Proofs.Asm11.localOK CFDLean.JST1.Mixed.Kind.hex = true",
       "unsafe": false
     },
-    "CFDLean.JST1.Proofs.Asm11.localOK_hex._proof_1_1": {
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex0": {
       "axioms": [
         "propext",
         "Classical.choice",
@@ -25024,15 +25054,308 @@
       ],
       "direct": [
         "CFDLean.JST1.RefCell.hex",
-        "CFDLean.JST1.Proofs.Asm11.localOKg",
-        "CFDLean.JST1.Proofs.Asm11.hexR"
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex0._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex._proof_1_1",
-      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKg CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))))\n  true",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex0",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e80, Fin.instOfNat\u27e9)\n  true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Asm11.localOKg CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) = true",
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 0 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex0._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex0._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e80, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 0 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex1._proof_1_1",
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e81, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 1 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex1._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex1._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e81, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 1 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex2._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex2",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e82, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 2 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex2._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex2._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e82, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 2 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex3._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex3",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e83, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 3 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex3._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex3._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e83, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 3 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex4": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex4._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex4",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e84, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 4 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex4._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex4._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e84, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 4 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex5": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex5._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex5",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e85, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 5 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex5._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex5._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e85, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 5 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex6": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex6._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex6",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e86, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 6 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex6._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex6._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e86, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 6 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex7": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.localOK_hex7._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex7",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e87, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 7 = true",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOK_hex7._proof_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOK_hex7._proof_1_1",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))) \u27e87, Fin.instOfNat\u27e9)\n  true",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Asm11.localOKa CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) 7 = true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Asm11.localOK_prism": {
@@ -25117,7 +25440,7 @@
       "type": "CFDLean.JST1.Proofs.Asm11.localOKg CFDLean.JST1.RefCell.pyramid CFDLean.JST1.Proofs.Asm11.pyrR (5, 5, 2) = true",
       "unsafe": false
     },
-    "CFDLean.JST1.Proofs.Asm11.localOKg": {
+    "CFDLean.JST1.Proofs.Asm11.localOKa": {
       "axioms": [
         "propext",
         "Classical.choice",
@@ -25127,12 +25450,41 @@
         "CFDLean.JST1.Proofs.Asm11.termZg",
         "CFDLean.JST1.Proofs.Asm11.Z3",
         "CFDLean.JST1.Proofs.Asm11.cenZg",
-        "CFDLean.JST1.RefCell.Cell3.pull",
         "CFDLean.JST1.RefCell.Cell3",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
         "CFDLean.JST1.Proofs.Asm11.shareZg",
         "CFDLean.JST1.Proofs.Asm11.triAnyg",
-        "CFDLean.JST1.RefCell.Cell3.splits",
         "CFDLean.JST1.Proofs.Asm11.quadAnyg"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOKa",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192\n  CFDLean.JST1.RefCell.Cell3 n \u2192 (Fin n \u2192 CFDLean.JST1.Proofs.Asm11.Z3) \u2192 CFDLean.JST1.Proofs.Asm11.Z3 \u2192 Fin n \u2192 Bool",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOKa._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOKa._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOKg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.RefCell.Cell3",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
       ],
       "kind": "definition",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
@@ -25152,6 +25504,26 @@
       "root": false,
       "type": null,
       "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Asm11.localOKg.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.RefCell.Cell3",
+        "CFDLean.JST1.Proofs.Asm11.localOKg",
+        "CFDLean.JST1.Proofs.Asm11.localOKa"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.localOKg.eq_1",
+      "raw_type": "\u2200 {n : Nat} (C : CFDLean.JST1.RefCell.Cell3 n) (R : Fin n \u2192 CFDLean.JST1.Proofs.Asm11.Z3)\n  (S : CFDLean.JST1.Proofs.Asm11.Z3),\n  Eq (CFDLean.JST1.Proofs.Asm11.localOKg C R S) ((List.finRange n).all (CFDLean.JST1.Proofs.Asm11.localOKa C R S))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (C : CFDLean.JST1.RefCell.Cell3 n) (R : Fin n \u2192 CFDLean.JST1.Proofs.Asm11.Z3)\n  (S : CFDLean.JST1.Proofs.Asm11.Z3),\n  CFDLean.JST1.Proofs.Asm11.localOKg C R S = (List.finRange n).all (CFDLean.JST1.Proofs.Asm11.localOKa C R S)",
+      "unsafe": false
     },
     "CFDLean.JST1.Proofs.Asm11.local_ok": {
       "axioms": [
@@ -25689,6 +26061,27 @@
       "type": null,
       "unsafe": null
     },
+    "CFDLean.JST1.Proofs.Asm11.prismTets_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Mixed.Kind.n",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.Mixed.Kind.prism",
+        "CFDLean.JST1.RefCell.prism",
+        "CFDLean.JST1.Mixed.Kind.tets"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.prismTets_eq",
+      "raw_type": "Eq CFDLean.JST1.Mixed.Kind.prism.tets (CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.prism)",
+      "root": true,
+      "type": "CFDLean.JST1.Mixed.Kind.prism.tets = CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.prism",
+      "unsafe": false
+    },
     "CFDLean.JST1.Proofs.Asm11.pyrR": {
       "axioms": [
         "propext"
@@ -25714,6 +26107,27 @@
       "root": false,
       "type": null,
       "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Asm11.pyrTets_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Mixed.Kind.n",
+        "CFDLean.JST1.Mixed.Kind.pyr",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.RefCell.pyramid",
+        "CFDLean.JST1.Mixed.Kind.tets"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.pyrTets_eq",
+      "raw_type": "Eq CFDLean.JST1.Mixed.Kind.pyr.tets (CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.pyramid)",
+      "root": true,
+      "type": "CFDLean.JST1.Mixed.Kind.pyr.tets = CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.pyramid",
+      "unsafe": false
     },
     "CFDLean.JST1.Proofs.Asm11.quadAny": {
       "axioms": [
@@ -25862,17 +26276,6 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
       "name": "CFDLean.JST1.Proofs.Asm11.quadTris._redArg._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.JST1.Proofs.Asm11.quadTris._redArg._closed_0": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "CFDLean.JST1.Proofs.Asm11.quadTris._redArg._closed_0",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -27833,6 +28236,36 @@
       "root": true,
       "type": "\u2200 {n : \u2115} {\u03b9 : Type} [inst : DecidableEq \u03b9] (g : Fin n \u21aa \u03b9) (t : List (Fin n)) (z : Fin n),\n  t.length = 4 \u2192\n    t.Nodup \u2192\n      \u2200 (e : Fin 4 \u21aa \u03b9),\n        (\u2200 (a : Fin 4), e a = g (t.getD (\u2191a) z)) \u2192\n          \u2200 (a0 a1 a2 : Fin n),\n            a0 \u2260 a1 \u2192\n              a0 \u2260 a2 \u2192\n                a1 \u2260 a2 \u2192\n                  \u2200 (F : Fin n \u2192 \u211d),\n                    (\u2211 o, if Finset.map e (Finset.univ.erase o) = {g a0, g a1, g a2} then F (t.getD (\u2191o) z) else 0) =\n                      if (t.contains a0 && t.contains a1 && t.contains a2) = true then\n                        (List.map (fun v => if CFDLean.JST1.Proofs.Asm11.inF a0 a1 a2 v = true then 0 else F v) t).sum\n                      else 0",
       "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.tetsOf": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.Cell3.pull",
+        "CFDLean.JST1.RefCell.Cell3",
+        "CFDLean.JST1.RefCell.Cell3.splits"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.tetsOf",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 CFDLean.JST1.RefCell.Cell3 n \u2192 List (List (Fin n))",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Asm11.tetsOf._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
+      "name": "CFDLean.JST1.Proofs.Asm11.tetsOf._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
     },
     "CFDLean.JST1.Proofs.Asm11.toFinset_eq": {
       "axioms": [
@@ -32442,8 +32875,12 @@
         "CFDLean.JST1.Mixed.Kind.hex",
         "CFDLean.JST1.Mixed.Kind.pyr",
         "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_1",
+        "CFDLean.JST1.Proofs.Gen22.chkFg",
         "CFDLean.JST1.Mixed.Kind",
+        "CFDLean.JST1.RefCell.hex",
         "CFDLean.JST1.Mixed.Kind.prism",
+        "CFDLean.JST1.RefCell.prism",
+        "CFDLean.JST1.RefCell.pyramid",
         "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_3",
         "CFDLean.JST1.Mixed.Kind.casesOn"
       ],
@@ -32462,15 +32899,15 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.JST1.Proofs.Gen22.chkF",
-        "CFDLean.JST1.Mixed.Kind.hex"
+        "CFDLean.JST1.Proofs.Gen22.chkFg",
+        "CFDLean.JST1.RefCell.hex"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_1",
-      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkF CFDLean.JST1.Mixed.Kind.hex) true",
+      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkFg CFDLean.JST1.RefCell.hex \u27e80, Fin.instOfNat\u27e9) true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Gen22.chkF CFDLean.JST1.Mixed.Kind.hex = true",
+      "type": "CFDLean.JST1.Proofs.Gen22.chkFg CFDLean.JST1.RefCell.hex 0 = true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_2": {
@@ -32480,15 +32917,15 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.JST1.Proofs.Gen22.chkF",
-        "CFDLean.JST1.Mixed.Kind.prism"
+        "CFDLean.JST1.Proofs.Gen22.chkFg",
+        "CFDLean.JST1.RefCell.prism"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_2",
-      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkF CFDLean.JST1.Mixed.Kind.prism) true",
+      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkFg CFDLean.JST1.RefCell.prism \u27e80, Fin.instOfNat\u27e9) true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Gen22.chkF CFDLean.JST1.Mixed.Kind.prism = true",
+      "type": "CFDLean.JST1.Proofs.Gen22.chkFg CFDLean.JST1.RefCell.prism 0 = true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_3": {
@@ -32498,16 +32935,73 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.JST1.Proofs.Gen22.chkF",
-        "CFDLean.JST1.Mixed.Kind.pyr"
+        "CFDLean.JST1.Proofs.Gen22.chkFg",
+        "CFDLean.JST1.RefCell.pyramid"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Gen22.chkF_all._proof_1_3",
-      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkF CFDLean.JST1.Mixed.Kind.pyr) true",
+      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkFg CFDLean.JST1.RefCell.pyramid \u27e80, Fin.instOfNat\u27e9) true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Gen22.chkF CFDLean.JST1.Mixed.Kind.pyr = true",
+      "type": "CFDLean.JST1.Proofs.Gen22.chkFg CFDLean.JST1.RefCell.pyramid 0 = true",
       "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Gen22.chkFg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.onCellFace",
+        "CFDLean.JST1.RefCell.Cell3",
+        "CFDLean.JST1.RefCell.sameSimplex",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.Mixed.oppV",
+        "CFDLean.JST1.Proofs.Asm11.triAnyg",
+        "CFDLean.JST1.Spec.tetFaces",
+        "CFDLean.JST1.Proofs.Asm11.quadAnyg"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Gen22.chkFg",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 CFDLean.JST1.RefCell.Cell3 n \u2192 Fin n \u2192 Bool",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Gen22.chkFg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Gen22.chkFg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Gen22.chkFg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Gen22.chkFg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Gen22.chkFg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Gen22.chkFg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
     },
     "CFDLean.JST1.Proofs.Gen22.chkR": {
       "axioms": [
@@ -32579,11 +33073,18 @@
       ],
       "direct": [
         "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_2",
+        "CFDLean.JST1.Proofs.Asm11.pyrR",
         "CFDLean.JST1.Mixed.Kind.hex",
         "CFDLean.JST1.Mixed.Kind.pyr",
         "CFDLean.JST1.Proofs.Gen22.chkR",
         "CFDLean.JST1.Mixed.Kind",
+        "CFDLean.JST1.RefCell.hex",
         "CFDLean.JST1.Mixed.Kind.prism",
+        "CFDLean.JST1.RefCell.prism",
+        "CFDLean.JST1.RefCell.pyramid",
+        "CFDLean.JST1.Proofs.Gen22.chkRg",
+        "CFDLean.JST1.Proofs.Asm11.prismR",
+        "CFDLean.JST1.Proofs.Asm11.hexR",
         "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_1",
         "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_3",
         "CFDLean.JST1.Mixed.Kind.casesOn"
@@ -32603,15 +33104,16 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.JST1.Mixed.Kind.hex",
-        "CFDLean.JST1.Proofs.Gen22.chkR"
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Gen22.chkRg",
+        "CFDLean.JST1.Proofs.Asm11.hexR"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_1",
-      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkR CFDLean.JST1.Mixed.Kind.hex) true",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Gen22.chkRg CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR\n    (Prod.mk (OfNat.ofNat 4) (Prod.mk (OfNat.ofNat 4) (OfNat.ofNat 4))))\n  true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Gen22.chkR CFDLean.JST1.Mixed.Kind.hex = true",
+      "type": "CFDLean.JST1.Proofs.Gen22.chkRg CFDLean.JST1.RefCell.hex CFDLean.JST1.Proofs.Asm11.hexR (4, 4, 4) = true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_2": {
@@ -32621,15 +33123,16 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.JST1.Proofs.Gen22.chkR",
-        "CFDLean.JST1.Mixed.Kind.prism"
+        "CFDLean.JST1.RefCell.prism",
+        "CFDLean.JST1.Proofs.Gen22.chkRg",
+        "CFDLean.JST1.Proofs.Asm11.prismR"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_2",
-      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkR CFDLean.JST1.Mixed.Kind.prism) true",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Gen22.chkRg CFDLean.JST1.RefCell.prism CFDLean.JST1.Proofs.Asm11.prismR\n    (Prod.mk (OfNat.ofNat 2) (Prod.mk (OfNat.ofNat 2) (OfNat.ofNat 3))))\n  true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Gen22.chkR CFDLean.JST1.Mixed.Kind.prism = true",
+      "type": "CFDLean.JST1.Proofs.Gen22.chkRg CFDLean.JST1.RefCell.prism CFDLean.JST1.Proofs.Asm11.prismR (2, 2, 3) = true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_3": {
@@ -32639,16 +33142,52 @@
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.JST1.Mixed.Kind.pyr",
-        "CFDLean.JST1.Proofs.Gen22.chkR"
+        "CFDLean.JST1.Proofs.Asm11.pyrR",
+        "CFDLean.JST1.RefCell.pyramid",
+        "CFDLean.JST1.Proofs.Gen22.chkRg"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Gen22.chkR_all._proof_1_3",
-      "raw_type": "Eq (CFDLean.JST1.Proofs.Gen22.chkR CFDLean.JST1.Mixed.Kind.pyr) true",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Gen22.chkRg CFDLean.JST1.RefCell.pyramid CFDLean.JST1.Proofs.Asm11.pyrR\n    (Prod.mk (OfNat.ofNat 5) (Prod.mk (OfNat.ofNat 5) (OfNat.ofNat 2))))\n  true",
       "root": true,
-      "type": "CFDLean.JST1.Proofs.Gen22.chkR CFDLean.JST1.Mixed.Kind.pyr = true",
+      "type": "CFDLean.JST1.Proofs.Gen22.chkRg CFDLean.JST1.RefCell.pyramid CFDLean.JST1.Proofs.Asm11.pyrR (5, 5, 2) = true",
       "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Gen22.chkRg": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.Proofs.Asm11.cenZg",
+        "CFDLean.JST1.Proofs.Asm11.sideZ",
+        "CFDLean.JST1.RefCell.Cell3",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.Proofs.Asm11.triAnyg",
+        "CFDLean.JST1.Proofs.Asm11.inF",
+        "CFDLean.JST1.Proofs.Asm11.quadAnyg"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Gen22.chkRg",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 CFDLean.JST1.RefCell.Cell3 n \u2192 (Fin n \u2192 CFDLean.JST1.Proofs.Asm11.Z3) \u2192 CFDLean.JST1.Proofs.Asm11.Z3 \u2192 Bool",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Gen22.chkRg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Gen22.chkRg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
     },
     "CFDLean.JST1.Proofs.Gen22.conform_sum'": {
       "axioms": [
@@ -38414,11 +38953,15 @@
       ],
       "direct": [
         "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.Proofs.Twist22.intS_eq",
         "CFDLean.JST1.Proofs.Twist22.nodesL",
         "CFDLean.JST1.Proofs.Twist22.intS",
+        "CFDLean.JST1.Proofs.Twist22.twistBd_eq",
         "CFDLean.JST1.Proofs.Twist22.chk_S0._proof_1_1",
         "CFDLean.JST1.Proofs.Twist22.S0",
-        "CFDLean.JST1.Spec.twistBd"
+        "CFDLean.JST1.Spec.twistBd",
+        "CFDLean.JST1.Proofs.Twist22.twistBdF",
+        "CFDLean.JST1.Proofs.Twist22.intSF"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
@@ -38437,16 +38980,16 @@
       "direct": [
         "CFDLean.JST1.Proofs.Asm11.Z3",
         "CFDLean.JST1.Proofs.Twist22.nodesL",
-        "CFDLean.JST1.Proofs.Twist22.intS",
         "CFDLean.JST1.Proofs.Twist22.S0",
-        "CFDLean.JST1.Spec.twistBd"
+        "CFDLean.JST1.Proofs.Twist22.twistBdF",
+        "CFDLean.JST1.Proofs.Twist22.intSF"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Twist22.chk_S0._proof_1_1",
-      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Twist22.intS fun t o =>\n    (decide (Not (Membership.mem CFDLean.JST1.Spec.twistBd (CFDLean.JST1.Proofs.Twist22.nodesL t o)))).and\n      (decide (Eq (CFDLean.JST1.Proofs.Twist22.nodesL t o) CFDLean.JST1.Proofs.Twist22.S0)))\n  (Prod.mk (OfNat.ofNat 0) (Prod.mk (OfNat.ofNat 200) (Neg.neg (OfNat.ofNat 80))))",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Twist22.intSF fun t o =>\n    (decide (Not (Membership.mem CFDLean.JST1.Proofs.Twist22.twistBdF (CFDLean.JST1.Proofs.Twist22.nodesL t o)))).and\n      (decide (Eq (CFDLean.JST1.Proofs.Twist22.nodesL t o) CFDLean.JST1.Proofs.Twist22.S0)))\n  (Prod.mk (OfNat.ofNat 0) (Prod.mk (OfNat.ofNat 200) (Neg.neg (OfNat.ofNat 80))))",
       "root": true,
-      "type": "(CFDLean.JST1.Proofs.Twist22.intS fun t o =>\n    decide (CFDLean.JST1.Proofs.Twist22.nodesL t o \u2209 CFDLean.JST1.Spec.twistBd) &&\n      decide (CFDLean.JST1.Proofs.Twist22.nodesL t o = CFDLean.JST1.Proofs.Twist22.S0)) =\n  (0, 200, -80)",
+      "type": "(CFDLean.JST1.Proofs.Twist22.intSF fun t o =>\n    decide (CFDLean.JST1.Proofs.Twist22.nodesL t o \u2209 CFDLean.JST1.Proofs.Twist22.twistBdF) &&\n      decide (CFDLean.JST1.Proofs.Twist22.nodesL t o = CFDLean.JST1.Proofs.Twist22.S0)) =\n  (0, 200, -80)",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Twist22.chk_dist": {
@@ -38458,7 +39001,10 @@
       "direct": [
         "CFDLean.JST1.Mixed.Kind.n",
         "CFDLean.JST1.Mixed.Kind.hex",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.RefCell.hex",
         "CFDLean.JST1.Proofs.Twist22.chk_dist._proof_1_1",
+        "CFDLean.JST1.Proofs.Asm11.hexTets_eq",
         "CFDLean.JST1.Mixed.Kind.tets"
       ],
       "kind": "theorem",
@@ -38478,14 +39024,15 @@
       "direct": [
         "CFDLean.JST1.Mixed.Kind.n",
         "CFDLean.JST1.Mixed.Kind.hex",
-        "CFDLean.JST1.Mixed.Kind.tets"
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.RefCell.hex"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Twist22.chk_dist._proof_1_1",
-      "raw_type": "Eq\n  (CFDLean.JST1.Mixed.Kind.hex.tets.all fun t =>\n    (List.finRange (OfNat.ofNat 4)).all fun o =>\n      ((bne (t.getD (o.succAbove \u27e80, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)\n                (t.getD (o.succAbove \u27e81, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)).and\n            (bne (t.getD (o.succAbove \u27e80, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)\n              (t.getD (o.succAbove \u27e82, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9))).and\n        (bne (t.getD (o.succAbove \u27e81, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)\n          (t.getD (o.succAbove \u27e82, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)))\n  true",
+      "raw_type": "Eq\n  ((CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.hex).all fun t =>\n    (List.finRange (OfNat.ofNat 4)).all fun o =>\n      ((bne (t.getD (o.succAbove \u27e80, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)\n                (t.getD (o.succAbove \u27e81, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)).and\n            (bne (t.getD (o.succAbove \u27e80, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)\n              (t.getD (o.succAbove \u27e82, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9))).and\n        (bne (t.getD (o.succAbove \u27e81, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)\n          (t.getD (o.succAbove \u27e82, Fin.instOfNat\u27e9).val \u27e80, Fin.instOfNat\u27e9)))\n  true",
       "root": true,
-      "type": "(CFDLean.JST1.Mixed.Kind.hex.tets.all fun t =>\n    (List.finRange 4).all fun o =>\n      t.getD (\u2191(o.succAbove 0)) 0 != t.getD (\u2191(o.succAbove 1)) 0 &&\n          t.getD (\u2191(o.succAbove 0)) 0 != t.getD (\u2191(o.succAbove 2)) 0 &&\n        t.getD (\u2191(o.succAbove 1)) 0 != t.getD (\u2191(o.succAbove 2)) 0) =\n  true",
+      "type": "((CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.hex).all fun t =>\n    (List.finRange 4).all fun o =>\n      t.getD (\u2191(o.succAbove 0)) 0 != t.getD (\u2191(o.succAbove 1)) 0 &&\n          t.getD (\u2191(o.succAbove 0)) 0 != t.getD (\u2191(o.succAbove 2)) 0 &&\n        t.getD (\u2191(o.succAbove 1)) 0 != t.getD (\u2191(o.succAbove 2)) 0) =\n  true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Twist22.chk_nondeg": {
@@ -38499,7 +39046,10 @@
         "CFDLean.JST1.Proofs.Twist22.twZ",
         "CFDLean.JST1.Mixed.Kind.hex",
         "CFDLean.JST1.Proofs.Asm11.sideZ",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
         "CFDLean.JST1.Proofs.Twist22.chk_nondeg._proof_1_1",
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Asm11.hexTets_eq",
         "CFDLean.JST1.Mixed.Kind.tets"
       ],
       "kind": "theorem",
@@ -38521,14 +39071,15 @@
         "CFDLean.JST1.Proofs.Twist22.twZ",
         "CFDLean.JST1.Mixed.Kind.hex",
         "CFDLean.JST1.Proofs.Asm11.sideZ",
-        "CFDLean.JST1.Mixed.Kind.tets"
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.RefCell.hex"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Twist22.chk_nondeg._proof_1_1",
-      "raw_type": "Eq\n  (CFDLean.JST1.Mixed.Kind.hex.tets.all fun t =>\n    bne\n      (CFDLean.JST1.Proofs.Asm11.sideZ (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 0) \u27e80, Fin.instOfNat\u27e9))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 1) \u27e80, Fin.instOfNat\u27e9))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 2) \u27e80, Fin.instOfNat\u27e9))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 3) \u27e80, Fin.instOfNat\u27e9)))\n      (OfNat.ofNat 0))\n  true",
+      "raw_type": "Eq\n  ((CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.hex).all fun t =>\n    bne\n      (CFDLean.JST1.Proofs.Asm11.sideZ (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 0) \u27e80, Fin.instOfNat\u27e9))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 1) \u27e80, Fin.instOfNat\u27e9))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 2) \u27e80, Fin.instOfNat\u27e9))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD (OfNat.ofNat 3) \u27e80, Fin.instOfNat\u27e9)))\n      (OfNat.ofNat 0))\n  true",
       "root": true,
-      "type": "(CFDLean.JST1.Mixed.Kind.hex.tets.all fun t =>\n    CFDLean.JST1.Proofs.Asm11.sideZ (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 0 0))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 1 0)) (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 2 0))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 3 0)) !=\n      0) =\n  true",
+      "type": "((CFDLean.JST1.Proofs.Asm11.tetsOf CFDLean.JST1.RefCell.hex).all fun t =>\n    CFDLean.JST1.Proofs.Asm11.sideZ (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 0 0))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 1 0)) (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 2 0))\n        (CFDLean.JST1.Proofs.Twist22.twZ (t.getD 3 0)) !=\n      0) =\n  true",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Twist22.chk_v0": {
@@ -38539,10 +39090,14 @@
       ],
       "direct": [
         "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.Proofs.Twist22.intS_eq",
         "CFDLean.JST1.Proofs.Twist22.nodesL",
         "CFDLean.JST1.Proofs.Twist22.intS",
+        "CFDLean.JST1.Proofs.Twist22.twistBd_eq",
         "CFDLean.JST1.Spec.twistBd",
-        "CFDLean.JST1.Proofs.Twist22.chk_v0._proof_1_1"
+        "CFDLean.JST1.Proofs.Twist22.twistBdF",
+        "CFDLean.JST1.Proofs.Twist22.chk_v0._proof_1_1",
+        "CFDLean.JST1.Proofs.Twist22.intSF"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
@@ -38561,15 +39116,15 @@
       "direct": [
         "CFDLean.JST1.Proofs.Asm11.Z3",
         "CFDLean.JST1.Proofs.Twist22.nodesL",
-        "CFDLean.JST1.Proofs.Twist22.intS",
-        "CFDLean.JST1.Spec.twistBd"
+        "CFDLean.JST1.Proofs.Twist22.twistBdF",
+        "CFDLean.JST1.Proofs.Twist22.intSF"
       ],
       "kind": "theorem",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "CFDLean.JST1.Proofs.Twist22.chk_v0._proof_1_1",
-      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Twist22.intS fun t o =>\n    (decide (Not (Membership.mem CFDLean.JST1.Spec.twistBd (CFDLean.JST1.Proofs.Twist22.nodesL t o)))).and\n      (decide (Membership.mem (CFDLean.JST1.Proofs.Twist22.nodesL t o) \u27e80, Fin.instOfNat\u27e9)))\n  (Prod.mk (OfNat.ofNat 680) (Prod.mk (Neg.neg (OfNat.ofNat 160)) (Neg.neg (OfNat.ofNat 40))))",
+      "raw_type": "Eq\n  (CFDLean.JST1.Proofs.Twist22.intSF fun t o =>\n    (decide (Not (Membership.mem CFDLean.JST1.Proofs.Twist22.twistBdF (CFDLean.JST1.Proofs.Twist22.nodesL t o)))).and\n      (decide (Membership.mem (CFDLean.JST1.Proofs.Twist22.nodesL t o) \u27e80, Fin.instOfNat\u27e9)))\n  (Prod.mk (OfNat.ofNat 680) (Prod.mk (Neg.neg (OfNat.ofNat 160)) (Neg.neg (OfNat.ofNat 40))))",
       "root": true,
-      "type": "(CFDLean.JST1.Proofs.Twist22.intS fun t o =>\n    decide (CFDLean.JST1.Proofs.Twist22.nodesL t o \u2209 CFDLean.JST1.Spec.twistBd) &&\n      decide (0 \u2208 CFDLean.JST1.Proofs.Twist22.nodesL t o)) =\n  (680, -160, -40)",
+      "type": "(CFDLean.JST1.Proofs.Twist22.intSF fun t o =>\n    decide (CFDLean.JST1.Proofs.Twist22.nodesL t o \u2209 CFDLean.JST1.Proofs.Twist22.twistBdF) &&\n      decide (0 \u2208 CFDLean.JST1.Proofs.Twist22.nodesL t o)) =\n  (680, -160, -40)",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Twist22.det_Jtw": {
@@ -38664,6 +39219,56 @@
       "root": false,
       "type": null,
       "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Twist22.intSF": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.Proofs.Asm11.tetsOf",
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.Proofs.Twist22.AZ"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.intSF",
+      "raw_type": null,
+      "root": true,
+      "type": "(List (Fin 8) \u2192 Fin 4 \u2192 Bool) \u2192 CFDLean.JST1.Proofs.Asm11.Z3",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Twist22.intSF._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.intSF._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Twist22.intS_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Asm11.Z3",
+        "CFDLean.JST1.Proofs.Twist22.intS",
+        "CFDLean.JST1.Proofs.Twist22.intSF"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.intS_eq",
+      "raw_type": "Eq CFDLean.JST1.Proofs.Twist22.intS CFDLean.JST1.Proofs.Twist22.intSF",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.Twist22.intS = CFDLean.JST1.Proofs.Twist22.intSF",
+      "unsafe": false
     },
     "CFDLean.JST1.Proofs.Twist22.len0": {
       "axioms": [
@@ -39566,6 +40171,67 @@
       "raw_type": "Eq CFDLean.JST1.Proofs.Twist22.twZ\n  (Matrix.vecCons (Prod.mk (OfNat.ofNat 0) (Prod.mk (OfNat.ofNat 0) (OfNat.ofNat 0)))\n    (Matrix.vecCons (Prod.mk (OfNat.ofNat 5) (Prod.mk (OfNat.ofNat 0) (OfNat.ofNat 0)))\n      (Matrix.vecCons (Prod.mk (OfNat.ofNat 5) (Prod.mk (OfNat.ofNat 5) (OfNat.ofNat 0)))\n        (Matrix.vecCons (Prod.mk (OfNat.ofNat 0) (Prod.mk (OfNat.ofNat 5) (OfNat.ofNat 0)))\n          (Matrix.vecCons (Prod.mk (OfNat.ofNat 3) (Prod.mk (Neg.neg (OfNat.ofNat 1)) (OfNat.ofNat 5)))\n            (Matrix.vecCons (Prod.mk (OfNat.ofNat 6) (Prod.mk (OfNat.ofNat 3) (OfNat.ofNat 5)))\n              (Matrix.vecCons (Prod.mk (OfNat.ofNat 2) (Prod.mk (OfNat.ofNat 6) (OfNat.ofNat 5)))\n                (Matrix.vecCons (Prod.mk (Neg.neg (OfNat.ofNat 1)) (Prod.mk (OfNat.ofNat 2) (OfNat.ofNat 5)))\n                  Matrix.vecEmpty))))))))",
       "root": true,
       "type": "CFDLean.JST1.Proofs.Twist22.twZ =\n  ![(0, 0, 0), (5, 0, 0), (5, 5, 0), (0, 5, 0), (3, -1, 5), (6, 3, 5), (2, 6, 5), (-1, 2, 5)]",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Twist22.twistBdF": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.RefCell.Quad.tris",
+        "CFDLean.JST1.RefCell.hex",
+        "CFDLean.JST1.RefCell.Quad",
+        "CFDLean.JST1.RefCell.Cell3.quads",
+        "CFDLean.JST1.RefCell.Cell3.tris"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.twistBdF",
+      "raw_type": null,
+      "root": true,
+      "type": "Finset (Finset (Fin 8))",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Twist22.twistBdF._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.twistBdF._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Twist22.twistBdF._closed_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.twistBdF._closed_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Twist22.twistBd_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.twistBd",
+        "CFDLean.JST1.Proofs.Twist22.twistBdF"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "CFDLean.JST1.Proofs.Twist22.twistBd_eq",
+      "raw_type": "Eq CFDLean.JST1.Spec.twistBd CFDLean.JST1.Proofs.Twist22.twistBdF",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.twistBd = CFDLean.JST1.Proofs.Twist22.twistBdF",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.Twist22.twistX_eq": {
@@ -111671,67 +112337,67 @@
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2": {
+    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2._boxed": {
+    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1._boxed": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2._boxed",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_3": {
+    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_2": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_3",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_2",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_3._boxed": {
+    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_2._boxed": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_3._boxed",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_2._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_4": {
+    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_4",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_4._boxed": {
+    "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0._boxed": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_4._boxed",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -111864,6 +112530,50 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkF.spec_2._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -112018,6 +112728,116 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkR.spec_4._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_3",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_3._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_3._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_4": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_4",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_4._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_4._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -112232,23 +113052,45 @@
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2.spec_2": {
+    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1.spec_1": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2.spec_2",
+      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1.spec_1",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2.spec_2._boxed": {
+    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1.spec_1._boxed": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_2.spec_2._boxed",
+      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_1.spec_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1.spec_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkFg.spec_1.spec_1._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -112282,6 +113124,28 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkR.spec_2.spec_2._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2.spec_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2.spec_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2.spec_2._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.all._at_.List.all._at_.CFDLean.JST1.Proofs.Gen22.chkRg.spec_2.spec_2._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -112524,6 +113388,28 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Spec.Item11b",
       "name": "List.countP.go._at_.CFDLean.JST1.Spec.faceCount.spec_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -112936,6 +113822,28 @@
       "type": null,
       "unsafe": null
     },
+    "List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "List.isPerm._at_.CFDLean.Boundary.AssemblyControls.twoKinds.spec_0": {
       "axioms": [],
       "direct": [],
@@ -113002,23 +113910,23 @@
       "type": null,
       "unsafe": null
     },
-    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_1": {
+    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_0": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_1",
+      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_0",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_1._boxed": {
+    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_0._boxed": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_1._boxed",
+      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Asm11.localOKa.spec_0._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -113134,6 +114042,50 @@
       "type": null,
       "unsafe": null
     },
+    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_4": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_4",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_5": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.mapTR.loop._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_5",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "List.mapTR.loop._at_.CFDLean.JST1.RefCell.Cell3.pull.spec_0": {
       "axioms": [],
       "direct": [],
@@ -113189,6 +114141,50 @@
       "type": null,
       "unsafe": null
     },
+    "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "List.sum._at_.CFDLean.JST1.Proofs.Asm11.termZ.spec_1": {
       "axioms": [],
       "direct": [],
@@ -113217,6 +114213,28 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item22",
       "name": "List.sum._at_.CFDLean.JST1.Proofs.Twist22.intS.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -113541,6 +114559,28 @@
       "type": null,
       "unsafe": null
     },
+    "Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "Multiset.erase._at_.Finset.erase._at_.CFDLean.MedianDual.MeshData.faceNodes.spec_0.spec_0": {
       "axioms": [],
       "direct": [],
@@ -113712,6 +114752,28 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item21",
       "name": "Multiset.sum._at_.Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1.spec_2._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -115011,6 +116073,105 @@
       "type": "\u221a4 = 2",
       "unsafe": false
     },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_1.spec_1.spec_2.spec_8.spec_10.spec_12.spec_14._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._lam_0._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_6.spec_7.spec_9.spec_11.spec_13.spec_15.spec_17._lam_0._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_._private.Init.Data.List.Impl.0.List.eraseTR.go._at_.Multiset.erase._at_.Finset.erase._at_.CFDLean.MedianDual.MeshData.faceNodes.spec_0.spec_0.spec_1.spec_2": {
       "axioms": [],
       "direct": [],
@@ -115077,23 +116238,45 @@
       "type": null,
       "unsafe": null
     },
-    "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0": {
+    "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.tetsOf.spec_0": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0",
+      "name": "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.tetsOf.spec_0",
       "raw_type": null,
       "root": false,
       "type": null,
       "unsafe": null
     },
-    "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0._boxed": {
+    "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.tetsOf.spec_0._boxed": {
       "axioms": [],
       "direct": [],
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Proofs.Item11cBase",
-      "name": "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.localOKg.spec_0._boxed",
+      "name": "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Asm11.tetsOf.spec_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_3",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_3._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "name": "_private.Init.Data.List.Impl.0.List.flatMapTR.go._at_.CFDLean.JST1.Proofs.Twist22.twistBdF.spec_3._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
