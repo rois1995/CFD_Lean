@@ -1,4 +1,7 @@
-ℹ [18573/18575] Replayed Integrity
+✔ [18570/18579] Built CFDLean.Papers.JST1 (6.2s)
+✔ [18572/18579] Built CFDLean.Verification.JST1Verify (6.5s)
+✔ [18574/18579] Built CFDLean (5.4s)
+ℹ [18577/18579] Built Integrity (3.7s)
 info: Integrity.lean:24:0: 'CFDLean.squareSum_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:25:0: 'CFDLean.squareSum_div' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:26:0: 'CFDLean.pressure_toConservative' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -14,5 +17,5 @@ info: Integrity.lean:35:0: 'CFDLean.physicalFlux_add' depends on axioms: [propex
 info: Integrity.lean:36:0: 'CFDLean.physicalFlux_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:37:0: 'CFDLean.physicalFlux_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:38:0: 'CFDLean.physicalFlux_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
-Build completed successfully (18575 jobs).
-Build completed successfully (18537 jobs).
+Build completed successfully (18579 jobs).
+Build completed successfully (18541 jobs).

@@ -7063,6 +7063,58 @@
       ],
       "summary": "Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries.",
       "source": "specifications/Burgers-E0c-results.json E0c-T; references/Burgers-E0c.md"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p7_22_1",
+      "id": "P7-22.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "In a cell with free vertex positions whose pulling sub-tetrahedra all keep one orientation, sub-tetrahedra sharing an interior triangle lie on opposite sides, and those at a cell-face triangle on one side.",
+      "source": "specifications/JST1/P7-results.json P7-22.1 (CFDLean.JST1.Spec.P7_22_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p7_22_2",
+      "id": "P7-22.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A mesh of general hexahedra, prisms and pyramids, split-oriented and conforming at the sub-tetrahedron level, averaged over its pulling splits, is valid and facet balanced.",
+      "source": "specifications/JST1/P7-results.json P7-22.2 (CFDLean.JST1.Spec.P7_22_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p7_22_3",
+      "id": "P7-22.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Affine cells are split-oriented and centroid conformity implies sub-tetrahedron conformity, so the affine result P3-11.8 is a special case of P7-22.2.",
+      "source": "specifications/JST1/P7-results.json P7-22.3 (CFDLean.JST1.Spec.P7_22_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p7_22_4",
+      "id": "P7-22.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A twisted cube (top face turned, cos θ = 3/5) is a valid trilinear hexahedron but has inverted pulling sub-tetrahedra; its one-cell mesh is not facet balanced and the boundary formula of β fails.",
+      "source": "specifications/JST1/P7-results.json P7-22.4 (CFDLean.JST1.Spec.P7_22_4)"
     }
   ]
 }
