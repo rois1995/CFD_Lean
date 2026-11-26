@@ -11,6 +11,9 @@ For partial work, check off the completed deliverables and keep the overall item
 
 - Base task branches on `develop` and target `develop` with the PR. [Integration CI](.github/workflows/integration.yml)
   builds the package and executable, runs the verifier and fixtures, and compares committed evidence.
+  To also run every trusted challenge with the paranoid comparator on a `develop` PR, add the `paranoid` label to the
+  PR. You can also start [the paranoid workflow](.github/workflows/paranoid.yml) for a branch from the Actions tab.
+  This check is optional, and the release PR runs it again.
 - Promote `develop` to `main` through a release PR. [Release verification](.github/workflows/release.yml) runs the
   integration checks and every trusted challenge with the paranoid comparator. Use a merge commit for the release.
 - For an emergency fix, branch `hotfix/<topic>` from `main` and open a PR into `main` through the same release gate.
