@@ -109,9 +109,24 @@ d/dt Σ V η0). `./scripts/check.sh`: 72 of 72.
 - Mixed meshes: a conforming mesh of affine hexahedra, prisms and pyramids averaged over their pulling splits is
   proved facet balanced (P3-11.8), so the complete theorem applies to it. Not covered: non-affine (trilinear) cells.
 - Finite checks use `decide` / `decide +kernel` (kernel evaluation, no `native_decide`).
-- Not formalized: `prop:wallJST` (model analysis), the Taylor parts of `prop:consistency`(b),(c), the PDE form of
-  `prop:sstpde`, the Hessian form of `lem:sstentropy` (first-order form proved).
+- Not formalized in P3: `prop:wallJST` (model analysis), the Taylor parts of `prop:consistency`(b),(c), the PDE form of
+  `prop:sstpde`, the Hessian form of `lem:sstentropy` (first-order form proved). All four are P4 (below).
 
 ## Disk
 
 Project `.lake`: about 5.7 GB. The CFD_Lean backup was deleted (38 GB free on 2026-11-25).
+
+## P4: the remaining items (items 15-18), written in CFD_Lean
+
+13 frozen statements, 13 proved (`specifications/JST1/P4.md`, `P4-results.json`), standard axioms only; with P1-P3:
+105 of 105. Statement review: `reviews/JST1/P4-statement-review.md` (no blocking finding).
+
+| Item | Paper | Lean (`CFDLean.JST1.Proofs.…`) |
+|---|---|---|
+| 15 | `prop:wallJST` (expansion, wall slip, cut edges, removed production, spectrum) | `p4_15_1` … `p4_15_6` |
+| 16 | `prop:consistency`(b),(c) (P1 interpolant, O(\|Δu\|²), weak effect, face vector) | `p4_16_1` … `p4_16_4` |
+| 17 | `prop:sstpde` (the PDE balance at a point) | `p4_17_1` |
+| 18 | `lem:sstentropy` (Hessian: ∇²η ≻ 0; ∇²η0 ⪰ 0 with null space span{e_E + e_k, e_ω}) | `p4_18_1`, `p4_18_2` |
+
+Not covered: `∫_T φ_i = m_T` (no simplex integration in Mathlib), the C² smoothness of the Ismail-Roe flux near the
+diagonal (G6), the scaling of `prop:wallJST`(b). Paper gaps G5-G7 in `PAPER_GAPS.md`.

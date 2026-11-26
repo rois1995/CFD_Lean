@@ -865,6 +865,58 @@
       "type": "CFDLean.JST1.Spec.P3_14_3",
       "raw_type": "CFDLean.JST1.Spec.P3_14_3"
     },
+    "CFDLean.JST1.Proofs.p4_15_1": {
+      "type": "CFDLean.JST1.Spec.P4_15_1",
+      "raw_type": "CFDLean.JST1.Spec.P4_15_1"
+    },
+    "CFDLean.JST1.Proofs.p4_15_2": {
+      "type": "CFDLean.JST1.Spec.P4_15_2",
+      "raw_type": "CFDLean.JST1.Spec.P4_15_2"
+    },
+    "CFDLean.JST1.Proofs.p4_15_3": {
+      "type": "CFDLean.JST1.Spec.P4_15_3",
+      "raw_type": "CFDLean.JST1.Spec.P4_15_3"
+    },
+    "CFDLean.JST1.Proofs.p4_15_4": {
+      "type": "CFDLean.JST1.Spec.P4_15_4",
+      "raw_type": "CFDLean.JST1.Spec.P4_15_4"
+    },
+    "CFDLean.JST1.Proofs.p4_15_5": {
+      "type": "CFDLean.JST1.Spec.P4_15_5",
+      "raw_type": "CFDLean.JST1.Spec.P4_15_5"
+    },
+    "CFDLean.JST1.Proofs.p4_15_6": {
+      "type": "CFDLean.JST1.Spec.P4_15_6",
+      "raw_type": "CFDLean.JST1.Spec.P4_15_6"
+    },
+    "CFDLean.JST1.Proofs.p4_16_1": {
+      "type": "CFDLean.JST1.Spec.P4_16_1",
+      "raw_type": "CFDLean.JST1.Spec.P4_16_1"
+    },
+    "CFDLean.JST1.Proofs.p4_16_2": {
+      "type": "CFDLean.JST1.Spec.P4_16_2",
+      "raw_type": "CFDLean.JST1.Spec.P4_16_2"
+    },
+    "CFDLean.JST1.Proofs.p4_16_3": {
+      "type": "CFDLean.JST1.Spec.P4_16_3",
+      "raw_type": "CFDLean.JST1.Spec.P4_16_3"
+    },
+    "CFDLean.JST1.Proofs.p4_16_4": {
+      "type": "CFDLean.JST1.Spec.P4_16_4",
+      "raw_type": "CFDLean.JST1.Spec.P4_16_4"
+    },
+    "CFDLean.JST1.Proofs.p4_17_1": {
+      "type": "CFDLean.JST1.Spec.P4_17_1",
+      "raw_type": "CFDLean.JST1.Spec.P4_17_1"
+    },
+    "CFDLean.JST1.Proofs.p4_18_1": {
+      "type": "CFDLean.JST1.Spec.P4_18_1",
+      "raw_type": "CFDLean.JST1.Spec.P4_18_1"
+    },
+    "CFDLean.JST1.Proofs.p4_18_2": {
+      "type": "CFDLean.JST1.Spec.P4_18_2",
+      "raw_type": "CFDLean.JST1.Spec.P4_18_2"
+    },
     "CFDLean.MedianDual.MeshData.all_patches_boundary": {
       "type": "∀ {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming → ∀ (i : Fin n), ∑ a, M.ownedPatch a i = ∑ b, if (↑b).2 = i then M.boundaryArea b else 0",
       "raw_type": "∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming →\n    ∀ (i : Fin n),\n      Eq (Finset.univ.sum fun a => M.ownedPatch a i)\n        (Finset.univ.sum fun b => ite (Eq b.val.2 i) (M.boundaryArea b) (OfNat.ofNat 0))"

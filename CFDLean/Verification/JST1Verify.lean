@@ -7,6 +7,10 @@ import CFDLean.Papers.JST1.Spec.Item11c
 import CFDLean.Papers.JST1.Spec.Item12
 import CFDLean.Papers.JST1.Spec.Item13
 import CFDLean.Papers.JST1.Spec.Item14
+import CFDLean.Papers.JST1.Spec.Item15
+import CFDLean.Papers.JST1.Spec.Item16
+import CFDLean.Papers.JST1.Spec.Item17
+import CFDLean.Papers.JST1.Spec.Item18
 import CFDLean.Papers.JST1.Spec.Item2
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
@@ -30,6 +34,10 @@ import CFDLean.Papers.JST1.Proofs.Item11c
 import CFDLean.Papers.JST1.Proofs.Item12Comb
 import CFDLean.Papers.JST1.Proofs.Item13
 import CFDLean.Papers.JST1.Proofs.Item14
+import CFDLean.Papers.JST1.Proofs.Item15
+import CFDLean.Papers.JST1.Proofs.Item16
+import CFDLean.Papers.JST1.Proofs.Item17
+import CFDLean.Papers.JST1.Proofs.Item18
 import CFDLean.Papers.JST1.Proofs.Item2Euler
 import CFDLean.Papers.JST1.Proofs.Item2Generic
 import CFDLean.Papers.JST1.Proofs.Item3
@@ -41,7 +49,7 @@ import CFDLean.Papers.JST1.Proofs.MeshAlgebra
 import CFDLean.Papers.JST1.Proofs.Simplex
 import CFDLean.Papers.JST1.Proofs.Viscous
 
-/-! JST1 solution for `lake comparator` (`Challenges/JST1.comparator.json`): each of the 92 frozen paper-1 statements,
+/-! JST1 solution for `lake comparator` (`Challenges/JST1.comparator.json`): each of the 105 frozen paper-1 statements,
 under the name the challenge `Challenges/JST1.lean` gives it, bound to its proof in `CFDLean.JST1.Proofs`. -/
 
 namespace CFDLean.Verification.JST1Verify
@@ -138,5 +146,18 @@ theorem p3_14_2 : CFDLean.JST1.Spec.P3_14_2 := CFDLean.JST1.Proofs.p3_14_2
 theorem p3_14_3 : CFDLean.JST1.Spec.P3_14_3 := CFDLean.JST1.Proofs.p3_14_3
 theorem p3_11_7 : CFDLean.JST1.Spec.P3_11_7 := CFDLean.JST1.Proofs.p3_11_7
 theorem p3_11_8 : CFDLean.JST1.Spec.P3_11_8 := CFDLean.JST1.Proofs.p3_11_8
+theorem p4_15_1 : CFDLean.JST1.Spec.P4_15_1 := CFDLean.JST1.Proofs.p4_15_1
+theorem p4_15_2 : CFDLean.JST1.Spec.P4_15_2 := CFDLean.JST1.Proofs.p4_15_2
+theorem p4_15_3 : CFDLean.JST1.Spec.P4_15_3 := CFDLean.JST1.Proofs.p4_15_3
+theorem p4_15_4 : CFDLean.JST1.Spec.P4_15_4 := CFDLean.JST1.Proofs.p4_15_4
+theorem p4_15_5 : CFDLean.JST1.Spec.P4_15_5 := CFDLean.JST1.Proofs.p4_15_5
+theorem p4_15_6 : CFDLean.JST1.Spec.P4_15_6 := CFDLean.JST1.Proofs.p4_15_6
+theorem p4_16_1 : CFDLean.JST1.Spec.P4_16_1 := CFDLean.JST1.Proofs.p4_16_1
+theorem p4_16_2 : CFDLean.JST1.Spec.P4_16_2 := CFDLean.JST1.Proofs.p4_16_2
+theorem p4_16_3 : CFDLean.JST1.Spec.P4_16_3 := CFDLean.JST1.Proofs.p4_16_3
+theorem p4_16_4 : CFDLean.JST1.Spec.P4_16_4 := CFDLean.JST1.Proofs.p4_16_4
+theorem p4_17_1 : CFDLean.JST1.Spec.P4_17_1 := CFDLean.JST1.Proofs.p4_17_1
+theorem p4_18_1 : CFDLean.JST1.Spec.P4_18_1 := CFDLean.JST1.Proofs.p4_18_1
+theorem p4_18_2 : CFDLean.JST1.Spec.P4_18_2 := CFDLean.JST1.Proofs.p4_18_2
 
 end CFDLean.Verification.JST1Verify

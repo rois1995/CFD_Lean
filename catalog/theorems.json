@@ -5812,6 +5812,177 @@
       ],
       "summary": "The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field.",
       "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_15_1",
+      "id": "P4-15.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Wall-normal model of the fourth difference at a weak wall: L_k = (r−1)h f'(y_k) + ½(1+r²)h² f''(y_k) + O(h³) for a C³ profile, first order if r ≠ 1.",
+      "source": "specifications/JST1/P4-results.json P4-15.1 (CFDLean.JST1.Spec.P4_15_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_15_2",
+      "id": "P4-15.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "One-node balance of the fourth-difference wall term with the wall penalty: the unique wall slip −ϱL⁰/(1+ϱ) is opposite to the flow.",
+      "source": "specifications/JST1/P4-results.json P4-15.2 (CFDLean.JST1.Spec.P4_15_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_15_3",
+      "id": "P4-15.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The momentum rows of the second-difference flux of the scheme are λε2(ρv_s − ρv_k), a difference without a power of h.",
+      "source": "specifications/JST1/P4-results.json P4-15.3 (CFDLean.JST1.Spec.P4_15_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_15_4",
+      "id": "P4-15.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "Cutting ε2 = ε4 = 0 on the wall-crossing edges removes only those dissipation terms, keeps the hypotheses of the complete scheme, and splits Π² and Π⁴ exactly.",
+      "source": "specifications/JST1/P4-results.json P4-15.4 (CFDLean.JST1.Spec.P4_15_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_15_5",
+      "id": "P4-15.5",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15",
+      "status": "candidate",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Linear wall-normal profile on a geometric mesh: L_k − L_s = (r−1)(ũ_k − ũ_s), and the fourth-difference wall flux produces ε4(r−1)λ[w]·[ũ] ≥ 0.",
+      "source": "specifications/JST1/P4-results.json P4-15.5 (CFDLean.JST1.Spec.P4_15_5)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_15_6",
+      "id": "P4-15.6",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Linear model of the fourth-difference operator with the wall-crossing edges cut: every complex eigenvalue is real and non-negative.",
+      "source": "specifications/JST1/P4-results.json P4-15.6 (CFDLean.JST1.Spec.P4_15_6)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_16_1",
+      "id": "P4-16.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "The P1 interpolant of nodal fluxes takes the nodal values, has derivative Σ_b g_b F_b, reproduces affine fluxes, and its divergence gives the mean flux at a closed vertex.",
+      "source": "specifications/JST1/P4-results.json P4-16.1 (CFDLean.JST1.Spec.P4_16_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_16_2",
+      "id": "P4-16.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16",
+      "status": "candidate",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A symmetric, consistent two-point flux that is C² near the diagonal differs from the mean flux by O(|u_k − u_i|²).",
+      "source": "specifications/JST1/P4-results.json P4-16.2 (CFDLean.JST1.Spec.P4_16_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_16_3",
+      "id": "P4-16.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "ε2 ≤ 6κ2, ε4 ≤ 9κ4, and the weak effect of the scalar dissipation is at most d(6κ2 + 18n_Eκ4) Φmax σmax h |Ω| Gφ Gu.",
+      "source": "specifications/JST1/P4-results.json P4-16.3 (CFDLean.JST1.Spec.P4_16_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_16_4",
+      "id": "P4-16.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the face vector the dissipation sum is at least Σ c̄ (n·e) sec ϑ, which is unbounded at fixed |Ω| on stretched triangles.",
+      "source": "specifications/JST1/P4-results.json P4-16.4 (CFDLean.JST1.Spec.P4_16_4)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_17_1",
+      "id": "P4-17.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item17",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Continuous SST entropy balance: ∂_t η0 + ∇·(v η0 + G) = Π for smooth solutions, with G = −v^η·F^v = θκ∇T (− θD_k∇k).",
+      "source": "specifications/JST1/P4-results.json P4-17.1 (CFDLean.JST1.Spec.P4_17_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_18_1",
+      "id": "P4-18.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item18",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The Euler entropy −ρs/(γ−1) has a positive definite Hessian at admissible states.",
+      "source": "specifications/JST1/P4-results.json P4-18.1 (CFDLean.JST1.Spec.P4_18_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p4_18_2",
+      "id": "P4-18.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item18",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The SST coupled entropy η0 has a positive semidefinite Hessian with null space span{e_E + e_k, e_ω}.",
+      "source": "specifications/JST1/P4-results.json P4-18.2 (CFDLean.JST1.Spec.P4_18_2)"
     }
   ]
 }

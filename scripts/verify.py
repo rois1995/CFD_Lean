@@ -123,32 +123,33 @@ BURGERS = {
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
-# the 92 bindings of the P1-P3 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
+# the 105 bindings of the P1-P4 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
 # by the audit run) and its theorem is a root theorem with standard axioms in its module; a binding with a
 # `core_theorem` (the 37 MC-N statements) must use that MC-N theorem directly. CFDLean/Papers has no forbidden token.
 JST1_RESULTS = (("specifications/JST1/P1-results.json", 36), ("specifications/JST1/P2-results.json", 36),
-                ("specifications/JST1/P3-results.json", 20))
-JST1_COUNT = 92
+                ("specifications/JST1/P3-results.json", 20), ("specifications/JST1/P4-results.json", 13))
+JST1_PAPERS = ("P1", "P2", "P3", "P4")
+JST1_COUNT = 105
 # MR-3: the pretty and raw types (`pp.notation false`, `pp.coercions false`; field `raw_type` of KernelAudit.lean) of
 # every promised theorem (M1-M5, MC-N, Burgers, JST1: the catalog index) are pinned in evidence/raw-types.json, whose hash is
 # pinned here; a run fails if a type changes. The accepted v4.19 history has no raw types (they cannot be regenerated),
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "6b5b0f8b2811158743d557e1b6903eddbfd1970ad9c78c62a07289f2a5eb0f23"
+RAW_TYPES_SHA256 = "b21b4f82952f348c680667d4bc075e16065e0e67b92073fa3bce1e7e6eb00bc0"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
-JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"
-# The JST1 `lake comparator` challenge (pinned) states the 92 frozen statements with `sorry` and imports only the
+JST1_FROZEN_SHA256 = "3d53ffdd3190664faa4126d9ebeffa73195e1a08783bbe41a3d8f1a31695a42a"
+# The JST1 `lake comparator` challenge (pinned) states the 105 frozen statements with `sorry` and imports only the
 # JST1 statement modules; the solution module restates each under the same name, bound to its JST1 proof.
 JST1_CHALLENGE = "Challenges/JST1.lean"
-JST1_CHALLENGE_SHA256 = "583a1e7a3e5bea6efeb0984b233278d4c860968043f9e14dadf934e1510fd05e"
+JST1_CHALLENGE_SHA256 = "798ca6cd7737c3ba13a23074ee47f6003229db8f3f99f5affd6d30c3905a409c"
 JST1_COMPARATOR = "Challenges/JST1.comparator.json"
 JST1_SOLUTION = "CFDLean.Verification.JST1Verify"
-JST1_ID = re.compile(r"P[1-3]-[0-9]+\.[0-9]+[a-z]?")
+JST1_ID = re.compile(r"P[1-4]-[0-9]+\.[0-9]+[a-z]?")
 # The frozen JST1 result IDs are the statement definitions `def P<a>_<b>_<c> : Prop` of the hash-pinned statement files
 # (CFDLean/Papers/JST1/Spec/); ID `P<a>-<b>.<c>` binds statement `CFDLean.JST1.Spec.P<a>_<b>_<c>`.
-JST1_SPEC_DEF = re.compile(r"^def (P[1-3])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
+JST1_SPEC_DEF = re.compile(r"^def (P[1-4])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
 FORBIDDEN_ROOT = "CFDLean/Papers"
 FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|\baxiom\b|native_decide|implemented_by|\bunsafe\b|\bopaque\b|@\[extern"
                        r"|skipKernelTC", re.MULTILINE)
@@ -688,13 +689,13 @@ def strip_lean_comments(text):
 
 
 def check_jst1(rows, records, audit_text, core_theorems, frozen_ids):
-    """The 92 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
+    """The 105 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
     statement of its ID; unique names in CFDLean.JST1; each bound in the audit (outside comments); each a root theorem
     with standard axioms in its module whose type is its statement; the statement a definition; and a delegated
     binding uses its MC-N theorem."""
     if len(records) != len(JST1_RESULTS):
         raise ValueError("JST1 result bindings differ from the frozen scope")
-    bindings = [(paper, result_id, binding) for paper, record in zip(("P1", "P2", "P3"), records)
+    bindings = [(paper, result_id, binding) for paper, record in zip(JST1_PAPERS, records)
                 for result_id, binding in record["bindings"].items()]
     ids = [result_id for _, result_id, _ in bindings]
     names = [binding["theorem"] for _, _, binding in bindings]

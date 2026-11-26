@@ -7,6 +7,10 @@ import CFDLean.Papers.JST1.Spec.Item11c
 import CFDLean.Papers.JST1.Spec.Item12
 import CFDLean.Papers.JST1.Spec.Item13
 import CFDLean.Papers.JST1.Spec.Item14
+import CFDLean.Papers.JST1.Spec.Item15
+import CFDLean.Papers.JST1.Spec.Item16
+import CFDLean.Papers.JST1.Spec.Item17
+import CFDLean.Papers.JST1.Spec.Item18
 import CFDLean.Papers.JST1.Spec.Item2
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
@@ -18,7 +22,7 @@ import CFDLean.Papers.JST1.Spec.Item9
 
 /-! JST1 challenge for `lake comparator` (configuration: `Challenges/JST1.comparator.json`).
 
-Each theorem below has the name of one theorem of `CFDLean.Verification.JST1Verify` and states one of the 92 frozen paper-1 statements
+Each theorem below has the name of one theorem of `CFDLean.Verification.JST1Verify` and states one of the 105 frozen paper-1 statements
 `CFDLean.JST1.Spec.P*` (MR-2; frozen files in `specifications/JST1/frozen.sha256`). This module imports only the
 statement modules (with the definitions they use), no proof module. `sorry` is the hole that the comparator asks the
 solution module to fill. No module imports it, it is not part of the `CFDLean` library, and `KernelAudit.lean` does not
@@ -119,5 +123,18 @@ theorem p3_14_2 : CFDLean.JST1.Spec.P3_14_2 := sorry
 theorem p3_14_3 : CFDLean.JST1.Spec.P3_14_3 := sorry
 theorem p3_11_7 : CFDLean.JST1.Spec.P3_11_7 := sorry
 theorem p3_11_8 : CFDLean.JST1.Spec.P3_11_8 := sorry
+theorem p4_15_1 : CFDLean.JST1.Spec.P4_15_1 := sorry
+theorem p4_15_2 : CFDLean.JST1.Spec.P4_15_2 := sorry
+theorem p4_15_3 : CFDLean.JST1.Spec.P4_15_3 := sorry
+theorem p4_15_4 : CFDLean.JST1.Spec.P4_15_4 := sorry
+theorem p4_15_5 : CFDLean.JST1.Spec.P4_15_5 := sorry
+theorem p4_15_6 : CFDLean.JST1.Spec.P4_15_6 := sorry
+theorem p4_16_1 : CFDLean.JST1.Spec.P4_16_1 := sorry
+theorem p4_16_2 : CFDLean.JST1.Spec.P4_16_2 := sorry
+theorem p4_16_3 : CFDLean.JST1.Spec.P4_16_3 := sorry
+theorem p4_16_4 : CFDLean.JST1.Spec.P4_16_4 := sorry
+theorem p4_17_1 : CFDLean.JST1.Spec.P4_17_1 := sorry
+theorem p4_18_1 : CFDLean.JST1.Spec.P4_18_1 := sorry
+theorem p4_18_2 : CFDLean.JST1.Spec.P4_18_2 := sorry
 
 end CFDLean.Verification.JST1Verify
