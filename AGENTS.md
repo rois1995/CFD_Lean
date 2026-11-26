@@ -15,6 +15,9 @@ Start with [current status](roadmap/CURRENT.md) and [next work](roadmap/NEXT.md)
   `catalog/README.md` with `python3 scripts/catalog.py` and machine evidence with `python3 scripts/verify.py`.
   Treat `evidence/raw-types.json` as a pin. See the [artifact rules](CONTRIBUTING.md#artifacts-and-source-of-truth)
   for the difference between regenerated evidence and preserved review bundles.
+- Before writing a proof that computes (`decide +kernel`, large case splits), read the
+  [Lean performance guide](docs/LEAN_PERFORMANCE.md): brute force first, no `Kind` case split inside kernel loops,
+  no raised `maxRecDepth`, a memory cap for every Lean run, and how to measure.
 - For documentation, check links, whitespace and the diff scope. Keep the evidence manifest current when a covered
   document changes. For Lean or verification changes, run the [applicable checks](CONTRIBUTING.md#validation), including
   the sandboxed comparator for affected challenges.
