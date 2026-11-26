@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-545 promised theorems, grouped by layer.
+547 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -8,11 +8,11 @@ Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theore
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
 `specifications/M2-results.json` .. `M5-results.json`, every theorem of `specifications/MC-N-results.json`, and the
-119 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P7-results.json` (IDs `P1-x.y` .. `P7-x.y`).
+121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
 independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
-JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P7 statements written here (self-checked,
+JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
 **Layer** (by the mathematical object a statement is about, not by milestone or module):
@@ -60,20 +60,20 @@ that this file equals the generated text. Do not edit by hand.
 | Layer | Theorems | FEM | FVM | FEM + FVM | method-free |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
-| Geometry | 73 | 0 | 42 | 4 | 27 |
+| Geometry | 75 | 0 | 43 | 4 | 28 |
 | Discrete operators | 89 | 10 | 60 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 100 | 7 | 75 | 7 | 11 |
 | Time | 93 | 0 | 73 | 0 | 20 |
 | Execution | 53 | 0 | 53 | 0 | 0 |
-| **Total** | 545 | 17 | 329 | 30 | 169 |
+| **Total** | 547 | 17 | 330 | 30 | 170 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 359 |
-| method-free | 169 |
+| FVM | 360 |
+| method-free | 170 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -92,7 +92,7 @@ that this file equals the generated text. Do not edit by hand.
 | E0b | pending | 14 |
 | B3b | pending | 40 |
 | E0c | pending | 19 |
-| JST1 | candidate | 119 |
+| JST1 | candidate | 121 |
 
 ## Foundations (12)
 
@@ -111,7 +111,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_16_2` | P4-16.2 | method-free | candidate | A symmetric, consistent two-point flux that is C² near the diagonal differs from the mean flux by O(\|u_k − u_i\|²). |
 | `CFDLean.JST1.Proofs.p5_19_1` | P5-19.1 | method-free | candidate | The logarithmic mean is Cⁿ for every n on (0,∞)², across the diagonal a = b (L(a,b) = a·E(ln b − ln a) with E(t) = (eᵗ−1)/t analytic). |
 
-## Geometry (73)
+## Geometry (75)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -188,6 +188,8 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p7_22_2` | P7-22.2 | FVM | candidate | A mesh of general hexahedra, prisms and pyramids, split-oriented and conforming at the sub-tetrahedron level, averaged over its pulling splits, is valid and facet balanced. |
 | `CFDLean.JST1.Proofs.p7_22_3` | P7-22.3 | FVM | candidate | Affine cells are split-oriented and centroid conformity implies sub-tetrahedron conformity, so the affine result P3-11.8 is a special case of P7-22.2. |
 | `CFDLean.JST1.Proofs.p7_22_4` | P7-22.4 | FVM | candidate | A twisted cube (top face turned, cos θ = 3/5) is a valid trilinear hexahedron but has inverted pulling sub-tetrahedra; its one-cell mesh is not facet balanced and the boundary formula of β fails. |
+| `CFDLean.JST1.Proofs.p8_23_1` | P8-23.1 | method-free | candidate | A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell. |
+| `CFDLean.JST1.Proofs.p8_23_2` | P8-23.2 | FVM | candidate | A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero. |
 
 ## Discrete operators (89)
 

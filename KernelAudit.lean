@@ -213,3 +213,5 @@ example : CFDLean.JST1.Spec.P7_22_1 := CFDLean.JST1.Proofs.p7_22_1
 example : CFDLean.JST1.Spec.P7_22_2 := CFDLean.JST1.Proofs.p7_22_2
 example : CFDLean.JST1.Spec.P7_22_3 := CFDLean.JST1.Proofs.p7_22_3
 example : CFDLean.JST1.Spec.P7_22_4 := CFDLean.JST1.Proofs.p7_22_4
+example : CFDLean.JST1.Spec.P8_23_1 := CFDLean.JST1.Proofs.p8_23_1
+example : CFDLean.JST1.Spec.P8_23_2 := CFDLean.JST1.Proofs.p8_23_2

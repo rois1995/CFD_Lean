@@ -16,6 +16,7 @@ import CFDLean.Papers.JST1.Spec.Item2
 import CFDLean.Papers.JST1.Spec.Item20
 import CFDLean.Papers.JST1.Spec.Item21
 import CFDLean.Papers.JST1.Spec.Item22
+import CFDLean.Papers.JST1.Spec.Item23
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
 import CFDLean.Papers.JST1.Spec.Item5
@@ -154,5 +155,7 @@ theorem p7_22_1 : CFDLean.JST1.Spec.P7_22_1 := sorry
 theorem p7_22_2 : CFDLean.JST1.Spec.P7_22_2 := sorry
 theorem p7_22_3 : CFDLean.JST1.Spec.P7_22_3 := sorry
 theorem p7_22_4 : CFDLean.JST1.Spec.P7_22_4 := sorry
+theorem p8_23_1 : CFDLean.JST1.Spec.P8_23_1 := sorry
+theorem p8_23_2 : CFDLean.JST1.Spec.P8_23_2 := sorry
 
 end CFDLean.Verification.JST1Verify

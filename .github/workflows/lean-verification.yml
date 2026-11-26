@@ -119,11 +119,13 @@ jobs:
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
       - name: Verifier fixtures
+        id: fixtures
         if: steps.docs.outputs.only != 'true'
         run: PATH="$HOME/.elan/bin:$PATH" python3 -m unittest discover -s scripts -p test_verify.py
       - name: Verify frozen contracts, result maps, catalog and trusted Burgers files
         id: verify
-        if: steps.docs.outputs.only != 'true'
+        # also after a fixture failure: the fixtures read the committed evidence, which is stale in a PR with new results
+        if: ${{ !cancelled() && steps.docs.outputs.only != 'true' && (success() || steps.fixtures.outcome == 'failure') }}
         run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py
       - name: Committed evidence equals regenerated evidence
         id: evidence
@@ -140,7 +142,8 @@ jobs:
         id: regen
         if: >-
           ${{ failure() && !inputs.release && steps.docs.outputs.only != 'true' &&
-              (steps.verify.outcome == 'failure' || steps.evidence.outcome == 'failure') }}
+              (steps.fixtures.outcome == 'failure' || steps.verify.outcome == 'failure' ||
+               steps.evidence.outcome == 'failure') }}
         run: |
           set -euo pipefail
           export PATH="$HOME/.elan/bin:$PATH"
