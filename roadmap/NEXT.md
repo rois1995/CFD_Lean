@@ -132,17 +132,34 @@ composition layers.
 
 ## Priority 2 - E1 machine arithmetic strategy
 
-The executable already uses the same kernel shape at `Real` and `Float`, but only the real-arithmetic refinement is
-proved.
+The Burgers array kernels already use `Scalar α`, with `ScalarSign α` where a limiter needs a sign test. The current
+refinement theorems cover the kernel interpreted over `ℝ`. The native driver selects Lean `Float` (binary64). E1 starts
+with a design proposal defining an arithmetic backend and its refinement contract. Backend implementations follow
+when the contract or a concrete use case justifies them. [Kernel](../CFDLean/Exec/Kernel.lean) ·
+[Limiter kernel](../CFDLean/Exec/LimiterKernel.lean) · [Driver](../Main.lean)
 
-Before committing to a large floating-point development, write a small design proposal comparing viable routes:
+| Capability | Scope for E1 |
+|---|---|
+| Kernel arithmetic (`Scalar`) | Minimal operations and constants used to advance the state, including `abs` and `max` for the Burgers flux. `ScalarSign` supplies the sign test for limiters that need it. |
+| Runtime arithmetic (illustrative `RuntimeScalar`) | Parsing, formatting, conversions such as `Nat` to the backend scalar, and finite/NaN checks. Keep initialization, I/O and diagnostic reporting at the driver boundary. |
+| Optional math | Operations such as `sqrt`, `sin`/`cos` and `exp`/`log`, required only by the component using them. The current driver uses `Float.sin` and `Float.acos` to initialize its sinusoid and `Float.abs` in its scaling and formatting. |
+| Arithmetic certification | Relate backend values and operations to `ℝ`. State the domain, arithmetic and runtime assumptions, and the error bound or enclosure that a step or run would certify. |
 
-- a formal IEEE model and a theorem relating it to the executable operations;
-- interval/enclosure arithmetic for a reference mode;
-- reproducible/exact accumulator techniques for selected reductions;
-- external verified arithmetic kernels with a narrow trusted/refinement interface.
+The capability names illustrate design roles. Introduce an interface only when a concrete consumer needs one.
 
-The required deliverable is a precise statement of what a future `Float` result could be certified to mean.
+Lean v4.36.0 defines `Float` and `Float32` as wrappers around the bit-pattern models `Float.Model` (binary64) and
+`Float32.Model` (binary32). Basic operations such as addition and division have logical definitions through those models
+and native implementations at runtime. Driver functions such as `Float.sin` and `Float.acos` are opaque in the logic.
+E1 should inventory the operations it relies on, use model definitions where applicable, and state the assumptions
+linking the selected native operations to the model. A solver-level relation to `ℝ` is a separate proof obligation.
+[Toolchain pin](../lean-toolchain) ·
+[Pinned `Float` source](https://raw.githubusercontent.com/leanprover/lean4/v4.36.0/src/Init/Data/Float/Float.lean) ·
+[Pinned `Float32` source](https://raw.githubusercontent.com/leanprover/lean4/v4.36.0/src/Init/Data/Float/Float32.lean)
+
+Compare using the Lean models, a separate IEEE model or external verified arithmetic, and interval enclosures for a
+reference run. The future backend family may include binary32, binary64, wider IEEE formats, arbitrary or
+multiprecision arithmetic, interval arithmetic, and mixed precision with explicit conversions. Deterministic reference
+arithmetic may use reproducible or exact accumulators for selected reductions.
 
 ## Priority 3 - verified-run provenance and basic solver output
 

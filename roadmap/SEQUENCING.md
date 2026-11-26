@@ -293,20 +293,18 @@ problem determine the first solver contract.
 
 ## 13. E1 / machine arithmetic
 
-**Prepare now:** the design study belongs in immediate work; keep exact-real and machine claims visibly separate.
+**Prepare now.** Preserve the arithmetic-polymorphic kernel. Isolate `Float`-specific initialization, conversions,
+I/O and diagnostics in the driver. Keep `Scalar` limited to operations the kernel needs and separate exact-real
+refinement from machine-arithmetic claims. [E1 design scope](NEXT.md#priority-2---e1-machine-arithmetic-strategy)
 
-**Start implementation when:** after choosing a precise certification target (IEEE error bound, enclosure arithmetic,
-verified arithmetic kernel, or another explicit model).
+**Start implementation when** E1 defines what a certified arithmetic backend means, or a concrete use case requires
+another precision or backend. Any claim of certification must satisfy the corresponding backend contract.
 
-**Should precede:**
+**Should precede** formally certified binary32 or binary64 runs, arbitrary-precision reference execution, mixed-precision
+GPU execution, and verified floating-point parallel reductions.
 
-- any claim that an actual machine `Float` output is formally certified relative to the exact scheme;
-- strongest-form "verified reference output" releases;
-- numerical-error contracts for optimized parallel reductions.
-
-**Do not require first:** further exact-real mathematical milestones.
-
-E1 should not block mathematical development, but it must block overstating what the current native executable proves.
+**Can proceed independently.** Exact-real development, non-uniform-grid mathematics, and other theorem work whose
+statements do not depend on machine arithmetic.
 
 ## 14. Run provenance, output and deterministic reference mode
 
