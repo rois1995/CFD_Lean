@@ -18,6 +18,16 @@ For partial work, check off the completed deliverables and keep the overall item
 - Use PRs for all changes to `develop` and `main`. Update the PR branch against the target and resolve review
   conversations before merging.
 
+### Owner override for CI
+
+The repository owner `rois1995` can explicitly override required CI on PRs into `develop` or `main`.
+Use `gh pr merge <number> --admin --merge --match-head-commit <reviewed-head-sha>` for the exact PR head reviewed.
+This also bypasses GitHub's up-to-date check. On `main`, it bypasses the CI check of the release PR source, so verify
+that the PR comes from `develop` or a same-repository `hotfix/` branch. Record the reason and any checks run in the PR.
+Both branches still require pull requests and resolved review conversations, and block force pushes and deletion.
+
+### Release tags
+
 Tag a verified release with an annotated `vMAJOR.MINOR.PATCH` tag on its exact `main` merge commit. Record that commit,
 the passing release PR and the catalog, specification and evidence paths in the release notes. Build `burgers1d` from
 the tagged revision for the release executable. Scientific acceptance remains recorded in the milestone review records.
