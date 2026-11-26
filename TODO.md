@@ -54,6 +54,32 @@ Status date: 2026-11-26. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
      from their discrete realizations. Cell-centered FV may use exterior/ghost states and face numerical fluxes;
      node-centered dual FV uses boundary patches/transfers; FEM may use weak boundary terms. Prove each realization
      implements the intended physical BC instead of forcing one universal discrete BC API.
+   - **Prepare now for evolving meshes, implement later:** do not start ALE/AMR before the fixed-mesh abstractions are
+     mature, but avoid new generic APIs that assume one global `dx`, a permanently fixed index set, or immutable
+     geometry. Keep mesh geometry separate from field values and keep reconstruction geometry-aware.
+   - **Mesh-dependent state model:** make the architecture compatible with a future dependent state of the form
+     `(mesh, values : mesh.Dof -> U)`, even if current simple modules continue to use `Fin n -> U`. This is the key
+     prerequisite for remeshing, where the old and new solution fields live on different degree-of-freedom sets.
+   - **Recommended sequencing:** use non-uniform fixed 1D finite volumes as the first architectural stress test;
+     then general fixed control-volume geometry; then mesh-to-mesh transfer; then fixed-topology moving-mesh/ALE;
+     only afterwards refinement/coarsening and full AMR. Do not over-abstract the current Burgers modules before
+     these requirements are exercised by concrete milestones.
+   - **ALE / moving mesh:** when the control-volume geometry layer is mature, add mesh motion and ALE numerical fluxes
+     with grid velocity as an explicit geometric input. The core new certificate is a discrete geometric conservation
+     law: constant physical states must remain constant under admissible mesh motion. Keep the physical PDE and the
+     mesh-motion law separate, and prove the ALE operator composes them correctly.
+   - **Mesh-to-mesh transfer / conservative remap:** introduce an explicit operator
+     `Remap oldMesh newMesh oldState -> newState` before full AMR. For finite-volume states prioritize conservative
+     transfer of primary conserved quantities, then reconstruct higher-order data on the new mesh. Track separate
+     certificates such as conservation, constant preservation, bounds/positivity and, where meaningful, entropy
+     behavior.
+   - **Adaptation:** model refinement/coarsening as certified mesh transformations with local parent/child relations,
+     valid geometry/conformity and conservative transfer. The adaptation indicator itself may remain heuristic;
+     what must be proved is validity of the produced mesh and the properties of the remap. Do not conflate
+     "adaptation criterion is good" with "adapted discretization is mathematically valid."
+   - **Repartitioning is not remeshing:** for later MPI/GPU work distinguish a numerical mesh change from a pure
+     ownership change. AMR/refinement changes the discrete approximation space and needs remapping; repartitioning
+     leaves the mathematical mesh/state unchanged and belongs entirely in the execution-refinement layer.
    - **Execution consequence:** later array/parallel/GPU/MPI refinements should target the same abstract scheme
      semantics through representation/refinement relations. Geometry, ownership and halos belong in the execution
      refinement layer, not in the PDE-level definition.
