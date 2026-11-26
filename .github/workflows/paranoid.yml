@@ -1,0 +1,72 @@
+name: Paranoid comparator on demand
+
+# Optional check for PRs into develop. It runs the same paranoid comparator step as release verification, but only
+# when requested: add the `paranoid` label to the PR, or start it from the Actions tab for a branch. It is not a
+# required check. The release PR into main runs it again.
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [labeled, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      configs:
+        description: Comparator configs to check (shell glob).
+        required: false
+        default: Challenges/*.comparator.json
+        type: string
+
+concurrency:
+  group: paranoid-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  comparator:
+    name: Paranoid comparator
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.pull_request.labels.*.name, 'paranoid')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install pinned Lean and Mathlib cache
+        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: true
+      - name: Build full package
+        run: ~/.elan/bin/lake build
+      # Same memory note as in lean-verification.yml: the paper-1 comparator needs about 13 GB in one checker.
+      - name: Add swap space for the external checkers
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile /swapfile
+          sudo fallocate -l 16G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+      - name: Install bubblewrap sandbox
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+      - name: Judge each bridge against its trusted challenge (kernel and five external checkers)
+        env:
+          CONFIGS: ${{ inputs.configs || 'Challenges/*.comparator.json' }}
+        run: |
+          shopt -s nullglob
+          configs=( $CONFIGS )
+          if [ ${#configs[@]} -eq 0 ]; then echo "No config matches: $CONFIGS"; exit 1; fi
+          for config in "${configs[@]}"; do
+            echo "== $config"
+            ~/.elan/bin/lake comparator --paranoid --config "$config"
+          done
