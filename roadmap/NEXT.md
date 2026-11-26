@@ -5,11 +5,12 @@ belong in `FUTURE.md`; persistent architectural rules belong in `PRINCIPLES.md`.
 
 Status date: 2026-11-26.
 
-## Immediate work package 0 - branch governance and release workflow
+## Completed work package 0 - branch governance and release workflow
 
-Introduce a protected integration/release branch model before further routine development.
+The protected integration and release flow is in use. [Integration PR #14](https://github.com/rois1995/CFD_Lean/pull/14) ·
+[Release PR #15](https://github.com/rois1995/CFD_Lean/pull/15) · [Sync PR #16](https://github.com/rois1995/CFD_Lean/pull/16)
 
-Target flow:
+### Branch flow
 
 ```text
 feature / milestone branch
@@ -34,27 +35,23 @@ Branch semantics:
 - scientific acceptance remains separate from Git branch status: merging to `main` does not by itself make theorem
   statements independently accepted.
 
-Deliverables:
+### Deliverables
 
-1. Create `develop` from the current `main`.
-2. Protect both `develop` and `main` against direct/force pushes and deletion; require pull requests.
-3. Require the ordinary CI gate for PRs into `develop`.
-4. Require the full release/paranoid gate for PRs into `main`.
-5. Split the current monolithic GitHub Actions workflow into at least:
-   - ordinary CI for feature/milestone PRs targeting `develop`;
-   - release verification for `develop -> main`, including every trusted challenge and
-     `lake comparator --paranoid`.
-6. Keep required release checks free of restrictive path filters that could cause a required check to be skipped.
-7. Require the target branch to be up to date before merge and require review conversations to be resolved.
-8. Document the hotfix path:
-   `main -> hotfix/... -> PR to main -> full release gate -> merge/back-port main into develop`.
-9. Define the release/tagging convention so a tag identifies an exact `main` commit together with its theorem
-   catalog, specifications, executable and verification evidence.
-10. Update `AGENTS.md` / contributor guidance so agents and humans never write directly to `main` or `develop`
-    after this migration.
-11. Keep CI acceptance and scientific acceptance explicitly distinct in documentation and automation.
+- [x] Create `develop` from `main`.
+- [x] Protect both `develop` and `main` against direct pushes, force pushes, and deletion, and require pull requests.
+- [x] Require the ordinary CI gate for PRs into `develop`.
+- [x] Require the full release and paranoid gate for PRs into `main`.
+- [x] Split the original GitHub Actions workflow into ordinary integration CI and release verification. Release
+  verification runs `lake comparator --paranoid` for every trusted challenge.
+- [x] Run required release checks on every PR into `main`.
+- [x] Require an up-to-date PR branch and resolved review conversations before merge.
+- [x] Document the hotfix path and the PR that brings `main` back into `develop`.
+- [x] Define the release tag convention so a tag identifies an exact `main` commit with its theorem catalog,
+  specifications, executable and verification evidence.
+- [x] Update `AGENTS.md` and contributor guidance to require PRs for changes to `main` and `develop`.
+- [x] Keep CI acceptance and scientific acceptance distinct in documentation and automation.
 
-Suggested protection policy:
+### Protection policy
 
 - `develop`: PR required, ordinary CI required, up-to-date branch required, conversations resolved, force pushes
   and deletion disabled.
