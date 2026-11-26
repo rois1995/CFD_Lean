@@ -73,10 +73,10 @@ GPU / MPI / optimized execution
 And a physics/model spine is:
 
 ```text
-current scalar + Euler models
+Burgers + 1D Euler on the same periodic FV step
         |
         v
-capability-oriented physical-model interfaces
+additional physical-model capabilities as needed
         |
         +--> additional hyperbolic systems
         |
@@ -165,7 +165,11 @@ concrete discretizations already present.
 - treat physical flux, admissibility, entropy, wave-speed information, viscous fluxes, sources and constraints as
   separable capabilities where mathematically appropriate.
 
-**Start implementation when:** one of these triggers occurs:
+**First shared solver:** the uniform 1D Burgers and Euler proposal exercises the same numerical method with two
+state types. Extract the operations that both first-order steps need when that proposal is frozen. Non-uniform
+meshes and multidimensional Roe assembly can progress independently. [1D work package](NEXT.md#priority-1---shared-1d-finite-volume-for-burgers-and-euler)
+
+**Extend those capabilities when:** one of these triggers occurs:
 
 1. a third genuinely distinct equation set is added (for example shallow water or MHD);
 2. Navier-Stokes requires composing Euler convective physics with a viscous constitutive model;

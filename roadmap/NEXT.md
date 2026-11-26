@@ -112,9 +112,41 @@ Deliverables:
 The goal is to locate a concept, its authoritative artifacts, its status and its validation commands from the docs and
 generated indexes.
 
-## Priority 1 - non-uniform fixed 1D finite volume
+## Priority 1 - shared 1D finite volume for Burgers and Euler
 
-Use a non-uniform fixed Burgers mesh as the next architectural stress test before ALE or AMR.
+Start the next Euler proposal on the uniform periodic, cell-centered grid used by Burgers. Hold the geometry,
+numerical flux family and time integrator fixed so that the state and physical model are the only changes.
+This is a new line alongside the multidimensional median-dual M1–M6 milestones.
+
+1. **Use the existing Euler physics in one dimension.** Specialize `Conservative d` and `physicalFlux` to
+   `d = 1` and positive unit face orientation. The three conserved quantities are density, momentum and total
+   energy. Use the existing ideal-gas pressure and admissibility domain. Start with homogeneous Burgers and Euler.
+   A later balance law can supply a physical source and will need a discrete source contribution in its balance.
+   [Euler state](../CFDLean/Physics/Euler/State.lean) · [Oriented flux](../CFDLean/Physics/Euler/PhysicalFlux.lean)
+2. **Propose one first-order step with two instantiations.** Share the periodic neighbors, Rusanov flux formula,
+   face-flux difference and Forward Euler update. The model supplies the physical flux and a speed estimate.
+   Recover the existing Burgers choice exactly. For Euler, specify the endpoint estimate using velocity and sound
+   speed on admissible states and state the speed hypothesis needed for each claim.
+   [Burgers Rusanov](../CFDLean/Schemes/Burgers/Rusanov.lean) · [Periodic residual](../CFDLean/Discrete/Periodic/FiniteVolume.lean)
+3. **First acceptance target.** Prove equality to the existing Burgers update for every state on the supported
+   uniform periodic grids. For Euler, prove equal-state flux consistency, preservation of admissible constants and
+   periodic conservation of mass, momentum and energy. Include a nonconstant control for face orientation and the
+   update sign. Freeze the proposal before implementing these results.
+4. **Advance both models through the same solver.** Reuse the existing SSP composition lemmas. Scope Euler
+   density/pressure positivity under a specified CFL condition before claiming admissible multi-step evolution.
+   Higher-order reconstruction and entropy require their own system hypotheses and proofs. For the executable
+   milestone, run both models through one array traversal and time loop and prove exact-real refinement for each.
+   Keep backend arithmetic separate from the conserved state and certify machine error under E1.
+   [SSP](../CFDLean/Time/SSP.lean) · [Burgers refinement](../CFDLean/Exec/Refinement.lean)
+5. **Extend dimension after the 1D comparison.** A periodic Euler density wave with constant pressure and velocity
+   gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
+   mesh. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
+   with a cell-centered method needs an explicit statement about the control volumes and transfers being compared.
+
+### Non-uniform fixed 1D finite volume
+
+Use Burgers to test geometry independently of the Euler model change. Apply the shared first-order step to both
+models on this mesh once their uniform-grid specializations are established.
 
 Target components:
 
@@ -188,8 +220,9 @@ Candidates, to be proposed/frozen separately:
 
 ## Priority 5 - M6 composition
 
-Continue the original Euler roadmap with multi-step evolution on top of M5
-(`specifications/M2-proposal.md`).
+Keep M6 on the median-dual track. When proposing it, reconcile the one-step composition in the
+[original milestone table](../specifications/M2-proposal.md) with the assembled step already supplied by
+[M5](../references/M5.md), and specify any multi-step claim and its admissibility hypotheses separately.
 
 Keep the generic time-evolution interfaces compatible with future variable-step and implicit methods.
 
