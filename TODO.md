@@ -8,6 +8,7 @@ This file is intentionally short. It answers four questions:
 2. **What should we work on next?** -> [roadmap/NEXT.md](roadmap/NEXT.md)
 3. **Where might the project go later?** -> [roadmap/FUTURE.md](roadmap/FUTURE.md)
 4. **Which architectural rules should remain stable?** -> [roadmap/PRINCIPLES.md](roadmap/PRINCIPLES.md)
+5. **When should future architecture actually be implemented?** -> [roadmap/SEQUENCING.md](roadmap/SEQUENCING.md)
 
 ## Immediate orientation
 
@@ -66,6 +67,12 @@ It includes:
 - verified output manifests;
 - correspondence with external CFD codes.
 
+### [SEQUENCING.md](roadmap/SEQUENCING.md)
+
+Implementation triggers and prerequisite ordering for architectural choices. It distinguishes what should influence
+design now from what should wait for a concrete milestone, and records which capabilities ought to precede ALE, AMR,
+Navier-Stokes, implicit solvers, GPU/MPI, multiphysics and other long-horizon work.
+
 ### [PRINCIPLES.md](roadmap/PRINCIPLES.md)
 
 Long-lived design constraints: the "stone-carved objectives".
@@ -107,5 +114,6 @@ Keep this index short.
 - Update `CURRENT.md` when project status materially changes.
 - Update `NEXT.md` when priorities or concrete milestones change.
 - Move speculative items to `FUTURE.md`.
+- Update `SEQUENCING.md` when concrete experience changes implementation prerequisites or trigger conditions.
 - Change `PRINCIPLES.md` only for deliberate architectural decisions.
 - Do not turn `TODO.md` back into a chronological implementation log.
