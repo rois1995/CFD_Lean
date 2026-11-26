@@ -1,0 +1,223 @@
+{
+  "contract": "specifications/Burgers-E0c.md",
+  "contract_sha256": "29edb4bd3c7da3e9ffc174e968daaef184489a20b59bb4d042ff31f16d0696f5",
+  "approval_record": "specifications/Burgers-E0c-approval.md",
+  "approved_revision": "001ec26c88a0742d9c0be9e728099c6408bfac6b",
+  "source_map": "references/Burgers-E0c.md",
+  "trusted_statement_review": "reviews/Burgers-E0c/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "executable": {
+    "name": "burgers1d",
+    "flags": [
+      "--muscl",
+      "--limiter NAME"
+    ],
+    "root": "Main.lean",
+    "verified": false
+  },
+  "results": [
+    {
+      "id": "E0c-K",
+      "definitions": [
+        "CFDLean.Exec.ScalarSign",
+        "CFDLean.Exec.Limiter",
+        "CFDLean.Exec.Limiter.isLimited",
+        "CFDLean.Exec.Scalar.maxmodSame",
+        "CFDLean.Exec.limiterSlope",
+        "CFDLean.Exec.limSlopeAt",
+        "CFDLean.Exec.limFacePlus",
+        "CFDLean.Exec.limFaceMinus",
+        "CFDLean.Exec.limiterEulerStepArray",
+        "CFDLean.Exec.limiterSsprk2StepArray",
+        "CFDLean.Exec.instScalarSignReal"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Exec.limiterEulerStepArray_size",
+        "CFDLean.Exec.limiterSsprk2StepArray_size",
+        "CFDLean.Exec.limiterSsprk3StepArray_size"
+      ]
+    },
+    {
+      "id": "E0c-L",
+      "definitions": [
+        "CFDLean.Exec.Limiter.slopeFn",
+        "CFDLean.Exec.Limiter.theta"
+      ],
+      "supporting": [
+        "CFDLean.Exec.Limiter.isLimited_iff",
+        "CFDLean.Exec.minmod_of_pos",
+        "CFDLean.Exec.minmod_of_neg",
+        "CFDLean.Exec.minmod_of_not_mul_pos",
+        "CFDLean.Exec.maxmodSame_eq",
+        "CFDLean.Exec.maxmodSame_of_nonneg",
+        "CFDLean.Exec.maxmodSame_of_nonpos"
+      ],
+      "declarations": [
+        "CFDLean.Exec.isPos_eq",
+        "CFDLean.Exec.limiterSlope_eq",
+        "CFDLean.Exec.Limiter.slopeBounded",
+        "CFDLean.Exec.Limiter.theta_le_two"
+      ]
+    },
+    {
+      "id": "E0c-S",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Exec.limSlopeAt_eq",
+        "CFDLean.Exec.limFacePlus_eq",
+        "CFDLean.Exec.limFaceMinus_eq",
+        "CFDLean.Exec.limiterEulerStepArray_refinedBy",
+        "CFDLean.Exec.limiterSsprk2StepArray_refinedBy",
+        "CFDLean.Exec.limiterSsprk3StepArray_refinedBy"
+      ],
+      "declarations": [
+        "CFDLean.Exec.limiterEulerStepArray_refines",
+        "CFDLean.Exec.limiterSsprk2StepArray_refines",
+        "CFDLean.Exec.limiterSsprk3StepArray_refines",
+        "CFDLean.Exec.limiterEulerStepArray_minmod",
+        "CFDLean.Exec.limiterSsprk2StepArray_minmod",
+        "CFDLean.Exec.limiterSsprk3StepArray_minmod"
+      ]
+    },
+    {
+      "id": "E0c-T",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Exec.run_limiterEulerStepArray_sum",
+        "CFDLean.Exec.run_limiterSsprk3StepArray_sum",
+        "CFDLean.Exec.run_limiterEulerStepArray_bounds",
+        "CFDLean.Exec.run_limiterSsprk3StepArray_bounds",
+        "CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le",
+        "CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le"
+      ]
+    },
+    {
+      "id": "E0c-X",
+      "definitions": [
+        "CFDLean.Exec.limiterSsprk3StepArray",
+        "CFDLean.Exec.instScalarSignFloat"
+      ],
+      "supporting": [],
+      "declarations": []
+    }
+  ],
+  "modules": {
+    "CFDLean.Exec.ScalarSign": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.instScalarSignFloat": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.Limiter": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.Limiter.isLimited": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.Scalar.maxmodSame": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limiterSlope": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limSlopeAt": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limFacePlus": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limFaceMinus": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limiterEulerStepArray": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limiterSsprk2StepArray": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.limiterSsprk3StepArray": "CFDLean.Exec.LimiterKernel",
+    "CFDLean.Exec.Limiter.slopeFn": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.Limiter.theta": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.Limiter.isLimited_iff": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.minmod_of_pos": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.minmod_of_neg": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.minmod_of_not_mul_pos": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.maxmodSame_eq": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.maxmodSame_of_nonneg": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.maxmodSame_of_nonpos": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.isPos_eq": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSlope_eq": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.Limiter.slopeBounded": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.Limiter.theta_le_two": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limSlopeAt_eq": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limFacePlus_eq": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limFaceMinus_eq": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterEulerStepArray_refines": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk2StepArray_refines": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk3StepArray_refines": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterEulerStepArray_size": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk2StepArray_size": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk3StepArray_size": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterEulerStepArray_refinedBy": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk2StepArray_refinedBy": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk3StepArray_refinedBy": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.run_limiterEulerStepArray_sum": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.run_limiterSsprk3StepArray_sum": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.run_limiterEulerStepArray_bounds": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.run_limiterSsprk3StepArray_bounds": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterEulerStepArray_minmod": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk2StepArray_minmod": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.limiterSsprk3StepArray_minmod": "CFDLean.Exec.LimiterRefinement",
+    "CFDLean.Exec.instScalarSignReal": "CFDLean.Exec.RealScalarSign"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersE0cChallenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersE0cChallenge",
+    "statements_sha256": "ef191f896ce59f9b26aa20ab06c3e12d791d8efd179cee4456cd40ce1193cdb4",
+    "bridge_module": "CFDLean.Verification.BurgersE0cVerify",
+    "comparator_challenge": "Challenges/BurgersE0c.lean",
+    "comparator_challenge_module": "Challenges.BurgersE0c",
+    "comparator_challenge_sha256": "1b03e40d241e2a6435b7d713a3b9ab62ba86c1cd54c8191477ce40363ef12f91",
+    "comparator_config": "Challenges/BurgersE0c.comparator.json",
+    "bindings": [
+      {
+        "id": "E0c-L",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.RealSignIsStandard",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.real_sign_is_standard",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.RealSignIsStandard",
+        "uses": "CFDLean.Exec.isPos_eq"
+      },
+      {
+        "id": "E0c-L",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.KernelSlopeIsLimiter",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.kernel_slope_is_limiter",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.KernelSlopeIsLimiter",
+        "uses": "CFDLean.Exec.limiterSlope_eq"
+      },
+      {
+        "id": "E0c-S",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.LimiterEulerStepRefines",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.limiter_euler_step_refines",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.LimiterEulerStepRefines",
+        "uses": "CFDLean.Exec.limiterEulerStepArray_refines"
+      },
+      {
+        "id": "E0c-S",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3StepRefines",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_step_refines",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3StepRefines",
+        "uses": "CFDLean.Exec.limiterSsprk3StepArray_refines"
+      },
+      {
+        "id": "E0c-S",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunRefines",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_refines",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunRefines",
+        "uses": "CFDLean.Exec.limiterSsprk3StepArray_refines"
+      },
+      {
+        "id": "E0c-T",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunSum",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_sum",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunSum",
+        "uses": "CFDLean.Exec.run_limiterSsprk3StepArray_sum"
+      },
+      {
+        "id": "E0c-T",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunBounds",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_bounds",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunBounds",
+        "uses": "CFDLean.Exec.run_limiterSsprk3StepArray_bounds"
+      },
+      {
+        "id": "E0c-T",
+        "statement": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunTotalVariation",
+        "theorem": "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_run_total_variation",
+        "type": "CFDLean.Verification.BurgersE0cChallenge.LimiterSSPRK3RunTotalVariation",
+        "uses": "CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le"
+      }
+    ]
+  }
+}

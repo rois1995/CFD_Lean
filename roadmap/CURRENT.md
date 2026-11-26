@@ -44,9 +44,14 @@ Merged into `main`:
 - B1: monotonicity, TVD and bounds under CFL;
 - B2: SSPRK2/SSPRK3 and multi-step stability/conservation;
 - B3: MUSCL/minmod reconstruction with TVD/bounds and SSP composition;
+- B3b: MUSCL unlimited by default (central slope) with a limiter factor on top; limiters minmod, MC, superbee,
+  van Leer, van Albada with one certificate `SlopeBounded θ`; TVD/bounds for `θ ≤ 2` with Euler/SSPRK2/SSPRK3; an
+  exact overshoot example for the unlimited scheme;
 - B4: scalar entropy certificates and semidiscrete Burgers entropy stability;
 - E0: executable first-order array kernel, real-arithmetic refinement, native `burgers1d`;
-- E0b: executable MUSCL array kernel, refinement, and transferred B3 guarantees.
+- E0b: executable MUSCL array kernel (minmod), refinement, and transferred B3 guarantees;
+- E0c: executable MUSCL array kernel with a limiter choice (none, minmod, MC, superbee, van Leer, van Albada),
+  refinement for every choice, transferred B3b guarantees (sum for all; bounds and TVD for every limiter).
 
 All Burgers milestones above are implemented and merged, but independent scientific acceptance is still pending.
 
@@ -55,7 +60,7 @@ All Burgers milestones above are implemented and merged, but independent scienti
 `lake exe burgers1d` currently supports:
 
 - first-order Rusanov;
-- MUSCL-minmod + Rusanov;
+- MUSCL + Rusanov, unlimited with `--muscl`, or with `--limiter none|minmod|mc|superbee|vanleer|vanalbada`;
 - SSPRK3 execution;
 - Float arithmetic;
 - integral diagnostics;

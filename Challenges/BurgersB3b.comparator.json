@@ -1,0 +1,18 @@
+{
+  "challenge_module": "Challenges.BurgersB3b",
+  "solution_module": "CFDLean.Verification.BurgersB3bVerify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersB3bVerify.limiter_factor_forms",
+    "CFDLean.Verification.BurgersB3bVerify.limiter_bounds",
+    "CFDLean.Verification.BurgersB3bVerify.muscl_euler_bounded_multi_step",
+    "CFDLean.Verification.BurgersB3bVerify.muscl_ssprk2_bounded_multi_step",
+    "CFDLean.Verification.BurgersB3bVerify.muscl_ssprk3_bounded_multi_step",
+    "CFDLean.Verification.BurgersB3bVerify.unlimited_overshoot"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}
