@@ -82,6 +82,7 @@ independent modules in parallel (the JST1 P8 proofs, on their own branch, use `I
 
 ## 9. CI cost
 
-The full build dominates the integration run, and the release run re-checks every proof with five external
-checkers (`lake comparator --paranoid`), which repeats every closed computation. Prefer the fast forms above for
-any new closed check.
+The full build dominates the integration run (35 min before the change of rule 2, 11 min after). Integration CI
+reuses the compiled modules of unchanged files from a build cache. Release verification builds from scratch and
+re-checks every proof with five external checkers (`lake comparator --paranoid`), which repeats every closed
+computation. Prefer the fast forms above for any new closed check.
