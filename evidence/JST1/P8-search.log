@@ -1,0 +1,52 @@
+splits 64 fan 8
+200
+(106.26020470831197, '-7/25', '24/25', '1', ('0', '0'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1', ('0', '1/2'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1', ('1', '1'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1', ('1/2', '1/2'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1/2', ('0', '0'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1/2', ('0', '1/2'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1/2', ('1', '1'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '1/2', ('1/2', '1/2'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '2', ('0', '0'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '2', ('0', '1/2'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '2', ('1', '1'), 16, (3, 2, 6, 5))
+(106.26020470831197, '-7/25', '24/25', '2', ('1/2', '1/2'), 16, (3, 2, 6, 5))
+--- 90 deg, centre (1/2,1/2)
+Kuhn bad [((3, 2, 6, 5), Fraction(0, 1)), ((1, 0, 4, 7), Fraction(0, 1)), ((3, 0, 5, 4), Fraction(0, 1)), ((0, 1, 6, 5), Fraction(0, 1))]
+fan split (0, [False, False, False, False, True, False]) tets [0, 4, 5, 6] [0, 1, 6, 5] shared [0, 5, 6] product 7/25
+--- (b) 2x2x2 block, middle layer turned by theta about (1,1)
+cos 3/5 sin 4/5 inverted tet instances 256 sum of facet vectors at O ['0', '0', '0']
+cos 4/5 sin 3/5 inverted tet instances 0 sum of facet vectors at O ['0', '0', '0']
+cos 0 sin 1 inverted tet instances 768 sum of facet vectors at O ['0', '0', '0']
+cos -7/25 sin 24/25 inverted tet instances 768 sum of facet vectors at O ['0', '0', '0']
+--- (b) off-centre axis (ax,ay)
+cos 3/5 axis ('1/2', '1/2') inverted 256 sum at O ['0', '0', '0']
+cos 3/5 axis ('0', '0') inverted 256 sum at O ['0', '0', '0']
+cos 3/5 axis ('1/2', '1') inverted 256 sum at O ['0', '0', '0']
+cos 3/5 axis ('1', '1/2') inverted 256 sum at O ['0', '0', '0']
+cos 0 axis ('1/2', '1/2') inverted 768 sum at O ['0', '0', '0']
+cos 0 axis ('0', '0') inverted 768 sum at O ['0', '0', '0']
+cos 0 axis ('1/2', '1') inverted 768 sum at O ['0', '0', '0']
+cos 0 axis ('1', '1/2') inverted 768 sum at O ['0', '0', '0']
+--- (b) layers turned independently
+208
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(1, 1), Fraction(1, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(1, 1), Fraction(1, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(1, 1), Fraction(1, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(0, 1), Fraction(0, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(0, 1), Fraction(0, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(1, 1), Fraction(1, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(0, 1), Fraction(0, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(0, 1), Fraction(0, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(1, 2), Fraction(1, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(1, 1), Fraction(1, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(1, 2), Fraction(1, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(0, 1), Fraction(0, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(2, 1), Fraction(0, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(1, 1), Fraction(1, 1))'])
+(128, ['0', '0', '-7/10'], ['(Fraction(1, 1), Fraction(0, 1))', '(Fraction(2, 1), Fraction(0, 1))', '(Fraction(3, 5), Fraction(4, 5))', '(Fraction(0, 1), Fraction(0, 1))'])
+--- (b) chosen: top layer turned (3/5,4/5) about (1,1); conformity check
+shared triangles 48 conform ok True boundary triangles 96
+O on boundary triangle: False
+inverted per cell [0, 32, 0, 32, 0, 32, 0, 32]
+--- coordinates
+kuhnX [('0', '0', '0'), ('1', '0', '0'), ('1', '1', '0'), ('0', '1', '0'), ('28/25', '4/25', '1'), ('21/25', '28/25', '1'), ('-3/25', '21/25', '1'), ('4/25', '-3/25', '1')]
+block top layer [(0, 0, ('6/5', '-2/5', '2')), (1, 0, ('9/5', '2/5', '2')), (2, 0, ('12/5', '6/5', '2')), (0, 1, ('2/5', '1/5', '2')), (1, 1, ('1', '1', '2')), (2, 1, ('8/5', '9/5', '2')), (0, 2, ('-2/5', '4/5', '2')), (1, 2, ('1/5', '8/5', '2')), (2, 2, ('4/5', '12/5', '2'))]
+--- replica of Lean defs
+conform True 13 on bd False
+beta-part at 13 (sum facet vectors /3 = beta): ['0', '0', '-7/10']
+kuhnX same-side product 7/25

@@ -1137,6 +1137,30 @@
       "type": "CFDLean.JST1.Spec.P6_21_3",
       "raw_type": "CFDLean.JST1.Spec.P6_21_3"
     },
+    "CFDLean.JST1.Proofs.p7_22_1": {
+      "type": "CFDLean.JST1.Spec.P7_22_1",
+      "raw_type": "CFDLean.JST1.Spec.P7_22_1"
+    },
+    "CFDLean.JST1.Proofs.p7_22_2": {
+      "type": "CFDLean.JST1.Spec.P7_22_2",
+      "raw_type": "CFDLean.JST1.Spec.P7_22_2"
+    },
+    "CFDLean.JST1.Proofs.p7_22_3": {
+      "type": "CFDLean.JST1.Spec.P7_22_3",
+      "raw_type": "CFDLean.JST1.Spec.P7_22_3"
+    },
+    "CFDLean.JST1.Proofs.p7_22_4": {
+      "type": "CFDLean.JST1.Spec.P7_22_4",
+      "raw_type": "CFDLean.JST1.Spec.P7_22_4"
+    },
+    "CFDLean.JST1.Proofs.p8_23_1": {
+      "type": "CFDLean.JST1.Spec.P8_23_1",
+      "raw_type": "CFDLean.JST1.Spec.P8_23_1"
+    },
+    "CFDLean.JST1.Proofs.p8_23_2": {
+      "type": "CFDLean.JST1.Spec.P8_23_2",
+      "raw_type": "CFDLean.JST1.Spec.P8_23_2"
+    },
     "CFDLean.MedianDual.MeshData.all_patches_boundary": {
       "type": "∀ {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming → ∀ (i : Fin n), ∑ a, M.ownedPatch a i = ∑ b, if (↑b).2 = i then M.boundaryArea b else 0",
       "raw_type": "∀ {n m : Nat} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming →\n    ∀ (i : Fin n),\n      Eq (Finset.univ.sum fun a => M.ownedPatch a i)\n        (Finset.univ.sum fun b => ite (Eq b.val.2 i) (M.boundaryArea b) (OfNat.ofNat 0))"

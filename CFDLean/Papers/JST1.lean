@@ -31,6 +31,11 @@ import CFDLean.Papers.JST1.Proofs.Item19
 import CFDLean.Papers.JST1.Proofs.Item2Euler
 import CFDLean.Papers.JST1.Proofs.Item20
 import CFDLean.Papers.JST1.Proofs.Item21
+import CFDLean.Papers.JST1.Proofs.Item22
+import CFDLean.Papers.JST1.Proofs.Item23
+import CFDLean.Papers.JST1.Proofs.Item23Base
+import CFDLean.Papers.JST1.Proofs.Item23Conf
+import CFDLean.Papers.JST1.Proofs.Item23Sum
 import CFDLean.Papers.JST1.Proofs.Item2Generic
 import CFDLean.Papers.JST1.Proofs.Item3
 import CFDLean.Papers.JST1.Proofs.Item6
@@ -60,6 +65,8 @@ import CFDLean.Papers.JST1.Spec.Item19
 import CFDLean.Papers.JST1.Spec.Item2
 import CFDLean.Papers.JST1.Spec.Item20
 import CFDLean.Papers.JST1.Spec.Item21
+import CFDLean.Papers.JST1.Spec.Item22
+import CFDLean.Papers.JST1.Spec.Item23
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
 import CFDLean.Papers.JST1.Spec.Item5

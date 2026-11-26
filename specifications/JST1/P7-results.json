@@ -1,0 +1,37 @@
+{
+  "specification": "specifications/JST1/P7.md",
+  "frozen_hashes": "specifications/JST1/frozen.sha256",
+  "source": {
+    "repository": "CFD_Lean",
+    "branch": "jst1-work",
+    "note": "P7 was written directly in CFD_Lean (not folded from JST_Paper_Lean)"
+  },
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "bindings": {
+    "P7-22.1": {
+      "statement": "CFDLean.JST1.Spec.P7_22_1",
+      "theorem": "CFDLean.JST1.Proofs.p7_22_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item22.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22"
+    },
+    "P7-22.2": {
+      "statement": "CFDLean.JST1.Spec.P7_22_2",
+      "theorem": "CFDLean.JST1.Proofs.p7_22_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item22.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22"
+    },
+    "P7-22.3": {
+      "statement": "CFDLean.JST1.Spec.P7_22_3",
+      "theorem": "CFDLean.JST1.Proofs.p7_22_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item22.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22"
+    },
+    "P7-22.4": {
+      "statement": "CFDLean.JST1.Spec.P7_22_4",
+      "theorem": "CFDLean.JST1.Proofs.p7_22_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item22.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item22"
+    }
+  }
+}
