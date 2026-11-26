@@ -223,6 +223,8 @@
     "CFDLean.Entropy.Scalar.Controls",
     "CFDLean.Entropy.Scalar.Periodic",
     "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.MusclKernel",
+    "CFDLean.Exec.MusclRefinement",
     "CFDLean.Exec.RealScalar",
     "CFDLean.Exec.Refinement",
     "CFDLean.Foundations.Basic",
@@ -346,6 +348,8 @@
     "CFDLean.Verification.BurgersB4Verify",
     "CFDLean.Verification.BurgersE0Challenge",
     "CFDLean.Verification.BurgersE0Verify",
+    "CFDLean.Verification.BurgersE0bChallenge",
+    "CFDLean.Verification.BurgersE0bVerify",
     "CFDLean.Verification.JST1Verify",
     "Integrity"
   ],
@@ -355,14 +359,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 4022,
+    "roots": 4109,
     "unsafe_reached": [],
-    "visited": 59712
+    "visited": 59799
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "a5fc5c293c8b4f3579f386d09678181d4f201c53cec9ccab1649d561f1939505"
+      "sha256": "725a2bc17602abaf9320155462c4926de01cf615f0a22eae62940271ef5c4258"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -427,6 +431,14 @@
     "CFDLean.Exec.Kernel": {
       "path": "CFDLean/Exec/Kernel.lean",
       "sha256": "5a01cf45d28ff448ef4a9e823d5c9c6ebb23819ebea49045139b953b90b692ac"
+    },
+    "CFDLean.Exec.MusclKernel": {
+      "path": "CFDLean/Exec/MusclKernel.lean",
+      "sha256": "adf7819d7da436a969a52c76443f61b2661691da03f2d8dd7086f8aa9acac380"
+    },
+    "CFDLean.Exec.MusclRefinement": {
+      "path": "CFDLean/Exec/MusclRefinement.lean",
+      "sha256": "938b26b7a08d6bc5c2e0950b369a67c27834feef2a1b8ed2667d8ef7ef68726f"
     },
     "CFDLean.Exec.RealScalar": {
       "path": "CFDLean/Exec/RealScalar.lean",
@@ -919,6 +931,14 @@
     "CFDLean.Verification.BurgersE0Verify": {
       "path": "CFDLean/Verification/BurgersE0Verify.lean",
       "sha256": "b323056a3f1a8fe6aed634b0f504a7dea3584724350b83697970d2908911739c"
+    },
+    "CFDLean.Verification.BurgersE0bChallenge": {
+      "path": "CFDLean/Verification/BurgersE0bChallenge.lean",
+      "sha256": "ef7da3d912c415d2af27405a5b3172f8eb8a133eaaabb680435f88411813b5af"
+    },
+    "CFDLean.Verification.BurgersE0bVerify": {
+      "path": "CFDLean/Verification/BurgersE0bVerify.lean",
+      "sha256": "1608bdbe24466fa460d3e20c10bf9e4b2beb16ad906f12938069b77c4caf5167"
     },
     "CFDLean.Verification.JST1Verify": {
       "path": "CFDLean/Verification/JST1Verify.lean",
@@ -11921,6 +11941,40 @@
       "type": "\u2200 {n : \u2115} (a : Array \u211d) (u : Fin n \u2192 \u211d), a.size = n \u2192 \u2200 (i : Fin n), \u2191i < a.size",
       "unsafe": false
     },
+    "CFDLean.Exec.Represents.get": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Represents.getElem_eq",
+        "CFDLean.Exec.Represents.get._proof_1",
+        "CFDLean.Exec.Represents"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.Represents.get",
+      "raw_type": "\u2200 {n : Nat} {a : Array Real} {u : Fin n \u2192 Real} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  Eq (getElem a j \u22ef) (u (Fin.cast \u22ef j))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} {a : Array \u211d} {u : Fin n \u2192 \u211d} (h : CFDLean.Exec.Represents a u) (j : Fin a.size), a[j] = u (Fin.cast \u22ef j)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.Represents.get._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.Represents.get._proof_1",
+      "raw_type": "\u2200 {a : Array Real} (j : Fin a.size), Not (LT.lt j.val a.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {a : Array \u211d} (j : Fin a.size), \u00ac\u2191j < a.size \u2192 False",
+      "unsafe": false
+    },
     "CFDLean.Exec.Represents.getElem_eq": {
       "axioms": [
         "propext",
@@ -12062,6 +12116,60 @@
       "root": true,
       "type": "{\u03b1 : Type} \u2192 [self : CFDLean.Exec.Scalar \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 \u03b1",
       "unsafe": false
+    },
+    "CFDLean.Exec.Scalar.min": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.max"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.Scalar.min",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.Scalar.min._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.Scalar.min._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.Scalar.minmod": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.min",
+        "CFDLean.Exec.Scalar.max",
+        "CFDLean.Exec.Scalar.toZero"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.Scalar.minmod",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.Scalar.minmod._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.Scalar.minmod._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
     },
     "CFDLean.Exec.Scalar.mk": {
       "axioms": [],
@@ -12814,6 +12922,222 @@
       "type": "\u2200 (dx dt : \u211d) (a : Array \u211d), (CFDLean.Exec.eulerStepArray dx dt a).size = a.size",
       "unsafe": false
     },
+    "CFDLean.Exec.faceMinus": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Scalar.toSub"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.faceMinus",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 (u : Array \u03b1) \u2192 Fin u.size \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.faceMinus._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.faceMinus._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.faceMinus._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.faceMinus._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.faceMinus._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.faceMinus._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.faceMinus.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.faceMinus",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Scalar.toSub"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.faceMinus.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (u : Array \u03b1) (i : Fin u.size),\n  Eq (CFDLean.Exec.faceMinus u i)\n    (HSub.hSub (getElem u i \u22ef) (HDiv.hDiv (CFDLean.Exec.slopeAt u i) CFDLean.Exec.Scalar.two))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (u : Array \u03b1) (i : Fin u.size),\n  CFDLean.Exec.faceMinus u i = u[i] - CFDLean.Exec.slopeAt u i / CFDLean.Exec.Scalar.two",
+      "unsafe": false
+    },
+    "CFDLean.Exec.faceMinus_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.faceMinus",
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Exec.slopeAt_eq",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.Represents.get",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.faceMinus_eq",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] {a : Array Real} {u : Fin n \u2192 Real} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  Eq (CFDLean.Exec.faceMinus a j)\n    (CFDLean.Scalar.FiniteVolume.rightState (CFDLean.Exec.finGrid n) CFDLean.Scalar.FiniteVolume.minmod u\n      ((CFDLean.Exec.finGrid n).prev (Fin.cast \u22ef j)))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] {a : Array \u211d} {u : Fin n \u2192 \u211d} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  CFDLean.Exec.faceMinus a j =\n    CFDLean.Scalar.FiniteVolume.rightState (CFDLean.Exec.finGrid n) CFDLean.Scalar.FiniteVolume.minmod u\n      ((CFDLean.Exec.finGrid n).prev (Fin.cast \u22ef j))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.facePlus": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.Scalar.toDiv"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.facePlus",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 (u : Array \u03b1) \u2192 Fin u.size \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.facePlus._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.facePlus._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.facePlus._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.facePlus._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.facePlus._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.facePlus._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.facePlus.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.facePlus"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.facePlus.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (u : Array \u03b1) (i : Fin u.size),\n  Eq (CFDLean.Exec.facePlus u i)\n    (HAdd.hAdd (getElem u i \u22ef) (HDiv.hDiv (CFDLean.Exec.slopeAt u i) CFDLean.Exec.Scalar.two))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (u : Array \u03b1) (i : Fin u.size),\n  CFDLean.Exec.facePlus u i = u[i] + CFDLean.Exec.slopeAt u i / CFDLean.Exec.Scalar.two",
+      "unsafe": false
+    },
+    "CFDLean.Exec.facePlus_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.slopeAt_eq",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Represents.get",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Exec.facePlus"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.facePlus_eq",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] {a : Array Real} {u : Fin n \u2192 Real} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  Eq (CFDLean.Exec.facePlus a j)\n    (CFDLean.Scalar.FiniteVolume.leftState (CFDLean.Exec.finGrid n) CFDLean.Scalar.FiniteVolume.minmod u (Fin.cast \u22ef j))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] {a : Array \u211d} {u : Fin n \u2192 \u211d} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  CFDLean.Exec.facePlus a j =\n    CFDLean.Scalar.FiniteVolume.leftState (CFDLean.Exec.finGrid n) CFDLean.Scalar.FiniteVolume.minmod u (Fin.cast \u22ef j)",
+      "unsafe": false
+    },
     "CFDLean.Exec.finGrid": {
       "axioms": [
         "propext",
@@ -13436,6 +13760,529 @@
       "type": null,
       "unsafe": null
     },
+    "CFDLean.Exec.min_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.min",
+        "CFDLean.Exec.instScalarReal"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.min_eq",
+      "raw_type": "\u2200 (a b : Real), Eq (CFDLean.Exec.Scalar.min a b) (min a b)",
+      "root": true,
+      "type": "\u2200 (a b : \u211d), CFDLean.Exec.Scalar.min a b = min a b",
+      "unsafe": false
+    },
+    "CFDLean.Exec.minmod_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.min",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Exec.min_eq"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.minmod_eq",
+      "raw_type": "\u2200 (a b : Real), Eq (CFDLean.Exec.Scalar.minmod a b) (CFDLean.Scalar.FiniteVolume.minmod a b)",
+      "root": true,
+      "type": "\u2200 (a b : \u211d), CFDLean.Exec.Scalar.minmod a b = CFDLean.Scalar.FiniteVolume.minmod a b",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclEulerStepArray": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.faceMinus",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.facePlus"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclEulerStepArray",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclEulerStepArray._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclEulerStepArray._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.musclEulerStepArray._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclEulerStepArray._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.musclEulerStepArray._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclEulerStepArray._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.musclEulerStepArray.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.faceMinus",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.facePlus"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclEulerStepArray.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  Eq (CFDLean.Exec.musclEulerStepArray dx dt u)\n    (Array.ofFn fun i =>\n      HAdd.hAdd (getElem u i \u22ef)\n        (HMul.hMul dt\n          (HDiv.hDiv\n            (Neg.neg\n              (HSub.hSub\n                (CFDLean.Exec.Scalar.rusanov (CFDLean.Exec.facePlus u i)\n                  (CFDLean.Exec.faceMinus u (CFDLean.Exec.nextIdx i)))\n                (CFDLean.Exec.Scalar.rusanov (CFDLean.Exec.facePlus u (CFDLean.Exec.prevIdx i))\n                  (CFDLean.Exec.faceMinus u i))))\n            dx)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  CFDLean.Exec.musclEulerStepArray dx dt u =\n    Array.ofFn fun i =>\n      u[i] +\n        dt *\n          (-(CFDLean.Exec.Scalar.rusanov (CFDLean.Exec.facePlus u i)\n                  (CFDLean.Exec.faceMinus u (CFDLean.Exec.nextIdx i)) -\n                CFDLean.Exec.Scalar.rusanov (CFDLean.Exec.facePlus u (CFDLean.Exec.prevIdx i))\n                  (CFDLean.Exec.faceMinus u i)) /\n            dx)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclEulerStepArray_refinedBy": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.RefinedBy",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclEulerStepArray_refines",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.musclEulerStepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclEulerStepArray_refinedBy",
+      "raw_type": "\u2200 (dx dt : Real),\n  CFDLean.Exec.RefinedBy (CFDLean.Exec.musclEulerStepArray dx dt) fun n x =>\n    CFDLean.Burgers.Rusanov.musclEulerStep (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d),\n  CFDLean.Exec.RefinedBy (CFDLean.Exec.musclEulerStepArray dx dt) fun n x =>\n    CFDLean.Burgers.Rusanov.musclEulerStep (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclEulerStepArray_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.faceMinus",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.rusanov_eq",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.nextIdx_cast",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Periodic.Grid.prev_next",
+        "CFDLean.Exec.facePlus_eq",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.Represents._proof_1",
+        "CFDLean.Exec.Represents.get",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Exec.faceMinus_eq",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Exec.facePlus",
+        "CFDLean.Exec.prevIdx_cast"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclEulerStepArray_refines",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (dx dt : Real) {a : Array Real} {u : Fin n \u2192 Real},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.Represents (CFDLean.Exec.musclEulerStepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.musclEulerStep (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (dx dt : \u211d) {a : Array \u211d} {u : Fin n \u2192 \u211d},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.Represents (CFDLean.Exec.musclEulerStepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.musclEulerStep (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclEulerStepArray_size": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.faceMinus",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.facePlus"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclEulerStepArray_size",
+      "raw_type": "\u2200 (dx dt : Real) (a : Array Real), Eq (CFDLean.Exec.musclEulerStepArray dx dt a).size a.size",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d) (a : Array \u211d), (CFDLean.Exec.musclEulerStepArray dx dt a).size = a.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk2StepArray": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.musclEulerStepArray"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclSsprk2StepArray",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk2StepArray._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclSsprk2StepArray._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.musclSsprk2StepArray.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.musclSsprk2StepArray",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.musclEulerStepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk2StepArray.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  Eq (CFDLean.Exec.musclSsprk2StepArray dx dt u)\n    (CFDLean.Exec.axpby CFDLean.Exec.Scalar.half u CFDLean.Exec.Scalar.half\n      (CFDLean.Exec.musclEulerStepArray dx dt (CFDLean.Exec.musclEulerStepArray dx dt u)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  CFDLean.Exec.musclSsprk2StepArray dx dt u =\n    CFDLean.Exec.axpby CFDLean.Exec.Scalar.half u CFDLean.Exec.Scalar.half\n      (CFDLean.Exec.musclEulerStepArray dx dt (CFDLean.Exec.musclEulerStepArray dx dt u))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk2StepArray_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclEulerStepArray_refines",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step",
+        "CFDLean.Exec.musclSsprk2StepArray",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.axpby_refines"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk2StepArray_refines",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (dx dt : Real) {a : Array Real} {u : Fin n \u2192 Real},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.Represents (CFDLean.Exec.musclSsprk2StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.musclSsprk2Step (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (dx dt : \u211d) {a : Array \u211d} {u : Fin n \u2192 \u211d},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.Represents (CFDLean.Exec.musclSsprk2StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.musclSsprk2Step (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk2StepArray_size": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclSsprk2StepArray",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.musclEulerStepArray_size",
+        "CFDLean.Exec.axpby_size"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk2StepArray_size",
+      "raw_type": "\u2200 (dx dt : Real) (a : Array Real), Eq (CFDLean.Exec.musclSsprk2StepArray dx dt a).size a.size",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d) (a : Array \u211d), (CFDLean.Exec.musclSsprk2StepArray dx dt a).size = a.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk3StepArray": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.third",
+        "CFDLean.Exec.Scalar.twoThirds",
+        "CFDLean.Exec.Scalar.quarter",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.Scalar.threeQuarters",
+        "CFDLean.Exec.musclEulerStepArray"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclSsprk3StepArray",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk3StepArray._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.musclSsprk3StepArray._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.musclSsprk3StepArray.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.third",
+        "CFDLean.Exec.Scalar.twoThirds",
+        "CFDLean.Exec.Scalar.quarter",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Exec.Scalar.threeQuarters",
+        "CFDLean.Exec.musclEulerStepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk3StepArray.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  Eq (CFDLean.Exec.musclSsprk3StepArray dx dt u)\n    (CFDLean.Exec.axpby CFDLean.Exec.Scalar.third u CFDLean.Exec.Scalar.twoThirds\n      (CFDLean.Exec.musclEulerStepArray dx dt\n        (CFDLean.Exec.axpby CFDLean.Exec.Scalar.threeQuarters u CFDLean.Exec.Scalar.quarter\n          (CFDLean.Exec.musclEulerStepArray dx dt (CFDLean.Exec.musclEulerStepArray dx dt u)))))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  CFDLean.Exec.musclSsprk3StepArray dx dt u =\n    CFDLean.Exec.axpby CFDLean.Exec.Scalar.third u CFDLean.Exec.Scalar.twoThirds\n      (CFDLean.Exec.musclEulerStepArray dx dt\n        (CFDLean.Exec.axpby CFDLean.Exec.Scalar.threeQuarters u CFDLean.Exec.Scalar.quarter\n          (CFDLean.Exec.musclEulerStepArray dx dt (CFDLean.Exec.musclEulerStepArray dx dt u))))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk3StepArray_refinedBy": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Exec.musclSsprk3StepArray_refines",
+        "CFDLean.Exec.RefinedBy",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclSsprk3StepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk3StepArray_refinedBy",
+      "raw_type": "\u2200 (dx dt : Real),\n  CFDLean.Exec.RefinedBy (CFDLean.Exec.musclSsprk3StepArray dx dt) fun n x =>\n    CFDLean.Burgers.Rusanov.musclSsprk3Step (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d),\n  CFDLean.Exec.RefinedBy (CFDLean.Exec.musclSsprk3StepArray dx dt) fun n x =>\n    CFDLean.Burgers.Rusanov.musclSsprk3Step (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk3StepArray_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Exec.Scalar.third",
+        "CFDLean.Exec.Scalar.twoThirds",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Exec.Scalar.quarter",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclEulerStepArray_refines",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.Scalar.threeQuarters",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Time.SSP.ssprk3._proof_2",
+        "CFDLean.Exec.axpby_refines"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk3StepArray_refines",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (dx dt : Real) {a : Array Real} {u : Fin n \u2192 Real},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.Represents (CFDLean.Exec.musclSsprk3StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.musclSsprk3Step (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (dx dt : \u211d) {a : Array \u211d} {u : Fin n \u2192 \u211d},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.Represents (CFDLean.Exec.musclSsprk3StepArray dx dt a)\n      (CFDLean.Burgers.Rusanov.musclSsprk3Step (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.musclSsprk3StepArray_size": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.third",
+        "CFDLean.Exec.Scalar.twoThirds",
+        "CFDLean.Exec.Scalar.quarter",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Exec.Scalar.threeQuarters",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.musclEulerStepArray_size",
+        "CFDLean.Exec.axpby_size"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.musclSsprk3StepArray_size",
+      "raw_type": "\u2200 (dx dt : Real) (a : Array Real), Eq (CFDLean.Exec.musclSsprk3StepArray dx dt a).size a.size",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d) (a : Array \u211d), (CFDLean.Exec.musclSsprk3StepArray dx dt a).size = a.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.nextIdx": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.succ_mod_lt"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.nextIdx",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 Fin n \u2192 Fin n",
+      "unsafe": false
+    },
+    "CFDLean.Exec.nextIdx._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.nextIdx._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.nextIdx.eq_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.succ_mod_lt"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.nextIdx.eq_1",
+      "raw_type": "\u2200 {n : Nat} (i : Fin n), Eq (CFDLean.Exec.nextIdx i) \u27e8HMod.hMod (HAdd.hAdd i.val (OfNat.ofNat 1)) n, \u22ef\u27e9",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (i : Fin n), CFDLean.Exec.nextIdx i = \u27e8(\u2191i + 1) % n, \u22ef\u27e9",
+      "unsafe": false
+    },
+    "CFDLean.Exec.nextIdx_cast": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.succ_mod_lt",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Exec.finGrid_next_val"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.nextIdx_cast",
+      "raw_type": "\u2200 {m n : Nat} [inst : NeZero n] (hs : Eq m n) (j : Fin m),\n  Eq (Fin.cast hs (CFDLean.Exec.nextIdx j)) (DFunLike.coe (CFDLean.Exec.finGrid n).next (Fin.cast hs j))",
+      "root": true,
+      "type": "\u2200 {m n : \u2115} [inst : NeZero n] (hs : m = n) (j : Fin m),\n  Fin.cast hs (CFDLean.Exec.nextIdx j) = (CFDLean.Exec.finGrid n).next (Fin.cast hs j)",
+      "unsafe": false
+    },
     "CFDLean.Exec.pred_mod_lt": {
       "axioms": [],
       "direct": [],
@@ -13445,6 +14292,64 @@
       "raw_type": "\u2200 {n : Nat} (i : Fin n), LT.lt (HMod.hMod (HSub.hSub (HAdd.hAdd i.val n) (OfNat.ofNat 1)) n) n",
       "root": true,
       "type": "\u2200 {n : \u2115} (i : Fin n), (\u2191i + n - 1) % n < n",
+      "unsafe": false
+    },
+    "CFDLean.Exec.prevIdx": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.pred_mod_lt"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.prevIdx",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 Fin n \u2192 Fin n",
+      "unsafe": false
+    },
+    "CFDLean.Exec.prevIdx._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.prevIdx._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.prevIdx.eq_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.pred_mod_lt",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.prevIdx.eq_1",
+      "raw_type": "\u2200 {n : Nat} (i : Fin n), Eq (CFDLean.Exec.prevIdx i) \u27e8HMod.hMod (HSub.hSub (HAdd.hAdd i.val n) (OfNat.ofNat 1)) n, \u22ef\u27e9",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (i : Fin n), CFDLean.Exec.prevIdx i = \u27e8(\u2191i + n - 1) % n, \u22ef\u27e9",
+      "unsafe": false
+    },
+    "CFDLean.Exec.prevIdx_cast": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.finGrid_prev_val",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.pred_mod_lt",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.prevIdx_cast",
+      "raw_type": "\u2200 {m n : Nat} [inst : NeZero n] (hs : Eq m n) (j : Fin m),\n  Eq (Fin.cast hs (CFDLean.Exec.prevIdx j)) ((CFDLean.Exec.finGrid n).prev (Fin.cast hs j))",
+      "root": true,
+      "type": "\u2200 {m n : \u2115} [inst : NeZero n] (hs : m = n) (j : Fin m),\n  Fin.cast hs (CFDLean.Exec.prevIdx j) = (CFDLean.Exec.finGrid n).prev (Fin.cast hs j)",
       "unsafe": false
     },
     "CFDLean.Exec.represents_iff_eq_ofFn": {
@@ -13738,6 +14643,182 @@
       "type": "\u2200 (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      2 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 (a : Array \u211d),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : \u2115),\n              CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.eulerStepArray dx dt) k a) \u2264\n                CFDLean.Exec.totalVariationArray a",
       "unsafe": false
     },
+    "CFDLean.Exec.run_musclEulerStepArray_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Exec.run",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.musclEulerStepArray_refinedBy",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.EntriesBetween",
+        "CFDLean.Exec.musclEulerStepArray_size",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable",
+        "CFDLean.Exec.run_entriesBetween"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.run_musclEulerStepArray_bounds",
+      "raw_type": "\u2200 (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : Nat), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.musclEulerStepArray dx dt) k a)",
+      "root": true,
+      "type": "\u2200 (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 (a : Array \u211d),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : \u2115), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.musclEulerStepArray dx dt) k a)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.run_musclEulerStepArray_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_sum",
+        "CFDLean.Exec.sumArray",
+        "CFDLean.Exec.run_sumArray",
+        "CFDLean.Exec.run",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.musclEulerStepArray_refinedBy",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.musclEulerStepArray_size"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.run_musclEulerStepArray_sum",
+      "raw_type": "\u2200 (dx dt : Real),\n  Ne dx (OfNat.ofNat 0) \u2192\n    \u2200 (a : Array Real) (k : Nat),\n      Eq (CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.musclEulerStepArray dx dt) k a))\n        (CFDLean.Exec.sumArray a)",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d),\n  dx \u2260 0 \u2192\n    \u2200 (a : Array \u211d) (k : \u2115),\n      CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.musclEulerStepArray dx dt) k a) = CFDLean.Exec.sumArray a",
+      "unsafe": false
+    },
+    "CFDLean.Exec.run_musclEulerStepArray_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Exec.run",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.totalVariationArray",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.musclEulerStepArray_refinedBy",
+        "CFDLean.Exec.run_totalVariationArray_le",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Exec.EntriesBetween",
+        "CFDLean.Exec.musclEulerStepArray_size",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.run_musclEulerStepArray_totalVariation_le",
+      "raw_type": "\u2200 (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : Nat),\n              LE.le (CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.musclEulerStepArray dx dt) k a))\n                (CFDLean.Exec.totalVariationArray a)",
+      "root": true,
+      "type": "\u2200 (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 (a : Array \u211d),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : \u2115),\n              CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.musclEulerStepArray dx dt) k a) \u2264\n                CFDLean.Exec.totalVariationArray a",
+      "unsafe": false
+    },
+    "CFDLean.Exec.run_musclSsprk3StepArray_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Exec.musclSsprk3StepArray_refinedBy",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Exec.run",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Exec.musclSsprk3StepArray_size",
+        "CFDLean.Exec.EntriesBetween",
+        "CFDLean.Exec.run_entriesBetween"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.run_musclSsprk3StepArray_bounds",
+      "raw_type": "\u2200 (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : Nat),\n              CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.musclSsprk3StepArray dx dt) k a)",
+      "root": true,
+      "type": "\u2200 (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 (a : Array \u211d),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : \u2115), CFDLean.Exec.EntriesBetween m M (CFDLean.Exec.run (CFDLean.Exec.musclSsprk3StepArray dx dt) k a)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.run_musclSsprk3StepArray_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Exec.musclSsprk3StepArray_refinedBy",
+        "CFDLean.Exec.sumArray",
+        "CFDLean.Exec.run_sumArray",
+        "CFDLean.Exec.run",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Exec.musclSsprk3StepArray_size",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_sum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.run_musclSsprk3StepArray_sum",
+      "raw_type": "\u2200 (dx dt : Real),\n  Ne dx (OfNat.ofNat 0) \u2192\n    \u2200 (a : Array Real) (k : Nat),\n      Eq (CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.musclSsprk3StepArray dx dt) k a))\n        (CFDLean.Exec.sumArray a)",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211d),\n  dx \u2260 0 \u2192\n    \u2200 (a : Array \u211d) (k : \u2115),\n      CFDLean.Exec.sumArray (CFDLean.Exec.run (CFDLean.Exec.musclSsprk3StepArray dx dt) k a) = CFDLean.Exec.sumArray a",
+      "unsafe": false
+    },
+    "CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Scalar.FiniteVolume.totalVariation",
+        "CFDLean.Exec.musclSsprk3StepArray_refinedBy",
+        "CFDLean.Scalar.FiniteVolume.minmod_minmodBounded",
+        "CFDLean.Scalar.FiniteVolume.boundedStates",
+        "CFDLean.Exec.run",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.totalVariationArray",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Exec.musclSsprk3StepArray_size",
+        "CFDLean.Exec.run_totalVariationArray_le",
+        "CFDLean.Exec.EntriesBetween"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le",
+      "raw_type": "\u2200 (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      LE.le (HMul.hMul (OfNat.ofNat 6) (HMul.hMul dt (max (abs m) (abs M)))) dx \u2192\n        \u2200 (a : Array Real),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : Nat),\n              LE.le (CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.musclSsprk3StepArray dx dt) k a))\n                (CFDLean.Exec.totalVariationArray a)",
+      "root": true,
+      "type": "\u2200 (dx dt m M : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      6 * (dt * max |m| |M|) \u2264 dx \u2192\n        \u2200 (a : Array \u211d),\n          CFDLean.Exec.EntriesBetween m M a \u2192\n            \u2200 (k : \u2115),\n              CFDLean.Exec.totalVariationArray (CFDLean.Exec.run (CFDLean.Exec.musclSsprk3StepArray dx dt) k a) \u2264\n                CFDLean.Exec.totalVariationArray a",
+      "unsafe": false
+    },
     "CFDLean.Exec.run_refines": {
       "axioms": [
         "propext",
@@ -13988,6 +15069,218 @@
       "raw_type": "\u2200 {m M : Real} {a : Array Real},\n  CFDLean.Exec.EntriesBetween m M a \u2192\n    Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) fun i => getElem a i \u22ef",
       "root": true,
       "type": "\u2200 {m M : \u211d} {a : Array \u211d},\n  CFDLean.Exec.EntriesBetween m M a \u2192 (fun i => a[i]) \u2208 CFDLean.Scalar.FiniteVolume.boundedStates m M",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.slopeAt._proof_6",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.slopeAt._proof_5"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 (u : Array \u03b1) \u2192 Fin u.size \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.slopeAt._proof_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._proof_1",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), Not (LT.lt i.val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), \u00ac\u2191i < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._proof_2": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._proof_2",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), Not (LT.lt (CFDLean.Exec.prevIdx i).val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), \u00ac\u2191(CFDLean.Exec.prevIdx i) < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._proof_3": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._proof_3",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), Not (LT.lt (CFDLean.Exec.nextIdx i).val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), \u00ac\u2191(CFDLean.Exec.nextIdx i) < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._proof_4": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.slopeAt._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._proof_4",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), LT.lt i.val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), \u2191i < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._proof_5": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.slopeAt._proof_2",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._proof_5",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), LT.lt (CFDLean.Exec.prevIdx i).val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), \u2191(CFDLean.Exec.prevIdx i) < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._proof_6": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._proof_6",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), LT.lt (CFDLean.Exec.nextIdx i).val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array \u03b1) (i : Fin u.size), \u2191(CFDLean.Exec.nextIdx i) < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.slopeAt._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.MusclKernel",
+      "name": "CFDLean.Exec.slopeAt._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.slopeAt.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.slopeAt._proof_6",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.slopeAt._proof_5"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.slopeAt.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (u : Array \u03b1) (i : Fin u.size),\n  Eq (CFDLean.Exec.slopeAt u i)\n    (CFDLean.Exec.Scalar.minmod (HSub.hSub (getElem u i \u22ef) (getElem u (CFDLean.Exec.prevIdx i) \u22ef))\n      (HSub.hSub (getElem u (CFDLean.Exec.nextIdx i) \u22ef) (getElem u i \u22ef)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (u : Array \u03b1) (i : Fin u.size),\n  CFDLean.Exec.slopeAt u i =\n    CFDLean.Exec.Scalar.minmod (u[i] - u[CFDLean.Exec.prevIdx i]) (u[CFDLean.Exec.nextIdx i] - u[i])",
+      "unsafe": false
+    },
+    "CFDLean.Exec.slopeAt_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.slopeAt._proof_4",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.slopeAt",
+        "CFDLean.Exec.Represents.get._proof_1",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.minmod_eq",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.nextIdx_cast",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.slopeAt._proof_6",
+        "CFDLean.Exec.Represents.get",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Exec.slopeAt._proof_5",
+        "CFDLean.Exec.prevIdx_cast"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "name": "CFDLean.Exec.slopeAt_eq",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] {a : Array Real} {u : Fin n \u2192 Real} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  Eq (CFDLean.Exec.slopeAt a j)\n    (CFDLean.Scalar.FiniteVolume.slope (CFDLean.Exec.finGrid n) CFDLean.Scalar.FiniteVolume.minmod u (Fin.cast \u22ef j))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] {a : Array \u211d} {u : Fin n \u2192 \u211d} (h : CFDLean.Exec.Represents a u) (j : Fin a.size),\n  CFDLean.Exec.slopeAt a j =\n    CFDLean.Scalar.FiniteVolume.slope (CFDLean.Exec.finGrid n) CFDLean.Scalar.FiniteVolume.minmod u (Fin.cast \u22ef j)",
       "unsafe": false
     },
     "CFDLean.Exec.ssprk2StepArray": {
@@ -90686,6 +91979,785 @@
       "type": "CFDLean.Verification.BurgersE0Challenge.TotalVariationDiagnostic",
       "unsafe": false
     },
+    "CFDLean.Verification.BurgersE0bChallenge.EntriesBetween": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.EntriesBetween",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 Array \u211d \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.KernelMinmodIsMinmod": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Verification.BurgersE0bChallenge.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.KernelMinmodIsMinmod",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclEulerStepRefines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclEulerStepRefines",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.EntriesBetween",
+        "CFDLean.Exec.run",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 5) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(5 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunRefines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.ssprk3",
+        "CFDLean.Exec.run",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunRefines",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunSum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.sumArray",
+        "CFDLean.Exec.run",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclSsprk3StepArray"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunSum",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunTotalVariation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.EntriesBetween",
+        "CFDLean.Exec.run",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.totalVariationArray",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunTotalVariation",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3StepRefines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.ssprk3",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3StepRefines",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.Represents": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.Represents",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 Array \u211d \u2192 (Fin n \u2192 \u211d) \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.burgersFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.burgersFlux",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.burgersFlux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.burgersFlux.eq_1",
+      "raw_type": "\u2200 (u : Real),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.burgersFlux u) (HDiv.hDiv (HPow.hPow u (OfNat.ofNat 2)) (OfNat.ofNat 2))",
+      "root": true,
+      "type": "\u2200 (u : \u211d), CFDLean.Verification.BurgersE0bChallenge.burgersFlux u = u ^ 2 / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.faceMinus": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.slope"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.faceMinus",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 [NeZero n] \u2192 (Fin n \u2192 \u211d) \u2192 Fin n \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.faceMinus.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.faceMinus",
+        "CFDLean.Verification.BurgersE0bChallenge.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.faceMinus.eq_1",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (u : Fin n \u2192 Real) (i : Fin n),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.faceMinus u i)\n    (HSub.hSub (u i) (HDiv.hDiv (CFDLean.Verification.BurgersE0bChallenge.slope u i) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (u : Fin n \u2192 \u211d) (i : Fin n),\n  CFDLean.Verification.BurgersE0bChallenge.faceMinus u i = u i - CFDLean.Verification.BurgersE0bChallenge.slope u i / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.facePlus": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.slope"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.facePlus",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 [NeZero n] \u2192 (Fin n \u2192 \u211d) \u2192 Fin n \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.facePlus.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.facePlus",
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.facePlus.eq_1",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (u : Fin n \u2192 Real) (i : Fin n),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.facePlus u i)\n    (HAdd.hAdd (u i) (HDiv.hDiv (CFDLean.Verification.BurgersE0bChallenge.slope u i) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (u : Fin n \u2192 \u211d) (i : Fin n),\n  CFDLean.Verification.BurgersE0bChallenge.facePlus u i = u i + CFDLean.Verification.BurgersE0bChallenge.slope u i / 2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.minmod": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.minmod",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.facePlus",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanov",
+        "CFDLean.Verification.BurgersE0bChallenge.faceMinus"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 [NeZero n] \u2192 \u211d \u2192 \u211d \u2192 (Fin n \u2192 \u211d) \u2192 Fin n \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.facePlus",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanov",
+        "CFDLean.Verification.BurgersE0bChallenge.faceMinus"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep.eq_1",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (dx dt : Real) (u : Fin n \u2192 Real) (i : Fin n),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.musclEulerStep dx dt u i)\n    (HAdd.hAdd (u i)\n      (HMul.hMul dt\n        (HDiv.hDiv\n          (Neg.neg\n            (HSub.hSub\n              (CFDLean.Verification.BurgersE0bChallenge.rusanov (CFDLean.Verification.BurgersE0bChallenge.facePlus u i)\n                (CFDLean.Verification.BurgersE0bChallenge.faceMinus u (HAdd.hAdd i (OfNat.ofNat 1))))\n              (CFDLean.Verification.BurgersE0bChallenge.rusanov\n                (CFDLean.Verification.BurgersE0bChallenge.facePlus u (HSub.hSub i (OfNat.ofNat 1)))\n                (CFDLean.Verification.BurgersE0bChallenge.faceMinus u i))))\n          dx)))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (dx dt : \u211d) (u : Fin n \u2192 \u211d) (i : Fin n),\n  CFDLean.Verification.BurgersE0bChallenge.musclEulerStep dx dt u i =\n    u i +\n      dt *\n        (-(CFDLean.Verification.BurgersE0bChallenge.rusanov (CFDLean.Verification.BurgersE0bChallenge.facePlus u i)\n                (CFDLean.Verification.BurgersE0bChallenge.faceMinus u (i + 1)) -\n              CFDLean.Verification.BurgersE0bChallenge.rusanov\n                (CFDLean.Verification.BurgersE0bChallenge.facePlus u (i - 1))\n                (CFDLean.Verification.BurgersE0bChallenge.faceMinus u i)) /\n          dx)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.rusanov": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.rusanov",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.rusanov.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanov",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.rusanov.eq_1",
+      "raw_type": "\u2200 (uL uR : Real),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.rusanov uL uR)\n    (HSub.hSub\n      (HDiv.hDiv\n        (HAdd.hAdd (CFDLean.Verification.BurgersE0bChallenge.burgersFlux uL)\n          (CFDLean.Verification.BurgersE0bChallenge.burgersFlux uR))\n        (OfNat.ofNat 2))\n      (HMul.hMul (HDiv.hDiv (CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed uL uR) (OfNat.ofNat 2))\n        (HSub.hSub uR uL)))",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d),\n  CFDLean.Verification.BurgersE0bChallenge.rusanov uL uR =\n    (CFDLean.Verification.BurgersE0bChallenge.burgersFlux uL +\n          CFDLean.Verification.BurgersE0bChallenge.burgersFlux uR) /\n        2 -\n      CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed uL uR / 2 * (uR - uL)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed.eq_1",
+      "raw_type": "\u2200 (uL uR : Real), Eq (CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed uL uR) (max (abs uL) (abs uR))",
+      "root": true,
+      "type": "\u2200 (uL uR : \u211d), CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed uL uR = max |uL| |uR|",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.slope": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.slope",
+      "raw_type": null,
+      "root": true,
+      "type": "{n : \u2115} \u2192 [NeZero n] \u2192 (Fin n \u2192 \u211d) \u2192 Fin n \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.slope.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.minmod",
+        "CFDLean.Verification.BurgersE0bChallenge.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.slope.eq_1",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (u : Fin n \u2192 Real) (i : Fin n),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.slope u i)\n    (CFDLean.Verification.BurgersE0bChallenge.minmod (HSub.hSub (u i) (u (HSub.hSub i (OfNat.ofNat 1))))\n      (HSub.hSub (u (HAdd.hAdd i (OfNat.ofNat 1))) (u i)))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (u : Fin n \u2192 \u211d) (i : Fin n),\n  CFDLean.Verification.BurgersE0bChallenge.slope u i =\n    CFDLean.Verification.BurgersE0bChallenge.minmod (u i - u (i - 1)) (u (i + 1) - u i)",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.ssprk3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.ssprk3._proof_2",
+        "CFDLean.Verification.BurgersE0bChallenge.ssprk3._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.ssprk3",
+      "raw_type": null,
+      "root": true,
+      "type": "{V : Type u_1} \u2192 [inst : AddCommGroup V] \u2192 [_root_.Module \u211d V] \u2192 (V \u2192 V) \u2192 V \u2192 V",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.ssprk3._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.ssprk3._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(2 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bChallenge.ssprk3._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "CFDLean.Verification.BurgersE0bChallenge.ssprk3._proof_2",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 3) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(3 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.kernel_minmod_is_minmod": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.KernelMinmodIsMinmod",
+        "CFDLean.Exec.minmod_eq"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.kernel_minmod_is_minmod",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.KernelMinmodIsMinmod",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.KernelMinmodIsMinmod",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.minmod_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersE0bChallenge.minmod"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.minmod_eq",
+      "raw_type": "Eq CFDLean.Verification.BurgersE0bChallenge.minmod CFDLean.Scalar.FiniteVolume.minmod",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.minmod = CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.musclEulerStep_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Verification.BurgersE0bChallenge.facePlus",
+        "CFDLean.Scalar.FiniteVolume.musclRhs",
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux._proof_1",
+        "CFDLean.Scalar.NumericalFlux.mk",
+        "CFDLean.Scalar.FiniteVolume.rightState",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanov",
+        "CFDLean.Scalar.FiniteVolume.leftState._proof_1",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed",
+        "CFDLean.Verification.BurgersE0bChallenge.burgersFlux",
+        "CFDLean.Scalar.FiniteVolume.leftState",
+        "CFDLean.Verification.BurgersE0bChallenge.minmod",
+        "CFDLean.Scalar.FiniteVolume.slope",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Burgers.Rusanov.eval._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.faceMinus",
+        "CFDLean.Scalar.FiniteVolume.musclFlux",
+        "CFDLean.Verification.BurgersE0bChallenge.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.musclEulerStep_eq",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (dx dt : Real),\n  Eq (CFDLean.Verification.BurgersE0bChallenge.musclEulerStep dx dt)\n    (CFDLean.Burgers.Rusanov.musclEulerStep (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (dx dt : \u211d),\n  CFDLean.Verification.BurgersE0bChallenge.musclEulerStep dx dt =\n    CFDLean.Burgers.Rusanov.musclEulerStep (CFDLean.Exec.finGrid n) dx dt CFDLean.Scalar.FiniteVolume.minmod",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.muscl_euler_step_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclEulerStepRefines",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclEulerStepArray_refines",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Exec.musclEulerStepArray",
+        "CFDLean.Verification.BurgersE0bVerify.musclEulerStep_eq",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents",
+        "CFDLean.Verification.BurgersE0bVerify.represents_iff"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.muscl_euler_step_refines",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.MusclEulerStepRefines",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.MusclEulerStepRefines",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_bounds": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.EntriesBetween",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds",
+        "CFDLean.Exec.run_musclSsprk3StepArray_bounds",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_bounds",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Verification.BurgersE0bChallenge.ssprk3",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step",
+        "CFDLean.Exec.musclSsprk3StepArray_refines",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunRefines",
+        "CFDLean.Exec.run",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.run_refines",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersE0bVerify.musclEulerStep_eq",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents",
+        "CFDLean.Verification.BurgersE0bVerify.represents_iff"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_refines",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunRefines",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunRefines",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.run_musclSsprk3StepArray_sum",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunSum"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_sum",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunSum",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunSum",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_total_variation": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Verification.BurgersE0bChallenge.EntriesBetween",
+        "CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunBounds._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunTotalVariation"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_total_variation",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunTotalVariation",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3RunTotalVariation",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_step_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Verification.BurgersE0bChallenge.ssprk3",
+        "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3StepRefines",
+        "CFDLean.Exec.musclSsprk3StepArray_refines",
+        "CFDLean.Verification.BurgersE0bChallenge.musclEulerStep",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.musclSsprk3StepArray",
+        "CFDLean.Burgers.Rusanov.musclEulerStep",
+        "CFDLean.Verification.BurgersE0bVerify.musclEulerStep_eq",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents",
+        "CFDLean.Verification.BurgersE0bVerify.represents_iff"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_step_refines",
+      "raw_type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3StepRefines",
+      "root": true,
+      "type": "CFDLean.Verification.BurgersE0bChallenge.MusclSSPRK3StepRefines",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.represents_iff": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Represents",
+        "CFDLean.Verification.BurgersE0bVerify.represents_iff.match_1_1",
+        "CFDLean.Exec.Represents._proof_1",
+        "CFDLean.Verification.BurgersE0bChallenge.Represents"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.represents_iff",
+      "raw_type": "\u2200 {n : Nat} (a : Array Real) (u : Fin n \u2192 Real),\n  Iff (CFDLean.Verification.BurgersE0bChallenge.Represents a u) (CFDLean.Exec.Represents a u)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (a : Array \u211d) (u : Fin n \u2192 \u211d),\n  CFDLean.Verification.BurgersE0bChallenge.Represents a u \u2194 CFDLean.Exec.Represents a u",
+      "unsafe": false
+    },
+    "CFDLean.Verification.BurgersE0bVerify.represents_iff.match_1_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.Represents._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Verification.BurgersE0bVerify",
+      "name": "CFDLean.Verification.BurgersE0bVerify.represents_iff.match_1_1",
+      "raw_type": null,
+      "root": true,
+      "type": "\u2200 {n : \u2115} (a : Array \u211d) (u : Fin n \u2192 \u211d) (motive : CFDLean.Exec.Represents a u \u2192 Prop) (x : CFDLean.Exec.Represents a u),\n  (\u2200 (hs : a.size = n) (h : \u2200 (i : Fin n), a[\u2191i] = u i), motive \u22ef) \u2192 motive x",
+      "unsafe": false
+    },
     "CFDLean.Verification.JST1Verify.p1_1_0": {
       "axioms": [
         "propext",
@@ -96385,6 +98457,17 @@
       "type": null,
       "unsafe": null
     },
+    "abs._at_.CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Verification.BurgersE0bChallenge",
+      "name": "abs._at_.CFDLean.Verification.BurgersE0bChallenge.rusanovWaveSpeed.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Mixed.Cell.X.spec_0.spec_0": {
       "axioms": [],
       "direct": [],
@@ -96508,7 +98591,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 458,
+  "catalog_entries": 472,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -96704,6 +98787,36 @@
         "CFDLean.Verification.BurgersE0Verify.total_variation_diagnostic"
       ],
       "independent_acceptance": "pending implementation review"
+    },
+    "E0b": {
+      "results": "specifications/Burgers-E0b-results.json",
+      "approved_revision": "28c996c398c0f7571619e967d6dc2d303fc5a23c",
+      "promised_theorems": [
+        "CFDLean.Exec.min_eq",
+        "CFDLean.Exec.minmod_eq",
+        "CFDLean.Exec.musclEulerStepArray_refines",
+        "CFDLean.Exec.musclEulerStepArray_size",
+        "CFDLean.Exec.musclSsprk2StepArray_refines",
+        "CFDLean.Exec.musclSsprk2StepArray_size",
+        "CFDLean.Exec.musclSsprk3StepArray_refines",
+        "CFDLean.Exec.musclSsprk3StepArray_size",
+        "CFDLean.Exec.run_musclEulerStepArray_bounds",
+        "CFDLean.Exec.run_musclEulerStepArray_sum",
+        "CFDLean.Exec.run_musclEulerStepArray_totalVariation_le",
+        "CFDLean.Exec.run_musclSsprk3StepArray_bounds",
+        "CFDLean.Exec.run_musclSsprk3StepArray_sum",
+        "CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le"
+      ],
+      "trusted_bridge_theorems": [
+        "CFDLean.Verification.BurgersE0bVerify.kernel_minmod_is_minmod",
+        "CFDLean.Verification.BurgersE0bVerify.muscl_euler_step_refines",
+        "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_bounds",
+        "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_refines",
+        "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_sum",
+        "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_total_variation",
+        "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_step_refines"
+      ],
+      "independent_acceptance": "pending implementation review"
     }
   },
   "mr_paths": "specifications/MR-paths.json",
@@ -96870,5 +98983,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 105,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 458
+  "raw_types_checked": 472
 }

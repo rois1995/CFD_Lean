@@ -175,6 +175,24 @@ status `pending`. Comparator:
 lake comparator --paranoid --config Challenges/BurgersE0.comparator.json
 ```
 
+## Burgers E0b (MUSCL array kernel)
+
+[Burgers E0b](references/Burgers-E0b.md) implements the [contract](specifications/Burgers-E0b.md) that the agent froze
+after the user chose the milestone. `CFDLean/Exec/MusclKernel.lean` is the array kernel of the MUSCL scheme with the
+minmod limiter (Forward Euler, SSPRK2, SSPRK3); the limiter is written with `max` only, so the arithmetic class of E0
+does not change. With real arithmetic the kernel computes the mathematical MUSCL scheme of B3, and the B3 results
+transfer to the arrays: bounds and total variation after `k` steps under `6 · dt · max(|m|, |M|) ≤ dx`, and the sum.
+
+```bash
+lake exe burgers1d 200 200 0.15 --muscl
+```
+
+Nothing is proved about `Float`, the driver or the compiler. 14 promised theorems, status `pending`. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersE0b.comparator.json
+```
+
 ## Development verification
 
 Lean: `leanprover/lean4:v4.19.0`. Mathlib: `c44e0c8ee63ca166450922a373c7409c5d26b00b`. Transitive dependencies are pinned in lake-manifest.json.

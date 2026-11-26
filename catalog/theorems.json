@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, E0, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, E0, E0b, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -5812,6 +5812,188 @@
       ],
       "summary": "The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field.",
       "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.musclEulerStepArray_size",
+      "id": "E0b-K",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL Euler step returns an array of the same size.",
+      "source": "specifications/Burgers-E0b-results.json E0b-K; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.musclSsprk2StepArray_size",
+      "id": "E0b-K",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL SSPRK2 step returns an array of the same size.",
+      "source": "specifications/Burgers-E0b-results.json E0b-K; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.musclSsprk3StepArray_size",
+      "id": "E0b-K",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL SSPRK3 step returns an array of the same size.",
+      "source": "specifications/Burgers-E0b-results.json E0b-K; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.min_eq",
+      "id": "E0b-L",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic the kernel min, written −max(−a, −b), is the minimum.",
+      "source": "specifications/Burgers-E0b-results.json E0b-L; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.minmod_eq",
+      "id": "E0b-L",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic the comparison-free kernel limiter max 0 (min a b) + min 0 (max a b) is the minmod limiter.",
+      "source": "specifications/Burgers-E0b-results.json E0b-L; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.musclEulerStepArray_refines",
+      "id": "E0b-S",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If an array represents u, the kernel MUSCL Euler step of the array represents the MUSCL-minmod-Rusanov Forward Euler step of u on the periodic grid Fin n.",
+      "source": "specifications/Burgers-E0b-results.json E0b-S; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.musclSsprk2StepArray_refines",
+      "id": "E0b-S",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step.",
+      "source": "specifications/Burgers-E0b-results.json E0b-S; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.musclSsprk3StepArray_refines",
+      "id": "E0b-S",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step.",
+      "source": "specifications/Burgers-E0b-results.json E0b-S; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_musclEulerStepArray_bounds",
+      "id": "E0b-T",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic, dx > 0, dt ≥ 0 and 6 · dt · max(|m|, |M|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps.",
+      "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_musclSsprk3StepArray_bounds",
+      "id": "E0b-T",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same bounds result after k kernel MUSCL SSPRK3 steps.",
+      "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_musclEulerStepArray_sum",
+      "id": "E0b-T",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries.",
+      "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_musclSsprk3StepArray_sum",
+      "id": "E0b-T",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries.",
+      "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_musclEulerStepArray_totalVariation_le",
+      "id": "E0b-T",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries.",
+      "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le",
+      "id": "E0b-T",
+      "milestone": "E0b",
+      "module": "CFDLean.Exec.MusclRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries.",
+      "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
     },
     {
       "name": "CFDLean.JST1.Proofs.p4_15_1",
