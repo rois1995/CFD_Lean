@@ -50,15 +50,17 @@ jobs:
           use-github-cache: false
           use-mathlib-cache: true
       # Integration only: reuse the compiled modules of this package from the last build of the PR or of develop.
-      # Lake rebuilds every module whose source or imports changed (content hashes), so reuse is limited to
-      # unchanged modules. Release verification never restores this cache and builds everything from scratch.
+      # Lake validates its saved build traces and rebuilds artifacts whose recorded inputs no longer match; source and
+      # import changes therefore invalidate affected modules transitively. Release verification never restores this
+      # cache and builds everything from scratch.
       - name: Restore the package build cache (integration only)
+        id: package-cache
         if: ${{ !inputs.release && steps.docs.outputs.only != 'true' }}
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
         with:
           path: .lake/build
-          key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
-          restore-keys: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+          key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
       - name: Build Burgers modules
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls CFDLean.Schemes.Burgers.LimiterControls CFDLean.Entropy.Scalar.Controls
@@ -69,11 +71,11 @@ jobs:
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake build
       - name: Save the package build cache (integration only)
-        if: ${{ !inputs.release && steps.docs.outputs.only != 'true' }}
+        if: ${{ !inputs.release && steps.docs.outputs.only != 'true' && steps.package-cache.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
         with:
           path: .lake/build
-          key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
+          key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ github.sha }}
       - name: Build and run the native Burgers executable (Float kernel, not verified arithmetic)
         if: steps.docs.outputs.only != 'true'
         run: |
