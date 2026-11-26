@@ -27,7 +27,9 @@ import CFDLean.Papers.JST1.Proofs.Item15
 import CFDLean.Papers.JST1.Proofs.Item16
 import CFDLean.Papers.JST1.Proofs.Item17
 import CFDLean.Papers.JST1.Proofs.Item18
+import CFDLean.Papers.JST1.Proofs.Item19
 import CFDLean.Papers.JST1.Proofs.Item2Euler
+import CFDLean.Papers.JST1.Proofs.Item20
 import CFDLean.Papers.JST1.Proofs.Item2Generic
 import CFDLean.Papers.JST1.Proofs.Item3
 import CFDLean.Papers.JST1.Proofs.Item6
@@ -53,7 +55,9 @@ import CFDLean.Papers.JST1.Spec.Item15
 import CFDLean.Papers.JST1.Spec.Item16
 import CFDLean.Papers.JST1.Spec.Item17
 import CFDLean.Papers.JST1.Spec.Item18
+import CFDLean.Papers.JST1.Spec.Item19
 import CFDLean.Papers.JST1.Spec.Item2
+import CFDLean.Papers.JST1.Spec.Item20
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
 import CFDLean.Papers.JST1.Spec.Item5

@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-472 promised theorems, grouped by layer.
+479 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -8,11 +8,11 @@ Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theore
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
 `specifications/M2-results.json` .. `M5-results.json`, every theorem of `specifications/MC-N-results.json`, and the
-105 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P4-results.json` (IDs `P1-x.y` .. `P4-x.y`).
+112 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P5-results.json` (IDs `P1-x.y` .. `P5-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
 independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
-JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4 statements written here (self-checked,
+JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P5 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
 **Layer** (by the mathematical object a statement is about, not by milestone or module):
@@ -59,21 +59,21 @@ that this file equals the generated text. Do not edit by hand.
 
 | Layer | Theorems | FEM | FVM | FEM + FVM | method-free |
 |---|---:|---:|---:|---:|---:|
-| Foundations | 11 | 0 | 0 | 0 | 11 |
+| Foundations | 12 | 0 | 0 | 0 | 12 |
 | Geometry | 67 | 0 | 39 | 4 | 24 |
 | Discrete operators | 62 | 10 | 34 | 18 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
-| Physics models | 89 | 0 | 0 | 0 | 89 |
-| Schemes | 98 | 7 | 75 | 7 | 9 |
+| Physics models | 93 | 0 | 0 | 0 | 93 |
+| Schemes | 100 | 7 | 75 | 7 | 11 |
 | Time | 79 | 0 | 59 | 0 | 20 |
 | Execution | 34 | 0 | 34 | 0 | 0 |
-| **Total** | 472 | 17 | 267 | 29 | 159 |
+| **Total** | 479 | 17 | 267 | 29 | 166 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 46 |
 | FVM | 296 |
-| method-free | 159 |
+| method-free | 166 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -90,9 +90,9 @@ that this file equals the generated text. Do not edit by hand.
 | B4 | pending | 14 |
 | E0 | pending | 20 |
 | E0b | pending | 14 |
-| JST1 | candidate | 105 |
+| JST1 | candidate | 112 |
 
-## Foundations (11)
+## Foundations (12)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -107,6 +107,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p1_2_4` | P1-2.4 | method-free | candidate | The logarithmic mean of two positive numbers is symmetric, positive, equals a at a = b, and satisfies b − a = L(a,b)(log b − log a). |
 | `CFDLean.JST1.Proofs.p3_12_3` | P3-12.3 | method-free | candidate | A weighted sum of nonnegative forms with weight at least 1/16 on one element is at least 1/16 of that element's form. |
 | `CFDLean.JST1.Proofs.p4_16_2` | P4-16.2 | method-free | candidate | A symmetric, consistent two-point flux that is C² near the diagonal differs from the mean flux by O(\|u_k − u_i\|²). |
+| `CFDLean.JST1.Proofs.p5_19_1` | P5-19.1 | method-free | candidate | The logarithmic mean is Cⁿ for every n on (0,∞)², across the diagonal a = b (L(a,b) = a·E(ln b − ln a) with E(t) = (eᵗ−1)/t analytic). |
 
 ## Geometry (67)
 
@@ -284,7 +285,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.energy_production_nonpos` | B4-S | FVM | pending | The Burgers Rusanov operator does not produce energy: Σ u_i L_i(u) ≤ 0 for dx > 0. |
 | `CFDLean.JST1.Proofs.p4_15_5` | P4-15.5 | FVM | candidate | Linear wall-normal profile on a geometric mesh: L_k − L_s = (r−1)(ũ_k − ũ_s), and the fourth-difference wall flux produces ε4(r−1)λ[w]·[ũ] ≥ 0. |
 
-## Physics models (89)
+## Physics models (93)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -377,8 +378,12 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_17_1` | P4-17.1 | method-free | candidate | Continuous SST entropy balance: ∂_t η0 + ∇·(v η0 + G) = Π for smooth solutions, with G = −v^η·F^v = θκ∇T (− θD_k∇k). |
 | `CFDLean.JST1.Proofs.p4_18_1` | P4-18.1 | method-free | candidate | The Euler entropy −ρs/(γ−1) has a positive definite Hessian at admissible states. |
 | `CFDLean.JST1.Proofs.p4_18_2` | P4-18.2 | method-free | candidate | The SST coupled entropy η0 has a positive semidefinite Hessian with null space span{e_E + e_k, e_ω}. |
+| `CFDLean.JST1.Proofs.p5_20_1` | P5-20.1 | method-free | candidate | The paper's Euler state and M1's conservative state correspond one to one (toState, ofState inverse; density, momentum, energy agree). |
+| `CFDLean.JST1.Proofs.p5_20_2` | P5-20.2 | method-free | candidate | The paper's pressure, admissibility, velocity and primitive-to-conservative map equal M1's. |
+| `CFDLean.JST1.Proofs.p5_20_3` | P5-20.3 | method-free | candidate | The paper's Euler flux on a vector y equals M1's integrated physical flux on the area vector y, for every state. |
+| `CFDLean.JST1.Proofs.p5_20_4` | P5-20.4 | method-free | candidate | The paper's entropy −ρs/(γ−1) and its entropy variables written in M1's primitive variables (ρ, v, p). |
 
-## Schemes (98)
+## Schemes (100)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -480,6 +485,8 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_15_3` | P4-15.3 | FVM | candidate | The momentum rows of the second-difference flux of the scheme are λε2(ρv_s − ρv_k), a difference without a power of h. |
 | `CFDLean.JST1.Proofs.p4_15_4` | P4-15.4 | FEM + FVM | candidate | Cutting ε2 = ε4 = 0 on the wall-crossing edges removes only those dissipation terms, keeps the hypotheses of the complete scheme, and splits Π² and Π⁴ exactly. |
 | `CFDLean.JST1.Proofs.p4_16_3` | P4-16.3 | FVM | candidate | ε2 ≤ 6κ2, ε4 ≤ 9κ4, and the weak effect of the scalar dissipation is at most d(6κ2 + 18n_Eκ4) Φmax σmax h \|Ω\| Gφ Gu. |
+| `CFDLean.JST1.Proofs.p5_19_2` | P5-19.2 | method-free | candidate | The admissible Euler states form an open set, and the Ismail-Roe flux is Cⁿ for every n on admissible × admissible, diagonal included. |
+| `CFDLean.JST1.Proofs.p5_19_3` | P5-19.3 | method-free | candidate | At every admissible state the Ismail-Roe flux differs from the mean of the Euler fluxes by at most C\|y\|\|u_k − u_i\|² near the diagonal, one constant for all vectors y. |
 
 ## Time (79)
 

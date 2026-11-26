@@ -271,6 +271,8 @@
     "CFDLean.Papers.JST1.Proofs.Item16",
     "CFDLean.Papers.JST1.Proofs.Item17",
     "CFDLean.Papers.JST1.Proofs.Item18",
+    "CFDLean.Papers.JST1.Proofs.Item19",
+    "CFDLean.Papers.JST1.Proofs.Item20",
     "CFDLean.Papers.JST1.Proofs.Item2Euler",
     "CFDLean.Papers.JST1.Proofs.Item2Generic",
     "CFDLean.Papers.JST1.Proofs.Item3",
@@ -297,7 +299,9 @@
     "CFDLean.Papers.JST1.Spec.Item16",
     "CFDLean.Papers.JST1.Spec.Item17",
     "CFDLean.Papers.JST1.Spec.Item18",
+    "CFDLean.Papers.JST1.Spec.Item19",
     "CFDLean.Papers.JST1.Spec.Item2",
+    "CFDLean.Papers.JST1.Spec.Item20",
     "CFDLean.Papers.JST1.Spec.Item3",
     "CFDLean.Papers.JST1.Spec.Item4",
     "CFDLean.Papers.JST1.Spec.Item5",
@@ -359,9 +363,9 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 4109,
+    "roots": 4158,
     "unsafe_reached": [],
-    "visited": 59799
+    "visited": 59938
   },
   "source_modules": {
     "CFDLean": {
@@ -506,7 +510,7 @@
     },
     "CFDLean.Papers.JST1": {
       "path": "CFDLean/Papers/JST1.lean",
-      "sha256": "dda137a3400c13feff3a51d6b9ef86976ec4358d74881fbeae00efe9e062967e"
+      "sha256": "127cd2fe4364e692d7032d92e600be1c570a33068ce386d75fe0421373a995d5"
     },
     "CFDLean.Papers.JST1.Euler.Boundary": {
       "path": "CFDLean/Papers/JST1/Euler/Boundary.lean",
@@ -624,6 +628,14 @@
       "path": "CFDLean/Papers/JST1/Proofs/Item18.lean",
       "sha256": "70f59c896312a06d86d87ef6cca79094231f1f2d70ca9a43641c154de7018430"
     },
+    "CFDLean.Papers.JST1.Proofs.Item19": {
+      "path": "CFDLean/Papers/JST1/Proofs/Item19.lean",
+      "sha256": "f7770a222feb1e4ba302bd89f68bb41ab28660e351dd8449d776a77518814013"
+    },
+    "CFDLean.Papers.JST1.Proofs.Item20": {
+      "path": "CFDLean/Papers/JST1/Proofs/Item20.lean",
+      "sha256": "49791130bfa24ace1fa59548e46a7602b405ab445756518d680d0a07b1def1f3"
+    },
     "CFDLean.Papers.JST1.Proofs.Item2Euler": {
       "path": "CFDLean/Papers/JST1/Proofs/Item2Euler.lean",
       "sha256": "5a80879879d6abaa27ae829bad0083ced700bee17f7db881d8d520792a36e4ed"
@@ -728,9 +740,17 @@
       "path": "CFDLean/Papers/JST1/Spec/Item18.lean",
       "sha256": "e89fd92a24329c87748a9beac806399899317a3e1ff3e00b9881e91204564dbd"
     },
+    "CFDLean.Papers.JST1.Spec.Item19": {
+      "path": "CFDLean/Papers/JST1/Spec/Item19.lean",
+      "sha256": "2fa50eba0fc721737c3af7ffdd4c8243b24c2a6d44a72d9d9913b6551583ee7a"
+    },
     "CFDLean.Papers.JST1.Spec.Item2": {
       "path": "CFDLean/Papers/JST1/Spec/Item2.lean",
       "sha256": "7fa3ed242f465a57ee2174161c5dd1de043b1460b23e896c35d46b0388bbb2a3"
+    },
+    "CFDLean.Papers.JST1.Spec.Item20": {
+      "path": "CFDLean/Papers/JST1/Spec/Item20.lean",
+      "sha256": "adfac23eb0fbf970d404a853d64f72afc7d34c048f3d11dfb4b261d5286f0c9c"
     },
     "CFDLean.Papers.JST1.Spec.Item3": {
       "path": "CFDLean/Papers/JST1/Spec/Item3.lean",
@@ -942,7 +962,7 @@
     },
     "CFDLean.Verification.JST1Verify": {
       "path": "CFDLean/Verification/JST1Verify.lean",
-      "sha256": "f65df20f0697774d29a606374d380c9abf94221bf3b86366b521c94c8ee788cb"
+      "sha256": "3a34032ff6b0528c08465eccba997935323e98752ed3ee238ef2a1315c7e1c28"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -15670,6 +15690,27 @@
       "type": "{d : \u2115} \u2192 CFDLean.JST1.Gas \u2192 CFDLean.JST1.State d \u2192 Prop",
       "unsafe": false
     },
+    "CFDLean.JST1.Admissible.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Admissible",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.rho",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Admissible.eq_1",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),\n  Eq (CFDLean.JST1.Admissible g U)\n    (And (LT.lt (OfNat.ofNat 0) (CFDLean.JST1.rho U)) (LT.lt (OfNat.ofNat 0) (CFDLean.JST1.pressure g U)))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),\n  CFDLean.JST1.Admissible g U = (0 < CFDLean.JST1.rho U \u2227 0 < CFDLean.JST1.pressure g U)",
+      "unsafe": false
+    },
     "CFDLean.JST1.Channel": {
       "axioms": [],
       "direct": [
@@ -28732,6 +28773,382 @@
       "type": "\u2200 {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace \u211d E] (u \u03b4 : E),\n  Filter.Tendsto (fun s => u + s \u2022 \u03b4) (nhds 0) (nhds u)",
       "unsafe": false
     },
+    "CFDLean.JST1.Proofs.IR19.Adm": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Admissible",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Adm",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.JST1.Gas \u2192 Set (CFDLean.JST1.State d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.Adm._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Adm._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.IR19.Adm._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Adm._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.IR19.Adm._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Adm._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.IR19.Adm.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Admissible",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Proofs.IR19.Adm",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Adm.eq_1",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas),\n  Eq (CFDLean.JST1.Proofs.IR19.Adm g) (Set.ofPred fun U => CFDLean.JST1.Admissible g U)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas), CFDLean.JST1.Proofs.IR19.Adm g = {U | CFDLean.JST1.Admissible g U}",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.Dom": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Proofs.IR19.Adm",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Dom",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.JST1.Gas \u2192 Set (CFDLean.JST1.State d \u00d7 CFDLean.JST1.State d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.Dom._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Dom._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.IR19.Dom._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Dom._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.IR19.Dom._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.Dom._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.IR19.defect": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.IR19.defect._proof_2",
+        "CFDLean.JST1.Proofs.IR19.defect._proof_1",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Proofs.ismailRoe_linear",
+        "CFDLean.JST1.Proofs.IR19.physFlux_linear",
+        "CFDLean.JST1.ismailRoe",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.defect",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.JST1.Gas \u2192 CFDLean.JST1.State d \u2192 CFDLean.JST1.State d \u2192 CFDLean.Num.Vec d \u2192\u2097[\u211d] CFDLean.JST1.State d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.defect._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Channel"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.defect._proof_1",
+      "raw_type": "\u2200 {d : Nat}, SMulCommClass Real Real (CFDLean.JST1.Channel d \u2192 Real)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, SMulCommClass \u211d \u211d (CFDLean.JST1.Channel d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.defect._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.defect._proof_2",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.defect_apply": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.ismailRoe",
+        "CFDLean.JST1.Proofs.IR19.defect",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.defect_apply",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas) (a b : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),\n  Eq (DFunLike.coe (CFDLean.JST1.Proofs.IR19.defect g a b) y)\n    (HSub.hSub (CFDLean.JST1.ismailRoe g a b y)\n      (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2))\n        (HAdd.hAdd (CFDLean.JST1.physFlux g a y) (CFDLean.JST1.physFlux g b y))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas) (a b : CFDLean.JST1.State d) (y : CFDLean.Num.Vec d),\n  (CFDLean.JST1.Proofs.IR19.defect g a b) y =\n    CFDLean.JST1.ismailRoe g a b y - (1 / 2) \u2022 (CFDLean.JST1.physFlux g a y + CFDLean.JST1.physFlux g b y)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.expSlope": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.expSlope",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.expSlope.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.IR19.expSlope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.expSlope.eq_1",
+      "raw_type": "Eq CFDLean.JST1.Proofs.IR19.expSlope (dslope Real.exp (OfNat.ofNat 0))",
+      "root": true,
+      "type": "CFDLean.JST1.Proofs.IR19.expSlope = dslope Real.exp 0",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.expSlope_contDiff": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.IR19.expSlope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.expSlope_contDiff",
+      "raw_type": "\u2200 (n : Nat), ContDiff Real n.cast CFDLean.JST1.Proofs.IR19.expSlope",
+      "root": true,
+      "type": "\u2200 (n : \u2115), ContDiff \u211d (\u2191n) CFDLean.JST1.Proofs.IR19.expSlope",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.isOpen_adm": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.IR19.pressure_contDiffOn",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Proofs.IR19.Adm",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.rho",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.instFintypeChannel",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.isOpen_adm",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas), IsOpen (CFDLean.JST1.Proofs.IR19.Adm g)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas), IsOpen (CFDLean.JST1.Proofs.IR19.Adm g)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.logMean_eq_expSlope": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.IR19.expSlope",
+        "CFDLean.JST1.Proofs.IR19.expSlope.eq_1",
+        "CFDLean.Num.logMean.eq_1",
+        "CFDLean.Num.logMean"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.logMean_eq_expSlope",
+      "raw_type": "\u2200 {a b : Real},\n  LT.lt (OfNat.ofNat 0) a \u2192\n    LT.lt (OfNat.ofNat 0) b \u2192\n      Eq (CFDLean.Num.logMean a b)\n        (HMul.hMul a (CFDLean.JST1.Proofs.IR19.expSlope (HSub.hSub (Real.log b) (Real.log a))))",
+      "root": true,
+      "type": "\u2200 {a b : \u211d}, 0 < a \u2192 0 < b \u2192 CFDLean.Num.logMean a b = a * CFDLean.JST1.Proofs.IR19.expSlope (Real.log b - Real.log a)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.physFlux_linear": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.vel",
+        "CFDLean.JST1.energy",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.mom",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.physFlux_linear",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d), IsLinearMap Real (CFDLean.JST1.physFlux g U)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d), IsLinearMap \u211d (CFDLean.JST1.physFlux g U)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.pressure_contDiffOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.rho",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.instFintypeChannel",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.pressure_contDiffOn",
+      "raw_type": "\u2200 {d : Nat} {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace Real E] (g : CFDLean.JST1.Gas) (n : Nat)\n  (f : E \u2192 CFDLean.JST1.State d),\n  ContDiff Real n.cast f \u2192\n    \u2200 (s : Set E),\n      (\u2200 (x : E), Membership.mem s x \u2192 Ne (CFDLean.JST1.rho (f x)) (OfNat.ofNat 0)) \u2192\n        ContDiffOn Real n.cast (fun x => CFDLean.JST1.pressure g (f x)) s",
+      "root": true,
+      "type": "\u2200 {d : \u2115} {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace \u211d E] (g : CFDLean.JST1.Gas) (n : \u2115)\n  (f : E \u2192 CFDLean.JST1.State d),\n  ContDiff \u211d (\u2191n) f \u2192\n    \u2200 (s : Set E), (\u2200 x \u2208 s, CFDLean.JST1.rho (f x) \u2260 0) \u2192 ContDiffOn \u211d (\u2191n) (fun x => CFDLean.JST1.pressure g (f x)) s",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.IR19.pressure_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.IR19.pressure_eq",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),\n  Eq (CFDLean.JST1.pressure g U)\n    (HMul.hMul (HSub.hSub g.\u03b3 (OfNat.ofNat 1))\n      (HSub.hSub (U CFDLean.JST1.Channel.energy)\n        (HDiv.hDiv\n          (Finset.univ.sum fun \u03b1 =>\n            HMul.hMul (U (CFDLean.JST1.Channel.momentum \u03b1)) (U (CFDLean.JST1.Channel.momentum \u03b1)))\n          (HMul.hMul (OfNat.ofNat 2) (U CFDLean.JST1.Channel.mass)))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),\n  CFDLean.JST1.pressure g U =\n    (g.\u03b3 - 1) *\n      (U CFDLean.JST1.Channel.energy -\n        (\u2211 \u03b1, U (CFDLean.JST1.Channel.momentum \u03b1) * U (CFDLean.JST1.Channel.momentum \u03b1)) /\n          (2 * U CFDLean.JST1.Channel.mass))",
+      "unsafe": false
+    },
     "CFDLean.JST1.Proofs.Pde17.conv_rep": {
       "axioms": [
         "propext",
@@ -32144,6 +32561,25 @@
       "raw_type": "\u2200 {d : Nat} (u w : CFDLean.Num.Vec d), Eq (CFDLean.Num.dot (Neg.neg u) w) (Neg.neg (CFDLean.Num.dot u w))",
       "root": true,
       "type": "\u2200 {d : \u2115} (u w : CFDLean.Num.Vec d), CFDLean.Num.dot (-u) w = -CFDLean.Num.dot u w",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.dot_self_eq_squareSum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.squareSum",
+        "CFDLean.Num.dot"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.dot_self_eq_squareSum",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Num.Vec d), Eq (CFDLean.Num.dot v v) (CFDLean.squareSum v)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Num.Vec d), CFDLean.Num.dot v v = CFDLean.squareSum v",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.dot_smul_l": {
@@ -38423,6 +38859,288 @@
       "type": "CFDLean.JST1.Spec.P4_18_2",
       "unsafe": false
     },
+    "CFDLean.JST1.Proofs.p5_19_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.IR19.logMean_eq_expSlope",
+        "CFDLean.JST1.Proofs.IR19.expSlope",
+        "CFDLean.JST1.Proofs.IR19.expSlope_contDiff",
+        "CFDLean.JST1.Spec.P5_19_1",
+        "CFDLean.Num.logMean"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.p5_19_1",
+      "raw_type": "CFDLean.JST1.Spec.P5_19_1",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_19_1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_19_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.JST1.Proofs.zfacts",
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.Admissible",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.IR19.pressure_contDiffOn",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.Proofs.IR19.Adm",
+        "CFDLean.JST1.Proofs.IR19.Dom",
+        "CFDLean.JST1.vel",
+        "CFDLean.Num.logMean_properties",
+        "CFDLean.JST1.Proofs.IR19.isOpen_adm",
+        "CFDLean.JST1.ismailRoe",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.Gas.one_lt_\u03b3",
+        "CFDLean.JST1.Spec.P5_19_2",
+        "CFDLean.JST1.ismailRoe._proof_1",
+        "CFDLean.JST1.rho",
+        "CFDLean.JST1.pressure",
+        "CFDLean.Num.logMean",
+        "CFDLean.JST1.instFintypeChannel",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas",
+        "CFDLean.JST1.Proofs.p5_19_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.p5_19_2",
+      "raw_type": "CFDLean.JST1.Spec.P5_19_2",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_19_2",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_19_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Admissible",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Proofs.p4_16_2",
+        "CFDLean.JST1.Proofs.ismailRoe_consistent",
+        "CFDLean.JST1.Proofs.IR19.defect_apply",
+        "CFDLean.JST1.ismailRoe",
+        "CFDLean.JST1.Proofs.ismailRoe_symm",
+        "CFDLean.JST1.Proofs.IR19.defect",
+        "CFDLean.JST1.Proofs.p5_19_2",
+        "CFDLean.JST1.Spec.P5_19_3._proof_1",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.instFintypeChannel",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Spec.P5_19_3",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "name": "CFDLean.JST1.Proofs.p5_19_3",
+      "raw_type": "CFDLean.JST1.Spec.P5_19_3",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_19_3",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_20_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.Spec.ofState",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.JST1.energy",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.mom",
+        "CFDLean.JST1.Spec.P5_20_1",
+        "CFDLean.JST1.rho",
+        "CFDLean.Conservative",
+        "CFDLean.JST1.Channel"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.p5_20_1",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_1",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_20_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_2",
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.Admissible",
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.primState",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.squareSum",
+        "CFDLean.JST1.vel",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Primitive.mk",
+        "CFDLean.JST1.Proofs.pressure_toState",
+        "CFDLean.JST1.Proofs.dot_self_eq_squareSum",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Num.dot",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.pressure._proof_1",
+        "CFDLean.JST1.rho",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Conservative.toPrimitive",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.p5_20_2",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_2",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_2",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_20_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Num.Vec",
+        "CFDLean.physicalFlux",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.vel",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.JST1.Proofs.pressure_toState",
+        "CFDLean.JST1.energy",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.JST1.Spec.P5_20_3",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Num.dot",
+        "CFDLean.dot",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.mom",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.p5_20_3",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_3",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_3",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_20_4": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_4._proof_1",
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.physEntropy",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.squareSum",
+        "CFDLean.JST1.vel",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Conservative.mk",
+        "CFDLean.JST1.Proofs.pressure_toState",
+        "CFDLean.Primitive.density",
+        "CFDLean.JST1.Proofs.p5_20_4._simp_1_9",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Num.dot",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.entropyVars",
+        "CFDLean.JST1.pressure._proof_1",
+        "CFDLean.JST1.entropyFun",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.JST1.rho",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Conservative.toPrimitive",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.Spec.P5_20_4",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.p5_20_4",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_4",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_4",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p5_20_4._simp_1_9": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.squareSum",
+        "CFDLean.JST1.Proofs.dot_self_eq_squareSum",
+        "CFDLean.Num.dot"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.p5_20_4._simp_1_9",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Num.Vec d), Eq (CFDLean.squareSum v) (CFDLean.Num.dot v v)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Num.Vec d), CFDLean.squareSum v = CFDLean.Num.dot v v",
+      "unsafe": false
+    },
     "CFDLean.JST1.Proofs.pK": {
       "axioms": [
         "propext",
@@ -38832,6 +39550,59 @@
       "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 2)] [NeZero (OfNat.ofNat 2)],\n  Eq (Eq (OfNat.ofNat 2) (OfNat.ofNat 0)) False",
       "root": true,
       "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 2] [NeZero 2], (2 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.pressure_toState": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.Conservative.energy",
+        "CFDLean.squareSum",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.JST1.Proofs.pressure_toState._simp_1_2",
+        "CFDLean.JST1.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.mom",
+        "CFDLean.JST1.pressure._proof_1",
+        "CFDLean.JST1.rho",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.pressure_toState",
+      "raw_type": "\u2200 {d : Nat} (g : CFDLean.JST1.Gas) (U : CFDLean.Conservative d),\n  Eq (CFDLean.JST1.pressure g (CFDLean.JST1.Spec.toState U)) (CFDLean.Conservative.pressure g.\u03b3 U)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas) (U : CFDLean.Conservative d),\n  CFDLean.JST1.pressure g (CFDLean.JST1.Spec.toState U) = CFDLean.Conservative.pressure g.\u03b3 U",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.pressure_toState._simp_1_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.squareSum",
+        "CFDLean.JST1.Proofs.dot_self_eq_squareSum",
+        "CFDLean.Num.dot"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Proofs.pressure_toState._simp_1_2",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Num.Vec d), Eq (CFDLean.squareSum v) (CFDLean.Num.dot v v)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Num.Vec d), CFDLean.squareSum v = CFDLean.Num.dot v v",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.p\u03b2": {
@@ -48920,6 +49691,211 @@
       "type": "Prop",
       "unsafe": false
     },
+    "CFDLean.JST1.Spec.P5_19_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.logMean"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item19",
+      "name": "CFDLean.JST1.Spec.P5_19_1",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_19_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Admissible",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.ismailRoe",
+        "CFDLean.JST1.instFintypeChannel",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item19",
+      "name": "CFDLean.JST1.Spec.P5_19_2",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_19_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Admissible",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.ismailRoe",
+        "CFDLean.JST1.Spec.P5_19_3._proof_1",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.instFintypeChannel",
+        "CFDLean.JST1.Channel",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item19",
+      "name": "CFDLean.JST1.Spec.P5_19_3",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_19_3._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Spec.Item19",
+      "name": "CFDLean.JST1.Spec.P5_19_3._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_20_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Spec.ofState",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.JST1.energy",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.JST1.mom",
+        "CFDLean.JST1.rho",
+        "CFDLean.Conservative"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.P5_20_1",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_20_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.Admissible",
+        "CFDLean.Primitive.toConservative",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.primState",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.vel",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Primitive.mk",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Conservative.toPrimitive",
+        "CFDLean.JST1.pressure",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.P5_20_2",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_20_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.Num.Vec",
+        "CFDLean.physicalFlux",
+        "CFDLean.JST1.State",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Conservative",
+        "CFDLean.JST1.physFlux",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.P5_20_3",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_20_4": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_4._proof_1",
+        "CFDLean.JST1.Gas.\u03b3",
+        "CFDLean.JST1.State",
+        "CFDLean.squareSum",
+        "CFDLean.Primitive",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Primitive.density",
+        "CFDLean.Primitive.velocity",
+        "CFDLean.JST1.entropyVars",
+        "CFDLean.JST1.entropyFun",
+        "CFDLean.Primitive.pressure",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.toPrimitive",
+        "CFDLean.JST1.Gas"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.P5_20_4",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P5_20_4._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.P5_20_4._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
     "CFDLean.JST1.Spec.SchemeHyp": {
       "axioms": [
         "propext",
@@ -49717,6 +50693,28 @@
       "raw_type": "\u2200 {d : Nat}, Eq CFDLean.JST1.Spec.nullW (Pi.single CFDLean.JST1.SChan.omg (OfNat.ofNat 1))",
       "root": true,
       "type": "\u2200 {d : \u2115}, CFDLean.JST1.Spec.nullW = Pi.single CFDLean.JST1.SChan.omg 1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.ofState": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.State",
+        "CFDLean.Conservative.mk",
+        "CFDLean.JST1.energy",
+        "CFDLean.JST1.mom",
+        "CFDLean.JST1.rho",
+        "CFDLean.Conservative"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.ofState",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.JST1.State d \u2192 CFDLean.Conservative d",
       "unsafe": false
     },
     "CFDLean.JST1.Spec.onCellFace": {
@@ -50691,6 +51689,128 @@
       "root": false,
       "type": null,
       "unsafe": null
+    },
+    "CFDLean.JST1.Spec.toState": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.JST1.State",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative",
+        "CFDLean.JST1.Spec.toState.match_1",
+        "CFDLean.JST1.Channel"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.toState",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Conservative d \u2192 CFDLean.JST1.State d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.toState._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.toState._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Spec.toState._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.toState._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Spec.toState.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Conservative.density",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.Conservative"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Spec.toState.eq_1",
+      "raw_type": "\u2200 {d : Nat} (U : CFDLean.Conservative d), Eq (CFDLean.JST1.Spec.toState U CFDLean.JST1.Channel.mass) U.density",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (U : CFDLean.Conservative d), CFDLean.JST1.Spec.toState U CFDLean.JST1.Channel.mass = U.density",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.toState.eq_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Conservative"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Spec.toState.eq_2",
+      "raw_type": "\u2200 {d : Nat} (U : CFDLean.Conservative d) (\u03b1 : Fin d),\n  Eq (CFDLean.JST1.Spec.toState U (CFDLean.JST1.Channel.momentum \u03b1)) (U.momentum \u03b1)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (U : CFDLean.Conservative d) (\u03b1 : Fin d),\n  CFDLean.JST1.Spec.toState U (CFDLean.JST1.Channel.momentum \u03b1) = U.momentum \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.toState.eq_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.JST1.Spec.toState",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.Conservative"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "name": "CFDLean.JST1.Spec.toState.eq_3",
+      "raw_type": "\u2200 {d : Nat} (U : CFDLean.Conservative d), Eq (CFDLean.JST1.Spec.toState U CFDLean.JST1.Channel.energy) U.energy",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (U : CFDLean.Conservative d), CFDLean.JST1.Spec.toState U CFDLean.JST1.Channel.energy = U.energy",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.toState.match_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.JST1.Channel.casesOn",
+        "CFDLean.JST1.Channel.momentum",
+        "CFDLean.JST1.Channel.energy",
+        "CFDLean.JST1.Channel.mass",
+        "CFDLean.JST1.Channel"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item20",
+      "name": "CFDLean.JST1.Spec.toState.match_1",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192\n  (motive : CFDLean.JST1.Channel d \u2192 Sort u_1) \u2192\n    (x : CFDLean.JST1.Channel d) \u2192\n      (Unit \u2192 motive CFDLean.JST1.Channel.mass) \u2192\n        ((\u03b1 : Fin d) \u2192 motive (CFDLean.JST1.Channel.momentum \u03b1)) \u2192\n          (Unit \u2192 motive CFDLean.JST1.Channel.energy) \u2192 motive x",
+      "unsafe": false
     },
     "CFDLean.JST1.Spec.vmean": {
       "axioms": [
@@ -94648,6 +95768,132 @@
       "type": "CFDLean.JST1.Spec.P4_18_2",
       "unsafe": false
     },
+    "CFDLean.Verification.JST1Verify.p5_19_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_19_1",
+        "CFDLean.JST1.Proofs.p5_19_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_19_1",
+      "raw_type": "CFDLean.JST1.Spec.P5_19_1",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_19_1",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p5_19_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_19_2",
+        "CFDLean.JST1.Proofs.p5_19_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_19_2",
+      "raw_type": "CFDLean.JST1.Spec.P5_19_2",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_19_2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p5_19_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.p5_19_3",
+        "CFDLean.JST1.Spec.P5_19_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_19_3",
+      "raw_type": "CFDLean.JST1.Spec.P5_19_3",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_19_3",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p5_20_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_1",
+        "CFDLean.JST1.Proofs.p5_20_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_20_1",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_1",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_1",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p5_20_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_2",
+        "CFDLean.JST1.Proofs.p5_20_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_20_2",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_2",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p5_20_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_3",
+        "CFDLean.JST1.Proofs.p5_20_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_20_3",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_3",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_3",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p5_20_4": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P5_20_4",
+        "CFDLean.JST1.Proofs.p5_20_4"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p5_20_4",
+      "raw_type": "CFDLean.JST1.Spec.P5_20_4",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P5_20_4",
+      "unsafe": false
+    },
     "CFDLean.admissible_exists": {
       "axioms": [
         "propext",
@@ -98591,7 +99837,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 472,
+  "catalog_entries": 479,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -98826,7 +100072,8 @@
     "specifications/JST1/P1-results.json",
     "specifications/JST1/P2-results.json",
     "specifications/JST1/P3-results.json",
-    "specifications/JST1/P4-results.json"
+    "specifications/JST1/P4-results.json",
+    "specifications/JST1/P5-results.json"
   ],
   "jst1_promised_theorems": [
     "CFDLean.JST1.Proofs.p1_1_0",
@@ -98933,7 +100180,14 @@
     "CFDLean.JST1.Proofs.p4_16_4",
     "CFDLean.JST1.Proofs.p4_17_1",
     "CFDLean.JST1.Proofs.p4_18_1",
-    "CFDLean.JST1.Proofs.p4_18_2"
+    "CFDLean.JST1.Proofs.p4_18_2",
+    "CFDLean.JST1.Proofs.p5_19_1",
+    "CFDLean.JST1.Proofs.p5_19_2",
+    "CFDLean.JST1.Proofs.p5_19_3",
+    "CFDLean.JST1.Proofs.p5_20_1",
+    "CFDLean.JST1.Proofs.p5_20_2",
+    "CFDLean.JST1.Proofs.p5_20_3",
+    "CFDLean.JST1.Proofs.p5_20_4"
   ],
   "jst1_delegated_to_core": [
     "CFDLean.JST1.Proofs.p1_2_1",
@@ -98975,13 +100229,13 @@
     "CFDLean.JST1.Proofs.p3_13_1"
   ],
   "jst1_frozen": "specifications/JST1/frozen.sha256",
-  "jst1_frozen_files": 41,
+  "jst1_frozen_files": 43,
   "forbidden_token_scan": {
     "root": "CFDLean/Papers",
-    "files": 66
+    "files": 70
   },
   "jst1_comparator": "Challenges/JST1.comparator.json",
-  "jst1_comparator_theorems": 105,
+  "jst1_comparator_theorems": 112,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 472
+  "raw_types_checked": 479
 }

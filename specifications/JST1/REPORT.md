@@ -130,3 +130,14 @@ Project `.lake`: about 5.7 GB. The CFD_Lean backup was deleted (38 GB free on 20
 
 Not covered: `∫_T φ_i = m_T` (no simplex integration in Mathlib), the C² smoothness of the Ismail-Roe flux near the
 diagonal (G6), the scaling of `prop:wallJST`(b). Paper gaps G5-G7 in `PAPER_GAPS.md`.
+
+## P5: Ismail-Roe smoothness (G6) and the M1 bridge (items 19-20), written in CFD_Lean
+
+7 frozen statements, 7 proved (`specifications/JST1/P5.md`, `P5-results.json`), standard axioms only; with P1-P4:
+112 of 112. Statement review: `reviews/JST1/P5-statement-review.md` (no blocking finding).
+
+- Item 19: the log mean is smooth on (0, ∞)² (`L(a, b) = a·E(ln b - ln a)`, `E = dslope exp 0` analytic); the
+  Ismail-Roe flux is smooth on admissible × admissible; `prop:consistency`(b) "F^ec - mean = O(|Δu|²)" holds for the
+  Ismail-Roe flux with one constant for all face vectors (P5-19.3, from P4-16.2). Closes G6 on the Lean side.
+- Item 20: the paper's Euler state, pressure, admissibility, velocity, primitive map and flux equal M1's
+  (bookkeeping); the differences (M1 has no entropy; the paper has no Jacobian or Roe flux) are listed in `P5.md`.

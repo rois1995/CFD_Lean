@@ -6165,6 +6165,97 @@
       ],
       "summary": "The SST coupled entropy η0 has a positive semidefinite Hessian with null space span{e_E + e_k, e_ω}.",
       "source": "specifications/JST1/P4-results.json P4-18.2 (CFDLean.JST1.Spec.P4_18_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_19_1",
+      "id": "P5-19.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "status": "candidate",
+      "layer": "Foundations",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The logarithmic mean is Cⁿ for every n on (0,∞)², across the diagonal a = b (L(a,b) = a·E(ln b − ln a) with E(t) = (eᵗ−1)/t analytic).",
+      "source": "specifications/JST1/P5-results.json P5-19.1 (CFDLean.JST1.Spec.P5_19_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_19_2",
+      "id": "P5-19.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The admissible Euler states form an open set, and the Ismail-Roe flux is Cⁿ for every n on admissible × admissible, diagonal included.",
+      "source": "specifications/JST1/P5-results.json P5-19.2 (CFDLean.JST1.Spec.P5_19_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_19_3",
+      "id": "P5-19.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19",
+      "status": "candidate",
+      "layer": "Schemes",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "At every admissible state the Ismail-Roe flux differs from the mean of the Euler fluxes by at most C|y||u_k − u_i|² near the diagonal, one constant for all vectors y.",
+      "source": "specifications/JST1/P5-results.json P5-19.3 (CFDLean.JST1.Spec.P5_19_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_20_1",
+      "id": "P5-20.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The paper's Euler state and M1's conservative state correspond one to one (toState, ofState inverse; density, momentum, energy agree).",
+      "source": "specifications/JST1/P5-results.json P5-20.1 (CFDLean.JST1.Spec.P5_20_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_20_2",
+      "id": "P5-20.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The paper's pressure, admissibility, velocity and primitive-to-conservative map equal M1's.",
+      "source": "specifications/JST1/P5-results.json P5-20.2 (CFDLean.JST1.Spec.P5_20_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_20_3",
+      "id": "P5-20.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The paper's Euler flux on a vector y equals M1's integrated physical flux on the area vector y, for every state.",
+      "source": "specifications/JST1/P5-results.json P5-20.3 (CFDLean.JST1.Spec.P5_20_3)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p5_20_4",
+      "id": "P5-20.4",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20",
+      "status": "candidate",
+      "layer": "Physics models",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The paper's entropy −ρs/(γ−1) and its entropy variables written in M1's primitive variables (ρ, v, p).",
+      "source": "specifications/JST1/P5-results.json P5-20.4 (CFDLean.JST1.Spec.P5_20_4)"
     }
   ]
 }

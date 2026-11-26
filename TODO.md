@@ -31,13 +31,15 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
 3. **M6 composition** (original roadmap in `specifications/M2-proposal.md`): multi-step evolution on top of M5.
 4. **Fold paper 1 into CFD_Lean: done** (MR-2): `CFDLean/Papers/JST1/`, namespace `CFDLean.JST1`, on `CFDLean.Num`;
    92 statements equal the JST dumps up to namespaces (`evidence/JST1/fold-diff.md`); 37 proofs delegate to MC-N.
-   Open (new mathematics, needs a proposal): map the paper's own Euler definitions (`CFDLean.JST1.State`, ...) to the
-   M1 ones.
+   The paper's own Euler definitions are linked to M1 by P5 item 20 (state map, pressure, admissibility, velocity,
+   primitive map, flux; differences listed in `specifications/JST1/P5.md`).
 5. **Paper-1 items: P4 done** (branch `jst1-work`, candidate): `prop:wallJST`, the Taylor parts of
    `prop:consistency`(b),(c), the PDE form of `prop:sstpde`, the Hessian form of `lem:sstentropy` (13 statements,
    `specifications/JST1/P4.md`; 105 JST1 theorems in total). Still open: mixed cells that are not affine images of the
-   reference cells (trilinear hexahedra); `∫_T φ_i = |T|/(d+1)` (simplex integration); C² of the Ismail-Roe flux near
-   the diagonal (paper gap G6); paper gaps G5-G7 for the paper session.
+   reference cells (trilinear hexahedra); `∫_T φ_i = |T|/(d+1)` (simplex integration; sketch in
+   `specifications/JST1/P5-proposal.md` §4); paper gaps G5-G7 for the paper session.
+   **P5 done** (7 statements, 112 JST1 theorems): the Ismail-Roe flux is smooth near the diagonal and P4-16.2 holds
+   for it (G6, Lean side), and the bridge to M1 (item 20).
 6. **SU2 correspondence** (excluded so far): relate the Lean scheme to the SU2 C++ implementation.
 
 ## Refactoring side (no new mathematics)

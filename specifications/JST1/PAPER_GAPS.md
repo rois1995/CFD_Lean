@@ -90,6 +90,13 @@ copy `LEAN_HANDOFF_PAPER1/paper1.tex` is not changed. pdflatex compiles with no 
   consistent, smooth two-point flux". For the Ismail-Roe flux this is the smoothness of the logarithmic mean across
   a = b (true, e.g. 1/L(a, b) = ∫_0^1 dt/((1-t)a + tb), but not argued).
 - Lean: P4-16.2 is the abstract statement; the instance for `ismailRoe` (piecewise `logMean`) is not stated.
+- P5 (2026-11-26): the instance is proved (Lean side closed; the paper text is still OPEN). P5-19.1: `logMean` is Cⁿ
+  for all n on (0, ∞)² (`L(a, b) = a (e^t - 1)/t`, `t = ln b - ln a`). P5-19.2: the Ismail-Roe flux is Cⁿ on
+  admissible × admissible. P5-19.3: `|F^IR - mean| ≤ C|y||u_k - u_i|²` near each admissible diagonal point.
+  Suggested wording: "the Ismail-Roe flux is smooth near the diagonal, since 1/L(a, b) = ∫_0^1 dt/((1-t)a + tb)".
+  Further notes of the P5 reviewer: the constant is only locally uniform (states in a compact subset of the admissible
+  set; it scales with |n_ik|); "expand about the midpoint" needs the segment [u_i, u_k] admissible (true: the
+  admissible set is convex in conservative variables).
 
 ### G7. `prop:wallJST` spectrum proof (cosmetic) — OPEN
 

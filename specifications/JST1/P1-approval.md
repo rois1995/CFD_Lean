@@ -43,3 +43,10 @@
   split added to P4-15.4), S1 documented (P4-16.2 abstract; G6), minor docstring fixes (M1). Proof drafts were written
   while the review ran; the statements changed after the review only by these fixes, and are frozen as reviewed:
   `CFDLean/Papers/JST1/Spec/Item15.lean` .. `Item18.lean`, hashes in `specifications/JST1/frozen.sha256`.
+
+## P5 (items 19-20), self-frozen 2026-11-26
+
+Under the user's instruction of 2026-11-26 (whole cycle authorized without approvals in between). Proposal
+`P5-proposal.md`; independent statement review `reviews/JST1/P5-statement-review.md` (no blocking finding; findings 1
+and 2 fixed before the freeze). Frozen: `CFDLean/Papers/JST1/Spec/Item19.lean`, `Item20.lean` (hashes in
+`frozen.sha256`). No earlier frozen file changed.
