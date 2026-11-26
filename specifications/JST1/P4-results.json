@@ -1,0 +1,91 @@
+{
+  "specification": "specifications/JST1/P4.md",
+  "frozen_hashes": "specifications/JST1/frozen.sha256",
+  "source": {
+    "repository": "CFD_Lean",
+    "branch": "jst1-work",
+    "note": "P4 was written directly in CFD_Lean (not folded from JST_Paper_Lean)"
+  },
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "bindings": {
+    "P4-15.1": {
+      "statement": "CFDLean.JST1.Spec.P4_15_1",
+      "theorem": "CFDLean.JST1.Proofs.p4_15_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item15.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15"
+    },
+    "P4-15.2": {
+      "statement": "CFDLean.JST1.Spec.P4_15_2",
+      "theorem": "CFDLean.JST1.Proofs.p4_15_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item15.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15"
+    },
+    "P4-15.3": {
+      "statement": "CFDLean.JST1.Spec.P4_15_3",
+      "theorem": "CFDLean.JST1.Proofs.p4_15_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item15.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15"
+    },
+    "P4-15.4": {
+      "statement": "CFDLean.JST1.Spec.P4_15_4",
+      "theorem": "CFDLean.JST1.Proofs.p4_15_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item15.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15"
+    },
+    "P4-15.5": {
+      "statement": "CFDLean.JST1.Spec.P4_15_5",
+      "theorem": "CFDLean.JST1.Proofs.p4_15_5",
+      "file": "CFDLean/Papers/JST1/Proofs/Item15.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15"
+    },
+    "P4-15.6": {
+      "statement": "CFDLean.JST1.Spec.P4_15_6",
+      "theorem": "CFDLean.JST1.Proofs.p4_15_6",
+      "file": "CFDLean/Papers/JST1/Proofs/Item15.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item15"
+    },
+    "P4-16.1": {
+      "statement": "CFDLean.JST1.Spec.P4_16_1",
+      "theorem": "CFDLean.JST1.Proofs.p4_16_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item16.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16"
+    },
+    "P4-16.2": {
+      "statement": "CFDLean.JST1.Spec.P4_16_2",
+      "theorem": "CFDLean.JST1.Proofs.p4_16_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item16.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16"
+    },
+    "P4-16.3": {
+      "statement": "CFDLean.JST1.Spec.P4_16_3",
+      "theorem": "CFDLean.JST1.Proofs.p4_16_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item16.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16"
+    },
+    "P4-16.4": {
+      "statement": "CFDLean.JST1.Spec.P4_16_4",
+      "theorem": "CFDLean.JST1.Proofs.p4_16_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item16.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item16"
+    },
+    "P4-17.1": {
+      "statement": "CFDLean.JST1.Spec.P4_17_1",
+      "theorem": "CFDLean.JST1.Proofs.p4_17_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item17.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item17"
+    },
+    "P4-18.1": {
+      "statement": "CFDLean.JST1.Spec.P4_18_1",
+      "theorem": "CFDLean.JST1.Proofs.p4_18_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item18.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item18"
+    },
+    "P4-18.2": {
+      "statement": "CFDLean.JST1.Spec.P4_18_2",
+      "theorem": "CFDLean.JST1.Proofs.p4_18_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item18.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item18"
+    }
+  }
+}

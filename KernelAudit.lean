@@ -90,7 +90,7 @@ run_cmd do
     ("axioms", toJson ((leaves.mergeSort Name.lt).map Name.toString)),
     ("unsafe_reached", toJson ([] : List String))]).compress)
 
-/-! JST1 (MR-2): each of the 92 frozen paper-1 statements is bound to its proof. The axioms of every proof are in
+/-! JST1 (MR-2): each of the 112 frozen paper-1 statements is bound to its proof. The axioms of every proof are in
 the `CFDLEAN_DECL` records above (`scripts/verify.py` checks them against `specifications/JST1/P*-results.json`). -/
 
 example : CFDLean.JST1.Spec.P1_1_0 := CFDLean.JST1.Proofs.p1_1_0
@@ -185,3 +185,23 @@ example : CFDLean.JST1.Spec.P3_14_2 := CFDLean.JST1.Proofs.p3_14_2
 example : CFDLean.JST1.Spec.P3_14_3 := CFDLean.JST1.Proofs.p3_14_3
 example : CFDLean.JST1.Spec.P3_11_7 := CFDLean.JST1.Proofs.p3_11_7
 example : CFDLean.JST1.Spec.P3_11_8 := CFDLean.JST1.Proofs.p3_11_8
+example : CFDLean.JST1.Spec.P4_15_1 := CFDLean.JST1.Proofs.p4_15_1
+example : CFDLean.JST1.Spec.P4_15_2 := CFDLean.JST1.Proofs.p4_15_2
+example : CFDLean.JST1.Spec.P4_15_3 := CFDLean.JST1.Proofs.p4_15_3
+example : CFDLean.JST1.Spec.P4_15_4 := CFDLean.JST1.Proofs.p4_15_4
+example : CFDLean.JST1.Spec.P4_15_5 := CFDLean.JST1.Proofs.p4_15_5
+example : CFDLean.JST1.Spec.P4_15_6 := CFDLean.JST1.Proofs.p4_15_6
+example : CFDLean.JST1.Spec.P4_16_1 := CFDLean.JST1.Proofs.p4_16_1
+example : CFDLean.JST1.Spec.P4_16_2 := CFDLean.JST1.Proofs.p4_16_2
+example : CFDLean.JST1.Spec.P4_16_3 := CFDLean.JST1.Proofs.p4_16_3
+example : CFDLean.JST1.Spec.P4_16_4 := CFDLean.JST1.Proofs.p4_16_4
+example : CFDLean.JST1.Spec.P4_17_1 := CFDLean.JST1.Proofs.p4_17_1
+example : CFDLean.JST1.Spec.P4_18_1 := CFDLean.JST1.Proofs.p4_18_1
+example : CFDLean.JST1.Spec.P4_18_2 := CFDLean.JST1.Proofs.p4_18_2
+example : CFDLean.JST1.Spec.P5_19_1 := CFDLean.JST1.Proofs.p5_19_1
+example : CFDLean.JST1.Spec.P5_19_2 := CFDLean.JST1.Proofs.p5_19_2
+example : CFDLean.JST1.Spec.P5_19_3 := CFDLean.JST1.Proofs.p5_19_3
+example : CFDLean.JST1.Spec.P5_20_1 := CFDLean.JST1.Proofs.p5_20_1
+example : CFDLean.JST1.Spec.P5_20_2 := CFDLean.JST1.Proofs.p5_20_2
+example : CFDLean.JST1.Spec.P5_20_3 := CFDLean.JST1.Proofs.p5_20_3
+example : CFDLean.JST1.Spec.P5_20_4 := CFDLean.JST1.Proofs.p5_20_4

@@ -36,3 +36,17 @@
 - 2026-11-25: P3 stage 3 self-frozen: `Paper1/Mixed/Assembly.lean`, `Paper1/Spec/Item11c.lean` (P3-11.7 geometry of
   pulling splits on affine cells, P3-11.8 conforming affine mixed mesh ⇒ facet balanced). Self-check: P3-11.7
   tested numerically on 20 random affine images per cell type (34,560 side tests, all pass).
+- 2026-11-26: P4 (`specifications/JST1/P4-proposal.md`, items 15-18: `prop:wallJST`, `prop:consistency`(b),(c),
+  `prop:sstpde` PDE form, `lem:sstentropy` Hessian form) self-decided and self-frozen under the user's instruction for
+  this cycle (formalize, review, freeze, prove, audit, commit without mid-batch approvals). Decisions D1-D6 as in the
+  proposal. Independent statement review `reviews/JST1/P4-statement-review.md`: no blocking finding; S2 fixed (Π^(4)
+  split added to P4-15.4), S1 documented (P4-16.2 abstract; G6), minor docstring fixes (M1). Proof drafts were written
+  while the review ran; the statements changed after the review only by these fixes, and are frozen as reviewed:
+  `CFDLean/Papers/JST1/Spec/Item15.lean` .. `Item18.lean`, hashes in `specifications/JST1/frozen.sha256`.
+
+## P5 (items 19-20), self-frozen 2026-11-26
+
+Under the user's instruction of 2026-11-26 (whole cycle authorized without approvals in between). Proposal
+`P5-proposal.md`; independent statement review `reviews/JST1/P5-statement-review.md` (no blocking finding; findings 1
+and 2 fixed before the freeze). Frozen: `CFDLean/Papers/JST1/Spec/Item19.lean`, `Item20.lean` (hashes in
+`frozen.sha256`). No earlier frozen file changed.

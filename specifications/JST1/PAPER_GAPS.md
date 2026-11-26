@@ -72,3 +72,35 @@ copy `LEAN_HANDOFF_PAPER1/paper1.tex` is not changed. pdflatex compiles with no 
   not used in the paper.)
 - G4: before the lemma: π_ik > 0 on the pair graph, λ̂_ik > 0 (c̄ > 0 and ν_ik ≠ 0), Λ_i > 0. Note: λ̂ uses the edge
   projection ν_ik, so the needed condition is ν_ik ≠ 0, not only n_ik ≠ 0. The Lean hypothesis on λ̂ > 0 covers it.
+
+## P4 (2026-11-26): gaps found by the P4 statement review (paper not changed; the paper session decides)
+
+### G5. `prop:wallJST`(ii): "removes only dissipative second-difference terms" — OPEN
+
+- The cut sets ε2 = ε4 = 0 on the wall-crossing edges, so it also removes the fourth-difference terms (whose
+  production has no sign in general and is ≥ 0 in the model of (iii)). The conclusion ("every identity and inequality
+  ... holds unchanged") stays right, since those results hold for any ε4 ≥ 0, including 0.
+- Suggested wording: "removes the fourth-difference terms (no entropy sign is used for them) and dissipative
+  second-difference terms, whose production is ≤ 0 edge by edge".
+- Lean: P4-15.4 splits both Π^(2) and Π^(4) exactly; no statement change needed.
+
+### G6. `prop:consistency`(b): smoothness of F^ec — OPEN
+
+- "F^ec differs from the mean by O(|u_k - u_i|²)" needs F^ec to be C² near the diagonal. The proof says "a symmetric,
+  consistent, smooth two-point flux". For the Ismail-Roe flux this is the smoothness of the logarithmic mean across
+  a = b (true, e.g. 1/L(a, b) = ∫_0^1 dt/((1-t)a + tb), but not argued).
+- Lean: P4-16.2 is the abstract statement; the instance for `ismailRoe` (piecewise `logMean`) is not stated.
+- P5 (2026-11-26): the instance is proved (Lean side closed; the paper text is still OPEN). P5-19.1: `logMean` is Cⁿ
+  for all n on (0, ∞)² (`L(a, b) = a (e^t - 1)/t`, `t = ln b - ln a`). P5-19.2: the Ismail-Roe flux is Cⁿ on
+  admissible × admissible. P5-19.3: `|F^IR - mean| ≤ C|y||u_k - u_i|²` near each admissible diagonal point.
+  Suggested wording: "the Ismail-Roe flux is smooth near the diagonal, since 1/L(a, b) = ∫_0^1 dt/((1-t)a + tb)".
+  Further notes of the P5 reviewer: the constant is only locally uniform (states in a compact subset of the admissible
+  set; it scales with |n_ik|); "expand about the midpoint" needs the segment [u_i, u_k] admissible (true: the
+  admissible set is convex in conservative variables).
+
+### G7. `prop:wallJST` spectrum proof (cosmetic) — OPEN
+
+- "a product of a positive semidefinite and a positive definite matrix (or G_II² on a component without wall
+  neighbours)": the case split is per connected component; "the product of two positive semidefinite matrices has a
+  real non-negative spectrum" covers all cases at once (this is the Lean proof of P4-15.6). G_II is the
+  negative-semidefinite (L_i = Σ(u_k - u_i)) Laplacian; saying so would help the reader.

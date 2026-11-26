@@ -1,0 +1,55 @@
+{
+  "specification": "specifications/JST1/P5.md",
+  "frozen_hashes": "specifications/JST1/frozen.sha256",
+  "source": {
+    "repository": "CFD_Lean",
+    "branch": "jst1-work",
+    "note": "P5 was written directly in CFD_Lean (not folded from JST_Paper_Lean)"
+  },
+  "toolchain": "leanprover/lean4:v4.36.0",
+  "mathlib": "fc4f59e577feb1a4956671bc04ac18aaaf8cd842",
+  "bindings": {
+    "P5-19.1": {
+      "statement": "CFDLean.JST1.Spec.P5_19_1",
+      "theorem": "CFDLean.JST1.Proofs.p5_19_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item19.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19"
+    },
+    "P5-19.2": {
+      "statement": "CFDLean.JST1.Spec.P5_19_2",
+      "theorem": "CFDLean.JST1.Proofs.p5_19_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item19.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19"
+    },
+    "P5-19.3": {
+      "statement": "CFDLean.JST1.Spec.P5_19_3",
+      "theorem": "CFDLean.JST1.Proofs.p5_19_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item19.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item19"
+    },
+    "P5-20.1": {
+      "statement": "CFDLean.JST1.Spec.P5_20_1",
+      "theorem": "CFDLean.JST1.Proofs.p5_20_1",
+      "file": "CFDLean/Papers/JST1/Proofs/Item20.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20"
+    },
+    "P5-20.2": {
+      "statement": "CFDLean.JST1.Spec.P5_20_2",
+      "theorem": "CFDLean.JST1.Proofs.p5_20_2",
+      "file": "CFDLean/Papers/JST1/Proofs/Item20.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20"
+    },
+    "P5-20.3": {
+      "statement": "CFDLean.JST1.Spec.P5_20_3",
+      "theorem": "CFDLean.JST1.Proofs.p5_20_3",
+      "file": "CFDLean/Papers/JST1/Proofs/Item20.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20"
+    },
+    "P5-20.4": {
+      "statement": "CFDLean.JST1.Spec.P5_20_4",
+      "theorem": "CFDLean.JST1.Proofs.p5_20_4",
+      "file": "CFDLean/Papers/JST1/Proofs/Item20.lean",
+      "module": "CFDLean.Papers.JST1.Proofs.Item20"
+    }
+  }
+}
