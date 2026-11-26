@@ -155,6 +155,13 @@ def hexR : Fin 8 → Z3 := ![(0, 0, 0), (1, 0, 0), (1, 1, 0), (0, 1, 0), (0, 0, 
 def prismR : Fin 6 → Z3 := ![(0, 0, 0), (1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (0, 1, 1)]
 def pyrR : Fin 5 → Z3 := ![(0, 0, 0), (2, 0, 0), (2, 2, 0), (0, 2, 0), (1, 1, 2)]
 
+/-- The sub-tetrahedra of all pulling splits of a cell, built from the cell directly (fast form of `Kind.tets`). -/
+def tetsOf {n : ℕ} (C : Cell3 n) : List (List (Fin n)) := C.splits.flatMap fun s => C.pull s.1 s.2
+
+theorem hexTets_eq : (Kind.hex.tets : List (List (Fin 8))) = tetsOf RefCell.hex := rfl
+theorem prismTets_eq : (Kind.prism.tets : List (List (Fin 6))) = tetsOf RefCell.prism := rfl
+theorem pyrTets_eq : (Kind.pyr.tets : List (List (Fin 5))) = tetsOf RefCell.pyramid := rfl
+
 theorem checkK_hex : checkK .hex = true := by
   rw [show checkK .hex = checkKg RefCell.hex hexR (4, 4, 4) 0 from rfl]
   decide +kernel
@@ -214,18 +221,40 @@ def triAnyg (a0 a1 a2 : Fin n) : Bool :=
 def shareZg (a0 a1 a2 : Fin n) : ℤ :=
   if quadAnyg C a0 a1 a2 then C.splits.length else if triAnyg C a0 a1 a2 then 2 * C.splits.length else 0
 
-def localOKg : Bool :=
-  (List.finRange n).all fun a0 => (List.finRange n).all fun a1 => (List.finRange n).all fun a2 =>
+/-- The check for the triangles with first vertex `a0`. -/
+def localOKa (a0 : Fin n) : Bool :=
+  (List.finRange n).all fun a1 => (List.finRange n).all fun a2 =>
     a0 == a1 || a0 == a2 || a1 == a2 ||
       (!(quadAnyg C a0 a1 a2 && triAnyg C a0 a1 a2) &&
-        2 * ((C.splits.flatMap fun s => C.pull s.1 s.2).map (termZg R a0 a1 a2)).sum ==
-          shareZg C a0 a1 a2 * Int.sign (cenZg R S a0 a1 a2))
+        2 * ((tetsOf C).map (termZg R a0 a1 a2)).sum == shareZg C a0 a1 a2 * Int.sign (cenZg R S a0 a1 a2))
+
+def localOKg : Bool := (List.finRange n).all (localOKa C R S)
 
 end Generic
 
+/-! The hexahedron check, split by the first vertex: eight smaller kernel computations (lower peak memory). -/
+
+theorem localOK_hex0 : localOKa RefCell.hex hexR (4, 4, 4) 0 = true := by decide +kernel
+theorem localOK_hex1 : localOKa RefCell.hex hexR (4, 4, 4) 1 = true := by decide +kernel
+theorem localOK_hex2 : localOKa RefCell.hex hexR (4, 4, 4) 2 = true := by decide +kernel
+theorem localOK_hex3 : localOKa RefCell.hex hexR (4, 4, 4) 3 = true := by decide +kernel
+theorem localOK_hex4 : localOKa RefCell.hex hexR (4, 4, 4) 4 = true := by decide +kernel
+theorem localOK_hex5 : localOKa RefCell.hex hexR (4, 4, 4) 5 = true := by decide +kernel
+theorem localOK_hex6 : localOKa RefCell.hex hexR (4, 4, 4) 6 = true := by decide +kernel
+theorem localOK_hex7 : localOKa RefCell.hex hexR (4, 4, 4) 7 = true := by decide +kernel
+
 theorem localOK_hex : localOK .hex = true := by
-  rw [show localOK .hex = localOKg RefCell.hex hexR (4, 4, 4) from rfl]
-  decide +kernel
+  rw [show localOK .hex = localOKg RefCell.hex hexR (4, 4, 4) from rfl, localOKg, List.all_eq_true]
+  intro a0 _
+  fin_cases a0
+  · exact localOK_hex0
+  · exact localOK_hex1
+  · exact localOK_hex2
+  · exact localOK_hex3
+  · exact localOK_hex4
+  · exact localOK_hex5
+  · exact localOK_hex6
+  · exact localOK_hex7
 theorem localOK_prism : localOK .prism = true := by
   rw [show localOK .prism = localOKg RefCell.prism prismR (2, 2, 3) from rfl]
   decide +kernel
