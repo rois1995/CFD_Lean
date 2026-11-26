@@ -1,0 +1,45 @@
+amp 0.1: valid trilinear 1500, with inverted pulling tets 0, max bad splits None
+amp 0.2: valid trilinear 1500, with inverted pulling tets 1, max bad splits 4
+amp 0.3: valid trilinear 1494, with inverted pulling tets 318, max bad splits 24
+amp 0.4: valid trilinear 1320, with inverted pulling tets 791, max bad splits 43
+distinct tets 96
+Kuhn subset, amp 0.2: valid trilinear 1500, with an inverted Kuhn tet 0
+Kuhn subset, amp 0.3: valid trilinear 1483, with an inverted Kuhn tet 14
+Kuhn subset, amp 0.4: valid trilinear 1282, with an inverted Kuhn tet 158
+[[ 0.19   0.233  0.33 ]
+ [ 0.996 -0.311  0.395]
+ [ 0.359  0.631 -0.286]
+ [ 0.655  0.942 -0.207]
+ [ 0.337 -0.047  1.121]
+ [ 0.823 -0.346  0.846]
+ [ 0.208  0.652  1.241]
+ [ 0.698  0.741  1.064]]
+--- one moved vertex, |p|_1 < 1 (trilinear Jacobian > 0 everywhere)
+any Kuhn inversion: []
+--- twisted cube: top face rotated by theta about the vertical axis through the centre
+5 minJ 0.998 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+10 minJ 0.992 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+15 minJ 0.983 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+20 minJ 0.970 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+25 minJ 0.953 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+30 minJ 0.933 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+35 minJ 0.910 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+40 minJ 0.883 bad pulling tets 0 bad Kuhn tets 0 bad Kuhn splits 0
+45 minJ 0.854 bad pulling tets 3 bad Kuhn tets 0 bad Kuhn splits 0
+50 minJ 0.821 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+55 minJ 0.787 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+60 minJ 0.750 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+65 minJ 0.711 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+70 minJ 0.671 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+75 minJ 0.629 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+80 minJ 0.587 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+85 minJ 0.544 bad pulling tets 8 bad Kuhn tets 0 bad Kuhn splits 0
+--- facet balance of the one-cell mesh, twisted cube cos=3/5 sin=4/5
+cube interior triangles 32 unbalanced 0
+cube Kuhn family unbalanced 0
+twist 3/5 interior triangles 32 unbalanced 24
+[0, 4, 7] [-0.088 -0.013  0.05 ]
+[0, 6, 7] [-0.05   0.038 -0.025]
+[0, 3, 7] [-0.062  0.062 -0.05 ]
+[0, 2, 7] [-0.062  0.     0.025]
+twist 3/5 Kuhn family unbalanced 0

@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-545 promised theorems, grouped by layer.
+549 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -8,11 +8,11 @@ Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theore
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
 `specifications/M2-results.json` .. `M5-results.json`, the four FV1D claims in `specifications/FV1D-results.json`, every theorem of `specifications/MC-N-results.json`, and the
-115 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P6-results.json` (IDs `P1-x.y` .. `P6-x.y`).
+119 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P7-results.json` (IDs `P1-x.y` .. `P7-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
 independent review pending. FV1D is pending independent implementation review. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
-JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P6 statements written here (self-checked,
+JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P7 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
 **Layer** (by the mathematical object a statement is about, not by milestone or module):
@@ -60,20 +60,20 @@ that this file equals the generated text. Do not edit by hand.
 | Layer | Theorems | FEM | FVM | FEM + FVM | method-free |
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
-| Geometry | 69 | 0 | 39 | 4 | 26 |
+| Geometry | 73 | 0 | 42 | 4 | 27 |
 | Discrete operators | 89 | 10 | 60 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 104 | 7 | 79 | 7 | 11 |
 | Time | 93 | 0 | 73 | 0 | 20 |
 | Execution | 53 | 0 | 53 | 0 | 0 |
-| **Total** | 545 | 17 | 330 | 30 | 168 |
+| **Total** | 549 | 17 | 333 | 30 | 169 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 360 |
-| method-free | 168 |
+| FVM | 363 |
+| method-free | 169 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -92,7 +92,7 @@ that this file equals the generated text. Do not edit by hand.
 | E0b | pending | 14 |
 | B3b | pending | 40 |
 | E0c | pending | 19 |
-| JST1 | candidate | 115 |
+| JST1 | candidate | 119 |
 | FV1D | pending | 4 |
 
 ## Foundations (12)
@@ -112,7 +112,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_16_2` | P4-16.2 | method-free | candidate | A symmetric, consistent two-point flux that is C² near the diagonal differs from the mean flux by O(\|u_k − u_i\|²). |
 | `CFDLean.JST1.Proofs.p5_19_1` | P5-19.1 | method-free | candidate | The logarithmic mean is Cⁿ for every n on (0,∞)², across the diagonal a = b (L(a,b) = a·E(ln b − ln a) with E(t) = (eᵗ−1)/t analytic). |
 
-## Geometry (69)
+## Geometry (73)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -185,6 +185,10 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_16_4` | P4-16.4 | FVM | candidate | On the face vector the dissipation sum is at least Σ c̄ (n·e) sec ϑ, which is unbounded at fixed \|Ω\| on stretched triangles. |
 | `CFDLean.JST1.Proofs.p6_21_1` | P6-21.1 | method-free | candidate | The closed simplex (convex hull of the vertices) is where all barycentric coordinates are ≥ 0, and its Lebesgue measure is \|det(x_β − x_0)\|/d!. |
 | `CFDLean.JST1.Proofs.p6_21_2` | P6-21.2 | method-free | candidate | Each barycentric coordinate of a nondegenerate simplex is integrable on it and ∫_T φ_b = \|T\|/(d+1) = m_T. |
+| `CFDLean.JST1.Proofs.p7_22_1` | P7-22.1 | method-free | candidate | In a cell with free vertex positions whose pulling sub-tetrahedra all keep one orientation, sub-tetrahedra sharing an interior triangle lie on opposite sides, and those at a cell-face triangle on one side. |
+| `CFDLean.JST1.Proofs.p7_22_2` | P7-22.2 | FVM | candidate | A mesh of general hexahedra, prisms and pyramids, split-oriented and conforming at the sub-tetrahedron level, averaged over its pulling splits, is valid and facet balanced. |
+| `CFDLean.JST1.Proofs.p7_22_3` | P7-22.3 | FVM | candidate | Affine cells are split-oriented and centroid conformity implies sub-tetrahedron conformity, so the affine result P3-11.8 is a special case of P7-22.2. |
+| `CFDLean.JST1.Proofs.p7_22_4` | P7-22.4 | FVM | candidate | A twisted cube (top face turned, cos θ = 3/5) is a valid trilinear hexahedron but has inverted pulling sub-tetrahedra; its one-cell mesh is not facet balanced and the boundary formula of β fails. |
 
 ## Discrete operators (89)
 

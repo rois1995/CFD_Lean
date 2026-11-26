@@ -91,7 +91,7 @@ run_cmd do
     ("axioms", toJson ((leaves.mergeSort Name.lt).map Name.toString)),
     ("unsafe_reached", toJson ([] : List String))]).compress)
 
-/-! JST1 (MR-2): each of the 115 frozen paper-1 statements is bound to its proof. The axioms of every proof are in
+/-! JST1 (MR-2): each of the 119 frozen paper-1 statements is bound to its proof. The axioms of every proof are in
 the `CFDLEAN_DECL` records above (`scripts/verify.py` checks them against `specifications/JST1/P*-results.json`). -/
 
 example : CFDLean.JST1.Spec.P1_1_0 := CFDLean.JST1.Proofs.p1_1_0
@@ -209,3 +209,7 @@ example : CFDLean.JST1.Spec.P5_20_4 := CFDLean.JST1.Proofs.p5_20_4
 example : CFDLean.JST1.Spec.P6_21_1 := CFDLean.JST1.Proofs.p6_21_1
 example : CFDLean.JST1.Spec.P6_21_2 := CFDLean.JST1.Proofs.p6_21_2
 example : CFDLean.JST1.Spec.P6_21_3 := CFDLean.JST1.Proofs.p6_21_3
+example : CFDLean.JST1.Spec.P7_22_1 := CFDLean.JST1.Proofs.p7_22_1
+example : CFDLean.JST1.Spec.P7_22_2 := CFDLean.JST1.Proofs.p7_22_2
+example : CFDLean.JST1.Spec.P7_22_3 := CFDLean.JST1.Proofs.p7_22_3
+example : CFDLean.JST1.Spec.P7_22_4 := CFDLean.JST1.Proofs.p7_22_4
