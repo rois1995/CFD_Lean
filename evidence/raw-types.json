@@ -453,6 +453,10 @@
       "type": "∀ (u : ℝ),\n  CFDLean.Burgers.entropyPotential u =\n    CFDLean.Burgers.entropyVariable u * CFDLean.Burgers.physicalFlux u - CFDLean.Burgers.entropyFluxFunction u",
       "raw_type": "∀ (u : Real),\n  Eq (CFDLean.Burgers.entropyPotential u)\n    (HSub.hSub (HMul.hMul (CFDLean.Burgers.entropyVariable u) (CFDLean.Burgers.physicalFlux u))\n      (CFDLean.Burgers.entropyFluxFunction u))"
     },
+    "CFDLean.Burgers.fv1d_step_eq": {
+      "type": "∀ {N : ℕ} [inst : NeZero N] (dx dt : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      ∀ (u : ZMod N → ℝ) (i : ZMod N),\n        CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid N) CFDLean.Burgers.physicalFlux CFDLean.Burgers.Rusanov.waveSpeed\n            dx dt u i =\n          CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i",
+      "raw_type": "∀ {N : Nat} [inst : NeZero N] (dx dt : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      ∀ (u : ZMod N → Real) (i : ZMod N),\n        Eq\n          (CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid N) CFDLean.Burgers.physicalFlux\n            CFDLean.Burgers.Rusanov.waveSpeed dx dt u i)\n          (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i)"
+    },
     "CFDLean.Coordinates.decode_encode": {
       "type": "∀ (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U",
       "raw_type": "∀ (U : CFDLean.Conservative (OfNat.ofNat 3)), Eq (CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U)) U"
@@ -464,6 +468,18 @@
     "CFDLean.Coordinates.unitNormal_dot_self": {
       "type": "∀ (S : CFDLean.Vector 3), S ≠ 0 → CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S) = 1",
       "raw_type": "∀ (S : CFDLean.Vector (OfNat.ofNat 3)),\n  Ne S (OfNat.ofNat 0) →\n    Eq (CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S)) (OfNat.ofNat 1)"
+    },
+    "CFDLean.Euler1D.component_balance": {
+      "type": "∀ {N : ℕ} [inst : NeZero N] (γ dx dt : ℝ),\n  1 < γ →\n    0 < dx →\n      0 ≤ dt →\n        ∀ (U : ZMod N → CFDLean.Conservative 1),\n          (∀ (i : ZMod N), CFDLean.Conservative.Admissible γ (U i)) →\n            dx * ∑ i, (CFDLean.Euler1D.step γ dx dt U i).density = dx * ∑ i, (U i).density ∧\n              dx * ∑ i, (CFDLean.Euler1D.step γ dx dt U i).momentum 0 = dx * ∑ i, (U i).momentum 0 ∧\n                dx * ∑ i, (CFDLean.Euler1D.step γ dx dt U i).energy = dx * ∑ i, (U i).energy",
+      "raw_type": "∀ {N : Nat} [inst : NeZero N] (γ dx dt : Real),\n  LT.lt (OfNat.ofNat 1) γ →\n    LT.lt (OfNat.ofNat 0) dx →\n      LE.le (OfNat.ofNat 0) dt →\n        ∀ (U : ZMod N → CFDLean.Conservative (OfNat.ofNat 1)),\n          (∀ (i : ZMod N), CFDLean.Conservative.Admissible γ (U i)) →\n            And\n              (Eq (HMul.hMul dx (Finset.univ.sum fun i => (CFDLean.Euler1D.step γ dx dt U i).density))\n                (HMul.hMul dx (Finset.univ.sum fun i => (U i).density)))\n              (And\n                (Eq\n                  (HMul.hMul dx\n                    (Finset.univ.sum fun i => (CFDLean.Euler1D.step γ dx dt U i).momentum ⟨0, Fin.instOfNat⟩))\n                  (HMul.hMul dx (Finset.univ.sum fun i => (U i).momentum ⟨0, Fin.instOfNat⟩)))\n                (Eq (HMul.hMul dx (Finset.univ.sum fun i => (CFDLean.Euler1D.step γ dx dt U i).energy))\n                  (HMul.hMul dx (Finset.univ.sum fun i => (U i).energy))))"
+    },
+    "CFDLean.Euler1D.face_consistent": {
+      "type": "∀ (γ : ℝ),\n  1 < γ →\n    ∀ (C : CFDLean.Conservative 1),\n      CFDLean.Conservative.Admissible γ C → CFDLean.Euler1D.face γ C C = CFDLean.physicalFlux γ C fun x => 1",
+      "raw_type": "∀ (γ : Real),\n  LT.lt (OfNat.ofNat 1) γ →\n    ∀ (C : CFDLean.Conservative (OfNat.ofNat 1)),\n      CFDLean.Conservative.Admissible γ C →\n        Eq (CFDLean.Euler1D.face γ C C) (CFDLean.physicalFlux γ C fun x => OfNat.ofNat 1)"
+    },
+    "CFDLean.Euler1D.step_constant": {
+      "type": "∀ {N : ℕ} [inst : NeZero N] (γ dx dt : ℝ),\n  1 < γ →\n    0 < dx →\n      0 ≤ dt →\n        ∀ (C : CFDLean.Conservative 1),\n          CFDLean.Conservative.Admissible γ C → (CFDLean.Euler1D.step γ dx dt fun x => C) = fun x => C",
+      "raw_type": "∀ {N : Nat} [inst : NeZero N] (γ dx dt : Real),\n  LT.lt (OfNat.ofNat 1) γ →\n    LT.lt (OfNat.ofNat 0) dx →\n      LE.le (OfNat.ofNat 0) dt →\n        ∀ (C : CFDLean.Conservative (OfNat.ofNat 1)),\n          CFDLean.Conservative.Admissible γ C → Eq (CFDLean.Euler1D.step γ dx dt fun x => C) fun x => C"
     },
     "CFDLean.Exec.Limiter.slopeBounded": {
       "type": "∀ (L : CFDLean.Exec.Limiter), L ≠ CFDLean.Exec.Limiter.none → CFDLean.Scalar.FiniteVolume.SlopeBounded L.theta L.slopeFn",
