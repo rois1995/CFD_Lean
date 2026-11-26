@@ -52,6 +52,10 @@ review are implementation evidence. Record independent acceptance when the revie
 For documentation changes, check relative links and run `git diff --check`. Review the file list for scope. If a document
 is covered by [evidence/SHA256SUMS](evidence/SHA256SUMS), regenerate the manifest with the verifier and check the diff.
 
+For `develop` PRs that only add or edit ordinary Markdown in `docs/`, `roadmap/`, `AGENTS.md`, `ARCHITECTURE.md`,
+`CONTRIBUTING.md`, or `TODO.md`, Integration CI runs the link, anchor, whitespace, and checksum checks without building
+Lean. Other changes use full integration verification. Release PRs use the full release gate.
+
 For Lean, contracts or verification tooling, use the pinned [Lean toolchain](lean-toolchain) and [Lake manifest](lake-manifest.json).
 Run the following from the repository root. See the [shared verification workflow](.github/workflows/lean-verification.yml)
 for the CI checks.
