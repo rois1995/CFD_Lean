@@ -1,13 +1,13 @@
 # CFD_Lean theorem catalog (MC-C)
 
-549 promised theorems, grouped by layer.
+551 promised theorems, grouped by layer.
 
 ## Rules
 
 Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theorems (M1 has no result map; its
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
-`specifications/M2-results.json` .. `M5-results.json`, the four FV1D claims in `specifications/FV1D-results.json`, every theorem of `specifications/MC-N-results.json`, and the
+`specifications/M2-results.json` .. `M5-results.json`, the FV1D and FVA result maps, every theorem of `specifications/MC-N-results.json`, and the
 119 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P7-results.json` (IDs `P1-x.y` .. `P7-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
@@ -66,13 +66,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 104 | 7 | 79 | 7 | 11 |
 | Time | 93 | 0 | 73 | 0 | 20 |
-| Execution | 53 | 0 | 53 | 0 | 0 |
-| **Total** | 549 | 17 | 333 | 30 | 169 |
+| Execution | 55 | 0 | 55 | 0 | 0 |
+| **Total** | 551 | 17 | 335 | 30 | 169 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 363 |
+| FVM | 365 |
 | method-free | 169 |
 
 | Milestone | Status | Theorems |
@@ -94,6 +94,7 @@ that this file equals the generated text. Do not edit by hand.
 | E0c | pending | 19 |
 | JST1 | candidate | 119 |
 | FV1D | pending | 4 |
+| FVA | pending | 2 |
 
 ## Foundations (12)
 
@@ -626,7 +627,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.stepData_mem` | B3b-N | FVM | pending | The four-cell state (0, 0, 1, 1) is between 0 and 1. |
 | `CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds` | B3b-N | FVM | pending | The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3. |
 
-## Execution (53)
+## Execution (55)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -683,3 +684,5 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.run_limiterSsprk3StepArray_bounds` | E0c-T | FVM | pending | The same bounds result after k kernel MUSCL SSPRK3 steps. |
 | `CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le` | E0c-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
 | `CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le` | E0c-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.FV1D.burgers_refines` | FVA-B | FVM | pending | The shared real Burgers array step equals the assembled B0 and existing E0 updates. |
+| `CFDLean.Exec.FV1D.euler_refines` | FVA-E | FVM | pending | All three coordinates of the real Euler array step represent the assembled FV1D update. |

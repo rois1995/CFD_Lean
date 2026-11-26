@@ -76,5 +76,6 @@ import CFDLean.Exec.MusclRefinement
 import CFDLean.Exec.LimiterKernel
 import CFDLean.Exec.RealScalarSign
 import CFDLean.Exec.LimiterRefinement
+import CFDLean.Exec.FV1DControls
 
 import CFDLean.Papers.JST1

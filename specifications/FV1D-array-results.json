@@ -1,0 +1,14 @@
+{
+  "contract": "specifications/FV1D-array.md",
+  "approval_record": "specifications/FV1D-array-approval.md",
+  "results": [
+    {
+      "id": "FVA-B",
+      "theorem": "CFDLean.Exec.FV1D.burgers_refines"
+    },
+    {
+      "id": "FVA-E",
+      "theorem": "CFDLean.Exec.FV1D.euler_refines"
+    }
+  ]
+}
