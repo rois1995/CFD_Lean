@@ -14,6 +14,11 @@ For partial work, check off the completed deliverables and keep the overall item
   To also run every trusted challenge with the paranoid comparator on a `develop` PR, add the `paranoid` label to the
   PR. You can also start [the paranoid workflow](.github/workflows/paranoid.yml) for a branch from the Actions tab.
   This check is optional, and the release PR runs it again.
+- Integration CI reuses the compiled modules of unchanged files from a build cache (restored from the same PR or
+  from `develop`, which [Develop build cache](.github/workflows/develop-cache.yml) refreshes after each merge). Lake
+  validates its saved build traces and rebuilds artifacts whose recorded inputs no longer match, so source and import
+  changes invalidate affected modules transitively. Release verification never uses this cache and builds everything
+  from scratch.
 - Promote `develop` to `main` through a release PR. [Release verification](.github/workflows/release.yml) runs the
   integration checks and every trusted challenge with the paranoid comparator. Use a merge commit for the release.
 - For an emergency fix, branch `hotfix/<topic>` from `main` and open a PR into `main` through the same release gate.
