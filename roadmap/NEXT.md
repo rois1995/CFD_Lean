@@ -70,36 +70,25 @@ Success criterion: routine development can proceed without direct writes to eith
 `develop` remains continuously integration-green and `main` remains a deliberately promoted, paranoid-checked
 release/reference line.
 
-## Immediate work package A - documentation/navigation layer
+## Repository navigation documentation
 
-Land the low-risk repository navigation improvements through the new feature-branch -> `develop` flow. This package changes documentation only and
-must not alter Lean declarations, theorem statements, executable code or verifier behavior.
+Start with the [README](../README.md), [architecture guide](../ARCHITECTURE.md),
+[concept map](../docs/CONCEPTS.md), [contributor guide](../CONTRIBUTING.md) and [agent guide](../AGENTS.md).
+Use pull requests for repository changes, including documentation.
 
-Deliverables:
+## Priority 0 - close the review and trust backlog
 
-1. Add `ARCHITECTURE.md` with the layer/dependency model, dependency rules and a "where should this code go?"
-   decision tree.
-2. Add `AGENTS.md` with repository-specific instructions for autonomous coding/review agents: what to read first,
-   where contracts live, what is authoritative/frozen, generated-file rules, validation commands and what counts as
-   done.
-3. Add `CONTRIBUTING.md` for human contributors, including milestone/specification workflow, naming/location rules,
-   review/acceptance states and validation expectations.
-4. Add `docs/CONCEPTS.md`: a concept-to-code map (fluxes, reconstruction, conservation, entropy, time integration,
-   geometry, execution/refinement, etc.).
-5. Add concise README files at major subsystem boundaries where they materially improve orientation (for example
-   `CFDLean/Exec/`, `CFDLean/Discrete/`, `CFDLean/Schemes/`, and `CFDLean/Geometry/MedianDual/`).
-6. Shorten/restructure the root `README.md` so the first screen answers: what CFD_Lean is, what is verified today,
-   what can be executed today, and where to navigate next. Move historical/reproduction detail to appropriate
-   reference documents instead of deleting it.
-7. Clearly mark generated versus authoritative/frozen documents wherever ambiguity could cause an agent or human to
-   edit the wrong artifact.
+Start the Burgers review at B0. Its kernel audit and result map cover the assembled `ZMod N` scheme B0-S. Decide during
+review whether to add a dedicated trusted challenge for that scheme. [B0 trust boundary](../references/Burgers-B0.md#trusted-boundary-and-exclusions)
 
-Because this package is documentation-only, it needs only the ordinary integration gate once branch governance is in place; it does not require the full paranoid release gate by itself. Check broken links and accidental edits outside the intended files.
+1. Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+2. Human-review the trusted Burgers statements that currently have only agent review.
+3. Complete the independent implementation review of M5.
 
-## Immediate work package B - generated/code-backed navigation tooling
+## Deferred work package - generated navigation tooling
 
-After package A, add navigation helpers that touch Lean source layout, scripts or CI. These are still architecture/tooling
-work rather than new CFD mathematics, but they receive the normal build/verifier/CI checks before landing.
+Revisit generated navigation after the first Burgers review checkpoint. Use the review to identify which lookups to
+automate. Changes to Lean source layout, scripts or CI follow the normal validation workflow.
 
 Deliverables:
 
@@ -119,20 +108,8 @@ Deliverables:
    affected by the change, and generated-file consistency checks; run broader CI when dependency-enforcement behavior
    changes.
 
-Success criterion for A+B: a new human or agent should be able to answer "where is this concept?", "what is safe to
-edit?", "what is the current status?", and "what validates this milestone?" without reconstructing the repository
-structure from recursive search.
-
-## Priority 0 - close the review / trust backlog
-
-1. Complete the independent implementation review of M5.
-2. Complete independent review of Burgers B0--B4, E0 and E0b.
-3. Human-review the trusted Burgers statements that currently have only agent review.
-4. Resolve the open B0 trusted-boundary question: the current trusted B0 statements do not separately state the
-   assembled `ZMod N` scheme B0-S.
-
-The mathematics is moving faster than independent acceptance. Closing this gap is important before many additional
-solver layers accumulate.
+The goal is to locate a concept, its authoritative artifacts, its status and its validation commands from the docs and
+generated indexes.
 
 ## Priority 1 - non-uniform fixed 1D finite volume
 
@@ -186,7 +163,6 @@ Candidates, to be proposed/frozen separately:
 
 - fully discrete entropy inequality;
 - sharper CFL bounds for B1 and B3;
-- limiters beyond the current minmod region (e.g. MC, superbee);
 - accuracy/order statements;
 - eventual convergence statements;
 - adapter between the periodic scalar operator and `CFDLean.Num.antisymmetric_pairFlux`;
@@ -207,4 +183,3 @@ Keep the generic time-evolution interfaces compatible with future variable-step 
 - Continue paper-1 gaps that need new mathematics: non-affine (trilinear) mixed cells. Simplex integration is done
   (JST1 P6).
 - Keep the theorem catalog and raw-type evidence synchronized with every milestone.
-- Shorten the root README by moving historical detail into `references/` where useful.
