@@ -453,7 +453,9 @@ class CatalogTests(unittest.TestCase):
         expected.update(verify.jst1_catalog_index([json.loads((root / path).read_text())
                                                    for path, _ in verify.JST1_RESULTS]))
         catalog = json.loads((root / verify.CATALOG).read_text(encoding="utf-8"))
-        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT
+        fv1d_claims = {"FV1D-B", "FV1D-F", "FV1D-K", "FV1D-C"}
+        self.assertCountEqual([rid for milestone, rid in expected.values() if milestone == "FV1D"], fv1d_claims)
+        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT + len(fv1d_claims)
                          + sum(pins["count"] for pins in verify.BURGERS.values()) + verify.JST1_COUNT)
         rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
         self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
