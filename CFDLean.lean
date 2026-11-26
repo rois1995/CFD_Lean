@@ -35,6 +35,10 @@ import CFDLean.Discrete.Periodic.Muscl
 
 import CFDLean.Entropy.PairFlux
 import CFDLean.Entropy.Production
+import CFDLean.Entropy.Scalar.Certificates
+import CFDLean.Entropy.Scalar.Periodic
+import CFDLean.Entropy.Scalar.Burgers
+import CFDLean.Entropy.Scalar.Controls
 
 import CFDLean.Schemes.Roe.Flux
 import CFDLean.Schemes.Boundary.Assembly

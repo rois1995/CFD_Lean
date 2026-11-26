@@ -15,8 +15,11 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
      `references/Burgers-B2.md`. Reviews pending.
    - B3 (MUSCL reconstruction, minmod-region limiters, TVD and bounds with Euler/SSPRK2/SSPRK3): contract frozen by
      the agent, implementation in `references/Burgers-B3.md`. Reviews pending.
-   - Next: B4 (entropy), B5 (paper correspondence), E0 (array refinement and executable).
-   - Ideas not started: limiters outside the minmod region (MC, superbee), a sharp CFL constant for the bounds (B1)
+   - B4 (entropy certificates, semidiscrete cell entropy inequality, Rusanov entropy stable for the square entropy):
+     contract frozen by the agent, implementation in `references/Burgers-B4.md`. Reviews pending.
+   - Next: E0 (array refinement and executable), B5 (paper correspondence).
+   - Ideas not started: fully discrete entropy inequality, adapter from the periodic scalar operator to
+     `CFDLean.Num.antisymmetric_pairFlux`, limiters outside the minmod region (MC, superbee), a sharp CFL constant for the bounds (B1)
      and for MUSCL (B3), accuracy statements.
    - Open for the user: the trusted B0 statements do not state the assembled `ZMod N` scheme (B0-S).
 3. **M6 composition** (original roadmap in `specifications/M2-proposal.md`): multi-step evolution on top of M5.

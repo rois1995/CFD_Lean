@@ -1,0 +1,149 @@
+{
+  "contract": "specifications/Burgers-B4.md",
+  "contract_sha256": "d89c8ba147852d1adc4ed9dc1f9c5f41e7cb2362ae78f21d6b7c7fff321d5579",
+  "approval_record": "specifications/Burgers-B4-approval.md",
+  "approved_revision": "ab5abc4fa28a18f52e4ae8aff06e8311179d201b",
+  "source_map": "references/Burgers-B4.md",
+  "trusted_statement_review": "reviews/Burgers-B4/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "B4-C",
+      "definitions": [
+        "CFDLean.Scalar.EntropyStable",
+        "CFDLean.Scalar.EntropyConservative"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.EntropyConservative.entropyStable"
+      ]
+    },
+    {
+      "id": "B4-Q",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.entropyFlux"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.entropyFlux_constant"
+      ]
+    },
+    {
+      "id": "B4-I",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_identity",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+        "CFDLean.Scalar.FiniteVolume.cell_entropy_equality"
+      ]
+    },
+    {
+      "id": "B4-G",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos",
+        "CFDLean.Scalar.FiniteVolume.entropy_production_zero"
+      ]
+    },
+    {
+      "id": "B4-B",
+      "definitions": [
+        "CFDLean.Burgers.entropyVariable",
+        "CFDLean.Burgers.entropyFluxFunction",
+        "CFDLean.Burgers.entropyPotential",
+        "CFDLean.Burgers.EntropyConservativeFlux.eval",
+        "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.entropyPotential_eq",
+        "CFDLean.Burgers.EntropyConservativeFlux.consistent",
+        "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative",
+        "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub",
+        "CFDLean.Burgers.Rusanov.entropyStable"
+      ]
+    },
+    {
+      "id": "B4-S",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.cell_entropy_inequality",
+        "CFDLean.Burgers.Rusanov.energy_production_nonpos"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Scalar.EntropyStable": "CFDLean.Entropy.Scalar.Certificates",
+    "CFDLean.Scalar.EntropyConservative": "CFDLean.Entropy.Scalar.Certificates",
+    "CFDLean.Scalar.EntropyConservative.entropyStable": "CFDLean.Entropy.Scalar.Certificates",
+    "CFDLean.Scalar.FiniteVolume.entropyFlux": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Scalar.FiniteVolume.entropyFlux_constant": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_identity": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_equality": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Scalar.FiniteVolume.entropy_production_zero": "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Burgers.entropyVariable": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.entropyFluxFunction": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.entropyPotential": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.entropyPotential_eq": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.EntropyConservativeFlux.eval": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.EntropyConservativeFlux.consistent": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.Rusanov.entropyStable": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.Rusanov.cell_entropy_inequality": "CFDLean.Entropy.Scalar.Burgers",
+    "CFDLean.Burgers.Rusanov.energy_production_nonpos": "CFDLean.Entropy.Scalar.Burgers"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersB4Challenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersB4Challenge",
+    "statements_sha256": "7f83b6db7ae57cdc30d6385eaac0180c37e0fed4a402176eeccc63018a49a341",
+    "bridge_module": "CFDLean.Verification.BurgersB4Verify",
+    "comparator_challenge": "Challenges/BurgersB4.lean",
+    "comparator_challenge_module": "Challenges.BurgersB4",
+    "comparator_challenge_sha256": "c73539fc0237b37f842a02d9d93c4cefabb85e7d2a8ce2a1b41fd6b2f2cdd6d3",
+    "comparator_config": "Challenges/BurgersB4.comparator.json",
+    "bindings": [
+      {
+        "id": "B4-B",
+        "statement": "CFDLean.Verification.BurgersB4Challenge.EntropyConservativeFluxProperties",
+        "theorem": "CFDLean.Verification.BurgersB4Verify.entropy_conservative_flux_properties",
+        "type": "CFDLean.Verification.BurgersB4Challenge.EntropyConservativeFluxProperties",
+        "uses": "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative"
+      },
+      {
+        "id": "B4-B",
+        "statement": "CFDLean.Verification.BurgersB4Challenge.RusanovEntropyStable",
+        "theorem": "CFDLean.Verification.BurgersB4Verify.rusanov_entropy_stable",
+        "type": "CFDLean.Verification.BurgersB4Challenge.RusanovEntropyStable",
+        "uses": "CFDLean.Burgers.Rusanov.entropyStable"
+      },
+      {
+        "id": "B4-I",
+        "statement": "CFDLean.Verification.BurgersB4Challenge.CellEntropyInequality",
+        "theorem": "CFDLean.Verification.BurgersB4Verify.cell_entropy_inequality",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.BurgersB4Challenge.CellEntropyInequality I",
+        "uses": "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality"
+      },
+      {
+        "id": "B4-G",
+        "statement": "CFDLean.Verification.BurgersB4Challenge.EntropyProductionNonpos",
+        "theorem": "CFDLean.Verification.BurgersB4Verify.entropy_production_nonpos",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB4Challenge.EntropyProductionNonpos I",
+        "uses": "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos"
+      },
+      {
+        "id": "B4-S",
+        "statement": "CFDLean.Verification.BurgersB4Challenge.RusanovEnergyProduction",
+        "theorem": "CFDLean.Verification.BurgersB4Verify.rusanov_energy_production",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB4Challenge.RusanovEnergyProduction I",
+        "uses": "CFDLean.Burgers.Rusanov.energy_production_nonpos"
+      }
+    ]
+  }
+}

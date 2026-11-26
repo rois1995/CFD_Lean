@@ -793,7 +793,11 @@ class InheritedTableTests(unittest.TestCase):
         accepted["results"][0]["stage"] = "bogus"
         current = json.loads(json.dumps(self.current["M2"]))
         del current["results"][0]["id"]
-        self.assertEqual(self.same("M2", current=current, accepted=accepted), ("ValueError", "'bogus' is not in list"))
+        # The message of `list.index` depends on the Python version ("'bogus' is not in list" or
+        # "list.index(x): x not in list"); the exception type shows that the stage is checked before the ID.
+        result = self.same("M2", current=current, accepted=accepted)
+        self.assertEqual(result[0], "ValueError")
+        self.assertIn("not in list", result[1])
         accepted = json.loads(json.dumps(self.accepted["M3"]))
         del accepted["results"][-1]["id"]
         accepted["current_stage"] = "M3a"

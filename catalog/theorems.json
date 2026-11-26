@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0, B1, B2, B3, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -5370,6 +5370,188 @@
       ],
       "summary": "A conforming mesh of affine hexahedra, prisms and pyramids averaged over pulling splits is a valid facet-balanced weighted tetrahedral mesh.",
       "source": "specifications/JST1/P3-results.json P3-11.8 (CFDLean.JST1.Spec.P3_11_8)"
+    },
+    {
+      "name": "CFDLean.Scalar.EntropyConservative.entropyStable",
+      "id": "B4-C",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Certificates",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "An entropy-conservative two-point flux is entropy stable.",
+      "source": "specifications/Burgers-B4-results.json B4-C; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.entropyFlux_constant",
+      "id": "B4-Q",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On equal states the numerical entropy flux of a consistent flux is v f − ψ.",
+      "source": "specifications/Burgers-B4-results.json B4-Q; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.cell_entropy_identity",
+      "id": "B4-I",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Cell entropy identity: v_i L_i + (Q_i − Q_{i−1})/dx is the sum of the two interface entropy defects over 2 dx.",
+      "source": "specifications/Burgers-B4-results.json B4-I; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality",
+      "id": "B4-I",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For an entropy-stable flux and dx > 0: v_i L_i ≤ −(Q_i − Q_{i−1})/dx in every cell.",
+      "source": "specifications/Burgers-B4-results.json B4-I; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.cell_entropy_equality",
+      "id": "B4-I",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For an entropy-conservative flux: v_i L_i = −(Q_i − Q_{i−1})/dx in every cell.",
+      "source": "specifications/Burgers-B4-results.json B4-I; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos",
+      "id": "B4-G",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For an entropy-stable flux and dx > 0 the total entropy production Σ v_i L_i on a periodic grid is nonpositive.",
+      "source": "specifications/Burgers-B4-results.json B4-G; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.entropy_production_zero",
+      "id": "B4-G",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Periodic",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For an entropy-conservative flux the total entropy production on a periodic grid is zero.",
+      "source": "specifications/Burgers-B4-results.json B4-G; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.entropyPotential_eq",
+      "id": "B4-B",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "For Burgers and the square entropy the potential u³/6 is v f − q with v = u, f = u²/2, q = u³/3.",
+      "source": "specifications/Burgers-B4-results.json B4-B; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.consistent",
+      "id": "B4-B",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The flux (a² + ab + b²)/6 is consistent with the Burgers flux.",
+      "source": "specifications/Burgers-B4-results.json B4-B; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative",
+      "id": "B4-B",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The flux (a² + ab + b²)/6 is entropy conservative for the square entropy of Burgers.",
+      "source": "specifications/Burgers-B4-results.json B4-B; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub",
+      "id": "B4-B",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov flux is the entropy-conservative flux minus (α/2 − (b − a)/12)(b − a).",
+      "source": "specifications/Burgers-B4-results.json B4-B; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.entropyStable",
+      "id": "B4-B",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov flux is entropy stable for the square entropy.",
+      "source": "specifications/Burgers-B4-results.json B4-B; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.cell_entropy_inequality",
+      "id": "B4-S",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Cell entropy inequality of the Burgers Rusanov operator for the square entropy, dx > 0.",
+      "source": "specifications/Burgers-B4-results.json B4-S; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.energy_production_nonpos",
+      "id": "B4-S",
+      "milestone": "B4",
+      "module": "CFDLean.Entropy.Scalar.Burgers",
+      "status": "pending",
+      "layer": "Entropy framework",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The Burgers Rusanov operator does not produce energy: Σ u_i L_i(u) ≤ 0 for dx > 0.",
+      "source": "specifications/Burgers-B4-results.json B4-S; references/Burgers-B4.md"
     }
   ]
 }

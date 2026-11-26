@@ -47,9 +47,9 @@ jobs:
           use-github-cache: false
           use-mathlib-cache: true
       - name: Build Burgers modules
-        run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls
+        run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls CFDLean.Entropy.Scalar.Controls
       - name: Check implementation against trusted Burgers statements
-        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify
+        run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify CFDLean.Verification.BurgersB4Verify
       - name: Build full package and integrity target
         run: ~/.elan/bin/lake build
       - name: Audit axioms and unsafe dependency closure
@@ -63,6 +63,22 @@ jobs:
           git diff --exit-code -- evidence/verification.json evidence/kernel-inventory.log
           evidence/inherited-types.json evidence/bindings-diff.patch evidence/binding-type-diff.json
           evidence/SHA256SUMS
+      # The paper-1 comparator with the five external checkers needs about 13 GB of memory in one checker (con-ron,
+      # measured locally). The runner has less, and the step was cancelled there. More swap keeps the check complete.
+      - name: Add swap space for the external checkers
+        run: |
+          free -h
+          df -h / /mnt || true
+          # preinstalled toolkits that this job does not use
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile /swapfile
+          sudo fallocate -l 16G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+          df -h / /mnt || true
       - name: Install bubblewrap sandbox
         run: |
           sudo apt-get update -qq

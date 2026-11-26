@@ -229,13 +229,33 @@
       "type": "∀ (γ : ℝ) (U : CFDLean.Conservative 3), CFDLean.Boundary.wallTransfer γ U 0 = 0",
       "raw_type": "∀ (γ : Real) (U : CFDLean.Conservative (OfNat.ofNat 3)),\n  Eq (CFDLean.Boundary.wallTransfer γ U (OfNat.ofNat 0)) (OfNat.ofNat 0)"
     },
+    "CFDLean.Burgers.EntropyConservativeFlux.consistent": {
+      "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+      "raw_type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.EntropyConservativeFlux.numericalFlux"
+    },
+    "CFDLean.Burgers.EntropyConservativeFlux.entropyConservative": {
+      "type": "CFDLean.Scalar.EntropyConservative CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n  CFDLean.Burgers.EntropyConservativeFlux.numericalFlux",
+      "raw_type": "CFDLean.Scalar.EntropyConservative CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n  CFDLean.Burgers.EntropyConservativeFlux.numericalFlux"
+    },
     "CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed": {
       "type": "∀ (a b : ℝ), |(a + b) / 2| ≤ CFDLean.Burgers.Rusanov.waveSpeed a b",
       "raw_type": "∀ (a b : Real), LE.le (abs (HDiv.hDiv (HAdd.hAdd a b) (OfNat.ofNat 2))) (CFDLean.Burgers.Rusanov.waveSpeed a b)"
     },
+    "CFDLean.Burgers.Rusanov.cell_entropy_inequality": {
+      "type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : ℝ),\n  0 < dx →\n    ∀ (u : I → ℝ) (i : I),\n      u i * CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux u i ≤\n        -(CFDLean.Scalar.FiniteVolume.entropyFlux g CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n                CFDLean.Burgers.Rusanov.numericalFlux u i -\n              CFDLean.Scalar.FiniteVolume.entropyFlux g CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n                CFDLean.Burgers.Rusanov.numericalFlux u (g.prev i)) /\n          dx",
+      "raw_type": "∀ {I : Type u_1} (g : CFDLean.Periodic.Grid I) (dx : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    ∀ (u : I → Real) (i : I),\n      LE.le (HMul.hMul (u i) (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux u i))\n        (HDiv.hDiv\n          (Neg.neg\n            (HSub.hSub\n              (CFDLean.Scalar.FiniteVolume.entropyFlux g CFDLean.Burgers.entropyVariable\n                CFDLean.Burgers.entropyPotential CFDLean.Burgers.Rusanov.numericalFlux u i)\n              (CFDLean.Scalar.FiniteVolume.entropyFlux g CFDLean.Burgers.entropyVariable\n                CFDLean.Burgers.entropyPotential CFDLean.Burgers.Rusanov.numericalFlux u (g.prev i))))\n          dx)"
+    },
     "CFDLean.Burgers.Rusanov.consistent": {
       "type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux",
       "raw_type": "CFDLean.Scalar.Consistent CFDLean.Burgers.law CFDLean.Burgers.Rusanov.numericalFlux"
+    },
+    "CFDLean.Burgers.Rusanov.energy_production_nonpos": {
+      "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : ℝ),\n  0 < dx → ∀ (u : I → ℝ), ∑ i, u i * CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux u i ≤ 0",
+      "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    ∀ (u : I → Real),\n      LE.le\n        (Finset.univ.sum fun i =>\n          HMul.hMul (u i) (CFDLean.Scalar.FiniteVolume.rhs g dx CFDLean.Burgers.Rusanov.numericalFlux u i))\n        (OfNat.ofNat 0)"
+    },
+    "CFDLean.Burgers.Rusanov.entropyStable": {
+      "type": "CFDLean.Scalar.EntropyStable CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n  CFDLean.Burgers.Rusanov.numericalFlux",
+      "raw_type": "CFDLean.Scalar.EntropyStable CFDLean.Burgers.entropyVariable CFDLean.Burgers.entropyPotential\n  CFDLean.Burgers.Rusanov.numericalFlux"
     },
     "CFDLean.Burgers.Rusanov.eulerStep_iterate_stable": {
       "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          ∀ (n : ℕ),\n            (CFDLean.Burgers.Rusanov.eulerStep g dx dt)^[n] u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M ∧\n              CFDLean.Scalar.FiniteVolume.totalVariation g ((CFDLean.Burgers.Rusanov.eulerStep g dx dt)^[n] u) ≤\n                CFDLean.Scalar.FiniteVolume.totalVariation g u",
@@ -248,6 +268,10 @@
     "CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le": {
       "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      2 * (dt * max |m| |M|) ≤ dx →\n        ∀ u ∈ CFDLean.Scalar.FiniteVolume.boundedStates m M,\n          CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.eulerStep g dx dt u) ≤\n            CFDLean.Scalar.FiniteVolume.totalVariation g u",
       "raw_type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx dt m M : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      LE.le (HMul.hMul (OfNat.ofNat 2) (HMul.hMul dt (max (abs m) (abs M)))) dx →\n        ∀ (u : I → Real),\n          Membership.mem (CFDLean.Scalar.FiniteVolume.boundedStates m M) u →\n            LE.le (CFDLean.Scalar.FiniteVolume.totalVariation g (CFDLean.Burgers.Rusanov.eulerStep g dx dt u))\n              (CFDLean.Scalar.FiniteVolume.totalVariation g u)"
+    },
+    "CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub": {
+      "type": "∀ (a b : ℝ),\n  CFDLean.Burgers.Rusanov.eval a b =\n    CFDLean.Burgers.EntropyConservativeFlux.eval a b -\n      (CFDLean.Burgers.Rusanov.waveSpeed a b / 2 - (b - a) / 12) * (b - a)",
+      "raw_type": "∀ (a b : Real),\n  Eq (CFDLean.Burgers.Rusanov.eval a b)\n    (HSub.hSub (CFDLean.Burgers.EntropyConservativeFlux.eval a b)\n      (HMul.hMul\n        (HSub.hSub (HDiv.hDiv (CFDLean.Burgers.Rusanov.waveSpeed a b) (OfNat.ofNat 2))\n          (HDiv.hDiv (HSub.hSub b a) (OfNat.ofNat 12)))\n        (HSub.hSub b a)))"
     },
     "CFDLean.Burgers.Rusanov.eval_lipschitz_left": {
       "type": "∀ (A a a' b : ℝ),\n  |a| ≤ A →\n    |a'| ≤ A → |b| ≤ A → |CFDLean.Burgers.Rusanov.eval a b - CFDLean.Burgers.Rusanov.eval a' b| ≤ 2 * A * |a - a'|",
@@ -376,6 +400,10 @@
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le": {
       "type": "∀ {N : ℕ} [inst : NeZero N] (dx dt : ℝ),\n  0 < dx →\n    0 ≤ dt →\n      ∀ (u : ZMod N → ℝ),\n        (∀ (i : ZMod N),\n            dt * CFDLean.Burgers.Rusanov.waveSpeed (u i) (u (CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i)) ≤\n              dx) →\n          CFDLean.Scalar.FiniteVolume.totalVariation CFDLean.Burgers.Schemes.RusanovForwardEuler.grid\n              (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u) ≤\n            CFDLean.Scalar.FiniteVolume.totalVariation CFDLean.Burgers.Schemes.RusanovForwardEuler.grid u",
       "raw_type": "∀ {N : Nat} [inst : NeZero N] (dx dt : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    LE.le (OfNat.ofNat 0) dt →\n      ∀ (u : ZMod N → Real),\n        (∀ (i : ZMod N),\n            LE.le\n              (HMul.hMul dt\n                (CFDLean.Burgers.Rusanov.waveSpeed (u i)\n                  (u (DFunLike.coe CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i))))\n              dx) →\n          LE.le\n            (CFDLean.Scalar.FiniteVolume.totalVariation CFDLean.Burgers.Schemes.RusanovForwardEuler.grid\n              (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u))\n            (CFDLean.Scalar.FiniteVolume.totalVariation CFDLean.Burgers.Schemes.RusanovForwardEuler.grid u)"
+    },
+    "CFDLean.Burgers.entropyPotential_eq": {
+      "type": "∀ (u : ℝ),\n  CFDLean.Burgers.entropyPotential u =\n    CFDLean.Burgers.entropyVariable u * CFDLean.Burgers.physicalFlux u - CFDLean.Burgers.entropyFluxFunction u",
+      "raw_type": "∀ (u : Real),\n  Eq (CFDLean.Burgers.entropyPotential u)\n    (HSub.hSub (HMul.hMul (CFDLean.Burgers.entropyVariable u) (CFDLean.Burgers.physicalFlux u))\n      (CFDLean.Burgers.entropyFluxFunction u))"
     },
     "CFDLean.Coordinates.decode_encode": {
       "type": "∀ (U : CFDLean.Conservative 3), CFDLean.Coordinates.decode (CFDLean.Coordinates.encode U) = U",
@@ -1289,9 +1317,37 @@
       "type": "CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate = ![1 - 2 / √3, 0, 0, 0, 5 / 2 - 2 * √3]",
       "raw_type": "Eq (CFDLean.Coordinates.encode CFDLean.Roe.witnessIntermediate)\n  (Matrix.vecCons (HSub.hSub (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 2) (Real.sqrt (OfNat.ofNat 3))))\n    (Matrix.vecCons (OfNat.ofNat 0)\n      (Matrix.vecCons (OfNat.ofNat 0)\n        (Matrix.vecCons (OfNat.ofNat 0)\n          (Matrix.vecCons\n            (HSub.hSub (HDiv.hDiv (OfNat.ofNat 5) (OfNat.ofNat 2))\n              (HMul.hMul (OfNat.ofNat 2) (Real.sqrt (OfNat.ofNat 3))))\n            Matrix.vecEmpty)))))"
     },
+    "CFDLean.Scalar.EntropyConservative.entropyStable": {
+      "type": "∀ {v ψ : ℝ → ℝ} {nf : CFDLean.Scalar.NumericalFlux},\n  CFDLean.Scalar.EntropyConservative v ψ nf → CFDLean.Scalar.EntropyStable v ψ nf",
+      "raw_type": "∀ {v ψ : Real → Real} {nf : CFDLean.Scalar.NumericalFlux},\n  CFDLean.Scalar.EntropyConservative v ψ nf → CFDLean.Scalar.EntropyStable v ψ nf"
+    },
     "CFDLean.Scalar.FiniteVolume.boundedStates_convex": {
       "type": "∀ {I : Type u_1} (m M : ℝ), Convex ℝ (CFDLean.Scalar.FiniteVolume.boundedStates m M)",
       "raw_type": "∀ {I : Type u_1} (m M : Real), Convex Real (CFDLean.Scalar.FiniteVolume.boundedStates m M)"
+    },
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_equality": {
+      "type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : ℝ) (v ψ : ℝ → ℝ) (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.EntropyConservative v ψ nf →\n    ∀ (u : I → ℝ) (i : I),\n      v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i =\n        -(CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u i -\n              CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u (g.prev i)) /\n          dx",
+      "raw_type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : Real) (v ψ : Real → Real) (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.EntropyConservative v ψ nf →\n    ∀ (u : I → Real) (i : I),\n      Eq (HMul.hMul (v (u i)) (CFDLean.Scalar.FiniteVolume.rhs g dx nf u i))\n        (HDiv.hDiv\n          (Neg.neg\n            (HSub.hSub (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u i)\n              (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u (g.prev i))))\n          dx)"
+    },
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_identity": {
+      "type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : ℝ) (v ψ : ℝ → ℝ) (nf : CFDLean.Scalar.NumericalFlux) (u : I → ℝ)\n  (i : I),\n  v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i +\n      (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u i -\n          CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u (g.prev i)) /\n        dx =\n    ((v (u (g.next i)) - v (u i)) * nf.eval (u i) (u (g.next i)) - (ψ (u (g.next i)) - ψ (u i)) +\n        ((v (u i) - v (u (g.prev i))) * nf.eval (u (g.prev i)) (u i) - (ψ (u i) - ψ (u (g.prev i))))) /\n      (2 * dx)",
+      "raw_type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : Real) (v ψ : Real → Real) (nf : CFDLean.Scalar.NumericalFlux)\n  (u : I → Real) (i : I),\n  Eq\n    (HAdd.hAdd (HMul.hMul (v (u i)) (CFDLean.Scalar.FiniteVolume.rhs g dx nf u i))\n      (HDiv.hDiv\n        (HSub.hSub (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u i)\n          (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u (g.prev i)))\n        dx))\n    (HDiv.hDiv\n      (HAdd.hAdd\n        (HSub.hSub\n          (HMul.hMul (HSub.hSub (v (u (DFunLike.coe g.next i))) (v (u i))) (nf.eval (u i) (u (DFunLike.coe g.next i))))\n          (HSub.hSub (ψ (u (DFunLike.coe g.next i))) (ψ (u i))))\n        (HSub.hSub (HMul.hMul (HSub.hSub (v (u i)) (v (u (g.prev i)))) (nf.eval (u (g.prev i)) (u i)))\n          (HSub.hSub (ψ (u i)) (ψ (u (g.prev i))))))\n      (HMul.hMul (OfNat.ofNat 2) dx))"
+    },
+    "CFDLean.Scalar.FiniteVolume.cell_entropy_inequality": {
+      "type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : ℝ),\n  0 < dx →\n    ∀ (v ψ : ℝ → ℝ) (nf : CFDLean.Scalar.NumericalFlux),\n      CFDLean.Scalar.EntropyStable v ψ nf →\n        ∀ (u : I → ℝ) (i : I),\n          v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i ≤\n            -(CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u i -\n                  CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u (g.prev i)) /\n              dx",
+      "raw_type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    ∀ (v ψ : Real → Real) (nf : CFDLean.Scalar.NumericalFlux),\n      CFDLean.Scalar.EntropyStable v ψ nf →\n        ∀ (u : I → Real) (i : I),\n          LE.le (HMul.hMul (v (u i)) (CFDLean.Scalar.FiniteVolume.rhs g dx nf u i))\n            (HDiv.hDiv\n              (Neg.neg\n                (HSub.hSub (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u i)\n                  (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf u (g.prev i))))\n              dx)"
+    },
+    "CFDLean.Scalar.FiniteVolume.entropyFlux_constant": {
+      "type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (v ψ : ℝ → ℝ) (law : CFDLean.Scalar.ConservationLaw)\n  (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.Consistent law nf →\n    ∀ (c : ℝ) (i : I), CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf (fun x => c) i = v c * law.flux c - ψ c",
+      "raw_type": "∀ {I : Type u_2} (g : CFDLean.Periodic.Grid I) (v ψ : Real → Real) (law : CFDLean.Scalar.ConservationLaw)\n  (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.Consistent law nf →\n    ∀ (c : Real) (i : I),\n      Eq (CFDLean.Scalar.FiniteVolume.entropyFlux g v ψ nf (fun x => c) i)\n        (HSub.hSub (HMul.hMul (v c) (law.flux c)) (ψ c))"
+    },
+    "CFDLean.Scalar.FiniteVolume.entropy_production_nonpos": {
+      "type": "∀ {I : Type u_2} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : ℝ),\n  0 < dx →\n    ∀ (v ψ : ℝ → ℝ) (nf : CFDLean.Scalar.NumericalFlux),\n      CFDLean.Scalar.EntropyStable v ψ nf →\n        ∀ (u : I → ℝ), ∑ i, v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i ≤ 0",
+      "raw_type": "∀ {I : Type u_2} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : Real),\n  LT.lt (OfNat.ofNat 0) dx →\n    ∀ (v ψ : Real → Real) (nf : CFDLean.Scalar.NumericalFlux),\n      CFDLean.Scalar.EntropyStable v ψ nf →\n        ∀ (u : I → Real),\n          LE.le (Finset.univ.sum fun i => HMul.hMul (v (u i)) (CFDLean.Scalar.FiniteVolume.rhs g dx nf u i))\n            (OfNat.ofNat 0)"
+    },
+    "CFDLean.Scalar.FiniteVolume.entropy_production_zero": {
+      "type": "∀ {I : Type u_2} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : ℝ) (v ψ : ℝ → ℝ)\n  (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.EntropyConservative v ψ nf →\n    ∀ (u : I → ℝ), ∑ i, v (u i) * CFDLean.Scalar.FiniteVolume.rhs g dx nf u i = 0",
+      "raw_type": "∀ {I : Type u_2} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (dx : Real) (v ψ : Real → Real)\n  (nf : CFDLean.Scalar.NumericalFlux),\n  CFDLean.Scalar.EntropyConservative v ψ nf →\n    ∀ (u : I → Real),\n      Eq (Finset.univ.sum fun i => HMul.hMul (v (u i)) (CFDLean.Scalar.FiniteVolume.rhs g dx nf u i)) (OfNat.ofNat 0)"
     },
     "CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero": {
       "type": "∀ {I : Type u_1} [inst : Fintype I] (g : CFDLean.Periodic.Grid I) (numFlux : CFDLean.Scalar.NumericalFlux) (u : I → ℝ),\n  ∑ i,\n      (CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u i -\n        CFDLean.Scalar.FiniteVolume.interfaceFlux g numFlux u (g.prev i)) =\n    0",
