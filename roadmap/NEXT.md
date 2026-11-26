@@ -51,6 +51,7 @@ Branch semantics:
 - [x] Update `AGENTS.md` and contributor guidance to require PRs for changes to `main` and `develop`.
 - [x] Keep CI acceptance and scientific acceptance distinct in documentation and automation.
 - [x] Add lightweight Integration CI for navigation-only Markdown changes.
+- [x] Add a repository-owner PR-only override for required CI on `develop` and `main`.
 
 ### Protection policy
 
@@ -59,6 +60,8 @@ Branch semantics:
 - `main`: PR required, full release/paranoid verification required, up-to-date branch required, conversations
   resolved, force pushes and deletion disabled; normally only release PRs from `develop` (plus emergency hotfixes)
   should target it.
+
+The owner can explicitly override the CI rules on either branch when merging a PR. [CI override procedure](../CONTRIBUTING.md#owner-override-for-ci)
 
 Do not require signed commits or linear history initially unless a concrete provenance/security requirement justifies
 the extra friction. A release merge commit from `develop` to `main` is acceptable and provides a useful release
