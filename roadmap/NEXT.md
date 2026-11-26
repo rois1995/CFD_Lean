@@ -5,6 +5,60 @@ belong in `FUTURE.md`; persistent architectural rules belong in `PRINCIPLES.md`.
 
 Status date: 2026-11-26.
 
+## Immediate work package A - documentation/navigation layer
+
+Land the low-risk repository navigation improvements directly on `main`. This package changes documentation only and
+must not alter Lean declarations, theorem statements, executable code or verifier behavior.
+
+Deliverables:
+
+1. Add `ARCHITECTURE.md` with the layer/dependency model, dependency rules and a "where should this code go?"
+   decision tree.
+2. Add `AGENTS.md` with repository-specific instructions for autonomous coding/review agents: what to read first,
+   where contracts live, what is authoritative/frozen, generated-file rules, validation commands and what counts as
+   done.
+3. Add `CONTRIBUTING.md` for human contributors, including milestone/specification workflow, naming/location rules,
+   review/acceptance states and validation expectations.
+4. Add `docs/CONCEPTS.md`: a concept-to-code map (fluxes, reconstruction, conservation, entropy, time integration,
+   geometry, execution/refinement, etc.).
+5. Add concise README files at major subsystem boundaries where they materially improve orientation (for example
+   `CFDLean/Exec/`, `CFDLean/Discrete/`, `CFDLean/Schemes/`, and `CFDLean/Geometry/MedianDual/`).
+6. Shorten/restructure the root `README.md` so the first screen answers: what CFD_Lean is, what is verified today,
+   what can be executed today, and where to navigate next. Move historical/reproduction detail to appropriate
+   reference documents instead of deleting it.
+7. Clearly mark generated versus authoritative/frozen documents wherever ambiguity could cause an agent or human to
+   edit the wrong artifact.
+
+Because this package is documentation-only, it may be pushed directly to `main`, with a lightweight sanity check for
+broken links and accidental edits outside the intended files.
+
+## Immediate work package B - generated/code-backed navigation tooling
+
+After package A, add navigation helpers that touch Lean source layout, scripts or CI. These are still architecture/tooling
+work rather than new CFD mathematics, but they receive the normal build/verifier/CI checks before landing.
+
+Deliverables:
+
+1. Add umbrella Lean entry modules for major subsystems where useful (for example `CFDLean/Physics.lean`,
+   `CFDLean/Geometry.lean`, `CFDLean/Discrete.lean`, `CFDLean/Schemes.lean`, `CFDLean/Time.lean`,
+   `CFDLean/Exec.lean`, plus selected subsystem umbrellas such as Burgers or MedianDual).
+2. Generate a module/import dependency index and graph from Lean imports rather than maintaining it by hand.
+3. Add a lightweight architecture check that can detect forbidden dependency directions (for example mathematical
+   layers importing `Exec`).
+4. Generate milestone landing pages that connect contract, implementation modules, trusted statements, comparator,
+   theorem count and acceptance status.
+5. Add a small theorem/concept search CLI over the existing theorem catalog/result maps (filters such as theorem name,
+   layer, milestone, module and status).
+6. Prefer existing result maps/catalog metadata as the source of truth; do not manually duplicate milestone metadata
+   across hundreds of declarations.
+7. Run the ordinary validation stack after these changes: at minimum `lake build`, the repository verifier/fixtures
+   affected by the change, and generated-file consistency checks; run broader CI when dependency-enforcement behavior
+   changes.
+
+Success criterion for A+B: a new human or agent should be able to answer "where is this concept?", "what is safe to
+edit?", "what is the current status?", and "what validates this milestone?" without reconstructing the repository
+structure from recursive search.
+
 ## Priority 0 - close the review / trust backlog
 
 1. Complete the independent implementation review of M5.
