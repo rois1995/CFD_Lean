@@ -141,3 +141,9 @@ diagonal (G6), the scaling of `prop:wallJST`(b). Paper gaps G5-G7 in `PAPER_GAPS
   Ismail-Roe flux with one constant for all face vectors (P5-19.3, from P4-16.2). Closes G6 on the Lean side.
 - Item 20: the paper's Euler state, pressure, admissibility, velocity, primitive map and flux equal M1's
   (bookkeeping); the differences (M1 has no entropy; the paper has no Jacobian or Roe flux) are listed in `P5.md`.
+
+## P6: the simplex integral (item 21), written in CFD_Lean
+
+3 frozen statements, 3 proved (`specifications/JST1/P6.md`), standard axioms only; with P1-P5: 115 of 115. The closed
+simplex has Lebesgue measure `|det|/d!`, `∫_T φ_b = m_T`, and the Galerkin form of `prop:consistency`(b) holds with a
+real integral (closes D1 of P4). Statement review: `reviews/JST1/P6-statement-review.md` (no blocking finding).

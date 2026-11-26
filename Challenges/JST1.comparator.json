@@ -113,7 +113,10 @@
     "CFDLean.Verification.JST1Verify.p5_20_1",
     "CFDLean.Verification.JST1Verify.p5_20_2",
     "CFDLean.Verification.JST1Verify.p5_20_3",
-    "CFDLean.Verification.JST1Verify.p5_20_4"
+    "CFDLean.Verification.JST1Verify.p5_20_4",
+    "CFDLean.Verification.JST1Verify.p6_21_1",
+    "CFDLean.Verification.JST1Verify.p6_21_2",
+    "CFDLean.Verification.JST1Verify.p6_21_3"
   ],
   "definition_names": [],
   "permitted_axioms": [

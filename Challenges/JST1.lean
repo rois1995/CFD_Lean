@@ -14,6 +14,7 @@ import CFDLean.Papers.JST1.Spec.Item18
 import CFDLean.Papers.JST1.Spec.Item19
 import CFDLean.Papers.JST1.Spec.Item2
 import CFDLean.Papers.JST1.Spec.Item20
+import CFDLean.Papers.JST1.Spec.Item21
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
 import CFDLean.Papers.JST1.Spec.Item5
@@ -24,7 +25,7 @@ import CFDLean.Papers.JST1.Spec.Item9
 
 /-! JST1 challenge for `lake comparator` (configuration: `Challenges/JST1.comparator.json`).
 
-Each theorem below has the name of one theorem of `CFDLean.Verification.JST1Verify` and states one of the 112 frozen paper-1 statements
+Each theorem below has the name of one theorem of `CFDLean.Verification.JST1Verify` and states one of the 115 frozen paper-1 statements
 `CFDLean.JST1.Spec.P*` (MR-2; frozen files in `specifications/JST1/frozen.sha256`). This module imports only the
 statement modules (with the definitions they use), no proof module. `sorry` is the hole that the comparator asks the
 solution module to fill. No module imports it, it is not part of the `CFDLean` library, and `KernelAudit.lean` does not
@@ -145,5 +146,8 @@ theorem p5_20_1 : CFDLean.JST1.Spec.P5_20_1 := sorry
 theorem p5_20_2 : CFDLean.JST1.Spec.P5_20_2 := sorry
 theorem p5_20_3 : CFDLean.JST1.Spec.P5_20_3 := sorry
 theorem p5_20_4 : CFDLean.JST1.Spec.P5_20_4 := sorry
+theorem p6_21_1 : CFDLean.JST1.Spec.P6_21_1 := sorry
+theorem p6_21_2 : CFDLean.JST1.Spec.P6_21_2 := sorry
+theorem p6_21_3 : CFDLean.JST1.Spec.P6_21_3 := sorry
 
 end CFDLean.Verification.JST1Verify

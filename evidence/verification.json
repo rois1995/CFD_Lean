@@ -277,6 +277,7 @@
     "CFDLean.Papers.JST1.Proofs.Item18",
     "CFDLean.Papers.JST1.Proofs.Item19",
     "CFDLean.Papers.JST1.Proofs.Item20",
+    "CFDLean.Papers.JST1.Proofs.Item21",
     "CFDLean.Papers.JST1.Proofs.Item2Euler",
     "CFDLean.Papers.JST1.Proofs.Item2Generic",
     "CFDLean.Papers.JST1.Proofs.Item3",
@@ -306,6 +307,7 @@
     "CFDLean.Papers.JST1.Spec.Item19",
     "CFDLean.Papers.JST1.Spec.Item2",
     "CFDLean.Papers.JST1.Spec.Item20",
+    "CFDLean.Papers.JST1.Spec.Item21",
     "CFDLean.Papers.JST1.Spec.Item3",
     "CFDLean.Papers.JST1.Spec.Item4",
     "CFDLean.Papers.JST1.Spec.Item5",
@@ -373,9 +375,9 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 4478,
+    "roots": 4554,
     "unsafe_reached": [],
-    "visited": 60298
+    "visited": 63811
   },
   "source_modules": {
     "CFDLean": {
@@ -536,7 +538,7 @@
     },
     "CFDLean.Papers.JST1": {
       "path": "CFDLean/Papers/JST1.lean",
-      "sha256": "127cd2fe4364e692d7032d92e600be1c570a33068ce386d75fe0421373a995d5"
+      "sha256": "eff367b8c0cccb9dfc56618911cefb8b5a50b330b473b7710e8c5e5d2011a6bf"
     },
     "CFDLean.Papers.JST1.Euler.Boundary": {
       "path": "CFDLean/Papers/JST1/Euler/Boundary.lean",
@@ -662,6 +664,10 @@
       "path": "CFDLean/Papers/JST1/Proofs/Item20.lean",
       "sha256": "49791130bfa24ace1fa59548e46a7602b405ab445756518d680d0a07b1def1f3"
     },
+    "CFDLean.Papers.JST1.Proofs.Item21": {
+      "path": "CFDLean/Papers/JST1/Proofs/Item21.lean",
+      "sha256": "ba360110e30e043b2d241fe26e628fa685a15a69c91993a8eb754813934f9e07"
+    },
     "CFDLean.Papers.JST1.Proofs.Item2Euler": {
       "path": "CFDLean/Papers/JST1/Proofs/Item2Euler.lean",
       "sha256": "5a80879879d6abaa27ae829bad0083ced700bee17f7db881d8d520792a36e4ed"
@@ -777,6 +783,10 @@
     "CFDLean.Papers.JST1.Spec.Item20": {
       "path": "CFDLean/Papers/JST1/Spec/Item20.lean",
       "sha256": "adfac23eb0fbf970d404a853d64f72afc7d34c048f3d11dfb4b261d5286f0c9c"
+    },
+    "CFDLean.Papers.JST1.Spec.Item21": {
+      "path": "CFDLean/Papers/JST1/Spec/Item21.lean",
+      "sha256": "84aeba28ba9af81156f452bf9df342520b7db050a375f461df40e836d2616b4b"
     },
     "CFDLean.Papers.JST1.Spec.Item3": {
       "path": "CFDLean/Papers/JST1/Spec/Item3.lean",
@@ -1012,7 +1022,7 @@
     },
     "CFDLean.Verification.JST1Verify": {
       "path": "CFDLean/Verification/JST1Verify.lean",
-      "sha256": "3a34032ff6b0528c08465eccba997935323e98752ed3ee238ef2a1315c7e1c28"
+      "sha256": "b7b773a5b2c363fa4f4f63c2b9893b45a6556b0ffac7182f7c44159ab4edd187"
     },
     "Integrity": {
       "path": "Integrity.lean",
@@ -32807,6 +32817,1347 @@
       "type": "\u2200 {d : \u2115} (g : CFDLean.JST1.Gas) (U : CFDLean.JST1.State d),\n  CFDLean.JST1.pressure g U =\n    (g.\u03b3 - 1) *\n      (U CFDLean.JST1.Channel.energy -\n        (\u2211 \u03b1, U (CFDLean.JST1.Channel.momentum \u03b1) * U (CFDLean.JST1.Channel.momentum \u03b1)) /\n          (2 * U CFDLean.JST1.Channel.mass))",
       "unsafe": false
     },
+    "CFDLean.JST1.Proofs.Int21.abs_det_swapLin": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_6",
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.JST1.Proofs.Int21.swapLin.eq_1",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_8",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_5",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_9",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_4",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_2",
+        "CFDLean.Num.outer",
+        "CFDLean.JST1.Proofs.Int21.swapLin",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_3",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_7",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_1",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_10",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.abs_det_swapLin",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 {a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))},\n      Ne a b \u2192 Eq (abs (CFDLean.JST1.Proofs.Int21.swapLin T a b).det) (OfNat.ofNat 1)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 \u2200 {a b : Fin (d + 1)}, a \u2260 b \u2192 |(CFDLean.JST1.Proofs.Int21.swapLin T a b).det| = 1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.aff": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.aff",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Num.Simplex d \u2192 (Fin d \u2192 \u211d) \u2192 CFDLean.Num.Vec d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.aff._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.aff._proof_1",
+      "raw_type": "\u2200 {d : Nat}, NeZero (HAdd.hAdd d (OfNat.ofNat 1))",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, NeZero (d + 1)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.aff.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.aff.eq_1",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (t : Fin d \u2192 Real),\n  Eq (CFDLean.JST1.Proofs.Int21.aff T t) (HAdd.hAdd (T.x (OfNat.ofNat 0)) (T.edgeMat.mulVec t))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (t : Fin d \u2192 \u211d), CFDLean.JST1.Proofs.Int21.aff T t = T.x 0 + T.edgeMat.mulVec t",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.aff_surj": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1",
+        "CFDLean.JST1.Proofs.Int21.aff_surj._abel_1_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.aff_surj",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (x : CFDLean.Num.Vec d),\n      Eq (CFDLean.JST1.Proofs.Int21.aff T ((Inv.inv T.edgeMat).mulVec (HSub.hSub x (T.x (OfNat.ofNat 0))))) x",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 \u2200 (x : CFDLean.Num.Vec d), CFDLean.JST1.Proofs.Int21.aff T (T.edgeMat\u207b\u00b9.mulVec (x - T.x 0)) = x",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.aff_surj._abel_1_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.aff_surj._abel_1_2",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (x : CFDLean.Num.Vec d),\n  Eq (HAdd.hAdd (T.x (OfNat.ofNat 0)) (HSub.hSub x (T.x (OfNat.ofNat 0)))) x",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (x : CFDLean.Num.Vec d), T.x 0 + (x - T.x 0) = x",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_add": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.bary_add._simp_1_1",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_add",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (c : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (x v : CFDLean.Num.Vec d),\n  Eq (CFDLean.JST1.Spec.bary T c (HAdd.hAdd x v))\n    (HAdd.hAdd (CFDLean.JST1.Spec.bary T c x) (CFDLean.Num.dot (T.grad c) v))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (c : Fin (d + 1)) (x v : CFDLean.Num.Vec d),\n  CFDLean.JST1.Spec.bary T c (x + v) = CFDLean.JST1.Spec.bary T c x + CFDLean.Num.dot (T.grad c) v",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_add._simp_1_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_add._simp_1_1",
+      "raw_type": "\u2200 {\u03b9 : Type u_1} {M : Type u_4} {s : Finset \u03b9} [inst : AddCommMonoid M] {f g : \u03b9 \u2192 M},\n  Eq (HAdd.hAdd (s.sum fun x => f x) (s.sum fun x => g x)) (s.sum fun x => HAdd.hAdd (f x) (g x))",
+      "root": true,
+      "type": "\u2200 {\u03b9 : Type u_1} {M : Type u_4} {s : Finset \u03b9} [inst : AddCommMonoid M] {f g : \u03b9 \u2192 M},\n  \u2211 x \u2208 s, f x + \u2211 x \u2208 s, g x = \u2211 x \u2208 s, (f x + g x)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_add_smul": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_add_smul",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (x y : CFDLean.Num.Vec d) {a c : Real},\n  Eq (HAdd.hAdd a c) (OfNat.ofNat 1) \u2192\n    Eq (CFDLean.JST1.Spec.bary T b (HAdd.hAdd (HSMul.hSMul a x) (HSMul.hSMul c y)))\n      (HAdd.hAdd (HMul.hMul a (CFDLean.JST1.Spec.bary T b x)) (HMul.hMul c (CFDLean.JST1.Spec.bary T b y)))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (b : Fin (d + 1)) (x y : CFDLean.Num.Vec d) {a c : \u211d},\n  a + c = 1 \u2192\n    CFDLean.JST1.Spec.bary T b (a \u2022 x + c \u2022 y) = a * CFDLean.JST1.Spec.bary T b x + c * CFDLean.JST1.Spec.bary T b y",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_aff_succ": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.Num.outer",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Proofs.Int21.dot_mulVec_edge",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_aff_succ",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (t : Fin d \u2192 Real) (\u03b3 : Fin d), Eq (CFDLean.JST1.Spec.bary T \u03b3.succ (CFDLean.JST1.Proofs.Int21.aff T t)) (t \u03b3)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 \u2200 (t : Fin d \u2192 \u211d) (\u03b3 : Fin d), CFDLean.JST1.Spec.bary T \u03b3.succ (CFDLean.JST1.Proofs.Int21.aff T t) = t \u03b3",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_aff_succ._simp_1_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_aff_succ._simp_1_2",
+      "raw_type": "\u2200 {n : Nat} (k : Fin n), Eq (Eq k.succ (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (k : Fin n), (k.succ = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_aff_succ._simp_1_3": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_aff_succ._simp_1_3",
+      "raw_type": "\u2200 {n : Nat} {a b : Fin n}, Eq (Eq a.succ b.succ) (Eq a b)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} {a b : Fin n}, (a.succ = b.succ) = (a = b)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_aff_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.Num.outer",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Proofs.Int21.dot_mulVec_edge",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_aff_zero",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (t : Fin d \u2192 Real),\n      Eq (CFDLean.JST1.Spec.bary T (OfNat.ofNat 0) (CFDLean.JST1.Proofs.Int21.aff T t))\n        (HSub.hSub (OfNat.ofNat 1) (Finset.univ.sum fun \u03b2 => t \u03b2))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 \u2200 (t : Fin d \u2192 \u211d), CFDLean.JST1.Spec.bary T 0 (CFDLean.JST1.Proofs.Int21.aff T t) = 1 - \u2211 \u03b2, t \u03b2",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_sub_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Proofs.Int21.bary_add",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_sub_zero",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (c : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (x : CFDLean.Num.Vec d),\n  Eq (HSub.hSub (CFDLean.JST1.Spec.bary T c x) (CFDLean.JST1.Spec.bary T c (OfNat.ofNat 0)))\n    (CFDLean.Num.dot (T.grad c) x)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (c : Fin (d + 1)) (x : CFDLean.Num.Vec d),\n  CFDLean.JST1.Spec.bary T c x - CFDLean.JST1.Spec.bary T c 0 = CFDLean.Num.dot (T.grad c) x",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_swap": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.Num.outer",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.Num.dot",
+        "CFDLean.JST1.Proofs.Int21.swapMap.eq_1",
+        "CFDLean.JST1.Proofs.Int21.bary_add",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_swap",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (a b c : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (x : CFDLean.Num.Vec d),\n      Eq (CFDLean.JST1.Spec.bary T c (CFDLean.JST1.Proofs.Int21.swapMap T a b x))\n        (HAdd.hAdd (CFDLean.JST1.Spec.bary T c x)\n          (HMul.hMul (HSub.hSub (CFDLean.JST1.Spec.bary T a x) (CFDLean.JST1.Spec.bary T b x))\n            (HSub.hSub (ite (Eq c b) (OfNat.ofNat 1) (OfNat.ofNat 0)) (ite (Eq c a) (OfNat.ofNat 1) (OfNat.ofNat 0)))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (a b c : Fin (d + 1)) (x : CFDLean.Num.Vec d),\n      CFDLean.JST1.Spec.bary T c (CFDLean.JST1.Proofs.Int21.swapMap T a b x) =\n        CFDLean.JST1.Spec.bary T c x +\n          (CFDLean.JST1.Spec.bary T a x - CFDLean.JST1.Spec.bary T b x) *\n            ((if c = b then 1 else 0) - if c = a then 1 else 0)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bary_vertex": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.Num.outer",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bary_vertex",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (b a : Fin (HAdd.hAdd d (OfNat.ofNat 1))),\n      Eq (CFDLean.JST1.Spec.bary T b (T.x a)) (ite (Eq b a) (OfNat.ofNat 1) (OfNat.ofNat 0))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 \u2200 (b a : Fin (d + 1)), CFDLean.JST1.Spec.bary T b (T.x a) = if b = a then 1 else 0",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bset": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bset",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Num.Simplex d \u2192 Set (CFDLean.Num.Vec d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.bset._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bset._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Int21.bset._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bset._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Int21.bset._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bset._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Int21.bset_eq_image": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.Int21.aff_surj",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.JST1.Proofs.Int21.stdS",
+        "CFDLean.JST1.Proofs.Int21.bary_aff_succ",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.JST1.Proofs.Int21.bary_aff_zero",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.bset_eq_image",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    Eq (CFDLean.JST1.Proofs.Int21.bset T)\n      (Set.image (CFDLean.JST1.Proofs.Int21.aff T) (CFDLean.JST1.Proofs.Int21.stdS d (OfNat.ofNat 1)))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 CFDLean.JST1.Proofs.Int21.bset T = CFDLean.JST1.Proofs.Int21.aff T '' CFDLean.JST1.Proofs.Int21.stdS d 1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.continuous_bary": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.continuous_bary",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (c : Fin (HAdd.hAdd d (OfNat.ofNat 1))), Continuous (CFDLean.JST1.Spec.bary T c)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (c : Fin (d + 1)), Continuous (CFDLean.JST1.Spec.bary T c)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.divP1_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.JST1.Proofs.p4_16_1",
+        "CFDLean.JST1.Spec.P4_16_1._proof_1",
+        "CFDLean.Num.WMesh.n",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.WMesh.Valid",
+        "CFDLean.Num.WMesh.Closed",
+        "CFDLean.Num.WMesh.m",
+        "CFDLean.JST1.Spec.P4_16_1._proof_2",
+        "CFDLean.Num.WMesh.\u03c9",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.p1Interp",
+        "CFDLean.Num.WMesh.vert",
+        "CFDLean.Num.Simplex",
+        "CFDLean.Num.WMesh",
+        "CFDLean.Num.WMesh.simplex",
+        "CFDLean.JST1.Spec.divP1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.divP1_eq",
+      "raw_type": "\u2200 {\u03ba : Type} [Fintype \u03ba] {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (F : Fin (HAdd.hAdd d (OfNat.ofNat 1)) \u2192 Matrix \u03ba (Fin d) Real) (x : CFDLean.Num.Vec d) (c : \u03ba),\n      Eq (CFDLean.JST1.Spec.divP1 T F x c)\n        (Finset.univ.sum fun \u03b2 => Finset.univ.sum fun b => HMul.hMul (T.grad b \u03b2) (F b c \u03b2))",
+      "root": true,
+      "type": "\u2200 {\u03ba : Type} [Fintype \u03ba] {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (F : Fin (d + 1) \u2192 Matrix \u03ba (Fin d) \u211d) (x : CFDLean.Num.Vec d) (c : \u03ba),\n      CFDLean.JST1.Spec.divP1 T F x c = \u2211 \u03b2, \u2211 b, T.grad b \u03b2 * F b c \u03b2",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.dot_mulVec_edge": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.edgeMat._proof_1",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.dot_mulVec_edge",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (u : CFDLean.Num.Vec d) (t : Fin d \u2192 Real),\n  Eq (CFDLean.Num.dot u (T.edgeMat.mulVec t))\n    (Finset.univ.sum fun \u03b2 => HMul.hMul (t \u03b2) (CFDLean.Num.dot u (HSub.hSub (T.x \u03b2.succ) (T.x (OfNat.ofNat 0)))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (u : CFDLean.Num.Vec d) (t : Fin d \u2192 \u211d),\n  CFDLean.Num.dot u (T.edgeMat.mulVec t) = \u2211 \u03b2, t \u03b2 * CFDLean.Num.dot u (T.x \u03b2.succ - T.x 0)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.hull_eq_bset": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Simplex.edgeMat._proof_1",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.JST1.Proofs.Int21.stdS",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.JST1.Proofs.Int21.bary_vertex",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.JST1.Proofs.Int21.bary_add_smul",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.aff._proof_1",
+        "CFDLean.JST1.Proofs.Int21.bset_eq_image",
+        "CFDLean.JST1.Spec.hullT"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.hull_eq_bset",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d), T.Nondeg \u2192 Eq (CFDLean.JST1.Spec.hullT T) (CFDLean.JST1.Proofs.Int21.bset T)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d), T.Nondeg \u2192 CFDLean.JST1.Spec.hullT T = CFDLean.JST1.Proofs.Int21.bset T",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.Num.outer",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.JST1.Proofs.Int21.volume_hull",
+        "CFDLean.JST1.Proofs.Int21.continuous_bary",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.hull_eq_bset",
+        "CFDLean.JST1.Spec.hullT",
+        "CFDLean.JST1.Proofs.Int21.sum_bary",
+        "CFDLean.JST1.Proofs.Int21.integral_swap"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),\n      And (MeasureTheory.IntegrableOn (CFDLean.JST1.Spec.bary T b) (CFDLean.JST1.Spec.hullT T) MeasureTheory.volume)\n        (Eq\n          (MeasureTheory.integral (MeasureTheory.volume.restrict (CFDLean.JST1.Spec.hullT T)) fun x =>\n            CFDLean.JST1.Spec.bary T b x)\n          (HDiv.hDiv T.vol (HAdd.hAdd d.cast (OfNat.ofNat 1))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (b : Fin (d + 1)),\n      MeasureTheory.IntegrableOn (CFDLean.JST1.Spec.bary T b) (CFDLean.JST1.Spec.hullT T) MeasureTheory.volume \u2227\n        \u222b (x : CFDLean.Num.Vec d) in CFDLean.JST1.Spec.hullT T, CFDLean.JST1.Spec.bary T b x = T.vol / (\u2191d + 1)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_1",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 2)] [NeZero (OfNat.ofNat 2)],\n  Eq (Eq (OfNat.ofNat 2) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 2] [NeZero 2], (2 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_2",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 3)] [NeZero (OfNat.ofNat 3)],\n  Eq (Eq (OfNat.ofNat 3) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 3] [NeZero 3], (3 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_3": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_3",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 4)] [NeZero (OfNat.ofNat 4)],\n  Eq (Eq (OfNat.ofNat 4) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 4] [NeZero 4], (4 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_4": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_4",
+      "raw_type": "\u2200 {M\u2080 : Type u_1} [inst : Mul M\u2080] [inst_1 : Zero M\u2080] [NoZeroDivisors M\u2080] {a b : M\u2080},\n  Ne a (OfNat.ofNat 0) \u2192 Ne b (OfNat.ofNat 0) \u2192 Eq (Eq (HMul.hMul a b) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {M\u2080 : Type u_1} [inst : Mul M\u2080] [inst_1 : Zero M\u2080] [NoZeroDivisors M\u2080] {a b : M\u2080}, a \u2260 0 \u2192 b \u2260 0 \u2192 (a * b = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_5": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_5",
+      "raw_type": "\u2200 {M\u2080 : Type u_1} [inst : MonoidWithZero M\u2080] {a : M\u2080} [IsReduced M\u2080] (n : Nat),\n  Ne a (OfNat.ofNat 0) \u2192 Eq (Eq (HPow.hPow a n) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {M\u2080 : Type u_1} [inst : MonoidWithZero M\u2080] {a : M\u2080} [IsReduced M\u2080] (n : \u2115), a \u2260 0 \u2192 (a ^ n = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_6": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_6",
+      "raw_type": "\u2200 {G\u2080 : Type u_3} [inst : GroupWithZero G\u2080] {a : G\u2080} (n : Int),\n  Ne a (OfNat.ofNat 0) \u2192 Eq (Eq (HPow.hPow a n) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {G\u2080 : Type u_3} [inst : GroupWithZero G\u2080] {a : G\u2080} (n : \u2124), a \u2260 0 \u2192 (a ^ n = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_7": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_bary._simp_1_7",
+      "raw_type": "\u2200 {R : Type u_1} [inst : AddMonoidWithOne R] [CharZero R] (n : Nat),\n  Eq (Eq (HAdd.hAdd n.cast (OfNat.ofNat 1)) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {R : Type u_1} [inst : AddMonoidWithOne R] [CharZero R] (n : \u2115), (\u2191n + 1 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.integral_swap": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.JST1.Proofs.Int21.abs_det_swapLin",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.Int21.measurableSet_bset",
+        "CFDLean.JST1.Proofs.Int21.swap_swap",
+        "CFDLean.JST1.Proofs.Int21.swap_image",
+        "CFDLean.JST1.Proofs.Int21.swapLin",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.JST1.Proofs.Int21.swapMap_eq",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.bary_swap"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.integral_swap",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),\n      Eq\n        (MeasureTheory.integral (MeasureTheory.volume.restrict (CFDLean.JST1.Proofs.Int21.bset T)) fun x =>\n          CFDLean.JST1.Spec.bary T a x)\n        (MeasureTheory.integral (MeasureTheory.volume.restrict (CFDLean.JST1.Proofs.Int21.bset T)) fun x =>\n          CFDLean.JST1.Spec.bary T b x)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (a b : Fin (d + 1)),\n      \u222b (x : CFDLean.Num.Vec d) in CFDLean.JST1.Proofs.Int21.bset T, CFDLean.JST1.Spec.bary T a x =\n        \u222b (x : CFDLean.Num.Vec d) in CFDLean.JST1.Proofs.Int21.bset T, CFDLean.JST1.Spec.bary T b x",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.isClosed_stdS": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.stdS"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.isClosed_stdS",
+      "raw_type": "\u2200 (d : Nat) (s : Real), IsClosed (CFDLean.JST1.Proofs.Int21.stdS d s)",
+      "root": true,
+      "type": "\u2200 (d : \u2115) (s : \u211d), IsClosed (CFDLean.JST1.Proofs.Int21.stdS d s)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.measurableSet_bset": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.hull_eq_bset",
+        "CFDLean.JST1.Spec.hullT"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.measurableSet_bset",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d), T.Nondeg \u2192 MeasurableSet (CFDLean.JST1.Proofs.Int21.bset T)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d), T.Nondeg \u2192 MeasurableSet (CFDLean.JST1.Proofs.Int21.bset T)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS",
+      "raw_type": null,
+      "root": true,
+      "type": "(d : \u2115) \u2192 \u211d \u2192 Set (Fin d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.stdS"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS.eq_1",
+      "raw_type": "\u2200 (d : Nat) (s : Real),\n  Eq (CFDLean.JST1.Proofs.Int21.stdS d s)\n    (Set.ofPred fun t => And (\u2200 (i : Fin d), LE.le (OfNat.ofNat 0) (t i)) (LE.le (Finset.univ.sum fun i => t i) s))",
+      "root": true,
+      "type": "\u2200 (d : \u2115) (s : \u211d), CFDLean.JST1.Proofs.Int21.stdS d s = {t | (\u2200 (i : Fin d), 0 \u2264 t i) \u2227 \u2211 i, t i \u2264 s}",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS_smul": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.stdS",
+        "CFDLean.JST1.Proofs.Int21.stdS_smul._simp_1_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS_smul",
+      "raw_type": "\u2200 (d : Nat) {s : Real},\n  LE.le (OfNat.ofNat 0) s \u2192\n    Eq (HSMul.hSMul s (CFDLean.JST1.Proofs.Int21.stdS d (OfNat.ofNat 1))) (CFDLean.JST1.Proofs.Int21.stdS d s)",
+      "root": true,
+      "type": "\u2200 (d : \u2115) {s : \u211d}, 0 \u2264 s \u2192 s \u2022 CFDLean.JST1.Proofs.Int21.stdS d 1 = CFDLean.JST1.Proofs.Int21.stdS d s",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.stdS_smul._simp_1_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.stdS_smul._simp_1_1",
+      "raw_type": "\u2200 {\u03b9 : Type u_1} {R : Type u_4} [inst : NonUnitalNonAssocSemiring R] (s : Finset \u03b9) (f : \u03b9 \u2192 R) (a : R),\n  Eq (s.sum fun i => HMul.hMul a (f i)) (HMul.hMul a (s.sum fun i => f i))",
+      "root": true,
+      "type": "\u2200 {\u03b9 : Type u_1} {R : Type u_4} [inst : NonUnitalNonAssocSemiring R] (s : Finset \u03b9) (f : \u03b9 \u2192 R) (a : R),\n  \u2211 i \u2208 s, a * f i = a * \u2211 i \u2208 s, f i",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.sum_bary": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.Num.Simplex.calculus",
+        "CFDLean.Num.outer",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex.facet",
+        "CFDLean.JST1.Spec.bary._proof_1",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.sum_bary",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 \u2200 (x : CFDLean.Num.Vec d), Eq (Finset.univ.sum fun c => CFDLean.JST1.Spec.bary T c x) (OfNat.ofNat 1)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d), T.Nondeg \u2192 \u2200 (x : CFDLean.Num.Vec d), \u2211 c, CFDLean.JST1.Spec.bary T c x = 1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_6",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_8",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_5",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_9",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_4",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_2",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_3",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_7",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_1",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_10",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Num.Simplex d \u2192 Fin (d + 1) \u2192 Fin (d + 1) \u2192 CFDLean.Num.Vec d \u2192L[\u211d] CFDLean.Num.Vec d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_1",
+      "raw_type": "RingHomInvPair (RingHom.id Real) (RingHom.id Real)",
+      "root": true,
+      "type": "RingHomInvPair (RingHom.id \u211d) (RingHom.id \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_10": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_10",
+      "raw_type": "\u2200 {d : Nat}, SMulCommClass Real Real (Fin d \u2192 Real)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, SMulCommClass \u211d \u211d (Fin d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_2",
+      "raw_type": "\u2200 {d : Nat}, ContinuousAdd (CFDLean.Num.Vec d)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, ContinuousAdd (CFDLean.Num.Vec d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_3",
+      "raw_type": "\u2200 {d : Nat}, SMulCommClass Real Real (CFDLean.Num.Vec d)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, SMulCommClass \u211d \u211d (CFDLean.Num.Vec d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_4": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_4",
+      "raw_type": "\u2200 {d : Nat}, ContinuousConstSMul Real (CFDLean.Num.Vec d)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, ContinuousConstSMul \u211d (CFDLean.Num.Vec d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_5": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_5",
+      "raw_type": "\u2200 {d : Nat}, IsTopologicalAddGroup (Fin d \u2192 Real)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, IsTopologicalAddGroup (Fin d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_6": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_6",
+      "raw_type": "\u2200 {d : Nat}, ContinuousSMul Real (Fin d \u2192 Real)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, ContinuousSMul \u211d (Fin d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_7": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_7",
+      "raw_type": "\u2200 {d : Nat}, T2Space (Fin d \u2192 Real)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, T2Space (Fin d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_8": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_8",
+      "raw_type": "\u2200 {d : Nat}, FiniteDimensional Real (Fin d \u2192 Real)",
+      "root": true,
+      "type": "\u2200 {d : \u2115}, FiniteDimensional \u211d (Fin d \u2192 \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin._proof_9": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin._proof_9",
+      "raw_type": "RingHomInvPair (RingHom.id Real) (RingHom.id Real)",
+      "root": true,
+      "type": "RingHomInvPair (RingHom.id \u211d) (RingHom.id \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapLin.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_6",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_8",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_5",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_9",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_4",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_2",
+        "CFDLean.JST1.Proofs.Int21.swapLin",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_3",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_7",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_1",
+        "CFDLean.JST1.Proofs.Int21.swapLin._proof_10",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapLin.eq_1",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))),\n  Eq (CFDLean.JST1.Proofs.Int21.swapLin T a b)\n    (DFunLike.coe LinearMap.toContinuousLinearMap\n      (DFunLike.coe Matrix.toLin'\n        (HAdd.hAdd (OfNat.ofNat 1) (Matrix.vecMulVec (HSub.hSub (T.x b) (T.x a)) (HSub.hSub (T.grad a) (T.grad b))))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (a b : Fin (d + 1)),\n  CFDLean.JST1.Proofs.Int21.swapLin T a b =\n    LinearMap.toContinuousLinearMap (Matrix.toLin' (1 + Matrix.vecMulVec (T.x b - T.x a) (T.grad a - T.grad b)))",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapMap": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapMap",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Num.Simplex d \u2192 Fin (d + 1) \u2192 Fin (d + 1) \u2192 CFDLean.Num.Vec d \u2192 CFDLean.Num.Vec d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapMap.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapMap.eq_1",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (x : CFDLean.Num.Vec d),\n  Eq (CFDLean.JST1.Proofs.Int21.swapMap T a b x)\n    (HAdd.hAdd x\n      (HSMul.hSMul (HSub.hSub (CFDLean.JST1.Spec.bary T a x) (CFDLean.JST1.Spec.bary T b x))\n        (HSub.hSub (T.x b) (T.x a))))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (a b : Fin (d + 1)) (x : CFDLean.Num.Vec d),\n  CFDLean.JST1.Proofs.Int21.swapMap T a b x =\n    x + (CFDLean.JST1.Spec.bary T a x - CFDLean.JST1.Spec.bary T b x) \u2022 (T.x b - T.x a)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swapMap_eq": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.JST1.Proofs.Int21.swapLin",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.Num.dot",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.bary_sub_zero"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swapMap_eq",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d) (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) (x : CFDLean.Num.Vec d),\n  Eq (CFDLean.JST1.Proofs.Int21.swapMap T a b x)\n    (HAdd.hAdd (DFunLike.coe (CFDLean.JST1.Proofs.Int21.swapLin T a b) x)\n      (CFDLean.JST1.Proofs.Int21.swapMap T a b (OfNat.ofNat 0)))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d) (a b : Fin (d + 1)) (x : CFDLean.Num.Vec d),\n  CFDLean.JST1.Proofs.Int21.swapMap T a b x =\n    (CFDLean.JST1.Proofs.Int21.swapLin T a b) x + CFDLean.JST1.Proofs.Int21.swapMap T a b 0",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swap_image": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.Int21.swap_swap",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.JST1.Proofs.Int21.swap_mem",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swap_image",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 {a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))},\n      Ne a b \u2192\n        Eq (Set.image (CFDLean.JST1.Proofs.Int21.swapMap T a b) (CFDLean.JST1.Proofs.Int21.bset T))\n          (CFDLean.JST1.Proofs.Int21.bset T)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 {a b : Fin (d + 1)},\n      a \u2260 b \u2192\n        CFDLean.JST1.Proofs.Int21.swapMap T a b '' CFDLean.JST1.Proofs.Int21.bset T = CFDLean.JST1.Proofs.Int21.bset T",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swap_mem": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.bary_swap"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swap_mem",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))) {x : CFDLean.Num.Vec d},\n      Membership.mem (CFDLean.JST1.Proofs.Int21.bset T) x \u2192\n        Membership.mem (CFDLean.JST1.Proofs.Int21.bset T) (CFDLean.JST1.Proofs.Int21.swapMap T a b x)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 (a b : Fin (d + 1)) {x : CFDLean.Num.Vec d},\n      x \u2208 CFDLean.JST1.Proofs.Int21.bset T \u2192\n        CFDLean.JST1.Proofs.Int21.swapMap T a b x \u2208 CFDLean.JST1.Proofs.Int21.bset T",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.swap_swap": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Proofs.Int21.swapMap",
+        "CFDLean.JST1.Proofs.Int21.swapMap.eq_1",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.bary_swap"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.swap_swap",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 {a b : Fin (HAdd.hAdd d (OfNat.ofNat 1))},\n      Ne a b \u2192\n        \u2200 (x : CFDLean.Num.Vec d),\n          Eq (CFDLean.JST1.Proofs.Int21.swapMap T a b (CFDLean.JST1.Proofs.Int21.swapMap T a b x)) x",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192\n    \u2200 {a b : Fin (d + 1)},\n      a \u2260 b \u2192\n        \u2200 (x : CFDLean.Num.Vec d),\n          CFDLean.JST1.Proofs.Int21.swapMap T a b (CFDLean.JST1.Proofs.Int21.swapMap T a b x) = x",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.volume_hull": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.edgeMat",
+        "CFDLean.JST1.Proofs.Int21.stdS",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.Num.Simplex.vol.eq_1",
+        "CFDLean.JST1.Proofs.Int21.aff",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Proofs.Int21.bset",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.volume_stdS_one",
+        "CFDLean.JST1.Proofs.Int21.bset_eq_image",
+        "CFDLean.JST1.Proofs.Int21.hull_eq_bset",
+        "CFDLean.JST1.Spec.hullT"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.volume_hull",
+      "raw_type": "\u2200 {d : Nat} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 Eq (DFunLike.coe MeasureTheory.volume (CFDLean.JST1.Spec.hullT T)) (ENNReal.ofReal T.vol)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (T : CFDLean.Num.Simplex d),\n  T.Nondeg \u2192 MeasureTheory.volume (CFDLean.JST1.Spec.hullT T) = ENNReal.ofReal T.vol",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.volume_stdS_one": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_4",
+        "CFDLean.JST1.Proofs.Int21.stdS",
+        "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_2",
+        "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_3",
+        "CFDLean.JST1.Proofs.Int21.volume_stdS_scale"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.volume_stdS_one",
+      "raw_type": "\u2200 (d : Nat),\n  Eq (DFunLike.coe MeasureTheory.volume (CFDLean.JST1.Proofs.Int21.stdS d (OfNat.ofNat 1)))\n    (ENNReal.ofReal (HDiv.hDiv (OfNat.ofNat 1) d.factorial.cast))",
+      "root": true,
+      "type": "\u2200 (d : \u2115), MeasureTheory.volume (CFDLean.JST1.Proofs.Int21.stdS d 1) = ENNReal.ofReal (1 / \u2191d.factorial)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_2",
+      "raw_type": "\u2200 {\u03b1 : Type u} {\u03b2 : Type v} {f : \u03b1 \u2192 \u03b2} {s : Set \u03b2} {a : \u03b1},\n  Eq (Membership.mem (Set.preimage f s) a) (Membership.mem s (f a))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u} {\u03b2 : Type v} {f : \u03b1 \u2192 \u03b2} {s : Set \u03b2} {a : \u03b1}, (a \u2208 f \u207b\u00b9' s) = (f a \u2208 s)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_3": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_3",
+      "raw_type": "\u2200 {\u03b1 : Type u} (x : \u03b1), Eq (Membership.mem EmptyCollection.emptyCollection x) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u} (x : \u03b1), (x \u2208 \u2205) = False",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_4": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.volume_stdS_one._simp_1_4",
+      "raw_type": "\u2200 {a b : Prop}, Eq (Not (And a b)) (a \u2192 Not b)",
+      "root": true,
+      "type": "\u2200 {a b : Prop}, (\u00ac(a \u2227 b)) = (a \u2192 \u00acb)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.Int21.volume_stdS_scale": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.Int21.stdS",
+        "CFDLean.JST1.Proofs.Int21.stdS_smul"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.Int21.volume_stdS_scale",
+      "raw_type": "\u2200 (d : Nat) {s : Real},\n  LE.le (OfNat.ofNat 0) s \u2192\n    Eq (DFunLike.coe MeasureTheory.volume (CFDLean.JST1.Proofs.Int21.stdS d s))\n      (HMul.hMul (ENNReal.ofReal (HPow.hPow s d))\n        (DFunLike.coe MeasureTheory.volume (CFDLean.JST1.Proofs.Int21.stdS d (OfNat.ofNat 1))))",
+      "root": true,
+      "type": "\u2200 (d : \u2115) {s : \u211d},\n  0 \u2264 s \u2192\n    MeasureTheory.volume (CFDLean.JST1.Proofs.Int21.stdS d s) =\n      ENNReal.ofReal (s ^ d) * MeasureTheory.volume (CFDLean.JST1.Proofs.Int21.stdS d 1)",
+      "unsafe": false
+    },
     "CFDLean.JST1.Proofs.Pde17.conv_rep": {
       "axioms": [
         "propext",
@@ -42797,6 +44148,93 @@
       "raw_type": "\u2200 {d : Nat} (v : CFDLean.Num.Vec d), Eq (CFDLean.squareSum v) (CFDLean.Num.dot v v)",
       "root": true,
       "type": "\u2200 {d : \u2115} (v : CFDLean.Num.Vec d), CFDLean.squareSum v = CFDLean.Num.dot v v",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p6_21_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Spec.P6_21_1",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.JST1.Proofs.Int21.volume_hull",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Proofs.Int21.hull_eq_bset",
+        "CFDLean.JST1.Spec.hullT"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.p6_21_1",
+      "raw_type": "CFDLean.JST1.Spec.P6_21_1",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P6_21_1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p6_21_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.JST1.Proofs.Int21.integral_bary",
+        "CFDLean.JST1.Spec.P6_21_2",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.p6_21_2",
+      "raw_type": "CFDLean.JST1.Spec.P6_21_2",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P6_21_2",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Proofs.p6_21_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.JST1.Proofs.p4_16_1",
+        "CFDLean.JST1.Spec.P4_16_1._proof_1",
+        "CFDLean.Num.WMesh.n",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.grad",
+        "CFDLean.JST1.Proofs.p6_21_2",
+        "CFDLean.Num.WMesh.Valid",
+        "CFDLean.Num.WMesh.Closed",
+        "CFDLean.Num.WMesh.m",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.JST1.Spec.P4_16_1._proof_2",
+        "CFDLean.JST1.Proofs.Int21.divP1_eq",
+        "CFDLean.Num.WMesh.\u03c9",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.JST1.Spec.hatOn",
+        "CFDLean.JST1.Spec.P6_21_3._proof_1",
+        "CFDLean.JST1.Spec.p1Interp",
+        "CFDLean.Num.WMesh.vert",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.Num.WMesh",
+        "CFDLean.JST1.Spec.hullT",
+        "CFDLean.Num.WMesh.simplex",
+        "CFDLean.JST1.Spec.divP1",
+        "CFDLean.JST1.Spec.P6_21_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Proofs.p6_21_3",
+      "raw_type": "CFDLean.JST1.Spec.P6_21_3",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P6_21_3",
       "unsafe": false
     },
     "CFDLean.JST1.Proofs.pK": {
@@ -53554,6 +54992,91 @@
       "type": "(1 + 1).AtLeastTwo",
       "unsafe": false
     },
+    "CFDLean.JST1.Spec.P6_21_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Spec.hullT"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.P6_21_1",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P6_21_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Simplex.Nondeg",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.vol",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.Simplex",
+        "CFDLean.JST1.Spec.hullT"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.P6_21_2",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P6_21_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.WMesh.n",
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.WMesh.Valid",
+        "CFDLean.Num.WMesh.Closed",
+        "CFDLean.Num.WMesh.\u03c9",
+        "CFDLean.JST1.Spec.hatOn",
+        "CFDLean.JST1.Spec.P6_21_3._proof_1",
+        "CFDLean.Num.WMesh.vert",
+        "CFDLean.Num.WMesh",
+        "CFDLean.JST1.Spec.hullT",
+        "CFDLean.Num.WMesh.simplex",
+        "CFDLean.JST1.Spec.divP1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.P6_21_3",
+      "raw_type": null,
+      "root": true,
+      "type": "Prop",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.P6_21_3._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.P6_21_3._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
     "CFDLean.JST1.Spec.SchemeHyp": {
       "axioms": [
         "propext",
@@ -53840,6 +55363,25 @@
       "type": "\u2200 {\u03b9 C Q : Type} {d : \u2115} (S : CFDLean.JST1.Scheme.Data \u03b9 C Q d) (isWall : \u03b9 \u2192 Bool),\n  CFDLean.JST1.Spec.cutWall S isWall =\n    { M := S.M, g := S.g, lam := S.lam, eps2 := fun i k => if isWall i \u2260 isWall k then 0 else S.eps2 i k,\n      eps4 := fun i k => if isWall i \u2260 isWall k then 0 else S.eps4 i k, Nstar := S.Nstar, \u03c6 := S.\u03c6, N := S.N,\n      ut := S.ut, Fs := S.Fs, Pv := S.Pv, P := S.P, gw := S.gw, walls := S.walls, c := S.c }",
       "unsafe": false
     },
+    "CFDLean.JST1.Spec.divP1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Spec.p1Interp",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.divP1",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03ba : Type} \u2192 {d : \u2115} \u2192 CFDLean.Num.Simplex d \u2192 (Fin (d + 1) \u2192 Matrix \u03ba (Fin d) \u211d) \u2192 CFDLean.Num.Vec d \u2192 \u03ba \u2192 \u211d",
+      "unsafe": false
+    },
     "CFDLean.JST1.Spec.eps2C": {
       "axioms": [
         "propext",
@@ -53976,6 +55518,98 @@
       "root": true,
       "type": "\u2200 {V : Type} [inst : Fintype V] (adj : V \u2192 V \u2192 Prop) [inst_1 : DecidableRel adj] (isWall : V \u2192 Bool) (u : V \u2192 \u2102)\n  (i : V),\n  CFDLean.JST1.Spec.fourthOp adj isWall u i =\n    \u2211 k,\n      if adj i k \u2227 isWall i = isWall k then\n        CFDLean.JST1.Spec.lapStar adj isWall u k - CFDLean.JST1.Spec.lapStar adj isWall u i\n      else 0",
       "unsafe": false
+    },
+    "CFDLean.JST1.Spec.hatOn": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.WMesh.vert",
+        "CFDLean.JST1.Spec.bary",
+        "CFDLean.Num.WMesh",
+        "CFDLean.Num.WMesh.simplex"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.hatOn",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b9 C : Type} \u2192 [DecidableEq \u03b9] \u2192 {d : \u2115} \u2192 CFDLean.Num.WMesh \u03b9 C d \u2192 \u03b9 \u2192 C \u2192 CFDLean.Num.Vec d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.hatOn.congr_simp": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.JST1.Spec.hatOn",
+        "CFDLean.Num.WMesh"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "CFDLean.JST1.Spec.hatOn.congr_simp",
+      "raw_type": "\u2200 {\u03b9 C : Type} {inst : DecidableEq \u03b9} [inst_1 : DecidableEq \u03b9] {d : Nat} (M M_1 : CFDLean.Num.WMesh \u03b9 C d),\n  Eq M M_1 \u2192\n    \u2200 (i i_1 : \u03b9),\n      Eq i i_1 \u2192\n        \u2200 (T T_1 : C),\n          Eq T T_1 \u2192\n            \u2200 (x x_1 : CFDLean.Num.Vec d),\n              Eq x x_1 \u2192 Eq (CFDLean.JST1.Spec.hatOn M i T x) (CFDLean.JST1.Spec.hatOn M_1 i_1 T_1 x_1)",
+      "root": true,
+      "type": "\u2200 {\u03b9 C : Type} {inst : DecidableEq \u03b9} [inst_1 : DecidableEq \u03b9] {d : \u2115} (M M_1 : CFDLean.Num.WMesh \u03b9 C d),\n  M = M_1 \u2192\n    \u2200 (i i_1 : \u03b9),\n      i = i_1 \u2192\n        \u2200 (T T_1 : C),\n          T = T_1 \u2192\n            \u2200 (x x_1 : CFDLean.Num.Vec d),\n              x = x_1 \u2192 CFDLean.JST1.Spec.hatOn M i T x = CFDLean.JST1.Spec.hatOn M_1 i_1 T_1 x_1",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.hullT": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Num.Vec",
+        "CFDLean.Num.Simplex.x",
+        "CFDLean.Num.Simplex"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.hullT",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Num.Simplex d \u2192 Set (CFDLean.Num.Vec d)",
+      "unsafe": false
+    },
+    "CFDLean.JST1.Spec.hullT._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.hullT._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Spec.hullT._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.hullT._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.JST1.Spec.hullT._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "CFDLean.JST1.Spec.hullT._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
     },
     "CFDLean.JST1.Spec.kz": {
       "axioms": [
@@ -103363,6 +104997,60 @@
       "type": "CFDLean.JST1.Spec.P5_20_4",
       "unsafe": false
     },
+    "CFDLean.Verification.JST1Verify.p6_21_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Spec.P6_21_1",
+        "CFDLean.JST1.Proofs.p6_21_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p6_21_1",
+      "raw_type": "CFDLean.JST1.Spec.P6_21_1",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P6_21_1",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p6_21_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.p6_21_2",
+        "CFDLean.JST1.Spec.P6_21_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p6_21_2",
+      "raw_type": "CFDLean.JST1.Spec.P6_21_2",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P6_21_2",
+      "unsafe": false
+    },
+    "CFDLean.Verification.JST1Verify.p6_21_3": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.JST1.Proofs.p6_21_3",
+        "CFDLean.JST1.Spec.P6_21_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Verification.JST1Verify",
+      "name": "CFDLean.Verification.JST1Verify.p6_21_3",
+      "raw_type": "CFDLean.JST1.Spec.P6_21_3",
+      "root": true,
+      "type": "CFDLean.JST1.Spec.P6_21_3",
+      "unsafe": false
+    },
     "CFDLean.admissible_exists": {
       "axioms": [
         "propext",
@@ -103854,6 +105542,149 @@
       "type": "\u2200 {d : \u2115} (a : \u211d) (v : CFDLean.Vector d), (CFDLean.squareSum fun i => a * v i) = a ^ 2 * CFDLean.squareSum v",
       "unsafe": false
     },
+    "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.mk\u2082._at_.ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2.spec_3._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "ClosureOperator.ofPred._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_2._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "ContinuousLinearMap.comp._at_.CFDLean.Roe.assemble.spec_0": {
       "axioms": [],
       "direct": [],
@@ -104047,6 +105878,28 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Mixed.Assembly",
       "name": "Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Mixed.Cell.X.spec_0.spec_0.spec_1._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1._redArg",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -105504,6 +107357,39 @@
       "type": null,
       "unsafe": null
     },
+    "Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "Multiset.erase._at_.Finset.erase._at_.CFDLean.MedianDual.MeshData.faceNodes.spec_0.spec_0": {
       "axioms": [],
       "direct": [],
@@ -105620,6 +107506,28 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Mixed.Assembly",
       "name": "Multiset.sum._at_.Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Mixed.Cell.X.spec_0.spec_0.spec_1.spec_2._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Multiset.sum._at_.Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1.spec_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Multiset.sum._at_.Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1.spec_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "Multiset.sum._at_.Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1.spec_2._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "Multiset.sum._at_.Finset.sum._at_.dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0.spec_1.spec_2._closed_0",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -107238,6 +109146,17 @@
       "type": null,
       "unsafe": null
     },
+    "convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Mixed.Cell.X.spec_0.spec_0": {
       "axioms": [],
       "direct": [],
@@ -107266,6 +109185,72 @@
       "kind": "compiler_metadata_only",
       "module": "CFDLean.Papers.JST1.Mixed.Assembly",
       "name": "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Mixed.Cell.X.spec_0.spec_0._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "name": "dotProduct._at_.Matrix.mulVec._at_.CFDLean.JST1.Proofs.Int21.aff.spec_0.spec_0._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Papers.JST1.Spec.Item21",
+      "name": "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1._redArg._boxed",
       "raw_type": null,
       "root": false,
       "type": null,
@@ -107361,7 +109346,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 538,
+  "catalog_entries": 541,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -107688,7 +109673,8 @@
     "specifications/JST1/P2-results.json",
     "specifications/JST1/P3-results.json",
     "specifications/JST1/P4-results.json",
-    "specifications/JST1/P5-results.json"
+    "specifications/JST1/P5-results.json",
+    "specifications/JST1/P6-results.json"
   ],
   "jst1_promised_theorems": [
     "CFDLean.JST1.Proofs.p1_1_0",
@@ -107802,7 +109788,10 @@
     "CFDLean.JST1.Proofs.p5_20_1",
     "CFDLean.JST1.Proofs.p5_20_2",
     "CFDLean.JST1.Proofs.p5_20_3",
-    "CFDLean.JST1.Proofs.p5_20_4"
+    "CFDLean.JST1.Proofs.p5_20_4",
+    "CFDLean.JST1.Proofs.p6_21_1",
+    "CFDLean.JST1.Proofs.p6_21_2",
+    "CFDLean.JST1.Proofs.p6_21_3"
   ],
   "jst1_delegated_to_core": [
     "CFDLean.JST1.Proofs.p1_2_1",
@@ -107844,13 +109833,13 @@
     "CFDLean.JST1.Proofs.p3_13_1"
   ],
   "jst1_frozen": "specifications/JST1/frozen.sha256",
-  "jst1_frozen_files": 43,
+  "jst1_frozen_files": 44,
   "forbidden_token_scan": {
     "root": "CFDLean/Papers",
-    "files": 70
+    "files": 72
   },
   "jst1_comparator": "Challenges/JST1.comparator.json",
-  "jst1_comparator_theorems": 112,
+  "jst1_comparator_theorems": 115,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 538
+  "raw_types_checked": 541
 }

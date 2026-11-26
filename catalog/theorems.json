@@ -6258,6 +6258,46 @@
       "source": "specifications/JST1/P5-results.json P5-20.4 (CFDLean.JST1.Spec.P5_20_4)"
     },
     {
+      "name": "CFDLean.JST1.Proofs.p6_21_1",
+      "id": "P6-21.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "The closed simplex (convex hull of the vertices) is where all barycentric coordinates are ≥ 0, and its Lebesgue measure is |det(x_β − x_0)|/d!.",
+      "source": "specifications/JST1/P6-results.json P6-21.1 (CFDLean.JST1.Spec.P6_21_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p6_21_2",
+      "id": "P6-21.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Each barycentric coordinate of a nondegenerate simplex is integrable on it and ∫_T φ_b = |T|/(d+1) = m_T.",
+      "source": "specifications/JST1/P6-results.json P6-21.2 (CFDLean.JST1.Spec.P6_21_2)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p6_21_3",
+      "id": "P6-21.3",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item21",
+      "status": "candidate",
+      "layer": "Discrete operators",
+      "methods": [
+        "FEM",
+        "FVM"
+      ],
+      "summary": "At a closed vertex the mean flux equals Σ_T ω_T ∫_T φ_i ∇·F_h with F_h the P1 interpolant (the Galerkin form, with a real integral).",
+      "source": "specifications/JST1/P6-results.json P6-21.3 (CFDLean.JST1.Spec.P6_21_3)"
+    },
+    {
       "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter",
       "id": "B3b-U",
       "milestone": "B3b",

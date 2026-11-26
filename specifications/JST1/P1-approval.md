@@ -50,3 +50,9 @@ Under the user's instruction of 2026-11-26 (whole cycle authorized without appro
 `P5-proposal.md`; independent statement review `reviews/JST1/P5-statement-review.md` (no blocking finding; findings 1
 and 2 fixed before the freeze). Frozen: `CFDLean/Papers/JST1/Spec/Item19.lean`, `Item20.lean` (hashes in
 `frozen.sha256`). No earlier frozen file changed.
+
+## P6 (item 21), self-frozen 2026-11-26
+
+The user chose this batch (simplex integral) after P5; the cycle runs under the same authorization. Proposal
+`P6-proposal.md`; independent statement review `reviews/JST1/P6-statement-review.md` (no blocking finding; docstring
+findings fixed before the freeze). Frozen: `CFDLean/Papers/JST1/Spec/Item21.lean`. No earlier frozen file changed.
