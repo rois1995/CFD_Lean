@@ -69,12 +69,48 @@ jobs:
       - name: Audit axioms and unsafe dependency closure
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean
-      - name: Verifier fixtures
-        if: steps.docs.outputs.only != 'true'
-        run: PATH="$HOME/.elan/bin:$PATH" python3 -m unittest discover -s scripts -p test_verify.py
+      - name: Generate the four FV1D type pins on the hosted runner
+        run: |
+          export PATH="$HOME/.elan/bin:$PATH"
+          python3 scripts/verify.py --record-raw-types
+          python3 - <<'PYTHON'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          pin = Path("evidence/raw-types.json")
+          old = json.loads(subprocess.check_output(["git", "show", f"HEAD:{pin}"]))["theorems"]
+          new = json.loads(pin.read_text())["theorems"]
+          claims = json.loads(Path("specifications/FV1D-results.json").read_text())["results"]
+          assert len(claims) == 4
+          assert {r["theorem"] for r in claims} == new.keys() - old.keys()
+          assert all(new.get(name) == typ for name, typ in old.items())
+          previous = hashlib.sha256(subprocess.check_output(["git", "show", f"HEAD:{pin}"])).hexdigest()
+          current = hashlib.sha256(pin.read_bytes()).hexdigest()
+          verifier = Path("scripts/verify.py")
+          source = verifier.read_text()
+          assert source.count(f'RAW_TYPES_SHA256 = "{previous}"') == 1
+          verifier.write_text(source.replace(f'RAW_TYPES_SHA256 = "{previous}"', f'RAW_TYPES_SHA256 = "{current}"'))
+          print(f"Preserved {len(old)} type pins and added four FV1D claims.")
+          PYTHON
       - name: Verify frozen contracts, result maps, catalog and trusted Burgers files
         if: steps.docs.outputs.only != 'true'
         run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py
+      - name: Verifier fixtures
+        if: steps.docs.outputs.only != 'true'
+        run: PATH="$HOME/.elan/bin:$PATH" python3 -m unittest discover -s scripts -p test_verify.py
+      - name: Package the runner-generated evidence
+        run: git diff --binary -- evidence scripts/verify.py > "$RUNNER_TEMP/fv1d-evidence.patch"
+      - name: Upload evidence for the FV1D PR
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: fv1d-evidence
+          path: ${{ runner.temp }}/fv1d-evidence.patch
+          if-no-files-found: error
+      - name: Check the reused B0 challenge in its sandbox
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          ~/.elan/bin/lake comparator --paranoid --config Challenges/BurgersB0.comparator.json
       - name: Committed evidence equals regenerated evidence
         if: steps.docs.outputs.only != 'true'
         run: >
