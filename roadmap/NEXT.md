@@ -145,6 +145,7 @@ This is a new line alongside the multidimensional median-dual M1–M6 milestones
    gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
    mesh. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
    with a cell-centered method needs an explicit statement about the control volumes and transfers being compared.
+   [Periodic Euler density-wave reference case](../benchmarks/fv1d/README.md)
 
 ### Non-uniform fixed 1D finite volume
 
