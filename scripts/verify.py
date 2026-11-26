@@ -141,34 +141,35 @@ BURGERS = {
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
-# the 112 bindings of the P1-P5 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
+# the 115 bindings of the P1-P6 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
 # by the audit run) and its theorem is a root theorem with standard axioms in its module; a binding with a
 # `core_theorem` (the 37 MC-N statements) must use that MC-N theorem directly. CFDLean/Papers has no forbidden token.
 JST1_RESULTS = (("specifications/JST1/P1-results.json", 36), ("specifications/JST1/P2-results.json", 36),
                 ("specifications/JST1/P3-results.json", 20), ("specifications/JST1/P4-results.json", 13),
-                ("specifications/JST1/P5-results.json", 7))
-JST1_PAPERS = ("P1", "P2", "P3", "P4", "P5")
-JST1_COUNT = 112
+                ("specifications/JST1/P5-results.json", 7),
+                ("specifications/JST1/P6-results.json", 3))
+JST1_PAPERS = ("P1", "P2", "P3", "P4", "P5", "P6")
+JST1_COUNT = 115
 # MR-3: the pretty and raw types (`pp.notation false`, `pp.coercions false`; field `raw_type` of KernelAudit.lean) of
 # every promised theorem (M1-M5, MC-N, Burgers, JST1: the catalog index) are pinned in evidence/raw-types.json, whose hash is
 # pinned here; a run fails if a type changes. The accepted v4.19 history has no raw types (they cannot be regenerated),
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "fae5118291a47af28847bc26ebbac0adbb4e5e20ccf69b1eba8f663e476ed4d6"
+RAW_TYPES_SHA256 = "ed823d5ed73b9882fe67fe1c44a15cacda55ac2fc2e37231b45f89242d6afdbf"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
-JST1_FROZEN_SHA256 = "79c1e9dc3b386c9db8661ccec898124a0bfdb7c386304db5876d7dbf084a3c0a"
-# The JST1 `lake comparator` challenge (pinned) states the 112 frozen statements with `sorry` and imports only the
+JST1_FROZEN_SHA256 = "c24d5d04d64d77eeb3745ab4f3b80189164a17775e676104581b1b59ae3e1ac3"
+# The JST1 `lake comparator` challenge (pinned) states the 115 frozen statements with `sorry` and imports only the
 # JST1 statement modules; the solution module restates each under the same name, bound to its JST1 proof.
 JST1_CHALLENGE = "Challenges/JST1.lean"
-JST1_CHALLENGE_SHA256 = "057cbc31a296469d43ae6056df2ca06c646901c15a3f6f0cd70330e5b966b0d8"
+JST1_CHALLENGE_SHA256 = "42971a7eee131d5e438e7ea114c5e3886043ae0b000f2a9f3e80575ad574250c"
 JST1_COMPARATOR = "Challenges/JST1.comparator.json"
 JST1_SOLUTION = "CFDLean.Verification.JST1Verify"
-JST1_ID = re.compile(r"P[1-5]-[0-9]+\.[0-9]+[a-z]?")
+JST1_ID = re.compile(r"P[1-6]-[0-9]+\.[0-9]+[a-z]?")
 # The frozen JST1 result IDs are the statement definitions `def P<a>_<b>_<c> : Prop` of the hash-pinned statement files
 # (CFDLean/Papers/JST1/Spec/); ID `P<a>-<b>.<c>` binds statement `CFDLean.JST1.Spec.P<a>_<b>_<c>`.
-JST1_SPEC_DEF = re.compile(r"^def (P[1-5])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
+JST1_SPEC_DEF = re.compile(r"^def (P[1-6])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
 FORBIDDEN_ROOT = "CFDLean/Papers"
 FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|\baxiom\b|native_decide|implemented_by|\bunsafe\b|\bopaque\b|@\[extern"
                        r"|skipKernelTC", re.MULTILINE)
@@ -708,7 +709,7 @@ def strip_lean_comments(text):
 
 
 def check_jst1(rows, records, audit_text, core_theorems, frozen_ids):
-    """The 112 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
+    """The 115 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
     statement of its ID; unique names in CFDLean.JST1; each bound in the audit (outside comments); each a root theorem
     with standard axioms in its module whose type is its statement; the statement a definition; and a delegated
     binding uses its MC-N theorem."""

@@ -464,7 +464,7 @@ class CatalogTests(unittest.TestCase):
 class JST1Tests(unittest.TestCase):
     def setUp(self):
         self.records, self.rows, lines = [], {}, []
-        for paper, count in [("P1", 36), ("P2", 36), ("P3", 20), ("P4", 13), ("P5", 7)]:
+        for paper, count in [("P1", 36), ("P2", 36), ("P3", 20), ("P4", 13), ("P5", 7), ("P6", 3)]:
             bindings = {}
             for i in range(count):
                 rid = f"{paper}-{i // 10 + 1}.{i % 10}"
@@ -516,8 +516,8 @@ class JST1Tests(unittest.TestCase):
 
     def test_ids_are_the_frozen_statements(self):
         spec = "def P1_1_0 : Prop :=\n  True\n/-- P1-1.1 -/\ndef P1_1_1 : Prop := True\ndef other : Prop := True\n"
-        self.assertEqual(verify.jst1_frozen_ids([spec] + [f"def P2_{i}_0 : Prop :=" for i in range(110)]),
-                         {"P1-1.0", "P1-1.1"} | {f"P2-{i}.0" for i in range(110)})
+        self.assertEqual(verify.jst1_frozen_ids([spec] + [f"def P2_{i}_0 : Prop :=" for i in range(113)]),
+                         {"P1-1.0", "P1-1.1"} | {f"P2-{i}.0" for i in range(113)})
         with self.assertRaises(ValueError):
             verify.jst1_frozen_ids([spec])
         with self.assertRaises(ValueError):
@@ -532,27 +532,24 @@ class JST1Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.check(records=rebound)
 
-    def test_five_result_maps(self):
-        """P5 (MR-4 extension): exactly the five maps P1-P5; a P4 or P5 ID only in its own map; P6 statements are not
-        IDs."""
-        for short in (self.records[:3], self.records[:4]):
+    def test_six_result_maps(self):
+        """P6 (MR-4 extension): exactly the six maps P1-P6; a P4, P5 or P6 ID only in its own map; P7 statements are
+        not IDs."""
+        for short in (self.records[:3], self.records[:4], self.records[:5]):
             with self.assertRaises(ValueError):
                 self.check(records=short)
-        moved = json.loads(json.dumps(self.records))
-        moved[2]["bindings"]["P4-1.0"] = moved[3]["bindings"].pop("P4-1.0")
-        with self.assertRaises(ValueError):
-            self.check(records=moved)
-        moved = json.loads(json.dumps(self.records))
-        moved[3]["bindings"]["P5-1.0"] = moved[4]["bindings"].pop("P5-1.0")
-        with self.assertRaises(ValueError):
-            self.check(records=moved)
+        for src, dst, rid in ((3, 2, "P4-1.0"), (4, 3, "P5-1.0"), (5, 4, "P6-1.0")):
+            moved = json.loads(json.dumps(self.records))
+            moved[dst]["bindings"][rid] = moved[src]["bindings"].pop(rid)
+            with self.assertRaises(ValueError):
+                self.check(records=moved)
         names, _ = self.check()
-        self.assertIn("CFDLean.JST1.Proofs.pP4_1_2", names)
-        self.assertIn("CFDLean.JST1.Proofs.pP5_1_6", names)
-        spec = "\n".join(f"def P5_{i}_0 : Prop :=" for i in range(112))
-        self.assertEqual(len(verify.jst1_frozen_ids([spec])), 112)
+        for name in ("pP4_1_2", "pP5_1_6", "pP6_1_2"):
+            self.assertIn("CFDLean.JST1.Proofs." + name, names)
+        spec = "\n".join(f"def P6_{i}_0 : Prop :=" for i in range(115))
+        self.assertEqual(len(verify.jst1_frozen_ids([spec])), 115)
         with self.assertRaises(ValueError):
-            verify.jst1_frozen_ids([spec.replace("def P5_0_0", "def P6_0_0")])
+            verify.jst1_frozen_ids([spec.replace("def P6_0_0", "def P7_0_0")])
 
     def test_theorem_type_is_its_statement(self):
         rows = json.loads(json.dumps(self.rows))
@@ -587,7 +584,7 @@ class JST1Tests(unittest.TestCase):
     def test_scope_ids_and_namespace(self):
         records = json.loads(json.dumps(self.records))
         del records[2]["bindings"]["P3-1.0"]
-        bad = [records, self.records + [{"bindings": {"P6-1.0": self.records[0]["bindings"]["P1-1.0"]}}],
+        bad = [records, self.records + [{"bindings": {"P7-1.0": self.records[0]["bindings"]["P1-1.0"]}}],
                self.mutated_binding(theorem="CFDLean.JST1.Proofs.pP1_1_1"),
                self.mutated_binding(statement="Paper1.Spec.P1_1_0"),
                self.mutated_binding(file="CFDLean/Papers/JST1/Proofs/Other.lean")]
@@ -655,7 +652,7 @@ class JST1Tests(unittest.TestCase):
         mcn = [r["theorem"] for r in json.loads((root / verify.MC_N_RESULTS).read_text())["results"]]
         spec = [p.read_text() for p in (root / verify.JST1_ROOT / "Spec").glob("*.lean")]
         names, delegated = verify.check_jst1(rows, records, audit, mcn, verify.jst1_frozen_ids(spec))
-        self.assertEqual((len(names), len(delegated)), (112, 37))
+        self.assertEqual((len(names), len(delegated)), (115, 37))
         sources = sorted(str(p.relative_to(root)) for p in (root / "CFDLean").rglob("*.lean"))
         verify.check_jst1_frozen(verify.load_jst1_frozen((root / verify.JST1_FROZEN).read_bytes()),
                                  verify.read_source, sources)
@@ -895,7 +892,7 @@ class JST1ComparatorTests(unittest.TestCase):
         return verify.check_jst1_comparator(self.rows if rows is None else rows, self.records, files.__getitem__)
 
     def test_committed_files_pass(self):
-        self.assertEqual(self.check(), 112)
+        self.assertEqual(self.check(), 115)
 
     def test_challenge_and_configuration_pinned(self):
         challenge = self.files[verify.JST1_CHALLENGE]

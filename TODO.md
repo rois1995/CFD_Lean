@@ -36,10 +36,10 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
 5. **Paper-1 items: P4 done** (branch `jst1-work`, candidate): `prop:wallJST`, the Taylor parts of
    `prop:consistency`(b),(c), the PDE form of `prop:sstpde`, the Hessian form of `lem:sstentropy` (13 statements,
    `specifications/JST1/P4.md`; 105 JST1 theorems in total). Still open: mixed cells that are not affine images of the
-   reference cells (trilinear hexahedra); `∫_T φ_i = |T|/(d+1)` (simplex integration; sketch in
-   `specifications/JST1/P5-proposal.md` §4); paper gaps G5-G7 for the paper session.
+   reference cells (trilinear hexahedra); paper gaps G5-G7 and the P6 notes for the paper session.
    **P5 done** (7 statements, 112 JST1 theorems): the Ismail-Roe flux is smooth near the diagonal and P4-16.2 holds
-   for it (G6, Lean side), and the bridge to M1 (item 20).
+   for it (G6, Lean side), and the bridge to M1 (item 20). **P6 done** (3 statements, 115 JST1 theorems):
+   `∫_T φ_i = |T|/(d+1)` with the Lebesgue integral, `|T| = |det|/d!`, the Galerkin form with a real integral.
 6. **SU2 correspondence** (excluded so far): relate the Lean scheme to the SU2 C++ implementation.
 
 ## Refactoring side (no new mathematics)

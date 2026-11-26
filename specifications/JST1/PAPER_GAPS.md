@@ -104,3 +104,19 @@ copy `LEAN_HANDOFF_PAPER1/paper1.tex` is not changed. pdflatex compiles with no 
   neighbours)": the case split is per connected component; "the product of two positive semidefinite matrices has a
   real non-negative spectrum" covers all cases at once (this is the Lean proof of P4-15.6). G_II is the
   negative-semidefinite (L_i = Σ(u_k - u_i)) Laplacian; saying so would help the reader.
+
+## Paper change during P5/P6 (2026-11-26 10:23)
+
+`paper1.tex` sha256 changed `32e1f260…` -> `5ec5f9db…` (backup of the old copy: `paper1.tex.bak_20261126_figs`). The
+diff touches only the numerical-results section (figures of the final campaign, ONERA M6 text and table, a stated
+limitation of the scheme on the mixed M6 mesh in the inviscid case). No definition, statement or proof changed, so no
+frozen Lean statement is affected; line numbers after the results section moved (e.g. `∫_T φ_i = m_T`: line 975).
+
+## P6 (2026-11-26): notes of the P6 statement review (paper not changed; the paper session decides)
+
+- `prop:consistency`(b) on mixed meshes: `∫_Ω φ_i ∇·F_h` has no single integrand there (φ_i and F_h depend on the
+  split); "the same holds split by split" should say the integral is the ω_s-weighted sum over the sub-simplices
+  (P6-21.3 states it so).
+- The proof uses "interior vertex" in the algebraic sense (Σ_k n_ik = 0, B_ik = 0), which on mixed meshes rests on
+  `lem:avg`.
+- Cosmetic: the setting asks W_a^T > 0, mixed meshes allow ω_s ≥ 0.
