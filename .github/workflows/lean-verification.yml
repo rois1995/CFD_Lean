@@ -1,46 +1,36 @@
-name: Burgers verification
+name: Lean verification
 
 on:
-  push:
-    branches:
-      - 'burgers-**'
-    paths: &paths
-      - 'CFDLean/**'
-      - 'CFDLean.lean'
-      - 'Challenges/**'
-      - 'KernelAudit.lean'
-      - 'Integrity.lean'
-      - 'StatementChecks.lean'
-      - 'Main.lean'
-      - 'catalog/**'
-      - 'evidence/**'
-      - 'scripts/**'
-      - 'specifications/**'
-      - 'lean-toolchain'
-      - 'lakefile.toml'
-      - 'lake-manifest.json'
-      - '.github/workflows/burgers.yml'
-  pull_request:
-    branches:
-      - main
-    paths: *paths
-  workflow_dispatch:
-
-concurrency:
-  group: burgers-${{ github.event.pull_request.head.ref || github.ref_name }}
-  cancel-in-progress: true
+  workflow_call:
+    inputs:
+      release:
+        description: Run the full paranoid release verification.
+        required: true
+        type: boolean
 
 permissions:
   contents: read
 
 jobs:
   verify:
+    name: Lean verification
     runs-on: ubuntu-latest
     steps:
+      - name: Check release PR source
+        if: inputs.release
+        env:
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          if [[ "$HEAD_REPOSITORY" != "$GITHUB_REPOSITORY" || ( "$HEAD_BRANCH" != develop && "$HEAD_BRANCH" != hotfix/* ) ]]; then
+            echo 'Release PRs must come from develop or a hotfix branch in this repository.'
+            exit 1
+          fi
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Install pinned Lean and Mathlib cache
         uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64
         with:
@@ -74,6 +64,7 @@ jobs:
       # The paper-1 comparator with the five external checkers needs about 13 GB of memory in one checker (con-ron,
       # measured locally). The runner has less, and the step was cancelled there. More swap keeps the check complete.
       - name: Add swap space for the external checkers
+        if: inputs.release
         run: |
           free -h
           df -h / /mnt || true
@@ -88,11 +79,13 @@ jobs:
           free -h
           df -h / /mnt || true
       - name: Install bubblewrap sandbox
+        if: inputs.release
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq bubblewrap
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
       - name: Judge each bridge against its trusted challenge (kernel and five external checkers)
+        if: inputs.release
         run: |
           for config in Challenges/*.comparator.json; do
             echo "== $config"

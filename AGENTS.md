@@ -1,8 +1,9 @@
 # Working in CFD_Lean
 
-Use a branch and a pull request for every repository change. Start with [current status](roadmap/CURRENT.md) and
-[next work](roadmap/NEXT.md), then use the [architecture](ARCHITECTURE.md) and [concept map](docs/CONCEPTS.md)
-to locate the modules in scope.
+Open a pull request from a task branch into `develop` for routine work. Promote `develop` to `main` through a
+release PR. Follow the [branch, hotfix and release instructions](CONTRIBUTING.md#branches-and-releases).
+Start with [current status](roadmap/CURRENT.md) and [next work](roadmap/NEXT.md), then use the
+[architecture](ARCHITECTURE.md) and [concept map](docs/CONCEPTS.md) to locate the modules in scope.
 
 - For a milestone, read its contract, approval and result map in [specifications](specifications/), its proof map in
   [references](references/) and the latest applicable record in [reviews](reviews/). Frozen contracts, trusted

@@ -1,0 +1,19 @@
+name: Release verification
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: release-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Release checks
+    uses: ./.github/workflows/lean-verification.yml
+    with:
+      release: true
