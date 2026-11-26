@@ -67,9 +67,20 @@ jobs:
       - name: Check implementation against trusted Burgers statements
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake build --wfail CFDLean.Verification.BurgersB0Verify CFDLean.Verification.BurgersB1Verify CFDLean.Verification.BurgersB2Verify CFDLean.Verification.BurgersB3Verify CFDLean.Verification.BurgersB3bVerify CFDLean.Verification.BurgersB4Verify CFDLean.Verification.BurgersE0Verify CFDLean.Verification.BurgersE0bVerify CFDLean.Verification.BurgersE0cVerify
+      # The machine size and the memory pressure during the build are logged, to explain slow builds (lines [mem …]).
       - name: Build full package and integrity target
         if: steps.docs.outputs.only != 'true'
-        run: ~/.elan/bin/lake build
+        run: |
+          echo "cores: $(nproc)"; free -h; swapon --show || true
+          (
+            while sleep 20; do
+              echo "[mem $(date -u +%T)] $(free -m | awk '/^Mem:/ {printf "used %s MB of %s MB, available %s MB", $3, $2, $7}
+                /^Swap:/ {printf ", swap used %s MB", $3}') | pressure $(head -n 1 /proc/pressure/memory 2>/dev/null)"
+            done
+          ) &
+          sampler=$!
+          trap 'kill "$sampler" 2>/dev/null || true' EXIT
+          ~/.elan/bin/lake build
       - name: Save the package build cache (integration only)
         if: ${{ !inputs.release && steps.docs.outputs.only != 'true' && steps.package-cache.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
