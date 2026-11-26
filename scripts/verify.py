@@ -58,9 +58,11 @@ CATALOG_FIELDS = ("name", "id", "milestone", "module", "status", "layer", "metho
 CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes",
                   "Time", "Execution")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
+# Burgers B0-B4, B3b, E0, E0b and E0c: implementation accepted at this revision (reviews/Burgers-Implementation).
+BURGERS_ACCEPTED_REVISION = "4c77f6e145f1f5d8cdd812a02dce2e7324d179c0"
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending",
-                  "B4": "pending", "E0": "pending", "E0b": "pending", "B3b": "pending", "E0c": "pending",
+                  "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
+                  "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
@@ -1085,7 +1087,8 @@ def main(record_raw_types=False):
         "burgers": {milestone: {
             "results": BURGERS[milestone]["results"], "approved_revision": BURGERS[milestone]["approved"],
             "promised_theorems": burgers_promised[milestone], "trusted_bridge_theorems": burgers_bridges[milestone],
-            "independent_acceptance": "pending implementation review"} for milestone in BURGERS},
+            "independent_acceptance": "accepted at " + BURGERS_ACCEPTED_REVISION,
+            "acceptance_record": f"reviews/Burgers-{milestone}/Acceptance.md"} for milestone in BURGERS},
         "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
         "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
         "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,
