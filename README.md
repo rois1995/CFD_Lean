@@ -1,319 +1,40 @@
 # CFD_Lean
 
-Independent exact-real Lean 4 contracts for compressible CFD. M1 specifies ideal-gas Euler states, conditional primitive/conservative conversion identities, admissibility and physical flux for oriented area vectors in arbitrary finite dimension. See [the contract](specifications/M1.md), [source/proof map](references/M1.md) and [approval record](specifications/M0-approval.md).
+CFD_Lean is a Lean 4 library of exact-real contracts and proofs for computational fluid dynamics. It
+formalizes numerical methods and connects the periodic 1D Burgers schemes to an executable array kernel.
 
-The library imports mathlib only. A future SU2 verification package may depend on an immutable CFD_Lean revision, using separate working trees and build directories.
-
-## Reproduce the independently reviewed M1 candidate
-
-Frozen mathematical candidate: `0a88e36b3810cd5adc3881db526ca8a35f81afbb`.
-
-Use a fresh, clean, detached checkout of that commit with no `.lake`. Put Lean/Lake 4.19.0, Git, Python 3, Node, npm, sha256sum and realpath on PATH. Keep a separate copy of [the published review bundle](reviews/M1/) outside the fresh checkout. Its scripts and logs are preserved byte-for-byte from the submitted reviewer evidence, with their original SHA256SUMS.
-
-From the fresh candidate checkout, replace `/absolute/path/to/published-review` below with that separate `reviews/M1` directory, and choose log directories outside the checkout:
-
-```bash
-git checkout --detach 0a88e36b3810cd5adc3881db526ca8a35f81afbb
-sha256sum -c evidence/SHA256SUMS
-bash /absolute/path/to/published-review/reviewer/ReproduceM1.sh ../M1-replay-logs
-bash /absolute/path/to/published-review/reviewer/RunReviewerChecks.sh ../M1-independent-checks
-```
-
-The tested reproduction script checks the frozen snapshot, fetches all nine manifest-pinned source trees, disables both binary-cache mechanisms (`LAKE_NO_CACHE=1` and `MATHLIB_NO_CACHE_ON_UPDATE=1`), builds pinned ProofWidgets JavaScript locally using its npm lockfile, and runs the original verifier. The widget bootstrap is necessary: the pinned mathlib blocks a missing widget asset build during the normal downstream build. Setting only the mathlib update-hook variable is insufficient for a fresh source-only reproduction.
-
-Check the committed hashes **before** verification: the verifier regenerates evidence/SHA256SUMS. The frozen Git commit remains the baseline. The reviewer independently completed and replayed the source-only procedure; detailed commands and results are in [the report](reviews/M1/CFD_Lean_M1_Independent_Review.md).
-
-## MC-T: Lean v4.36.0 (current toolchain)
-
-Since MC-T the library builds with `leanprover/lean4:v4.36.0` and Mathlib tag `v4.36.0`
-(`fc4f59e577feb1a4956671bc04ac18aaaf8cd842`). The port changed proofs and imports only; all 199 promised theorems
-keep their names, stages and meaning. Type map: [MC-port-types.json](specifications/MC-port-types.json) (191
-identical, 8 notation/rename), notes in [evidence/port-types.md](evidence/port-types.md). The verifier accepts an
-accepted source only if it equals its accepted revision or the reviewed port revision `4f249ae`, and an accepted type
-only through the pinned map. Status: implemented and AI-reviewed; independent human review waived by the user
-([MC-approval.md](specifications/MC-approval.md)). The v4.19 sections below are kept as history.
-
-## MC-N: numerical core library (`CFDLean.Num`)
-
-The modules `CFDLean/Num/{Basic,LogMean,Simplex,Mesh,Boundary,PairFlux,Galerkin,Production,Bridge}.lean` (since
-MR-1 in the layer folders below) hold the generic simplex/mesh/pair-flux results moved from JST_Paper_Lean (`v436`, `afdf4f9`): scope
-[MC-N.md](specifications/MC-N.md), bindings [MC-N-results.json](specifications/MC-N-results.json) (37 theorems),
-statement map [evidence/mc-n-map.md](evidence/mc-n-map.md). Definitions are copied verbatim (namespace change only);
-each JST `Prop` body is the type of a directly stated theorem, identical up to the namespace of its constants. Proof
-helpers live in `CFDLean.Num.Internal`. The verifier checks that every MC-N theorem is a root theorem with standard
-axioms in its module and that no pre-existing (M1-M5) `CFDLean` source differs from the MC-N base `497b356`.
-
-## Library layout
-
-Since MR-1 ([MR.md](specifications/MR.md)) each module sits in the folder of its main catalog layer; `CFDLean.lean`
-imports every module. Namespaces and declaration names did not change (the MC-N core keeps namespace `CFDLean.Num`).
-
-| Folder | Content |
+| Area | Current coverage |
 |---|---|
-| `CFDLean/Foundations/` | `Basic`, `LogMean`, state `Coordinates` |
-| `CFDLean/Physics/` | `Euler/` (state, physical flux and Jacobian), `Roe/` (averages, linearization, eigenstructure), `Scalar/` (scalar conservation law), `Burgers/` (physical flux) |
-| `CFDLean/Geometry/` | `Simplex`, `MeshBoundary`, the median dual `MedianDual/`, `MedianDualBridge` |
-| `CFDLean/Discrete/` | primal `Mesh` operators, `Galerkin` identities, edge `Assembly`, `Periodic/` (periodic grid, two-point-flux finite volume, conservation, total variation and incremental form, convexity, MUSCL reconstruction) |
-| `CFDLean/Entropy/` | `PairFlux`, `Production`, `Scalar/` (entropy certificates of a two-point flux, periodic cell entropy inequality, Burgers square entropy) |
-| `CFDLean/Schemes/` | `Roe/Flux` (numerical flux), `Boundary/` (boundary transfers, stationary residual, controls), `Scalar/` (two-point flux; consistency, monotone and Lipschitz certificates), `Burgers/` (Rusanov flux, assembled scheme, stability, SSP and MUSCL schemes, controls) |
-| `CFDLean/Time/` | explicit Euler step and its controls, generic scalar `ForwardEuler` step, generic `SSP` Runge-Kutta composition |
-| `CFDLean/Papers/JST1/` | paper 1 (JST), see below |
-| `CFDLean/Exec/` | executable array kernel (`Kernel`, no imports), its `ℝ` instance, refinement to the mathematical scheme |
+| Euler and Roe | Ideal-gas Euler states and fluxes, Roe linearization and flux, median-dual assembly and boundary transfers. M1–M4 are independently accepted. The M5 lumped explicit Euler update awaits independent acceptance. |
+| Burgers | Periodic uniform-grid Rusanov, Forward Euler and SSP Runge–Kutta, MUSCL limiters, semidiscrete entropy stability, and exact-real array refinement. B0–B4, B3b and E0–E0c await independent acceptance. |
+| JST paper | Formal statements and proofs for paper 1, with shared simplex, mesh and pair-flux results in the numerical core. |
 
-The old -> new paths are in [MR-paths.json](specifications/MR-paths.json) (hash-pinned in `scripts/verify.py`); the
-verifier finds an accepted source at its new path only through this map and accepts it only if it equals the accepted
-(or MC-T port) file except for the `import` header.
+## Build and run
 
-## Burgers B0 (scalar finite-volume core)
-
-[Burgers B0](references/Burgers-B0.md) implements the frozen [contract](specifications/Burgers-B0.md): exact-real 1D
-inviscid Burgers, periodic uniform grid, two-point flux, Rusanov flux, Forward Euler. Burgers-specific
-declarations are in `CFDLean.Burgers`, generic ones in `CFDLean.Scalar`, `CFDLean.Periodic` and
-`CFDLean.Time.ForwardEuler`; the modules follow the layered folders ([layout note](specifications/Burgers-B0-layout.md)).
-The [result map](specifications/Burgers-B0-results.json) binds the six result IDs (12 promised theorems, catalog status
-`pending`). Independent acceptance is pending. B0 makes no CFL, monotonicity, TVD, entropy, convergence, positivity,
-order, floating-point or executable-refinement claim.
-
-The trusted B0 statements are in `CFDLean/Verification/BurgersB0Challenge.lean` (Mathlib only, hash-pinned in
-`scripts/verify.py`); `CFDLean/Verification/BurgersB0Verify.lean` proves them from the implementation. To judge the
-bridge against the challenge with Lean's kernel and five external checkers in a `bwrap` sandbox, run:
+With [Elan](https://github.com/leanprover/elan) installed, run from the repository root. Lake uses the
+[Lean toolchain](lean-toolchain) and [dependency pins](lake-manifest.json) recorded in the clone.
 
 ```bash
-lake comparator --paranoid --config Challenges/BurgersB0.comparator.json
+lake build
+lake exe burgers1d 200 200 0.4
+lake exe burgers1d 200 600 0.12 --limiter vanleer
 ```
 
-## Burgers B1 (stability of the first-order scheme)
-
-[Burgers B1](references/Burgers-B1.md) implements the frozen [contract](specifications/Burgers-B1.md). For one
-Rusanov Forward-Euler step with `dx > 0`, `dt ≥ 0`: the total variation does not grow if `dt · a_i ≤ dx` at every
-interface (`a_i = max(|u_i|, |u_{i+1}|)`), and the new values keep the bounds of the old state if `2 · dt · a_i ≤ dx`.
-The Rusanov flux is monotone. The generic lemmas (Harten incremental form) are flux-free. The
-[result map](specifications/Burgers-B1-results.json) binds six result IDs (9 promised theorems, status `pending`).
-B1 makes no multi-step, entropy, convergence, order or floating-point claim. The trusted statements were written
-by the agent and checked by a review agent ([record](reviews/Burgers-B1/TrustedStatements_Review.md)); human review
-is pending. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersB1.comparator.json
-```
-
-## Burgers B2 (SSP time stepping, multi-step stability)
-
-[Burgers B2](references/Burgers-B2.md) implements the [contract](specifications/Burgers-B2.md) that the agent froze
-under the standing authorization. Generic part (`CFDLean/Time/SSP.lean`): SSPRK2 and SSPRK3 in Shu-Osher form over any
-one-step map keep every convex set and every convex bound that the map keeps. Burgers part: with `dx > 0`, `dt ≥ 0`,
-initial bounds `m ≤ u ≤ M` and `2 · dt · max(|m|, |M|) ≤ dx`, the Rusanov scheme with Forward Euler, SSPRK2 or SSPRK3
-keeps the bounds and does not increase the total variation for every number of steps; the SSP steps keep the total sum
-and constant states. 23 promised theorems, status `pending`. No order-of-accuracy claim. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersB2.comparator.json
-```
-
-## Burgers B3 (MUSCL reconstruction)
-
-[Burgers B3](references/Burgers-B3.md) implements the [contract](specifications/Burgers-B3.md) that the agent froze
-under the standing authorization. Generic part (`CFDLean/Discrete/Periodic/Muscl.lean`): for a limiter in the minmod
-region (certificate `MinmodBounded`) and a monotone two-point flux that is Lipschitz on bounded states, the
-Forward-Euler step of the MUSCL scheme is in Harten's incremental form with bounded nonnegative coefficients; so it
-keeps bounds and does not increase the total variation under `dt · (3/2)(KL + KR) ≤ dx`. Burgers part: the Rusanov
-flux has Lipschitz constants `2 max(|m|, |M|)`; with `6 · dt · max(|m|, |M|) ≤ dx` the MUSCL-Rusanov scheme with
-Forward Euler, SSPRK2 or SSPRK3 keeps the bounds and is TVD for every number of steps, and keeps the total sum and
-constant states. 24 promised theorems, status `pending`. No accuracy claim; the CFL constant is not sharp. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersB3.comparator.json
-```
-
-## Burgers B3b (unlimited MUSCL, limiters on top)
-
-[Burgers B3b](references/Burgers-B3b.md) implements the [contract](specifications/Burgers-B3b.md) that the agent froze
-after the user asked for this formulation. The reconstruction is unlimited by default: the slope is the central
-difference `(a + b)/2`. A limiter is a factor `ψ(a, b)` on top; no limiter is the factor 1. Limiters: minmod, MC,
-superbee, van Leer, van Albada, each with its classical form, its factor range and a certificate `SlopeBounded θ`
-(`θ = 1, 2, 2, 2, 5/4`). For a `θ`-bounded slope with `θ ≤ 2`, MUSCL-Rusanov with Forward Euler, SSPRK2 or SSPRK3
-keeps the bounds and is TVD for every number of steps under `(4 + 2θ) · dt · max(|m|, |M|) ≤ dx`. The unlimited scheme
-has no such theorem: one exact example shows an overshoot (`167/160` from a state in `[0, 1]`). 40 promised theorems,
-status `pending`. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersB3b.comparator.json
-```
-
-## Burgers B4 (entropy layer)
-
-[Burgers B4](references/Burgers-B4.md) implements the [contract](specifications/Burgers-B4.md) that the agent froze
-under the standing authorization. Certificates in Tadmor's form: a two-point flux is entropy stable for an entropy
-variable `v` and a potential `ψ` when `(v(b) - v(a)) F(a, b) ≤ ψ(b) - ψ(a)`. For such a flux and `dx > 0` the periodic
-first-order operator satisfies a cell entropy inequality with an explicit numerical entropy flux, and its total
-entropy production is nonpositive. For Burgers with the square entropy: the flux `(a² + ab + b²)/6` is entropy
-conservative, and the Rusanov flux is entropy stable. 14 promised theorems, status `pending`. The statements are
-semidiscrete and algebraic: no time derivative, no fully discrete entropy inequality. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersB4.comparator.json
-```
-## Paper 1 (JST)
-
-Since MR-2 ([MR.md](specifications/MR.md)) the formalization of paper 1 (all 92 statements proved, folded from
-JST_Paper_Lean branch `v436`, commit `afdf4f9`) lives in [`CFDLean/Papers/JST1/`](CFDLean/Papers/JST1) (sub-folders
-`Euler`, `Viscous`, `SST`, `Mixed`, `Geometry`, `Scheme`, `Spec`, `Proofs`; umbrella `CFDLean/Papers/JST1.lean`).
-Namespace `CFDLean.JST1`: statements `CFDLean.JST1.Spec.P*` (`Prop` definitions), proofs `CFDLean.JST1.Proofs.p*`. It
-uses the core `CFDLean.Num` definitions; the 37 proofs whose statement is an MC-N theorem are one-line applications of
-it. The paper's own Euler definitions stay separate from M1.
-
-- Specifications, result maps (`P1`/`P2`/`P3-results.json`), frozen hashes (`frozen.sha256`), `PAPER_GAPS.md`,
-  `REPORT.md`: [`specifications/JST1/`](specifications/JST1); reviews: `reviews/JST1/`.
-- Statement comparison with the JST v4.36 dumps: [`evidence/JST1/fold-diff.md`](evidence/JST1/fold-diff.md)
-  (dump script `scripts/JST1Dump.lean`).
-- `scripts/verify.py` checks the frozen hashes, the 92 bindings in `KernelAudit.lean` (root theorems, standard
-  axioms) and forbidden tokens in `CFDLean/Papers`; the 92 theorems are in the [catalog](catalog/README.md) as
-  milestone `JST1`, status `candidate` (self-checked, AI-reviewed, not independently accepted).
-
-## Burgers E0 (executable kernel and refinement)
-
-[Burgers E0](references/Burgers-E0.md) implements the [contract](specifications/Burgers-E0.md) that the agent froze
-under the standing authorization. `CFDLean/Exec/Kernel.lean` is an array implementation of the first-order Rusanov
-scheme (Forward Euler, SSPRK2, SSPRK3), generic in its arithmetic and free of Mathlib. With the real-number instance
-it is proved to compute the mathematical scheme on the periodic grid `Fin n` (one step and `k` steps), and the B2
-results transfer to the arrays: bounds, sum and total variation after `k` steps. With the `Float` instance the same
-code is the native program
-
-```bash
-lake exe burgers1d 200 200 0.4      # N, steps, cfl; add --dump for the final cell values
-```
-
-Nothing is proved about `Float` rounding, about the driver `Main.lean` or about the compiler. 20 promised theorems,
-status `pending`. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersE0.comparator.json
-```
-
-## Burgers E0b (MUSCL array kernel)
-
-[Burgers E0b](references/Burgers-E0b.md) implements the [contract](specifications/Burgers-E0b.md) that the agent froze
-after the user chose the milestone. `CFDLean/Exec/MusclKernel.lean` is the array kernel of the MUSCL scheme with the
-minmod limiter (Forward Euler, SSPRK2, SSPRK3); the limiter is written with `max` only, so the arithmetic class of E0
-does not change. With real arithmetic the kernel computes the mathematical MUSCL scheme of B3, and the B3 results
-transfer to the arrays: bounds and total variation after `k` steps under `6 · dt · max(|m|, |M|) ≤ dx`, and the sum.
-
-```bash
-lake exe burgers1d 200 200 0.15 --limiter minmod     # since E0c; `--muscl` alone is now the unlimited scheme
-```
-
-Nothing is proved about `Float`, the driver or the compiler. 14 promised theorems, status `pending`. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersE0b.comparator.json
-```
-
-## Burgers E0c (limiter choice in the program)
-
-[Burgers E0c](references/Burgers-E0c.md) implements the [contract](specifications/Burgers-E0c.md) that the agent froze
-after the user asked for "unlimited by default, limiter on top". `CFDLean/Exec/LimiterKernel.lean` is the MUSCL array
-kernel with a limiter choice: none, minmod, MC, superbee, van Leer, van Albada. With real arithmetic it computes the
-B3b scheme for every choice; the sum is kept for every choice, and bounds and total variation are kept for every
-limiter except none under `(4 + 2θ) · dt · max(|m|, |M|) ≤ dx`.
-
-```bash
-lake exe burgers1d 200 600 0.12 --muscl               # unlimited: overshoots after the shock forms
-lake exe burgers1d 200 600 0.12 --limiter vanleer     # limited: stays in the initial bounds
-```
-
-`--muscl` alone now means no limiter (in E0b it meant minmod). Nothing is proved about `Float`, the driver or the
-compiler. 19 promised theorems, status `pending`. Comparator:
-
-```bash
-lake comparator --paranoid --config Challenges/BurgersE0c.comparator.json
-```
-
-## Development verification
-
-Lean: `leanprover/lean4:v4.19.0`. Mathlib: `c44e0c8ee63ca166450922a373c7409c5d26b00b`. Transitive dependencies are pinned in lake-manifest.json.
-
-After the pinned dependency sources and widget assets have been bootstrapped, run:
-
-```bash
-sha256sum -c evidence/SHA256SUMS
-LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py
-```
-
-This incremental command is not the complete fresh-checkout bootstrap; use the source-only procedure above for the frozen M1 candidate. Project proof terms are checked by Lean's kernel. The current verifier inventories elaborated project modules, retains qualified declaration names, rejects duplicate rows, checks cumulative approved result bindings and their frozen contract hash, and protects accepted M1 source hashes. It reports all logical roots and compiler metadata separately. Run the parser/coverage fixtures with `python3 -m unittest discover -s scripts -p test_verify.py`. Historical M1 review scripts remain tied to the original frozen M1 revision.
-
-## Validation levels
-
-| Level | When | Checks |
-|---|---|---|
-| 1 | every commit | `lake build`; `LAKE_NO_CACHE=1 MATHLIB_NO_CACHE_ON_UPDATE=1 python3 scripts/verify.py`; the fixtures `python3 -m unittest discover -s scripts -p test_verify.py`; `sha256sum -c evidence/SHA256SUMS` |
-| 2 | before a merge to `main` | Level 1, an AI statement review of every new or changed promised statement, and `lake comparator --paranoid --config Challenges/<name>.comparator.json` for `BurgersB0` .. `BurgersB3` and `JST1` (in the `bwrap` sandbox, never with `--inadvisably-no-sandbox`) |
-| 3 | optional, only when the user asks | `lake check --paranoid` (five independent kernels over the whole build), run alone, overnight; it needs 10-20 GB RAM per checker |
-
-Level 1 runs with `LEAN_NUM_THREADS=2` and `nice -n 19`, one Lean process at a time. `scripts/verify.py` also pins
-the pretty and raw types (`pp.notation false`, `pp.coercions false`) of every promised theorem in
-`evidence/raw-types.json` (MR-3); a deliberate type change is re-pinned with `python3 scripts/verify.py
---record-raw-types` and the printed hash in `RAW_TYPES_SHA256`, after review.
-
-## Review status
-
-The independent decision is **Accept M1**, with both original review conditions closed. The accepted mathematical revision is `0a88e36b3810cd5adc3881db526ca8a35f81afbb`; documentation follow-up `180ff1be1aa95d943574efd9c05cd4de320a88b6` closed the conditions. See the supplied [final acceptance record](reviews/M1/CFD_Lean_M1_Acceptance.md). The original conditional report and evidence remain intact as review history.
-
-Acceptance covers the exact-real M1 state algebra and oriented physical flux only. The [next-step handoff](reviews/M1/START_HERE_Agent_A.md) requests an original 3D Roe-flux proposal. The [M2 proposal](specifications/M2-proposal.md) received an independent recommendation for implementation. Andrea approved M2 and authorized M2a on 2026-11-13; see [the approval record](specifications/M2-approval.md), [frozen contract](specifications/M2.md), and [result bindings](specifications/M2-results.json). M2a (M2-J) is independently accepted without outstanding conditions at `3788009de306d80e002976e66ba2b1103e2dbd83`; see [the acceptance record](reviews/M2a/Acceptance.md). The original worker checkpoint remains identifiable at `4d845ad`. M2b (M2-A/R/L), preserving J, is independently accepted at `c92c0f66360f85c0a3339ab9b30fc00c39ee5f93`; see [the acceptance record](reviews/M2b/Acceptance.md). M2c (M2-E/D/O), preserving J/A/R/L, is independently accepted at `6ee9d53e79e0c6f11e75b1b387c21256572d0fcd`; see [the acceptance record](reviews/M2c/Acceptance.md). M2d and full M2 are independently accepted without blockers or outstanding conditions at `ca1fc5e14004ee56bb61c2f8d0baf65acc130fe1`; see [M2d acceptance](reviews/M2d/Acceptance.md) and [full-M2 acceptance](reviews/M2/Acceptance.md). The immutable downstream mathematical pin is recorded in [accepted-M2.json](specifications/accepted-M2.json). The current checker compares all 140 accepted M2/M3/M4a bindings, stages, parts and types with the immutable accepted M4a revision and elaborates explicit expected-type checks. The replay script compares regenerated audit evidence with the candidate byte for byte.
-
-The approved private remote is [rois1995/CFD_Lean](https://github.com/rois1995/CFD_Lean). The accepted M2 Roe interface feeds the approved M3 node-centered assembly, followed by selected boundary algorithms and explicit time update. Books and papers remain in the external reference collection; repository reference records contain metadata and source locators only.
-
-## Accepted M2a checkpoint
-
-See [M2a source/result traceability](references/M2a.md). This implements M2-J: coordinate round trips, the explicit physical Jacobian action, the Frechet derivative of the actual M1 flux for fixed arbitrary normal/area and nonzero density, admissible-domain openness, Euclidean area normalization and zero-area derivative. The M2b extension below proves the subsequent two-state obligations using this accepted baseline.
-
-A fresh source-only replay for a new frozen checkpoint uses `bash scripts/reproduce.sh FULL_COMMIT_SHA /outside/checkout/logs` from a clean detached checkout of that exact full commit, without `.lake`. The script reuses the reviewed pinned-source and widget bootstrap, disables both binary-cache mechanisms and then runs the current audit and fixtures. It is separate from the historical M1-specific replay script.
-
-## Accepted M2b checkpoint
-
-See [M2b source/result traceability](references/M2b.md). M2-A proves square-root weight bounds, symmetry, the enthalpy variance identity and positive averaged sound speed. M2-R proves parameter-map recovery of the actual M1 state and flux, their Frechet derivatives B/C, exact midpoint jumps, a two-sided inverse of B, the C B-inverse matrix order and the arbitrary-normal/integrated secant identity. M2-L proves joint operator-norm continuity, diagonal equality with M2a's physical Jacobian and the full equal-state limit. These results use the unchanged approved contract and accepted mathematical sources.
-
-The result map contains 37 active J/A/R/L theorem bindings, now all independently accepted at c92c0f6. `StatementChecks.lean` provides explicit inherited/new expected-type checks and exact stationary-contact/shear sound-speed examples. The generated `evidence/bindings-diff.patch` and `evidence/binding-type-diff.json` expose the full binding/type changes from accepted M2a. The independent acceptance includes a successful cold-source replay and exact deterministic evidence comparisons; the original worker and reviewer evidence remain separate. These historical M2b counts are preserved; the accepted M2c and current M2d extensions are described below.
-
-## Accepted M2c checkpoint
-
-See [M2c source/result traceability](references/M2c.md). The actual Roe matrix has the proved 1+3+1 eigenspace dimensions, a complete five-vector eigenbasis and the shifted cubic identity. The approved polynomial projectors have proved ranges, ranks, zero cross-products, idempotence and sum I. Contact/shear completeness holds for any tangent basis. The basis-free absolute-speed operator equals R diag(abs speeds) R-inverse for every complete eigenbasis, and the matrix/projectors/dissipation have proved reversal and state-swap behavior. Stationary and sonic speeds remain in the domain.
-
-There are 58 active J/A/R/L/E/D/O theorem bindings: all independently accepted at 6ee9d53. All inherited definition/proof sources, scientific contracts, toolchain and dependency pins remain fixed; the import-only umbrella exports the new module. The 41 explicit Lean examples include zero-speed and oblique-normal controls. The independent acceptance includes a cold-source replay and exact deterministic evidence comparisons. The M2d extension below consumes this accepted baseline.
-
-## Accepted M2d and complete M2
-
-See [M2d traceability and complete obligation map](references/M2d.md). The public `CFDLean.Roe.numericalFlux` is the original integrated Roe flux on M1 states with an explicit zero-area branch. General proofs establish consistency, signed reversal, nonnegative area scaling and left/right full upwinding, including sonic equality. The approved receding-state witness uses the identical acoustic projector as the flux and proves negative intermediate density despite admissible endpoints and positive averaged sound-speed square.
-
-All 12 approved M2 IDs are populated: 66 theorem bindings, including all 58 accepted inherited bindings/types. Exact controls include the approved moving/oblique/contact/shear examples and both sonic upwind directions. The frozen contract, accepted mathematical sources and dependency pins are unchanged. The complete fresh source replay and reviewer prompt are published in [the M2d checkpoint](reviews/M2d/README.md). The supplied independent decision accepts M2d and composed M2 within the approved exact-real scope, with no outstanding conditions. See [the preserved independent report](reviews/M2d/independent-ca1fc5e/report/Review.md). M3a is accepted; the concrete M3b candidate is described below.
-
-## Accepted full M3 and next M4 proposal
-
-Andrea approved the reviewed area-vector convention, conforming tetrahedral scope, six result groups and the complete M3a/M3b plan; see [approval](specifications/M3-approval.md), [frozen specification](specifications/M3.md) and [representation precision](specifications/M3-representation.md). The original proposal and independent reports remain unchanged in reviews/M3.
-
-M3a is independently accepted without conditions at `a70270c3f771e66bcaaebc18b8480c32f9606b1e`; see [the acceptance record](reviews/M3a/Acceptance.md). It supplies I/R/O and conditional C. M3b began by protecting all 84 then-accepted M2/M3a bindings, exact stages/parts/types and mathematical sources, including Assembly.lean; the current full-M3 guard extends this to 117.
-
-The [M3b source/result map](references/M3b.md) covers the concrete barycentric median dual. Explicit finite node/cell data and a conforming-embedding predicate exclude duplicate cells, coincident distinct used nodes, nonconforming hull intersections and face multiplicity above two. Face incidences are computed from the vertex identities. Closure and volume partition are derived conclusions, not supplied certificates.
-
-Each edge is one increasing pair of co-cell node IDs. Its oriented partial triangle vectors are summed before evaluating one accepted integrated Roe flux. Exterior patches retain cell, primal face and owner identities, with proved exact multiplicities. Local flag-face pairing and shared primal-face cancellation derive the very same area closure used by assembly. The 24 determinant volumes give six pieces per vertex, the incident Vol(T)/4 formula, used-node positivity and total volume. No measure-theoretic volume of a union is asserted.
-
-The concrete closure theorem instantiates the accepted common-state Roe residual with compatible physical boundary transfers and the global boundary balance. Exact controls include standard and oblique tetrahedra, a conforming pair sharing a face, all flag volumes/local closures, actual compatible/incompatible constant-state boundaries, excluded degenerate/unused/nonmanifold cases and nonparallel Roe nonadditivity. See [the M3b/full-M3 handoff](reviews/M3b/README.md).
-
-M3b and composed full M3 are independently accepted without blockers or outstanding conditions at `e2ea538b8da38c01c098ef28a3ea31030d90c6bb`. See [M3b acceptance](reviews/M3b/Acceptance.md), [full-M3 acceptance](reviews/M3/Acceptance.md), [original independent report](reviews/M3b/independent-e2ea538/report/Review.md) and [immutable downstream pin](specifications/accepted-M3.json). The supplied replay and separate reviewer controls are preserved unchanged. All 117 cumulative bindings and all accepted mathematical sources are protected by the next-stage guard. Original M3b handoff/replay records retain their historical pending fields.
-
-The [M4 proposal](specifications/M4-proposal.md) received an independent recommendation for approval without mandatory amendment. Andrea explicitly approved the reviewed choices and full two-stage plan; see [the approval record](specifications/M4-approval.md), [frozen contract](specifications/M4.md), [interface precision](specifications/M4-precision.md) and [original review](reviews/M4/proposal-936d20d/report/Review.md).
-
-## Accepted full M4 and current M5 proposal
-
-[M4a B/W/P](references/M4a.md) is independently accepted without conditions at `37c1e6ee4618b0183135c2795b3aa6ebea2f22d5`; see [acceptance](reviews/M4a/Acceptance.md), [original review](reviews/M4a/independent-37c1e6e/report/Review.md) and [scoped accepted pin](specifications/accepted-M4a.json). Before M4b work, the guard was extended and verified for all 140 accepted bindings/types and mathematical sources, including the boundary definitions/controls. The earlier M3 mathematical pin remains separately recorded.
-
-The [M4b source/result map](references/M4b.md) implements R/O/C using the actual selected patchTransfer and the unchanged accepted Roe residual and concrete geometry. Global vector/component balances retain wall/symmetry pressure momentum and exclude those pieces from mass/energy transfer. Constructed kinds, prescribed data, nodal states, ownership and areas are all transported under finite node/edge/boundary relabeling. Concrete common-state preservation retains gamma>1, actual admissibility, per-wall tangency and matching prescribed exterior data; closure is derived from the accepted conforming median dual.
-
-Controls include standard/oblique/two-cell compatible cases, all three boundary kinds at one corner, actual incompatible wall/exterior residuals, nonzero transported residuals, all-wall mass/energy balance for nonconstant admissible nodal data and retained nonzero pressure force in an abstract balance example. No correction is inserted into the algorithm. The accepted 153-example prefix is unchanged.
-
-Both scoped M4b R/O/C and composed full M4 B/W/P/R/O/C are independently accepted without conditions at `3a586a42546cba1784cc79269e3f9d1c5d843f0c`; see [M4b acceptance](reviews/M4b/Acceptance.md), [full-M4 acceptance](reviews/M4/Acceptance.md), [original review](reviews/M4b/independent-3a586a4/report/Review.md) and [accepted pin](specifications/accepted-M4.json). All six IDs are populated, with 39 M4 bindings, 156 cumulative promises and no deferred M4 result. The current guard protects all 156 accepted types, all M4 records/stages and every accepted mathematical source. Original handoff/replay archives keep their historical pending fields/counts unchanged. The separate accepted-M3 pin is preserved.
-
-The [M5 proposal](specifications/M5-proposal.md) received an independent recommendation to implement without mandatory amendments; the [original review](reviews/M5/proposal-3dcb73d/report/Review.md) remains unchanged. Under the [standing authorization](reviews/Standing_Authorization.md), its exact reviewed copy, authorization and six-ID map were [frozen](specifications/M5.md) before implementation at `9ee58a9a0226844cda835ac0b8285d64891f1dd0`. Historical pending wording in the copied proposal is superseded by [M5-approval.md](specifications/M5-approval.md).
-
-[M5](references/M5.md) now implements the reviewed single lumped explicit Euler step at the OLD state on actual positive used-node volumes, with an explicit unused-node hold branch. It proves actual-boundary common-step vector/component balances, the exact unequal-step edge defect, qualified concrete common-state preservation and fully transported data. There are 43 new M5 bindings, 199 cumulative promises and no deferred M5 ID. All 156 accepted contracts remain protected. Exact controls include standard/oblique/two-cell geometry, unused allocation, admissible unequal-step nonconservation and an admissible-input large-step negative-density witness. These establish neither a CFL guarantee nor automatic update positivity. Independent M5 acceptance is pending; M6 remains separate.
-
-No characteristic/nonreflecting boundary, projected or full symmetry update, time-accuracy/stability/CFL guarantee, entropy/update-positivity repair, mixed elements, mesh importer or SU2 correspondence is claimed.
+The arguments are cell count, step count and CFL number. Add `--dump` for the final cell values.
+`--muscl` selects unlimited reconstruction, which can overshoot. Use `--limiter minmod` for the
+former E0b behavior. See the [driver and kernel guide](CFDLean/Exec/README.md) for limiter choices.
+
+`burgers1d` runs the kernel with `Float`. The refinement theorems apply to the kernel instantiated
+with `ℝ`. The driver, compiler and floating-point error are outside that proof boundary.
+
+## Find your way around
+
+- [Architecture](ARCHITECTURE.md) and [concept-to-code map](docs/CONCEPTS.md) show where definitions and proofs live.
+- [Theorem catalog](catalog/README.md) indexes promised results. [Specifications](specifications/) and
+  [review records](reviews/) give their frozen scope and independent acceptance status.
+- [Contributor guide](CONTRIBUTING.md) and [agent guide](AGENTS.md) explain the PR, milestone and verification workflow.
+- [Current status](roadmap/CURRENT.md) and [next steps](roadmap/NEXT.md) track the work. [TODO.md](TODO.md) indexes the roadmap.
+- [Euler and Roe checkpoints](references/Euler-Milestones.md) preserve the historical M1 replay and acceptance details.
+  [Burgers B0](references/Burgers-B0.md), [B3b](references/Burgers-B3b.md), and [E0c](references/Burgers-E0c.md)
+  are entry points into the Burgers contracts and proof maps. [JST1 specifications](specifications/JST1/README.md)
+  map the paper statements to their implementations.
