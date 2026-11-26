@@ -20,3 +20,14 @@ Start with [current status](roadmap/CURRENT.md) and [next work](roadmap/NEXT.md)
   the sandboxed comparator for affected challenges.
 - In the PR, give the milestone or work package, what changed, checks run and any pending review. Use the actual
   candidate commit when preparing a reviewer handoff.
+
+## Arithmetic and execution
+
+- Preserve arithmetic-polymorphic kernels such as `Scalar α`. Keep generic mathematics and numerical APIs independent
+  of machine types such as `Float` and `Float32`. Select precision in the execution or refinement layer.
+- Before extending `Scalar`, identify the kernel operation that requires the capability. Keep parsing, printing,
+  conversions, finite and NaN checks, and math used only for initialization or diagnostics in the driver or backend.
+  A sinusoidal initial condition can call `sin` in the driver while the solver kernel accepts the resulting values.
+- Treat binary32, binary64, arbitrary precision, interval arithmetic, and mixed precision as separate execution
+  backends. Require a backend-specific refinement or error theorem before attributing exact-real guarantees to a
+  machine run. See the [arithmetic principle](roadmap/PRINCIPLES.md#18-arithmetic-precision-belongs-to-the-execution-backend).

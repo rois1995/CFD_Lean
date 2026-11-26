@@ -8,7 +8,9 @@
 
 [RealScalar](RealScalar.lean) and [RealScalarSign](RealScalarSign.lean) instantiate the arithmetic interfaces over `ℝ`.
 The refinement proofs connect arrays using those instances to the periodic schemes and transfer the stated guarantees.
-[Main.lean](../../Main.lean) runs the same kernel with `Float`. Its arithmetic and output are outside the proof boundary.
+The kernel is arithmetic-polymorphic through `Scalar α`. The native driver selects `Float` (binary64) and handles
+initialization, parsing and diagnostics. Its arithmetic and output are outside the exact-real proof boundary.
+[Driver](../../Main.lean) · [E1 backend contract](../../roadmap/NEXT.md#priority-2---e1-machine-arithmetic-strategy)
 
 From the repository root, run the first-order scheme or select a MUSCL limiter.
 
