@@ -47,7 +47,7 @@ theorem nondeg_b (x : Σ c : Fin 8, Fin (blockMesh.cell c).kind.tets.length) : (
     simp only [vert_b]
   rw [hs, Simplex.Nondeg, Geo3.det_edge3]
   show sideOf _ _ _ _ ≠ 0
-  simp only [side_b, Fin.coe_ofNat_eq_mod, Nat.reduceMod]
+  simp only [side_b, Fin.coe_ofNat_eq_mod]
   exact mul_ne_zero (by norm_num) (by exact_mod_cast h1)
 
 theorem area_b (p : (Σ c : Fin 8, Fin (blockMesh.cell c).kind.tets.length) × Fin 4) :
@@ -148,6 +148,6 @@ theorem p8_23_2 : Spec.P8_23_2 := by
     rw [hn, hb, Finset.sum_congr rfl fun p _ => e p, ← Finset.smul_sum,
       sum_b (fun c t o => decide (13 ∈ nodesB c t o)), chk_13]
     ext α
-    fin_cases α <;> simp [castZ3] <;> norm_num
+    fin_cases α <;> norm_num [castZ3]
 
 end CFDLean.JST1.Proofs
