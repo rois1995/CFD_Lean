@@ -50,6 +50,7 @@ Branch semantics:
   specifications, executable and verification evidence.
 - [x] Update `AGENTS.md` and contributor guidance to require PRs for changes to `main` and `develop`.
 - [x] Keep CI acceptance and scientific acceptance distinct in documentation and automation.
+- [x] Add lightweight Integration CI for navigation-only Markdown changes.
 
 ### Protection policy
 
