@@ -132,11 +132,14 @@ This is a new line alongside the multidimensional median-dual M1–M6 milestones
    uniform periodic grids. For Euler, prove equal-state flux consistency, preservation of admissible constants and
    periodic conservation of mass, momentum and energy. Include a nonconstant control for face orientation and the
    update sign. Freeze the proposal before implementing these results.
-4. **Advance both models through the same solver.** Reuse the existing SSP composition lemmas. Scope Euler
-   density/pressure positivity under a specified CFL condition before claiming admissible multi-step evolution.
-   Higher-order reconstruction and entropy require their own system hypotheses and proofs. For the executable
-   milestone, run both models through one array traversal and time loop and prove exact-real refinement for each.
-   Keep backend arithmetic separate from the conserved state and certify machine error under E1.
+4. **Select one physical model per run.** The planned executable takes an explicit model argument, for example
+   `lake exe fv1d --model burgers` or `lake exe fv1d --model euler`. Dispatch once in the driver and advance the
+   selected state through the shared array traversal and time loop. Preserve `burgers1d` as a Burgers entry point
+   with its existing arguments and defaults. Compare its output with the equivalent `fv1d --model burgers` run.
+   Reuse the existing SSP composition lemmas. Scope Euler density/pressure positivity under a specified CFL
+   condition before claiming admissible multi-step evolution. Higher-order reconstruction and entropy require
+   their own system hypotheses and proofs. Prove exact-real refinement for each model and certify machine error
+   under E1. Keep backend arithmetic separate from the conserved state.
    [SSP](../CFDLean/Time/SSP.lean) · [Burgers refinement](../CFDLean/Exec/Refinement.lean)
 5. **Extend dimension after the 1D comparison.** A periodic Euler density wave with constant pressure and velocity
    gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
