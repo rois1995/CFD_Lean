@@ -38,9 +38,17 @@ See `CFDLean/Papers/JST1/Proofs/Item11cBase.lean` (`checkKg`, `localOKg`).
 ## 3. Do not re-evaluate a large set inside a quantifier
 
 A statement such as `∀ S ∈ bdTrisOf M, P S` makes the kernel build the whole `Finset` (a `biUnion` and `filter`
-over all cells) and may recurse very deeply. Test each candidate directly instead
-(`∀ c, ∀ p ∈ faceTris c, 13 ∈ p.1 → p.1 ∉ bdTrisOf M`) and derive the set form with a short ordinary proof. Facts
-that follow from a definition (for example "a boundary triangle belongs to one cell") are proved, not computed.
+over all cells) and may recurse very deeply. Test each candidate directly instead and derive the set form with a
+short ordinary proof. Facts that follow from a definition (for example "a boundary triangle belongs to one cell")
+are proved, not computed.
+
+Keep `Finset` out of the kernel loop altogether when its elements come from `List.toFinset`: even
+`∀ p ∈ blockFT 0, 13 ∈ p.1 ∨ True` (with `p.1` a `toFinset`) fails with kernel deep recursion, on CI and locally.
+Compute on the lists as one `Bool` (`List.all`, `List.any`, `List.contains`, and set equality as
+`∀ x, l.contains x == l'.contains x`), check it with `decide +kernel`, and move the result to the `Finset`
+statement with `List.mem_toFinset` (P8: `blockFL`, `chk13B`, `chk_13L`, `not_bdF` in `Item23Conf.lean`). A
+`Finset` built with `insert` (`{a, b, c}`) did not show the problem (`chk_13` in `Item23Sum.lean`). Probe a
+suspect form in a scratch file first: the failure shows in seconds.
 
 ## 4. Never raise `maxRecDepth` to get past a kernel "deep recursion" error
 
