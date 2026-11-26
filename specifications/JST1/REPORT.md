@@ -147,3 +147,11 @@ diagonal (G6), the scaling of `prop:wallJST`(b). Paper gaps G5-G7 in `PAPER_GAPS
 3 frozen statements, 3 proved (`specifications/JST1/P6.md`), standard axioms only; with P1-P5: 115 of 115. The closed
 simplex has Lebesgue measure `|det|/d!`, `∫_T φ_b = m_T`, and the Galerkin form of `prop:consistency`(b) holds with a
 real integral (closes D1 of P4). Statement review: `reviews/JST1/P6-statement-review.md` (no blocking finding).
+
+## P7: mixed meshes beyond affine cells (item 22), written in CFD_Lean
+
+4 frozen statements, 4 proved (`specifications/JST1/P7.md`), standard axioms only; with P1-P6: 119 of 119. The closure
+of `lem:avg` holds for hexahedra, prisms and pyramids with free vertex positions if every pulling sub-tetrahedron
+keeps one orientation (P7-22.1, 22.2; the affine result P3-11.8 is a special case, 22.3); a twisted cube with
+positive trilinear Jacobian violates it and its closure fails (22.4, paper gap G8). Statement review:
+`reviews/JST1/P7-statement-review.md` (no blocking finding).

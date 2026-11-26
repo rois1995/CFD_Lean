@@ -56,3 +56,9 @@ and 2 fixed before the freeze). Frozen: `CFDLean/Papers/JST1/Spec/Item19.lean`, 
 The user chose this batch (simplex integral) after P5; the cycle runs under the same authorization. Proposal
 `P6-proposal.md`; independent statement review `reviews/JST1/P6-statement-review.md` (no blocking finding; docstring
 findings fixed before the freeze). Frozen: `CFDLean/Papers/JST1/Spec/Item21.lean`. No earlier frozen file changed.
+
+## P7 (item 22), self-frozen 2026-11-26
+
+The user approved the P7 proposal (option 1: the full item 22) on 2026-11-26. Independent statement review
+`reviews/JST1/P7-statement-review.md` (no blocking finding; findings 1-4 fixed before the freeze). Frozen:
+`CFDLean/Papers/JST1/Spec/Item22.lean`. No earlier frozen file changed.
