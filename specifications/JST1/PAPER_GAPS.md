@@ -120,3 +120,14 @@ frozen Lean statement is affected; line numbers after the results section moved 
 - The proof uses "interior vertex" in the algebraic sense (Σ_k n_ik = 0, B_ik = 0), which on mixed meshes rests on
   `lem:avg`.
 - Cosmetic: the setting asks W_a^T > 0, mixed meshes allow ω_s ≥ 0.
+
+## G8. `lem:avg` (line 683, proof 988): "Each split is a conforming triangulation of C" — OPEN (found 2026-11-26, P7 proposal)
+
+- False for general hexahedra, even valid ones. A cube with its top face turned by θ (cos θ = 3/5) has trilinear
+  Jacobian `1 - 2w(1-w)(1 - cos θ) > 0` everywhere, but 8 of the 96 pulling sub-tetrahedra are inverted, and the cell
+  averaged over the 64 pulling splits is not facet balanced (24 of 32 interior triangles), so `Σ_k n_ik = -β_i`
+  fails. Random distorted cells: 21 % with an inverted pulling sub-tetrahedron, 1 % with an inverted Kuhn one.
+  Numerics: `evidence/JST1/P7-hexsplit.py`.
+- Lean today: P3-11.7/11.8 assume affine cells, where it cannot happen. P7 (proposed) states the general version with
+  the hypothesis "all sub-tetrahedra consistently oriented" and proves the counterexample.
+- Suggested fix: add that hypothesis to `lem:avg` (or say which cells the scheme accepts).
