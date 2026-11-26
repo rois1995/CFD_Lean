@@ -86,8 +86,8 @@ represents the iterated scheme (E0-N), the B2 theorem (`eulerStep_iterate_stable
 - Built and run in CI. Reference output for `burgers1d 200 200 0.4`:
 
 ```text
-N = 200  steps = 200  cfl = 0.400000  dx = 5.000000000000e-3  dt = 1.333443002369e-3
-note: Float arithmetic is not verified. The proved bounds (real arithmetic) need cfl <= 0.5.
+N = 200  steps = 200  cfl = 0.400000  dx = 5.000000000000e-3  dt = 1.333443002369e-3  scheme = first-order
+note: Float arithmetic is not verified. With real arithmetic the bounds are proved for cfl <= 0.5; this run is inside that range.
 initial: sum*dx = 5.000000000000e-1  min = -4.998766324817e-1  max = 1.499876632482e0  TV = 3.999506529927e0
 final  : sum*dx = 5.000000000000e-1  min = -4.783885174983e-1  max = 1.457006232256e0  TV = 3.870789499509e0
 sum drift (final - initial) * dx = -4.831690603169e-15

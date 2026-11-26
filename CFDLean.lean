@@ -66,5 +66,7 @@ import CFDLean.Time.SSP
 import CFDLean.Exec.Kernel
 import CFDLean.Exec.RealScalar
 import CFDLean.Exec.Refinement
+import CFDLean.Exec.MusclKernel
+import CFDLean.Exec.MusclRefinement
 
 import CFDLean.Papers.JST1

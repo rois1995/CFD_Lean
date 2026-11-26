@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-445 promised theorems, grouped by layer.
+459 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -26,7 +26,7 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
 | Physics models | Ideal-gas Euler states, admissibility, entropy variables, physical flux and Jacobian, Roe averages, linearization and eigenstructure; the Navier-Stokes viscous matrix, wall conditions and the SST model. |
 | Schemes | Numerical fluxes and their residuals: Roe flux, Roe edge/boundary transfers, boundary kinds, closures, residual balances, constant-state and free-stream consistency, JST dissipation coefficients, viscous and wall element terms, entropy bounds of the complete scheme. |
 | Time | The explicit Euler update, amounts, conservation balances and step controls. |
-| Execution | Executable array kernels and their refinement to the mathematical schemes (Burgers E0). |
+| Execution | Executable array kernels and their refinement to the mathematical schemes (Burgers E0, E0b). |
 
 **Method tags** (`FEM`, `FVM`, both, or `method-free`):
 
@@ -41,8 +41,8 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0` .. `B4`, `E0`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json` and `Burgers-E0-results.json`: the scalar two-point-flux finite-volume
+**Burgers** (milestones `B0` .. `B4`, `E0`, `E0b`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-E0-results.json` and `Burgers-E0b-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
 Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
@@ -66,13 +66,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 86 | 0 | 0 | 0 | 86 |
 | Schemes | 93 | 7 | 71 | 6 | 9 |
 | Time | 79 | 0 | 59 | 0 | 20 |
-| Execution | 20 | 0 | 20 | 0 | 0 |
-| **Total** | 445 | 17 | 246 | 27 | 155 |
+| Execution | 34 | 0 | 34 | 0 | 0 |
+| **Total** | 459 | 17 | 260 | 27 | 155 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 44 |
-| FVM | 273 |
+| FVM | 287 |
 | method-free | 155 |
 
 | Milestone | Status | Theorems |
@@ -89,6 +89,7 @@ that this file equals the generated text. Do not edit by hand.
 | B3 | pending | 24 |
 | B4 | pending | 14 |
 | E0 | pending | 20 |
+| E0b | pending | 14 |
 | JST1 | candidate | 92 |
 
 ## Foundations (10)
@@ -551,7 +552,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
 
-## Execution (20)
+## Execution (34)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -575,3 +576,17 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.run_eulerStepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel Euler steps do not increase the total variation of the entries. |
 | `CFDLean.Exec.run_ssprk3StepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries. |
 | `CFDLean.Exec.instScalarReal_standard` | E0-K | FVM | pending | The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field. |
+| `CFDLean.Exec.musclEulerStepArray_size` | E0b-K | FVM | pending | The kernel MUSCL Euler step returns an array of the same size. |
+| `CFDLean.Exec.musclSsprk2StepArray_size` | E0b-K | FVM | pending | The kernel MUSCL SSPRK2 step returns an array of the same size. |
+| `CFDLean.Exec.musclSsprk3StepArray_size` | E0b-K | FVM | pending | The kernel MUSCL SSPRK3 step returns an array of the same size. |
+| `CFDLean.Exec.min_eq` | E0b-L | FVM | pending | With real arithmetic the kernel min, written −max(−a, −b), is the minimum. |
+| `CFDLean.Exec.minmod_eq` | E0b-L | FVM | pending | With real arithmetic the comparison-free kernel limiter max 0 (min a b) + min 0 (max a b) is the minmod limiter. |
+| `CFDLean.Exec.musclEulerStepArray_refines` | E0b-S | FVM | pending | If an array represents u, the kernel MUSCL Euler step of the array represents the MUSCL-minmod-Rusanov Forward Euler step of u on the periodic grid Fin n. |
+| `CFDLean.Exec.musclSsprk2StepArray_refines` | E0b-S | FVM | pending | The kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step. |
+| `CFDLean.Exec.musclSsprk3StepArray_refines` | E0b-S | FVM | pending | The kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step. |
+| `CFDLean.Exec.run_musclEulerStepArray_bounds` | E0b-T | FVM | pending | With real arithmetic, dx > 0, dt ≥ 0 and 6 · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps. |
+| `CFDLean.Exec.run_musclSsprk3StepArray_bounds` | E0b-T | FVM | pending | The same bounds result after k kernel MUSCL SSPRK3 steps. |
+| `CFDLean.Exec.run_musclEulerStepArray_sum` | E0b-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries. |
+| `CFDLean.Exec.run_musclSsprk3StepArray_sum` | E0b-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries. |
+| `CFDLean.Exec.run_musclEulerStepArray_totalVariation_le` | E0b-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le` | E0b-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
