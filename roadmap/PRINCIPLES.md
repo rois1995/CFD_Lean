@@ -203,7 +203,8 @@ Proving that code implements a scheme is not by itself a convergence or physical
 Do not generalize merely because a future feature can be imagined. Introduce abstractions when a concrete milestone
 needs them, while ensuring current APIs do not unnecessarily rule out known future requirements.
 
-The first planned stress test for the present scalar FV abstractions is a non-uniform fixed 1D mesh.
+Exercise model and geometry changes independently. Use Burgers and Euler on the same uniform periodic 1D method
+to test the model interface, and use a non-uniform fixed 1D mesh to test geometry.
 
 
 ## 17. New equation systems enter through capabilities, not solver clones
