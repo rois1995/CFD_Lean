@@ -1,0 +1,19 @@
+{
+  "challenge_module": "Challenges.BurgersE0b",
+  "solution_module": "CFDLean.Verification.BurgersE0bVerify",
+  "theorem_names": [
+    "CFDLean.Verification.BurgersE0bVerify.kernel_minmod_is_minmod",
+    "CFDLean.Verification.BurgersE0bVerify.muscl_euler_step_refines",
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_step_refines",
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_refines",
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_bounds",
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_sum",
+    "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_total_variation"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}
