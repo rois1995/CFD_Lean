@@ -95,20 +95,33 @@ jobs:
         if: steps.docs.outputs.only != 'true'
         run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py
       - name: Committed evidence equals regenerated evidence
+        id: evidence
         if: steps.docs.outputs.only != 'true'
         run: >
           git diff --exit-code -- evidence/verification.json evidence/kernel-inventory.log
           evidence/inherited-types.json evidence/bindings-diff.patch evidence/binding-type-diff.json
           evidence/SHA256SUMS
-      # Integration only: when verification or the evidence comparison fails, hand the regenerated evidence back as a
-      # download, so that a PR can take it from CI instead of a local full run (CONTRIBUTING.md, "Validation").
-      # After a verifier failure, also record the raw types (for new or changed promised theorems) for review.
-      - name: Record raw types for review (after a verifier failure)
-        if: ${{ failure() && !inputs.release && steps.docs.outputs.only != 'true' && steps.verify.outcome == 'failure' }}
-        continue-on-error: true
-        run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py --record-raw-types
-      - name: Upload regenerated evidence (after a failure)
-        if: ${{ failure() && !inputs.release && steps.docs.outputs.only != 'true' }}
+      # Integration only: when the verifier or the evidence comparison fails, regenerate a complete, coherent evidence
+      # set and hand it back as a download, so that a PR can take it from CI instead of a local full run
+      # (CONTRIBUTING.md, "CI first"). After a verifier failure, the raw types are recorded first and the new pin is
+      # set in this job's copy of scripts/verify.py only; the full verifier must then pass, or nothing is uploaded.
+      - name: Regenerate the evidence for the PR (after a verifier or evidence failure)
+        id: regen
+        if: >-
+          ${{ failure() && !inputs.release && steps.docs.outputs.only != 'true' &&
+              (steps.verify.outcome == 'failure' || steps.evidence.outcome == 'failure') }}
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/.elan/bin:$PATH"
+          if [ "${{ steps.verify.outcome }}" = failure ]; then
+            python3 scripts/verify.py --record-raw-types
+            pin=$(sha256sum evidence/raw-types.json | cut -d' ' -f1)
+            sed -i "s/^RAW_TYPES_SHA256 = \".*\"/RAW_TYPES_SHA256 = \"$pin\"/" scripts/verify.py
+            echo "$pin" > evidence/RAW_TYPES_SHA256.txt
+          fi
+          python3 scripts/verify.py
+      - name: Upload the regenerated evidence
+        if: ${{ failure() && steps.regen.outcome == 'success' }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: regenerated-evidence
@@ -121,6 +134,7 @@ jobs:
             evidence/SHA256SUMS
             evidence/build.log
             evidence/raw-types.json
+            evidence/RAW_TYPES_SHA256.txt
           retention-days: 7
           if-no-files-found: warn
       # The paper-1 comparator with the five external checkers needs about 13 GB of memory in one checker (con-ron,
