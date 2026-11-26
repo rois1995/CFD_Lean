@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-459 promised theorems, grouped by layer.
+499 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -41,8 +41,8 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0` .. `B4`, `E0`, `E0b`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-E0-results.json` and `Burgers-E0b-results.json`: the scalar two-point-flux finite-volume
+**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-B3b-results.json`, `Burgers-E0-results.json` and `Burgers-E0b-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
 Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
@@ -61,18 +61,18 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 10 | 0 | 0 | 0 | 10 |
 | Geometry | 66 | 0 | 38 | 4 | 24 |
-| Discrete operators | 60 | 10 | 33 | 17 | 0 |
+| Discrete operators | 86 | 10 | 59 | 17 | 0 |
 | Entropy framework | 31 | 0 | 25 | 0 | 6 |
 | Physics models | 86 | 0 | 0 | 0 | 86 |
 | Schemes | 93 | 7 | 71 | 6 | 9 |
-| Time | 79 | 0 | 59 | 0 | 20 |
+| Time | 93 | 0 | 73 | 0 | 20 |
 | Execution | 34 | 0 | 34 | 0 | 0 |
-| **Total** | 459 | 17 | 260 | 27 | 155 |
+| **Total** | 499 | 17 | 300 | 27 | 155 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 44 |
-| FVM | 287 |
+| FVM | 327 |
 | method-free | 155 |
 
 | Milestone | Status | Theorems |
@@ -90,6 +90,7 @@ that this file equals the generated text. Do not edit by hand.
 | B4 | pending | 14 |
 | E0 | pending | 20 |
 | E0b | pending | 14 |
+| B3b | pending | 40 |
 | JST1 | candidate | 92 |
 
 ## Foundations (10)
@@ -178,7 +179,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p3_11_7` | P3-11.7 | method-free | candidate | In affine cells the pulling-split tetrahedra are nondegenerate, lie on opposite sides of shared interior triangles, and boundary ones lie on the centroid side. |
 | `CFDLean.JST1.Proofs.p3_11_8` | P3-11.8 | method-free | candidate | A conforming mesh of affine hexahedra, prisms and pyramids averaged over pulling splits is a valid facet-balanced weighted tetrahedral mesh. |
 
-## Discrete operators (60)
+## Discrete operators (86)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -242,6 +243,32 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p2_7_4` | P2-7.4 | FVM | candidate | The edge dissipation coefficients satisfy Σ λ̂_ik \|e_ik\| ≤ d σ_max \|Ω\| (ordered pairs). |
 | `CFDLean.JST1.Proofs.p2_8_4` | P2-8.4 | FEM + FVM | candidate | A boundary face quadrature rule with the stated moments reproduces β and the boundary matrix B on a conforming mesh. |
 | `CFDLean.JST1.Proofs.p3_11_1` | P3-11.1 | FEM | candidate | Conforming meshes are facet balanced, and on facet-balanced meshes β and B are boundary-facet sums with interior vertices closed. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter` | B3b-U | FVM | pending | With the factor 1 (no limiter) the limited slope is the unlimited central slope (a + b)/2. |
+| `CFDLean.Scalar.FiniteVolume.minmodBounded_iff_slopeBounded_one` | B3b-C | FVM | pending | The minmod-region certificate of B3 is the θ-bounded certificate with θ = 1. |
+| `CFDLean.Scalar.FiniteVolume.SlopeBounded.mono` | B3b-C | FVM | pending | A θ-bounded slope function is θ'-bounded for every θ' ≥ θ. |
+| `CFDLean.Scalar.FiniteVolume.SlopeBounded.nonneg` | B3b-C | FVM | pending | A θ-bounded slope function exists only for θ ≥ 0. |
+| `CFDLean.Scalar.FiniteVolume.not_slopeBounded_centralSlope` | B3b-C | FVM | pending | The unlimited central slope is not θ-bounded for any θ. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_minmodFactor` | B3b-L | FVM | pending | The minmod factor times the central slope is the classical minmod limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_mcFactor` | B3b-L | FVM | pending | The MC factor times the central slope is the classical MC limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_superbeeFactor` | B3b-L | FVM | pending | The superbee factor times the central slope is the classical superbee limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_vanLeerFactor` | B3b-L | FVM | pending | The van Leer factor times the central slope is the classical van Leer limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_vanAlbadaFactor` | B3b-L | FVM | pending | The van Albada factor times the central slope is the classical van Albada limited slope. |
+| `CFDLean.Scalar.FiniteVolume.minmodFactor_mem` | B3b-L | FVM | pending | The minmod limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.mcFactor_mem` | B3b-L | FVM | pending | The MC limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.superbeeFactor_mem` | B3b-L | FVM | pending | The superbee limiter factor is between 0 and 4/3. |
+| `CFDLean.Scalar.FiniteVolume.vanLeerFactor_mem` | B3b-L | FVM | pending | The van Leer limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_mem` | B3b-L | FVM | pending | The van Albada limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.minmodFactor_comm` | B3b-L | FVM | pending | The minmod limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.mcFactor_comm` | B3b-L | FVM | pending | The MC limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.superbeeFactor_comm` | B3b-L | FVM | pending | The superbee limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.vanLeerFactor_comm` | B3b-L | FVM | pending | The van Leer limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_comm` | B3b-L | FVM | pending | The van Albada limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_minmodFactor` | B3b-L | FVM | pending | The minmod limited slope is θ-bounded with θ = 1. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor` | B3b-L | FVM | pending | The MC limited slope is θ-bounded with θ = 2. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_superbeeFactor` | B3b-L | FVM | pending | The superbee limited slope is θ-bounded with θ = 2. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor` | B3b-L | FVM | pending | The van Leer limited slope is θ-bounded with θ = 2. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor` | B3b-L | FVM | pending | The van Albada limited slope is θ-bounded with θ = 5/4. |
+| `CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded` | B3b-I | FVM | pending | For a θ-bounded slope with θ ≤ 2 and a monotone flux that is Lipschitz on bounded states, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(1 + θ/2)KR and 0 ≤ D ≤ (dt/dx)(1 + θ/2)KL. |
 
 ## Entropy framework (31)
 
@@ -468,7 +495,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p3_14_1` | P3-14.1 | FEM + FVM | candidate | Entropy balance of the complete scheme: rate = B + Π² + Π⁴ − Σ ω_T(D^gal_T − Π^w_T) + wall flux, with Π² ≤ 0 and element terms ≥ 0 for c ≥ 1. |
 | `CFDLean.JST1.Proofs.p3_14_3` | P3-14.3 | FEM + FVM | candidate | SST form of the complete scheme: the entropy rate exists and is bounded as in P3-14.1 with the SST terms of P2-10.8. |
 
-## Time (79)
+## Time (93)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -551,6 +578,20 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.musclEulerStep_constant` | B3-S | FVM | pending | One MUSCL-Rusanov Forward Euler step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
 | `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le_bounded` | B3b-T | FVM | pending | Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_mem_bounded` | B3b-T | FVM | pending | Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_mem_bounded` | B3b-S | FVM | pending | Under (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le_bounded` | B3b-S | FVM | pending | Under (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded` | B3b-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with a θ-bounded slope (θ ≤ 2). |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded` | B3b-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps with a θ-bounded slope (θ ≤ 2). |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded` | B3b-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps with a θ-bounded slope (θ ≤ 2). |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_minmodFactor_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the minmod limiter: bounds and total variation after n steps under 6 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_mc_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the MC limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_superbee_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the superbee limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanLeer_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the van Leer limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the van Albada limiter: bounds and total variation after n steps under 13/2 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.stepData_mem` | B3b-N | FVM | pending | The four-cell state (0, 0, 1, 1) is between 0 and 1. |
+| `CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds` | B3b-N | FVM | pending | The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3. |
 
 ## Execution (34)
 

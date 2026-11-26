@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, E0, E0b, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -5994,6 +5994,526 @@
       ],
       "summary": "Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries.",
       "source": "specifications/Burgers-E0b-results.json E0b-T; references/Burgers-E0b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter",
+      "id": "B3b-U",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With the factor 1 (no limiter) the limited slope is the unlimited central slope (a + b)/2.",
+      "source": "specifications/Burgers-B3b-results.json B3b-U; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.minmodBounded_iff_slopeBounded_one",
+      "id": "B3b-C",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The minmod-region certificate of B3 is the θ-bounded certificate with θ = 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-C; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.SlopeBounded.mono",
+      "id": "B3b-C",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A θ-bounded slope function is θ'-bounded for every θ' ≥ θ.",
+      "source": "specifications/Burgers-B3b-results.json B3b-C; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.SlopeBounded.nonneg",
+      "id": "B3b-C",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A θ-bounded slope function exists only for θ ≥ 0.",
+      "source": "specifications/Burgers-B3b-results.json B3b-C; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.not_slopeBounded_centralSlope",
+      "id": "B3b-C",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The unlimited central slope is not θ-bounded for any θ.",
+      "source": "specifications/Burgers-B3b-results.json B3b-C; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_minmodFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The minmod factor times the central slope is the classical minmod limited slope.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_mcFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The MC factor times the central slope is the classical MC limited slope.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_superbeeFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The superbee factor times the central slope is the classical superbee limited slope.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_vanLeerFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Leer factor times the central slope is the classical van Leer limited slope.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.limitedSlope_vanAlbadaFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Albada factor times the central slope is the classical van Albada limited slope.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.minmodFactor_mem",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The minmod limiter factor is between 0 and 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.mcFactor_mem",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The MC limiter factor is between 0 and 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.superbeeFactor_mem",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The superbee limiter factor is between 0 and 4/3.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.vanLeerFactor_mem",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Leer limiter factor is between 0 and 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_mem",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Albada limiter factor is between 0 and 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.minmodFactor_comm",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The minmod limiter factor is symmetric in the two differences.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.mcFactor_comm",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The MC limiter factor is symmetric in the two differences.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.superbeeFactor_comm",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The superbee limiter factor is symmetric in the two differences.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.vanLeerFactor_comm",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Leer limiter factor is symmetric in the two differences.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_comm",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Albada limiter factor is symmetric in the two differences.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.slopeBounded_minmodFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The minmod limited slope is θ-bounded with θ = 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The MC limited slope is θ-bounded with θ = 2.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.slopeBounded_superbeeFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The superbee limited slope is θ-bounded with θ = 2.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Leer limited slope is θ-bounded with θ = 2.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor",
+      "id": "B3b-L",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The van Albada limited slope is θ-bounded with θ = 5/4.",
+      "source": "specifications/Burgers-B3b-results.json B3b-L; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded",
+      "id": "B3b-I",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a θ-bounded slope with θ ≤ 2 and a monotone flux that is Lipschitz on bounded states, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(1 + θ/2)KR and 0 ≤ D ≤ (dt/dx)(1 + θ/2)KL.",
+      "source": "specifications/Burgers-B3b-results.json B3b-I; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le_bounded",
+      "id": "B3b-T",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation.",
+      "source": "specifications/Burgers-B3b-results.json B3b-T; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Scalar.FiniteVolume.muscl_step_mem_bounded",
+      "id": "B3b-T",
+      "milestone": "B3b",
+      "module": "CFDLean.Discrete.Periodic.Limiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds m ≤ u ≤ M.",
+      "source": "specifications/Burgers-B3b-results.json B3b-T; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_mem_bounded",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under (4 + 2θ) · dt · max(|m|, |M|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le_bounded",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under (4 + 2θ) · dt · max(|m|, |M|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with a θ-bounded slope (θ ≤ 2).",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps with a θ-bounded slope (θ ≤ 2).",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps with a θ-bounded slope (θ ≤ 2).",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmodFactor_iterate_stable",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "MUSCL-Rusanov SSPRK3 with the minmod limiter: bounds and total variation after n steps under 6 · dt · max(|m|, |M|) ≤ dx.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_mc_iterate_stable",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "MUSCL-Rusanov SSPRK3 with the MC limiter: bounds and total variation after n steps under 8 · dt · max(|m|, |M|) ≤ dx.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_superbee_iterate_stable",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "MUSCL-Rusanov SSPRK3 with the superbee limiter: bounds and total variation after n steps under 8 · dt · max(|m|, |M|) ≤ dx.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_vanLeer_iterate_stable",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "MUSCL-Rusanov SSPRK3 with the van Leer limiter: bounds and total variation after n steps under 8 · dt · max(|m|, |M|) ≤ dx.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable",
+      "id": "B3b-S",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "MUSCL-Rusanov SSPRK3 with the van Albada limiter: bounds and total variation after n steps under 13/2 · dt · max(|m|, |M|) ≤ dx.",
+      "source": "specifications/Burgers-B3b-results.json B3b-S; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.stepData_mem",
+      "id": "B3b-N",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The four-cell state (0, 0, 1, 1) is between 0 and 1.",
+      "source": "specifications/Burgers-B3b-results.json B3b-N; references/Burgers-B3b.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds",
+      "id": "B3b-N",
+      "milestone": "B3b",
+      "module": "CFDLean.Schemes.Burgers.RusanovLimiters",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3.",
+      "source": "specifications/Burgers-B3b-results.json B3b-N; references/Burgers-B3b.md"
     }
   ]
 }

@@ -125,6 +125,21 @@ constant states. 24 promised theorems, status `pending`. No accuracy claim; the 
 lake comparator --paranoid --config Challenges/BurgersB3.comparator.json
 ```
 
+## Burgers B3b (unlimited MUSCL, limiters on top)
+
+[Burgers B3b](references/Burgers-B3b.md) implements the [contract](specifications/Burgers-B3b.md) that the agent froze
+after the user asked for this formulation. The reconstruction is unlimited by default: the slope is the central
+difference `(a + b)/2`. A limiter is a factor `ψ(a, b)` on top; no limiter is the factor 1. Limiters: minmod, MC,
+superbee, van Leer, van Albada, each with its classical form, its factor range and a certificate `SlopeBounded θ`
+(`θ = 1, 2, 2, 2, 5/4`). For a `θ`-bounded slope with `θ ≤ 2`, MUSCL-Rusanov with Forward Euler, SSPRK2 or SSPRK3
+keeps the bounds and is TVD for every number of steps under `(4 + 2θ) · dt · max(|m|, |M|) ≤ dx`. The unlimited scheme
+has no such theorem: one exact example shows an overshoot (`167/160` from a state in `[0, 1]`). 40 promised theorems,
+status `pending`. Comparator:
+
+```bash
+lake comparator --paranoid --config Challenges/BurgersB3b.comparator.json
+```
+
 ## Burgers B4 (entropy layer)
 
 [Burgers B4](references/Burgers-B4.md) implements the [contract](specifications/Burgers-B4.md) that the agent froze

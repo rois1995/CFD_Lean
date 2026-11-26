@@ -60,7 +60,8 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending",
-                  "B4": "pending", "E0": "pending", "E0b": "pending", "JST1": "candidate"}
+                  "B4": "pending", "E0": "pending", "E0b": "pending", "B3b": "pending",
+                  "JST1": "candidate"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
 # to its definitions and theorems,
@@ -138,6 +139,13 @@ BURGERS = {
                     "path": "CFDLean/Exec/MusclKernel.lean",
                     "sha256": "adf7819d7da436a969a52c76443f61b2661691da03f2d8dd7086f8aa9acac380"}},
             "count": 14, "bridges": 7},
+    "B3b": {"results": "specifications/Burgers-B3b-results.json",
+            "approved": "d4574380ec6b00d88dcff2a1842a969fa9e74747",
+            "statements": "CFDLean/Verification/BurgersB3bChallenge.lean",
+            "statements_sha256": "05cb0c2a46cc79526cac38e70cb8e7e4803dff3634f2611eefc94fcf81f05b91",
+            "challenge": "Challenges/BurgersB3b.lean",
+            "challenge_sha256": "6fdf5dd9246e642d0f6d92ff391b582525b1b8e9a7a59180a94dcbda462b7679",
+            "count": 40, "bridges": 6},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -153,7 +161,7 @@ JST1_COUNT = 92
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "49875eb6e338322d2f464b391240d418470b00a72d6fb0c6ba19159bf0effd46"
+RAW_TYPES_SHA256 = "95d27beacf95e091b5e28d7d3b6061b6ccb2f5692e2a0c7478360b84da71c550"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"

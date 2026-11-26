@@ -22,8 +22,12 @@ Status date: 2026-11-25. Toolchain: Lean v4.36.0, Mathlib v4.36.0 (since MC-T, m
      Reviews pending.
    - E0b (MUSCL array kernel, `burgers1d --muscl`, refinement and transfer of the B3 results): contract frozen by
      the agent after the user chose the milestone, implementation in `references/Burgers-E0b.md`. Reviews pending.
-   - Next: B5 (paper correspondence; the user must choose the references), E1 (floating point: needs a formal model
-     of `Float`), E2--E4 (parallel, GPU, MPI; design notes in `references/Burgers-E0.md`).
+   - B3b (MUSCL unlimited by default, limiter factor on top; minmod, MC, superbee, van Leer, van Albada; certificate
+     `SlopeBounded θ`): contract frozen by the agent after the user asked for it, implementation in
+     `references/Burgers-B3b.md`. Reviews pending.
+   - Next: E0c (limiter choice in the array kernel and in `burgers1d`; needs a sign test in the kernel arithmetic),
+     B5 (paper correspondence; the user must choose the references), E1 (floating point: needs a formal model of
+     `Float`), E2--E4 (parallel, GPU, MPI; design notes in `references/Burgers-E0.md`).
    - Ideas not started: fully discrete entropy inequality, adapter from the periodic scalar operator to
      `CFDLean.Num.antisymmetric_pairFlux`, limiters outside the minmod region (MC, superbee), a sharp CFL constant for the bounds (B1)
      and for MUSCL (B3), accuracy statements.

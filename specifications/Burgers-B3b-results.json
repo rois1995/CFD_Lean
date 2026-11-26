@@ -1,0 +1,262 @@
+{
+  "contract": "specifications/Burgers-B3b.md",
+  "contract_sha256": "d5376e69b5804d8ed40025cd8681317132ddba2e5de59e8ac0707feb547706d3",
+  "approval_record": "specifications/Burgers-B3b-approval.md",
+  "approved_revision": "d4574380ec6b00d88dcff2a1842a969fa9e74747",
+  "source_map": "references/Burgers-B3b.md",
+  "trusted_statement_review": "reviews/Burgers-B3b/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "B3b-U",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.centralSlope",
+        "CFDLean.Scalar.FiniteVolume.limitedSlope",
+        "CFDLean.Scalar.FiniteVolume.noLimiter"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter"
+      ]
+    },
+    {
+      "id": "B3b-C",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.SlopeBounded"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.minmodBounded_iff_slopeBounded_one",
+        "CFDLean.Scalar.FiniteVolume.SlopeBounded.mono",
+        "CFDLean.Scalar.FiniteVolume.SlopeBounded.nonneg",
+        "CFDLean.Scalar.FiniteVolume.not_slopeBounded_centralSlope"
+      ]
+    },
+    {
+      "id": "B3b-L",
+      "definitions": [
+        "CFDLean.Scalar.FiniteVolume.minmodFactor",
+        "CFDLean.Scalar.FiniteVolume.mcFactor",
+        "CFDLean.Scalar.FiniteVolume.superbeeFactor",
+        "CFDLean.Scalar.FiniteVolume.vanLeerFactor",
+        "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor"
+      ],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.add_eq_sign_mul_of_mul_pos",
+        "CFDLean.Scalar.FiniteVolume.abs_add_of_mul_pos",
+        "CFDLean.Scalar.FiniteVolume.abs_pos_both_of_mul_pos",
+        "CFDLean.Scalar.FiniteVolume.mul_eq_abs_mul_abs_of_mul_pos",
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_eq_sign_mul",
+        "CFDLean.Scalar.FiniteVolume.minmodFactor_mul",
+        "CFDLean.Scalar.FiniteVolume.mcFactor_mul",
+        "CFDLean.Scalar.FiniteVolume.superbeeFactor_mul",
+        "CFDLean.Scalar.FiniteVolume.slopeBounded_limitedSlope"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_minmodFactor",
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_mcFactor",
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_superbeeFactor",
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_vanLeerFactor",
+        "CFDLean.Scalar.FiniteVolume.limitedSlope_vanAlbadaFactor",
+        "CFDLean.Scalar.FiniteVolume.minmodFactor_mem",
+        "CFDLean.Scalar.FiniteVolume.mcFactor_mem",
+        "CFDLean.Scalar.FiniteVolume.superbeeFactor_mem",
+        "CFDLean.Scalar.FiniteVolume.vanLeerFactor_mem",
+        "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_mem",
+        "CFDLean.Scalar.FiniteVolume.minmodFactor_comm",
+        "CFDLean.Scalar.FiniteVolume.mcFactor_comm",
+        "CFDLean.Scalar.FiniteVolume.superbeeFactor_comm",
+        "CFDLean.Scalar.FiniteVolume.vanLeerFactor_comm",
+        "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_comm",
+        "CFDLean.Scalar.FiniteVolume.slopeBounded_minmodFactor",
+        "CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor",
+        "CFDLean.Scalar.FiniteVolume.slopeBounded_superbeeFactor",
+        "CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor",
+        "CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor"
+      ]
+    },
+    {
+      "id": "B3b-I",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.half_slope_mem_two",
+        "CFDLean.Scalar.FiniteVolume.leftState_mem_bounded",
+        "CFDLean.Scalar.FiniteVolume.rightState_mem_bounded",
+        "CFDLean.Scalar.FiniteVolume.slope_combo_bounded",
+        "CFDLean.Scalar.FiniteVolume.rightState_sub_bounded",
+        "CFDLean.Scalar.FiniteVolume.leftState_sub_bounded",
+        "CFDLean.Scalar.FiniteVolume.flux_right_increment_bounded",
+        "CFDLean.Scalar.FiniteVolume.flux_left_increment_bounded"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded"
+      ]
+    },
+    {
+      "id": "B3b-T",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one_bounded"
+      ],
+      "declarations": [
+        "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le_bounded",
+        "CFDLean.Scalar.FiniteVolume.muscl_step_mem_bounded"
+      ]
+    },
+    {
+      "id": "B3b-S",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Burgers.Rusanov.cfl_of_bounded"
+      ],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.musclEulerStep_mem_bounded",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le_bounded",
+        "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded",
+        "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmodFactor_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_mc_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_superbee_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_vanLeer_iterate_stable",
+        "CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable"
+      ]
+    },
+    {
+      "id": "B3b-N",
+      "definitions": [
+        "CFDLean.Burgers.Rusanov.stepData"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Rusanov.stepData_mem",
+        "CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Scalar.FiniteVolume.centralSlope": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.noLimiter": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.SlopeBounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.minmodFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.mcFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.superbeeFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.vanLeerFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.minmodBounded_iff_slopeBounded_one": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.SlopeBounded.mono": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.SlopeBounded.nonneg": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.not_slopeBounded_centralSlope": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.add_eq_sign_mul_of_mul_pos": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.abs_add_of_mul_pos": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.abs_pos_both_of_mul_pos": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.mul_eq_abs_mul_abs_of_mul_pos": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_eq_sign_mul": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.minmodFactor_mul": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.mcFactor_mul": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.superbeeFactor_mul": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_minmodFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_mcFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_superbeeFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_vanLeerFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.limitedSlope_vanAlbadaFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.minmodFactor_mem": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.mcFactor_mem": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.superbeeFactor_mem": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.vanLeerFactor_mem": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_mem": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.minmodFactor_comm": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.mcFactor_comm": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.superbeeFactor_comm": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.vanLeerFactor_comm": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_comm": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slopeBounded_limitedSlope": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slopeBounded_minmodFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slopeBounded_superbeeFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.half_slope_mem_two": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.leftState_mem_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.rightState_mem_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.slope_combo_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.rightState_sub_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.leftState_sub_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.flux_right_increment_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.flux_left_increment_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.coeff_sum_le_one_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Scalar.FiniteVolume.muscl_step_mem_bounded": "CFDLean.Discrete.Periodic.Limiters",
+    "CFDLean.Burgers.Rusanov.cfl_of_bounded": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_mem_bounded": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le_bounded": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_minmodFactor_iterate_stable": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_mc_iterate_stable": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_superbee_iterate_stable": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_vanLeer_iterate_stable": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.stepData": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.stepData_mem": "CFDLean.Schemes.Burgers.RusanovLimiters",
+    "CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds": "CFDLean.Schemes.Burgers.RusanovLimiters"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersB3bChallenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersB3bChallenge",
+    "statements_sha256": "05cb0c2a46cc79526cac38e70cb8e7e4803dff3634f2611eefc94fcf81f05b91",
+    "bridge_module": "CFDLean.Verification.BurgersB3bVerify",
+    "comparator_challenge": "Challenges/BurgersB3b.lean",
+    "comparator_challenge_module": "Challenges.BurgersB3b",
+    "comparator_challenge_sha256": "6fdf5dd9246e642d0f6d92ff391b582525b1b8e9a7a59180a94dcbda462b7679",
+    "comparator_config": "Challenges/BurgersB3b.comparator.json",
+    "bindings": [
+      {
+        "id": "B3b-L",
+        "statement": "CFDLean.Verification.BurgersB3bChallenge.LimiterFactorForms",
+        "theorem": "CFDLean.Verification.BurgersB3bVerify.limiter_factor_forms",
+        "type": "CFDLean.Verification.BurgersB3bChallenge.LimiterFactorForms",
+        "uses": "CFDLean.Scalar.FiniteVolume.mcFactor_mem"
+      },
+      {
+        "id": "B3b-L",
+        "statement": "CFDLean.Verification.BurgersB3bChallenge.LimiterBounds",
+        "theorem": "CFDLean.Verification.BurgersB3bVerify.limiter_bounds",
+        "type": "CFDLean.Verification.BurgersB3bChallenge.LimiterBounds",
+        "uses": "CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor"
+      },
+      {
+        "id": "B3b-S",
+        "statement": "CFDLean.Verification.BurgersB3bChallenge.MusclEulerBoundedMultiStep",
+        "theorem": "CFDLean.Verification.BurgersB3bVerify.muscl_euler_bounded_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3bChallenge.MusclEulerBoundedMultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded"
+      },
+      {
+        "id": "B3b-S",
+        "statement": "CFDLean.Verification.BurgersB3bChallenge.MusclSSPRK2BoundedMultiStep",
+        "theorem": "CFDLean.Verification.BurgersB3bVerify.muscl_ssprk2_bounded_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3bChallenge.MusclSSPRK2BoundedMultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded"
+      },
+      {
+        "id": "B3b-S",
+        "statement": "CFDLean.Verification.BurgersB3bChallenge.MusclSSPRK3BoundedMultiStep",
+        "theorem": "CFDLean.Verification.BurgersB3bVerify.muscl_ssprk3_bounded_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.BurgersB3bChallenge.MusclSSPRK3BoundedMultiStep I",
+        "uses": "CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded"
+      },
+      {
+        "id": "B3b-N",
+        "statement": "CFDLean.Verification.BurgersB3bChallenge.UnlimitedOvershoot",
+        "theorem": "CFDLean.Verification.BurgersB3bVerify.unlimited_overshoot",
+        "type": "CFDLean.Verification.BurgersB3bChallenge.UnlimitedOvershoot",
+        "uses": "CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds"
+      }
+    ]
+  }
+}

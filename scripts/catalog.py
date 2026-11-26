@@ -13,7 +13,7 @@ CATALOG = "catalog/theorems.json"
 README = "catalog/README.md"
 LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes", "Time",
           "Execution")
-MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "B3", "B4", "E0", "E0b", "JST1")
+MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "JST1")
 STATUSES = ("accepted", "pending", "candidate")
 METHOD_SETS = (("FEM",), ("FVM",), ("FEM", "FVM"), ("method-free",))
 
@@ -57,8 +57,8 @@ accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0` .. `B4`, `E0`, `E0b`, status `pending`: implemented, independent review pending). The declarations
-bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-E0-results.json` and `Burgers-E0b-results.json`: the scalar two-point-flux finite-volume
+**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, status `pending`: implemented, independent review pending). The declarations
+bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-B3b-results.json`, `Burgers-E0-results.json` and `Burgers-E0b-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
 Burgers Rusanov flux (Schemes), the Forward Euler step, its stability under a CFL hypothesis, the generic SSP
