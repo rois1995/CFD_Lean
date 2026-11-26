@@ -128,6 +128,11 @@ frozen Lean statement is affected; line numbers after the results section moved 
   averaged over the 64 pulling splits is not facet balanced (24 of 32 interior triangles), so `Σ_k n_ik = -β_i`
   fails. Random distorted cells: 21 % with an inverted pulling sub-tetrahedron, 1 % with an inverted Kuhn one.
   Numerics: `evidence/JST1/P7-hexsplit.py`.
-- Lean today: P3-11.7/11.8 assume affine cells, where it cannot happen. P7 (proposed) states the general version with
-  the hypothesis "all sub-tetrahedra consistently oriented" and proves the counterexample.
+- Lean: P3-11.7/11.8 assume affine cells, where it cannot happen. P7 (proved 2026-11-26) states the general version
+  with the hypothesis "all sub-tetrahedra consistently oriented" (P7-22.1, 22.2) and proves the counterexample
+  (P7-22.4).
 - Suggested fix: add that hypothesis to `lem:avg` (or say which cells the scheme accepts).
+- P7 statement review (2026-11-26): on the twisted cube `β_i` differs from the boundary formula at all 8 vertices.
+  Further notes: `β_i = ∮_{∂Ω} φ_i N` is ambiguous for non-planar boundary faces (define it as the mean over the split
+  traces, both diagonals with weight ½); for non-convex cells the "opposite sides" condition at shared faces must hold
+  for the sub-tetrahedra, not only for the cells; "valid mesh" is used but not defined.

@@ -140,7 +140,7 @@ Keep the generic time-evolution interfaces compatible with future variable-step 
 - Narrow `CFDLean.Num.Basic`'s broad `import Mathlib` where practical.
 - Move remaining generic JST results (P1-5.4b, P1-5.8) into the numerical core when justified.
 - Add the archive pointer note in JST_Paper_Lean.
-- Continue paper-1 gaps that need new mathematics: non-affine mixed cells (proposal `specifications/JST1/P7-proposal.md`,
-  paper gap G8). Simplex integration is done (JST1 P6).
+- Paper 1: non-affine mixed cells done (JST1 P7, paper gap G8 for the paper session); simplex integration done (P6).
+  Open: a Kuhn-family counterexample with explicit cell; interior-vertex failure in a multi-cell mesh.
 - Keep the theorem catalog and raw-type evidence synchronized with every milestone.
 - Shorten the root README by moving historical detail into `references/` where useful.
