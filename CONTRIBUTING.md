@@ -1,10 +1,23 @@
 # Contributing to CFD_Lean
 
-Open a pull request from a task branch. Target `main` while the [branch-governance migration](roadmap/NEXT.md)
-is pending. After that migration, target `develop` for routine contributions. Give the milestone or roadmap item,
-the scope, and validation results in the PR description. The [architecture guide](ARCHITECTURE.md) shows where
-code belongs. Match adjacent module, namespace and declaration naming, and use [the root umbrella](CFDLean.lean)
-for new public library exports when applicable.
+Give the milestone or roadmap item, scope, and validation results in the PR description. The
+[architecture guide](ARCHITECTURE.md) shows where code belongs. Match adjacent module, namespace and declaration
+naming, and use [the root umbrella](CFDLean.lean) for new public library exports when applicable.
+
+## Branches and releases
+
+- Base task branches on `develop` and target `develop` with the PR. [Integration CI](.github/workflows/integration.yml)
+  builds the package and executable, runs the verifier and fixtures, and compares committed evidence.
+- Promote `develop` to `main` through a release PR. [Release verification](.github/workflows/release.yml) runs the
+  integration checks and every trusted challenge with the paranoid comparator. Use a merge commit for the release.
+- For an emergency fix, branch `hotfix/<topic>` from `main` and open a PR into `main` through the same release gate.
+  Bring `main` back into `develop` through an integration PR after a release or hotfix to keep the branches aligned.
+- Use PRs for all changes to `develop` and `main`. Update the PR branch against the target and resolve review
+  conversations before merging.
+
+Tag a verified release with an annotated `vMAJOR.MINOR.PATCH` tag on its exact `main` merge commit. Record that commit,
+the passing release PR and the catalog, specification and evidence paths in the release notes. Build `burgers1d` from
+the tagged revision for the release executable. Scientific acceptance remains recorded in the milestone review records.
 
 ## Milestone workflow
 
@@ -37,7 +50,8 @@ For documentation changes, check relative links and run `git diff --check`. Revi
 is covered by [evidence/SHA256SUMS](evidence/SHA256SUMS), regenerate the manifest with the verifier and check the diff.
 
 For Lean, contracts or verification tooling, use the pinned [Lean toolchain](lean-toolchain) and [Lake manifest](lake-manifest.json).
-Run the following from the repository root. See the [verification workflow](.github/workflows/burgers.yml) for the CI checks.
+Run the following from the repository root. See the [shared verification workflow](.github/workflows/lean-verification.yml)
+for the CI checks.
 
 ```bash
 lake build
