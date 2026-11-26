@@ -1,0 +1,19 @@
+name: Integration CI
+
+on:
+  pull_request:
+    branches: [develop]
+
+concurrency:
+  group: integration-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    name: Integration checks
+    uses: ./.github/workflows/lean-verification.yml
+    with:
+      release: false
