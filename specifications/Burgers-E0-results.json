@@ -1,0 +1,257 @@
+{
+  "contract": "specifications/Burgers-E0.md",
+  "contract_sha256": "086a510dbe0b5b2aa510979b6cd57f49969a911c238358d7376efc3093d6ed04",
+  "approval_record": "specifications/Burgers-E0-approval.md",
+  "approved_revision": "859f849e92b6be05b20d4a9d582712f6e9b82087",
+  "source_map": "references/Burgers-E0.md",
+  "trusted_statement_review": "reviews/Burgers-E0/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "executable": {
+    "name": "burgers1d",
+    "root": "Main.lean",
+    "verified": false
+  },
+  "results": [
+    {
+      "id": "E0-K",
+      "definitions": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.burgersFlux",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.eulerStepArray",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.ssprk2StepArray",
+        "CFDLean.Exec.ssprk3StepArray",
+        "CFDLean.Exec.run",
+        "CFDLean.Exec.sumArray",
+        "CFDLean.Exec.maxArray",
+        "CFDLean.Exec.minArray",
+        "CFDLean.Exec.totalVariationArray",
+        "CFDLean.Exec.instScalarReal"
+      ],
+      "supporting": [
+        "CFDLean.Exec.succ_mod_lt",
+        "CFDLean.Exec.pred_mod_lt"
+      ],
+      "declarations": [
+        "CFDLean.Exec.eulerStepArray_size",
+        "CFDLean.Exec.axpby_size",
+        "CFDLean.Exec.ssprk3StepArray_size",
+        "CFDLean.Exec.run_size",
+        "CFDLean.Exec.instScalarReal_standard"
+      ]
+    },
+    {
+      "id": "E0-R",
+      "definitions": [
+        "CFDLean.Exec.finGrid",
+        "CFDLean.Exec.Represents"
+      ],
+      "supporting": [
+        "CFDLean.Exec.finGrid_next_val",
+        "CFDLean.Exec.finGrid_prev_val",
+        "CFDLean.Exec.represents_ofFn",
+        "CFDLean.Exec.represents_self",
+        "CFDLean.Exec.Represents.getElem_eq"
+      ],
+      "declarations": [
+        "CFDLean.Exec.rusanov_eq",
+        "CFDLean.Exec.represents_iff_eq_ofFn"
+      ]
+    },
+    {
+      "id": "E0-S",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Exec.eulerStepArray_refines",
+        "CFDLean.Exec.axpby_refines",
+        "CFDLean.Exec.ssprk2StepArray_refines",
+        "CFDLean.Exec.ssprk3StepArray_refines"
+      ]
+    },
+    {
+      "id": "E0-N",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Exec.run_refines"
+      ]
+    },
+    {
+      "id": "E0-D",
+      "definitions": [],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Exec.sumArray_eq",
+        "CFDLean.Exec.totalVariationArray_eq"
+      ]
+    },
+    {
+      "id": "E0-T",
+      "definitions": [
+        "CFDLean.Exec.EntriesBetween",
+        "CFDLean.Exec.RefinedBy"
+      ],
+      "supporting": [
+        "CFDLean.Exec.self_mem_boundedStates",
+        "CFDLean.Exec.run_entriesBetween",
+        "CFDLean.Exec.run_sumArray",
+        "CFDLean.Exec.run_totalVariationArray_le",
+        "CFDLean.Exec.eulerStepArray_refinedBy",
+        "CFDLean.Exec.ssprk3StepArray_refinedBy"
+      ],
+      "declarations": [
+        "CFDLean.Exec.run_eulerStepArray_bounds",
+        "CFDLean.Exec.run_ssprk3StepArray_bounds",
+        "CFDLean.Exec.run_eulerStepArray_sum",
+        "CFDLean.Exec.run_ssprk3StepArray_sum",
+        "CFDLean.Exec.run_eulerStepArray_totalVariation_le",
+        "CFDLean.Exec.run_ssprk3StepArray_totalVariation_le"
+      ]
+    },
+    {
+      "id": "E0-X",
+      "definitions": [
+        "CFDLean.Exec.instScalarFloat"
+      ],
+      "supporting": [],
+      "declarations": []
+    }
+  ],
+  "modules": {
+    "CFDLean.Exec.Scalar": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.Scalar.burgersFlux": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.Scalar.rusanov": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.succ_mod_lt": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.pred_mod_lt": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.eulerStepArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.axpby": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.ssprk2StepArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.ssprk3StepArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.run": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.sumArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.maxArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.minArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.totalVariationArray": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.instScalarReal": "CFDLean.Exec.RealScalar",
+    "CFDLean.Exec.rusanov_eq": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.finGrid": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.finGrid_next_val": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.finGrid_prev_val": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.Represents": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.represents_iff_eq_ofFn": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.represents_ofFn": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.represents_self": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.Represents.getElem_eq": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.eulerStepArray_refines": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.axpby_refines": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.ssprk2StepArray_refines": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.ssprk3StepArray_refines": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_refines": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_size": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.eulerStepArray_size": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.axpby_size": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.ssprk3StepArray_size": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.sumArray_eq": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.totalVariationArray_eq": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.EntriesBetween": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.self_mem_boundedStates": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.RefinedBy": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_entriesBetween": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_sumArray": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_totalVariationArray_le": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.eulerStepArray_refinedBy": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.ssprk3StepArray_refinedBy": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_eulerStepArray_bounds": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_ssprk3StepArray_bounds": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_eulerStepArray_sum": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_ssprk3StepArray_sum": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_eulerStepArray_totalVariation_le": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.run_ssprk3StepArray_totalVariation_le": "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.instScalarFloat": "CFDLean.Exec.Kernel",
+    "CFDLean.Exec.instScalarReal_standard": "CFDLean.Exec.Refinement"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/BurgersE0Challenge.lean",
+    "statements_module": "CFDLean.Verification.BurgersE0Challenge",
+    "statements_sha256": "f8af584400869ce8cb8a3261f0f2c7b5dfd8ba3bcb79396d3c75c5028578153c",
+    "bridge_module": "CFDLean.Verification.BurgersE0Verify",
+    "comparator_challenge": "Challenges/BurgersE0.lean",
+    "comparator_challenge_module": "Challenges.BurgersE0",
+    "comparator_challenge_sha256": "60fa18aabbd3a6816a351534f1ed77d8db48a34a66357a53d037158bbd4cbef5",
+    "comparator_config": "Challenges/BurgersE0.comparator.json",
+    "bindings": [
+      {
+        "id": "E0-K",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.RealScalarIsStandard",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.real_scalar_is_standard",
+        "type": "CFDLean.Verification.BurgersE0Challenge.RealScalarIsStandard",
+        "uses": "CFDLean.Exec.instScalarReal_standard"
+      },
+      {
+        "id": "E0-R",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.KernelFluxIsRusanov",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.kernel_flux_is_rusanov",
+        "type": "CFDLean.Verification.BurgersE0Challenge.KernelFluxIsRusanov",
+        "uses": "CFDLean.Exec.rusanov_eq"
+      },
+      {
+        "id": "E0-S",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.EulerStepRefines",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.euler_step_refines",
+        "type": "CFDLean.Verification.BurgersE0Challenge.EulerStepRefines",
+        "uses": "CFDLean.Exec.eulerStepArray_refines"
+      },
+      {
+        "id": "E0-S",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.SSPRK3StepRefines",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.ssprk3_step_refines",
+        "type": "CFDLean.Verification.BurgersE0Challenge.SSPRK3StepRefines",
+        "uses": "CFDLean.Exec.ssprk3StepArray_refines"
+      },
+      {
+        "id": "E0-N",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunRefines",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.ssprk3_run_refines",
+        "type": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunRefines",
+        "uses": "CFDLean.Exec.run_refines"
+      },
+      {
+        "id": "E0-D",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.SumDiagnostic",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.sum_diagnostic",
+        "type": "CFDLean.Verification.BurgersE0Challenge.SumDiagnostic",
+        "uses": "CFDLean.Exec.sumArray_eq"
+      },
+      {
+        "id": "E0-D",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.TotalVariationDiagnostic",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.total_variation_diagnostic",
+        "type": "CFDLean.Verification.BurgersE0Challenge.TotalVariationDiagnostic",
+        "uses": "CFDLean.Exec.totalVariationArray_eq"
+      },
+      {
+        "id": "E0-T",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunBounds",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.ssprk3_run_bounds",
+        "type": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunBounds",
+        "uses": "CFDLean.Exec.run_ssprk3StepArray_bounds"
+      },
+      {
+        "id": "E0-T",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunSum",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.ssprk3_run_sum",
+        "type": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunSum",
+        "uses": "CFDLean.Exec.run_ssprk3StepArray_sum"
+      },
+      {
+        "id": "E0-T",
+        "statement": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunTotalVariation",
+        "theorem": "CFDLean.Verification.BurgersE0Verify.ssprk3_run_total_variation",
+        "type": "CFDLean.Verification.BurgersE0Challenge.SSPRK3RunTotalVariation",
+        "uses": "CFDLean.Exec.run_ssprk3StepArray_totalVariation_le"
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, E0, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -5552,6 +5552,266 @@
       ],
       "summary": "The Burgers Rusanov operator does not produce energy: Σ u_i L_i(u) ≤ 0 for dx > 0.",
       "source": "specifications/Burgers-B4-results.json B4-S; references/Burgers-B4.md"
+    },
+    {
+      "name": "CFDLean.Exec.eulerStepArray_size",
+      "id": "E0-K",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel Euler step returns an array of the same size.",
+      "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.axpby_size",
+      "id": "E0-K",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel linear combination returns an array of the smaller of the two sizes.",
+      "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.ssprk3StepArray_size",
+      "id": "E0-K",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel SSPRK3 step returns an array of the same size.",
+      "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_size",
+      "id": "E0-K",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Running a size-preserving step k times preserves the size.",
+      "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.rusanov_eq",
+      "id": "E0-R",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic the kernel flux is the Burgers Rusanov flux.",
+      "source": "specifications/Burgers-E0-results.json E0-R; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.represents_iff_eq_ofFn",
+      "id": "E0-R",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An array represents a cell function on Fin n exactly when it is Array.ofFn of that function.",
+      "source": "specifications/Burgers-E0-results.json E0-R; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.eulerStepArray_refines",
+      "id": "E0-S",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If an array represents u, the kernel Euler step of the array represents the Rusanov Forward Euler step of u on the periodic grid Fin n.",
+      "source": "specifications/Burgers-E0-results.json E0-S; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.axpby_refines",
+      "id": "E0-S",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel linear combination of two arrays represents the pointwise linear combination of the two cell functions.",
+      "source": "specifications/Burgers-E0-results.json E0-S; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.ssprk2StepArray_refines",
+      "id": "E0-S",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel SSPRK2 step represents the Rusanov SSPRK2 step.",
+      "source": "specifications/Burgers-E0-results.json E0-S; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.ssprk3StepArray_refines",
+      "id": "E0-S",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel SSPRK3 step represents the Rusanov SSPRK3 step.",
+      "source": "specifications/Burgers-E0-results.json E0-S; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_refines",
+      "id": "E0-N",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "k applications of a kernel step that refines T represent the k-fold iterate of T.",
+      "source": "specifications/Burgers-E0-results.json E0-N; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.sumArray_eq",
+      "id": "E0-D",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel sum diagnostic of an array that represents u is the sum of the cell values of u.",
+      "source": "specifications/Burgers-E0-results.json E0-D; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.totalVariationArray_eq",
+      "id": "E0-D",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The kernel total-variation diagnostic of an array that represents u is the periodic total variation of u.",
+      "source": "specifications/Burgers-E0-results.json E0-D; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_eulerStepArray_bounds",
+      "id": "E0-T",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic, dx > 0, dt ≥ 0 and 2 · dt · max(|m|, |M|) ≤ dx, every entry stays in [m, M] after k kernel Euler steps.",
+      "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_ssprk3StepArray_bounds",
+      "id": "E0-T",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same bounds result after k kernel SSPRK3 steps.",
+      "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_eulerStepArray_sum",
+      "id": "E0-T",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic and dx ≠ 0, k kernel Euler steps keep the sum of the entries.",
+      "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_ssprk3StepArray_sum",
+      "id": "E0-T",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "With real arithmetic and dx ≠ 0, k kernel SSPRK3 steps keep the sum of the entries.",
+      "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_eulerStepArray_totalVariation_le",
+      "id": "E0-T",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the hypotheses of the bounds result, k kernel Euler steps do not increase the total variation of the entries.",
+      "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_ssprk3StepArray_totalVariation_le",
+      "id": "E0-T",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries.",
+      "source": "specifications/Burgers-E0-results.json E0-T; references/Burgers-E0.md"
+    },
+    {
+      "name": "CFDLean.Exec.instScalarReal_standard",
+      "id": "E0-K",
+      "milestone": "E0",
+      "module": "CFDLean.Exec.Refinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field.",
+      "source": "specifications/Burgers-E0-results.json E0-K; references/Burgers-E0.md"
     }
   ]
 }

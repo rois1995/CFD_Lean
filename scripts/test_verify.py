@@ -1128,6 +1128,33 @@ class BurgersTests(unittest.TestCase):
             lambda rows, record, files, pins: files.update(config(definition_names=["S.Claim"])),
             lambda rows, record, files, pins: files.update(config(solution_module="C"))])
 
+    def test_trusted_inputs_are_pinned_and_closed(self):
+        import hashlib
+        kernel = b"def K.step (x : Nat) : Nat := x\n"
+        statements = b"import Mathlib.Basic.Real.Basic\nimport K.Kernel\n\ndef S.Claim : Prop := True\n"
+
+        def with_input(rows, record, files, pins, kernel=kernel, statements=statements, path="K/Kernel.lean"):
+            files[path] = kernel
+            pins["trusted_inputs"] = {"K.Kernel": {"path": path, "sha256": hashlib.sha256(kernel).hexdigest()}}
+            self.repin(files, pins, record, "S.lean", statements)
+        rows, record, files, pins = self.fixture()
+        with_input(rows, record, files, pins)
+        self.assertEqual(self.check(rows, record, files, pins), (["A.result"], ["V.claim"]))
+        self.rejects([
+            # the statements import the kernel but no input is pinned
+            lambda rows, record, files, pins: self.repin(files, pins, record, "S.lean", statements),
+            # the pinned kernel changed
+            lambda rows, record, files, pins: (with_input(rows, record, files, pins),
+                                               files.update({"K/Kernel.lean": kernel + b"-- edit\n"})),
+            # the pinned kernel imports an unpinned project module
+            lambda rows, record, files, pins: with_input(
+                rows, record, files, pins, kernel=b"import CFDLean.Schemes.Burgers.Rusanov\n" + kernel),
+            # the path of an input is not the path of its module
+            lambda rows, record, files, pins: with_input(rows, record, files, pins, path="Other.lean"),
+            # the statements import one more project module than the pinned inputs
+            lambda rows, record, files, pins: with_input(
+                rows, record, files, pins, statements=statements + b"import CFDLean.Exec.Refinement\n")])
+
     def test_committed_maps_follow_the_pinned_table(self):
         for milestone, pins in verify.BURGERS.items():
             record = json.loads((verify.ROOT / pins["results"]).read_text())

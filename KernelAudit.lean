@@ -4,6 +4,7 @@ import CFDLean.Verification.BurgersB1Verify
 import CFDLean.Verification.BurgersB2Verify
 import CFDLean.Verification.BurgersB3Verify
 import CFDLean.Verification.BurgersB4Verify
+import CFDLean.Verification.BurgersE0Verify
 import CFDLean.Verification.JST1Verify
 import Lean
 

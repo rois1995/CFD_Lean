@@ -56,11 +56,11 @@ CATALOG_README = "catalog/README.md"
 CATALOG_SCRIPT = "scripts/catalog.py"
 CATALOG_FIELDS = ("name", "id", "milestone", "module", "status", "layer", "methods", "summary", "source")
 CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes",
-                  "Time")
+                  "Time", "Execution")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending",
-                  "B4": "pending", "JST1": "candidate"}
+                  "B4": "pending", "E0": "pending", "JST1": "candidate"}
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
 # to its definitions and theorems,
@@ -104,6 +104,22 @@ BURGERS = {
            "challenge": "Challenges/BurgersB4.lean",
            "challenge_sha256": "c73539fc0237b37f842a02d9d93c4cefabb85e7d2a8ce2a1b41fd6b2f2cdd6d3",
            "count": 14, "bridges": 5},
+    # E0: the statements are about the executable kernel with real arithmetic, so the trusted statement file imports,
+    # besides Mathlib, the two hash-pinned modules that define that object (`trusted_inputs`).
+    "E0": {"results": "specifications/Burgers-E0-results.json",
+           "approved": "859f849e92b6be05b20d4a9d582712f6e9b82087",
+           "statements": "CFDLean/Verification/BurgersE0Challenge.lean",
+           "statements_sha256": "f8af584400869ce8cb8a3261f0f2c7b5dfd8ba3bcb79396d3c75c5028578153c",
+           "challenge": "Challenges/BurgersE0.lean",
+           "challenge_sha256": "60fa18aabbd3a6816a351534f1ed77d8db48a34a66357a53d037158bbd4cbef5",
+           "trusted_inputs": {
+               "CFDLean.Exec.Kernel": {
+                   "path": "CFDLean/Exec/Kernel.lean",
+                   "sha256": "5a01cf45d28ff448ef4a9e823d5c9c6ebb23819ebea49045139b953b90b692ac"},
+               "CFDLean.Exec.RealScalar": {
+                   "path": "CFDLean/Exec/RealScalar.lean",
+                   "sha256": "1ffa874a796385474f160a5508233bf91d48a356d655477beacb78e9ca5ad17c"}},
+           "count": 20, "bridges": 10},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -119,7 +135,7 @@ JST1_COUNT = 92
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "de20c88db40dd05a419d2d4cfe0fb408480f714e867bee4c2eb458d14ffa3396"
+RAW_TYPES_SHA256 = "6b5b0f8b2811158743d557e1b6903eddbfd1970ad9c78c62a07289f2a5eb0f23"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "982b61cc2c6189bc821b1698f62b33f2c2077eec407e03f3effa8c0450f304b4"
@@ -461,8 +477,9 @@ def imported_modules(data):
 def check_burgers(milestone, rows, record, contract_text, read=read_source, pins=None):
     """One Burgers milestone: the result map covers exactly the frozen IDs; each bound definition and theorem is in its
     module, each theorem is a root theorem with standard axioms; the trusted statements and the comparator challenge
-    are the pinned files and import no implementation; each bridge theorem states its trusted statement and uses a
-    promised theorem of its result ID."""
+    are the pinned files and import only Mathlib and the hash-pinned `trusted_inputs` of the milestone (the code under
+    verification, if any); each bridge theorem states its trusted statement and uses a promised theorem of its
+    result ID."""
     pins = BURGERS[milestone] if pins is None else pins
     check_result_ids(record, contract_text, milestone)
     modules = record["modules"]
@@ -504,9 +521,17 @@ def check_burgers(milestone, rows, record, contract_text, read=read_source, pins
     if (hashlib.sha256(statements).hexdigest() != pins["statements_sha256"]
             or hashlib.sha256(challenge).hexdigest() != pins["challenge_sha256"]):
         raise ValueError(f"{milestone} trusted statement or challenge file changed")
+    inputs = pins.get("trusted_inputs", {})
+    for module, item in inputs.items():
+        data = read(item["path"])
+        if (item["path"] != module.replace(".", "/") + ".lean"
+                or hashlib.sha256(data).hexdigest() != item["sha256"]):
+            raise ValueError(f"{milestone} trusted input changed: {module}")
+        if any(not name.startswith("Mathlib.") and name not in inputs for name in imported_modules(data)):
+            raise ValueError(f"{milestone} trusted input imports an unpinned module: {module}")
     imports = imported_modules(statements)
-    if not imports or any(not module.startswith("Mathlib.") for module in imports):
-        raise ValueError(f"{milestone} trusted statements import a module outside Mathlib")
+    if not imports or any(not module.startswith("Mathlib.") and module not in inputs for module in imports):
+        raise ValueError(f"{milestone} trusted statements import a module outside Mathlib and the pinned inputs")
     if imported_modules(challenge) != [trusted["statements_module"]]:
         raise ValueError(f"{milestone} comparator challenge imports more than the trusted statements")
     bindings = trusted["bindings"]
@@ -963,8 +988,8 @@ def main(record_raw_types=False):
         if revision != package["rev"] or dirty:
             raise ValueError(f"Dependency revision or tracked source mismatch: {package['name']}")
     files = [ROOT / name for name in [".gitignore", "README.md", "lean-toolchain", "lakefile.toml",
-                                     "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean", "StatementChecks.lean",
-                                     RAW_TYPES]]
+                                     "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean",
+                                     "StatementChecks.lean", "Main.lean", RAW_TYPES]]
     for directory in ["CFDLean", "Challenges", "references", "specifications", "scripts"]:
         files.extend(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)
