@@ -1,6 +1,6 @@
 # P7 proposal: mixed meshes beyond affine cells (general hexahedra, prisms, pyramids)
 
-Written 2026-11-26. Proposal only (research size): no statement is written or frozen until the user approves it.
+Written 2026-11-26. Approved by the user on 2026-11-26 (option 1: the full item 22).
 Paper input `Handbook/paper1/paper1.tex`, sha256 `5ec5f9db…`. Numerics: `evidence/JST1/P7-hexsplit.py` (output
 `P7-hexsplit.log`, numpy, unit cube numbering `x + 2y + 4z`).
 
@@ -36,10 +36,12 @@ sides of it).
 - **P7-22.2 (mesh level, extends P3-11.8).** A mesh of hexahedra, prisms and pyramids with free vertices, `SplitOriented`
   and `ConformT`, averaged over the pulling splits, assembles to a valid weighted mesh that is facet balanced (so
   P3-11.1 and P3-14 apply). Plus: `Affine ∧ Conform → SplitOriented ∧ ConformT`, so P3-11.8 is a special case.
-- **P7-22.3 (necessity, G8).** The twisted cube with `cos θ = 3/5`: its trilinear Jacobian is positive on `[0,1]³`;
+- **P7-22.3 (special case).** Affine cells: `Affine → SplitOriented` and `Conform → ConformT`, so P3-11.8 is a
+  special case of P7-22.2.
+- **P7-22.4 (necessity, G8).** The twisted cube with `cos θ = 3/5`: its trilinear Jacobian is positive on `[0,1]³`;
   some pulling sub-tetrahedron is inverted (so `SplitOriented` fails); and the one-cell mesh is not facet balanced.
-- **P7-22.4 (optional).** The same for the Kuhn (neighbour-fan) family with an explicit rational cell (to be found
-  by search; random cells show it exists).
+- Not stated (decided with the statements): the Kuhn (neighbour-fan) family counterexample (optional in the first
+  draft; random cells show it exists, no explicit rational cell yet).
 
 ## 2. Decisions (my choice and reason; to confirm)
 
