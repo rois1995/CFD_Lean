@@ -66,7 +66,7 @@ def usage : String :=
    N, steps: integers, N > 0 (defaults 200, 200)\n  \
    cfl: decimal such as 0.4 (default 0.4); dt = cfl * dx / max|u0|\n  \
    --muscl: MUSCL reconstruction, unlimited (central slope) unless --limiter is given (default: first-order scheme);\n  \
-   \          before the limiter option this flag meant minmod: use --limiter minmod for that\n  \
+     (before the limiter option this flag meant minmod: use --limiter minmod for that)\n  \
    --limiter NAME: MUSCL with a limiter (implies --muscl); NAME is none, minmod, mc, superbee, vanleer or vanalbada\n  \
    --dump: print the final cell values"
 
