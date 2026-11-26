@@ -108,10 +108,42 @@ def chkR : Bool :=
 
 end Check
 
+/-! The same checks with the cell data as plain arguments (`docs/LEAN_PERFORMANCE.md`, rule 2). -/
+
+section Generic
+variable {n : ℕ} (C : Cell3 n) (R : Fin n → Z3) (S : Z3) (z : Fin n)
+
+def chkFg : Bool :=
+  (tetsOf C).dedup.all fun t => (tetFaces t).all fun f =>
+    let q := [f.getD 0 z, f.getD 1 z, f.getD 2 z]
+    (decide (q ++ [oppV t f z]).Nodup && (q ++ [oppV t f z]).all t.contains) &&
+    (!onCellFace C f || quadAnyg C (q.getD 0 z) (q.getD 1 z) (q.getD 2 z) ||
+      triAnyg C (q.getD 0 z) (q.getD 1 z) (q.getD 2 z)) &&
+    ((tetsOf C).dedup.all fun t' => !((tetFaces t').any (sameSimplex f)) ||
+      (decide (q ++ [oppV t' f z]).Nodup && (q ++ [oppV t' f z]).all t'.contains))
+
+def chkRg : Bool :=
+  (List.finRange n).all fun a0 => (List.finRange n).all fun a1 => (List.finRange n).all fun a2 =>
+    a0 == a1 || a0 == a2 || a1 == a2 || !(quadAnyg C a0 a1 a2 || triAnyg C a0 a1 a2) ||
+      (cenZg R S a0 a1 a2 != 0 &&
+        (tetsOf C).dedup.all fun t => !(t.contains a0 && t.contains a1 && t.contains a2) ||
+          t.all fun v => inF a0 a1 a2 v ||
+            Int.sign (sideZ (R a0) (R a1) (R a2) (R v)) == Int.sign (cenZg R S a0 a1 a2))
+
+end Generic
+
 set_option maxHeartbeats 4000000 in
-theorem chkF_all (k : Kind) : chkF k = true := by cases k <;> decide +kernel
+theorem chkF_all (k : Kind) : chkF k = true := by
+  cases k
+  · rw [show chkF .hex = chkFg RefCell.hex 0 from rfl]; decide +kernel
+  · rw [show chkF .prism = chkFg RefCell.prism 0 from rfl]; decide +kernel
+  · rw [show chkF .pyr = chkFg RefCell.pyramid 0 from rfl]; decide +kernel
 set_option maxHeartbeats 4000000 in
-theorem chkR_all (k : Kind) : chkR k = true := by cases k <;> decide +kernel
+theorem chkR_all (k : Kind) : chkR k = true := by
+  cases k
+  · rw [show chkR .hex = chkRg RefCell.hex hexR (4, 4, 4) from rfl]; decide +kernel
+  · rw [show chkR .prism = chkRg RefCell.prism prismR (2, 2, 3) from rfl]; decide +kernel
+  · rw [show chkR .pyr = chkRg RefCell.pyramid pyrR (5, 5, 2) from rfl]; decide +kernel
 
 theorem face_facts (k : Kind) {t : List (Fin k.n)} (ht : t ∈ k.tets) {f : List (Fin k.n)} (hf : f ∈ tetFaces t) :
     ([f.getD 0 (kz k), f.getD 1 (kz k), f.getD 2 (kz k), oppV t f (kz k)].Nodup ∧
@@ -702,22 +734,39 @@ def intS (Q : List (Fin 8) → Fin 4 → Bool) : Z3 :=
 
 def S0 : Finset (Fin 8) := {0, 1, 7}
 
+/-- Fast forms for the kernel checks (`docs/LEAN_PERFORMANCE.md`, rule 2), tied to the originals by `rfl`. -/
+def intSF (Q : List (Fin 8) → Fin 4 → Bool) : Z3 :=
+  ((tetsOf RefCell.hex).map fun t => ((List.finRange 4).map fun o => if Q t o then AZ t o else 0).sum).sum
+
+theorem intS_eq : intS = intSF := rfl
+
+def twistBdF : Finset (Finset (Fin 8)) :=
+  (((RefCell.hex.quads.flatMap fun q => (q.tris false ++ q.tris true).map fun f =>
+      ((f.map (Function.Embedding.refl (Fin 8))).toFinset, true)) ++
+    RefCell.hex.tris.map fun f => ((f.map (Function.Embedding.refl (Fin 8))).toFinset, false)).map Prod.fst).toFinset
+
+theorem twistBd_eq : twistBd = twistBdF := rfl
+
 theorem chk_nondeg : Kind.hex.tets.all (fun (t : List (Fin 8)) =>
     sideZ (twZ (t.getD 0 0)) (twZ (t.getD 1 0)) (twZ (t.getD 2 0)) (twZ (t.getD 3 0)) != 0) = true := by
+  rw [hexTets_eq]
   decide +kernel
 
 set_option maxHeartbeats 4000000 in
 theorem chk_S0 : intS (fun t o => decide (nodesL t o ∉ twistBd) && decide (nodesL t o = S0)) = (0, 200, -80) := by
+  rw [intS_eq, twistBd_eq]
   decide +kernel
 
 set_option maxHeartbeats 4000000 in
 theorem chk_v0 : intS (fun t o => decide (nodesL t o ∉ twistBd) && decide ((0 : Fin 8) ∈ nodesL t o)) =
     (680, -160, -40) := by
+  rw [intS_eq, twistBd_eq]
   decide +kernel
 
 theorem chk_dist : Kind.hex.tets.all (fun (t : List (Fin 8)) => (List.finRange 4).all fun o =>
     t.getD (o.succAbove 0) 0 != t.getD (o.succAbove 1) 0 && t.getD (o.succAbove 0) 0 != t.getD (o.succAbove 2) 0 &&
       t.getD (o.succAbove 1) 0 != t.getD (o.succAbove 2) 0) = true := by
+  rw [hexTets_eq]
   decide +kernel
 
 theorem splits_len : (Kind.hex.cell.splits.length : ℝ) = 64 := by
