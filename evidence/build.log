@@ -1,4 +1,5 @@
-ℹ [18515/18519] Replayed Integrity
+✔ [18514/18519] Built CFDLean (599s)
+ℹ [18517/18519] Built Integrity (3.0s)
 info: Integrity.lean:24:0: 'CFDLean.squareSum_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:25:0: 'CFDLean.squareSum_div' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:26:0: 'CFDLean.pressure_toConservative' depends on axioms: [propext, Classical.choice, Quot.sound]
