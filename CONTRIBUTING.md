@@ -4,6 +4,9 @@ Give the milestone or roadmap item, scope, and validation results in the PR desc
 [architecture guide](ARCHITECTURE.md) shows where code belongs. Match adjacent module, namespace and declaration
 naming, and use [the root umbrella](CFDLean.lean) for new public library exports when applicable.
 
+In the PR that completes a roadmap item, check it off with `- [x]` in [roadmap/NEXT.md](roadmap/NEXT.md).
+For partial work, check off the completed deliverables and keep the overall item open.
+
 ## Branches and releases
 
 - Base task branches on `develop` and target `develop` with the PR. [Integration CI](.github/workflows/integration.yml)

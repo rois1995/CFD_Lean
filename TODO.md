@@ -113,6 +113,7 @@ Keep this index short.
 
 - Update `CURRENT.md` when project status materially changes.
 - Update `NEXT.md` when priorities or concrete milestones change.
+- Check off completed roadmap items in the PR that completes them. [Contributor guide](CONTRIBUTING.md)
 - Move speculative items to `FUTURE.md`.
 - Update `SEQUENCING.md` when concrete experience changes implementation prerequisites or trigger conditions.
 - Change `PRINCIPLES.md` only for deliberate architectural decisions.
