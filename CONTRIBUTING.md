@@ -1,8 +1,10 @@
 # Contributing to CFD_Lean
 
-Open a pull request against `main` from a task branch. Give the milestone or roadmap item, the scope, and the validation
-results in the PR description. The [architecture guide](ARCHITECTURE.md) shows where code belongs. Match adjacent module,
-namespace and declaration naming, and use [the root umbrella](CFDLean.lean) for new public library exports when applicable.
+Open a pull request from a task branch. Target `main` while the [branch-governance migration](roadmap/NEXT.md)
+is pending. After that migration, target `develop` for routine contributions. Give the milestone or roadmap item,
+the scope, and validation results in the PR description. The [architecture guide](ARCHITECTURE.md) shows where
+code belongs. Match adjacent module, namespace and declaration naming, and use [the root umbrella](CFDLean.lean)
+for new public library exports when applicable.
 
 ## Milestone workflow
 

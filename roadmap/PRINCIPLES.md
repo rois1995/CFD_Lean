@@ -204,3 +204,25 @@ Do not generalize merely because a future feature can be imagined. Introduce abs
 needs them, while ensuring current APIs do not unnecessarily rule out known future requirements.
 
 The first planned stress test for the present scalar FV abstractions is a non-uniform fixed 1D mesh.
+
+
+## 17. New equation systems enter through capabilities, not solver clones
+
+Adding a new PDE family should primarily extend the physical-model layer with the capabilities that actually exist for
+that model, for example:
+
+- state and admissibility;
+- convective flux;
+- entropy structure;
+- wave-speed or spectral information;
+- diffusive / viscous constitutive laws;
+- source terms;
+- constraints.
+
+Generic numerical components should depend only on the capabilities they need. Burgers, Euler, Navier-Stokes,
+multispecies flow and future systems should reuse common discretization/time/execution machinery where the mathematics
+is genuinely shared.
+
+Do not force every PDE into one universal conservation-law interface. Constrained systems such as incompressible flow
+may require a different solver structure while still reusing geometry, gradients, time integration, linear solvers and
+execution refinement.
