@@ -91,6 +91,7 @@ jobs:
         if: steps.docs.outputs.only != 'true'
         run: PATH="$HOME/.elan/bin:$PATH" python3 -m unittest discover -s scripts -p test_verify.py
       - name: Verify frozen contracts, result maps, catalog and trusted Burgers files
+        id: verify
         if: steps.docs.outputs.only != 'true'
         run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py
       - name: Committed evidence equals regenerated evidence
@@ -99,6 +100,29 @@ jobs:
           git diff --exit-code -- evidence/verification.json evidence/kernel-inventory.log
           evidence/inherited-types.json evidence/bindings-diff.patch evidence/binding-type-diff.json
           evidence/SHA256SUMS
+      # Integration only: when verification or the evidence comparison fails, hand the regenerated evidence back as a
+      # download, so that a PR can take it from CI instead of a local full run (CONTRIBUTING.md, "Validation").
+      # After a verifier failure, also record the raw types (for new or changed promised theorems) for review.
+      - name: Record raw types for review (after a verifier failure)
+        if: ${{ failure() && !inputs.release && steps.docs.outputs.only != 'true' && steps.verify.outcome == 'failure' }}
+        continue-on-error: true
+        run: PATH="$HOME/.elan/bin:$PATH" python3 scripts/verify.py --record-raw-types
+      - name: Upload regenerated evidence (after a failure)
+        if: ${{ failure() && !inputs.release && steps.docs.outputs.only != 'true' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: regenerated-evidence
+          path: |
+            evidence/verification.json
+            evidence/kernel-inventory.log
+            evidence/inherited-types.json
+            evidence/bindings-diff.patch
+            evidence/binding-type-diff.json
+            evidence/SHA256SUMS
+            evidence/build.log
+            evidence/raw-types.json
+          retention-days: 7
+          if-no-files-found: warn
       # The paper-1 comparator with the five external checkers needs about 13 GB of memory in one checker (con-ron,
       # measured locally). The runner has less, and the step was cancelled there. More swap keeps the check complete.
       - name: Add swap space for the external checkers
