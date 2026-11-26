@@ -270,3 +270,37 @@ Potential high-value verification targets include:
 - comparing formally stated benchmark setups rather than only output plots.
 
 This can make the project scientifically useful even before it becomes a full-scale production CFD package.
+
+
+## 21. Extensible PDE and physical-model architecture
+
+New equation sets should be folded into the framework primarily through composable physical capabilities rather than
+by cloning an entire solver stack.
+
+A useful conceptual decomposition is:
+
+```text
+Physical model
+  state
+  admissibility
+  convective flux              optional
+  diffusive / viscous flux     optional
+  source term                  optional
+  entropy structure            optional
+  wave-speed / spectral data   optional
+  constraints                  optional
+```
+
+Examples:
+
+- Burgers: scalar state + convective flux;
+- Euler: system state + admissibility + convective flux + entropy/spectral structure;
+- Navier-Stokes: Euler convective physics + viscous constitutive model + gradients;
+- multispecies flow: compressible flow + species transport + coupling/source terms;
+- RANS: Navier-Stokes + turbulence transport/source models;
+- incompressible flow: evolution + divergence constraint + pressure/projection machinery rather than a forced
+  hyperbolic-conservation-law abstraction.
+
+Implementation timing and prerequisites are tracked in `SEQUENCING.md`. The intended rule is to prepare interfaces
+now by avoiding equation-name-specific generic APIs, but wait for a third concrete equation family or a genuine
+convective+viscous/source composition need before introducing broad new Physics capability abstractions.
