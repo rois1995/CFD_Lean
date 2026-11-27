@@ -1053,8 +1053,9 @@ class BurgersTests(unittest.TestCase):
             row("V.claim", "V", direct=["A.result", "S.Claim"], type_="∀ {I : Type u_1}, S.Claim I")]}
         pins = {"statements": "S.lean", "statements_sha256": hashlib.sha256(self.STATEMENTS).hexdigest(),
                 "challenge": "C.lean", "challenge_sha256": hashlib.sha256(self.CHALLENGE).hexdigest(),
-                "count": 1, "bridges": 1}
+                "bridge": "V", "count": 1, "bridges": 1}
         record = {
+            "independent_acceptance": "accepted at 0000000",
             "results": [{"id": "B9-P", "definitions": ["A.flux", "A.Law"], "supporting": [], "declarations": []},
                         {"id": "B9-F", "definitions": [], "supporting": ["A.helper"], "declarations": ["A.result"]}],
             "modules": {"A.flux": "M.Flux", "A.Law": "M.Flux", "A.helper": "M.Flux", "A.result": "M.Scheme"},
@@ -1152,6 +1153,40 @@ class BurgersTests(unittest.TestCase):
             lambda rows, record, files, pins: files.update(config(definition_names=["S.Claim"])),
             lambda rows, record, files, pins: files.update(config(solution_module="C"))])
 
+    def test_bridge_module_is_the_pinned_bridge(self):
+        rows, record, files, pins = self.fixture()
+        del pins["bridge"]
+        with self.assertRaises(ValueError):  # the default bridge CFDLean.Verification.BurgersB9Verify is not V
+            self.check(rows, record, files, pins)
+        self.rejects([
+            lambda rows, record, files, pins: pins.update(bridge="W"),
+            lambda rows, record, files, pins: record["trusted"].update(bridge_module="W")], (ValueError, KeyError))
+
+    def test_pending_acceptance_follows_the_pins(self):
+        rows, record, files, pins = self.fixture()
+        pins["pending"] = True
+        record["independent_acceptance"] = "pending"
+        self.assertEqual(self.check(rows, record, files, pins), (["A.result"], ["V.claim"]))
+        self.rejects([
+            lambda rows, record, files, pins: pins.update(pending=True),
+            lambda rows, record, files, pins: record.update(independent_acceptance="pending"),
+            lambda rows, record, files, pins: record.pop("independent_acceptance")], (ValueError, KeyError))
+
+    def test_acceptance_labels(self):
+        from unittest import mock
+        expected = {m: ("accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0", f"reviews/Burgers-{m}/Acceptance.md")
+                    for m in ("B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c")}
+        expected["FVN"] = ("pending", None)
+        self.assertEqual({m: verify.burgers_acceptance(m) for m in verify.BURGERS}, expected)
+        fvn = {key: value for key, value in verify.BURGERS["FVN"].items() if key != "pending"}
+        with mock.patch.dict(verify.BURGERS, {"FVN": fvn}):
+            with self.assertRaises(ValueError):  # no fallback to the Burgers-series acceptance
+                verify.burgers_acceptance("FVN")
+        own = dict(fvn, accepted_revision="1" * 40, acceptance_record="reviews/FVN/Acceptance.md")
+        with mock.patch.dict(verify.BURGERS, {"FVN": own}):
+            self.assertEqual(verify.burgers_acceptance("FVN"),
+                             ("accepted at " + "1" * 40, "reviews/FVN/Acceptance.md"))
+
     def test_trusted_inputs_are_pinned_and_closed(self):
         import hashlib
         kernel = b"def K.step (x : Nat) : Nat := x\n"
@@ -1186,6 +1221,13 @@ class BurgersTests(unittest.TestCase):
             self.assertEqual(len(record["trusted"]["bindings"]), pins["bridges"])
             self.assertEqual(sum(len(r["declarations"]) for r in record["results"]), pins["count"])
             self.assertTrue(all(r["id"].startswith(milestone + "-") for r in record["results"]))
+            self.assertEqual(record["trusted"]["bridge_module"], verify.burgers_bridge(milestone))
+            self.assertEqual(record["independent_acceptance"] == "pending", bool(pins.get("pending")))
+
+    def test_bridge_modules_are_pinned(self):
+        bridges = {m: verify.burgers_bridge(m) for m in verify.BURGERS}
+        self.assertEqual(bridges, dict({m: f"CFDLean.Verification.Burgers{m}Verify" for m in verify.BURGERS_SERIES},
+                                       FVN="CFDLean.Verification.FV1DNonuniformVerify"))
 
 
 if __name__ == "__main__":

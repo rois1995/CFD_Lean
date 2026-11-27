@@ -43,6 +43,11 @@ uniform periodic grid. The four frozen results cover B0 agreement, M1 equal-stat
 conservation of the three Euler quantities. [Independent implementation acceptance](../reviews/FV1D/Acceptance.md) covers all four results.
 [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
 
+FVN repeats the first-order and MUSCL steps on a fixed non-uniform periodic 1D mesh, with one width per cell and
+rescaled MUSCL differences. It is implemented with eight frozen results, three exact controls and a trusted
+challenge for the scalar claims. Independent implementation review is pending.
+[Contract](../specifications/FV1D-nonuniform.md) · [Proof map](../references/FV1D-nonuniform.md)
+
 ## Burgers line
 
 Merged into `main`:
@@ -111,8 +116,8 @@ vertex 13 has `Σ_k n_13,k = (0, 0, 7/30) ≠ 0` (G8). Paper gaps for the paper 
 
 ## Current architectural limitation / next stress test
 
-The Burgers line is still a periodic, uniform-cell, cell-centered FV specialization. The next recommended geometry
-stress test is a non-uniform fixed 1D mesh with explicit cell geometry and geometry-aware MUSCL reconstruction.
+The Burgers line is a periodic, cell-centered FV specialization. The non-uniform fixed 1D mesh with geometry-aware
+MUSCL reconstruction (FVN) is implemented; its independent review is pending.
 
 See:
 

@@ -142,19 +142,25 @@ median-dual M1–M6 milestones retain their own geometry and scope.
 
 ### Non-uniform fixed 1D finite volume
 
+**Status.** FVN is implemented: first-order and MUSCL steps on a fixed non-uniform periodic mesh, eight frozen
+results, three exact controls and a trusted challenge for the scalar claims. Independent implementation review is
+pending. [Contract](../specifications/FV1D-nonuniform.md) · [Proof map](../references/FV1D-nonuniform.md)
+
 Use Burgers to test geometry independently of the Euler model change. Apply the shared first-order step to both
 models on this mesh once their uniform-grid specializations are established.
 
-Target components:
+Target components (delivered by FVN; see [What FVN showed](../references/FV1D-nonuniform.md#what-fvn-showed)):
 
-1. Explicit 1D cell geometry: cell measure, centroid, left/right faces and face-to-centroid distances.
-2. Scalar FV update with cell-dependent volumes rather than one global `dx`.
-3. Volume-weighted conservation:
+1. [x] Explicit 1D cell geometry: cell measure, centroid, left/right faces and face-to-centroid distances. Delivered
+   as widths only: a 1D centroid is the cell midpoint, so the centroid distances follow from the widths.
+2. [x] Scalar FV update with cell-dependent volumes rather than one global `dx`.
+3. [x] Volume-weighted conservation:
    `sum_i volume_i * u_i`.
-4. Geometry-aware MUSCL reconstruction using distance-normalized differences and actual face offsets.
-5. Proof that the current uniform formulas are recovered as a specialization.
-6. Local CFL / bounds / TVD statements and a clear account of which B1--B3 lemmas remain reusable.
-7. Avoid premature replacement of every current `Fin n` API: generalize only what the milestone actually exercises.
+4. [x] Geometry-aware MUSCL reconstruction using distance-normalized differences and actual face offsets.
+5. [x] Proof that the current uniform formulas are recovered as a specialization.
+6. [x] Local CFL / bounds / TVD statements and a clear account of which B1--B3 lemmas remain reusable.
+7. [x] Avoid premature replacement of every current `Fin n` API: generalize only what the milestone actually exercises.
+   FVN adds new modules only.
 
 Success criterion: the extension should require local geometric generalization, not a rewrite of flux, entropy and time
 composition layers.
