@@ -31,3 +31,21 @@ three indicators and candidates, the positive normalization, quadratic exactness
 asymmetric wrap from cell 5 to cell 0.
 Review constant preservation and the hypotheses of width-weighted conservation separately from accuracy.
 Replay with `lake build --wfail ReviewCases.Reconstruction`. Give the exact revision and any mandatory changes.
+
+## Four implementations after the reconstruction roadmap
+
+1. Review the graded WENO formula in width units of the owning cell. Check the three moment fits, the
+   integrated smoothness on that cell, the positive ideal weights and equal-width reduction. Replay both
+   rational traces across the graded seam with `lake build --wfail ReviewCases.GradedWeno`.
+2. In the Burgers integration check face ownership, the exact-real Forward Euler refinement and the new
+   reconstruction at all three SSPRK stages. Replay `lake build --wfail CFDLean.Exec.WenoRefinement fv1d`.
+3. For Euler, check conservative-component minmod and WENO, their paired fallback and the runtime check
+   after each full step. Replay `lake build --wfail ReviewCases.EulerReconstructedStep`. Both methods have
+   a control where just one raw face has negative pressure.
+4. Run `python3 scripts/test_fv1d.py -v` after building `fv1d`. Inspect the independent moment solve for
+   WENO, the three-component Euler flux replay and the 18 model/scheme/mesh combinations. Report any
+   mandatory changes against the exact candidate in each draft PR.
+
+The CLI uses WENO regularization `1e-6`. Exact-real proofs and native regression tolerances have different scopes.
+The stack leaves fully discrete Euler positivity, a general convergence rate and binary64 certification for review
+in their own milestones.
