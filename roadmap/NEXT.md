@@ -3,7 +3,34 @@
 This file contains work that is actionable or close enough to guide near-term implementation. Long-horizon ideas
 belong in `FUTURE.md`; persistent architectural rules belong in `PRINCIPLES.md`.
 
-Status date: 2026-11-26.
+Status date: 2026-11-27.
+
+## Next decision after the unified 1D driver
+
+**Recommended next task: draft the E1 binary64 contract for one uniform, first-order Burgers Forward Euler step.**
+The accepted 1D work gives us both the [array kernel](../CFDLean/Exec/Kernel.lean) and its
+[exact-real reference](../CFDLean/Exec/Refinement.lean). The driver already runs in binary64. Using one existing
+step lets us state exactly where rounding enters while keeping the flux, mesh and time update fixed.
+
+| Work | What must come first | Scheduling decision |
+|---|---|---|
+| E1 contract proposal | Identify the executable operation and its exact-real reference. Both are available. | Draft next. Specify how finite binary64 inputs represent real values, the hypotheses on the state, cell width and timestep, and a per-cell error bound or enclosure to prove. |
+| Binary64 certificate for that step | Review and freeze the contract, then prove the proposed bound under its hypotheses. | Implementation follows contract review. A certificate for a full SSPRK3 run would also need bounds for the stages and repeated steps. |
+| Exact-real oriented face fluxes on a fixed 2D mesh | The planned 1D density-wave comparison is complete. Choose a concrete mesh and face orientations for the 2D control. | This geometry task can run before, alongside or after E1. With one workstream, take the E1 proposal first. |
+| 1D Euler MUSCL | Choose the system reconstruction and state the conditions that give admissible left and right face states. The current Euler driver uses first order. | A separate numerical milestone. E1 can cover the first-order kernel before this work. |
+| Multidimensional reconstruction | Select a concrete mesh, its geometry, and a method that needs gradients or higher-order face values. | Schedule for higher-order fixed-mesh FV or viscous fluxes. A first-order oriented-face control can use cell values directly. |
+| Certified binary64 output on a 2D mesh | Establish the 2D numerical step and a machine-error result that covers its operations. | This claim needs both tracks. A 1D certificate alone covers only its stated step. |
+
+**Reconstruction already delivered and deferred.** The non-uniform 1D update accepts face fluxes independently of
+how the face states were built. Burgers already has geometry-aware MUSCL on that mesh. The recorded trigger for a
+shared interface for left and right face states is a second, structurally different reconstruction family. The six
+limiter choices all belong to MUSCL. The proposed first-order E1 step uses adjacent cell values directly. A future
+machine-error claim for MUSCL must also account for reconstruction and limiter arithmetic.
+[FVN design decision](../references/FV1D-nonuniform.md#layering) · [Multidimensional reconstruction](SEQUENCING.md#8-geometry-aware-multidimensional-gradients-and-reconstruction)
+
+Human review of the trusted Burgers statements and independent M5 review remain open on their respective tracks.
+For future entries, name the prerequisite for the specific claim and state which work can proceed independently.
+Use the numbered priorities to choose among ready tasks. [Sequencing guide](SEQUENCING.md)
 
 ## Completed work package 0 - branch governance and release workflow
 
@@ -129,9 +156,9 @@ median-dual M1–M6 milestones retain their own geometry and scope.
    runs Burgers with SSPRK3 or Euler with first-order Forward Euler. CI compares Burgers diagnostics and dumps with
    [recorded legacy output](../benchmarks/fv1d/burgers-uniform.txt) and checks Euler against the density-wave benchmark. The [external review](../reviews/FV1D/Driver_Acceptance.md) accepted the driver.
    Non-uniform Euler positivity, Euler MUSCL and native arithmetic certification have separate scope.
-5. **Extend dimension after the 1D comparison.** A periodic Euler density wave with constant pressure and velocity
-   gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
-   mesh. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
+5. **Extend dimension after the 1D comparison.** The periodic Euler density-wave benchmark has been exercised.
+   The next geometry task is to exercise oriented face fluxes on a fixed 2D mesh. Its exact-real scope allows it
+   to proceed independently of E1. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
    with a cell-centered method needs an explicit statement about the control volumes and transfers being compared.
    [Periodic Euler density-wave reference case](../benchmarks/fv1d/README.md)
 
