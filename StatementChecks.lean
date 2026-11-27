@@ -1020,6 +1020,15 @@ example (γ dx dt : ℝ) (hγ : 1 < γ) (hdx : 0 < dx) (hdt : 0 ≤ dt)
   Euler1D.component_balance γ dx dt hγ hdx hdt U hU
 end
 
+namespace CFDLean.Euler1D
+
+example {N : ℕ} [NeZero N] (γ dx dt : ℝ) (hg : 1 < γ) (hdx : 0 < dx)
+    (hdt : 0 ≤ dt) (U : ZMod N → Conservative 1) (hU : ∀ j, (U j).Admissible γ)
+    (hcfl : ∀ j, dt*(rightSpeed γ U ((Periodic.zmodGrid N).prev j)+rightSpeed γ U j) ≤ 2*dx)
+    (i : ZMod N) : (step γ dx dt U i).Admissible γ :=
+  step_admissible γ dx dt hg hdx hdt U hU hcfl i
+end CFDLean.Euler1D
+
 namespace CFDLean.Exec.FV1D
 variable {n : ℕ} [NeZero n]
 

@@ -1,4 +1,4 @@
-import CFDLean.Schemes.Euler.FV1D
+import CFDLean.Schemes.Euler.FV1DPositivity
 import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Tactic.FinCases
 
@@ -41,5 +41,27 @@ theorem updated_cells (i : ZMod 3) :
   simp only [step, FV1D.step, fluxes, massFlux_prev]
   fin_cases i <;> norm_num [initial, state, massFlux, encode, decode,
     Pi.sub_apply, Pi.smul_apply, smul_eq_mul]
+
+/-- At the local CFL endpoint the central old-state weight of cell zero vanishes. -/
+theorem cfl_endpoint_cells (i : ZMod 3) :
+    step 2 1 (1/3) initial i =
+      state (![22/3, 17/6, 23/6] i) := by
+  simp only [step, FV1D.step, fluxes, massFlux_prev]
+  fin_cases i <;> norm_num [initial, state, massFlux, encode, decode,
+    Pi.sub_apply, Pi.smul_apply, smul_eq_mul]
+
+theorem cfl_endpoint_speeds (i : ZMod 3) :
+    rightSpeed 2 initial i = ![3, 2, 3] i := by
+  unfold rightSpeed
+  rw [initial_next]
+  fin_cases i <;> norm_num [speed, endpointSpeed, initial, state, encode, decode,
+    Conservative.pressure, squareSum]
+
+example (U : ZMod 3 → Conservative 1) (i : ZMod 3) : step 2 1 0 U i = U i := by
+  simp [step, FV1D.step]
+
+example (U : ZMod 1 → Conservative 1) (dt : ℝ) (i : ZMod 1) : step 2 1 dt U i = U i := by
+  have he : (Periodic.zmodGrid 1).prev i = i := Subsingleton.elim _ _
+  simp [step, FV1D.step, he]
 
 end CFDLean.Euler1D.Controls

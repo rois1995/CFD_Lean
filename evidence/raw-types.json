@@ -477,6 +477,10 @@
       "type": "∀ (γ : ℝ),\n  1 < γ →\n    ∀ (C : CFDLean.Conservative 1),\n      CFDLean.Conservative.Admissible γ C → CFDLean.Euler1D.face γ C C = CFDLean.physicalFlux γ C fun x => 1",
       "raw_type": "∀ (γ : Real),\n  LT.lt (OfNat.ofNat 1) γ →\n    ∀ (C : CFDLean.Conservative (OfNat.ofNat 1)),\n      CFDLean.Conservative.Admissible γ C →\n        Eq (CFDLean.Euler1D.face γ C C) (CFDLean.physicalFlux γ C fun x => OfNat.ofNat 1)"
     },
+    "CFDLean.Euler1D.step_admissible": {
+      "type": "∀ {N : ℕ} [inst : NeZero N] (γ dx dt : ℝ),\n  1 < γ →\n    0 < dx →\n      0 ≤ dt →\n        ∀ (U : ZMod N → CFDLean.Conservative 1),\n          (∀ (j : ZMod N), CFDLean.Conservative.Admissible γ (U j)) →\n            (∀ (j : ZMod N),\n                dt *\n                    (CFDLean.Euler1D.rightSpeed γ U ((CFDLean.Periodic.zmodGrid N).prev j) +\n                      CFDLean.Euler1D.rightSpeed γ U j) ≤\n                  2 * dx) →\n              ∀ (i : ZMod N), CFDLean.Conservative.Admissible γ (CFDLean.Euler1D.step γ dx dt U i)",
+      "raw_type": "∀ {N : Nat} [inst : NeZero N] (γ dx dt : Real),\n  LT.lt (OfNat.ofNat 1) γ →\n    LT.lt (OfNat.ofNat 0) dx →\n      LE.le (OfNat.ofNat 0) dt →\n        ∀ (U : ZMod N → CFDLean.Conservative (OfNat.ofNat 1)),\n          (∀ (j : ZMod N), CFDLean.Conservative.Admissible γ (U j)) →\n            (∀ (j : ZMod N),\n                LE.le\n                  (HMul.hMul dt\n                    (HAdd.hAdd (CFDLean.Euler1D.rightSpeed γ U ((CFDLean.Periodic.zmodGrid N).prev j))\n                      (CFDLean.Euler1D.rightSpeed γ U j)))\n                  (HMul.hMul (OfNat.ofNat 2) dx)) →\n              ∀ (i : ZMod N), CFDLean.Conservative.Admissible γ (CFDLean.Euler1D.step γ dx dt U i)"
+    },
     "CFDLean.Euler1D.step_constant": {
       "type": "∀ {N : ℕ} [inst : NeZero N] (γ dx dt : ℝ),\n  1 < γ →\n    0 < dx →\n      0 ≤ dt →\n        ∀ (C : CFDLean.Conservative 1),\n          CFDLean.Conservative.Admissible γ C → (CFDLean.Euler1D.step γ dx dt fun x => C) = fun x => C",
       "raw_type": "∀ {N : Nat} [inst : NeZero N] (γ dx dt : Real),\n  LT.lt (OfNat.ofNat 1) γ →\n    LT.lt (OfNat.ofNat 0) dx →\n      LE.le (OfNat.ofNat 0) dt →\n        ∀ (C : CFDLean.Conservative (OfNat.ofNat 1)),\n          CFDLean.Conservative.Admissible γ C → Eq (CFDLean.Euler1D.step γ dx dt fun x => C) fun x => C"
@@ -1168,6 +1172,14 @@
     "CFDLean.JST1.Proofs.p7_22_4": {
       "type": "CFDLean.JST1.Spec.P7_22_4",
       "raw_type": "CFDLean.JST1.Spec.P7_22_4"
+    },
+    "CFDLean.JST1.Proofs.p8_23_1": {
+      "type": "CFDLean.JST1.Spec.P8_23_1",
+      "raw_type": "CFDLean.JST1.Spec.P8_23_1"
+    },
+    "CFDLean.JST1.Proofs.p8_23_2": {
+      "type": "CFDLean.JST1.Spec.P8_23_2",
+      "raw_type": "CFDLean.JST1.Spec.P8_23_2"
     },
     "CFDLean.MedianDual.MeshData.all_patches_boundary": {
       "type": "∀ {n m : ℕ} (M : CFDLean.MedianDual.MeshData n m),\n  M.Conforming → ∀ (i : Fin n), ∑ a, M.ownedPatch a i = ∑ b, if (↑b).2 = i then M.boundaryArea b else 0",

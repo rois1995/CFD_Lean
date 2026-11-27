@@ -1,6 +1,6 @@
 # Burgers B4 implementation: source/result map
 
-Status: **implementation candidate; independent acceptance pending**.
+Status: **accepted** at `4c77f6e` ([acceptance](../reviews/Burgers-B4/Acceptance.md)). Human review of the trusted statements pending.
 
 Frozen contract: `specifications/Burgers-B4.md` (frozen by the agent, `specifications/Burgers-B4-approval.md`).
 Result bindings checked by `scripts/verify.py`: `specifications/Burgers-B4-results.json`. Toolchain: Lean v4.36.0.
