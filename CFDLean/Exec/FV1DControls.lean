@@ -13,8 +13,8 @@ private theorem entry (half dx dt : ℝ) (old : Array (EulerState ℝ))
     (stepArray model half dx dt old)[j]'(by simpa using hj) =
       model.sub old[j]
         (model.scale (dt/dx) (model.sub
-          (face model half old[j] old[(j+1)%old.size]'(succ_mod_lt ⟨j, hj⟩))
-          (face model half old[(j+old.size-1)%old.size]'(pred_mod_lt ⟨j, hj⟩) old[j]))) := by
+          (face model half old[j] (getElem old ((j + 1) % old.size) (succ_mod_lt ⟨j, hj⟩)))
+          (face model half (getElem old ((j + old.size - 1) % old.size) (pred_mod_lt ⟨j, hj⟩)) old[j]))) := by
   exact Array.getElem_ofFn _
 
 /-- Nine entries of the actual array output, including the wraparound face. -/
