@@ -5,7 +5,7 @@
   "approved_revision": "9dedd67443d87cce0cca530fd0b4c8f9b6d7d21e",
   "source_map": "references/Burgers-B3.md",
   "trusted_statement_review": "reviews/Burgers-B3/TrustedStatements_Review.md",
-  "independent_acceptance": "pending",
+  "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0 (reviews/Burgers-B3/Acceptance.md)",
   "results": [
     {
       "id": "B3-L",

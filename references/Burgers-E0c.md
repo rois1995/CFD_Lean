@@ -1,6 +1,6 @@
 # Burgers E0c implementation: source/result map
 
-Status: **implementation candidate; independent acceptance pending**.
+Status: **accepted** at `4c77f6e` ([acceptance](../reviews/Burgers-E0c/Acceptance.md)). Human review of the trusted statements pending.
 
 Frozen contract: `specifications/Burgers-E0c.md` (frozen by the agent, `specifications/Burgers-E0c-approval.md`; the
 user asked for the formulation and the limiters). Result bindings checked by `scripts/verify.py`:

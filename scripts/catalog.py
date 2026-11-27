@@ -57,7 +57,7 @@ AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, `E0c`, status `pending`: implemented, independent review pending). The declarations
+**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, `E0c`, status `accepted`: implementation accepted, see `reviews/Burgers-Implementation/Review.md`). The declarations
 bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-B3b-results.json`, `Burgers-E0-results.json`, `Burgers-E0b-results.json` and `Burgers-E0c-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the

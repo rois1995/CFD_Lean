@@ -82,7 +82,8 @@ Use pull requests for repository changes, including documentation.
 Start the Burgers review at B0. Its kernel audit and result map cover the assembled `ZMod N` scheme B0-S. Decide during
 review whether to add a dedicated trusted challenge for that scheme. [B0 trust boundary](../references/Burgers-B0.md#trusted-boundary-and-exclusions)
 
-1. Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+1. [x] Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+   [Review](../reviews/Burgers-Implementation/Review.md). B0-S gets no dedicated trusted challenge; see the review.
 2. Human-review the trusted Burgers statements that currently have only agent review.
 3. Complete the independent implementation review of M5.
 

@@ -53,7 +53,9 @@ Merged into `main`:
 - E0c: executable MUSCL array kernel with a limiter choice (none, minmod, MC, superbee, van Leer, van Albada),
   refinement for every choice, transferred B3b guarantees (sum for all; bounds and TVD for every limiter).
 
-All Burgers milestones above are implemented and merged, but independent scientific acceptance is still pending.
+All Burgers milestones above are implemented, merged and accepted at `4c77f6e` by the
+[implementation review](../reviews/Burgers-Implementation/Review.md). Human review of the trusted Burgers statements
+is still open.
 
 ## Executable status
 
