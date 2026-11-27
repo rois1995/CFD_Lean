@@ -2,6 +2,9 @@
 
 Status of each gap: OPEN (paper not changed yet), FIXED (paper changed), REJECTED.
 All four FIXED in `Handbook/paper1/paper1.tex` sha256 32e1f260… (2026-11-25 13:54), checked by diff.
+G5-G8 FIXED on 2026-11-27 in the current reference
+`/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`, sha256 `f37419ae…` (see "Paper change of
+2026-11-27" at the end).
 Answers marked "solver session" came from the numerical-development session through the user on 2026-11-25. They are
 proposed answers; the paper session must check them against the text.
 
@@ -75,7 +78,7 @@ copy `LEAN_HANDOFF_PAPER1/paper1.tex` is not changed. pdflatex compiles with no 
 
 ## P4 (2026-11-26): gaps found by the P4 statement review (paper not changed; the paper session decides)
 
-### G5. `prop:wallJST`(ii): "removes only dissipative second-difference terms" — OPEN
+### G5. `prop:wallJST`(ii): "removes only dissipative second-difference terms" — FIXED (2026-11-27)
 
 - The cut sets ε2 = ε4 = 0 on the wall-crossing edges, so it also removes the fourth-difference terms (whose
   production has no sign in general and is ≥ 0 in the model of (iii)). The conclusion ("every identity and inequality
@@ -84,7 +87,7 @@ copy `LEAN_HANDOFF_PAPER1/paper1.tex` is not changed. pdflatex compiles with no 
   second-difference terms, whose production is ≤ 0 edge by edge".
 - Lean: P4-15.4 splits both Π^(2) and Π^(4) exactly; no statement change needed.
 
-### G6. `prop:consistency`(b): smoothness of F^ec — OPEN
+### G6. `prop:consistency`(b): smoothness of F^ec — FIXED (2026-11-27)
 
 - "F^ec differs from the mean by O(|u_k - u_i|²)" needs F^ec to be C² near the diagonal. The proof says "a symmetric,
   consistent, smooth two-point flux". For the Ismail-Roe flux this is the smoothness of the logarithmic mean across
@@ -98,7 +101,7 @@ copy `LEAN_HANDOFF_PAPER1/paper1.tex` is not changed. pdflatex compiles with no 
   set; it scales with |n_ik|); "expand about the midpoint" needs the segment [u_i, u_k] admissible (true: the
   admissible set is convex in conservative variables).
 
-### G7. `prop:wallJST` spectrum proof (cosmetic) — OPEN
+### G7. `prop:wallJST` spectrum proof (cosmetic) — FIXED (2026-11-27)
 
 - "a product of a positive semidefinite and a positive definite matrix (or G_II² on a component without wall
   neighbours)": the case split is per connected component; "the product of two positive semidefinite matrices has a
@@ -121,7 +124,9 @@ frozen Lean statement is affected; line numbers after the results section moved 
   `lem:avg`.
 - Cosmetic: the setting asks W_a^T > 0, mixed meshes allow ω_s ≥ 0.
 
-## G8. `lem:avg` (line 683, proof 988): "Each split is a conforming triangulation of C" — OPEN (found 2026-11-26, P7 proposal)
+## G8. `lem:avg` (line 683, proof 988): "Each split is a conforming triangulation of C" — FIXED (2026-11-27)
+
+Found 2026-11-26 (P7 proposal).
 
 - False for general hexahedra, even valid ones. A cube with its top face turned by θ (cos θ = 3/5) has trilinear
   Jacobian `1 - 2w(1-w)(1 - cos θ) > 0` everywhere, but 8 of the 96 pulling sub-tetrahedra are inverted, and the cell
@@ -140,3 +145,28 @@ frozen Lean statement is affected; line numbers after the results section moved 
   Further notes: `β_i = ∮_{∂Ω} φ_i N` is ambiguous for non-planar boundary faces (define it as the mean over the split
   traces, both diagonals with weight ½); for non-convex cells the "opposite sides" condition at shared faces must hold
   for the sub-tetrahedra, not only for the cells; "valid mesh" is used but not defined.
+
+## Paper change of 2026-11-27: G5-G8 fixed
+
+New reference `/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`, sha256 `f37419ae…` (backup of the
+copy before the fix: `paper1.tex.bak_20261127_gaps`, sha256 `a471619d…`). Checked by diff against that backup; the
+changes between the P8 copy (`6993521d…`, `paper1.tex.bak_20261126_tables`) and the backup are in the
+numerical-results section only. No frozen Lean statement is affected. Line numbers below are of the new copy.
+
+- G5 (lines 360-362): `prop:wallJST`(ii) now says it removes the fourth-difference terms (no entropy sign used) and the
+  dissipative second-difference terms, and that the results hold for any ε2, ε4 ≥ 0, zero included.
+- G6 (lines 1035-1041): the flux must be C² near the diagonal; the midpoint is admissible (convexity); the constant is
+  uniform on compact subsets and scales with |n_ik|; the Ismail-Roe flux qualifies, since 1/L(a, b) =
+  ∫_0^1 dt/((1-t)a + tb). This matches P5-19.1 .. 19.3.
+- G7 (lines 1204, 1207-1208): G_II is named negative semidefinite (L_i = Σ(u_k - u_i)), and the spectrum argument is
+  "a product of two positive semidefinite matrices", one case for all components (as in the Lean proof of P4-15.6).
+- G8 (lines 560-565, 691-692, 699-704, 1053): `lem:avg` now assumes that every sub-simplex of the splits has positive
+  volume; "valid mesh" is defined (including the opposite-sides condition at shared faces for the sub-simplices);
+  β_i and B_c on non-planar boundary faces are the mean over the two diagonal splits; a remark gives the twisted cube
+  (P7-22.4) and the Kuhn-split failure (P8-23.1). The proof line now derives the conforming triangulation from the
+  positive volumes.
+- P6 notes: the first (the ω_s-weighted sum over the sub-simplices) is fixed (lines 1035-1036). Not changed: the
+  algebraic sense of "interior vertex" on mixed meshes, and W_a^T > 0 against ω_s ≥ 0 (cosmetic).
+- Check for the paper session: the G8 remark (line 701) says "8 of its 56 pulling sub-tetrahedra are inverted". The
+  hexahedron has 96 distinct pulling sub-tetrahedra (Lean: `(tetsOf RefCell.hex).dedup` has length 96; numerics:
+  `evidence/JST1/P7-hexsplit.log`, "distinct tets 96"), and the P7 numerics found 8 of the 96 inverted.
