@@ -90,13 +90,16 @@ JST paper material has been folded into `CFDLean/Papers/JST1/`. The catalog cont
 with some proofs delegated to the generic numerical core. Remaining paper gaps and acceptance status are tracked in
 the roadmap and review records.
 
-Status (2026-11-26, status `candidate`): 119 frozen paper-1 statements, all proved with standard axioms
-(`specifications/JST1/P1.md` .. `P6.md`; 37 delegate to MC-N). P4: `prop:wallJST`, `prop:consistency`(b),(c),
+Status (2026-11-27, status `candidate`): 121 frozen paper-1 statements, all proved with standard axioms
+(`specifications/JST1/P1.md` .. `P8.md`; 37 delegate to MC-N). P4: `prop:wallJST`, `prop:consistency`(b),(c),
 `prop:sstpde`, `lem:sstentropy` Hessian. P5: the Ismail-Roe flux is smooth near the diagonal and `F^IR - mean =
 O(|y||Δu|²)` (gap G6, Lean side), and bridge theorems from the paper's Euler definitions to M1 (differences in
 `P5.md`). P6: `∫_T φ_i = m_T` with the Lebesgue integral, `|T| = |det|/d!`, and the Galerkin form of
 `prop:consistency`(b). P7: `lem:avg` for general hexahedra, prisms and pyramids whose pulling sub-tetrahedra keep
-one orientation, and a twisted-cube counterexample without that hypothesis (paper gap G8). Paper gaps for the paper session: `specifications/JST1/PAPER_GAPS.md` (G5-G7 open, P6 notes).
+one orientation, and a twisted-cube counterexample without that hypothesis (paper gap G8). P8: a valid trilinear
+hexahedron whose Kuhn split is not a triangulation, and a conforming 8-cell mesh of valid hexahedra whose interior
+vertex 13 has `Σ_k n_13,k = (0, 0, 7/30) ≠ 0` (G8). Paper gaps for the paper session:
+`specifications/JST1/PAPER_GAPS.md` (G5-G8 open, P6 notes).
 
 ## Current architectural limitation / next stress test
 
