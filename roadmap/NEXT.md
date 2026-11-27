@@ -237,5 +237,6 @@ Keep the generic time-evolution interfaces compatible with future variable-step 
 - Add the archive pointer note in JST_Paper_Lean.
 - Paper 1: all planned statements proved (JST1 P1-P8, 121 of 121): non-affine mixed cells (P7), the Kuhn-split
   counterexample and the interior-vertex failure in a multi-cell mesh (P8), simplex integration (P6). Paper gaps
-  G5-G8 are for the paper session.
+  G1-G8 are fixed in the paper (2026-11-27); two cosmetic P6 notes and one count ("56" for 96 sub-tetrahedra)
+  remain for the paper session.
 - Keep the theorem catalog and raw-type evidence synchronized with every milestone.

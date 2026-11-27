@@ -99,7 +99,8 @@ O(|y||Δu|²)` (gap G6, Lean side), and bridge theorems from the paper's Euler d
 one orientation, and a twisted-cube counterexample without that hypothesis (paper gap G8). P8: a valid trilinear
 hexahedron whose Kuhn split is not a triangulation, and a conforming 8-cell mesh of valid hexahedra whose interior
 vertex 13 has `Σ_k n_13,k = (0, 0, 7/30) ≠ 0` (G8). Paper gaps for the paper session:
-`specifications/JST1/PAPER_GAPS.md` (G5-G8 open, P6 notes).
+`specifications/JST1/PAPER_GAPS.md` (G1-G8 fixed in the paper on 2026-11-27; current reference
+`/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`; two P6 notes remain).
 
 ## Current architectural limitation / next stress test
 

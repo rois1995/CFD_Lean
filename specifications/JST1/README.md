@@ -6,6 +6,11 @@ in CFD_Lean (`P4-proposal.md`, `P4.md`, `P4-results.json`), and P5 (7 statements
 smoothness, M1 bridge) likewise (`P5-proposal.md`, `P5.md`, `P5-results.json`), P6 (3 statements, item 21: `∫_T φ_i = m_T`) and P7 (4 statements,
 item 22: general mixed cells, gap G8); all 119 statements are proved.
 
+Current paper reference (from 2026-11-27): `/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`,
+sha256 `f37419ae…`, with the gaps G1-G8 fixed (`PAPER_GAPS.md`). The specifications P1-P8 name the paper copy
+they were written against (`Handbook/paper1/paper1.tex` of SU2_NativeIntegrated, hash in each file); those records
+are not changed.
+
 | File | Content |
 |---|---|
 | `P1.md`, `P2.md`, `P3.md`, `*-proposal.md`, `P1-approval.md` | frozen specifications, proposals and approval, copied verbatim (they name the JST paths `Paper1/...`, `NumCore/...`) |
