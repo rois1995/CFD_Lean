@@ -15,6 +15,14 @@
       "declarations": [
         "CFDLean.Exec.E1.cast_step"
       ]
+    },
+    {
+      "id": "E1-3",
+      "proposal_obligation": 3,
+      "declarations": [
+        "CFDLean.Exec.E1.checkStep_sound",
+        "CFDLean.Exec.E1.real_cell_bound"
+      ]
     }
   ]
 }
