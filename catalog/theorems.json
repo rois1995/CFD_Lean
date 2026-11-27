@@ -7206,6 +7206,32 @@
       ],
       "summary": "The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update.",
       "source": "references/FVP.md"
+    },
+    {
+      "name": "CFDLean.Exec.FV1D.burgers_refines",
+      "id": "FVA-B",
+      "milestone": "FVA",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "status": "accepted",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The shared real Burgers array step equals the assembled B0 and existing E0 updates.",
+      "source": "references/FVA.md"
+    },
+    {
+      "name": "CFDLean.Exec.FV1D.euler_refines",
+      "id": "FVA-E",
+      "milestone": "FVA",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "status": "accepted",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "All three coordinates of the real Euler array step represent the assembled FV1D update.",
+      "source": "references/FVA.md"
     }
   ]
 }

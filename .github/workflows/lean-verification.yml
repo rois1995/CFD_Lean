@@ -112,6 +112,7 @@ jobs:
         run: |
           ~/.elan/bin/lake build burgers1d
           ./.lake/build/bin/burgers1d 200 200 0.4
+          ~/.elan/bin/lake env lean --run scripts/FV1DSmoke.lean
           ./.lake/build/bin/burgers1d 200 200 0.12 --muscl
           ./.lake/build/bin/burgers1d 200 200 0.12 --limiter vanleer
           ./.lake/build/bin/burgers1d 200 200 0.15 --limiter minmod

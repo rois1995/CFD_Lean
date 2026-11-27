@@ -1028,3 +1028,20 @@ example {N : ℕ} [NeZero N] (γ dx dt : ℝ) (hg : 1 < γ) (hdx : 0 < dx)
     (i : ZMod N) : (step γ dx dt U i).Admissible γ :=
   step_admissible γ dx dt hg hdx hdt U hU hcfl i
 end CFDLean.Euler1D
+
+namespace CFDLean.Exec.FV1D
+variable {n : ℕ} [NeZero n]
+
+example (dx dt : ℝ) (hdx : 0 < dx) (hdt : 0 ≤ dt) (u : ZMod n → ℝ)
+    (old : Array ℝ) (hu : old = samples u) :
+    stepArray burgers (1/2) dx dt old = samples (Burgers.Schemes.RusanovForwardEuler.step dx dt u) ∧
+    stepArray burgers (1/2) dx dt old = eulerStepArray dx dt old :=
+  burgers_refines dx dt hdx hdt u old hu
+
+example (γ dx dt : ℝ) (_hg : 1 < γ) (_hdx : 0 < dx) (_hdt : 0 ≤ dt)
+    (u : ZMod n → Conservative 1) (_hadm : ∀ j, (u j).Admissible γ) (old : Array (EulerState ℝ))
+    (hu : old = samples (fun j => Euler1D.encode (u j))) :
+    stepArray (euler 1 2 γ abs Real.sqrt max) (1/2) dx dt old =
+      samples (fun j => Euler1D.encode (Euler1D.step γ dx dt u j)) :=
+  euler_refines γ dx dt _hg _hdx _hdt u _hadm old hu
+end CFDLean.Exec.FV1D
