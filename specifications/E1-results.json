@@ -8,6 +8,13 @@
       "declarations": [
         "CFDLean.Exec.E1.value_isSome"
       ]
+    },
+    {
+      "id": "E1-2",
+      "proposal_obligation": 2,
+      "declarations": [
+        "CFDLean.Exec.E1.cast_step"
+      ]
     }
   ]
 }

@@ -1092,7 +1092,7 @@ def main(record_raw_types=False):
     e1 = json.loads(read_source("specifications/E1-results.json"))
     if read_source(e1["scope"]) != git_blob("4b914b5bb3ea39ded55b958f5b29d72b7bd20c80", "specifications/E1-burgers-step-proposal.md"):
         raise ValueError("E1 scope differs from its independently reviewed proposal")
-    if [r["id"] for r in e1["results"]] != ["E1-1"]:
+    if [r["id"] for r in e1["results"]] != ["E1-1", "E1-2"]:
         raise ValueError("Unexpected E1 result bindings")
     fv_indices["E1"] = catalog_index("E1", e1)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
