@@ -58,6 +58,8 @@ import CFDLean.Schemes.Burgers.Rusanov
 import CFDLean.Schemes.Burgers.RusanovForwardEuler
 import CFDLean.Schemes.Burgers.FV1D
 import CFDLean.Schemes.Euler.FV1DControls
+import CFDLean.Schemes.Euler.Nonuniform
+import CFDLean.Schemes.Euler.NonuniformControls
 import CFDLean.Schemes.Burgers.Controls
 import CFDLean.Schemes.Burgers.GridControls
 import CFDLean.Schemes.Burgers.RusanovStability
@@ -70,6 +72,7 @@ import CFDLean.Schemes.Burgers.RusanovLimiters
 import CFDLean.Schemes.Burgers.LimiterControls
 import CFDLean.Schemes.Burgers.Nonuniform
 import CFDLean.Schemes.Burgers.NonuniformChecks
+import CFDLean.Schemes.Burgers.NonuniformControls
 
 import CFDLean.Time.ExplicitEuler
 import CFDLean.Time.Controls
