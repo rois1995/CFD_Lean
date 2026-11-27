@@ -95,7 +95,7 @@ that this file equals the generated text. Do not edit by hand.
 | JST1 | candidate | 121 |
 | FV1D | accepted | 4 |
 | FVP | accepted | 1 |
-| FVA | pending | 2 |
+| FVA | accepted | 2 |
 
 ## Foundations (12)
 
@@ -688,5 +688,5 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.run_limiterSsprk3StepArray_bounds` | E0c-T | FVM | accepted | The same bounds result after k kernel MUSCL SSPRK3 steps. |
 | `CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le` | E0c-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
 | `CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le` | E0c-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
-| `CFDLean.Exec.FV1D.burgers_refines` | FVA-B | FVM | pending | The shared real Burgers array step equals the assembled B0 and existing E0 updates. |
-| `CFDLean.Exec.FV1D.euler_refines` | FVA-E | FVM | pending | All three coordinates of the real Euler array step represent the assembled FV1D update. |
+| `CFDLean.Exec.FV1D.burgers_refines` | FVA-B | FVM | accepted | The shared real Burgers array step equals the assembled B0 and existing E0 updates. |
+| `CFDLean.Exec.FV1D.euler_refines` | FVA-E | FVM | accepted | All three coordinates of the real Euler array step represent the assembled FV1D update. |

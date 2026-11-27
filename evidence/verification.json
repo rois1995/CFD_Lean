@@ -224,6 +224,9 @@
     "CFDLean.Entropy.Scalar.Certificates",
     "CFDLean.Entropy.Scalar.Controls",
     "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Exec.FV1D",
+    "CFDLean.Exec.FV1DControls",
+    "CFDLean.Exec.FV1DRefinement",
     "CFDLean.Exec.Kernel",
     "CFDLean.Exec.LimiterKernel",
     "CFDLean.Exec.LimiterRefinement",
@@ -389,14 +392,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 5206,
+    "roots": 5261,
     "unsafe_reached": [],
-    "visited": 64528
+    "visited": 64586
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "c8988a7f84929ca8891489d4202b447780daae249303c25275a109f1f793d81a"
+      "sha256": "1bfa6ce55887e342e4e1289ed647ccaf61f54107957699692ce4b418f52e7666"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -465,6 +468,18 @@
     "CFDLean.Entropy.Scalar.Periodic": {
       "path": "CFDLean/Entropy/Scalar/Periodic.lean",
       "sha256": "215f3423b0ef0f7b3b5931321c2522b3282376cccd4faec49719c03e01c2156b"
+    },
+    "CFDLean.Exec.FV1D": {
+      "path": "CFDLean/Exec/FV1D.lean",
+      "sha256": "d45fb21909fef3491eda48c8712448e494f4e93a5541b86d36599f09e71ceb4e"
+    },
+    "CFDLean.Exec.FV1DControls": {
+      "path": "CFDLean/Exec/FV1DControls.lean",
+      "sha256": "7881ea47b929b98e64182f81fdb80253baf95bc332188f35aac65764f2e1241d"
+    },
+    "CFDLean.Exec.FV1DRefinement": {
+      "path": "CFDLean/Exec/FV1DRefinement.lean",
+      "sha256": "90f85cbb0b1882d8ba09c1644a5e9cc2643412b004ace96634b3d21430becb3f"
     },
     "CFDLean.Exec.Kernel": {
       "path": "CFDLean/Exec/Kernel.lean",
@@ -13485,6 +13500,1044 @@
       "raw_type": null,
       "root": true,
       "type": "\u211d \u2192 \u211d \u2192 Array \u211d \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerState": {
+      "axioms": [],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.EulerState",
+      "raw_type": null,
+      "root": true,
+      "type": "Type \u2192 Type",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk"
+      ],
+      "kind": "inductive",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model",
+      "raw_type": null,
+      "root": true,
+      "type": "Type \u2192 Type \u2192 Type",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model._sizeOf_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.rec",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model._sizeOf_1",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 [SizeOf \u03b1] \u2192 [SizeOf S] \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model._sizeOf_inst": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model._sizeOf_1",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model._sizeOf_inst",
+      "raw_type": null,
+      "root": true,
+      "type": "(\u03b1 S : Type) \u2192 [SizeOf \u03b1] \u2192 [SizeOf S] \u2192 SizeOf (CFDLean.Exec.FV1D.Model \u03b1 S)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.add": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.add",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 S \u2192 S \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.casesOn": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.rec",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.casesOn",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192\n  {motive : CFDLean.Exec.FV1D.Model \u03b1 S \u2192 Sort u} \u2192\n    (t : CFDLean.Exec.FV1D.Model \u03b1 S) \u2192\n      ((add sub : S \u2192 S \u2192 S) \u2192\n          (scale : \u03b1 \u2192 S \u2192 S) \u2192\n            (flux : S \u2192 S) \u2192\n              (speed : S \u2192 S \u2192 \u03b1) \u2192 motive { add := add, sub := sub, scale := scale, flux := flux, speed := speed }) \u2192\n        motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.ctorIdx": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.ctorIdx",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.flux": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.flux",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 S \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.mk": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "constructor",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.mk",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 (S \u2192 S \u2192 S) \u2192 (S \u2192 S \u2192 S) \u2192 (\u03b1 \u2192 S \u2192 S) \u2192 (S \u2192 S) \u2192 (S \u2192 S \u2192 \u03b1) \u2192 CFDLean.Exec.FV1D.Model \u03b1 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.mk._flat_ctor": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.mk._flat_ctor",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 (S \u2192 S \u2192 S) \u2192 (S \u2192 S \u2192 S) \u2192 (\u03b1 \u2192 S \u2192 S) \u2192 (S \u2192 S) \u2192 (S \u2192 S \u2192 \u03b1) \u2192 CFDLean.Exec.FV1D.Model \u03b1 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.mk.inj": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk.noConfusion",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.mk.inj",
+      "raw_type": "\u2200 {\u03b1 S : Type} {add sub : S \u2192 S \u2192 S} {scale : \u03b1 \u2192 S \u2192 S} {flux : S \u2192 S} {speed : S \u2192 S \u2192 \u03b1} {add_1 sub_1 : S \u2192 S \u2192 S}\n  {scale_1 : \u03b1 \u2192 S \u2192 S} {flux_1 : S \u2192 S} {speed_1 : S \u2192 S \u2192 \u03b1},\n  Eq { add := add, sub := sub, scale := scale, flux := flux, speed := speed }\n      { add := add_1, sub := sub_1, scale := scale_1, flux := flux_1, speed := speed_1 } \u2192\n    And (Eq add add_1) (And (Eq sub sub_1) (And (Eq scale scale_1) (And (Eq flux flux_1) (Eq speed speed_1))))",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} {add sub : S \u2192 S \u2192 S} {scale : \u03b1 \u2192 S \u2192 S} {flux : S \u2192 S} {speed : S \u2192 S \u2192 \u03b1} {add_1 sub_1 : S \u2192 S \u2192 S}\n  {scale_1 : \u03b1 \u2192 S \u2192 S} {flux_1 : S \u2192 S} {speed_1 : S \u2192 S \u2192 \u03b1},\n  { add := add, sub := sub, scale := scale, flux := flux, speed := speed } =\n      { add := add_1, sub := sub_1, scale := scale_1, flux := flux_1, speed := speed_1 } \u2192\n    add = add_1 \u2227 sub = sub_1 \u2227 scale = scale_1 \u2227 flux = flux_1 \u2227 speed = speed_1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.mk.injEq": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk.inj",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.mk.injEq",
+      "raw_type": "\u2200 {\u03b1 S : Type} (add sub : S \u2192 S \u2192 S) (scale : \u03b1 \u2192 S \u2192 S) (flux : S \u2192 S) (speed : S \u2192 S \u2192 \u03b1) (add_1 sub_1 : S \u2192 S \u2192 S)\n  (scale_1 : \u03b1 \u2192 S \u2192 S) (flux_1 : S \u2192 S) (speed_1 : S \u2192 S \u2192 \u03b1),\n  Eq\n    (Eq { add := add, sub := sub, scale := scale, flux := flux, speed := speed }\n      { add := add_1, sub := sub_1, scale := scale_1, flux := flux_1, speed := speed_1 })\n    (And (Eq add add_1) (And (Eq sub sub_1) (And (Eq scale scale_1) (And (Eq flux flux_1) (Eq speed speed_1)))))",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} (add sub : S \u2192 S \u2192 S) (scale : \u03b1 \u2192 S \u2192 S) (flux : S \u2192 S) (speed : S \u2192 S \u2192 \u03b1) (add_1 sub_1 : S \u2192 S \u2192 S)\n  (scale_1 : \u03b1 \u2192 S \u2192 S) (flux_1 : S \u2192 S) (speed_1 : S \u2192 S \u2192 \u03b1),\n  ({ add := add, sub := sub, scale := scale, flux := flux, speed := speed } =\n      { add := add_1, sub := sub_1, scale := scale_1, flux := flux_1, speed := speed_1 }) =\n    (add = add_1 \u2227 sub = sub_1 \u2227 scale = scale_1 \u2227 flux = flux_1 \u2227 speed = speed_1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.mk.noConfusion": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model.noConfusion",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.mk.noConfusion",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192\n  {P : Sort u} \u2192\n    {add sub : S \u2192 S \u2192 S} \u2192\n      {scale : \u03b1 \u2192 S \u2192 S} \u2192\n        {flux : S \u2192 S} \u2192\n          {speed : S \u2192 S \u2192 \u03b1} \u2192\n            {add' sub' : S \u2192 S \u2192 S} \u2192\n              {scale' : \u03b1 \u2192 S \u2192 S} \u2192\n                {flux' : S \u2192 S} \u2192\n                  {speed' : S \u2192 S \u2192 \u03b1} \u2192\n                    { add := add, sub := sub, scale := scale, flux := flux, speed := speed } =\n                        { add := add', sub := sub', scale := scale', flux := flux', speed := speed' } \u2192\n                      (add \u224d add' \u2192 sub \u224d sub' \u2192 scale \u224d scale' \u2192 flux \u224d flux' \u2192 speed \u224d speed' \u2192 P) \u2192 P",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.mk.sizeOf_spec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model._sizeOf_inst",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.mk.sizeOf_spec",
+      "raw_type": "\u2200 {\u03b1 S : Type} [inst : SizeOf \u03b1] [inst_1 : SizeOf S] (add sub : S \u2192 S \u2192 S) (scale : \u03b1 \u2192 S \u2192 S) (flux : S \u2192 S)\n  (speed : S \u2192 S \u2192 \u03b1),\n  Eq (sizeOf { add := add, sub := sub, scale := scale, flux := flux, speed := speed }) (OfNat.ofNat 1)",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} [inst : SizeOf \u03b1] [inst_1 : SizeOf S] (add sub : S \u2192 S \u2192 S) (scale : \u03b1 \u2192 S \u2192 S) (flux : S \u2192 S)\n  (speed : S \u2192 S \u2192 \u03b1), sizeOf { add := add, sub := sub, scale := scale, flux := flux, speed := speed } = 1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.noConfusion": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.noConfusionType",
+        "CFDLean.Exec.FV1D.Model.casesOn",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.noConfusion",
+      "raw_type": null,
+      "root": true,
+      "type": "{P : Sort u} \u2192\n  {\u03b1 S : Type} \u2192\n    {t : CFDLean.Exec.FV1D.Model \u03b1 S} \u2192\n      {\u03b1' S' : Type} \u2192\n        {t' : CFDLean.Exec.FV1D.Model \u03b1' S'} \u2192 \u03b1 = \u03b1' \u2192 S = S' \u2192 t \u224d t' \u2192 CFDLean.Exec.FV1D.Model.noConfusionType P t t'",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.noConfusionType": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.casesOn",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.noConfusionType",
+      "raw_type": null,
+      "root": true,
+      "type": "Sort u \u2192 {\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 {\u03b1' S' : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1' S' \u2192 Sort u",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.rec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "recursor",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.rec",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192\n  {motive : CFDLean.Exec.FV1D.Model \u03b1 S \u2192 Sort u} \u2192\n    ((add sub : S \u2192 S \u2192 S) \u2192\n        (scale : \u03b1 \u2192 S \u2192 S) \u2192\n          (flux : S \u2192 S) \u2192\n            (speed : S \u2192 S \u2192 \u03b1) \u2192 motive { add := add, sub := sub, scale := scale, flux := flux, speed := speed }) \u2192\n      (t : CFDLean.Exec.FV1D.Model \u03b1 S) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.recOn": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.rec",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.recOn",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192\n  {motive : CFDLean.Exec.FV1D.Model \u03b1 S \u2192 Sort u} \u2192\n    (t : CFDLean.Exec.FV1D.Model \u03b1 S) \u2192\n      ((add sub : S \u2192 S \u2192 S) \u2192\n          (scale : \u03b1 \u2192 S \u2192 S) \u2192\n            (flux : S \u2192 S) \u2192\n              (speed : S \u2192 S \u2192 \u03b1) \u2192 motive { add := add, sub := sub, scale := scale, flux := flux, speed := speed }) \u2192\n        motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.scale": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.scale",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 \u03b1 \u2192 S \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.speed": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.speed",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 S \u2192 S \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.Model.sub": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.Model.sub",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 S \u2192 S \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.burgers": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.Scalar.max",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.Scalar.burgersFlux",
+        "CFDLean.Exec.Scalar.abs"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.burgers",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 CFDLean.Exec.FV1D.Model \u03b1 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.burgers._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.burgers._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.burgers._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.burgers._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.burgers._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.burgers._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.burgers._redArg._lam_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.burgers._redArg._lam_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.burgers._redArg._lam_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.burgers._redArg._lam_3",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.burgers.eq_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.Scalar.max",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.Scalar.burgersFlux",
+        "CFDLean.Exec.Scalar.abs"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.burgers.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1],\n  Eq CFDLean.Exec.FV1D.burgers\n    { add := fun x1 x2 => HAdd.hAdd x1 x2, sub := fun x1 x2 => HSub.hSub x1 x2, scale := fun x1 x2 => HMul.hMul x1 x2,\n      flux := CFDLean.Exec.Scalar.burgersFlux,\n      speed := fun l r => CFDLean.Exec.Scalar.max (CFDLean.Exec.Scalar.abs l) (CFDLean.Exec.Scalar.abs r) }",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1],\n  CFDLean.Exec.FV1D.burgers =\n    { add := fun x1 x2 => x1 + x2, sub := fun x1 x2 => x1 - x2, scale := fun x1 x2 => x1 * x2,\n      flux := CFDLean.Exec.Scalar.burgersFlux,\n      speed := fun l r => CFDLean.Exec.Scalar.max (CFDLean.Exec.Scalar.abs l) (CFDLean.Exec.Scalar.abs r) }",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.burgers_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.exact_step",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.FV1D.size_stepArray",
+        "CFDLean.Exec.eulerStepArray._proof_3",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.FV1D.stepArray._proof_4",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Burgers.fv1d_step_eq",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.eulerStepArray._proof_2",
+        "CFDLean.Exec.FV1D.samples",
+        "CFDLean.Exec.eulerStepArray",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.FV1D.stepArray._proof_2",
+        "CFDLean.FV1D.step",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.eulerStepArray._proof_4",
+        "CFDLean.Exec.Scalar.max",
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.stepArray._proof_3",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.stepArray",
+        "CFDLean.Periodic.zmodGrid",
+        "CFDLean.Exec.Scalar.burgersFlux",
+        "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.burgers_model",
+        "CFDLean.Exec.Scalar.abs"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.burgers_refines",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (dx dt : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      \u2200 (u : ZMod n \u2192 Real) (old : Array Real),\n        Eq old (CFDLean.Exec.FV1D.samples u) \u2192\n          And\n            (Eq\n              (CFDLean.Exec.FV1D.stepArray CFDLean.Exec.FV1D.burgers (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) dx dt\n                old)\n              (CFDLean.Exec.FV1D.samples (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u)))\n            (Eq\n              (CFDLean.Exec.FV1D.stepArray CFDLean.Exec.FV1D.burgers (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) dx dt\n                old)\n              (CFDLean.Exec.eulerStepArray dx dt old))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : ZMod n \u2192 \u211d) (old : Array \u211d),\n        old = CFDLean.Exec.FV1D.samples u \u2192\n          CFDLean.Exec.FV1D.stepArray CFDLean.Exec.FV1D.burgers (1 / 2) dx dt old =\n              CFDLean.Exec.FV1D.samples (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u) \u2227\n            CFDLean.Exec.FV1D.stepArray CFDLean.Exec.FV1D.burgers (1 / 2) dx dt old =\n              CFDLean.Exec.eulerStepArray dx dt old",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.euler": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.triple",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.pressure",
+        "CFDLean.Exec.FV1D.pressure._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [Add \u03b1] \u2192\n    [Sub \u03b1] \u2192\n      [Mul \u03b1] \u2192\n        [Div \u03b1] \u2192\n          \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 (\u03b1 \u2192 \u03b1) \u2192 (\u03b1 \u2192 \u03b1) \u2192 (\u03b1 \u2192 \u03b1 \u2192 \u03b1) \u2192 CFDLean.Exec.FV1D.Model \u03b1 (CFDLean.Exec.FV1D.EulerState \u03b1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.euler._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler._redArg._lam_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg._lam_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler._redArg._lam_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg._lam_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler._redArg._lam_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg._lam_3",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler._redArg._lam_4": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.euler._redArg._lam_4",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.euler_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.exact_step",
+        "CFDLean.Euler1D.speed",
+        "CFDLean.Euler1D.encode_decode",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Euler1D.flux",
+        "CFDLean.Exec.FV1D.samples",
+        "CFDLean.Euler1D.encode",
+        "CFDLean.Euler1D.step",
+        "CFDLean.FV1D.step",
+        "CFDLean.Exec.FV1D.euler",
+        "CFDLean.Vector",
+        "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.euler_model",
+        "CFDLean.Euler1D.decode",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Conservative",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.stepArray",
+        "CFDLean.Periodic.zmodGrid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.euler_refines",
+      "raw_type": "\u2200 {n : Nat} [inst : NeZero n] (\u03b3 dx dt : Real),\n  LT.lt (OfNat.ofNat 1) \u03b3 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        \u2200 (u : ZMod n \u2192 CFDLean.Conservative (OfNat.ofNat 1)),\n          (\u2200 (j : ZMod n), CFDLean.Conservative.Admissible \u03b3 (u j)) \u2192\n            \u2200 (old : Array (CFDLean.Exec.FV1D.EulerState Real)),\n              Eq old (CFDLean.Exec.FV1D.samples fun j => CFDLean.Euler1D.encode (u j)) \u2192\n                Eq\n                  (CFDLean.Exec.FV1D.stepArray\n                    (CFDLean.Exec.FV1D.euler (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 abs Real.sqrt max)\n                    (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) dx dt old)\n                  (CFDLean.Exec.FV1D.samples fun j => CFDLean.Euler1D.encode (CFDLean.Euler1D.step \u03b3 dx dt u j))",
+      "root": true,
+      "type": "\u2200 {n : \u2115} [inst : NeZero n] (\u03b3 dx dt : \u211d),\n  1 < \u03b3 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        \u2200 (u : ZMod n \u2192 CFDLean.Conservative 1),\n          (\u2200 (j : ZMod n), CFDLean.Conservative.Admissible \u03b3 (u j)) \u2192\n            \u2200 (old : Array (CFDLean.Exec.FV1D.EulerState \u211d)),\n              (old = CFDLean.Exec.FV1D.samples fun j => CFDLean.Euler1D.encode (u j)) \u2192\n                CFDLean.Exec.FV1D.stepArray (CFDLean.Exec.FV1D.euler 1 2 \u03b3 abs Real.sqrt max) (1 / 2) dx dt old =\n                  CFDLean.Exec.FV1D.samples fun j => CFDLean.Euler1D.encode (CFDLean.Euler1D.step \u03b3 dx dt u j)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.face": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.Model.flux",
+        "CFDLean.Exec.FV1D.Model.add",
+        "CFDLean.Exec.FV1D.Model.speed",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.face",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 [Mul \u03b1] \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 \u03b1 \u2192 S \u2192 S \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.face._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.face._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.face.eq_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.Model.flux",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.Model.add",
+        "CFDLean.Exec.FV1D.Model.speed",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.face.eq_1",
+      "raw_type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half : \u03b1) (L R : S),\n  Eq (CFDLean.Exec.FV1D.face M half L R)\n    (M.sub (M.scale half (M.add (M.flux L) (M.flux R))) (M.scale (HMul.hMul (M.speed L R) half) (M.sub R L)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half : \u03b1) (L R : S),\n  CFDLean.Exec.FV1D.face M half L R =\n    M.sub (M.scale half (M.add (M.flux L) (M.flux R))) (M.scale (M.speed L R * half) (M.sub R L))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.pressure": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.pressure._proof_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.pressure",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [Sub \u03b1] \u2192 [Mul \u03b1] \u2192 [Div \u03b1] \u2192 \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.pressure._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.pressure._proof_1",
+      "raw_type": "NeZero (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))",
+      "root": true,
+      "type": "NeZero (2 + 1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.pressure._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.pressure._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.pressure.eq_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.pressure",
+        "CFDLean.Exec.FV1D.pressure._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.pressure.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Sub \u03b1] [inst_1 : Mul \u03b1] [inst_2 : Div \u03b1] (one two \u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (CFDLean.Exec.FV1D.pressure one two \u03b3 u)\n    (HMul.hMul (HSub.hSub \u03b3 one)\n      (HSub.hSub (u \u27e82, Fin.instOfNat\u27e9)\n        (HDiv.hDiv (HMul.hMul (u \u27e81, Fin.instOfNat\u27e9) (u \u27e81, Fin.instOfNat\u27e9)) (HMul.hMul two (u \u27e80, Fin.instOfNat\u27e9)))))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Sub \u03b1] [inst_1 : Mul \u03b1] [inst_2 : Div \u03b1] (one two \u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  CFDLean.Exec.FV1D.pressure one two \u03b3 u = (\u03b3 - one) * (u 2 - u 1 * u 1 / (two * u 0))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.samples": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.samples",
+      "raw_type": null,
+      "root": true,
+      "type": "{S : Type} \u2192 {n : \u2115} \u2192 (ZMod n \u2192 S) \u2192 Array S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.samples._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.samples._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.samples._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.samples._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.samples.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.samples"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.samples.eq_1",
+      "raw_type": "\u2200 {S : Type} {n : Nat} (U : ZMod n \u2192 S), Eq (CFDLean.Exec.FV1D.samples U) (Array.ofFn fun i => U i.val.cast)",
+      "root": true,
+      "type": "\u2200 {S : Type} {n : \u2115} (U : ZMod n \u2192 S), CFDLean.Exec.FV1D.samples U = Array.ofFn fun i => U \u2191\u2191i",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.samples_entries": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.samples"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.samples_entries",
+      "raw_type": "\u2200 {S : Type} {n : Nat} [inst : NeZero n] (a : Array S) (hs : Eq a.size n),\n  Eq (CFDLean.Exec.FV1D.samples fun j => getElem a j.val \u22ef) a",
+      "root": true,
+      "type": "\u2200 {S : Type} {n : \u2115} [inst : NeZero n] (a : Array S) (hs : a.size = n),\n  (CFDLean.Exec.FV1D.samples fun j => a[j.val]) = a",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.size_stepArray": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.stepArray._proof_4",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.stepArray._proof_2",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.stepArray._proof_3",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.stepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.size_stepArray",
+      "raw_type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dx dt : \u03b1) (old : Array S),\n  Eq (CFDLean.Exec.FV1D.stepArray M half dx dt old).size old.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dx dt : \u03b1) (old : Array S),\n  (CFDLean.Exec.FV1D.stepArray M half dx dt old).size = old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.stepArray": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.stepArray._proof_4",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.stepArray._proof_2",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.stepArray._proof_3",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192 [Mul \u03b1] \u2192 [Div \u03b1] \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 Array S \u2192 Array S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.stepArray._proof_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._proof_1",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), Not (LT.lt i.val old.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u00ac\u2191i < old.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.stepArray._proof_2": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.pred_mod_lt"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._proof_2",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size),\n  LT.lt (HMod.hMod (HSub.hSub (HAdd.hAdd i.val old.size) (OfNat.ofNat 1)) old.size) old.size",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), (\u2191i + old.size - 1) % old.size < old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.stepArray._proof_3": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.succ_mod_lt"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._proof_3",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), LT.lt (HMod.hMod (HAdd.hAdd i.val (OfNat.ofNat 1)) old.size) old.size",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), (\u2191i + 1) % old.size < old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.stepArray._proof_4": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.stepArray._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._proof_4",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), LT.lt i.val old.size",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u2191i < old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.stepArray._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.stepArray._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.stepArray._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.stepArray._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.stepArray.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.stepArray._proof_4",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.stepArray._proof_2",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.stepArray._proof_3",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.stepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.stepArray.eq_1",
+      "raw_type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dx dt : \u03b1) (old : Array S),\n  Eq (CFDLean.Exec.FV1D.stepArray M half dx dt old)\n    (Array.ofFn fun i =>\n      have L := getElem old (HMod.hMod (HSub.hSub (HAdd.hAdd i.val old.size) (OfNat.ofNat 1)) old.size) \u22ef;\n      have R := getElem old (HMod.hMod (HAdd.hAdd i.val (OfNat.ofNat 1)) old.size) \u22ef;\n      M.sub (getElem old i \u22ef)\n        (M.scale (HDiv.hDiv dt dx)\n          (M.sub (CFDLean.Exec.FV1D.face M half (getElem old i \u22ef) R)\n            (CFDLean.Exec.FV1D.face M half L (getElem old i \u22ef)))))",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dx dt : \u03b1) (old : Array S),\n  CFDLean.Exec.FV1D.stepArray M half dx dt old =\n    Array.ofFn fun i =>\n      have L := old[(\u2191i + old.size - 1) % old.size];\n      have R := old[(\u2191i + 1) % old.size];\n      M.sub old[i]\n        (M.scale (dt / dx) (M.sub (CFDLean.Exec.FV1D.face M half old[i] R) (CFDLean.Exec.FV1D.face M half L old[i])))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.triple": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.triple._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple._redArg._lam_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.FV1D",
+      "name": "CFDLean.Exec.FV1D.triple._redArg._lam_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.triple_one": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.triple"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.triple_one",
+      "raw_type": "\u2200 {\u03b1 : Type} (r m e : \u03b1), Eq (CFDLean.Exec.FV1D.triple r m e \u27e81, Fin.instOfNat\u27e9) m",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (r m e : \u03b1), CFDLean.Exec.FV1D.triple r m e 1 = m",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.triple_two": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.triple"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.triple_two",
+      "raw_type": "\u2200 {\u03b1 : Type} (r m e : \u03b1), Eq (CFDLean.Exec.FV1D.triple r m e \u27e82, Fin.instOfNat\u27e9) e",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (r m e : \u03b1), CFDLean.Exec.FV1D.triple r m e 2 = e",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.triple_zero": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.triple"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "CFDLean.Exec.FV1D.triple_zero",
+      "raw_type": "\u2200 {\u03b1 : Type} (r m e : \u03b1), Eq (CFDLean.Exec.FV1D.triple r m e \u27e80, Fin.instOfNat\u27e9) r",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (r m e : \u03b1), CFDLean.Exec.FV1D.triple r m e 0 = r",
       "unsafe": false
     },
     "CFDLean.Exec.Limiter": {
@@ -131764,6 +132817,256 @@
       "type": null,
       "unsafe": null
     },
+    "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.entry": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.size_stepArray",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.stepArray._proof_4",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.pred_mod_lt",
+        "CFDLean.Exec.FV1D.stepArray._proof_2",
+        "CFDLean.Exec.succ_mod_lt",
+        "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.model",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.stepArray._proof_3",
+        "CFDLean.Exec.FV1D.stepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DControls",
+      "name": "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.entry",
+      "raw_type": "\u2200 (half dx dt : Real) (old : Array (CFDLean.Exec.FV1D.EulerState Real)) (j : Nat) (hj : LT.lt j old.size),\n  Eq (getElem (CFDLean.Exec.FV1D.stepArray CFDLean.Exec.FV1D.model\u271d half dx dt old) j \u22ef)\n    (CFDLean.Exec.FV1D.model\u271d.sub (getElem old j hj)\n      (CFDLean.Exec.FV1D.model\u271d.scale (HDiv.hDiv dt dx)\n        (CFDLean.Exec.FV1D.model\u271d.sub\n          (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.model\u271d half (getElem old j hj)\n            (getElem old (HMod.hMod (HAdd.hAdd j (OfNat.ofNat 1)) old.size) \u22ef))\n          (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.model\u271d half\n            (getElem old (HMod.hMod (HSub.hSub (HAdd.hAdd j old.size) (OfNat.ofNat 1)) old.size) \u22ef)\n            (getElem old j hj)))))",
+      "root": true,
+      "type": "\u2200 (half dx dt : \u211d) (old : Array (CFDLean.Exec.FV1D.EulerState \u211d)) (j : \u2115) (hj : j < old.size),\n  (CFDLean.Exec.FV1D.stepArray CFDLean.Exec.FV1D.model\u271d half dx dt old)[j] =\n    CFDLean.Exec.FV1D.model\u271d.sub old[j]\n      (CFDLean.Exec.FV1D.model\u271d.scale (dt / dx)\n        (CFDLean.Exec.FV1D.model\u271d.sub\n          (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.model\u271d half old[j] old[(j + 1) % old.size])\n          (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.model\u271d half old[(j + old.size - 1) % old.size] old[j])))",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.model": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.wave._proof_1",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.euler",
+        "CFDLean.Exec.FV1D.Model"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1DControls",
+      "name": "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.model",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Exec.FV1D.Model \u211d (CFDLean.Exec.FV1D.EulerState \u211d)",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.wave": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.wave._proof_1",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.triple"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.FV1DControls",
+      "name": "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.wave",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 CFDLean.Exec.FV1D.EulerState \u211d",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.wave._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DControls",
+      "name": "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.wave._proof_1",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.burgers_model": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.physicalFlux._proof_1",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Burgers.Rusanov.waveSpeed",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.Scalar.max",
+        "CFDLean.Burgers.physicalFlux",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.Scalar.burgersFlux",
+        "CFDLean.Exec.Scalar.abs"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.burgers_model",
+      "raw_type": "Eq CFDLean.Exec.FV1D.burgers\n  { add := fun x1 x2 => HAdd.hAdd x1 x2, sub := fun x1 x2 => HSub.hSub x1 x2, scale := fun x1 x2 => HSMul.hSMul x1 x2,\n    flux := CFDLean.Burgers.physicalFlux, speed := CFDLean.Burgers.Rusanov.waveSpeed }",
+      "root": true,
+      "type": "CFDLean.Exec.FV1D.burgers =\n  { add := fun x1 x2 => x1 + x2, sub := fun x1 x2 => x1 - x2, scale := fun x1 x2 => x1 \u2022 x2,\n    flux := CFDLean.Burgers.physicalFlux, speed := CFDLean.Burgers.Rusanov.waveSpeed }",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.euler_model": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Euler1D.speed",
+        "CFDLean.Euler1D.endpointSpeed",
+        "CFDLean.Euler1D.decode._proof_1",
+        "CFDLean.physicalFlux",
+        "CFDLean.squareSum",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.triple",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Euler1D.flux",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Exec.FV1D.euler",
+        "CFDLean.Vector",
+        "CFDLean.Euler1D.decode",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.pressure",
+        "CFDLean.Exec.FV1D.pressure._proof_1",
+        "CFDLean.Euler1D.encode._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.euler_model",
+      "raw_type": "\u2200 (\u03b3 : Real),\n  Eq (CFDLean.Exec.FV1D.euler (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 abs Real.sqrt max)\n    { add := fun x1 x2 => HAdd.hAdd x1 x2, sub := fun x1 x2 => HSub.hSub x1 x2, scale := fun x1 x2 => HSMul.hSMul x1 x2,\n      flux := CFDLean.Euler1D.flux \u03b3, speed := CFDLean.Euler1D.speed \u03b3 }",
+      "root": true,
+      "type": "\u2200 (\u03b3 : \u211d),\n  CFDLean.Exec.FV1D.euler 1 2 \u03b3 abs Real.sqrt max =\n    { add := fun x1 x2 => x1 + x2, sub := fun x1 x2 => x1 - x2, scale := fun x1 x2 => x1 \u2022 x2,\n      flux := CFDLean.Euler1D.flux \u03b3, speed := CFDLean.Euler1D.speed \u03b3 }",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.exact_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.FV1D.face._proof_1",
+        "CFDLean.Exec.FV1D.Model.flux",
+        "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.stencil",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.Model.add",
+        "CFDLean.Exec.FV1D.samples",
+        "CFDLean.Exec.FV1D.Model.speed",
+        "CFDLean.FV1D.step",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.FV1D.face",
+        "CFDLean.Exec.FV1D.stepArray",
+        "CFDLean.Periodic.zmodGrid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.exact_step",
+      "raw_type": "\u2200 {S : Type} {n : Nat} [inst : NeZero n] [inst_1 : AddCommGroup S] [inst_2 : _root_.Module Real S] (F : S \u2192 S)\n  (a : S \u2192 S \u2192 Real) (dx dt : Real) (u : ZMod n \u2192 S),\n  Eq\n    (CFDLean.Exec.FV1D.stepArray\n      { add := fun x1 x2 => HAdd.hAdd x1 x2, sub := fun x1 x2 => HSub.hSub x1 x2,\n        scale := fun x1 x2 => HSMul.hSMul x1 x2, flux := F, speed := a }\n      (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) dx dt (CFDLean.Exec.FV1D.samples u))\n    (CFDLean.Exec.FV1D.samples (CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid n) F a dx dt u))",
+      "root": true,
+      "type": "\u2200 {S : Type} {n : \u2115} [inst : NeZero n] [inst_1 : AddCommGroup S] [inst_2 : _root_.Module \u211d S] (F : S \u2192 S)\n  (a : S \u2192 S \u2192 \u211d) (dx dt : \u211d) (u : ZMod n \u2192 S),\n  CFDLean.Exec.FV1D.stepArray\n      { add := fun x1 x2 => x1 + x2, sub := fun x1 x2 => x1 - x2, scale := fun x1 x2 => x1 \u2022 x2, flux := F, speed := a }\n      (1 / 2) dx dt (CFDLean.Exec.FV1D.samples u) =\n    CFDLean.Exec.FV1D.samples (CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid n) F a dx dt u)",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.real_two": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.instScalarReal"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.real_two",
+      "raw_type": "Eq CFDLean.Exec.Scalar.two (OfNat.ofNat 2)",
+      "root": true,
+      "type": "CFDLean.Exec.Scalar.two = 2",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.stencil": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.size_stepArray",
+        "CFDLean.Exec.FV1D.stepArray._proof_4",
+        "CFDLean.Exec.FV1D.face",
+        "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.stencil._proof_1_2",
+        "CFDLean.Exec.FV1D.samples",
+        "CFDLean.Exec.FV1D.stepArray._proof_2",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.stepArray._proof_3",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.stepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.stencil",
+      "raw_type": "\u2200 {S : Type} {n : Nat} [NeZero n] (M : CFDLean.Exec.FV1D.Model Real S) (dx dt : Real) (u : ZMod n \u2192 S),\n  Eq (CFDLean.Exec.FV1D.stepArray M (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) dx dt (CFDLean.Exec.FV1D.samples u))\n    (CFDLean.Exec.FV1D.samples fun i =>\n      M.sub (u i)\n        (M.scale (HDiv.hDiv dt dx)\n          (M.sub\n            (CFDLean.Exec.FV1D.face M (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (u i)\n              (u (HAdd.hAdd i (OfNat.ofNat 1))))\n            (CFDLean.Exec.FV1D.face M (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (u (HSub.hSub i (OfNat.ofNat 1)))\n              (u i)))))",
+      "root": true,
+      "type": "\u2200 {S : Type} {n : \u2115} [NeZero n] (M : CFDLean.Exec.FV1D.Model \u211d S) (dx dt : \u211d) (u : ZMod n \u2192 S),\n  CFDLean.Exec.FV1D.stepArray M (1 / 2) dx dt (CFDLean.Exec.FV1D.samples u) =\n    CFDLean.Exec.FV1D.samples fun i =>\n      M.sub (u i)\n        (M.scale (dt / dx)\n          (M.sub (CFDLean.Exec.FV1D.face M (1 / 2) (u i) (u (i + 1)))\n            (CFDLean.Exec.FV1D.face M (1 / 2) (u (i - 1)) (u i))))",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.stencil._proof_1_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.samples",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.stepArray"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.FV1DRefinement",
+      "name": "_private.CFDLean.Exec.FV1DRefinement.0.CFDLean.Exec.FV1D.stencil._proof_1_2",
+      "raw_type": "\u2200 {S : Type} {n : Nat} (M : CFDLean.Exec.FV1D.Model Real S) (dx dt : Real) (u : ZMod n \u2192 S) (j : Nat),\n  LT.lt (OfNat.ofNat 0) n \u2192 Not (LE.le (OfNat.ofNat 1) (HAdd.hAdd j n)) \u2192 False",
+      "root": true,
+      "type": "\u2200 {S : Type} {n : \u2115} (M : CFDLean.Exec.FV1D.Model \u211d S) (dx dt : \u211d) (u : ZMod n \u2192 S) (j : \u2115), 0 < n \u2192 \u00ac1 \u2264 j + n \u2192 False",
+      "unsafe": false
+    },
     "_private.CFDLean.Geometry.MedianDual.Local.0.CFDLean.MedianDual.fin4_val_three": {
       "axioms": [
         "propext"
@@ -134253,7 +135556,11 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 552,
+  "catalog_entries": 554,
+  "fva_promised_theorems": [
+    "CFDLean.Exec.FV1D.burgers_refines",
+    "CFDLean.Exec.FV1D.euler_refines"
+  ],
   "fvp_promised_theorems": [
     "CFDLean.Euler1D.step_admissible"
   ],
@@ -134774,5 +136081,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 552
+  "raw_types_checked": 554
 }

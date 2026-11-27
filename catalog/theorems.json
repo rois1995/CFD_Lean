@@ -7212,7 +7212,7 @@
       "id": "FVA-B",
       "milestone": "FVA",
       "module": "CFDLean.Exec.FV1DRefinement",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Execution",
       "methods": [
         "FVM"
@@ -7225,7 +7225,7 @@
       "id": "FVA-E",
       "milestone": "FVA",
       "module": "CFDLean.Exec.FV1DRefinement",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Execution",
       "methods": [
         "FVM"
