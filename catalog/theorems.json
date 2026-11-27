@@ -7117,6 +7117,32 @@
       "source": "specifications/JST1/P7-results.json P7-22.4 (CFDLean.JST1.Spec.P7_22_4)"
     },
     {
+      "name": "CFDLean.JST1.Proofs.p8_23_1",
+      "id": "P8-23.1",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item23",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell.",
+      "source": "specifications/JST1/P8-results.json P8-23.1 (CFDLean.JST1.Spec.P8_23_1)"
+    },
+    {
+      "name": "CFDLean.JST1.Proofs.p8_23_2",
+      "id": "P8-23.2",
+      "milestone": "JST1",
+      "module": "CFDLean.Papers.JST1.Proofs.Item23",
+      "status": "candidate",
+      "layer": "Geometry",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero.",
+      "source": "specifications/JST1/P8-results.json P8-23.2 (CFDLean.JST1.Spec.P8_23_2)"
+    },
+    {
       "name": "CFDLean.Burgers.fv1d_step_eq",
       "id": "FV1D-B",
       "milestone": "FV1D",

@@ -14,6 +14,7 @@ item 22: general mixed cells, gap G8); all 119 statements are proved.
 | `P5-proposal.md`, `P5.md`, `P5-results.json` | P5, written in CFD_Lean; review `reviews/JST1/P5-statement-review.md` |
 | `P6-proposal.md`, `P6.md`, `P6-results.json` | P6, written in CFD_Lean; review `reviews/JST1/P6-statement-review.md` |
 | `P7-proposal.md`, `P7.md`, `P7-results.json` | P7, written in CFD_Lean; review `reviews/JST1/P7-statement-review.md` |
+| `P8-proposal.md`, `P8.md`, `P8-results.json` | P8, written in CFD_Lean; review `reviews/JST1/P8-statement-review.md` |
 | `P1-results.json`, `P2-results.json`, `P3-results.json` | result maps with the new names: `Paper1.Spec.X` -> `CFDLean.JST1.Spec.X`, `Paper1.Proofs.x` -> `CFDLean.JST1.Proofs.x`, files under `CFDLean/Papers/JST1/Proofs/`; `core_theorem` marks the 37 proofs that apply an MC-N theorem |
 | `frozen.sha256` | sha256 of the folded statement and definition files (`CFDLean/Papers/JST1/**` except `Proofs/`) and of the core files that now hold the JST `NumCore` definitions and the moved definitions; pinned in `scripts/verify.py` |
 | `source-hashes/` | the JST frozen and pin hash lists, for reference only (they list JST paths) |
