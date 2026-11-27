@@ -63,7 +63,12 @@ BURGERS_ACCEPTED_REVISION = "4c77f6e145f1f5d8cdd812a02dce2e7324d179c0"
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
-                  "JST1": "candidate", "FV1D": "accepted"}
+                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted"}
+FV_CONTRACTS = [
+    ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
+    ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
+]
+
 # Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
 # frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
 # to its definitions and theorems,
@@ -192,7 +197,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "fc4f7331db6b8516b316c2b0fd86e24e0c33648e3b9333d86a953b61320d6c13"
+RAW_TYPES_SHA256 = "e28a5699a572f4f8f704bfd15a0c2dc2787f7d5566d47016e25d184984e72c18"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
@@ -998,22 +1003,24 @@ def main(record_raw_types=False):
         raise ValueError("JST1 rebinds an M1-M5, MC-N or Burgers promised theorem")
     forbidden_scanned = check_forbidden_tokens(
         [path for path in lean_sources if path.startswith(FORBIDDEN_ROOT + "/")], read_source)
-    fv1d = json.loads((ROOT / "specifications/FV1D-results.json").read_text())
-    fv1d_freeze = "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"
-    for path in ("specifications/FV1D.md", "specifications/FV1D-approval.md"):
-        if read_source(path) != git_blob(fv1d_freeze, path):
-            raise ValueError(f"FV1D frozen contract or approval changed: {path}")
-    check_result_ids(fv1d, (ROOT / "specifications/FV1D.md").read_text(), "FV1D")
-    fv1d_index = catalog_index("FV1D", fv1d)
+    fv_indices = {}
+    for milestone, stem, freeze in FV_CONTRACTS:
+        for suffix in (".md", "-approval.md"):
+            path = stem + suffix
+            if read_source(path) != git_blob(freeze, path):
+                raise ValueError(f"{milestone} frozen contract or approval changed: {path}")
+        record = json.loads(read_source(stem + "-results.json"))
+        check_result_ids(record, read_source(stem + ".md").decode(), milestone)
+        fv_indices[milestone] = catalog_index(milestone, record)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
     for milestone, index in [(m, catalog_index(m, r)) for m, r in
                              [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)] + list(
-                                 burgers.items())] + [("JST1", jst1_catalog_index(jst1)), ("FV1D", fv1d_index)]:
+                                 burgers.items())] + [("JST1", jst1_catalog_index(jst1))] + list(fv_indices.items()):
         if set(index) & set(catalog_expected):
             raise ValueError(f"{milestone} rebinds a theorem promised by another milestone")
         catalog_expected.update(index)
     if {name for name, (milestone, _) in catalog_expected.items() if milestone != "M1"} != set(promised) | set(
-            mcn_promised) | all_burgers | set(jst1_promised) | set(fv1d_index):
+            mcn_promised) | all_burgers | set(jst1_promised) | set().union(*fv_indices.values()):
         raise ValueError("Catalog promise index differs from the active promised theorems")
     catalog = json.loads((ROOT / CATALOG).read_text(encoding="utf-8"))
     catalog_entries = check_catalog(catalog, catalog_expected, rows)
@@ -1093,7 +1100,8 @@ def main(record_raw_types=False):
         "mc_n_results": MC_N_RESULTS, "mc_n_promised_theorems": mcn_promised,
         "mc_n_base_revision": MC_N_BASE_REVISION, "mc_n_unchanged_sources": mcn_sources,
         "catalog": CATALOG, "catalog_entries": catalog_entries,
-        "fv1d_promised_theorems": sorted(fv1d_index),
+        "fvp_promised_theorems": sorted(fv_indices["FVP"]),
+        "fv1d_promised_theorems": sorted(fv_indices["FV1D"]),
         "burgers": {milestone: {
             "results": BURGERS[milestone]["results"], "approved_revision": BURGERS[milestone]["approved"],
             "promised_theorems": burgers_promised[milestone], "trusted_bridge_theorems": burgers_bridges[milestone],

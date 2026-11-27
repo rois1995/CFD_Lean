@@ -1,13 +1,13 @@
 # CFD_Lean theorem catalog (MC-C)
 
-551 promised theorems, grouped by layer.
+552 promised theorems, grouped by layer.
 
 ## Rules
 
 Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theorems (M1 has no result map; its
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
-`specifications/M2-results.json` .. `M5-results.json`, the four FV1D claims in `specifications/FV1D-results.json`, every theorem of `specifications/MC-N-results.json`, and the
+`specifications/M2-results.json` .. `M5-results.json`, the FV1D and FVP result maps, every theorem of `specifications/MC-N-results.json`, and the
 121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
@@ -64,15 +64,15 @@ that this file equals the generated text. Do not edit by hand.
 | Discrete operators | 89 | 10 | 60 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
-| Schemes | 104 | 7 | 79 | 7 | 11 |
+| Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 93 | 0 | 73 | 0 | 20 |
 | Execution | 53 | 0 | 53 | 0 | 0 |
-| **Total** | 551 | 17 | 334 | 30 | 170 |
+| **Total** | 552 | 17 | 335 | 30 | 170 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 364 |
+| FVM | 365 |
 | method-free | 170 |
 
 | Milestone | Status | Theorems |
@@ -94,6 +94,7 @@ that this file equals the generated text. Do not edit by hand.
 | E0c | accepted | 19 |
 | JST1 | candidate | 121 |
 | FV1D | accepted | 4 |
+| FVP | accepted | 1 |
 
 ## Foundations (12)
 
@@ -421,7 +422,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p5_20_3` | P5-20.3 | method-free | candidate | The paper's Euler flux on a vector y equals M1's integrated physical flux on the area vector y, for every state. |
 | `CFDLean.JST1.Proofs.p5_20_4` | P5-20.4 | method-free | candidate | The paper's entropy −ρs/(γ−1) and its entropy variables written in M1's primitive variables (ρ, v, p). |
 
-## Schemes (104)
+## Schemes (105)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -529,6 +530,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Euler1D.face_consistent` | FV1D-F | FVM | accepted | On equal admissible states the Euler numerical flux equals the M1 positive-unit-face flux. |
 | `CFDLean.Euler1D.step_constant` | FV1D-K | FVM | accepted | One periodic Euler step preserves each admissible constant state. |
 | `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
+| `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | accepted | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
 
 ## Time (93)
 
