@@ -66,7 +66,7 @@ CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "a
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
-                  "FVNA": "pending"}
+                  "FVNA": "accepted"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -197,8 +197,7 @@ BURGERS = {
             "count": 17, "bridges": 9},
     # FVNA: executable array kernels on the non-uniform periodic 1D mesh. As E0c, the trusted statements of FVNA-M and
     # FVNA-T import, besides Mathlib, the hash-pinned kernel modules and real instances (`trusted_inputs`), here with
-    # the FVA first-order kernel and the non-uniform kernel. Own result map and bridge module (`bridge`); independent
-    # implementation acceptance is pending (`pending`).
+    # the FVA first-order kernel and the non-uniform kernel. Implementation acceptance is recorded separately.
     "FVNA": {"results": "specifications/FV1D-nonuniform-array-results.json",
              "approved": "077a916beaa9b6b8ffbebdb0a3bc1571ff51537a",
              "statements": "CFDLean/Verification/FV1DNonuniformArrayChallenge.lean",
@@ -227,7 +226,9 @@ BURGERS = {
                  "CFDLean.Exec.NonuniformKernel": {
                      "path": "CFDLean/Exec/NonuniformKernel.lean",
                      "sha256": "9b7fbf1e82d0dfa1e05097e992317e20434008c9166a15caa956877de7682f95"}},
-             "bridge": "CFDLean.Verification.FV1DNonuniformArrayVerify", "pending": True,
+             "bridge": "CFDLean.Verification.FV1DNonuniformArrayVerify",
+             "accepted_revision": "95e571ed1aed64d5b83e57686d0a1209fa5974bc",
+             "acceptance_record": "reviews/FVNA/Acceptance.md",
              "count": 20, "bridges": 13},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement

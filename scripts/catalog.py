@@ -30,8 +30,7 @@ targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
 independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). FVN (FV1D on a
 non-uniform periodic 1D mesh, `specifications/FV1D-nonuniform-results.json`) is `pending`: implemented, independent
-review pending. FVNA (executable array kernels on that mesh, `specifications/FV1D-nonuniform-array-results.json`) is
-`pending`: implemented, independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
+review pending. FVNA is independently accepted (`reviews/FVNA/Acceptance.md`). `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
 JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 

@@ -5,7 +5,7 @@
   "approved_revision": "077a916beaa9b6b8ffbebdb0a3bc1571ff51537a",
   "source_map": "references/FV1D-nonuniform-array.md",
   "trusted_statement_review": "reviews/FVNA/TrustedStatements_Review.md",
-  "independent_acceptance": "pending",
+  "independent_acceptance": "accepted at 95e571ed1aed64d5b83e57686d0a1209fa5974bc",
   "results": [
     {
       "id": "FVNA-F",

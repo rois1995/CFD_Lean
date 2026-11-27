@@ -151279,8 +151279,8 @@
         "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_step_refines",
         "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_weighted_sum"
       ],
-      "independent_acceptance": "pending",
-      "acceptance_record": null
+      "independent_acceptance": "accepted at 95e571ed1aed64d5b83e57686d0a1209fa5974bc",
+      "acceptance_record": "reviews/FVNA/Acceptance.md"
     }
   },
   "mr_paths": "specifications/MR-paths.json",
