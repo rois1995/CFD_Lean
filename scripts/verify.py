@@ -66,7 +66,7 @@ CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "a
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
-                  "FVNA": "accepted"}
+                  "FVNA": "accepted", "E1": "pending", "FVT": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -1089,6 +1089,18 @@ def main(record_raw_types=False):
         record = json.loads(read_source(stem + "-results.json"))
         check_result_ids(record, read_source(stem + ".md").decode(), milestone)
         fv_indices[milestone] = catalog_index(milestone, record)
+    e1 = json.loads(read_source("specifications/E1-results.json"))
+    if read_source(e1["scope"]) != git_blob("4b914b5bb3ea39ded55b958f5b29d72b7bd20c80", "specifications/E1-burgers-step-proposal.md"):
+        raise ValueError("E1 scope differs from its independently reviewed proposal")
+    if [r["id"] for r in e1["results"]] != ["E1-1", "E1-2", "E1-3"]:
+        raise ValueError("Unexpected E1 result bindings")
+    fv_indices["E1"] = catalog_index("E1", e1)
+    traces = json.loads(read_source("specifications/FV1D-euler-traces-results.json"))
+    if read_source(traces["scope"]) != git_blob("5d76e8bea0390161aa388c92ec34f18d57bcbe50", traces["scope"]):
+        raise ValueError("Uniform Euler MUSCL scope differs from its reviewed revision")
+    if [r["id"] for r in traces["results"]] != ["FVT-A", "FVT-M", "FVT-R", "FVT-K"]:
+        raise ValueError("Unexpected uniform Euler trace result bindings")
+    fv_indices["FVT"] = catalog_index("FVT", traces)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
     for milestone, index in [(m, catalog_index(m, r)) for m, r in
                              [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)] + list(

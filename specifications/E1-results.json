@@ -1,0 +1,28 @@
+{
+  "scope": "specifications/E1-burgers-step-proposal.md",
+  "review": "reviews/E1/Scope_Freeze.md",
+  "results": [
+    {
+      "id": "E1-1",
+      "proposal_obligation": 1,
+      "declarations": [
+        "CFDLean.Exec.E1.value_isSome"
+      ]
+    },
+    {
+      "id": "E1-2",
+      "proposal_obligation": 2,
+      "declarations": [
+        "CFDLean.Exec.E1.cast_step"
+      ]
+    },
+    {
+      "id": "E1-3",
+      "proposal_obligation": 3,
+      "declarations": [
+        "CFDLean.Exec.E1.checkStep_sound",
+        "CFDLean.Exec.E1.real_cell_bound"
+      ]
+    }
+  ]
+}

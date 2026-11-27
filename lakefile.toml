@@ -38,3 +38,8 @@ root = "FVMain"
 name = "ReviewCases"
 srcDir = "benchmarks"
 globs = ["ReviewCases.+"]
+
+[[lean_exe]]
+name = "e1NativeReplay"
+srcDir = "benchmarks"
+root = "E1NativeReplay"
