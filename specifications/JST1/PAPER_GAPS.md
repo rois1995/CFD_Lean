@@ -131,6 +131,10 @@ frozen Lean statement is affected; line numbers after the results section moved 
 - Lean: P3-11.7/11.8 assume affine cells, where it cannot happen. P7 (proved 2026-11-26) states the general version
   with the hypothesis "all sub-tetrahedra consistently oriented" (P7-22.1, 22.2) and proves the counterexample
   (P7-22.4).
+- P8 (proved 2026-11-27): the Kuhn (neighbour-fan) split fails too. A valid trilinear hexahedron with its top face
+  turned by about 106° has a Kuhn split that is not a triangulation (P8-23.1), and a conforming 8-cell mesh of valid
+  hexahedra has `Σ_k n_13,k = (0, 0, 7/30) ≠ 0` at its interior vertex 13 (P8-23.2). Numerics:
+  `evidence/JST1/P8-search.py`.
 - Suggested fix: add that hypothesis to `lem:avg` (or say which cells the scheme accepts).
 - P7 statement review (2026-11-26): on the twisted cube `β_i` differs from the boundary formula at all 8 vertices.
   Further notes: `β_i = ∮_{∂Ω} φ_i N` is ambiguous for non-planar boundary faces (define it as the mean over the split
