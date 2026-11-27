@@ -82,7 +82,8 @@ Use pull requests for repository changes, including documentation.
 Start the Burgers review at B0. Its kernel audit and result map cover the assembled `ZMod N` scheme B0-S. Decide during
 review whether to add a dedicated trusted challenge for that scheme. [B0 trust boundary](../references/Burgers-B0.md#trusted-boundary-and-exclusions)
 
-1. Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+1. [x] Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+   [Review](../reviews/Burgers-Implementation/Review.md). B0-S gets no dedicated trusted challenge; see the review.
 2. Human-review the trusted Burgers statements that currently have only agent review.
 3. Complete the independent implementation review of M5.
 
@@ -123,8 +124,7 @@ median-dual M1–M6 milestones retain their own geometry and scope.
 2. [x] **Share the first-order step.** Both models supply their physical flux and a two-state speed to the same
    periodic Rusanov and Forward Euler formulas. The sums of the three Euler quantities follow by projection of
    a single state conservation theorem. [Shared method](../CFDLean/Discrete/Periodic/Rusanov.lean)
-3. [x] **Implement the four frozen claims and three-cell control.** Independent implementation acceptance is
-   pending. [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
+3. [x] **Implement the four frozen claims and three-cell control.** [Independent review](../reviews/FV1D/Acceptance.md) accepted all four claims. [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
 4. **Select one physical model per run.** The planned executable takes an explicit model argument, for example
    `lake exe fv1d --model burgers` or `lake exe fv1d --model euler`. Dispatch once in the driver and advance the
    selected state through the shared array traversal and time loop. Preserve `burgers1d` as a Burgers entry point
@@ -138,6 +138,7 @@ median-dual M1–M6 milestones retain their own geometry and scope.
    gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
    mesh. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
    with a cell-centered method needs an explicit statement about the control volumes and transfers being compared.
+   [Periodic Euler density-wave reference case](../benchmarks/fv1d/README.md)
 
 ### Non-uniform fixed 1D finite volume
 
@@ -227,6 +228,8 @@ Keep the generic time-evolution interfaces compatible with future variable-step 
 - Narrow `CFDLean.Num.Basic`'s broad `import Mathlib` where practical.
 - Move remaining generic JST results (P1-5.4b, P1-5.8) into the numerical core when justified.
 - Add the archive pointer note in JST_Paper_Lean.
-- Paper 1: non-affine mixed cells done (JST1 P7, paper gap G8 for the paper session); simplex integration done (P6).
-  Open: a Kuhn-family counterexample with explicit cell; interior-vertex failure in a multi-cell mesh.
+- Paper 1: all planned statements proved (JST1 P1-P8, 121 of 121): non-affine mixed cells (P7), the Kuhn-split
+  counterexample and the interior-vertex failure in a multi-cell mesh (P8), simplex integration (P6). Paper gaps
+  G1-G8 are fixed in the paper (2026-11-27); two cosmetic P6 notes and one count ("56" for 96 sub-tetrahedra)
+  remain for the paper session.
 - Keep the theorem catalog and raw-type evidence synchronized with every milestone.

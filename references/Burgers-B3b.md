@@ -1,6 +1,6 @@
 # Burgers B3b implementation: source/result map
 
-Status: **implementation candidate; independent acceptance pending**.
+Status: **accepted** at `4c77f6e` ([acceptance](../reviews/Burgers-B3b/Acceptance.md)). Human review of the trusted statements pending.
 
 Frozen contract: `specifications/Burgers-B3b.md` (frozen by the agent, `specifications/Burgers-B3b-approval.md`; the
 user asked for the formulation and the limiters). Result bindings checked by `scripts/verify.py`:

@@ -24,11 +24,11 @@ Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theore
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
 `specifications/M2-results.json` .. `M5-results.json`, the FV1D and FVP result maps, every theorem of `specifications/MC-N-results.json`, and the
-119 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P7-results.json` (IDs `P1-x.y` .. `P7-x.y`).
+121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
-independent review pending. FV1D is pending independent implementation review. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
-JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P7 statements written here (self-checked,
+independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
+JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
 **Layer** (by the mathematical object a statement is about, not by milestone or module):
@@ -57,7 +57,7 @@ AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, `E0c`, status `pending`: implemented, independent review pending). The declarations
+**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, `E0c`, status `accepted`: implementation accepted, see `reviews/Burgers-Implementation/Review.md`). The declarations
 bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-B3b-results.json`, `Burgers-E0-results.json`, `Burgers-E0b-results.json` and `Burgers-E0c-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the

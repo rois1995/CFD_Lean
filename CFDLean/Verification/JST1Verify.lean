@@ -16,6 +16,7 @@ import CFDLean.Papers.JST1.Spec.Item2
 import CFDLean.Papers.JST1.Spec.Item20
 import CFDLean.Papers.JST1.Spec.Item21
 import CFDLean.Papers.JST1.Spec.Item22
+import CFDLean.Papers.JST1.Spec.Item23
 import CFDLean.Papers.JST1.Spec.Item3
 import CFDLean.Papers.JST1.Spec.Item4
 import CFDLean.Papers.JST1.Spec.Item5
@@ -47,6 +48,7 @@ import CFDLean.Papers.JST1.Proofs.Item2Euler
 import CFDLean.Papers.JST1.Proofs.Item20
 import CFDLean.Papers.JST1.Proofs.Item21
 import CFDLean.Papers.JST1.Proofs.Item22
+import CFDLean.Papers.JST1.Proofs.Item23
 import CFDLean.Papers.JST1.Proofs.Item2Generic
 import CFDLean.Papers.JST1.Proofs.Item3
 import CFDLean.Papers.JST1.Proofs.Item6
@@ -181,5 +183,7 @@ theorem p7_22_1 : CFDLean.JST1.Spec.P7_22_1 := CFDLean.JST1.Proofs.p7_22_1
 theorem p7_22_2 : CFDLean.JST1.Spec.P7_22_2 := CFDLean.JST1.Proofs.p7_22_2
 theorem p7_22_3 : CFDLean.JST1.Spec.P7_22_3 := CFDLean.JST1.Proofs.p7_22_3
 theorem p7_22_4 : CFDLean.JST1.Spec.P7_22_4 := CFDLean.JST1.Proofs.p7_22_4
+theorem p8_23_1 : CFDLean.JST1.Spec.P8_23_1 := CFDLean.JST1.Proofs.p8_23_1
+theorem p8_23_2 : CFDLean.JST1.Spec.P8_23_2 := CFDLean.JST1.Proofs.p8_23_2
 
 end CFDLean.Verification.JST1Verify

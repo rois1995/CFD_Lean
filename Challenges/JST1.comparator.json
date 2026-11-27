@@ -120,7 +120,9 @@
     "CFDLean.Verification.JST1Verify.p7_22_1",
     "CFDLean.Verification.JST1Verify.p7_22_2",
     "CFDLean.Verification.JST1Verify.p7_22_3",
-    "CFDLean.Verification.JST1Verify.p7_22_4"
+    "CFDLean.Verification.JST1Verify.p7_22_4",
+    "CFDLean.Verification.JST1Verify.p8_23_1",
+    "CFDLean.Verification.JST1Verify.p8_23_2"
   ],
   "definition_names": [],
   "permitted_axioms": [

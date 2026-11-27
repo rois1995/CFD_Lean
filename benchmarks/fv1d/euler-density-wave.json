@@ -1,0 +1,38 @@
+{
+  "model": "ideal-gas Euler 1D",
+  "gamma": 2,
+  "mesh": {
+    "domain": [0, 1],
+    "boundary": "periodic",
+    "spacing": "uniform",
+    "cells": 4,
+    "ordering": "increasing x from 0"
+  },
+  "primitive_solution": {
+    "density": "1 + (pi/8) * sin(2*pi*(x - 2*t))",
+    "velocity": 2,
+    "pressure": 1
+  },
+  "components": ["density", "x_momentum_density", "total_energy_density"],
+  "domain_integrals": [1, 2, 3],
+  "snapshots": [
+    {
+      "time": 0,
+      "exact_cell_averages": [
+        [1.25, 2.5, 3.5],
+        [1.25, 2.5, 3.5],
+        [0.75, 1.5, 2.5],
+        [0.75, 1.5, 2.5]
+      ]
+    },
+    {
+      "time": 0.125,
+      "exact_cell_averages": [
+        [0.75, 1.5, 2.5],
+        [1.25, 2.5, 3.5],
+        [1.25, 2.5, 3.5],
+        [0.75, 1.5, 2.5]
+      ]
+    }
+  ]
+}

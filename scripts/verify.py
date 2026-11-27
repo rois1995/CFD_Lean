@@ -58,10 +58,12 @@ CATALOG_FIELDS = ("name", "id", "milestone", "module", "status", "layer", "metho
 CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes",
                   "Time", "Execution")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
+# Burgers B0-B4, B3b, E0, E0b and E0c: implementation accepted at this revision (reviews/Burgers-Implementation).
+BURGERS_ACCEPTED_REVISION = "4c77f6e145f1f5d8cdd812a02dce2e7324d179c0"
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
-                  "MC-N": "candidate", "B0": "pending", "B1": "pending", "B2": "pending", "B3": "pending",
-                  "B4": "pending", "E0": "pending", "E0b": "pending", "B3b": "pending", "E0c": "pending",
-                  "JST1": "candidate", "FV1D": "pending", "FVP": "pending"}
+                  "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
+                  "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
+                  "JST1": "candidate", "FV1D": "accepted", "FVP": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -178,36 +180,37 @@ BURGERS = {
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
-# the 119 bindings of the P1-P7 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
+# the 121 bindings of the P1-P8 result maps is an `example : statement := theorem` line of KernelAudit.lean (elaborated
 # by the audit run) and its theorem is a root theorem with standard axioms in its module; a binding with a
 # `core_theorem` (the 37 MC-N statements) must use that MC-N theorem directly. CFDLean/Papers has no forbidden token.
 JST1_RESULTS = (("specifications/JST1/P1-results.json", 36), ("specifications/JST1/P2-results.json", 36),
                 ("specifications/JST1/P3-results.json", 20), ("specifications/JST1/P4-results.json", 13),
                 ("specifications/JST1/P5-results.json", 7),
                 ("specifications/JST1/P6-results.json", 3),
-                ("specifications/JST1/P7-results.json", 4))
-JST1_PAPERS = ("P1", "P2", "P3", "P4", "P5", "P6", "P7")
-JST1_COUNT = 119
+                ("specifications/JST1/P7-results.json", 4),
+                ("specifications/JST1/P8-results.json", 2))
+JST1_PAPERS = ("P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8")
+JST1_COUNT = 121
 # MR-3: the pretty and raw types (`pp.notation false`, `pp.coercions false`; field `raw_type` of KernelAudit.lean) of
 # every promised theorem (M1-M5, MC-N, Burgers, JST1: the catalog index) are pinned in evidence/raw-types.json, whose hash is
 # pinned here; a run fails if a type changes. The accepted v4.19 history has no raw types (they cannot be regenerated),
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "37d5f1546754bb60b7b07be093d0a521d1761044cc4a338e0ef36cefde545c0a"
+RAW_TYPES_SHA256 = "fc4f7331db6b8516b316c2b0fd86e24e0c33648e3b9333d86a953b61320d6c13"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
-JST1_FROZEN_SHA256 = "2d8771766cf3b91f970211bf81eccdc89b9a8f34a07a86a3aa94891a6d9a5629"
-# The JST1 `lake comparator` challenge (pinned) states the 119 frozen statements with `sorry` and imports only the
+JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
+# The JST1 `lake comparator` challenge (pinned) states the 121 frozen statements with `sorry` and imports only the
 # JST1 statement modules; the solution module restates each under the same name, bound to its JST1 proof.
 JST1_CHALLENGE = "Challenges/JST1.lean"
-JST1_CHALLENGE_SHA256 = "bddedce4c0d39726b8b56cf486948fc0e30c945840a753b3200e158b27d592b1"
+JST1_CHALLENGE_SHA256 = "8a0d4e6b26fef4d5a38252af135a5cb76a36a259f81d3f6acef6a8edd62b3246"
 JST1_COMPARATOR = "Challenges/JST1.comparator.json"
 JST1_SOLUTION = "CFDLean.Verification.JST1Verify"
-JST1_ID = re.compile(r"P[1-7]-[0-9]+\.[0-9]+[a-z]?")
+JST1_ID = re.compile(r"P[1-8]-[0-9]+\.[0-9]+[a-z]?")
 # The frozen JST1 result IDs are the statement definitions `def P<a>_<b>_<c> : Prop` of the hash-pinned statement files
 # (CFDLean/Papers/JST1/Spec/); ID `P<a>-<b>.<c>` binds statement `CFDLean.JST1.Spec.P<a>_<b>_<c>`.
-JST1_SPEC_DEF = re.compile(r"^def (P[1-7])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
+JST1_SPEC_DEF = re.compile(r"^def (P[1-8])_([0-9]+)_([0-9]+[a-z]?) : Prop :=", re.MULTILINE)
 FORBIDDEN_ROOT = "CFDLean/Papers"
 FORBIDDEN = re.compile(r"\bsorry\b|\badmit\b|\baxiom\b|native_decide|implemented_by|\bunsafe\b|\bopaque\b|@\[extern"
                        r"|skipKernelTC", re.MULTILINE)
@@ -747,7 +750,7 @@ def strip_lean_comments(text):
 
 
 def check_jst1(rows, records, audit_text, core_theorems, frozen_ids):
-    """The 119 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
+    """The 121 JST1 bindings: exactly the frozen IDs, each in the result map of its paper part and bound to the
     statement of its ID; unique names in CFDLean.JST1; each bound in the audit (outside comments); each a root theorem
     with standard axioms in its module whose type is its statement; the statement a definition; and a delegated
     binding uses its MC-N theorem."""
@@ -1102,7 +1105,8 @@ def main(record_raw_types=False):
         "burgers": {milestone: {
             "results": BURGERS[milestone]["results"], "approved_revision": BURGERS[milestone]["approved"],
             "promised_theorems": burgers_promised[milestone], "trusted_bridge_theorems": burgers_bridges[milestone],
-            "independent_acceptance": "pending implementation review"} for milestone in BURGERS},
+            "independent_acceptance": "accepted at " + BURGERS_ACCEPTED_REVISION,
+            "acceptance_record": f"reviews/Burgers-{milestone}/Acceptance.md"} for milestone in BURGERS},
         "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
         "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
         "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,

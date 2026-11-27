@@ -20,4 +20,4 @@ The [three-cell control](../CFDLean/Schemes/Euler/FV1DControls.lean) uses the ac
 flux and assembled step. It checks the three oriented mass fluxes, including the wraparound face, and the nine
 updated components against exact rational values. The control adds evidence for the four frozen claims.
 
-Independent implementation acceptance is pending.
+[Independent implementation acceptance](../reviews/FV1D/Acceptance.md) covers all four frozen claims.

@@ -5,7 +5,7 @@
   "approved_revision": "859f849e92b6be05b20d4a9d582712f6e9b82087",
   "source_map": "references/Burgers-E0.md",
   "trusted_statement_review": "reviews/Burgers-E0/TrustedStatements_Review.md",
-  "independent_acceptance": "pending",
+  "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0 (reviews/Burgers-E0/Acceptance.md)",
   "executable": {
     "name": "burgers1d",
     "root": "Main.lean",
