@@ -88,5 +88,7 @@ import CFDLean.Exec.LimiterKernel
 import CFDLean.Exec.RealScalarSign
 import CFDLean.Exec.LimiterRefinement
 import CFDLean.Exec.FV1DControls
+import CFDLean.Exec.NonuniformKernel
+import CFDLean.Exec.NonuniformKernelSmoke
 
 import CFDLean.Papers.JST1
