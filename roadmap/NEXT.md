@@ -172,8 +172,8 @@ Burgers stays the line where shared capabilities are built first; Euler follows 
    order, MUSCL with limiters, SSPRK3, diagnostics, dump) plus a non-uniform mesh option. CI checks that
    `fv1d --model burgers` reproduces the `burgers1d` output on the same input. [Driver acceptance](../reviews/FV1D/Driver_Acceptance.md)
 3. [x] **Retire `burgers1d`** — the [driver amendment](../specifications/FV1D-driver-amendment.md) removes the
-   standalone target. CI runs `fv1d --model burgers` against the recorded legacy output. Independent review of
-   the retirement is pending.
+   standalone target. CI runs `fv1d --model burgers` against the recorded legacy output. The external reviewer accepted
+   the amendment at `6fbbd2a`. [Retirement acceptance](../reviews/FV1D/Driver_Retirement_Acceptance.md)
 
 ## Priority 2 - E1 machine arithmetic strategy
 
