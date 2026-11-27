@@ -68,6 +68,8 @@ import CFDLean.Schemes.Burgers.RusanovMuscl
 import CFDLean.Schemes.Burgers.MusclControls
 import CFDLean.Schemes.Burgers.RusanovLimiters
 import CFDLean.Schemes.Burgers.LimiterControls
+import CFDLean.Schemes.Burgers.Nonuniform
+import CFDLean.Schemes.Burgers.NonuniformChecks
 
 import CFDLean.Time.ExplicitEuler
 import CFDLean.Time.Controls
