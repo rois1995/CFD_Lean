@@ -81,6 +81,23 @@ theorem eulerCell_refines (method : EulerReconstruction) (γ : ℝ) (ε : {x : �
     rfl
   case _ => rfl
 
+private theorem face_real_euler (γ : ℝ) :
+    face (euler 1 2 γ abs Real.sqrt max) (1/2) =
+      CFDLean.FV1D.face (Euler1D.flux γ) (Euler1D.speed γ) := by
+  have hmodel : euler 1 2 γ abs Real.sqrt max =
+      ⟨(·+·), (·-·), (· • ·), Euler1D.flux γ, Euler1D.speed γ⟩ := by
+    unfold euler
+    congr 1
+    · funext x j
+      fin_cases j <;> simp [pressure, Euler1D.flux, Euler1D.decode, Euler1D.encode,
+        physicalFlux, Conservative.pressure, squareSum, dot, pow_two, Matrix.cons_val_two]
+    · funext x y
+      simp [pressure, Euler1D.speed, Euler1D.endpointSpeed, Euler1D.decode, Conservative.pressure,
+        squareSum, pow_two]
+  rw [hmodel]
+  funext l r
+  simp [face, CFDLean.FV1D.face, div_eq_mul_inv]
+
 /-- A full native Forward Euler update over reals is the mathematical reconstruction step. -/
 theorem eulerReconstructedStep_refines (method : EulerReconstruction) (γ : ℝ)
     (ε : {x : ℝ // 0 < x}) (dt : ℝ) (w : Array ℝ) (u : Array (EulerState ℝ))
@@ -89,7 +106,9 @@ theorem eulerReconstructedStep_refines (method : EulerReconstruction) (γ : ℝ)
       fun j => by rw [widthAt_of_lt _ (hw.symm ▸ j.isLt)]; exact hp ⟨j.val, hw.symm ▸ j.isLt⟩⟩
     let model := euler 1 2 γ abs Real.sqrt max
     (reconstructedStep model (1/2) dt w u (eulerCell method ε.val (positiveState γ) w u))[i.val]?.getD 0 =
-      (realEulerReconstruction method m ε γ).step (face model (1/2)) dt (fun j => u[j]) i := by
+      (realEulerReconstruction method m ε γ).step (CFDLean.FV1D.face (Euler1D.flux γ) (Euler1D.speed γ))
+        dt (fun j => u[j]) i := by
+  rw [← face_real_euler]
   simp only [reconstructedStep, Array.getElem?_ofFn, i.isLt, dite_eq_left, Option.getD_some,
     Vector.getElem_ofFn, Fin.getElem_fin, eulerCell_refines method γ ε w u hw hp,
     CFDLean.FV1D.Reconstruction.step, CFDLean.FV1D.Nonuniform.update, realEulerReconstruction]
