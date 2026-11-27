@@ -7199,7 +7199,7 @@
       "id": "FVP-P",
       "milestone": "FVP",
       "module": "CFDLean.Schemes.Euler.FV1DPositivity",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Schemes",
       "methods": [
         "FVM"

@@ -94,7 +94,7 @@ that this file equals the generated text. Do not edit by hand.
 | E0c | accepted | 19 |
 | JST1 | candidate | 121 |
 | FV1D | accepted | 4 |
-| FVP | pending | 1 |
+| FVP | accepted | 1 |
 
 ## Foundations (12)
 
@@ -530,7 +530,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Euler1D.face_consistent` | FV1D-F | FVM | accepted | On equal admissible states the Euler numerical flux equals the M1 positive-unit-face flux. |
 | `CFDLean.Euler1D.step_constant` | FV1D-K | FVM | accepted | One periodic Euler step preserves each admissible constant state. |
 | `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
-| `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | pending | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
+| `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | accepted | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
 
 ## Time (93)
 
