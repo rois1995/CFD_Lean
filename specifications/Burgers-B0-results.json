@@ -5,7 +5,7 @@
   "approved_revision": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
   "layout": "specifications/Burgers-B0-layout.md",
   "source_map": "references/Burgers-B0.md",
-  "independent_acceptance": "pending",
+  "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0 (reviews/Burgers-B0/Acceptance.md)",
   "results": [
     {
       "id": "B0-P",

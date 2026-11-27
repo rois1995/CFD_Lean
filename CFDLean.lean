@@ -51,7 +51,10 @@ import CFDLean.Schemes.Scalar.Monotone
 import CFDLean.Schemes.Scalar.Lipschitz
 import CFDLean.Schemes.Burgers.Rusanov
 import CFDLean.Schemes.Burgers.RusanovForwardEuler
+import CFDLean.Schemes.Burgers.FV1D
+import CFDLean.Schemes.Euler.FV1DControls
 import CFDLean.Schemes.Burgers.Controls
+import CFDLean.Schemes.Burgers.GridControls
 import CFDLean.Schemes.Burgers.RusanovStability
 import CFDLean.Schemes.Burgers.StabilityControls
 import CFDLean.Schemes.Burgers.RusanovSSP

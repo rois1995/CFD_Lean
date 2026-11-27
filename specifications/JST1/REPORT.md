@@ -1,6 +1,8 @@
 # P1 report: Lean 4 check of the algebraic core of paper 1
 
 Paper: frozen `paper1.tex` (SHA256SUMS OK). Lean v4.19.0, Mathlib `c44e0c8`, CFD_Lean pinned at `3a586a4`.
+Current paper reference (2026-11-27): `/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`,
+sha256 `f37419ae…`, gaps G1-G8 fixed (`PAPER_GAPS.md`).
 Repository: `rois1995/JST_Paper_Lean` (private), branch `p1-spec`. Reproduce: `./scripts/check.sh`.
 
 ## Result
@@ -155,3 +157,12 @@ of `lem:avg` holds for hexahedra, prisms and pyramids with free vertex positions
 keeps one orientation (P7-22.1, 22.2; the affine result P3-11.8 is a special case, 22.3); a twisted cube with
 positive trilinear Jacobian violates it and its closure fails (22.4, paper gap G8). Statement review:
 `reviews/JST1/P7-statement-review.md` (no blocking finding).
+
+## P8: Kuhn split and interior-vertex failure (item 23), written in CFD_Lean
+
+2 frozen statements, 2 proved (`specifications/JST1/P8.md`), standard axioms only; with P1-P7: 121 of 121. A valid
+trilinear hexahedron (top face turned by about 106°) has a Kuhn split that is not a triangulation (P8-23.1); a
+conforming 8-cell mesh of valid hexahedra has `Σ_k n_13,k = (0, 0, 7/30) ≠ 0` at the interior vertex 13 (P8-23.2,
+paper gap G8). Proofs are closed kernel checks on integer coordinates. Statement review:
+`reviews/JST1/P8-statement-review.md` (round 1 blocking finding fixed; round 2 not blocking). Maintainer acceptance:
+2026-11-26.

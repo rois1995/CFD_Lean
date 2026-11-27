@@ -82,7 +82,8 @@ Use pull requests for repository changes, including documentation.
 Start the Burgers review at B0. Its kernel audit and result map cover the assembled `ZMod N` scheme B0-S. Decide during
 review whether to add a dedicated trusted challenge for that scheme. [B0 trust boundary](../references/Burgers-B0.md#trusted-boundary-and-exclusions)
 
-1. Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+1. [x] Complete independent implementation review of Burgers B0–B4, B3b, E0, E0b and E0c.
+   [Review](../reviews/Burgers-Implementation/Review.md). B0-S gets no dedicated trusted challenge; see the review.
 2. Human-review the trusted Burgers statements that currently have only agent review.
 3. Complete the independent implementation review of M5.
 
@@ -114,24 +115,16 @@ generated indexes.
 
 ## Priority 1 - shared 1D finite volume for Burgers and Euler
 
-Start the next Euler proposal on the uniform periodic, cell-centered grid used by Burgers. Hold the geometry,
-numerical flux family and time integrator fixed so that the state and physical model are the only changes.
-This is a new line alongside the multidimensional median-dual M1–M6 milestones.
+FV1D shares the uniform periodic, cell-centered method between Burgers and Euler. The multidimensional
+median-dual M1–M6 milestones retain their own geometry and scope.
 
-1. **Use the existing Euler physics in one dimension.** Specialize `Conservative d` and `physicalFlux` to
-   `d = 1` and positive unit face orientation. The three conserved quantities are density, momentum and total
-   energy. Use the existing ideal-gas pressure and admissibility domain. Start with homogeneous Burgers and Euler.
-   A later balance law can supply a physical source and will need a discrete source contribution in its balance.
-   [Euler state](../CFDLean/Physics/Euler/State.lean) · [Oriented flux](../CFDLean/Physics/Euler/PhysicalFlux.lean)
-2. **Propose one first-order step with two instantiations.** Share the periodic neighbors, Rusanov flux formula,
-   face-flux difference and Forward Euler update. The model supplies the physical flux and a speed estimate.
-   Recover the existing Burgers choice exactly. For Euler, specify the endpoint estimate using velocity and sound
-   speed on admissible states and state the speed hypothesis needed for each claim.
-   [Burgers Rusanov](../CFDLean/Schemes/Burgers/Rusanov.lean) · [Periodic residual](../CFDLean/Discrete/Periodic/FiniteVolume.lean)
-3. **First acceptance target.** Prove equality to the existing Burgers update for every state on the supported
-   uniform periodic grids. For Euler, prove equal-state flux consistency, preservation of admissible constants and
-   periodic conservation of mass, momentum and energy. Include a nonconstant control for face orientation and the
-   update sign. Freeze the proposal before implementing these results.
+1. [x] **Specialize M1 physics to one dimension.** The three conserved quantities are density, x-momentum and
+   total energy. The physical flux uses the positive unit face and the existing pressure and admissibility.
+   [Euler adapter](../CFDLean/Schemes/Euler/FV1D.lean)
+2. [x] **Share the first-order step.** Both models supply their physical flux and a two-state speed to the same
+   periodic Rusanov and Forward Euler formulas. The sums of the three Euler quantities follow by projection of
+   a single state conservation theorem. [Shared method](../CFDLean/Discrete/Periodic/Rusanov.lean)
+3. [x] **Implement the four frozen claims and three-cell control.** [Independent review](../reviews/FV1D/Acceptance.md) accepted all four claims. [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
 4. **Select one physical model per run.** The planned executable takes an explicit model argument, for example
    `lake exe fv1d --model burgers` or `lake exe fv1d --model euler`. Dispatch once in the driver and advance the
    selected state through the shared array traversal and time loop. Preserve `burgers1d` as a Burgers entry point
@@ -234,6 +227,8 @@ Keep the generic time-evolution interfaces compatible with future variable-step 
 - Narrow `CFDLean.Num.Basic`'s broad `import Mathlib` where practical.
 - Move remaining generic JST results (P1-5.4b, P1-5.8) into the numerical core when justified.
 - Add the archive pointer note in JST_Paper_Lean.
-- Paper 1: non-affine mixed cells done (JST1 P7, paper gap G8 for the paper session); simplex integration done (P6).
-  Open: a Kuhn-family counterexample with explicit cell; interior-vertex failure in a multi-cell mesh.
+- Paper 1: all planned statements proved (JST1 P1-P8, 121 of 121): non-affine mixed cells (P7), the Kuhn-split
+  counterexample and the interior-vertex failure in a multi-cell mesh (P8), simplex integration (P6). Paper gaps
+  G1-G8 are fixed in the paper (2026-11-27); two cosmetic P6 notes and one count ("56" for 96 sub-tetrahedra)
+  remain for the paper session.
 - Keep the theorem catalog and raw-type evidence synchronized with every milestone.
