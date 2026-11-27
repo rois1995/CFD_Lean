@@ -6,7 +6,8 @@ The [contract](../specifications/FV1D-nonuniform.md) was frozen at `3eb7cae` aft
 [independent proposal review](../reviews/FVN/Scientific_Proposal_Review.md).
 [Result bindings](../specifications/FV1D-nonuniform-results.json) ·
 [Freeze record](../specifications/FV1D-nonuniform-approval.md) ·
-[Trusted statement review](../reviews/FVN/TrustedStatements_Review.md)
+[Trusted statement review](../reviews/FVN/TrustedStatements_Review.md) ·
+[External source review](../reviews/FVN/Source_Review.md)
 
 The milestone changes only the geometry. Every cell has its own width. The mesh stays periodic, cell-centered and
 fixed in time. The face flux is any two-point flux `H`, with the FV1D Rusanov face as the model instance, and the time
@@ -46,20 +47,27 @@ Names without a namespace are in `CFDLean.FV1D.Nonuniform`. `Burgers.` stands fo
 
 | ID | Binding | Proof |
 |---|---|---|
-| FVN-U | `firstOrderStep_uniform` (`Nonuniform`), `Burgers.musclStep_uniform` (`Burgers.Nonuniform`); supporting `Burgers.face_eq` | (a) holds by `rfl`: with width `dx` everywhere the update is `FV1D.step`. (b) On the uniform mesh both rescaling factors are `dx / ((dx + dx)/2) = 1`, so the face states are the B3 face states for every limiter. `face_eq` identifies the Burgers face with the B0 Rusanov flux. |
+| FVN-U | `firstOrderStep_uniform` (`Nonuniform`), `Burgers.musclStep_uniform` (`Burgers.Nonuniform`); supporting `Burgers.face_eq` | (a) holds by `rfl`: with width `dx` everywhere the update is `FV1D.step`. (b) On the uniform mesh both rescaling factors are `dx / ((dx + dx)/2) = 1`, so the face states are the B3 face states for every limiter. `face_eq` identifies the Burgers face with the B0 Rusanov flux. The contract's `Burgers.musclEulerStep` is `CFDLean.Burgers.Rusanov.musclEulerStep`. |
 | FVN-K | `firstOrderStep_constant` (`Nonuniform`), `musclStep_constant` (`NonuniformMuscl`) | For a constant state every face has the value `H C C`, so the flux differences vanish. For MUSCL both differences are 0, and `lim 0 0 = 0` gives a zero slope. |
-| FVN-C | `update_weighted_sum`, `firstOrderStep_weighted_sum` (`Nonuniform`), `musclStep_weighted_sum` (`NonuniformMuscl`) | `w i • update(h)(U)(i) = w i • U i − dt • (h i − h (prev i))`, because the cell divides by its own width. The predecessor-face sum is reindexed with the grid equivalence. Both steps are instances. The FVN-E control checks the Euler width-weighted sums. |
+| FVN-C | `update_weighted_sum` (`Nonuniform`); supporting `firstOrderStep_weighted_sum` (`Nonuniform`), `musclStep_weighted_sum` (`NonuniformMuscl`) | `w i • update(h)(U)(i) = w i • U i − dt • (h i − h (prev i))`, because the cell divides by its own width. The predecessor-face sum is reindexed with the grid equivalence. Both steps are instances. As the contract says, only the generic theorem is bound; the two step instances are supporting. The FVN-E control checks the Euler width-weighted sums. |
 | FVN-A | `leftState_affine`, `rightState_prev_affine` (`NonuniformMuscl`) | Local affine reconstruction exactness at one fixed cell `i`. If both differences next to `i` are `δ • β`, both rescaled differences equal `w i • β`, so `lim d d = d` gives the slope `w i • β`. The face offsets are then `± (w i / 2) • β`. No global affine field is assumed (freeze record). |
-| FVN-B | `Burgers.firstOrderStep_mem`, `Burgers.firstOrderStep_totalVariation_le` (`Burgers.Nonuniform`) | Harten incremental form with `C i = dt / w i · (a i − mean i)/2` and `D i = dt / w (next i) · (a i + mean i)/2`. Both are nonnegative because `\|mean i\| ≤ a i`. The cell CFL gives the bounds, the face CFL the total variation. The B1 lemmas `incrementalUpdate_bounds` and `incrementalUpdate_totalVariation_le` are reused. |
-| FVN-R | `leftState_mem`, `rightState_mem` (`NonuniformMusclStability`), `Burgers.meshRatio_needed` (`Burgers.NonuniformControls`); supporting `meshRatio_p_le_one`, `meshRatio_q_le_one` | The rescaled differences turn the slope rules into `\|s i / 2\| ≤ θ p i \|Δ i\|` and `\|s (next i) / 2\| ≤ θ q i \|Δ i\|`, with `p i = w i / (w i + w (next i))` and `q = 1 − p`. The mesh ratio gives `θ p i ≤ 1` and `θ q i ≤ 1`, so the face states stay between the neighbour values (B3b `half_slope_mem_two`). `meshRatio_needed` is the FVN-X control. |
-| FVN-M | `musclStep_mem`, `musclStep_totalVariation_le` (`NonuniformMusclStability`); supporting `musclStep_incremental` | The jumps of the face states across face `i` are `Δ i` times a factor in `[1 − θ q i, 1 + θ p i]` and `[1 − θ p i, 1 + θ q i]`. The step is then in incremental form with `C i ≤ (dt / w i) KR (1 + θ p i)` and `D i ≤ (dt / w (next i)) KL (1 + θ q i)`, and the B1 Harten lemmas apply. On a degenerate interval `hi ≤ lo` the state is constant and the step is the identity. |
-| FVN-MB | `Burgers.musclStep_iterate_stable`, `Burgers.musclSsprk2Step_iterate_stable`, `Burgers.musclSsprk3Step_iterate_stable` (`Burgers.Nonuniform`) | FVN-M with the B3 Lipschitz certificate `KL = KR = 2A`. Under the mesh ratio `θ p i ≤ 1` and `θ q i ≤ 1`, so both FVN-M conditions follow from `8 · dt · A ≤ w i`. The B2 SSP lemmas give `n` steps of Forward Euler, SSPRK2 and SSPRK3; `n = 1` is the contract's one step. |
+| FVN-B | `Burgers.firstOrderStep_mem`, `Burgers.firstOrderStep_totalVariation_le` (`Burgers.Nonuniform`) | Harten incremental form with `C i = dt / w i · (a i − mean i)/2` and `D i = dt / w (next i) · (a i + mean i)/2`. Both are nonnegative because `\|mean i\| ≤ a i`. The cell CFL gives the bounds, the face CFL the total variation. The cell CFL of (a) is stated literally with `a (prev i)`, the speed of face `prev i`. The B1 lemmas `incrementalUpdate_bounds` and `incrementalUpdate_totalVariation_le` are reused. |
+| FVN-R | `leftState_mem`, `rightState_mem` (`NonuniformMusclStability`), `Burgers.meshRatio_needed` (`Burgers.NonuniformControls`); supporting `meshRatio_p_le_one`, `meshRatio_q_le_one` | The rescaled differences turn the slope rules into `\|s i / 2\| ≤ θ p i \|Δ i\|` and `\|s (next i) / 2\| ≤ θ q i \|Δ i\|`, with `p i = w i / (w i + w (next i))` and `q = 1 − p`. The mesh ratio gives `θ p i ≤ 1` and `θ q i ≤ 1`, so the face states stay between the neighbour values (B3b `half_slope_mem_two`). `meshRatio_needed` is the FVN-X control. It is bound under FVN-R because the trusted bridge for FVN-X must use a promised theorem of its result ID. |
+| FVN-M | `musclStep_mem`, `musclStep_totalVariation_le` (`NonuniformMusclStability`); supporting `musclStep_incremental` | The right-state jump `right i − right (prev i)` is `Δ i` times a factor in `[1 − θ q i, 1 + θ p i]`. The left-state jump `left (next i) − left i` is `Δ i` times a factor in `[1 − θ p i, 1 + θ q i]`, that is, `left i − left (prev i)` is `Δ (prev i)` times a factor in `[1 − θ p (prev i), 1 + θ q (prev i)]` as in the contract. The step is then in incremental form with `C i ≤ (dt / w i) KR (1 + θ p i)` and `D i ≤ (dt / w (next i)) KL (1 + θ q i)`, and the B1 Harten lemmas apply. On a degenerate interval `hi ≤ lo` the state is constant and the step is the identity. |
+| FVN-MB | `Burgers.musclStep_iterate_stable`, `Burgers.musclSsprk2Step_iterate_stable`, `Burgers.musclSsprk3Step_iterate_stable` (`Burgers.Nonuniform`) | FVN-M with the B3 Lipschitz certificate `KL = KR = 2A`. Under the mesh ratio `θ p i ≤ 1` and `θ q i ≤ 1`, so both FVN-M conditions follow from `8 · dt · A ≤ w i`. The B2 SSP lemmas give `n` steps of Forward Euler, SSPRK2 and SSPRK3; `n = 1` is the contract's one step. `0 ≤ dt` is a hypothesis: the claim is false for `dt < 0`, and the condition comes from FVN-M. |
 
 Definitions are bound under the ID that introduces them: `Mesh1D`, `uniform`, `update`, `firstOrderStep`,
 `Burgers.face` and `Burgers.musclStep` under FVN-U; the generic `musclStep` under FVN-K; the Euler `nonuniformStep`
 under FVN-C; `spacing`, the MUSCL face states, `componentwise` and the Euler `musclLeft` and `musclRight` under
 FVN-A; `Burgers.firstOrderStep` under FVN-B; `MeshRatio` and the control data `fvnMesh` and `fvnState` under FVN-R;
 `Burgers.musclSsprk2Step` and `Burgers.musclSsprk3Step` under FVN-MB.
+
+**Literal readings.** FVN-MB assumes `0 ≤ dt`. The claim is false for `dt < 0`, and the hypothesis is inherited
+from FVN-M, which states `dt ≥ 0`. The SSPRK2 and SSPRK3 theorems are stated for `n` steps. The frozen contract
+requires one step, which is `n = 1`. The `n`-step form is an implementation strengthening, not a change of scientific
+scope. FVN-B(a) uses the literal cell condition `dt · (a (prev i) + a i) ≤ w i`. The FVN-X control
+`meshRatio_needed` is bound under FVN-R, because the trusted bridge for FVN-X must use a promised theorem of its result
+ID. The other controls are not bound. They are checked by the `--wfail` builds and by `KernelAudit.lean`.
 
 ## Mesh ratio and limiters
 
@@ -97,7 +105,9 @@ No human has reviewed the trusted statements yet.
 
 ## Exact controls
 
-All values are exact rationals from the contract, computed independently of Lean.
+All values are exact rationals from the contract, computed independently of Lean. The Lean controls prove the exact
+values. Comparisons of those values, such as inside or outside `[0, 6/5]`, follow by inspection of the pinned values
+and are not separate Lean theorems.
 
 - **FVN-X** (`meshRatio_needed`). Widths `(1, 3, 1, 1)`, state `(0, 1, 6/5, 0)`. The mesh ratio holds for `θ = 5/4`
   and fails for `θ = 2`. At cell 1 `back = 3/2` and `fwd = 3/10`. The left state at face 1 is `23/20` (minmod) and
@@ -110,15 +120,23 @@ All values are exact rationals from the contract, computed independently of Lean
   `289/16000` in cell 0. The value `27/250` of cell 3 includes the seam face from cell 3 to cell 0.
 - **FVN-E** (`Euler.NonuniformControls`). Widths `(1, 2, 1)`, `γ = 2`, `dt = 1/16`, densities `(1, 4, 9)`, velocity
   one and pressure two. The first-order step gives densities `(35/16, 249/64, 257/32)` with equal momenta and
-  energies `(99/32, 505/128, 385/64)`. Cells 0 and 2 match the uniform FV1D control. The width-weighted totals
-  `(18, 18, 17)` are kept. The componentwise minmod slopes are `0`, `(4, 4, 2)`, `0`, and all six MUSCL face states
-  have velocity one and pressure two. Without rescaling the cell 1 slope would be `(3, 3, 3/2)`.
+  energies `(99/32, 505/128, 385/64)`. Cells 0 and 2 match the uniform FV1D control (by inspection of the pinned
+  values). The width-weighted totals `(18, 18, 17)` are kept. The componentwise minmod slopes are `0`, `(4, 4, 2)`,
+  `0`, and all six MUSCL face states have velocity one and pressure two (by inspection of the pinned face states).
+  Without rescaling the cell 1 slope would be `(3, 3, 3/2)`.
 
 ## Checks
 
 `scripts/verify.py` (result map, axioms, trusted file and challenge hashes, bridge types), `KernelAudit.lean`,
 `StatementChecks.lean`, the `--wfail` builds of the checks, controls and bridge modules in CI, and
 `lake comparator --paranoid --config Challenges/FV1DNonuniform.comparator.json`.
+
+## What FVN showed
+
+The only geometry the 1D method needs is the cell widths. A 1D centroid is the cell midpoint, so the centroid
+distances follow from the widths. The `Grid` layer, the Harten lemmas `incrementalUpdate_bounds` and
+`incrementalUpdate_totalVariation_le`, and the B2 SSP lemmas are reused unchanged. The `SlopeBounded θ` certificate
+with `θ = 2` (MC, superbee, van Leer) does not carry over to stretched cells (control FVN-X).
 
 ## Exclusions
 

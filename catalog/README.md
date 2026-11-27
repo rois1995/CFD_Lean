@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-573 promised theorems, grouped by layer.
+571 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -67,14 +67,14 @@ that this file equals the generated text. Do not edit by hand.
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
-| Time | 107 | 0 | 87 | 0 | 20 |
+| Time | 105 | 0 | 85 | 0 | 20 |
 | Execution | 55 | 0 | 55 | 0 | 0 |
-| **Total** | 573 | 17 | 356 | 30 | 170 |
+| **Total** | 571 | 17 | 354 | 30 | 170 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 386 |
+| FVM | 384 |
 | method-free | 170 |
 
 | Milestone | Status | Theorems |
@@ -98,7 +98,7 @@ that this file equals the generated text. Do not edit by hand.
 | FV1D | accepted | 4 |
 | FVP | accepted | 1 |
 | FVA | accepted | 2 |
-| FVN | pending | 19 |
+| FVN | pending | 17 |
 
 ## Foundations (12)
 
@@ -541,7 +541,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
 | `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | accepted | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
 
-## Time (107)
+## Time (105)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -643,8 +643,6 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.FV1D.Nonuniform.firstOrderStep_constant` | FVN-K | FVM | pending | On a non-uniform mesh the first-order step keeps every constant state, for every two-point flux. |
 | `CFDLean.FV1D.Nonuniform.musclStep_constant` | FVN-K | FVM | pending | On a non-uniform mesh the MUSCL step keeps every constant state, for every two-point flux and every limiter with lim 0 0 = 0. |
 | `CFDLean.FV1D.Nonuniform.update_weighted_sum` | FVN-C | FVM | pending | The flux-form update on a non-uniform periodic mesh keeps the width-weighted sum of the states, for every face-flux function. |
-| `CFDLean.FV1D.Nonuniform.firstOrderStep_weighted_sum` | FVN-C | FVM | pending | The non-uniform first-order step keeps the width-weighted sum of the states. |
-| `CFDLean.FV1D.Nonuniform.musclStep_weighted_sum` | FVN-C | FVM | pending | The non-uniform MUSCL step keeps the width-weighted sum of the states. |
 | `CFDLean.Burgers.Nonuniform.firstOrderStep_mem` | FVN-B | FVM | pending | Under the cell CFL dt (a(prev i) + a i) ≤ w i the first-order Burgers step on a non-uniform mesh keeps the bounds m ≤ u ≤ M. |
 | `CFDLean.Burgers.Nonuniform.firstOrderStep_totalVariation_le` | FVN-B | FVM | pending | Under the face CFL dt · a i ≤ min(w i, w(next i)) the first-order Burgers step on a non-uniform mesh does not increase the total variation. |
 | `CFDLean.FV1D.Nonuniform.musclStep_mem` | FVN-M | FVM | pending | For a monotone flux with the Lipschitz certificate, a θ-bounded slope and mesh ratio θ, the scalar MUSCL step keeps the bounds under the local cell CFL condition. |

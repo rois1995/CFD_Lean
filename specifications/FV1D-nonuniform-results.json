@@ -41,11 +41,12 @@
       "definitions": [
         "CFDLean.Euler1D.nonuniformStep"
       ],
-      "supporting": [],
-      "declarations": [
-        "CFDLean.FV1D.Nonuniform.update_weighted_sum",
+      "supporting": [
         "CFDLean.FV1D.Nonuniform.firstOrderStep_weighted_sum",
         "CFDLean.FV1D.Nonuniform.musclStep_weighted_sum"
+      ],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.update_weighted_sum"
       ]
     },
     {

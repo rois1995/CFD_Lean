@@ -7299,32 +7299,6 @@
       "source": "references/FV1D-nonuniform.md"
     },
     {
-      "name": "CFDLean.FV1D.Nonuniform.firstOrderStep_weighted_sum",
-      "id": "FVN-C",
-      "milestone": "FVN",
-      "module": "CFDLean.Discrete.Periodic.Nonuniform",
-      "status": "pending",
-      "layer": "Time",
-      "methods": [
-        "FVM"
-      ],
-      "summary": "The non-uniform first-order step keeps the width-weighted sum of the states.",
-      "source": "references/FV1D-nonuniform.md"
-    },
-    {
-      "name": "CFDLean.FV1D.Nonuniform.musclStep_weighted_sum",
-      "id": "FVN-C",
-      "milestone": "FVN",
-      "module": "CFDLean.Discrete.Periodic.NonuniformMuscl",
-      "status": "pending",
-      "layer": "Time",
-      "methods": [
-        "FVM"
-      ],
-      "summary": "The non-uniform MUSCL step keeps the width-weighted sum of the states.",
-      "source": "references/FV1D-nonuniform.md"
-    },
-    {
       "name": "CFDLean.FV1D.Nonuniform.leftState_affine",
       "id": "FVN-A",
       "milestone": "FVN",

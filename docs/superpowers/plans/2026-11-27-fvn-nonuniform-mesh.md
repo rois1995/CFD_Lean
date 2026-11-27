@@ -1,5 +1,7 @@
 # FVN (FV1D on a non-uniform periodic 1D mesh) Implementation Plan
 
+Note: control data `m4`/`u4` were renamed `fvnMesh`/`fvnState` during implementation.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Implement and bind the eight frozen FVN claims (FVN-U, K, C, A, B, R, M, MB), the three exact controls (FVN-X, FVN-BC, FVN-E) and the trusted challenge for the scalar claims.
