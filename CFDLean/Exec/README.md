@@ -16,7 +16,7 @@ initialization, parsing and diagnostics. Its arithmetic and output are outside t
 FVNA reuses the first-order FVA kernel [FV1D](FV1D.lean) for Burgers and Euler. Its exact real controls are in
 [NonuniformControls](NonuniformControls.lean). [NonuniformKernelSmoke](NonuniformKernelSmoke.lean) runs the non-uniform
 kernels in `Float` on the control data with `#eval`; it prints the outputs and proves nothing (`Float` error bounds
-belong to E1). The driver does not use the non-uniform kernels.
+belong to E1).
 
 From the repository root, run the first-order scheme or select a MUSCL limiter.
 
@@ -28,3 +28,29 @@ lake exe burgers1d 200 600 0.12 --limiter vanleer
 The positional arguments select cell count, steps and CFL number. Limiter names are `none`, `minmod`, `mc`, `superbee`,
 `vanleer` and `vanalbada`. `--muscl` alone is equivalent to `--limiter none`. This unlimited scheme can overshoot.
 Use `--limiter minmod` to run the E0b scheme. Add `--dump` to print the final cell values after the diagnostics.
+
+## Model-selecting driver
+
+```bash
+lake exe fv1d --model burgers 200 600 0.12 --limiter vanleer
+lake exe fv1d --model burgers 4 3 .12 --widths .1,.2,.3,.4 --muscl --dump
+lake exe fv1d --model euler 4 --dump
+lake exe fv1d --model euler 4 --widths .1,.2,.3,.4 --dump
+```
+
+Burgers takes the same cell count, steps, CFL, reconstruction and dump options as `burgers1d`.
+The defaults are 200 cells, 200 SSPRK3 steps and CFL 0.4. Uniform runs reproduce its output,
+including the midpoint sinusoid, integral drift, extrema and periodic total variation.
+
+Both models default to uniform spacing on the periodic unit interval. To supply a mesh, give
+`--widths` followed by a comma-separated list in increasing cell order from the left boundary.
+Supply one finite, strictly positive decimal per cell. The widths must sum to one within
+an absolute tolerance of `1e-12`. With explicit widths Burgers samples the sinusoid at each
+cell midpoint, uses the smallest width for its fixed timestep and reports width-weighted integrals.
+
+Euler runs the [periodic density wave](../../benchmarks/fv1d/README.md) with four cells by default.
+It initializes each cell with its analytic mean and advances with first-order Rusanov and Forward Euler.
+Each step uses CFL 0.4, the smallest width and the current maximum endpoint speed. The last step ends at
+`t = 1/8`. Output gives initial and final integrals and the width-weighted L1 errors against the translated
+analytic cell means. Each dump row gives density, x-momentum density and total energy density in that order.
+The driver checks density and pressure after each step. These are binary64 measurements.

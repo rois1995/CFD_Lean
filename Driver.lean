@@ -58,15 +58,37 @@ structure Opts where
   dump : Bool := false
   muscl : Bool := false
   limiter : Option Limiter := none
+  widths : Option String := none
   pos : List String := []
 
-def parseArgs : List String → Opts → Except String Opts
+def parseArgs (allowWidths : Bool) : List String → Opts → Except String Opts
   | [], o => .ok { o with pos := o.pos.reverse }
-  | "--dump" :: r, o => parseArgs r { o with dump := true }
-  | "--muscl" :: r, o => parseArgs r { o with muscl := true }
+  | "--dump" :: r, o => parseArgs allowWidths r { o with dump := true }
+  | "--muscl" :: r, o => parseArgs allowWidths r { o with muscl := true }
   | ["--limiter"], _ => .error "--limiter needs a name"
   | "--limiter" :: s :: r, o =>
     match limiterOfName? s with
-    | some L => parseArgs r { o with limiter := some L }
+    | some L => parseArgs allowWidths r { o with limiter := some L }
     | none => .error s!"unknown limiter '{s}'"
-  | s :: r, o => parseArgs r { o with pos := s :: o.pos }
+  | "--widths" :: r, o =>
+    if !allowWidths then parseArgs allowWidths r { o with pos := "--widths" :: o.pos }
+    else if o.widths.isSome then .error "specify --widths only once"
+    else match r with
+      | [] => .error "--widths needs a comma-separated list"
+      | csv :: rest => parseArgs allowWidths rest { o with widths := some csv }
+  | s :: r, o => parseArgs allowWidths r { o with pos := s :: o.pos }
+
+def schemeName (muscl : Option Limiter) : String :=
+  match muscl with
+  | none => "first-order"
+  | some .none => "MUSCL, limiter = none (unlimited)"
+  | some L => s!"MUSCL, limiter = {limiterName L}"
+
+def uniformNote (muscl : Option Limiter) (cfl : Float) : String :=
+  let range (c : Float) (s : String) : String :=
+    s!"With real arithmetic bounds and total variation are proved for cfl <= {s}; this run is \
+      {if c * cfl ≤ 1 then "inside" else "outside"} that range."
+  match muscl with
+  | none => range 2 "0.5"
+  | some .none => "No bounds and no total-variation result are proved for the unlimited scheme; it can overshoot."
+  | some L => range (limiterCfl L).1 (limiterCfl L).2

@@ -125,15 +125,10 @@ median-dual M1–M6 milestones retain their own geometry and scope.
    periodic Rusanov and Forward Euler formulas. The sums of the three Euler quantities follow by projection of
    a single state conservation theorem. [Shared method](../CFDLean/Discrete/Periodic/Rusanov.lean)
 3. [x] **Implement the four frozen claims and three-cell control.** [Independent review](../reviews/FV1D/Acceptance.md) accepted all four claims. [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
-4. **Select one physical model per run.** The planned executable takes an explicit model argument, for example
-   `lake exe fv1d --model burgers` or `lake exe fv1d --model euler`. Dispatch once in the driver and advance the
-   selected state through the shared array traversal and time loop. Preserve `burgers1d` as a Burgers entry point
-   with its existing arguments and defaults. Compare its output with the equivalent `fv1d --model burgers` run.
-   Reuse the existing SSP composition lemmas. Scope Euler density/pressure positivity under a specified CFL
-   condition before claiming admissible multi-step evolution. Higher-order reconstruction and entropy require
-   their own system hypotheses and proofs. Prove exact-real refinement for each model and certify machine error
-   under E1. Keep backend arithmetic separate from the conserved state.
-   [SSP](../CFDLean/Time/SSP.lean) · [Burgers refinement](../CFDLean/Exec/Refinement.lean)
+4. [x] **Select one physical model per run.** The [native driver](../CFDLean/Exec/README.md#model-selecting-driver)
+   runs Burgers with SSPRK3 or Euler with first-order Forward Euler. CI compares Burgers diagnostics and dumps with
+   `burgers1d` and checks Euler against the density-wave benchmark. Independent driver acceptance is pending.
+   Non-uniform Euler positivity, Euler MUSCL and native arithmetic certification have separate scope.
 5. **Extend dimension after the 1D comparison.** A periodic Euler density wave with constant pressure and velocity
    gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
    mesh. For the 3D median-dual method, use the existing Roe, geometry and boundary results. Any correspondence
@@ -173,9 +168,9 @@ Burgers stays the line where shared capabilities are built first; Euler follows 
    by Burgers and Euler; Burgers MUSCL with every limiter and SSPRK2/SSPRK3), with the FVN guarantees transferred to
    the arrays. No driver change. Implemented; independent implementation review pending.
    [Contract](../specifications/FV1D-nonuniform-array.md) · [Proof map](../references/FV1D-nonuniform-array.md)
-2. **General driver** — `lake exe fv1d --model burgers|euler` with every current `burgers1d` capability (first
-   order, MUSCL with limiters, SSPRK3, diagnostics, dump) plus a non-uniform mesh option. Include a check that
-   `fv1d --model burgers` reproduces the `burgers1d` output on the same input.
+2. [x] **General driver** — `lake exe fv1d --model burgers|euler` with every current `burgers1d` capability (first
+   order, MUSCL with limiters, SSPRK3, diagnostics, dump) plus a non-uniform mesh option. CI checks that
+   `fv1d --model burgers` reproduces the `burgers1d` output on the same input. Driver acceptance is pending.
 3. **Retire `burgers1d`** — once step 2 is accepted, amend the E0 and E0b driver claims (and the FVA "preserve
    `burgers1d`" sentence) so that `fv1d --model burgers` is the Burgers entry point; remove `burgers1d` or keep it as
    a thin alias. Update the CI smoke test accordingly.

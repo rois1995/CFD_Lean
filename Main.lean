@@ -1,4 +1,5 @@
 import Driver
+
 /-! Burgers E0-X, the driver of `burgers1d [N] [steps] [cfl] [--muscl] [--limiter NAME] [--dump]`. Periodic domain
 `[0, 1)`, `dx = 1 / N`, initial cell values `u_i = 0.5 + sin(2π (i + 0.5) dx)`, fixed `dt = cfl * dx / max |u0|`,
 `steps` SSPRK3 steps of the kernel with `Float`: the first-order Rusanov scheme; with `--muscl` the unlimited
@@ -21,7 +22,7 @@ def main (args : List String) : IO UInt32 := do
   let bad (what : String) : IO UInt32 := do
     IO.eprintln s!"burgers1d: {what}\n{usage}"
     return 1
-  let opts ← match parseArgs args {} with
+  let opts ← match parseArgs false args {} with
     | .ok o => pure o
     | .error e => return ← bad e
   let pos := opts.pos
@@ -42,19 +43,8 @@ def main (args : List String) : IO UInt32 := do
   let u0 := Array.ofFn fun i : Fin n => 0.5 + Float.sin (2 * pi * (i.val.toFloat + 0.5) * dx)
   let umax := Scalar.max (Float.abs (maxArray u0)) (Float.abs (minArray u0))
   let dt := cfl * dx / umax
-  let scheme := match muscl with
-    | none => "first-order"
-    | some .none => "MUSCL, limiter = none (unlimited)"
-    | some L => s!"MUSCL, limiter = {limiterName L}"
-  IO.println s!"N = {n}  steps = {steps}  cfl = {cfl}  dx = {sci dx}  dt = {sci dt}  scheme = {scheme}"
-  let range (c : Float) (s : String) : String :=
-    s!"With real arithmetic bounds and total variation are proved for cfl <= {s}; this run is \
-      {if c * cfl ≤ 1 then "inside" else "outside"} that range."
-  let note := match muscl with
-    | none => range 2 "0.5"
-    | some .none => "No bounds and no total-variation result are proved for the unlimited scheme; it can overshoot."
-    | some L => range (limiterCfl L).1 (limiterCfl L).2
-  IO.println s!"note: Float arithmetic is not verified. {note}"
+  IO.println s!"N = {n}  steps = {steps}  cfl = {cfl}  dx = {sci dx}  dt = {sci dt}  scheme = {schemeName muscl}"
+  IO.println s!"note: Float arithmetic is not verified. {uniformNote muscl cfl}"
   report "initial" dx u0
   let step := match muscl with
     | none => ssprk3StepArray dx dt

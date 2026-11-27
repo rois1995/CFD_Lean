@@ -18,11 +18,13 @@ With [Elan](https://github.com/leanprover/elan) installed, run from the reposito
 lake build
 lake exe burgers1d 200 200 0.4
 lake exe burgers1d 200 600 0.12 --limiter vanleer
+lake exe fv1d --model burgers 200 600 0.12 --limiter vanleer
+lake exe fv1d --model euler 4 --dump
 ```
 
-The arguments are cell count, step count and CFL number. Add `--dump` for the final cell values.
+The Burgers arguments are cell count, step count and CFL number. Add `--dump` for the final cell values.
 `--muscl` selects unlimited reconstruction, which can overshoot. Use `--limiter minmod` for the
-former E0b behavior. See the [driver and kernel guide](CFDLean/Exec/README.md) for limiter choices.
+former E0b behavior. See the [driver and kernel guide](CFDLean/Exec/README.md) for limiter choices, explicit cell widths and the first-order Euler density-wave comparison.
 
 `burgers1d` runs the kernel with `Float`. The refinement theorems apply to the kernel instantiated
 with `ℝ`. The driver, compiler and floating-point error are outside that proof boundary.
