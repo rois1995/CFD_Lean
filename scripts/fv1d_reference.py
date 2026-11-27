@@ -110,7 +110,12 @@ def replay(model, widths, method):
     if model == "euler":
         t = 0
         while t < .125:
-            dt = min(.125-t, .4*min(widths)/max(map(speed, cells)))
+            if method == "first":
+                fastest = max(map(speed, cells))
+            else:
+                pairs = [endpoints(widths, cells, method, i) for i in range(len(cells))]
+                fastest = max(speed(q) for pair in pairs for q in pair)
+            dt = min(.125-t, .4*min(widths)/fastest)
             cells = advance(widths, cells, method, dt)
             t += dt
     else:
