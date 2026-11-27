@@ -16,8 +16,8 @@ example : stepArray model (1/2) 1 (1/16) #[wave 1, wave 4, wave 9] =
   intro j hj _
   have h : j < 3 := by simpa using hj
   funext k
-  interval_cases j <;> fin_cases k <;>
-    norm_num [stepArray, face, model, euler, pressure, wave, Array.getElem_ofFn]
+  simp only [stepArray, Array.getElem_ofFn, Fin.getElem_fin, face, model, euler, pressure]
+  interval_cases j <;> fin_cases k <;> norm_num [wave]
 
 example : stepArray burgers (1/2) 1 (1/8) #[(1 : ℝ), -2, 4] =
     eulerStepArray 1 (1/8) #[1, -2, 4] := by
@@ -34,12 +34,13 @@ example : stepArray model (1/2) 1 1 #[triple 1 2 3] = #[triple 1 2 3] := by
   have hj' : j = 0 := by omega
   subst j
   funext k
-  fin_cases k <;> norm_num [stepArray, face, model, euler, pressure, Array.getElem_ofFn]
+  simp only [stepArray, Array.getElem_ofFn, Fin.getElem_fin, face, model, euler, pressure]
+  fin_cases k <;> norm_num
 
 example : stepArray model (1/2) 1 0 #[wave 1, wave 4, wave 9] = #[wave 1, wave 4, wave 9] := by
   apply Array.ext (by simp)
   intro j hj _
   funext k
-  simp [stepArray, model, euler]
+  simp only [stepArray, Array.getElem_ofFn, Fin.getElem_fin, model, euler, zero_div, zero_mul, sub_zero]
 
 end CFDLean.Exec.FV1D
