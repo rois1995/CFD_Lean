@@ -115,24 +115,16 @@ generated indexes.
 
 ## Priority 1 - shared 1D finite volume for Burgers and Euler
 
-Start the next Euler proposal on the uniform periodic, cell-centered grid used by Burgers. Hold the geometry,
-numerical flux family and time integrator fixed so that the state and physical model are the only changes.
-This is a new line alongside the multidimensional median-dual M1–M6 milestones.
+FV1D shares the uniform periodic, cell-centered method between Burgers and Euler. The multidimensional
+median-dual M1–M6 milestones retain their own geometry and scope.
 
-1. **Use the existing Euler physics in one dimension.** Specialize `Conservative d` and `physicalFlux` to
-   `d = 1` and positive unit face orientation. The three conserved quantities are density, momentum and total
-   energy. Use the existing ideal-gas pressure and admissibility domain. Start with homogeneous Burgers and Euler.
-   A later balance law can supply a physical source and will need a discrete source contribution in its balance.
-   [Euler state](../CFDLean/Physics/Euler/State.lean) · [Oriented flux](../CFDLean/Physics/Euler/PhysicalFlux.lean)
-2. **Propose one first-order step with two instantiations.** Share the periodic neighbors, Rusanov flux formula,
-   face-flux difference and Forward Euler update. The model supplies the physical flux and a speed estimate.
-   Recover the existing Burgers choice exactly. For Euler, specify the endpoint estimate using velocity and sound
-   speed on admissible states and state the speed hypothesis needed for each claim.
-   [Burgers Rusanov](../CFDLean/Schemes/Burgers/Rusanov.lean) · [Periodic residual](../CFDLean/Discrete/Periodic/FiniteVolume.lean)
-3. **First acceptance target.** Prove equality to the existing Burgers update for every state on the supported
-   uniform periodic grids. For Euler, prove equal-state flux consistency, preservation of admissible constants and
-   periodic conservation of mass, momentum and energy. Include a nonconstant control for face orientation and the
-   update sign. Freeze the proposal before implementing these results.
+1. [x] **Specialize M1 physics to one dimension.** The three conserved quantities are density, x-momentum and
+   total energy. The physical flux uses the positive unit face and the existing pressure and admissibility.
+   [Euler adapter](../CFDLean/Schemes/Euler/FV1D.lean)
+2. [x] **Share the first-order step.** Both models supply their physical flux and a two-state speed to the same
+   periodic Rusanov and Forward Euler formulas. The sums of the three Euler quantities follow by projection of
+   a single state conservation theorem. [Shared method](../CFDLean/Discrete/Periodic/Rusanov.lean)
+3. [x] **Implement the four frozen claims and three-cell control.** [Independent review](../reviews/FV1D/Acceptance.md) accepted all four claims. [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
 4. **Select one physical model per run.** The planned executable takes an explicit model argument, for example
    `lake exe fv1d --model burgers` or `lake exe fv1d --model euler`. Dispatch once in the driver and advance the
    selected state through the shared array traversal and time loop. Preserve `burgers1d` as a Burgers entry point

@@ -995,3 +995,27 @@ example {n m : ℕ} {N' E' B' : Type*} [DecidableEq N'] [Fintype E'] [Fintype B'
 
 end
 end M5Checks
+
+-- FV1D: public claims on the physical domain of the frozen first-order step.
+section
+variable {N : ℕ} [NeZero N]
+
+example (dx dt : ℝ) (hdx : 0 < dx) (hdt : 0 ≤ dt) (u : ZMod N → ℝ) (i : ZMod N) :
+    FV1D.step (Periodic.zmodGrid N) Burgers.physicalFlux Burgers.Rusanov.waveSpeed dx dt u i =
+    Burgers.Schemes.RusanovForwardEuler.step dx dt u i := Burgers.fv1d_step_eq dx dt hdx hdt u i
+
+example (γ : ℝ) (hγ : 1 < γ) (C : Conservative 1) (hC : C.Admissible γ) :
+    Euler1D.face γ C C = physicalFlux γ C (fun _ => 1) := Euler1D.face_consistent γ hγ C hC
+
+example (γ dx dt : ℝ) (hγ : 1 < γ) (hdx : 0 < dx) (hdt : 0 ≤ dt)
+    (C : Conservative 1) (hC : C.Admissible γ) :
+    Euler1D.step (N := N) γ dx dt (fun _ => C) = fun _ => C :=
+  Euler1D.step_constant γ dx dt hγ hdx hdt C hC
+
+example (γ dx dt : ℝ) (hγ : 1 < γ) (hdx : 0 < dx) (hdt : 0 ≤ dt)
+    (U : ZMod N → Conservative 1) (hU : ∀ i, (U i).Admissible γ) :
+    (dx * ∑ i, (Euler1D.step γ dx dt U i).density = dx * ∑ i, (U i).density) ∧
+    (dx * ∑ i, (Euler1D.step γ dx dt U i).momentum 0 = dx * ∑ i, (U i).momentum 0) ∧
+    (dx * ∑ i, (Euler1D.step γ dx dt U i).energy = dx * ∑ i, (U i).energy) :=
+  Euler1D.component_balance γ dx dt hγ hdx hdt U hU
+end
