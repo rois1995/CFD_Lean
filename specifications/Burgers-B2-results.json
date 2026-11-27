@@ -5,7 +5,7 @@
   "approved_revision": "a4c271a44c6fa74b0caffc10546e5ab956b41bca",
   "source_map": "references/Burgers-B2.md",
   "trusted_statement_review": "reviews/Burgers-B2/TrustedStatements_Review.md",
-  "independent_acceptance": "pending",
+  "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0 (reviews/Burgers-B2/Acceptance.md)",
   "results": [
     {
       "id": "B2-R",

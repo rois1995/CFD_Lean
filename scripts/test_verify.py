@@ -447,13 +447,15 @@ class CatalogTests(unittest.TestCase):
         expected = verify.m1_accepted_theorems((root / "Integrity.lean").read_text())
         for milestone, path in [("M2", "specifications/M2-results.json"), ("M3", "specifications/M3-results.json"),
                                 ("M4", "specifications/M4-results.json"), ("M5", "specifications/M5-results.json"),
-                                ("MC-N", verify.MC_N_RESULTS)] + [
+                                ("FV1D", "specifications/FV1D-results.json"), ("MC-N", verify.MC_N_RESULTS)] + [
                                     (m, pins["results"]) for m, pins in verify.BURGERS.items()]:
             expected.update(verify.catalog_index(milestone, json.loads((root / path).read_text())))
         expected.update(verify.jst1_catalog_index([json.loads((root / path).read_text())
                                                    for path, _ in verify.JST1_RESULTS]))
         catalog = json.loads((root / verify.CATALOG).read_text(encoding="utf-8"))
-        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT
+        fv1d_claims = {"FV1D-B", "FV1D-F", "FV1D-K", "FV1D-C"}
+        self.assertCountEqual([rid for milestone, rid in expected.values() if milestone == "FV1D"], fv1d_claims)
+        self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT + len(fv1d_claims)
                          + sum(pins["count"] for pins in verify.BURGERS.values()) + verify.JST1_COUNT)
         rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
         self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
@@ -464,7 +466,7 @@ class CatalogTests(unittest.TestCase):
 class JST1Tests(unittest.TestCase):
     def setUp(self):
         self.records, self.rows, lines = [], {}, []
-        for paper, count in [("P1", 36), ("P2", 36), ("P3", 20), ("P4", 13), ("P5", 7), ("P6", 3), ("P7", 4)]:
+        for paper, count in [("P1", 36), ("P2", 36), ("P3", 20), ("P4", 13), ("P5", 7), ("P6", 3), ("P7", 4), ("P8", 2)]:
             bindings = {}
             for i in range(count):
                 rid = f"{paper}-{i // 10 + 1}.{i % 10}"
@@ -516,8 +518,8 @@ class JST1Tests(unittest.TestCase):
 
     def test_ids_are_the_frozen_statements(self):
         spec = "def P1_1_0 : Prop :=\n  True\n/-- P1-1.1 -/\ndef P1_1_1 : Prop := True\ndef other : Prop := True\n"
-        self.assertEqual(verify.jst1_frozen_ids([spec] + [f"def P2_{i}_0 : Prop :=" for i in range(117)]),
-                         {"P1-1.0", "P1-1.1"} | {f"P2-{i}.0" for i in range(117)})
+        self.assertEqual(verify.jst1_frozen_ids([spec] + [f"def P2_{i}_0 : Prop :=" for i in range(119)]),
+                         {"P1-1.0", "P1-1.1"} | {f"P2-{i}.0" for i in range(119)})
         with self.assertRaises(ValueError):
             verify.jst1_frozen_ids([spec])
         with self.assertRaises(ValueError):
@@ -532,24 +534,24 @@ class JST1Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.check(records=rebound)
 
-    def test_seven_result_maps(self):
-        """P7 (MR-4 extension): exactly the seven maps P1-P7; a P4-P7 ID only in its own map; P8 statements are not
+    def test_eight_result_maps(self):
+        """P8 (MR-4 extension): exactly the eight maps P1-P8; a P4-P8 ID only in its own map; P9 statements are not
         IDs."""
-        for short in (self.records[:3], self.records[:4], self.records[:5], self.records[:6]):
+        for short in (self.records[:3], self.records[:4], self.records[:5], self.records[:6], self.records[:7]):
             with self.assertRaises(ValueError):
                 self.check(records=short)
-        for src, dst, rid in ((3, 2, "P4-1.0"), (4, 3, "P5-1.0"), (5, 4, "P6-1.0"), (6, 5, "P7-1.0")):
+        for src, dst, rid in ((3, 2, "P4-1.0"), (4, 3, "P5-1.0"), (5, 4, "P6-1.0"), (6, 5, "P7-1.0"), (7, 6, "P8-1.1")):
             moved = json.loads(json.dumps(self.records))
             moved[dst]["bindings"][rid] = moved[src]["bindings"].pop(rid)
             with self.assertRaises(ValueError):
                 self.check(records=moved)
         names, _ = self.check()
-        for name in ("pP4_1_2", "pP5_1_6", "pP6_1_2", "pP7_1_3"):
+        for name in ("pP4_1_2", "pP5_1_6", "pP6_1_2", "pP7_1_3", "pP8_1_1"):
             self.assertIn("CFDLean.JST1.Proofs." + name, names)
-        spec = "\n".join(f"def P7_{i}_0 : Prop :=" for i in range(119))
-        self.assertEqual(len(verify.jst1_frozen_ids([spec])), 119)
+        spec = "\n".join(f"def P8_{i}_0 : Prop :=" for i in range(121))
+        self.assertEqual(len(verify.jst1_frozen_ids([spec])), 121)
         with self.assertRaises(ValueError):
-            verify.jst1_frozen_ids([spec.replace("def P7_0_0", "def P8_0_0")])
+            verify.jst1_frozen_ids([spec.replace("def P8_0_0", "def P9_0_0")])
 
     def test_theorem_type_is_its_statement(self):
         rows = json.loads(json.dumps(self.rows))
@@ -652,7 +654,7 @@ class JST1Tests(unittest.TestCase):
         mcn = [r["theorem"] for r in json.loads((root / verify.MC_N_RESULTS).read_text())["results"]]
         spec = [p.read_text() for p in (root / verify.JST1_ROOT / "Spec").glob("*.lean")]
         names, delegated = verify.check_jst1(rows, records, audit, mcn, verify.jst1_frozen_ids(spec))
-        self.assertEqual((len(names), len(delegated)), (119, 37))
+        self.assertEqual((len(names), len(delegated)), (121, 37))
         sources = sorted(str(p.relative_to(root)) for p in (root / "CFDLean").rglob("*.lean"))
         verify.check_jst1_frozen(verify.load_jst1_frozen((root / verify.JST1_FROZEN).read_bytes()),
                                  verify.read_source, sources)
@@ -892,7 +894,7 @@ class JST1ComparatorTests(unittest.TestCase):
         return verify.check_jst1_comparator(self.rows if rows is None else rows, self.records, files.__getitem__)
 
     def test_committed_files_pass(self):
-        self.assertEqual(self.check(), 119)
+        self.assertEqual(self.check(), 121)
 
     def test_challenge_and_configuration_pinned(self):
         challenge = self.files[verify.JST1_CHALLENGE]

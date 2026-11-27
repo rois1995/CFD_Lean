@@ -5,10 +5,11 @@
   "approved_revision": "28c996c398c0f7571619e967d6dc2d303fc5a23c",
   "source_map": "references/Burgers-E0b.md",
   "trusted_statement_review": "reviews/Burgers-E0b/TrustedStatements_Review.md",
-  "independent_acceptance": "pending",
+  "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0 (reviews/Burgers-E0b/Acceptance.md)",
   "executable": {
     "name": "burgers1d",
-    "flag": "--muscl",
+    "flag": "--limiter minmod",
+    "flag_amendment": "specifications/Burgers-E0b-amendment-1.md",
     "root": "Main.lean",
     "verified": false
   },
