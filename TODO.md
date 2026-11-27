@@ -17,7 +17,7 @@ The project already contains:
 - an independently accepted Euler/Roe/median-dual line through M4, with M5 implemented;
 - a Burgers line through B4;
 - executable first-order and MUSCL array kernels with exact-real refinement proofs;
-- a native `burgers1d` executable using `Float`;
+- a native `fv1d` executable for Burgers and Euler using `Float`;
 - theorem cataloguing, trusted statement bridges, kernel audit and comparator-based checking;
 - integrated JST paper formalization.
 

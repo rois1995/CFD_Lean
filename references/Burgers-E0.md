@@ -9,10 +9,12 @@ E0 adds new modules only. No B0--B4, accepted Euler M1--M4 or M5 source is modif
 
 ## Run it
 
+The [driver amendment](../specifications/FV1D-driver-amendment.md) gives the current executable mapping.
+
 ```bash
-lake exe burgers1d                 # N = 200, steps = 200, cfl = 0.4
-lake exe burgers1d 400 1000 0.5    # N, steps, cfl
-lake exe burgers1d 50 100 0.4 --dump
+lake exe fv1d --model burgers                 # N = 200, steps = 200, cfl = 0.4
+lake exe fv1d --model burgers 400 1000 0.5    # N, steps, cfl
+lake exe fv1d --model burgers 50 100 0.4 --dump
 ```
 
 The program prints `N`, `steps`, `dt`, and for the initial and final state `sum · dx`, minimum, maximum and total
@@ -26,7 +28,7 @@ Exit codes: 0 normal, 1 bad arguments, 2 the final state has a NaN or an infinit
 | `CFDLean/Exec/Kernel.lean` | Arithmetic class `Scalar`, the array kernel, the `Float` instance. No imports. |
 | `CFDLean/Exec/RealScalar.lean` | The `ℝ` instance of the kernel arithmetic |
 | `CFDLean/Exec/Refinement.lean` | Representation relation, refinement theorems, diagnostics, transfer of the B2 results |
-| `Main.lean` | Driver of the executable `burgers1d`; imports only the kernel |
+| `FVMain.lean` | Native entry point for `fv1d --model burgers` |
 | `CFDLean/Verification/BurgersE0Challenge.lean` | Trusted E0 statements; imports Mathlib, the kernel and the `ℝ` instance |
 | `CFDLean/Verification/BurgersE0Verify.lean` | Bridge |
 | `Challenges/BurgersE0.lean` | `lake comparator` challenge |
@@ -82,8 +84,8 @@ represents the iterated scheme (E0-N), the B2 theorem (`eulerStep_iterate_stable
 
 ### E0-X — executable
 
-- `[[lean_exe]] burgers1d` in `lakefile.toml`, root `Main.lean`, with the instance `CFDLean.Exec.instScalarFloat`.
-- Built and run in CI. Reference output for `burgers1d 200 200 0.4`:
+- `[[lean_exe]] fv1d` in `lakefile.toml`, root `FVMain.lean`, model `burgers`, with the instance `CFDLean.Exec.instScalarFloat`.
+- Historical E0 reference output for `burgers1d 200 200 0.4`:
 
 ```text
 N = 200  steps = 200  cfl = 0.400000  dx = 5.000000000000e-3  dt = 1.333443002369e-3  scheme = first-order
@@ -126,7 +128,7 @@ axiom outside the three standard ones, no unsafe declaration),
 ## What is not verified
 
 - `Float` arithmetic: no rounding bound, and no statement that a `Float` run keeps bounds, sum or total variation.
-- The driver `Main.lean`: argument parsing, initial data, the choice of `dt`, printing.
+- The driver `FVMain.lean`: argument parsing, initial data, the choice of `dt`, printing.
 - The Lean compiler, the runtime, the C toolchain.
 - Performance. The kernel allocates new arrays in every stage.
 
