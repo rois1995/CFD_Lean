@@ -1,6 +1,8 @@
 # P1 report: Lean 4 check of the algebraic core of paper 1
 
 Paper: frozen `paper1.tex` (SHA256SUMS OK). Lean v4.19.0, Mathlib `c44e0c8`, CFD_Lean pinned at `3a586a4`.
+Current paper reference (2026-11-27): `/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`,
+sha256 `f37419ae…`, gaps G1-G8 fixed (`PAPER_GAPS.md`).
 Repository: `rois1995/JST_Paper_Lean` (private), branch `p1-spec`. Reproduce: `./scripts/check.sh`.
 
 ## Result

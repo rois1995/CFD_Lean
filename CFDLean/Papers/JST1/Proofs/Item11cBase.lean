@@ -1,5 +1,6 @@
 import CFDLean.Papers.JST1.Spec.Item11c
 import CFDLean.Papers.JST1.Proofs.Geom3
+import CFDLean.Papers.JST1.Proofs.Chunks
 
 /-! Helpers for item 11, stage 3 (P3): integer versions of the triple products on the reference cells, their
 transfer to affine images, and the closed computations on the pulling splits (checked by the kernel). -/
@@ -148,6 +149,17 @@ def checkKg : Bool :=
          onCellFace C f || decide (sFg R z f (oppV t f z) * sFg R z f (oppV t' f z) < 0)) &&
       (!onCellFace C f || decide (0 < sFg R z f (oppV t f z) * cFg R S z f))
 
+/-- The check of `checkKg` for one split. -/
+def checkKf (s : Fin n × List Bool) : Bool :=
+  (C.pull s.1 s.2).all fun t =>
+    (sFg R z (t.take 3) (t.getD 3 z) != 0) &&
+    (tetFaces t).all fun f =>
+      ((C.pull s.1 s.2).all fun t' => sameSimplex t t' || !((tetFaces t').any (sameSimplex f)) ||
+         onCellFace C f || decide (sFg R z f (oppV t f z) * sFg R z f (oppV t' f z) < 0)) &&
+      (!onCellFace C f || decide (0 < sFg R z f (oppV t f z) * cFg R S z f))
+
+theorem checkKg_f : checkKg C R S z = C.splits.all (checkKf C R S z) := rfl
+
 end Generic
 
 /-- Reference coordinates of the three cells as plain functions. -/
@@ -162,9 +174,37 @@ theorem hexTets_eq : (Kind.hex.tets : List (List (Fin 8))) = tetsOf RefCell.hex 
 theorem prismTets_eq : (Kind.prism.tets : List (List (Fin 6))) = tetsOf RefCell.prism := rfl
 theorem pyrTets_eq : (Kind.pyr.tets : List (List (Fin 5))) = tetsOf RefCell.pyramid := rfl
 
-theorem checkK_hex : checkK .hex = true := by
-  rw [show checkK .hex = checkKg RefCell.hex hexR (4, 4, 4) 0 from rfl]
+theorem checkK_hex0 :
+    ((RefCell.hex.splits.drop (8 * 0)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
   decide +kernel
+theorem checkK_hex1 :
+    ((RefCell.hex.splits.drop (8 * 1)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+theorem checkK_hex2 :
+    ((RefCell.hex.splits.drop (8 * 2)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+theorem checkK_hex3 :
+    ((RefCell.hex.splits.drop (8 * 3)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+theorem checkK_hex4 :
+    ((RefCell.hex.splits.drop (8 * 4)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+theorem checkK_hex5 :
+    ((RefCell.hex.splits.drop (8 * 5)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+theorem checkK_hex6 :
+    ((RefCell.hex.splits.drop (8 * 6)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+theorem checkK_hex7 :
+    ((RefCell.hex.splits.drop (8 * 7)).take 8).all (checkKf RefCell.hex hexR (4, 4, 4) 0) = true := by
+  decide +kernel
+
+/-- The hexahedron in chunks of 8 splits (`all_of_chunks`), one declaration each. -/
+theorem checkK_hex : checkK .hex = true := by
+  rw [show checkK .hex = checkKg RefCell.hex hexR (4, 4, 4) 0 from rfl, checkKg_f]
+  refine all_of_chunks _ _ 8 8 (by decide +kernel) fun i hi => ?_
+  interval_cases i
+  exacts [checkK_hex0, checkK_hex1, checkK_hex2, checkK_hex3, checkK_hex4, checkK_hex5, checkK_hex6, checkK_hex7]
 theorem checkK_prism : checkK .prism = true := by
   rw [show checkK .prism = checkKg RefCell.prism prismR (2, 2, 3) 0 from rfl]
   decide +kernel
