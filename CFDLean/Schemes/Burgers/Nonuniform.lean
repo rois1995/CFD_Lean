@@ -95,6 +95,8 @@ private def incrementC (m : Mesh1D I) (dt : ℝ) (u : I → ℝ) (i : I) : ℝ :
 private def incrementD (m : Mesh1D I) (dt : ℝ) (u : I → ℝ) (i : I) : ℝ :=
   dt / m.width (m.grid.next i) * ((Rusanov.waveSpeed (u i) (u (m.grid.next i)) + (u i + u (m.grid.next i)) / 2) / 2)
 
+/-- The first-order Burgers step is the Harten incremental update with the coefficients `incrementC` and
+`incrementD`. -/
 private theorem firstOrderStep_eq_incrementalUpdate (m : Mesh1D I) (dt : ℝ) (u : I → ℝ) :
     firstOrderStep m dt u = incrementalUpdate m.grid (incrementC m dt u) (incrementD m dt u) u := by
   funext i
@@ -103,11 +105,13 @@ private theorem firstOrderStep_eq_incrementalUpdate (m : Mesh1D I) (dt : ℝ) (u
     m.grid.next_prev, smul_eq_mul]
   ring
 
+/-- `incrementC` is nonnegative for `dt ≥ 0`, because `mean i ≤ |mean i| ≤ a i`. -/
 private theorem incrementC_nonneg (m : Mesh1D I) (dt : ℝ) (hdt : 0 ≤ dt) (u : I → ℝ) (i : I) :
     0 ≤ incrementC m dt u i := by
   have h := abs_le.mp (Rusanov.abs_mean_le_waveSpeed (u i) (u (m.grid.next i)))
   exact mul_nonneg (div_nonneg hdt (m.width_pos i).le) (by linarith)
 
+/-- `incrementD` is nonnegative for `dt ≥ 0`, because `-mean i ≤ |mean i| ≤ a i`. -/
 private theorem incrementD_nonneg (m : Mesh1D I) (dt : ℝ) (hdt : 0 ≤ dt) (u : I → ℝ) (i : I) :
     0 ≤ incrementD m dt u i := by
   have h := abs_le.mp (Rusanov.abs_mean_le_waveSpeed (u i) (u (m.grid.next i)))

@@ -1,7 +1,16 @@
 import CFDLean.Discrete.Periodic.NonuniformMusclStability
 
-/-! Checks for the reconstruction-independent layer of FVN (task 1): each public theorem applied to its own
-hypotheses, the one-cell grid `ZMod 1` (where `next i = prev i = i`) and the step with `dt = 0`. -/
+/-! Checks for the FVN layers on a non-uniform periodic 1D mesh, in three sections:
+
+- the reconstruction-independent layer (task 1): the flux-form update and the first-order step, FVN-C, FVN-K and
+  FVN-U(a);
+- the MUSCL realization (task 2): the rescaled differences, slope and face states as frozen, FVN-C and FVN-K for the
+  MUSCL step, and FVN-A;
+- the scalar MUSCL stability (task 3): FVN-R, FVN-M and the incremental form, including the degenerate interval
+  `[c, c]` (review focus 3).
+
+Each section applies every public theorem to its own hypotheses and adds instances on the one-cell grid `ZMod 1`
+(where `next i = prev i = i`, review focus 1); the first two also check the step with `dt = 0` (review focus 2). -/
 noncomputable section
 namespace CFDLean.FV1D.Nonuniform.Checks
 
@@ -9,6 +18,8 @@ open Periodic
 open scoped BigOperators
 
 variable {S I : Type*} [AddCommGroup S] [Module ℝ S]
+
+/-! ### Reconstruction-independent layer (task 1) -/
 
 example [Fintype I] (m : Mesh1D I) (dt : ℝ) (h U : I → S) :
     ∑ i, m.width i • update m dt h U i = ∑ i, m.width i • U i :=
@@ -41,8 +52,10 @@ example (m : Mesh1D I) (H : S → S → S) (U : I → S) : firstOrderStep m H 0 
   funext i
   simp [firstOrderStep, update]
 
-/-! Checks for the MUSCL realization of FVN (task 2): the rescaled differences and face states as frozen, each
-public theorem applied to its own hypotheses, the one-cell grid and the step with `dt = 0`. -/
+/-! ### MUSCL realization (task 2)
+
+The rescaled differences and face states as frozen, each public theorem applied to its own hypotheses, the one-cell
+grid and the step with `dt = 0`. -/
 
 /-- The backward difference is rescaled by the cell's own width over the spacing of its left face. -/
 example (m : Mesh1D I) (U : I → S) (i : I) :
@@ -113,13 +126,23 @@ example (m : Mesh1D (ZMod 1)) (lim : S → S → S) (U : ZMod 1 → S) (i : ZMod
     leftState m lim U i = U i + (m.width i / 2) • β :=
   leftState_affine m lim U i β hlim hf hb
 
+/-- Review focus 1: FVN-A for the right state on the one-cell grid, where `prev i = i`. -/
+example (m : Mesh1D (ZMod 1)) (lim : S → S → S) (U : ZMod 1 → S) (i : ZMod 1) (β : S)
+    (hlim : ∀ d, lim d d = d)
+    (hf : U (m.grid.next i) - U i = m.spacing i • β)
+    (hb : U i - U (m.grid.prev i) = m.spacing (m.grid.prev i) • β) :
+    rightState m lim U (m.grid.prev i) = U i - (m.width i / 2) • β :=
+  rightState_prev_affine m lim U i β hlim hf hb
+
 /-- Review focus 2: with `dt = 0` the MUSCL step returns its input. -/
 example (m : Mesh1D I) (H lim : S → S → S) (U : I → S) : musclStep m H lim 0 U = U := by
   funext i
   simp [musclStep, update]
 
-/-! Checks for the scalar MUSCL stability of FVN (task 3): FVN-R and FVN-M applied to their own hypotheses, the
-incremental form, the degenerate interval `hi ≤ lo` (review focus 3) and the one-cell grid. -/
+/-! ### Scalar MUSCL stability (task 3)
+
+FVN-R and FVN-M applied to their own hypotheses, the incremental form, the degenerate interval `[c, c]` (review
+focus 3) and the one-cell grid. -/
 
 section Stability
 
@@ -165,15 +188,6 @@ example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded
       musclStep m nf.eval φ dt u = incrementalUpdate m.grid C D u :=
   musclStep_incremental m φ θ hφ hr lo hi u hu nf hmono KL KR hlip hKL hKR dt hdt
 
-/-- Review focus 3: `musclStep_mem` applies on a degenerate interval `hi ≤ lo`; no `lo < hi` premise. -/
-example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ)
-    (_hhl : hi ≤ lo) (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (nf : NumericalFlux) (hmono : MonotoneFlux nf)
-    (KL KR : ℝ) (hlip : LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
-    (hcfl : ∀ i, dt * ((KL + KR) / m.width i + θ * (KR / (m.width i + m.width (m.grid.next i)) +
-      KL / (m.width (m.grid.prev i) + m.width i))) ≤ 1) :
-    musclStep m nf.eval φ dt u ∈ boundedStates lo hi :=
-  musclStep_mem m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
-
 /-- Review focus 3, concrete: on the interval `[c, c]` the Lipschitz certificate holds with `KL = KR = -1`, which
 no nondegenerate interval allows, and `musclStep_mem` still applies. -/
 example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ)
@@ -192,6 +206,27 @@ example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded
   have e : dt * ((-1 + -1) / m.width i + θ * (-1 / (m.width i + m.width (m.grid.next i)) +
       -1 / (m.width (m.grid.prev i) + m.width i))) = -(dt * ((1 + 1) / m.width i +
       θ * (1 / (m.width i + m.width (m.grid.next i)) + 1 / (m.width (m.grid.prev i) + m.width i)))) := by
+    ring
+  rw [e]
+  linarith [mul_nonneg hdt h0]
+
+/-- Review focus 3, concrete: `musclStep_totalVariation_le` on the interval `[c, c]` with the same certificate
+`KL = KR = -1`, under which the CFL premise holds for every `dt ≥ 0`. -/
+example [Fintype I] (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ)
+    (nf : NumericalFlux) (hmono : MonotoneFlux nf) (c dt : ℝ) (hdt : 0 ≤ dt) :
+    totalVariation m.grid (musclStep m nf.eval φ dt (fun _ => c)) ≤ totalVariation m.grid (fun _ => c) := by
+  refine musclStep_totalVariation_le m φ θ hφ hr c c _ (fun _ => ⟨le_rfl, le_rfl⟩) nf hmono (-1) (-1)
+    ⟨fun a a' _ h1 h2 h3 h4 _ _ => by rw [le_antisymm h2 h1, le_antisymm h4 h3]; simp,
+      fun _ b b' _ _ h3 h4 h5 h6 => by rw [le_antisymm h4 h3, le_antisymm h6 h5]; simp⟩ dt hdt fun i => ?_
+  have hθ := hφ.nonneg
+  have h0 : 0 ≤ 1 / m.width i + 1 / m.width (m.grid.next i) +
+      θ * (1 + 1) / (m.width i + m.width (m.grid.next i)) := by
+    have := m.width_pos i
+    have := m.width_pos (m.grid.next i)
+    positivity
+  have e : dt * (-1 / m.width i + -1 / m.width (m.grid.next i) +
+      θ * (-1 + -1) / (m.width i + m.width (m.grid.next i))) = -(dt * (1 / m.width i +
+      1 / m.width (m.grid.next i) + θ * (1 + 1) / (m.width i + m.width (m.grid.next i)))) := by
     ring
   rw [e]
   linarith [mul_nonneg hdt h0]

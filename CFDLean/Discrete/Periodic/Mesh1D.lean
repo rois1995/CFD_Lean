@@ -6,8 +6,11 @@ input. The state `U : I → S` stays separate from the mesh. -/
 noncomputable section
 namespace CFDLean.Periodic
 
+/-- A fixed periodic 1D mesh over the cell index type `I`: the periodic grid and one width per cell. -/
 structure Mesh1D (I : Type*) where
+  /-- The periodic connectivity: face `i` points from cell `i` to `grid.next i`. -/
   grid : Grid I
+  /-- The width of each cell. -/
   width : I → ℝ
   /-- Geometric validity: every cell has positive width. -/
   width_pos : ∀ i, 0 < width i

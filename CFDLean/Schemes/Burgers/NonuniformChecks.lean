@@ -16,6 +16,8 @@ variable {I : Type*}
 
 example : face = FV1D.face physicalFlux Rusanov.waveSpeed := rfl
 
+example : face = Rusanov.numericalFlux.eval := face_eq
+
 example (m : Mesh1D I) (dt : ℝ) : firstOrderStep m dt = FV1D.Nonuniform.firstOrderStep m face dt := rfl
 
 example (m : Mesh1D I) (dt : ℝ) (φ : ℝ → ℝ → ℝ) :

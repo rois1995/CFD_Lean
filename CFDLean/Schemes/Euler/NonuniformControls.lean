@@ -161,6 +161,15 @@ private theorem slope_2 :
   fin_cases k <;> norm_num [FV1D.Nonuniform.componentwise, Scalar.FiniteVolume.minmod, Pi.sub_apply,
     Pi.smul_apply, smul_eq_mul]
 
+/-- FVN-E: without the rescaling, cell 1 would get the componentwise minmod of the raw differences `(3, 3, 3/2)` and
+`(5, 5, 5/2)`, that is `(3, 3, 3/2)`, not the rescaled `(4, 4, 2)`. -/
+theorem unrescaledSlope_one :
+    FV1D.Nonuniform.componentwise Scalar.FiniteVolume.minmod (encode (initial 1) - encode (initial 0))
+      (encode (initial 2) - encode (initial 1)) = ![3, 3, 3 / 2] := by
+  rw [enc_0, enc_1, enc_2]
+  funext k
+  fin_cases k <;> norm_num [FV1D.Nonuniform.componentwise, Scalar.FiniteVolume.minmod, Pi.sub_apply]
+
 /-- FVN-E: the rescaled componentwise minmod slopes `0`, `(4, 4, 2)`, `0`. -/
 theorem slope_cells (i : ZMod 3) :
     FV1D.Nonuniform.slope m3 (FV1D.Nonuniform.componentwise Scalar.FiniteVolume.minmod)

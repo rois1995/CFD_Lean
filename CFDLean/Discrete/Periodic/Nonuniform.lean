@@ -36,6 +36,7 @@ theorem update_weighted_sum [Fintype I] (m : Mesh1D I) (dt : ℝ) (h U : I → S
   rw [Finset.sum_sub_distrib, ← Finset.smul_sum, Finset.sum_sub_distrib, reindex]
   simp
 
+/-- FVN-C (first order): the first-order step conserves the width-weighted sum, for every two-point flux `H`. -/
 theorem firstOrderStep_weighted_sum [Fintype I] (m : Mesh1D I) (H : S → S → S) (dt : ℝ) (U : I → S) :
     ∑ i, m.width i • firstOrderStep m H dt U i = ∑ i, m.width i • U i :=
   update_weighted_sum m dt _ U

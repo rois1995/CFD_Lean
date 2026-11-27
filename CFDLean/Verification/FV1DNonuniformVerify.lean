@@ -109,33 +109,29 @@ theorem vanLeer_eq : FV1DNonuniformChallenge.vanLeer = FiniteVolume.limitedSlope
 theorem vanAlbada_eq : FV1DNonuniformChallenge.vanAlbada = FiniteVolume.limitedSlope FiniteVolume.vanAlbadaFactor :=
   funext fun a => funext fun b => (FiniteVolume.limitedSlope_vanAlbadaFactor a b).symm
 
-/-- The trusted FVN-X left state at face 1 is the left state of the implemented control mesh `m4` and state
-`u4`. -/
-theorem leftState_m4 (φ : ℝ → ℝ → ℝ) :
+/-- The trusted FVN-X left state at face 1 is the left state of the implemented control mesh `fvnMesh` and state
+`fvnState`. -/
+theorem leftState_fvnMesh (φ : ℝ → ℝ → ℝ) :
     FV1DNonuniformChallenge.leftState φ (Equiv.addRight (1 : ZMod 4)) FV1DNonuniformChallenge.widthData
-      FV1DNonuniformChallenge.stateData 1 = FV1D.Nonuniform.leftState Nonuniform.m4 φ Nonuniform.u4 1 := rfl
+      FV1DNonuniformChallenge.stateData 1 = FV1D.Nonuniform.leftState Nonuniform.fvnMesh φ Nonuniform.fvnState 1 :=
+  rfl
 
-/-- FVN-X: the rescaled backward difference of cell 1 is `(3 / 2) · (1 - 0) = 3/2`. -/
-theorem backDiff_one :
+/-- The trusted FVN-X backward difference of cell 1 is the implemented one on `fvnMesh` and `fvnState`. -/
+theorem backDiff_fvnMesh :
     FV1DNonuniformChallenge.backDiff (Equiv.addRight (1 : ZMod 4)) FV1DNonuniformChallenge.widthData
-      FV1DNonuniformChallenge.stateData 1 = 3 / 2 := by
-  have h0 : (Equiv.addRight (1 : ZMod 4)).symm 1 = 0 := rfl
-  have h1 : (Equiv.addRight (1 : ZMod 4)) 0 = 1 := rfl
-  simp only [FV1DNonuniformChallenge.backDiff, FV1DNonuniformChallenge.spacing, h0, h1]
-  norm_num [FV1DNonuniformChallenge.widthData, FV1DNonuniformChallenge.stateData]
+      FV1DNonuniformChallenge.stateData 1 = FV1D.Nonuniform.backDiff Nonuniform.fvnMesh Nonuniform.fvnState 1 :=
+  rfl
 
-/-- FVN-X: the rescaled forward difference of cell 1 is `(3 / 2) · (6/5 - 1) = 3/10`. -/
-theorem fwdDiff_one :
+/-- The trusted FVN-X forward difference of cell 1 is the implemented one on `fvnMesh` and `fvnState`. -/
+theorem fwdDiff_fvnMesh :
     FV1DNonuniformChallenge.fwdDiff (Equiv.addRight (1 : ZMod 4)) FV1DNonuniformChallenge.widthData
-      FV1DNonuniformChallenge.stateData 1 = 3 / 10 := by
-  have h2 : (Equiv.addRight (1 : ZMod 4)) 1 = 2 := rfl
-  simp only [FV1DNonuniformChallenge.fwdDiff, FV1DNonuniformChallenge.spacing, h2]
-  norm_num [FV1DNonuniformChallenge.widthData, FV1DNonuniformChallenge.stateData]
+      FV1DNonuniformChallenge.stateData 1 = FV1D.Nonuniform.fwdDiff Nonuniform.fvnMesh Nonuniform.fvnState 1 :=
+  rfl
 
 theorem mesh_ratio_overshoot : FV1DNonuniformChallenge.MeshRatioOvershoot := by
-  obtain ⟨hu, hr, hr2, hmm, hva, hvl, hmc, hsb, hc⟩ := Nonuniform.meshRatio_needed
-  refine ⟨hu, hr, hr2, backDiff_one, fwdDiff_one, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
-    rw [leftState_m4]
+  obtain ⟨hu, hr, hr2, hb, hf, hmm, hva, hvl, hmc, hsb, hc⟩ := Nonuniform.meshRatio_needed
+  refine ⟨hu, hr, hr2, backDiff_fvnMesh.trans hb, fwdDiff_fvnMesh.trans hf, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
+    rw [leftState_fvnMesh]
   · rw [minmod_eq]; exact hmm
   · rw [vanAlbada_eq]; exact hva
   · rw [vanLeer_eq]; exact hvl
