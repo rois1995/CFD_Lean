@@ -1,17 +1,19 @@
 # CFD_Lean theorem catalog (MC-C)
 
-554 promised theorems, grouped by layer.
+571 promised theorems, grouped by layer.
 
 ## Rules
 
 Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theorems (M1 has no result map; its
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
-`specifications/M2-results.json` .. `M5-results.json`, the FV1D, FVP and FVA result maps, every theorem of `specifications/MC-N-results.json`, and the
+`specifications/M2-results.json` .. `M5-results.json`, the FV1D, FVP, FVA and FVN result maps, every theorem of `specifications/MC-N-results.json`, and the
 121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
-independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
+independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). FVN (FV1D on a
+non-uniform periodic 1D mesh, `specifications/FV1D-nonuniform-results.json`) is `pending`: implemented, independent
+review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
 JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
@@ -61,18 +63,18 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
 | Geometry | 75 | 0 | 43 | 4 | 28 |
-| Discrete operators | 89 | 10 | 60 | 19 | 0 |
+| Discrete operators | 94 | 10 | 65 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
-| Time | 93 | 0 | 73 | 0 | 20 |
+| Time | 105 | 0 | 85 | 0 | 20 |
 | Execution | 55 | 0 | 55 | 0 | 0 |
-| **Total** | 554 | 17 | 337 | 30 | 170 |
+| **Total** | 571 | 17 | 354 | 30 | 170 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 367 |
+| FVM | 384 |
 | method-free | 170 |
 
 | Milestone | Status | Theorems |
@@ -96,6 +98,7 @@ that this file equals the generated text. Do not edit by hand.
 | FV1D | accepted | 4 |
 | FVP | accepted | 1 |
 | FVA | accepted | 2 |
+| FVN | pending | 17 |
 
 ## Foundations (12)
 
@@ -194,7 +197,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p8_23_1` | P8-23.1 | method-free | candidate | A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell. |
 | `CFDLean.JST1.Proofs.p8_23_2` | P8-23.2 | FVM | candidate | A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero. |
 
-## Discrete operators (89)
+## Discrete operators (94)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -287,6 +290,11 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor` | B3b-L | FVM | accepted | The van Leer limited slope is θ-bounded with θ = 2. |
 | `CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor` | B3b-L | FVM | accepted | The van Albada limited slope is θ-bounded with θ = 5/4. |
 | `CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded` | B3b-I | FVM | accepted | For a θ-bounded slope with θ ≤ 2 and a monotone flux that is Lipschitz on bounded states, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(1 + θ/2)KR and 0 ≤ D ≤ (dt/dx)(1 + θ/2)KL. |
+| `CFDLean.FV1D.Nonuniform.leftState_affine` | FVN-A | FVM | pending | Local affine reconstruction exactness: if both differences next to cell i are the centroid distance times β and lim d d = d, the left state at face i is U i + (w i/2) β. |
+| `CFDLean.FV1D.Nonuniform.rightState_prev_affine` | FVN-A | FVM | pending | Local affine reconstruction exactness: under the same hypotheses the right state at face prev i is U i − (w i/2) β. |
+| `CFDLean.FV1D.Nonuniform.leftState_mem` | FVN-R | FVM | pending | For a θ-bounded slope and mesh ratio θ the rescaled MUSCL left state of every face keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.FV1D.Nonuniform.rightState_mem` | FVN-R | FVM | pending | For a θ-bounded slope and mesh ratio θ the rescaled MUSCL right state of every face keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Nonuniform.meshRatio_needed` | FVN-R | FVM | pending | Exact example on widths (1, 3, 1, 1): the mesh ratio holds for θ = 5/4, fails for θ = 2, and the van Leer, MC, superbee and unlimited left states leave [0, 6/5]. |
 
 ## Entropy framework (32)
 
@@ -533,7 +541,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
 | `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | accepted | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
 
-## Time (93)
+## Time (105)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -630,6 +638,18 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable` | B3b-S | FVM | accepted | MUSCL-Rusanov SSPRK3 with the van Albada limiter: bounds and total variation after n steps under 13/2 · dt · max(\|m\|, \|M\|) ≤ dx. |
 | `CFDLean.Burgers.Rusanov.stepData_mem` | B3b-N | FVM | accepted | The four-cell state (0, 0, 1, 1) is between 0 and 1. |
 | `CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds` | B3b-N | FVM | accepted | The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3. |
+| `CFDLean.FV1D.Nonuniform.firstOrderStep_uniform` | FVN-U | FVM | pending | On the uniform mesh with width dx and the FV1D Rusanov face, the non-uniform first-order step is the FV1D step in every cell. |
+| `CFDLean.Burgers.Nonuniform.musclStep_uniform` | FVN-U | FVM | pending | On the uniform mesh the Burgers MUSCL step with rescaled differences is the B3 MUSCL-Rusanov Forward Euler step, for every slope function. |
+| `CFDLean.FV1D.Nonuniform.firstOrderStep_constant` | FVN-K | FVM | pending | On a non-uniform mesh the first-order step keeps every constant state, for every two-point flux. |
+| `CFDLean.FV1D.Nonuniform.musclStep_constant` | FVN-K | FVM | pending | On a non-uniform mesh the MUSCL step keeps every constant state, for every two-point flux and every limiter with lim 0 0 = 0. |
+| `CFDLean.FV1D.Nonuniform.update_weighted_sum` | FVN-C | FVM | pending | The flux-form update on a non-uniform periodic mesh keeps the width-weighted sum of the states, for every face-flux function. |
+| `CFDLean.Burgers.Nonuniform.firstOrderStep_mem` | FVN-B | FVM | pending | Under the cell CFL dt (a(prev i) + a i) ≤ w i the first-order Burgers step on a non-uniform mesh keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Nonuniform.firstOrderStep_totalVariation_le` | FVN-B | FVM | pending | Under the face CFL dt · a i ≤ min(w i, w(next i)) the first-order Burgers step on a non-uniform mesh does not increase the total variation. |
+| `CFDLean.FV1D.Nonuniform.musclStep_mem` | FVN-M | FVM | pending | For a monotone flux with the Lipschitz certificate, a θ-bounded slope and mesh ratio θ, the scalar MUSCL step keeps the bounds under the local cell CFL condition. |
+| `CFDLean.FV1D.Nonuniform.musclStep_totalVariation_le` | FVN-M | FVM | pending | For a monotone flux with the Lipschitz certificate, a θ-bounded slope and mesh ratio θ, the scalar MUSCL step does not increase the total variation under the local face CFL condition. |
+| `CFDLean.Burgers.Nonuniform.musclStep_iterate_stable` | FVN-MB | FVM | pending | Under 8 · dt · max(\|m\|, \|M\|) ≤ w i, a θ-bounded slope and mesh ratio θ, n Burgers MUSCL Forward Euler steps keep the bounds and do not increase the total variation. |
+| `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
+| `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 
 ## Execution (55)
 

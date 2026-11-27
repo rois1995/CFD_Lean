@@ -11,9 +11,10 @@ For partial work, check off the completed deliverables and keep the overall item
 
 - Base task branches on `develop` and target `develop` with the PR. [Integration CI](.github/workflows/integration.yml)
   builds the package and executable, runs the verifier and fixtures, and compares committed evidence.
-  To also run every trusted challenge with the paranoid comparator on a `develop` PR, add the `paranoid` label to the
+  To also run the trusted challenges with the paranoid comparator on a `develop` PR, add the `paranoid` label to the
   PR. You can also start [the paranoid workflow](.github/workflows/paranoid.yml) for a branch from the Actions tab.
-  This check is optional, and the release PR runs it again.
+  On a PR it skips the paper-1 challenge (JST1) unless the PR changes paper-1 files, and it builds only the modules
+  the selected challenges need. This check is optional, and the release PR runs it again with every challenge.
 - Integration CI reuses the compiled modules of unchanged files from a build cache (restored from the same PR or
   from `develop`, which [Develop build cache](.github/workflows/develop-cache.yml) refreshes after each merge). Lake
   validates its saved build traces and rebuilds artifacts whose recorded inputs no longer match, so source and import

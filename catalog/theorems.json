@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, FV1D, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, FV1D, FVP, FVA, FVN, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -7232,6 +7232,227 @@
       ],
       "summary": "All three coordinates of the real Euler array step represent the assembled FV1D update.",
       "source": "references/FVA.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.firstOrderStep_uniform",
+      "id": "FVN-U",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the uniform mesh with width dx and the FV1D Rusanov face, the non-uniform first-order step is the FV1D step in every cell.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.musclStep_uniform",
+      "id": "FVN-U",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On the uniform mesh the Burgers MUSCL step with rescaled differences is the B3 MUSCL-Rusanov Forward Euler step, for every slope function.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.firstOrderStep_constant",
+      "id": "FVN-K",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a non-uniform mesh the first-order step keeps every constant state, for every two-point flux.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.musclStep_constant",
+      "id": "FVN-K",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "On a non-uniform mesh the MUSCL step keeps every constant state, for every two-point flux and every limiter with lim 0 0 = 0.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.update_weighted_sum",
+      "id": "FVN-C",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The flux-form update on a non-uniform periodic mesh keeps the width-weighted sum of the states, for every face-flux function.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.leftState_affine",
+      "id": "FVN-A",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Local affine reconstruction exactness: if both differences next to cell i are the centroid distance times β and lim d d = d, the left state at face i is U i + (w i/2) β.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.rightState_prev_affine",
+      "id": "FVN-A",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Local affine reconstruction exactness: under the same hypotheses the right state at face prev i is U i − (w i/2) β.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.firstOrderStep_mem",
+      "id": "FVN-B",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the cell CFL dt (a(prev i) + a i) ≤ w i the first-order Burgers step on a non-uniform mesh keeps the bounds m ≤ u ≤ M.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.firstOrderStep_totalVariation_le",
+      "id": "FVN-B",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the face CFL dt · a i ≤ min(w i, w(next i)) the first-order Burgers step on a non-uniform mesh does not increase the total variation.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.leftState_mem",
+      "id": "FVN-R",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a θ-bounded slope and mesh ratio θ the rescaled MUSCL left state of every face keeps the bounds m ≤ u ≤ M.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.rightState_mem",
+      "id": "FVN-R",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a θ-bounded slope and mesh ratio θ the rescaled MUSCL right state of every face keeps the bounds m ≤ u ≤ M.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.meshRatio_needed",
+      "id": "FVN-R",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.NonuniformControls",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Exact example on widths (1, 3, 1, 1): the mesh ratio holds for θ = 5/4, fails for θ = 2, and the van Leer, MC, superbee and unlimited left states leave [0, 6/5].",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.musclStep_mem",
+      "id": "FVN-M",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a monotone flux with the Lipschitz certificate, a θ-bounded slope and mesh ratio θ, the scalar MUSCL step keeps the bounds under the local cell CFL condition.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.FV1D.Nonuniform.musclStep_totalVariation_le",
+      "id": "FVN-M",
+      "milestone": "FVN",
+      "module": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a monotone flux with the Lipschitz certificate, a θ-bounded slope and mesh ratio θ, the scalar MUSCL step does not increase the total variation under the local face CFL condition.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.musclStep_iterate_stable",
+      "id": "FVN-MB",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under 8 · dt · max(|m|, |M|) ≤ w i, a θ-bounded slope and mesh ratio θ, n Burgers MUSCL Forward Euler steps keep the bounds and do not increase the total variation.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable",
+      "id": "FVN-MB",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps.",
+      "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable",
+      "id": "FVN-MB",
+      "milestone": "FVN",
+      "module": "CFDLean.Schemes.Burgers.Nonuniform",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps.",
+      "source": "references/FV1D-nonuniform.md"
     }
   ]
 }

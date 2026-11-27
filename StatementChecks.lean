@@ -1045,3 +1045,148 @@ example (γ dx dt : ℝ) (_hg : 1 < γ) (_hdx : 0 < dx) (_hdt : 0 ≤ dt)
       samples (fun j => Euler1D.encode (Euler1D.step γ dx dt u j)) :=
   euler_refines γ dx dt _hg _hdx _hdt u _hadm old hu
 end CFDLean.Exec.FV1D
+
+-- FVN: public claims of FV1D on a non-uniform periodic 1D mesh (generic first-order and MUSCL steps).
+section
+variable {I S : Type*} [AddCommGroup S] [Module ℝ S]
+
+example (g : Periodic.Grid I) (F : S → S) (a : S → S → ℝ) (dx : ℝ) (hdx : 0 < dx) (dt : ℝ) (U : I → S)
+    (i : I) :
+    FV1D.Nonuniform.firstOrderStep (Periodic.Mesh1D.uniform g dx hdx) (FV1D.face F a) dt U i =
+      FV1D.step g F a dx dt U i :=
+  FV1D.Nonuniform.firstOrderStep_uniform g F a dx hdx dt U i
+
+example (m : Periodic.Mesh1D I) (H : S → S → S) (dt : ℝ) (C : S) :
+    FV1D.Nonuniform.firstOrderStep m H dt (fun _ => C) = fun _ => C :=
+  FV1D.Nonuniform.firstOrderStep_constant m H dt C
+
+example (m : Periodic.Mesh1D I) (H lim : S → S → S) (dt : ℝ) (C : S) (hlim : lim 0 0 = 0) :
+    FV1D.Nonuniform.musclStep m H lim dt (fun _ => C) = fun _ => C :=
+  FV1D.Nonuniform.musclStep_constant m H lim dt C hlim
+
+example [Fintype I] (m : Periodic.Mesh1D I) (dt : ℝ) (h U : I → S) :
+    ∑ i, m.width i • FV1D.Nonuniform.update m dt h U i = ∑ i, m.width i • U i :=
+  FV1D.Nonuniform.update_weighted_sum m dt h U
+
+example [Fintype I] (m : Periodic.Mesh1D I) (H : S → S → S) (dt : ℝ) (U : I → S) :
+    ∑ i, m.width i • FV1D.Nonuniform.firstOrderStep m H dt U i = ∑ i, m.width i • U i :=
+  FV1D.Nonuniform.firstOrderStep_weighted_sum m H dt U
+
+example [Fintype I] (m : Periodic.Mesh1D I) (H lim : S → S → S) (dt : ℝ) (U : I → S) :
+    ∑ i, m.width i • FV1D.Nonuniform.musclStep m H lim dt U i = ∑ i, m.width i • U i :=
+  FV1D.Nonuniform.musclStep_weighted_sum m H lim dt U
+
+example (m : Periodic.Mesh1D I) (lim : S → S → S) (U : I → S) (i : I) (β : S) (hlim : ∀ d, lim d d = d)
+    (hf : U (m.grid.next i) - U i = m.spacing i • β)
+    (hb : U i - U (m.grid.prev i) = m.spacing (m.grid.prev i) • β) :
+    FV1D.Nonuniform.leftState m lim U i = U i + (m.width i / 2) • β :=
+  FV1D.Nonuniform.leftState_affine m lim U i β hlim hf hb
+
+example (m : Periodic.Mesh1D I) (lim : S → S → S) (U : I → S) (i : I) (β : S) (hlim : ∀ d, lim d d = d)
+    (hf : U (m.grid.next i) - U i = m.spacing i • β)
+    (hb : U i - U (m.grid.prev i) = m.spacing (m.grid.prev i) • β) :
+    FV1D.Nonuniform.rightState m lim U (m.grid.prev i) = U i - (m.width i / 2) • β :=
+  FV1D.Nonuniform.rightState_prev_affine m lim U i β hlim hf hb
+end
+
+-- FVN: public scalar claims (Burgers face, limiters with the `SlopeBounded θ` certificate, mesh ratio `θ`).
+section
+variable {I : Type*}
+
+example (g : Periodic.Grid I) (dx : ℝ) (hdx : 0 < dx) (dt : ℝ) (φ : ℝ → ℝ → ℝ) (u : I → ℝ) (i : I) :
+    Burgers.Nonuniform.musclStep (Periodic.Mesh1D.uniform g dx hdx) dt φ u i =
+      Burgers.Rusanov.musclEulerStep g dx dt φ u i :=
+  Burgers.Nonuniform.musclStep_uniform g dx hdx dt φ u i
+
+example (m : Periodic.Mesh1D I) (dt : ℝ) (hdt : 0 ≤ dt) (lo hi : ℝ) (u : I → ℝ)
+    (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi)
+    (hcfl : ∀ i, dt * (Burgers.Rusanov.waveSpeed (u (m.grid.prev i)) (u (m.grid.next (m.grid.prev i))) +
+      Burgers.Rusanov.waveSpeed (u i) (u (m.grid.next i))) ≤ m.width i) :
+    Burgers.Nonuniform.firstOrderStep m dt u ∈ Scalar.FiniteVolume.boundedStates lo hi :=
+  Burgers.Nonuniform.firstOrderStep_mem m dt hdt lo hi u hu hcfl
+
+example [Fintype I] (m : Periodic.Mesh1D I) (dt : ℝ) (hdt : 0 ≤ dt) (u : I → ℝ)
+    (hcfl : ∀ i, dt * Burgers.Rusanov.waveSpeed (u i) (u (m.grid.next i)) ≤
+      min (m.width i) (m.width (m.grid.next i))) :
+    Scalar.FiniteVolume.totalVariation m.grid (Burgers.Nonuniform.firstOrderStep m dt u) ≤
+      Scalar.FiniteVolume.totalVariation m.grid u :=
+  Burgers.Nonuniform.firstOrderStep_totalVariation_le m dt hdt u hcfl
+
+example (m : Periodic.Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : Scalar.FiniteVolume.SlopeBounded θ φ)
+    (hr : m.MeshRatio θ) (lo hi : ℝ) (u : I → ℝ) (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi) (i : I) :
+    lo ≤ FV1D.Nonuniform.leftState m φ u i ∧ FV1D.Nonuniform.leftState m φ u i ≤ hi :=
+  FV1D.Nonuniform.leftState_mem m φ θ hφ hr lo hi u hu i
+
+example (m : Periodic.Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : Scalar.FiniteVolume.SlopeBounded θ φ)
+    (hr : m.MeshRatio θ) (lo hi : ℝ) (u : I → ℝ) (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi) (i : I) :
+    lo ≤ FV1D.Nonuniform.rightState m φ u i ∧ FV1D.Nonuniform.rightState m φ u i ≤ hi :=
+  FV1D.Nonuniform.rightState_mem m φ θ hφ hr lo hi u hu i
+
+example :
+    Burgers.Nonuniform.fvnState ∈ Scalar.FiniteVolume.boundedStates 0 (6 / 5) ∧
+      Burgers.Nonuniform.fvnMesh.MeshRatio (5 / 4) ∧ ¬ Burgers.Nonuniform.fvnMesh.MeshRatio 2 ∧
+      FV1D.Nonuniform.backDiff Burgers.Nonuniform.fvnMesh Burgers.Nonuniform.fvnState 1 = 3 / 2 ∧
+      FV1D.Nonuniform.fwdDiff Burgers.Nonuniform.fvnMesh Burgers.Nonuniform.fvnState 1 = 3 / 10 ∧
+      FV1D.Nonuniform.leftState Burgers.Nonuniform.fvnMesh Scalar.FiniteVolume.minmod
+        Burgers.Nonuniform.fvnState 1 = 23 / 20 ∧
+      FV1D.Nonuniform.leftState Burgers.Nonuniform.fvnMesh
+        (Scalar.FiniteVolume.limitedSlope Scalar.FiniteVolume.vanAlbadaFactor) Burgers.Nonuniform.fvnState 1 =
+        61 / 52 ∧
+      FV1D.Nonuniform.leftState Burgers.Nonuniform.fvnMesh
+        (Scalar.FiniteVolume.limitedSlope Scalar.FiniteVolume.vanLeerFactor) Burgers.Nonuniform.fvnState 1 =
+        5 / 4 ∧
+      FV1D.Nonuniform.leftState Burgers.Nonuniform.fvnMesh
+        (Scalar.FiniteVolume.limitedSlope Scalar.FiniteVolume.mcFactor) Burgers.Nonuniform.fvnState 1 = 13 / 10 ∧
+      FV1D.Nonuniform.leftState Burgers.Nonuniform.fvnMesh
+        (Scalar.FiniteVolume.limitedSlope Scalar.FiniteVolume.superbeeFactor) Burgers.Nonuniform.fvnState 1 =
+        13 / 10 ∧
+      FV1D.Nonuniform.leftState Burgers.Nonuniform.fvnMesh Scalar.FiniteVolume.centralSlope
+        Burgers.Nonuniform.fvnState 1 = 29 / 20 :=
+  Burgers.Nonuniform.meshRatio_needed
+
+example (m : Periodic.Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : Scalar.FiniteVolume.SlopeBounded θ φ)
+    (hr : m.MeshRatio θ) (lo hi : ℝ) (u : I → ℝ) (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi)
+    (nf : Scalar.NumericalFlux) (hmono : Scalar.MonotoneFlux nf) (KL KR : ℝ)
+    (hlip : Scalar.LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, dt * ((KL + KR) / m.width i + θ * (KR / (m.width i + m.width (m.grid.next i)) +
+      KL / (m.width (m.grid.prev i) + m.width i))) ≤ 1) :
+    FV1D.Nonuniform.musclStep m nf.eval φ dt u ∈ Scalar.FiniteVolume.boundedStates lo hi :=
+  FV1D.Nonuniform.musclStep_mem m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
+
+example [Fintype I] (m : Periodic.Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ)
+    (hφ : Scalar.FiniteVolume.SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ) (u : I → ℝ)
+    (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi) (nf : Scalar.NumericalFlux) (hmono : Scalar.MonotoneFlux nf)
+    (KL KR : ℝ) (hlip : Scalar.LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, dt * (KR / m.width i + KL / m.width (m.grid.next i) +
+      θ * (KL + KR) / (m.width i + m.width (m.grid.next i))) ≤ 1) :
+    Scalar.FiniteVolume.totalVariation m.grid (FV1D.Nonuniform.musclStep m nf.eval φ dt u) ≤
+      Scalar.FiniteVolume.totalVariation m.grid u :=
+  FV1D.Nonuniform.musclStep_totalVariation_le m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
+
+example [Fintype I] (m : Periodic.Mesh1D I) (dt lo hi : ℝ) (φ : ℝ → ℝ → ℝ) (θ : ℝ)
+    (hφ : Scalar.FiniteVolume.SlopeBounded θ φ) (hr : m.MeshRatio θ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, 8 * dt * max |lo| |hi| ≤ m.width i) (u : I → ℝ)
+    (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi) (n : ℕ) :
+    (Burgers.Nonuniform.musclStep m dt φ)^[n] u ∈ Scalar.FiniteVolume.boundedStates lo hi ∧
+      Scalar.FiniteVolume.totalVariation m.grid ((Burgers.Nonuniform.musclStep m dt φ)^[n] u) ≤
+        Scalar.FiniteVolume.totalVariation m.grid u :=
+  Burgers.Nonuniform.musclStep_iterate_stable m dt lo hi φ θ hφ hr hdt hcfl u hu n
+
+example [Fintype I] (m : Periodic.Mesh1D I) (dt lo hi : ℝ) (φ : ℝ → ℝ → ℝ) (θ : ℝ)
+    (hφ : Scalar.FiniteVolume.SlopeBounded θ φ) (hr : m.MeshRatio θ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, 8 * dt * max |lo| |hi| ≤ m.width i) (u : I → ℝ)
+    (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi) (n : ℕ) :
+    (Burgers.Nonuniform.musclSsprk2Step m dt φ)^[n] u ∈ Scalar.FiniteVolume.boundedStates lo hi ∧
+      Scalar.FiniteVolume.totalVariation m.grid ((Burgers.Nonuniform.musclSsprk2Step m dt φ)^[n] u) ≤
+        Scalar.FiniteVolume.totalVariation m.grid u :=
+  Burgers.Nonuniform.musclSsprk2Step_iterate_stable m dt lo hi φ θ hφ hr hdt hcfl u hu n
+
+example [Fintype I] (m : Periodic.Mesh1D I) (dt lo hi : ℝ) (φ : ℝ → ℝ → ℝ) (θ : ℝ)
+    (hφ : Scalar.FiniteVolume.SlopeBounded θ φ) (hr : m.MeshRatio θ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, 8 * dt * max |lo| |hi| ≤ m.width i) (u : I → ℝ)
+    (hu : u ∈ Scalar.FiniteVolume.boundedStates lo hi) (n : ℕ) :
+    (Burgers.Nonuniform.musclSsprk3Step m dt φ)^[n] u ∈ Scalar.FiniteVolume.boundedStates lo hi ∧
+      Scalar.FiniteVolume.totalVariation m.grid ((Burgers.Nonuniform.musclSsprk3Step m dt φ)^[n] u) ≤
+        Scalar.FiniteVolume.totalVariation m.grid u :=
+  Burgers.Nonuniform.musclSsprk3Step_iterate_stable m dt lo hi φ θ hφ hr hdt hcfl u hu n
+end
