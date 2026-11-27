@@ -18,6 +18,7 @@ step lets us state exactly where rounding enters while keeping the flux, mesh an
 | Binary64 certificate for that step | Review and freeze the contract, then prove the proposed bound under its hypotheses. | Implementation follows contract review. A certificate for a full SSPRK3 run would also need bounds for the stages and repeated steps. |
 | Exact-real oriented face fluxes on a fixed 2D mesh | The planned 1D density-wave comparison is complete. Choose a concrete mesh and face orientations for the 2D control. | This geometry task can run before, alongside or after E1. With one workstream, take the E1 proposal first. |
 | 1D Euler MUSCL | Choose the system reconstruction and state the conditions that give admissible left and right face states. The current Euler driver uses first order. | A separate numerical milestone. E1 can cover the first-order kernel before this work. |
+| Shared 1D reconstruction interface | Choose a second family with a concrete stencil and reference face values. | The choice can be reviewed now. Extract the interface when adding that family alongside MUSCL. See [step 9](#step-9--a-second-1d-reconstruction-family). |
 | Multidimensional reconstruction | Select a concrete mesh, its geometry, and a method that needs gradients or higher-order face values. | Schedule for higher-order fixed-mesh FV or viscous fluxes. A first-order oriented-face control can use cell values directly. |
 | Certified binary64 output on a 2D mesh | Establish the 2D numerical step and a machine-error result that covers its operations. | This claim needs both tracks. A 1D certificate alone covers only its stated step. |
 
@@ -296,3 +297,21 @@ accepted. [E1 scope](../specifications/E1-burgers-step-proposal.md)
 
 Steps 6 and 8 can be reviewed independently of E1. Step 7 covers face values. Positive cell averages after a full
 Euler update and a multidimensional gradient reconstruction each require additional hypotheses.
+
+## Step 9 — a second 1D reconstruction family
+
+**Next reconstruction decision.** Choose one scalar method on a uniform periodic mesh and specify how it obtains
+left and right face values from cell averages. Higher-order polynomial reconstruction and WENO are existing
+candidates. The choice can proceed alongside first-order E1, the Euler MUSCL face-admissibility work and the
+first-order 2D control. [Higher-order methods](FUTURE.md#9-higher-order-spatial-methods) ·
+[FVN layering decision](../references/FV1D-nonuniform.md#layering)
+
+For the selected method, supply a constant case and a nonconstant periodic case with independently computed face
+values that distinguish it from MUSCL. Use the two implementations to define the shared operation. At the oriented
+face from cell `i` to its successor, return the trace from `i` followed by the trace from its successor. Each method
+chooses its stencil and uses the geometry it needs. Compute one numerical flux from that pair and pass it to the
+existing finite-volume update.
+
+Before adopting the interface, show that the MUSCL instance reproduces the accepted face values, that both
+instances preserve constants, and that both feed the existing conservation theorem. Limiter bounds, Euler
+admissibility and machine-error estimates belong to the methods and arithmetic for which they are proved.
