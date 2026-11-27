@@ -188,6 +188,6 @@ theorem step_admissible {N : ℕ} [NeZero N] (γ dx dt : ℝ) (hg : 1 < γ) (hdx
   simp only [FV1D.step, FV1D.face, Periodic.Grid.next_prev, Pi.sub_apply, Pi.add_apply, Pi.smul_apply, smul_eq_mul]
   change C k-s*((1/2*((flux γ C) k+(flux γ R) k)-b/2*(R k-C k))-
     (1/2*((flux γ L) k+(flux γ C) k)-a/2*(C k-L k))) = _
-  field_simp [ne_of_gt ha, ne_of_gt hb] <;> ring
+  field_simp [ne_of_gt ha, ne_of_gt hb]; ring
 
 end CFDLean.Euler1D
