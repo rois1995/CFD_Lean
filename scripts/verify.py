@@ -65,7 +65,8 @@ BURGERS_SERIES = ("B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c")
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
-                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending"}
+                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
+                  "FVNA": "accepted"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -194,6 +195,41 @@ BURGERS = {
             "challenge_sha256": "280830599586c4c9dc69980375cd793fbc45f6b4d2715ae2f93c5e5d6ccf7a21",
             "bridge": "CFDLean.Verification.FV1DNonuniformVerify", "pending": True,
             "count": 17, "bridges": 9},
+    # FVNA: executable array kernels on the non-uniform periodic 1D mesh. As E0c, the trusted statements of FVNA-M and
+    # FVNA-T import, besides Mathlib, the hash-pinned kernel modules and real instances (`trusted_inputs`), here with
+    # the FVA first-order kernel and the non-uniform kernel. Implementation acceptance is recorded separately.
+    "FVNA": {"results": "specifications/FV1D-nonuniform-array-results.json",
+             "approved": "077a916beaa9b6b8ffbebdb0a3bc1571ff51537a",
+             "statements": "CFDLean/Verification/FV1DNonuniformArrayChallenge.lean",
+             "statements_sha256": "309726e83eafae4da3d60603009cd7cbfd1b1fcd6908e340e6a6e83388be7181",
+             "challenge": "Challenges/FV1DNonuniformArray.lean",
+             "challenge_sha256": "3824441f5eb77e469bee99a16e17aa135a5e910aed543e383b6366df7ac73ebb",
+             "trusted_inputs": {
+                 "CFDLean.Exec.Kernel": {
+                     "path": "CFDLean/Exec/Kernel.lean",
+                     "sha256": "5a01cf45d28ff448ef4a9e823d5c9c6ebb23819ebea49045139b953b90b692ac"},
+                 "CFDLean.Exec.RealScalar": {
+                     "path": "CFDLean/Exec/RealScalar.lean",
+                     "sha256": "1ffa874a796385474f160a5508233bf91d48a356d655477beacb78e9ca5ad17c"},
+                 "CFDLean.Exec.MusclKernel": {
+                     "path": "CFDLean/Exec/MusclKernel.lean",
+                     "sha256": "adf7819d7da436a969a52c76443f61b2661691da03f2d8dd7086f8aa9acac380"},
+                 "CFDLean.Exec.LimiterKernel": {
+                     "path": "CFDLean/Exec/LimiterKernel.lean",
+                     "sha256": "ca3223409971be33a593ed31d8e28f64a55e74a083711393ed96db7c9bf32e50"},
+                 "CFDLean.Exec.RealScalarSign": {
+                     "path": "CFDLean/Exec/RealScalarSign.lean",
+                     "sha256": "d0959ddb8e4b4cda2b31b5cc1947ae3bbea5cfb7450ad8f0d12334497d43a6e2"},
+                 "CFDLean.Exec.FV1D": {
+                     "path": "CFDLean/Exec/FV1D.lean",
+                     "sha256": "d45fb21909fef3491eda48c8712448e494f4e93a5541b86d36599f09e71ceb4e"},
+                 "CFDLean.Exec.NonuniformKernel": {
+                     "path": "CFDLean/Exec/NonuniformKernel.lean",
+                     "sha256": "9b7fbf1e82d0dfa1e05097e992317e20434008c9166a15caa956877de7682f95"}},
+             "bridge": "CFDLean.Verification.FV1DNonuniformArrayVerify",
+             "accepted_revision": "95e571ed1aed64d5b83e57686d0a1209fa5974bc",
+             "acceptance_record": "reviews/FVNA/Acceptance.md",
+             "count": 20, "bridges": 13},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -214,7 +250,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "531f8fb167690b1a2350dbf3fd396a0350b5dcae9f02ab344dee1a638b58f53b"
+RAW_TYPES_SHA256 = "8e334eab38e087133756d18386143846aa8c3caf80c24518e219486794cd9aa9"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"

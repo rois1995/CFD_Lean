@@ -1,4 +1,22 @@
-ℹ [18631/18633] Replayed Integrity
+ℹ [18408/18647] Replayed CFDLean.Exec.NonuniformKernelSmoke
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:37:0: #[]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:38:0: #[]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:39:0: #[]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:40:0: #[]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:42:0: #[0.700000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:43:0: #[0.700000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:44:0: #[0.700000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:45:0: #[0.700000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:47:0: #[0.000000, 1.000000, 1.200000, 0.000000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:48:0: #[0.000000, 1.000000, 1.200000, 0.000000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:49:0: #[0.000000, 1.000000, 1.200000, 0.000000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:50:0: #[0.000000, 1.000000, 1.200000, 0.000000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:54:0: #[0.025000, 0.975333, 1.141000, 0.108000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:55:0: #[0.018063, 0.971958, 1.158062, 0.108000]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:56:0: #[0.017437, 0.972932, 1.163737, 0.100031]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:57:0: #[0.017360, 0.972890, 1.163523, 0.100448]
+info: CFDLean/Exec/NonuniformKernelSmoke.lean:61:0: #[#[2.187500, 2.187500, 3.093750], #[3.890625, 3.890625, 3.945312], #[8.031250, 8.031250, 6.015625]]
+ℹ [18645/18647] Replayed Integrity
 info: Integrity.lean:24:0: 'CFDLean.squareSum_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:25:0: 'CFDLean.squareSum_div' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:26:0: 'CFDLean.pressure_toConservative' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -14,5 +32,5 @@ info: Integrity.lean:35:0: 'CFDLean.physicalFlux_add' depends on axioms: [propex
 info: Integrity.lean:36:0: 'CFDLean.physicalFlux_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:37:0: 'CFDLean.physicalFlux_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: Integrity.lean:38:0: 'CFDLean.physicalFlux_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
-Build completed successfully (18633 jobs).
-Build completed successfully (18573 jobs).
+Build completed successfully (18647 jobs).
+Build completed successfully (18591 jobs).

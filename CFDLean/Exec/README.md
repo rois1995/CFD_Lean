@@ -5,12 +5,18 @@
 | [E0](../../references/Burgers-E0.md) | [Kernel](Kernel.lean), first-order Rusanov | [Refinement](Refinement.lean) |
 | [E0b](../../references/Burgers-E0b.md) | [MusclKernel](MusclKernel.lean), minmod MUSCL | [MusclRefinement](MusclRefinement.lean) |
 | [E0c](../../references/Burgers-E0c.md) | [LimiterKernel](LimiterKernel.lean), selectable MUSCL limiter | [LimiterRefinement](LimiterRefinement.lean) |
+| [FVNA](../../references/FV1D-nonuniform-array.md) | [NonuniformKernel](NonuniformKernel.lean), one width per cell: first order and MUSCL with a limiter | [NonuniformRefinement](NonuniformRefinement.lean), [NonuniformTransfer](NonuniformTransfer.lean) |
 
 [RealScalar](RealScalar.lean) and [RealScalarSign](RealScalarSign.lean) instantiate the arithmetic interfaces over `ℝ`.
 The refinement proofs connect arrays using those instances to the periodic schemes and transfer the stated guarantees.
 The kernel is arithmetic-polymorphic through `Scalar α`. The native driver selects `Float` (binary64) and handles
 initialization, parsing and diagnostics. Its arithmetic and output are outside the exact-real proof boundary.
 [Driver](../../Main.lean) · [E1 backend contract](../../roadmap/NEXT.md#priority-2---e1-machine-arithmetic-strategy)
+
+FVNA reuses the first-order FVA kernel [FV1D](FV1D.lean) for Burgers and Euler. Its exact real controls are in
+[NonuniformControls](NonuniformControls.lean). [NonuniformKernelSmoke](NonuniformKernelSmoke.lean) runs the non-uniform
+kernels in `Float` on the control data with `#eval`; it prints the outputs and proves nothing (`Float` error bounds
+belong to E1). The driver does not use the non-uniform kernels.
 
 From the repository root, run the first-order scheme or select a MUSCL limiter.
 

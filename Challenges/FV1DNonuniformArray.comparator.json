@@ -1,0 +1,25 @@
+{
+  "challenge_module": "Challenges.FV1DNonuniformArray",
+  "solution_module": "CFDLean.Verification.FV1DNonuniformArrayVerify",
+  "theorem_names": [
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_euler_step_refines",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk2_step_refines",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_step_refines",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.first_order_weighted_sum",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_euler_weighted_sum",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk2_weighted_sum",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_weighted_sum",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.euler_first_order_weighted_sum",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.first_order_bounds",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.first_order_total_variation",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_euler_run_stable",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk2_run_stable",
+    "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_run_stable"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

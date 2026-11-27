@@ -171,7 +171,8 @@ Burgers stays the line where shared capabilities are built first; Euler follows 
 
 1. **FVNA** — executable array kernels on the non-uniform mesh and their exact-real refinement (first order shared
    by Burgers and Euler; Burgers MUSCL with every limiter and SSPRK2/SSPRK3), with the FVN guarantees transferred to
-   the arrays. No driver change. [Proposal](../specifications/FV1D-nonuniform-array-proposal.md)
+   the arrays. No driver change. Implemented; independent implementation review pending.
+   [Contract](../specifications/FV1D-nonuniform-array.md) · [Proof map](../references/FV1D-nonuniform-array.md)
 2. **General driver** — `lake exe fv1d --model burgers|euler` with every current `burgers1d` capability (first
    order, MUSCL with limiters, SSPRK3, diagnostics, dump) plus a non-uniform mesh option. Include a check that
    `fv1d --model burgers` reproduces the `burgers1d` output on the same input.

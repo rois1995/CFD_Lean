@@ -1190,3 +1190,142 @@ example [Fintype I] (m : Periodic.Mesh1D I) (dt lo hi : ℝ) (φ : ℝ → ℝ �
         Scalar.FiniteVolume.totalVariation m.grid u :=
   Burgers.Nonuniform.musclSsprk3Step_iterate_stable m dt lo hi φ θ hφ hr hdt hcfl u hu n
 end
+
+-- FVNA: public claims of the executable array kernels on the non-uniform periodic 1D mesh, over the reals.
+namespace CFDLean.Exec
+section
+variable {n : ℕ} [NeZero n]
+open _root_.CFDLean.Exec.FV1D (samples)
+
+example (dt : ℝ) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (u : ZMod n → ℝ) (old : Array ℝ)
+    (hu : old = samples u) :
+    FV1D.nonuniformStepArray FV1D.burgers (1/2) dt widths old =
+      samples (Burgers.Nonuniform.firstOrderStep (meshOf widths hw hpos) dt u) :=
+  burgers_nonuniform_refines dt widths hw hpos u old hu
+
+example (γ dt : ℝ) (hg : 1 < γ) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (U : ZMod n → Conservative 1)
+    (hadm : ∀ j, (U j).Admissible γ) (old : Array (FV1D.EulerState ℝ))
+    (hu : old = samples (fun j => Euler1D.encode (U j))) :
+    FV1D.nonuniformStepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dt widths old =
+      samples (fun j => Euler1D.encode (Euler1D.nonuniformStep γ (meshOf widths hw hpos) dt U j)) :=
+  euler_nonuniform_refines γ dt hg widths hw hpos U hadm old hu
+
+example (L : Limiter) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (u : ZMod n → ℝ) (dt : ℝ) (old : Array ℝ)
+    (hu : old = samples u) :
+    nuLimiterEulerStepArray L dt widths old =
+      samples (Burgers.Nonuniform.musclStep (meshOf widths hw hpos) dt L.slopeFn u) :=
+  nuLimiterEulerStepArray_refines L widths hw hpos u dt old hu
+
+example (L : Limiter) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (u : ZMod n → ℝ) (dt : ℝ) (old : Array ℝ)
+    (hu : old = samples u) :
+    nuLimiterSsprk2StepArray L dt widths old =
+      samples (Burgers.Nonuniform.musclSsprk2Step (meshOf widths hw hpos) dt L.slopeFn u) :=
+  nuLimiterSsprk2StepArray_refines L widths hw hpos u dt old hu
+
+example (L : Limiter) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (u : ZMod n → ℝ) (dt : ℝ) (old : Array ℝ)
+    (hu : old = samples u) :
+    nuLimiterSsprk3StepArray L dt widths old =
+      samples (Burgers.Nonuniform.musclSsprk3Step (meshOf widths hw hpos) dt L.slopeFn u) :=
+  nuLimiterSsprk3StepArray_refines L widths hw hpos u dt old hu
+
+example (dx dt : ℝ) (widths : Array ℝ) (hdx : 0 < dx) (old : Array ℝ) (hs : widths.size = old.size)
+    (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    FV1D.nonuniformStepArray FV1D.burgers (1/2) dt widths old = FV1D.stepArray FV1D.burgers (1/2) dx dt old :=
+  burgers_nonuniformStepArray_uniform dx dt widths hdx old hs hw
+
+example (dx dt : ℝ) (widths : Array ℝ) (γ : ℝ) (hdx : 0 < dx) (old : Array (FV1D.EulerState ℝ))
+    (hs : widths.size = old.size) (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    FV1D.nonuniformStepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dt widths old =
+      FV1D.stepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dx dt old :=
+  euler_nonuniformStepArray_uniform dx dt widths γ hdx old hs hw
+
+example (dx dt : ℝ) (widths : Array ℝ) (L : Limiter) (hdx : 0 < dx) (u : Array ℝ) (hs : widths.size = u.size)
+    (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    nuLimiterEulerStepArray L dt widths u = limiterEulerStepArray L dx dt u :=
+  nuLimiterEulerStepArray_uniform dx dt widths L hdx u hs hw
+
+example (dx dt : ℝ) (widths : Array ℝ) (L : Limiter) (hdx : 0 < dx) (u : Array ℝ) (hs : widths.size = u.size)
+    (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    nuLimiterSsprk2StepArray L dt widths u = limiterSsprk2StepArray L dx dt u :=
+  nuLimiterSsprk2StepArray_uniform dx dt widths L hdx u hs hw
+
+example (dx dt : ℝ) (widths : Array ℝ) (L : Limiter) (hdx : 0 < dx) (u : Array ℝ) (hs : widths.size = u.size)
+    (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    nuLimiterSsprk3StepArray L dt widths u = limiterSsprk3StepArray L dx dt u :=
+  nuLimiterSsprk3StepArray_uniform dx dt widths L hdx u hs hw
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (dt : ℝ) (u : Array ℝ) (hs : u.size = n) :
+    sumArray (Array.zipWith (· * ·) widths (FV1D.nonuniformStepArray FV1D.burgers (1/2) dt widths u)) =
+      sumArray (Array.zipWith (· * ·) widths u) :=
+  burgers_nonuniformStepArray_weighted_sum widths hw hpos dt u hs
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (L : Limiter) (dt : ℝ) (u : Array ℝ) (hs : u.size = n) :
+    sumArray (Array.zipWith (· * ·) widths (nuLimiterEulerStepArray L dt widths u)) =
+      sumArray (Array.zipWith (· * ·) widths u) :=
+  nuLimiterEulerStepArray_weighted_sum widths hw hpos L dt u hs
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (L : Limiter) (dt : ℝ) (u : Array ℝ) (hs : u.size = n) :
+    sumArray (Array.zipWith (· * ·) widths (nuLimiterSsprk2StepArray L dt widths u)) =
+      sumArray (Array.zipWith (· * ·) widths u) :=
+  nuLimiterSsprk2StepArray_weighted_sum widths hw hpos L dt u hs
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (L : Limiter) (dt : ℝ) (u : Array ℝ) (hs : u.size = n) :
+    sumArray (Array.zipWith (· * ·) widths (nuLimiterSsprk3StepArray L dt widths u)) =
+      sumArray (Array.zipWith (· * ·) widths u) :=
+  nuLimiterSsprk3StepArray_weighted_sum widths hw hpos L dt u hs
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (γ dt : ℝ) (old : Array (FV1D.EulerState ℝ)) (hs : old.size = n) (k : Fin 3) :
+    sumArray (Array.zipWith (· * ·) widths
+        ((FV1D.nonuniformStepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dt widths old).map (fun s => s k))) =
+      sumArray (Array.zipWith (· * ·) widths (old.map (fun s => s k))) :=
+  euler_nonuniformStepArray_weighted_sum widths hw hpos γ dt old hs k
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (dt m M : ℝ) (hdt : 0 ≤ dt) (u : Array ℝ) (hs : u.size = n) (hb : EntriesBetween m M u)
+    (hcfl : ∀ i : Fin u.size, dt * (Burgers.Rusanov.waveSpeed u[prevIdx i] u[i] +
+      Burgers.Rusanov.waveSpeed u[i] u[nextIdx i]) ≤ widthAt widths i.val) :
+    EntriesBetween m M (FV1D.nonuniformStepArray FV1D.burgers (1/2) dt widths u) :=
+  burgers_nonuniformStepArray_bounds widths hw hpos dt m M hdt u hs hb hcfl
+
+example (widths : Array ℝ) (hw : widths.size = n) (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i])
+    (dt : ℝ) (hdt : 0 ≤ dt) (u : Array ℝ) (hs : u.size = n)
+    (hcfl : ∀ i : Fin u.size, dt * Burgers.Rusanov.waveSpeed u[i] u[nextIdx i] ≤
+      min (widthAt widths i.val) (widthAt widths (nextIdx i).val)) :
+    totalVariationArray (FV1D.nonuniformStepArray FV1D.burgers (1/2) dt widths u) ≤ totalVariationArray u :=
+  burgers_nonuniformStepArray_totalVariation_le widths hw hpos dt hdt u hs hcfl
+
+example (L : Limiter) (hL : L ≠ .none) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (hr : (meshOf widths hw hpos).MeshRatio L.theta)
+    (dt m M : ℝ) (hdt : 0 ≤ dt) (hcfl : ∀ (i : ℕ) (hi : i < widths.size), 8 * dt * max |m| |M| ≤ widths[i])
+    (u : Array ℝ) (hs : u.size = n) (hb : EntriesBetween m M u) (k : ℕ) :
+    EntriesBetween m M (run (nuLimiterEulerStepArray L dt widths) k u) ∧
+      totalVariationArray (run (nuLimiterEulerStepArray L dt widths) k u) ≤ totalVariationArray u :=
+  run_nuLimiterEulerStepArray_stable L hL widths hw hpos hr dt m M hdt hcfl u hs hb k
+
+example (L : Limiter) (hL : L ≠ .none) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (hr : (meshOf widths hw hpos).MeshRatio L.theta)
+    (dt m M : ℝ) (hdt : 0 ≤ dt) (hcfl : ∀ (i : ℕ) (hi : i < widths.size), 8 * dt * max |m| |M| ≤ widths[i])
+    (u : Array ℝ) (hs : u.size = n) (hb : EntriesBetween m M u) (k : ℕ) :
+    EntriesBetween m M (run (nuLimiterSsprk2StepArray L dt widths) k u) ∧
+      totalVariationArray (run (nuLimiterSsprk2StepArray L dt widths) k u) ≤ totalVariationArray u :=
+  run_nuLimiterSsprk2StepArray_stable L hL widths hw hpos hr dt m M hdt hcfl u hs hb k
+
+example (L : Limiter) (hL : L ≠ .none) (widths : Array ℝ) (hw : widths.size = n)
+    (hpos : ∀ (i : ℕ) (hi : i < widths.size), 0 < widths[i]) (hr : (meshOf widths hw hpos).MeshRatio L.theta)
+    (dt m M : ℝ) (hdt : 0 ≤ dt) (hcfl : ∀ (i : ℕ) (hi : i < widths.size), 8 * dt * max |m| |M| ≤ widths[i])
+    (u : Array ℝ) (hs : u.size = n) (hb : EntriesBetween m M u) (k : ℕ) :
+    EntriesBetween m M (run (nuLimiterSsprk3StepArray L dt widths) k u) ∧
+      totalVariationArray (run (nuLimiterSsprk3StepArray L dt widths) k u) ≤ totalVariationArray u :=
+  run_nuLimiterSsprk3StepArray_stable L hL widths hw hpos hr dt m M hdt hcfl u hs hb k
+end
+end CFDLean.Exec
