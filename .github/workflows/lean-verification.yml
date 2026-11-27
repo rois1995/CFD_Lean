@@ -14,7 +14,7 @@ permissions:
 jobs:
   verify:
     name: Lean verification
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Check release PR source
         if: inputs.release
@@ -48,7 +48,7 @@ jobs:
       # processes thrash the page cache and a module can take ten times longer. Swap keeps both builds and checks
       # complete and much faster.
       - name: Add swap space
-        if: steps.docs.outputs.only != 'true'
+        if: (steps.docs.outputs.only != 'true') && runner.environment == 'github-hosted'
         run: |
           free -h
           df -h / /mnt || true
@@ -173,7 +173,7 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
       - name: Install bubblewrap sandbox
-        if: inputs.release
+        if: (inputs.release) && runner.environment == 'github-hosted'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq bubblewrap

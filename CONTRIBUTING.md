@@ -15,6 +15,9 @@ For partial work, check off the completed deliverables and keep the overall item
   PR. You can also start [the paranoid workflow](.github/workflows/paranoid.yml) for a branch from the Actions tab.
   On a PR it skips the paper-1 challenge (JST1) unless the PR changes paper-1 files, and it builds only the modules
   the selected challenges need. This check is optional, and the release PR runs it again with every challenge.
+- The jobs run on the runner named by the repository variable `CI_RUNNER` (a runner label), or on `ubuntu-latest`
+  when it is unset. With `CI_RUNNER = cfdlean-local` they run on the owner's self-hosted runner; the steps that change
+  the machine (swap file, `apt-get`, removing preinstalled tools) run only on GitHub-hosted runners.
 - Integration CI reuses the compiled modules of unchanged files from a build cache (restored from the same PR or
   from `develop`, which [Develop build cache](.github/workflows/develop-cache.yml) refreshes after each merge). Lake
   validates its saved build traces and rebuilds artifacts whose recorded inputs no longer match, so source and import

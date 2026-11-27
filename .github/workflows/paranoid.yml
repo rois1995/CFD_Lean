@@ -32,7 +32,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       contains(github.event.pull_request.labels.*.name, 'paranoid')
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -62,6 +62,7 @@ jobs:
       # Same memory note as in lean-verification.yml: the runner has 7.6 GB and no swap, the heavy JST1 kernel checks
       # need 9-12 GB and the paper-1 comparator about 13 GB. Add swap before the build, or the runner can be lost.
       - name: Add swap space
+        if: runner.environment == 'github-hosted'
         run: |
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
           sudo swapoff -a || true
@@ -83,6 +84,7 @@ jobs:
           echo "$mods"
           ~/.elan/bin/lake build $mods
       - name: Install bubblewrap sandbox
+        if: runner.environment == 'github-hosted'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq bubblewrap
