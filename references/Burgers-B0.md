@@ -1,6 +1,6 @@
 # Burgers B0 implementation: source/result map
 
-Status: **implementation candidate; independent acceptance pending**.
+Status: **accepted** at `4c77f6e` ([acceptance](../reviews/Burgers-B0/Acceptance.md)). Human review of the trusted statements pending.
 
 Frozen contract: `specifications/Burgers-B0.md`.
 
@@ -136,6 +136,11 @@ Trusted statements and their bridge theorems (`CFDLean.Verification.BurgersB0Cha
 
 The trusted statement file does not state B0-P (definitions only), the constant-state part of B0-T, or the assembled
 `ZMod N` scheme B0-S. Those results are checked by the kernel audit and the result map, not by a separate statement.
+
+Review decision (2026-11-26): B0-S gets no dedicated trusted challenge. A Mathlib-only statement cannot name the
+implementation's `grid` or `step`, so it would only restate B0-C, B0-K and B0-T. The orientation of the assembled grid
+is instead fixed by `CFDLean/Schemes/Burgers/GridControls.lean` (`grid_next`, `grid_prev`, `step_apply` and an exact
+three-cell control). See the [implementation review](../reviews/Burgers-Implementation/Review.md).
 
 Checks:
 

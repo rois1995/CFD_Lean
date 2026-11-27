@@ -108,10 +108,189 @@ def chkR : Bool :=
 
 end Check
 
+/-! ### The sub-tetrahedra of the hexahedron, written out once
+
+The closed checks below run on these lists in chunks, so that each check stays small for the external kernels of
+the paranoid comparator (`docs/LEAN_PERFORMANCE.md`). The two equalities are the only places where the pulling splits
+are evaluated. -/
+
+def hexL0 : List (List (Fin 8)) :=
+  [[0,4,5,6], [0,4,6,7], [0,1,2,6], [0,1,6,5], [0,2,3,7], [0,2,7,6], [0,4,5,7], [0,5,6,7],
+  [0,1,2,6], [0,1,6,5], [0,2,3,7], [0,2,7,6], [0,4,5,6], [0,4,6,7], [0,1,2,5], [0,2,6,5],
+  [0,2,3,7], [0,2,7,6], [0,4,5,7], [0,5,6,7], [0,1,2,5], [0,2,6,5], [0,2,3,7], [0,2,7,6],
+  [0,4,5,6], [0,4,6,7], [0,1,2,6], [0,1,6,5], [0,2,3,6], [0,3,7,6], [0,4,5,7], [0,5,6,7],
+  [0,1,2,6], [0,1,6,5], [0,2,3,6], [0,3,7,6], [0,4,5,6], [0,4,6,7], [0,1,2,5], [0,2,6,5],
+  [0,2,3,6], [0,3,7,6], [0,4,5,7], [0,5,6,7], [0,1,2,5], [0,2,6,5], [0,2,3,6], [0,3,7,6]]
+
+def hexL1 : List (List (Fin 8)) :=
+  [[1,4,5,6], [1,4,6,7], [1,2,3,7], [1,2,7,6], [1,3,0,4], [1,3,4,7], [1,4,5,7], [1,5,6,7],
+  [1,2,3,7], [1,2,7,6], [1,3,0,4], [1,3,4,7], [1,4,5,6], [1,4,6,7], [1,2,3,6], [1,3,7,6],
+  [1,3,0,4], [1,3,4,7], [1,4,5,7], [1,5,6,7], [1,2,3,6], [1,3,7,6], [1,3,0,4], [1,3,4,7],
+  [1,4,5,6], [1,4,6,7], [1,2,3,7], [1,2,7,6], [1,3,0,7], [1,0,4,7], [1,4,5,7], [1,5,6,7],
+  [1,2,3,7], [1,2,7,6], [1,3,0,7], [1,0,4,7], [1,4,5,6], [1,4,6,7], [1,2,3,6], [1,3,7,6],
+  [1,3,0,7], [1,0,4,7], [1,4,5,7], [1,5,6,7], [1,2,3,6], [1,3,7,6], [1,3,0,7], [1,0,4,7]]
+
+def hexL2 : List (List (Fin 8)) :=
+  [[2,4,5,6], [2,4,6,7], [2,0,1,5], [2,0,5,4], [2,3,0,4], [2,3,4,7], [2,4,5,7], [2,5,6,7],
+  [2,0,1,5], [2,0,5,4], [2,3,0,4], [2,3,4,7], [2,4,5,6], [2,4,6,7], [2,0,1,4], [2,1,5,4],
+  [2,3,0,4], [2,3,4,7], [2,4,5,7], [2,5,6,7], [2,0,1,4], [2,1,5,4], [2,3,0,4], [2,3,4,7],
+  [2,4,5,6], [2,4,6,7], [2,0,1,5], [2,0,5,4], [2,3,0,7], [2,0,4,7], [2,4,5,7], [2,5,6,7],
+  [2,0,1,5], [2,0,5,4], [2,3,0,7], [2,0,4,7], [2,4,5,6], [2,4,6,7], [2,0,1,4], [2,1,5,4],
+  [2,3,0,7], [2,0,4,7], [2,4,5,7], [2,5,6,7], [2,0,1,4], [2,1,5,4], [2,3,0,7], [2,0,4,7]]
+
+def hexL3 : List (List (Fin 8)) :=
+  [[3,4,5,6], [3,4,6,7], [3,0,1,5], [3,0,5,4], [3,1,2,6], [3,1,6,5], [3,4,5,7], [3,5,6,7],
+  [3,0,1,5], [3,0,5,4], [3,1,2,6], [3,1,6,5], [3,4,5,6], [3,4,6,7], [3,0,1,4], [3,1,5,4],
+  [3,1,2,6], [3,1,6,5], [3,4,5,7], [3,5,6,7], [3,0,1,4], [3,1,5,4], [3,1,2,6], [3,1,6,5],
+  [3,4,5,6], [3,4,6,7], [3,0,1,5], [3,0,5,4], [3,1,2,5], [3,2,6,5], [3,4,5,7], [3,5,6,7],
+  [3,0,1,5], [3,0,5,4], [3,1,2,5], [3,2,6,5], [3,4,5,6], [3,4,6,7], [3,0,1,4], [3,1,5,4],
+  [3,1,2,5], [3,2,6,5], [3,4,5,7], [3,5,6,7], [3,0,1,4], [3,1,5,4], [3,1,2,5], [3,2,6,5]]
+
+def hexL4 : List (List (Fin 8)) :=
+  [[4,0,1,2], [4,0,2,3], [4,1,2,6], [4,1,6,5], [4,2,3,7], [4,2,7,6], [4,0,1,3], [4,1,2,3],
+  [4,1,2,6], [4,1,6,5], [4,2,3,7], [4,2,7,6], [4,0,1,2], [4,0,2,3], [4,1,2,5], [4,2,6,5],
+  [4,2,3,7], [4,2,7,6], [4,0,1,3], [4,1,2,3], [4,1,2,5], [4,2,6,5], [4,2,3,7], [4,2,7,6],
+  [4,0,1,2], [4,0,2,3], [4,1,2,6], [4,1,6,5], [4,2,3,6], [4,3,7,6], [4,0,1,3], [4,1,2,3],
+  [4,1,2,6], [4,1,6,5], [4,2,3,6], [4,3,7,6], [4,0,1,2], [4,0,2,3], [4,1,2,5], [4,2,6,5],
+  [4,2,3,6], [4,3,7,6], [4,0,1,3], [4,1,2,3], [4,1,2,5], [4,2,6,5], [4,2,3,6], [4,3,7,6]]
+
+def hexL5 : List (List (Fin 8)) :=
+  [[5,0,1,2], [5,0,2,3], [5,2,3,7], [5,2,7,6], [5,3,0,4], [5,3,4,7], [5,0,1,3], [5,1,2,3],
+  [5,2,3,7], [5,2,7,6], [5,3,0,4], [5,3,4,7], [5,0,1,2], [5,0,2,3], [5,2,3,6], [5,3,7,6],
+  [5,3,0,4], [5,3,4,7], [5,0,1,3], [5,1,2,3], [5,2,3,6], [5,3,7,6], [5,3,0,4], [5,3,4,7],
+  [5,0,1,2], [5,0,2,3], [5,2,3,7], [5,2,7,6], [5,3,0,7], [5,0,4,7], [5,0,1,3], [5,1,2,3],
+  [5,2,3,7], [5,2,7,6], [5,3,0,7], [5,0,4,7], [5,0,1,2], [5,0,2,3], [5,2,3,6], [5,3,7,6],
+  [5,3,0,7], [5,0,4,7], [5,0,1,3], [5,1,2,3], [5,2,3,6], [5,3,7,6], [5,3,0,7], [5,0,4,7]]
+
+def hexL6 : List (List (Fin 8)) :=
+  [[6,0,1,2], [6,0,2,3], [6,0,1,5], [6,0,5,4], [6,3,0,4], [6,3,4,7], [6,0,1,3], [6,1,2,3],
+  [6,0,1,5], [6,0,5,4], [6,3,0,4], [6,3,4,7], [6,0,1,2], [6,0,2,3], [6,0,1,4], [6,1,5,4],
+  [6,3,0,4], [6,3,4,7], [6,0,1,3], [6,1,2,3], [6,0,1,4], [6,1,5,4], [6,3,0,4], [6,3,4,7],
+  [6,0,1,2], [6,0,2,3], [6,0,1,5], [6,0,5,4], [6,3,0,7], [6,0,4,7], [6,0,1,3], [6,1,2,3],
+  [6,0,1,5], [6,0,5,4], [6,3,0,7], [6,0,4,7], [6,0,1,2], [6,0,2,3], [6,0,1,4], [6,1,5,4],
+  [6,3,0,7], [6,0,4,7], [6,0,1,3], [6,1,2,3], [6,0,1,4], [6,1,5,4], [6,3,0,7], [6,0,4,7]]
+
+def hexL7 : List (List (Fin 8)) :=
+  [[7,0,1,2], [7,0,2,3], [7,0,1,5], [7,0,5,4], [7,1,2,6], [7,1,6,5], [7,0,1,3], [7,1,2,3],
+  [7,0,1,5], [7,0,5,4], [7,1,2,6], [7,1,6,5], [7,0,1,2], [7,0,2,3], [7,0,1,4], [7,1,5,4],
+  [7,1,2,6], [7,1,6,5], [7,0,1,3], [7,1,2,3], [7,0,1,4], [7,1,5,4], [7,1,2,6], [7,1,6,5],
+  [7,0,1,2], [7,0,2,3], [7,0,1,5], [7,0,5,4], [7,1,2,5], [7,2,6,5], [7,0,1,3], [7,1,2,3],
+  [7,0,1,5], [7,0,5,4], [7,1,2,5], [7,2,6,5], [7,0,1,2], [7,0,2,3], [7,0,1,4], [7,1,5,4],
+  [7,1,2,5], [7,2,6,5], [7,0,1,3], [7,1,2,3], [7,0,1,4], [7,1,5,4], [7,1,2,5], [7,2,6,5]]
+
+def hexTL : List (List (Fin 8)) := hexL0 ++ hexL1 ++ hexL2 ++ hexL3 ++ hexL4 ++ hexL5 ++ hexL6 ++ hexL7
+
+theorem tetsHex_eq : tetsOf RefCell.hex = hexTL := by decide +kernel
+
+def hexD0 : List (List (Fin 8)) :=
+  [[0,2,3,7], [0,2,7,6], [0,1,2,6], [0,1,6,5], [0,4,5,6], [0,4,6,7], [0,4,5,7], [0,5,6,7],
+  [0,1,2,5], [0,2,6,5], [0,2,3,6], [0,3,7,6]]
+
+def hexD1 : List (List (Fin 8)) :=
+  [[1,3,0,4], [1,3,4,7], [1,2,3,7], [1,2,7,6], [1,4,5,6], [1,4,6,7], [1,4,5,7], [1,5,6,7],
+  [1,2,3,6], [1,3,7,6], [1,3,0,7], [1,0,4,7]]
+
+def hexD2 : List (List (Fin 8)) :=
+  [[2,3,0,4], [2,3,4,7], [2,0,1,5], [2,0,5,4], [2,4,5,6], [2,4,6,7], [2,4,5,7], [2,5,6,7],
+  [2,0,1,4], [2,1,5,4], [2,3,0,7], [2,0,4,7]]
+
+def hexD3 : List (List (Fin 8)) :=
+  [[3,1,2,6], [3,1,6,5], [3,0,1,5], [3,0,5,4], [3,4,5,6], [3,4,6,7], [3,4,5,7], [3,5,6,7],
+  [3,0,1,4], [3,1,5,4], [3,1,2,5], [3,2,6,5]]
+
+def hexD4 : List (List (Fin 8)) :=
+  [[4,2,3,7], [4,2,7,6], [4,1,2,6], [4,1,6,5], [4,0,1,2], [4,0,2,3], [4,0,1,3], [4,1,2,3],
+  [4,1,2,5], [4,2,6,5], [4,2,3,6], [4,3,7,6]]
+
+def hexD5 : List (List (Fin 8)) :=
+  [[5,3,0,4], [5,3,4,7], [5,2,3,7], [5,2,7,6], [5,0,1,2], [5,0,2,3], [5,0,1,3], [5,1,2,3],
+  [5,2,3,6], [5,3,7,6], [5,3,0,7], [5,0,4,7]]
+
+def hexD6 : List (List (Fin 8)) :=
+  [[6,3,0,4], [6,3,4,7], [6,0,1,5], [6,0,5,4], [6,0,1,2], [6,0,2,3], [6,0,1,3], [6,1,2,3],
+  [6,0,1,4], [6,1,5,4], [6,3,0,7], [6,0,4,7]]
+
+def hexD7 : List (List (Fin 8)) :=
+  [[7,1,2,6], [7,1,6,5], [7,0,1,5], [7,0,5,4], [7,0,1,2], [7,0,2,3], [7,0,1,3], [7,1,2,3],
+  [7,0,1,4], [7,1,5,4], [7,1,2,5], [7,2,6,5]]
+
+def hexTD : List (List (Fin 8)) := hexD0 ++ hexD1 ++ hexD2 ++ hexD3 ++ hexD4 ++ hexD5 ++ hexD6 ++ hexD7
+
+theorem dedupHex_eq : (tetsOf RefCell.hex).dedup = hexTD := by
+  rw [tetsHex_eq]
+  decide +kernel
+
+/-! The same checks with the cell data as plain arguments (`docs/LEAN_PERFORMANCE.md`, rule 2). -/
+
+section Generic
+variable {n : ℕ} (C : Cell3 n) (R : Fin n → Z3) (S : Z3) (z : Fin n)
+
+def chkFg : Bool :=
+  (tetsOf C).dedup.all fun t => (tetFaces t).all fun f =>
+    let q := [f.getD 0 z, f.getD 1 z, f.getD 2 z]
+    (decide (q ++ [oppV t f z]).Nodup && (q ++ [oppV t f z]).all t.contains) &&
+    (!onCellFace C f || quadAnyg C (q.getD 0 z) (q.getD 1 z) (q.getD 2 z) ||
+      triAnyg C (q.getD 0 z) (q.getD 1 z) (q.getD 2 z)) &&
+    ((tetsOf C).dedup.all fun t' => !((tetFaces t').any (sameSimplex f)) ||
+      (decide (q ++ [oppV t' f z]).Nodup && (q ++ [oppV t' f z]).all t'.contains))
+
+/-- `chkFg` with the outer and the inner list of sub-tetrahedra as arguments. -/
+def chkFo (O D : List (List (Fin n))) : Bool :=
+  O.all fun t => (tetFaces t).all fun f =>
+    let q := [f.getD 0 z, f.getD 1 z, f.getD 2 z]
+    (decide (q ++ [oppV t f z]).Nodup && (q ++ [oppV t f z]).all t.contains) &&
+    (!onCellFace C f || quadAnyg C (q.getD 0 z) (q.getD 1 z) (q.getD 2 z) ||
+      triAnyg C (q.getD 0 z) (q.getD 1 z) (q.getD 2 z)) &&
+    (D.all fun t' => !((tetFaces t').any (sameSimplex f)) ||
+      (decide (q ++ [oppV t' f z]).Nodup && (q ++ [oppV t' f z]).all t'.contains))
+
+theorem chkFg_o : chkFg C z = chkFo C z (tetsOf C).dedup (tetsOf C).dedup := rfl
+
+theorem chkFo_append (A B D : List (List (Fin n))) : chkFo C z (A ++ B) D = (chkFo C z A D && chkFo C z B D) := by
+  simp only [chkFo, List.all_append]
+
+def chkRg : Bool :=
+  (List.finRange n).all fun a0 => (List.finRange n).all fun a1 => (List.finRange n).all fun a2 =>
+    a0 == a1 || a0 == a2 || a1 == a2 || !(quadAnyg C a0 a1 a2 || triAnyg C a0 a1 a2) ||
+      (cenZg R S a0 a1 a2 != 0 &&
+        (tetsOf C).dedup.all fun t => !(t.contains a0 && t.contains a1 && t.contains a2) ||
+          t.all fun v => inF a0 a1 a2 v ||
+            Int.sign (sideZ (R a0) (R a1) (R a2) (R v)) == Int.sign (cenZg R S a0 a1 a2))
+
+end Generic
+
 set_option maxHeartbeats 4000000 in
-theorem chkF_all (k : Kind) : chkF k = true := by cases k <;> decide +kernel
+theorem chkF_hex0 : chkFo RefCell.hex 0 hexD0 hexTD = true := by decide +kernel
 set_option maxHeartbeats 4000000 in
-theorem chkR_all (k : Kind) : chkR k = true := by cases k <;> decide +kernel
+theorem chkF_hex1 : chkFo RefCell.hex 0 hexD1 hexTD = true := by decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkF_hex2 : chkFo RefCell.hex 0 hexD2 hexTD = true := by decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkF_hex3 : chkFo RefCell.hex 0 hexD3 hexTD = true := by decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkF_hex4 : chkFo RefCell.hex 0 hexD4 hexTD = true := by decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkF_hex5 : chkFo RefCell.hex 0 hexD5 hexTD = true := by decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkF_hex6 : chkFo RefCell.hex 0 hexD6 hexTD = true := by decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkF_hex7 : chkFo RefCell.hex 0 hexD7 hexTD = true := by decide +kernel
+
+set_option maxHeartbeats 4000000 in
+theorem chkF_all (k : Kind) : chkF k = true := by
+  cases k
+  · rw [show chkF .hex = chkFg RefCell.hex 0 from rfl, chkFg_o, dedupHex_eq,
+      show chkFo RefCell.hex 0 hexTD hexTD = chkFo RefCell.hex 0 (hexD0 ++ hexD1 ++ hexD2 ++ hexD3 ++ hexD4 ++ hexD5 ++ hexD6 ++ hexD7) hexTD from rfl]
+    simp only [chkFo_append, chkF_hex0, chkF_hex1, chkF_hex2, chkF_hex3, chkF_hex4, chkF_hex5, chkF_hex6,
+      chkF_hex7, Bool.and_self]
+  · rw [show chkF .prism = chkFg RefCell.prism 0 from rfl]; decide +kernel
+  · rw [show chkF .pyr = chkFg RefCell.pyramid 0 from rfl]; decide +kernel
+set_option maxHeartbeats 4000000 in
+theorem chkR_all (k : Kind) : chkR k = true := by
+  cases k
+  · rw [show chkR .hex = chkRg RefCell.hex hexR (4, 4, 4) from rfl]; decide +kernel
+  · rw [show chkR .prism = chkRg RefCell.prism prismR (2, 2, 3) from rfl]; decide +kernel
+  · rw [show chkR .pyr = chkRg RefCell.pyramid pyrR (5, 5, 2) from rfl]; decide +kernel
 
 theorem face_facts (k : Kind) {t : List (Fin k.n)} (ht : t ∈ k.tets) {f : List (Fin k.n)} (hf : f ∈ tetFaces t) :
     ([f.getD 0 (kz k), f.getD 1 (kz k), f.getD 2 (kz k), oppV t f (kz k)].Nodup ∧
@@ -677,7 +856,7 @@ theorem p7_22_3 : Spec.P7_22_3 := by
   nlinarith
 
 namespace Twist22
-open CFDLean.JST1.RefCell CFDLean.JST1.Mixed CFDLean.JST1.Spec Asm11
+open CFDLean.JST1.RefCell CFDLean.JST1.Mixed CFDLean.JST1.Spec Asm11 Gen22
 
 /-- Integer coordinates of the twisted cube: `5 · twistX`. -/
 def twZ : Fin 8 → Z3 := ![(0, 0, 0), (5, 0, 0), (5, 5, 0), (0, 5, 0), (3, -1, 5), (6, 3, 5), (2, 6, 5), (-1, 2, 5)]
@@ -702,22 +881,75 @@ def intS (Q : List (Fin 8) → Fin 4 → Bool) : Z3 :=
 
 def S0 : Finset (Fin 8) := {0, 1, 7}
 
+/-- Fast forms for the kernel checks (`docs/LEAN_PERFORMANCE.md`, rule 2), tied to the originals by `rfl`. -/
+def intSF (Q : List (Fin 8) → Fin 4 → Bool) : Z3 :=
+  ((tetsOf RefCell.hex).map fun t => ((List.finRange 4).map fun o => if Q t o then AZ t o else 0).sum).sum
+
+theorem intS_eq : intS = intSF := rfl
+
+def twistBdF : Finset (Finset (Fin 8)) :=
+  (((RefCell.hex.quads.flatMap fun q => (q.tris false ++ q.tris true).map fun f =>
+      ((f.map (Function.Embedding.refl (Fin 8))).toFinset, true)) ++
+    RefCell.hex.tris.map fun f => ((f.map (Function.Embedding.refl (Fin 8))).toFinset, false)).map Prod.fst).toFinset
+
+theorem twistBd_eq : twistBd = twistBdF := rfl
+
 theorem chk_nondeg : Kind.hex.tets.all (fun (t : List (Fin 8)) =>
     sideZ (twZ (t.getD 0 0)) (twZ (t.getD 1 0)) (twZ (t.getD 2 0)) (twZ (t.getD 3 0)) != 0) = true := by
+  rw [hexTets_eq]
   decide +kernel
 
-set_option maxHeartbeats 4000000 in
+/-- `intSF` on a given list of sub-tetrahedra, to evaluate it in chunks. -/
+def intSL (L : List (List (Fin 8))) (Q : List (Fin 8) → Fin 4 → Bool) : Z3 :=
+  (L.map fun t => ((List.finRange 4).map fun o => if Q t o then AZ t o else 0).sum).sum
+
+theorem intSF_L (Q : List (Fin 8) → Fin 4 → Bool) : intSF Q = intSL hexTL Q := by
+  rw [intSF, tetsHex_eq]
+  rfl
+
+theorem intSL_append (A B : List (List (Fin 8))) (Q : List (Fin 8) → Fin 4 → Bool) :
+    intSL (A ++ B) Q = intSL A Q + intSL B Q := by
+  simp only [intSL, List.map_append, List.sum_append]
+
+def QS : List (Fin 8) → Fin 4 → Bool := fun t o => decide (nodesL t o ∉ twistBdF) && decide (nodesL t o = S0)
+def QV : List (Fin 8) → Fin 4 → Bool := fun t o => decide (nodesL t o ∉ twistBdF) && decide ((0 : Fin 8) ∈ nodesL t o)
+
+theorem intS0_0 : intSL hexL0 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_1 : intSL hexL1 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_2 : intSL hexL2 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_3 : intSL hexL3 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_4 : intSL hexL4 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_5 : intSL hexL5 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_6 : intSL hexL6 QS = (0, 0, 0) := by decide +kernel
+theorem intS0_7 : intSL hexL7 QS = (0, 200, -80) := by decide +kernel
+theorem intV0_0 : intSL hexL0 QV = (160, -120, 120) := by decide +kernel
+theorem intV0_1 : intSL hexL1 QV = (0, 0, 0) := by decide +kernel
+theorem intV0_2 : intSL hexL2 QV = (0, 0, 40) := by decide +kernel
+theorem intV0_3 : intSL hexL3 QV = (0, 0, 0) := by decide +kernel
+theorem intV0_4 : intSL hexL4 QV = (0, 0, 0) := by decide +kernel
+theorem intV0_5 : intSL hexL5 QV = (0, 0, 0) := by decide +kernel
+theorem intV0_6 : intSL hexL6 QV = (480, 40, -240) := by decide +kernel
+theorem intV0_7 : intSL hexL7 QV = (40, -80, 40) := by decide +kernel
+
 theorem chk_S0 : intS (fun t o => decide (nodesL t o ∉ twistBd) && decide (nodesL t o = S0)) = (0, 200, -80) := by
-  decide +kernel
+  rw [intS_eq, twistBd_eq]
+  change intSF QS = _
+  rw [intSF_L, show hexTL = hexL0 ++ hexL1 ++ hexL2 ++ hexL3 ++ hexL4 ++ hexL5 ++ hexL6 ++ hexL7 from rfl]
+  simp only [intSL_append, intS0_0, intS0_1, intS0_2, intS0_3, intS0_4, intS0_5, intS0_6, intS0_7]
+  rfl
 
-set_option maxHeartbeats 4000000 in
 theorem chk_v0 : intS (fun t o => decide (nodesL t o ∉ twistBd) && decide ((0 : Fin 8) ∈ nodesL t o)) =
     (680, -160, -40) := by
-  decide +kernel
+  rw [intS_eq, twistBd_eq]
+  change intSF QV = _
+  rw [intSF_L, show hexTL = hexL0 ++ hexL1 ++ hexL2 ++ hexL3 ++ hexL4 ++ hexL5 ++ hexL6 ++ hexL7 from rfl]
+  simp only [intSL_append, intV0_0, intV0_1, intV0_2, intV0_3, intV0_4, intV0_5, intV0_6, intV0_7]
+  rfl
 
 theorem chk_dist : Kind.hex.tets.all (fun (t : List (Fin 8)) => (List.finRange 4).all fun o =>
     t.getD (o.succAbove 0) 0 != t.getD (o.succAbove 1) 0 && t.getD (o.succAbove 0) 0 != t.getD (o.succAbove 2) 0 &&
       t.getD (o.succAbove 1) 0 != t.getD (o.succAbove 2) 0) = true := by
+  rw [hexTets_eq]
   decide +kernel
 
 theorem splits_len : (Kind.hex.cell.splits.length : ℝ) = 64 := by

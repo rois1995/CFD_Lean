@@ -21,6 +21,7 @@ Start with [current status](roadmap/CURRENT.md) and [next work](roadmap/NEXT.md)
   ([CI first](CONTRIBUTING.md#ci-first)).
 - Before writing a proof that computes (`decide +kernel`, large case splits), read the
   [Lean performance guide](docs/LEAN_PERFORMANCE.md): brute force first, no `Kind` case split inside kernel loops,
+  each closed check small for the external kernels of the paranoid comparator (split it, no `Finset` in the loop),
   no raised `maxRecDepth`, a memory cap for every Lean run, and how to measure.
 - For documentation, check links, whitespace and the diff scope. Keep the evidence manifest current when a covered
   document changes. For Lean or verification changes, run the [applicable checks](CONTRIBUTING.md#validation), including

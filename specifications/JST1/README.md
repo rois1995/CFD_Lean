@@ -6,6 +6,11 @@ in CFD_Lean (`P4-proposal.md`, `P4.md`, `P4-results.json`), and P5 (7 statements
 smoothness, M1 bridge) likewise (`P5-proposal.md`, `P5.md`, `P5-results.json`), P6 (3 statements, item 21: `∫_T φ_i = m_T`) and P7 (4 statements,
 item 22: general mixed cells, gap G8); all 119 statements are proved.
 
+Current paper reference (from 2026-11-27): `/media/rausa/4TB/SU2_Versions/SU2_NewJST/Handbook/paper1/paper1.tex`,
+sha256 `f37419ae…`, with the gaps G1-G8 fixed (`PAPER_GAPS.md`). The specifications P1-P8 name the paper copy
+they were written against (`Handbook/paper1/paper1.tex` of SU2_NativeIntegrated, hash in each file); those records
+are not changed.
+
 | File | Content |
 |---|---|
 | `P1.md`, `P2.md`, `P3.md`, `*-proposal.md`, `P1-approval.md` | frozen specifications, proposals and approval, copied verbatim (they name the JST paths `Paper1/...`, `NumCore/...`) |
@@ -14,6 +19,7 @@ item 22: general mixed cells, gap G8); all 119 statements are proved.
 | `P5-proposal.md`, `P5.md`, `P5-results.json` | P5, written in CFD_Lean; review `reviews/JST1/P5-statement-review.md` |
 | `P6-proposal.md`, `P6.md`, `P6-results.json` | P6, written in CFD_Lean; review `reviews/JST1/P6-statement-review.md` |
 | `P7-proposal.md`, `P7.md`, `P7-results.json` | P7, written in CFD_Lean; review `reviews/JST1/P7-statement-review.md` |
+| `P8-proposal.md`, `P8.md`, `P8-results.json` | P8, written in CFD_Lean; review `reviews/JST1/P8-statement-review.md` |
 | `P1-results.json`, `P2-results.json`, `P3-results.json` | result maps with the new names: `Paper1.Spec.X` -> `CFDLean.JST1.Spec.X`, `Paper1.Proofs.x` -> `CFDLean.JST1.Proofs.x`, files under `CFDLean/Papers/JST1/Proofs/`; `core_theorem` marks the 37 proofs that apply an MC-N theorem |
 | `frozen.sha256` | sha256 of the folded statement and definition files (`CFDLean/Papers/JST1/**` except `Proofs/`) and of the core files that now hold the JST `NumCore` definitions and the moved definitions; pinned in `scripts/verify.py` |
 | `source-hashes/` | the JST frozen and pin hash lists, for reference only (they list JST paths) |
