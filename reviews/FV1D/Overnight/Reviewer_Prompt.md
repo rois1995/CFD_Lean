@@ -20,3 +20,14 @@ Run `lake build --wfail ReviewCases` under the repository's Lean memory cap for 
 The existing driver regressions run with `lake build fv1d` and `python3 scripts/test_fv1d.py -v`.
 For each proposal recommend freeze, amend, or reject. Identify mandatory changes separately from suggestions, and
 give the commit reviewed. A proposal verdict and a subsequent implementation acceptance are separate decisions.
+
+## Follow-up on the shared 1D reconstruction
+
+Review the [step 9 proposal](../../../roadmap/NEXT.md#step-9--a-second-1d-reconstruction-family) and its
+implementation separately. The implementation chooses scalar Jiang–Shu WENO5 on uniform cell averages.
+Check that the generic interface ties a reconstruction to its mesh, orders the two owners' states at the face,
+and feeds the existing FVN update. Check MUSCL step equality for an arbitrary flux and limiter. For WENO, verify the
+three indicators and candidates, the positive normalization, quadratic exactness, and both traces at the
+asymmetric wrap from cell 5 to cell 0.
+Review constant preservation and the hypotheses of width-weighted conservation separately from accuracy.
+Replay with `lake build --wfail ReviewCases.Reconstruction`. Give the exact revision and any mandatory changes.

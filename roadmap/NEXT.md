@@ -315,3 +315,7 @@ existing finite-volume update.
 Before adopting the interface, show that the MUSCL instance reproduces the accepted face values, that both
 instances preserve constants, and that both feed the existing conservation theorem. Limiter bounds, Euler
 admissibility and machine-error estimates belong to the methods and arithmetic for which they are proved.
+
+The implementation draft selects scalar Jiang–Shu WENO5 on a uniform periodic mesh. It uses a caller-supplied
+positive regularization parameter and tests both face owners against exact rational values.
+[WENO module](../CFDLean/Discrete/Periodic/Weno.lean) · [Shared interface](../CFDLean/Discrete/Periodic/Reconstruction.lean)
