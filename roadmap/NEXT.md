@@ -17,7 +17,16 @@ step lets us state exactly where rounding enters while keeping the flux, mesh an
 | E1 contract proposal | Identify the executable operation and its exact-real reference. Both are available. | Draft next. Specify how finite binary64 inputs represent real values, the hypotheses on the state, cell width and timestep, and a per-cell error bound or enclosure to prove. |
 | Binary64 certificate for that step | Review and freeze the contract, then prove the proposed bound under its hypotheses. | Implementation follows contract review. A certificate for a full SSPRK3 run would also need bounds for the stages and repeated steps. |
 | Exact-real oriented face fluxes on a fixed 2D mesh | The planned 1D density-wave comparison is complete. Choose a concrete mesh and face orientations for the 2D control. | This geometry task can run before, alongside or after E1. With one workstream, take the E1 proposal first. |
+| 1D Euler MUSCL | Choose the system reconstruction and state the conditions that give admissible left and right face states. The current Euler driver uses first order. | A separate numerical milestone. E1 can cover the first-order kernel before this work. |
+| Multidimensional reconstruction | Select a concrete mesh, its geometry, and a method that needs gradients or higher-order face values. | Schedule for higher-order fixed-mesh FV or viscous fluxes. A first-order oriented-face control can use cell values directly. |
 | Certified binary64 output on a 2D mesh | Establish the 2D numerical step and a machine-error result that covers its operations. | This claim needs both tracks. A 1D certificate alone covers only its stated step. |
+
+**Reconstruction already delivered and deferred.** The non-uniform 1D update accepts face fluxes independently of
+how the face states were built. Burgers already has geometry-aware MUSCL on that mesh. The recorded trigger for a
+shared interface for left and right face states is a second, structurally different reconstruction family. The six
+limiter choices all belong to MUSCL. The proposed first-order E1 step uses adjacent cell values directly. A future
+machine-error claim for MUSCL must also account for reconstruction and limiter arithmetic.
+[FVN design decision](../references/FV1D-nonuniform.md#layering) · [Multidimensional reconstruction](SEQUENCING.md#8-geometry-aware-multidimensional-gradients-and-reconstruction)
 
 Human review of the trusted Burgers statements and independent M5 review remain open on their respective tracks.
 For future entries, name the prerequisite for the specific claim and state which work can proceed independently.
