@@ -1,17 +1,17 @@
 # CFD_Lean theorem catalog (MC-C)
 
-547 promised theorems, grouped by layer.
+551 promised theorems, grouped by layer.
 
 ## Rules
 
 Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theorems (M1 has no result map; its
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
-`specifications/M2-results.json` .. `M5-results.json`, every theorem of `specifications/MC-N-results.json`, and the
+`specifications/M2-results.json` .. `M5-results.json`, the four FV1D claims in `specifications/FV1D-results.json`, every theorem of `specifications/MC-N-results.json`, and the
 121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
-independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
+independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
 JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
@@ -64,15 +64,15 @@ that this file equals the generated text. Do not edit by hand.
 | Discrete operators | 89 | 10 | 60 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
-| Schemes | 100 | 7 | 75 | 7 | 11 |
+| Schemes | 104 | 7 | 79 | 7 | 11 |
 | Time | 93 | 0 | 73 | 0 | 20 |
 | Execution | 53 | 0 | 53 | 0 | 0 |
-| **Total** | 547 | 17 | 330 | 30 | 170 |
+| **Total** | 551 | 17 | 334 | 30 | 170 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 360 |
+| FVM | 364 |
 | method-free | 170 |
 
 | Milestone | Status | Theorems |
@@ -93,6 +93,7 @@ that this file equals the generated text. Do not edit by hand.
 | B3b | accepted | 40 |
 | E0c | accepted | 19 |
 | JST1 | candidate | 121 |
+| FV1D | accepted | 4 |
 
 ## Foundations (12)
 
@@ -420,7 +421,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p5_20_3` | P5-20.3 | method-free | candidate | The paper's Euler flux on a vector y equals M1's integrated physical flux on the area vector y, for every state. |
 | `CFDLean.JST1.Proofs.p5_20_4` | P5-20.4 | method-free | candidate | The paper's entropy −ρs/(γ−1) and its entropy variables written in M1's primitive variables (ρ, v, p). |
 
-## Schemes (100)
+## Schemes (104)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -524,6 +525,10 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_16_3` | P4-16.3 | FVM | candidate | ε2 ≤ 6κ2, ε4 ≤ 9κ4, and the weak effect of the scalar dissipation is at most d(6κ2 + 18n_Eκ4) Φmax σmax h \|Ω\| Gφ Gu. |
 | `CFDLean.JST1.Proofs.p5_19_2` | P5-19.2 | method-free | candidate | The admissible Euler states form an open set, and the Ismail-Roe flux is Cⁿ for every n on admissible × admissible, diagonal included. |
 | `CFDLean.JST1.Proofs.p5_19_3` | P5-19.3 | method-free | candidate | At every admissible state the Ismail-Roe flux differs from the mean of the Euler fluxes by at most C\|y\|\|u_k − u_i\|² near the diagonal, one constant for all vectors y. |
+| `CFDLean.Burgers.fv1d_step_eq` | FV1D-B | FVM | accepted | The shared periodic Rusanov update agrees with the assembled B0 Forward Euler step in every cell. |
+| `CFDLean.Euler1D.face_consistent` | FV1D-F | FVM | accepted | On equal admissible states the Euler numerical flux equals the M1 positive-unit-face flux. |
+| `CFDLean.Euler1D.step_constant` | FV1D-K | FVM | accepted | One periodic Euler step preserves each admissible constant state. |
+| `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
 
 ## Time (93)
 

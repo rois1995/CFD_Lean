@@ -1,0 +1,22 @@
+{
+  "contract": "specifications/FV1D.md",
+  "approval_record": "specifications/FV1D-approval.md",
+  "results": [
+    {
+      "id": "FV1D-B",
+      "theorem": "CFDLean.Burgers.fv1d_step_eq"
+    },
+    {
+      "id": "FV1D-F",
+      "theorem": "CFDLean.Euler1D.face_consistent"
+    },
+    {
+      "id": "FV1D-K",
+      "theorem": "CFDLean.Euler1D.step_constant"
+    },
+    {
+      "id": "FV1D-C",
+      "theorem": "CFDLean.Euler1D.component_balance"
+    }
+  ]
+}
