@@ -326,6 +326,12 @@ The driver already accepts `--widths` for first-order Burgers, Burgers MUSCL and
 supplies a uniform scalar WENO reference. The following steps extend coverage from that baseline.
 [Driver acceptance](../reviews/FV1D/Driver_Acceptance.md) · [Executable regressions](../scripts/test_fv1d.py)
 
+The independent review accepted this sequence at `4a44b61833344832a433daa8852558390dee2df0`.
+Before production acceptance, freeze the uniform WENO stencil, the graded cell-average candidates
+and ideal weights, and the Euler variable, weight and fallback choices at an independently reviewed
+proposal revision. The implementation review then checks the bindings and controls against those
+choices. [Scientific scope proposal](https://github.com/rois1995/CFD_Lean/pull/66)
+
 1. **Extend scalar WENO to non-uniform grids.** Reconstruct from cell averages over the actual cell intervals.
    Derive the three candidate polynomials, ideal weights and smoothness indicators for each oriented face stencil.
    State the width and regularization hypotheses needed for well-defined weights. Show reduction to the uniform
