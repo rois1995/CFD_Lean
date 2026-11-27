@@ -6,6 +6,12 @@ import CFDLean.Schemes.Euler.FV1D
 noncomputable section
 namespace CFDLean.Exec.FV1D
 
+@[simp] theorem triple_zero {α : Type} (r m e : α) : triple r m e 0 = r := rfl
+@[simp] theorem triple_one {α : Type} (r m e : α) : triple r m e 1 = m := rfl
+@[simp] theorem triple_two {α : Type} (r m e : α) : triple r m e 2 = e := rfl
+
+private theorem real_two : (Scalar.two : ℝ) = 2 := rfl
+
 variable {S : Type} {n : ℕ} [NeZero n]
 
 def samples (U : ZMod n → S) : Array S := Array.ofFn fun i : Fin n => U (i.val : ZMod n)
@@ -45,14 +51,14 @@ private theorem burgers_model :
   unfold burgers
   congr 1
   funext x
-  simp [Scalar.burgersFlux, Burgers.physicalFlux, pow_two, instScalarReal]
+  simp [Scalar.burgersFlux, Burgers.physicalFlux, pow_two, real_two]
 
 private theorem euler_model (γ : ℝ) :
     euler 1 2 γ abs Real.sqrt max = ⟨(·+·), (·-·), (· • ·), Euler1D.flux γ, Euler1D.speed γ⟩ := by
   unfold euler
   congr 1
   · funext x j
-    fin_cases j <;> simp [pressure, triple, Euler1D.flux, Euler1D.decode, Euler1D.encode,
+    fin_cases j <;> simp [pressure, Euler1D.flux, Euler1D.decode, Euler1D.encode,
       physicalFlux, Conservative.pressure, squareSum, dot, pow_two, Matrix.cons_val_two]
   · funext x y
     simp [pressure, Euler1D.speed, Euler1D.endpointSpeed, Euler1D.decode, Conservative.pressure, squareSum, pow_two]
@@ -68,7 +74,7 @@ theorem burgers_refines (dx dt : ℝ) (hdx : 0 < dx) (hdt : 0 ≤ dt) (u : ZMod 
   · apply Array.ext (by simp [eulerStepArray])
     intro j hj _
     simp only [stepArray, eulerStepArray, Array.getElem_ofFn, Fin.getElem_fin, face, burgers,
-      Scalar.rusanov, instScalarReal]
+      Scalar.rusanov, real_two]
     ring
 
 /-- FVA-E. Equality of the three stored coordinates to the assembled M1 Euler step. -/

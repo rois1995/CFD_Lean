@@ -17,7 +17,7 @@ example : stepArray model (1/2) 1 (1/16) #[wave 1, wave 4, wave 9] =
   have h : j < 3 := by simpa using hj
   funext k
   interval_cases j <;> fin_cases k <;>
-    norm_num [stepArray, face, model, euler, pressure, wave, triple, Array.getElem_ofFn]
+    norm_num [stepArray, face, model, euler, pressure, wave, Array.getElem_ofFn]
 
 example : stepArray burgers (1/2) 1 (1/8) #[(1 : ℝ), -2, 4] =
     eulerStepArray 1 (1/8) #[1, -2, 4] := by
@@ -34,7 +34,7 @@ example : stepArray model (1/2) 1 1 #[triple 1 2 3] = #[triple 1 2 3] := by
   have hj' : j = 0 := by omega
   subst j
   funext k
-  fin_cases k <;> norm_num [stepArray, face, model, euler, pressure, triple, Array.getElem_ofFn]
+  fin_cases k <;> norm_num [stepArray, face, model, euler, pressure, Array.getElem_ofFn]
 
 example : stepArray model (1/2) 1 0 #[wave 1, wave 4, wave 9] = #[wave 1, wave 4, wave 9] := by
   apply Array.ext (by simp)
