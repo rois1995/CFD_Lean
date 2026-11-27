@@ -19,6 +19,8 @@ The categories below are:
 - **Do not require first** -- work that can proceed independently and should not be blocked unnecessarily.
 
 These are sequencing guidelines, not a single serial project plan. Independent branches of work may proceed in parallel.
+The [current scheduling decision](NEXT.md#next-decision-after-the-unified-1d-driver) identifies the next deliverable
+and the prerequisites for the E1 and fixed-mesh 2D work.
 
 ## Summary dependency spine
 
