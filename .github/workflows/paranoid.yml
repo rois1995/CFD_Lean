@@ -2,7 +2,10 @@ name: Paranoid comparator on demand
 
 # Optional check for PRs into develop. It runs the same paranoid comparator step as release verification, but only
 # when requested: add the `paranoid` label to the PR, or start it from the Actions tab for a branch. It is not a
-# required check. The release PR into main runs it again.
+# required check. The release PR into main runs it again, always with every challenge.
+#
+# On a PR the paper-1 challenge (JST1) is skipped unless the PR changes paper-1 files: its build and its external
+# kernel checks take hours, and the paper is closed. Only the modules the selected challenges need are built.
 
 on:
   pull_request:
@@ -35,6 +38,27 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          fetch-depth: 0
+      - name: Select comparator configs
+        env:
+          CONFIGS: ${{ inputs.configs || 'Challenges/*.comparator.json' }}
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          shopt -s nullglob
+          configs=( $CONFIGS )
+          if [ ${#configs[@]} -eq 0 ]; then echo "No config matches: $CONFIGS"; exit 1; fi
+          if [ "$EVENT" = pull_request ]; then
+            changed=$(git diff --name-only "origin/$BASE...HEAD")
+            if ! grep -qE '^(CFDLean/Papers/JST1/|CFDLean/Verification/JST1|Challenges/JST1|specifications/JST1/)' <<< "$changed"; then
+              kept=()
+              for c in "${configs[@]}"; do [ "$c" = Challenges/JST1.comparator.json ] || kept+=("$c"); done
+              configs=( "${kept[@]}" )
+              echo "No paper-1 change: JST1 skipped."
+            fi
+          fi
+          printf '%s\n' "${configs[@]}" > "$RUNNER_TEMP/configs.txt"
+          cat "$RUNNER_TEMP/configs.txt"
       # Same memory note as in lean-verification.yml: the runner has 7.6 GB and no swap, the heavy JST1 kernel checks
       # need 9-12 GB and the paper-1 comparator about 13 GB. Add swap before the build, or the runner can be lost.
       - name: Add swap space
@@ -53,21 +77,19 @@ jobs:
           auto-config: false
           use-github-cache: false
           use-mathlib-cache: true
-      - name: Build full package
-        run: ~/.elan/bin/lake build
+      - name: Build the modules the selected challenges need
+        run: |
+          mods=$(python3 -c 'import json,sys; print(" ".join(m for p in sys.argv[1:] for m in (json.load(open(p))["solution_module"], json.load(open(p))["challenge_module"])))' $(cat "$RUNNER_TEMP/configs.txt"))
+          echo "$mods"
+          ~/.elan/bin/lake build $mods
       - name: Install bubblewrap sandbox
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq bubblewrap
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
       - name: Judge each bridge against its trusted challenge (kernel and five external checkers)
-        env:
-          CONFIGS: ${{ inputs.configs || 'Challenges/*.comparator.json' }}
         run: |
-          shopt -s nullglob
-          configs=( $CONFIGS )
-          if [ ${#configs[@]} -eq 0 ]; then echo "No config matches: $CONFIGS"; exit 1; fi
-          for config in "${configs[@]}"; do
+          for config in $(cat "$RUNNER_TEMP/configs.txt"); do
             echo "== $config"
             ~/.elan/bin/lake comparator --paranoid --config "$config"
           done
