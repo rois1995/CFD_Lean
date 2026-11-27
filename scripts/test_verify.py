@@ -447,7 +447,8 @@ class CatalogTests(unittest.TestCase):
         expected = verify.m1_accepted_theorems((root / "Integrity.lean").read_text())
         for milestone, path in [("M2", "specifications/M2-results.json"), ("M3", "specifications/M3-results.json"),
                                 ("M4", "specifications/M4-results.json"), ("M5", "specifications/M5-results.json"),
-                                ("MC-N", verify.MC_N_RESULTS), ("E1", "specifications/E1-results.json")] + [
+                                ("MC-N", verify.MC_N_RESULTS), ("E1", "specifications/E1-results.json"),
+                                ("FVT", "specifications/FV1D-euler-traces-results.json")] + [
                                     (m, stem + "-results.json") for m, stem, _ in verify.FV_CONTRACTS] + [
                                     (m, pins["results"]) for m, pins in verify.BURGERS.items()]:
             expected.update(verify.catalog_index(milestone, json.loads((root / path).read_text())))
@@ -459,7 +460,7 @@ class CatalogTests(unittest.TestCase):
         self.assertCountEqual([rid for m, rid in expected.values() if m == "FVA"], ['FVA-B', 'FVA-E'])
         self.assertCountEqual([rid for m, rid in expected.values() if m == "FVP"], ['FVP-P'])
         self.assertEqual(len(expected), 15 + verify.MC_PORT_COUNT + verify.MC_N_COUNT + len(fv1d_claims) + 3
-                         + sum(milestone == "E1" for milestone, _ in expected.values())
+                         + sum(milestone in {"E1", "FVT"} for milestone, _ in expected.values())
                          + sum(pins["count"] for pins in verify.BURGERS.values()) + verify.JST1_COUNT)
         rows = json.loads((root / "evidence/verification.json").read_text())["declarations"]
         self.assertEqual(verify.check_catalog(catalog, expected, rows), len(expected))
