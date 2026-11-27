@@ -48,7 +48,7 @@ private theorem linear_iff {γ : ℝ} (hg : 1 < γ) (x : Vector 3) :
     refine ⟨hr, ?_⟩
     have he : 2*x 0*internal x (x 1/x 0) = 2*x 0*x 2-x 1^2 := by
       unfold internal
-      field_simp [ne_of_gt hr] <;> ring
+      field_simp [ne_of_gt hr]; ring
     rw [← he]
     exact mul_pos (by positivity) (h _)
 
@@ -75,16 +75,16 @@ private theorem split_admiss {γ : ℝ} (hg : 1 < γ) (x : Vector 3) (hx : admis
   have hk : c ≤ a*k := by
     unfold k
     rcases ht with h | h <;> rw [h]
-    · have hid : a*(1+1/a*v) = a+v := by field_simp [ne_of_gt hap] <;> ring
+    · have hid : a*(1+1/a*v) = a+v := by field_simp [ne_of_gt hap]
       rw [hid]; linarith [neg_abs_le v]
-    · have hid : a*(1+ -(1/a)*v) = a-v := by field_simp [ne_of_gt hap] <;> ring
+    · have hid : a*(1+ -(1/a)*v) = a-v := by field_simp [ne_of_gt hap]; ring
       rw [hid]; linarith [le_abs_self v]
   have hkp : 0 < k := (mul_pos_iff_of_pos_left hap).mp (lt_of_lt_of_le hc hk)
   have hdet : D = 2*r*p/(γ-1) := by
     have he : p = (γ-1)*(e-m^2/(2*r)) := pressure_eq γ x
     dsimp only [D]
     rw [he]
-    field_simp [ne_of_gt hr, ne_of_gt hgm] <;> ring
+    field_simp [ne_of_gt hr, ne_of_gt hgm]
   have hmargin : p^2 < c^2*D := by
     calc
       p^2 = 1*p^2 := (one_mul _).symm
@@ -92,9 +92,9 @@ private theorem split_admiss {γ : ℝ} (hg : 1 < γ) (x : Vector 3) (hx : admis
         apply mul_lt_mul_of_pos_right _ (sq_pos_of_pos hp)
         apply (lt_div_iff₀ hgm).2
         linarith
-      _ = c^2*D := by rw [hc2, hdet]; field_simp [ne_of_gt hr, ne_of_gt hgm] <;> ring
+      _ = c^2*D := by rw [hc2, hdet]; field_simp [ne_of_gt hr, ne_of_gt hgm]
   have ht2 : (a*t)^2 = 1 := by
-    rcases ht with h | h <;> rw [h] <;> field_simp [ne_of_gt hap] <;> ring
+    rcases ht with h | h <;> rw [h] <;> field_simp [ne_of_gt hap]
   have hscaled : 0 < a^2*(k^2*D-t^2*p^2) := by
     have hbound : c^2*D ≤ (a*k)^2*D :=
       mul_le_mul_of_nonneg_right (pow_le_pow_left₀ hc.le hk 2) hD.le
@@ -159,7 +159,7 @@ theorem step_admissible {N : ℕ} [NeZero N] (γ dx dt : ℝ) (hg : 1 < γ) (hdx
   let a := speed γ L C
   let b := speed γ C R
   let s := dt/dx
-  have adm (j : ZMod N) : admiss γ (X j) := by simpa [X] using hU j
+  have adm (j : ZMod N) : admiss γ (X j) := by simpa [admiss, X] using hU j
   have ha : 0 < a := faceSpeed_pos hg (adm (g.prev i))
   have hb : 0 < b := faceSpeed_pos hg (adm i)
   have hspeed : rightSpeed γ U (g.prev i) = a := by
