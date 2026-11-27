@@ -118,7 +118,7 @@ class DriverTests(unittest.TestCase):
                     self.assertIn("width", result.stderr)
                     self.assertFalse(result.stdout)
         for args in ([], ["--model", "other"], ["--model", "burgers", "0"],
-                     ["--model", "euler", "--muscl"], ["--model", "euler", "--limiter", "none"]):
+                     ["--model", "euler", "--muscl", "--weno"], ["--model", "euler", "--limiter", "none"]):
             with self.subTest(args=args):
                 self.assertEqual(subprocess.run([BIN/"fv1d", *args], capture_output=True).returncode, 1)
 

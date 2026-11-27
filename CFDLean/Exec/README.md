@@ -49,7 +49,8 @@ an absolute tolerance of `1e-12`. With explicit widths Burgers samples the sinus
 cell midpoint, uses the smallest width for its fixed timestep and reports width-weighted integrals.
 
 Euler runs the [periodic density wave](../../benchmarks/fv1d/README.md) with four cells by default.
-It initializes each cell with its analytic mean and advances with first-order Rusanov and Forward Euler.
+It initializes each cell with its analytic mean and advances with Rusanov fluxes and Forward Euler.
+The default uses first-order face states.
 Each step uses CFL 0.4, the smallest width and the current maximum endpoint speed. The last step ends at
 `t = 1/8`. Output gives initial and final integrals and the width-weighted L1 errors against the translated
 analytic cell means. Each dump row gives density, x-momentum density and total energy density in that order.
@@ -57,3 +58,11 @@ The driver checks density and pressure after each step. These are binary64 measu
 
 Burgers accepts `--weno` on either mesh. Each SSPRK3 stage reconstructs both periodic traces from
 the cell widths using scalar WENO-JS5 with regularization `1e-6`, then evaluates one Rusanov flux per face.
+
+
+Euler accepts `--muscl` (componentwise minmod) or `--weno` on either mesh, for example
+`lake exe fv1d --model euler 6 --widths .1,.15,.2,.25,.2,.1 --weno --dump`.
+WENO uses separate nonlinear weights for density, momentum and total energy. If either reconstructed
+endpoint has nonfinite components or nonpositive density or pressure, both endpoints of that cell revert
+to its mean. The driver checks the updated means after each Forward Euler step. The runtime check and
+the face fallback establish no general positivity theorem for time stepping.

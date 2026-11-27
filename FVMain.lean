@@ -1,11 +1,11 @@
 import Driver
-import CFDLean.Exec.ReconstructedKernel
+import CFDLean.Exec.EulerReconstruction
 
 open CFDLean.Exec
 
 private def usageFV : String :=
   "usage: fv1d --model burgers [N] [steps] [cfl] [--weno | --muscl | --limiter NAME] [--widths CSV] [--dump]\n\
-   or:    fv1d --model euler [N] [--widths CSV] [--dump]"
+   or:    fv1d --model euler [N] [--muscl | --weno] [--widths CSV] [--dump]"
 
 private def parseWidths (n : Nat) (csv : String) : Except String (Array Float) := do
   let some ws := (csv.splitOn ",").mapM parseFloat? | throw "widths must be unsigned decimals"
@@ -76,14 +76,21 @@ private def densityWave (w xs : Array Float) (t : Float) : Array State :=
 
 private def components (u : State) : String := s!"{sci (u 0)} {sci (u 1)} {sci (u 2)}"
 
-private def runEuler (n : Nat) (widths : Option (Array Float)) (dump : Bool) : IO UInt32 := do
+private def admissible (q : State) : Bool :=
+  let p := FV1D.pressure 1 2 2 q
+  (q 0).isFinite && (q 1).isFinite && (q 2).isFinite && q 0 > 0 && p.isFinite && p > 0
+
+private def runEuler (n : Nat) (widths : Option (Array Float)) (scheme : Option FV1D.EulerReconstruction)
+    (dump : Bool) : IO UInt32 := do
   let dx := 1 / n.toFloat
   let w := widths.getD (Array.replicate n dx)
   let xs := centers w
   let model := FV1D.euler (1 : Float) 2 2 Float.abs Float.sqrt max
-  let step := match widths with
-    | none => fun dt => FV1D.stepArray model 0.5 dx dt
-    | some ws => fun dt => FV1D.nonuniformStepArray model 0.5 dt ws
+  let step := match scheme, widths with
+    | some method, _ => fun dt u => reconstructedStep model 0.5 dt w u
+        (FV1D.eulerCell method 1e-6 admissible w u)
+    | none, none => fun dt => FV1D.stepArray model 0.5 dx dt
+    | none, some ws => fun dt => FV1D.nonuniformStepArray model 0.5 dt ws
   let minWidth := minArray w
   let finish := 0.125
   let store (q : State) : Vector Float 3 := #v[q 0, q 1, q 2]
@@ -102,9 +109,7 @@ private def runEuler (n : Nat) (widths : Option (Array Float)) (dump : Bool) : I
       return 2
     -- Evaluate the three components now so later steps do not repeatedly evaluate old states.
     cells := (step dt u).map store
-    if cells.any (fun q =>
-        let p := FV1D.pressure 1 2 2 (fun k => q[k])
-        !(q.toArray.all Float.isFinite && q[0] > 0 && p.isFinite && p > 0)) then
+    if cells.any (fun q => !admissible (fun k => q[k])) then
       IO.eprintln "fv1d: Euler step produced a non-finite or inadmissible state"
       return 2
     t := t + dt
@@ -112,7 +117,11 @@ private def runEuler (n : Nat) (widths : Option (Array Float)) (dump : Bool) : I
   let u := states cells
   let exact := densityWave w xs t
   let errors : State := fun k => integral w (Array.zipWith (fun q ref => Float.abs (q k - ref k)) u exact)
-  IO.println s!"Euler Rusanov / Forward Euler  N = {n}  steps = {steps}  time = {sci t}"
+  let reconstruction := match scheme with
+    | none => ""
+    | some .minmod => " / MUSCL-minmod"
+    | some .weno => " / WENO-JS5"
+  IO.println s!"Euler Rusanov{reconstruction} / Forward Euler  N = {n}  steps = {steps}  time = {sci t}"
   IO.println s!"final integrals = {components (totals u)}"
   IO.println s!"L1 errors = {components errors}"
   if dump then
@@ -137,9 +146,11 @@ def main (args : List String) : IO UInt32 := do
     | .error e => return ← bad e
   if opts.weno && (opts.muscl || opts.limiter.isSome) then return ← bad "choose WENO or MUSCL with a limiter"
   if model == "euler" then
-    if opts.weno || opts.muscl || opts.limiter.isSome then return ← bad "Euler supports only first-order stepping"
+    if opts.limiter.any (· != .minmod) then return ← bad "Euler MUSCL supports the minmod limiter"
+    let scheme := if opts.weno then some FV1D.EulerReconstruction.weno
+      else if opts.muscl || opts.limiter.isSome then some .minmod else none
     if pos.length > 1 then return ← bad "Euler takes only the cell count"
-    return ← runEuler n widths opts.dump
+    return ← runEuler n widths scheme opts.dump
   if pos.length > 3 then return ← bad "too many Burgers arguments"
   let some steps := pos[1]?.elim (some 200) String.toNat? | return ← bad "steps must be a nonnegative integer"
   let some cfl := pos[2]?.elim (some 0.4) parseFloat? | return ← bad "cfl must be an unsigned decimal"
