@@ -1,0 +1,246 @@
+{
+  "contract": "specifications/FV1D-nonuniform.md",
+  "contract_sha256": "a89dacc84cf85af31508db0f47cb3c9310f33173a9725f4c8ce0067d428fc50e",
+  "approval_record": "specifications/FV1D-nonuniform-approval.md",
+  "approved_revision": "3eb7cae92331f3107caa942aec4b797577e47d67",
+  "source_map": "references/FV1D-nonuniform.md",
+  "trusted_statement_review": "reviews/FVN/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "FVN-U",
+      "definitions": [
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Periodic.Mesh1D.uniform",
+        "CFDLean.FV1D.Nonuniform.update",
+        "CFDLean.FV1D.Nonuniform.firstOrderStep",
+        "CFDLean.Burgers.Nonuniform.face",
+        "CFDLean.Burgers.Nonuniform.musclStep"
+      ],
+      "supporting": [
+        "CFDLean.Burgers.Nonuniform.face_eq"
+      ],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.firstOrderStep_uniform",
+        "CFDLean.Burgers.Nonuniform.musclStep_uniform"
+      ]
+    },
+    {
+      "id": "FVN-K",
+      "definitions": [
+        "CFDLean.FV1D.Nonuniform.musclStep"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.firstOrderStep_constant",
+        "CFDLean.FV1D.Nonuniform.musclStep_constant"
+      ]
+    },
+    {
+      "id": "FVN-C",
+      "definitions": [
+        "CFDLean.Euler1D.nonuniformStep"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.update_weighted_sum",
+        "CFDLean.FV1D.Nonuniform.firstOrderStep_weighted_sum",
+        "CFDLean.FV1D.Nonuniform.musclStep_weighted_sum"
+      ]
+    },
+    {
+      "id": "FVN-A",
+      "definitions": [
+        "CFDLean.Periodic.Mesh1D.spacing",
+        "CFDLean.FV1D.Nonuniform.backDiff",
+        "CFDLean.FV1D.Nonuniform.fwdDiff",
+        "CFDLean.FV1D.Nonuniform.slope",
+        "CFDLean.FV1D.Nonuniform.leftState",
+        "CFDLean.FV1D.Nonuniform.rightState",
+        "CFDLean.FV1D.Nonuniform.componentwise",
+        "CFDLean.Euler1D.musclLeft",
+        "CFDLean.Euler1D.musclRight"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.leftState_affine",
+        "CFDLean.FV1D.Nonuniform.rightState_prev_affine"
+      ]
+    },
+    {
+      "id": "FVN-B",
+      "definitions": [
+        "CFDLean.Burgers.Nonuniform.firstOrderStep"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Nonuniform.firstOrderStep_mem",
+        "CFDLean.Burgers.Nonuniform.firstOrderStep_totalVariation_le"
+      ]
+    },
+    {
+      "id": "FVN-R",
+      "definitions": [
+        "CFDLean.Periodic.Mesh1D.MeshRatio",
+        "CFDLean.Burgers.Nonuniform.fvnMesh",
+        "CFDLean.Burgers.Nonuniform.fvnState"
+      ],
+      "supporting": [
+        "CFDLean.FV1D.Nonuniform.meshRatio_p_le_one",
+        "CFDLean.FV1D.Nonuniform.meshRatio_q_le_one"
+      ],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.leftState_mem",
+        "CFDLean.FV1D.Nonuniform.rightState_mem",
+        "CFDLean.Burgers.Nonuniform.meshRatio_needed"
+      ]
+    },
+    {
+      "id": "FVN-M",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.FV1D.Nonuniform.musclStep_incremental"
+      ],
+      "declarations": [
+        "CFDLean.FV1D.Nonuniform.musclStep_mem",
+        "CFDLean.FV1D.Nonuniform.musclStep_totalVariation_le"
+      ]
+    },
+    {
+      "id": "FVN-MB",
+      "definitions": [
+        "CFDLean.Burgers.Nonuniform.musclSsprk2Step",
+        "CFDLean.Burgers.Nonuniform.musclSsprk3Step"
+      ],
+      "supporting": [],
+      "declarations": [
+        "CFDLean.Burgers.Nonuniform.musclStep_iterate_stable",
+        "CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable",
+        "CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Periodic.Mesh1D": "CFDLean.Discrete.Periodic.Mesh1D",
+    "CFDLean.Periodic.Mesh1D.uniform": "CFDLean.Discrete.Periodic.Mesh1D",
+    "CFDLean.FV1D.Nonuniform.update": "CFDLean.Discrete.Periodic.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.firstOrderStep": "CFDLean.Discrete.Periodic.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.face": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.musclStep": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.face_eq": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.firstOrderStep_uniform": "CFDLean.Discrete.Periodic.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.musclStep_uniform": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.musclStep": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.firstOrderStep_constant": "CFDLean.Discrete.Periodic.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.musclStep_constant": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.Euler1D.nonuniformStep": "CFDLean.Schemes.Euler.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.update_weighted_sum": "CFDLean.Discrete.Periodic.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.firstOrderStep_weighted_sum": "CFDLean.Discrete.Periodic.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.musclStep_weighted_sum": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.Periodic.Mesh1D.spacing": "CFDLean.Discrete.Periodic.Mesh1D",
+    "CFDLean.FV1D.Nonuniform.backDiff": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.fwdDiff": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.slope": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.leftState": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.rightState": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.componentwise": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.Euler1D.musclLeft": "CFDLean.Schemes.Euler.Nonuniform",
+    "CFDLean.Euler1D.musclRight": "CFDLean.Schemes.Euler.Nonuniform",
+    "CFDLean.FV1D.Nonuniform.leftState_affine": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.FV1D.Nonuniform.rightState_prev_affine": "CFDLean.Discrete.Periodic.NonuniformMuscl",
+    "CFDLean.Burgers.Nonuniform.firstOrderStep": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.firstOrderStep_mem": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.firstOrderStep_totalVariation_le": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Periodic.Mesh1D.MeshRatio": "CFDLean.Discrete.Periodic.Mesh1D",
+    "CFDLean.Burgers.Nonuniform.fvnMesh": "CFDLean.Schemes.Burgers.NonuniformControls",
+    "CFDLean.Burgers.Nonuniform.fvnState": "CFDLean.Schemes.Burgers.NonuniformControls",
+    "CFDLean.FV1D.Nonuniform.meshRatio_p_le_one": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.FV1D.Nonuniform.meshRatio_q_le_one": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.FV1D.Nonuniform.leftState_mem": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.FV1D.Nonuniform.rightState_mem": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.Burgers.Nonuniform.meshRatio_needed": "CFDLean.Schemes.Burgers.NonuniformControls",
+    "CFDLean.FV1D.Nonuniform.musclStep_incremental": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.FV1D.Nonuniform.musclStep_mem": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.FV1D.Nonuniform.musclStep_totalVariation_le": "CFDLean.Discrete.Periodic.NonuniformMusclStability",
+    "CFDLean.Burgers.Nonuniform.musclSsprk2Step": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.musclSsprk3Step": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.musclStep_iterate_stable": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable": "CFDLean.Schemes.Burgers.Nonuniform",
+    "CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable": "CFDLean.Schemes.Burgers.Nonuniform"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/FV1DNonuniformChallenge.lean",
+    "statements_module": "CFDLean.Verification.FV1DNonuniformChallenge",
+    "statements_sha256": "15919e1b025ba49faba2f897d78f68ea903d062b8c97755209d467bf6f5f4057",
+    "bridge_module": "CFDLean.Verification.FV1DNonuniformVerify",
+    "comparator_challenge": "Challenges/FV1DNonuniform.lean",
+    "comparator_challenge_module": "Challenges.FV1DNonuniform",
+    "comparator_challenge_sha256": "280830599586c4c9dc69980375cd793fbc45f6b4d2715ae2f93c5e5d6ccf7a21",
+    "comparator_config": "Challenges/FV1DNonuniform.comparator.json",
+    "bindings": [
+      {
+        "id": "FVN-B",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.FirstOrderBounds",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.first_order_bounds",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.FV1DNonuniformChallenge.FirstOrderBounds I",
+        "uses": "CFDLean.Burgers.Nonuniform.firstOrderStep_mem"
+      },
+      {
+        "id": "FVN-B",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.FirstOrderTotalVariation",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.first_order_total_variation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.FV1DNonuniformChallenge.FirstOrderTotalVariation I",
+        "uses": "CFDLean.Burgers.Nonuniform.firstOrderStep_totalVariation_le"
+      },
+      {
+        "id": "FVN-R",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.ReconstructionBounds",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.reconstruction_bounds",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.FV1DNonuniformChallenge.ReconstructionBounds I",
+        "uses": "CFDLean.FV1D.Nonuniform.leftState_mem"
+      },
+      {
+        "id": "FVN-R",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.MeshRatioOvershoot",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.mesh_ratio_overshoot",
+        "type": "CFDLean.Verification.FV1DNonuniformChallenge.MeshRatioOvershoot",
+        "uses": "CFDLean.Burgers.Nonuniform.meshRatio_needed"
+      },
+      {
+        "id": "FVN-M",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.MusclBounds",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.muscl_bounds",
+        "type": "∀ {I : Type u_1}, CFDLean.Verification.FV1DNonuniformChallenge.MusclBounds I",
+        "uses": "CFDLean.FV1D.Nonuniform.musclStep_mem"
+      },
+      {
+        "id": "FVN-M",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.MusclTotalVariation",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.muscl_total_variation",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.FV1DNonuniformChallenge.MusclTotalVariation I",
+        "uses": "CFDLean.FV1D.Nonuniform.musclStep_totalVariation_le"
+      },
+      {
+        "id": "FVN-MB",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.MusclEulerMultiStep",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.muscl_euler_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.FV1DNonuniformChallenge.MusclEulerMultiStep I",
+        "uses": "CFDLean.Burgers.Nonuniform.musclStep_iterate_stable"
+      },
+      {
+        "id": "FVN-MB",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.MusclSSPRK2MultiStep",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.muscl_ssprk2_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.FV1DNonuniformChallenge.MusclSSPRK2MultiStep I",
+        "uses": "CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable"
+      },
+      {
+        "id": "FVN-MB",
+        "statement": "CFDLean.Verification.FV1DNonuniformChallenge.MusclSSPRK3MultiStep",
+        "theorem": "CFDLean.Verification.FV1DNonuniformVerify.muscl_ssprk3_multi_step",
+        "type": "∀ {I : Type u_1} [inst : Fintype I], CFDLean.Verification.FV1DNonuniformChallenge.MusclSSPRK3MultiStep I",
+        "uses": "CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable"
+      }
+    ]
+  }
+}

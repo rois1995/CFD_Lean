@@ -63,7 +63,7 @@ BURGERS_ACCEPTED_REVISION = "4c77f6e145f1f5d8cdd812a02dce2e7324d179c0"
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
-                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted"}
+                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -76,7 +76,8 @@ FV_CONTRACTS = [
 # each in its module. The trusted statement file imports only Mathlib and is hash-pinned here, as is the
 # `lake comparator` challenge that restates the bridge theorems; each bridge theorem has the recorded type, which is
 # its trusted statement, and uses a promised implementation theorem of its result ID. `count` is the number of promised
-# theorems, `bridges` the number of trusted bindings.
+# theorems, `bridges` the number of trusted bindings. `bridge` names the bridge module when it is not
+# CFDLean.Verification.Burgers<m>Verify; `pending` marks a milestone whose independent acceptance is pending.
 BURGERS = {
     "B0": {"results": "specifications/Burgers-B0-results.json",
            "approved": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
@@ -178,6 +179,17 @@ BURGERS = {
                     "path": "CFDLean/Exec/RealScalarSign.lean",
                     "sha256": "d0959ddb8e4b4cda2b31b5cc1947ae3bbea5cfb7450ad8f0d12334497d43a6e2"}},
             "count": 19, "bridges": 8},
+    # FVN: FV1D on a non-uniform periodic 1D mesh. Its scalar claims have trusted statements, bridges and a comparator
+    # challenge, so it is checked as a Burgers milestone, with its own result map and bridge module (`bridge`).
+    # Independent implementation acceptance is pending (`pending`).
+    "FVN": {"results": "specifications/FV1D-nonuniform-results.json",
+            "approved": "3eb7cae92331f3107caa942aec4b797577e47d67",
+            "statements": "CFDLean/Verification/FV1DNonuniformChallenge.lean",
+            "statements_sha256": "15919e1b025ba49faba2f897d78f68ea903d062b8c97755209d467bf6f5f4057",
+            "challenge": "Challenges/FV1DNonuniform.lean",
+            "challenge_sha256": "280830599586c4c9dc69980375cd793fbc45f6b4d2715ae2f93c5e5d6ccf7a21",
+            "bridge": "CFDLean.Verification.FV1DNonuniformVerify", "pending": True,
+            "count": 19, "bridges": 9},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -535,6 +547,18 @@ def check_mc_n_sources(paths, read, base, moves=None):
 def imported_modules(data):
     """Every module named by an `import` line of a Lean source, wherever the line is."""
     return re.findall(r"^[ \t]*(?:public[ \t]+)?import[ \t]+(\S+)", data.decode(), re.MULTILINE)
+
+
+def burgers_bridge(milestone):
+    """The bridge module of a milestone of BURGERS."""
+    return BURGERS[milestone].get("bridge", f"CFDLean.Verification.Burgers{milestone}Verify")
+
+
+def burgers_acceptance(milestone):
+    """(independent acceptance, acceptance record) of a milestone of BURGERS, for the evidence record."""
+    if BURGERS[milestone].get("pending"):
+        return "pending", None
+    return "accepted at " + BURGERS_ACCEPTED_REVISION, f"reviews/Burgers-{milestone}/Acceptance.md"
 
 
 def check_burgers(milestone, rows, record, contract_text, read=read_source, pins=None):
@@ -942,7 +966,7 @@ def main(record_raw_types=False):
     with (evidence / "build.log").open("w") as log:
         subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
         # The trusted-statement bridges are not in the `CFDLean` umbrella; KernelAudit.lean imports them.
-        bridges = [f"CFDLean.Verification.Burgers{m}Verify" for m in BURGERS] + [JST1_SOLUTION]
+        bridges = [burgers_bridge(m) for m in BURGERS] + [JST1_SOLUTION]
         subprocess.run(["lake", "build"] + bridges, env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
     result = subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "KernelAudit.lean"],
                             env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -1107,8 +1131,8 @@ def main(record_raw_types=False):
         "burgers": {milestone: {
             "results": BURGERS[milestone]["results"], "approved_revision": BURGERS[milestone]["approved"],
             "promised_theorems": burgers_promised[milestone], "trusted_bridge_theorems": burgers_bridges[milestone],
-            "independent_acceptance": "accepted at " + BURGERS_ACCEPTED_REVISION,
-            "acceptance_record": f"reviews/Burgers-{milestone}/Acceptance.md"} for milestone in BURGERS},
+            "independent_acceptance": burgers_acceptance(milestone)[0],
+            "acceptance_record": burgers_acceptance(milestone)[1]} for milestone in BURGERS},
         "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
         "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
         "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,

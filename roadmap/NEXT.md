@@ -142,6 +142,10 @@ median-dual M1–M6 milestones retain their own geometry and scope.
 
 ### Non-uniform fixed 1D finite volume
 
+**Status.** FVN is implemented: first-order and MUSCL steps on a fixed non-uniform periodic mesh, eight frozen
+results, three exact controls and a trusted challenge for the scalar claims. Independent implementation review is
+pending. [Contract](../specifications/FV1D-nonuniform.md) · [Proof map](../references/FV1D-nonuniform.md)
+
 Use Burgers to test geometry independently of the Euler model change. Apply the shared first-order step to both
 models on this mesh once their uniform-grid specializations are established.
 
