@@ -7713,6 +7713,19 @@
       ],
       "summary": "The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK3 kernel steps.",
       "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.E1.value_isSome",
+      "id": "E1-1",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Decoder succeeds exactly on finite binary64 values.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 1"
     }
   ]
 }
