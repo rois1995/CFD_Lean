@@ -86,11 +86,6 @@ private def runEuler (n : Nat) (widths : Option (Array Float)) (scheme : Option 
   let w := widths.getD (Array.replicate n dx)
   let xs := centers w
   let model := FV1D.euler (1 : Float) 2 2 Float.abs Float.sqrt max
-  let step := match scheme, widths with
-    | some method, _ => fun dt u => reconstructedStep model 0.5 dt w u
-        (FV1D.eulerCell method 1e-6 admissible w u)
-    | none, none => fun dt => FV1D.stepArray model 0.5 dx dt
-    | none, some ws => fun dt => FV1D.nonuniformStepArray model 0.5 dt ws
   let minWidth := minArray w
   let finish := 0.125
   let store (q : State) : Vector Float 3 := #v[q 0, q 1, q 2]
@@ -102,13 +97,22 @@ private def runEuler (n : Nat) (widths : Option (Array Float)) (scheme : Option 
   let mut steps := 0
   while t < finish do
     let u := states cells
-    let speed := u.foldl (fun a q => max a (model.speed q q)) 0
+    let (speed, advance) := match scheme with
+      | none =>
+        let step := match widths with
+          | none => fun dt => FV1D.stepArray model 0.5 dx dt u
+          | some ws => fun dt => FV1D.nonuniformStepArray model 0.5 dt ws u
+        (u.foldl (fun a q => max a (model.speed q q)) 0, step)
+      | some method =>
+        let endpoints := Vector.ofFn (FV1D.eulerCell method 1e-6 admissible w u)
+        let speeds := Array.ofFn fun i : Fin u.size => model.speed endpoints[i].2 endpoints[nextIdx i].1
+        (maxArray speeds, fun dt => reconstructedStep model 0.5 dt w u (fun i => endpoints[i]))
     let dt := min (finish - t) (0.4 * minWidth / speed)
     if !dt.isFinite || t + dt <= t then
       IO.eprintln "fv1d: Euler timestep cannot advance time"
       return 2
     -- Evaluate the three components now so later steps do not repeatedly evaluate old states.
-    cells := (step dt u).map store
+    cells := (advance dt).map store
     if cells.any (fun q => !admissible (fun k => q[k])) then
       IO.eprintln "fv1d: Euler step produced a non-finite or inadmissible state"
       return 2
