@@ -8,6 +8,7 @@ import CFDLean.Papers.JST1.Mixed.RefCells
 import CFDLean.Papers.JST1.Mixed.SplitMean
 import CFDLean.Papers.JST1.Proofs.Addendum2
 import CFDLean.Papers.JST1.Proofs.Addendum2Wall
+import CFDLean.Papers.JST1.Proofs.Chunks
 import CFDLean.Papers.JST1.Proofs.Closure
 import CFDLean.Papers.JST1.Proofs.DissGeom
 import CFDLean.Papers.JST1.Proofs.DualFacets
