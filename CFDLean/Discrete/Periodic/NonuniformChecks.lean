@@ -1,4 +1,4 @@
-import CFDLean.Discrete.Periodic.NonuniformMuscl
+import CFDLean.Discrete.Periodic.NonuniformMusclStability
 
 /-! Checks for the reconstruction-independent layer of FVN (task 1): each public theorem applied to its own
 hypotheses, the one-cell grid `ZMod 1` (where `next i = prev i = i`) and the step with `dt = 0`. -/
@@ -117,5 +117,94 @@ example (m : Mesh1D (ZMod 1)) (lim : S → S → S) (U : ZMod 1 → S) (i : ZMod
 example (m : Mesh1D I) (H lim : S → S → S) (U : I → S) : musclStep m H lim 0 U = U := by
   funext i
   simp [musclStep, update]
+
+/-! Checks for the scalar MUSCL stability of FVN (task 3): FVN-R and FVN-M applied to their own hypotheses, the
+incremental form, the degenerate interval `hi ≤ lo` (review focus 3) and the one-cell grid. -/
+
+section Stability
+
+open CFDLean.Scalar (NumericalFlux MonotoneFlux LipschitzOnBounds)
+open CFDLean.Scalar.FiniteVolume (SlopeBounded boundedStates totalVariation incrementalUpdate)
+
+example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ)
+    (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (i : I) :
+    lo ≤ leftState m φ u i ∧ leftState m φ u i ≤ hi :=
+  leftState_mem m φ θ hφ hr lo hi u hu i
+
+example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ)
+    (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (i : I) :
+    lo ≤ rightState m φ u i ∧ rightState m φ u i ≤ hi :=
+  rightState_mem m φ θ hφ hr lo hi u hu i
+
+example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ)
+    (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (nf : NumericalFlux) (hmono : MonotoneFlux nf) (KL KR : ℝ)
+    (hlip : LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, dt * ((KL + KR) / m.width i + θ * (KR / (m.width i + m.width (m.grid.next i)) +
+      KL / (m.width (m.grid.prev i) + m.width i))) ≤ 1) :
+    musclStep m nf.eval φ dt u ∈ boundedStates lo hi :=
+  musclStep_mem m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
+
+example [Fintype I] (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ)
+    (lo hi : ℝ) (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (nf : NumericalFlux) (hmono : MonotoneFlux nf)
+    (KL KR : ℝ) (hlip : LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, dt * (KR / m.width i + KL / m.width (m.grid.next i) +
+      θ * (KL + KR) / (m.width i + m.width (m.grid.next i))) ≤ 1) :
+    totalVariation m.grid (musclStep m nf.eval φ dt u) ≤ totalVariation m.grid u :=
+  musclStep_totalVariation_le m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
+
+/-- The incremental form with the coefficient bounds `(dt/w i) KR (1 + θ p i)` and
+`(dt/w (next i)) KL (1 + θ q i)`. -/
+example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ)
+    (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (nf : NumericalFlux) (hmono : MonotoneFlux nf) (KL KR : ℝ)
+    (hlip : LipschitzOnBounds nf lo hi KL KR) (hKL : 0 ≤ KL) (hKR : 0 ≤ KR) (dt : ℝ) (hdt : 0 ≤ dt) :
+    ∃ C D : I → ℝ,
+      (∀ i, 0 ≤ C i ∧
+        C i ≤ dt / m.width i * KR * (1 + θ * (m.width i / (m.width i + m.width (m.grid.next i))))) ∧
+      (∀ i, 0 ≤ D i ∧ D i ≤ dt / m.width (m.grid.next i) * KL *
+        (1 + θ * (m.width (m.grid.next i) / (m.width i + m.width (m.grid.next i))))) ∧
+      musclStep m nf.eval φ dt u = incrementalUpdate m.grid C D u :=
+  musclStep_incremental m φ θ hφ hr lo hi u hu nf hmono KL KR hlip hKL hKR dt hdt
+
+/-- Review focus 3: `musclStep_mem` applies on a degenerate interval `hi ≤ lo`; no `lo < hi` premise. -/
+example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ) (lo hi : ℝ)
+    (_hhl : hi ≤ lo) (u : I → ℝ) (hu : u ∈ boundedStates lo hi) (nf : NumericalFlux) (hmono : MonotoneFlux nf)
+    (KL KR : ℝ) (hlip : LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, dt * ((KL + KR) / m.width i + θ * (KR / (m.width i + m.width (m.grid.next i)) +
+      KL / (m.width (m.grid.prev i) + m.width i))) ≤ 1) :
+    musclStep m nf.eval φ dt u ∈ boundedStates lo hi :=
+  musclStep_mem m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
+
+/-- Review focus 3, concrete: on the interval `[c, c]` the Lipschitz certificate holds with `KL = KR = -1`, which
+no nondegenerate interval allows, and `musclStep_mem` still applies. -/
+example (m : Mesh1D I) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ)
+    (nf : NumericalFlux) (hmono : MonotoneFlux nf) (c dt : ℝ) (hdt : 0 ≤ dt) :
+    musclStep m nf.eval φ dt (fun _ => c) ∈ boundedStates c c := by
+  refine musclStep_mem m φ θ hφ hr c c _ (fun _ => ⟨le_rfl, le_rfl⟩) nf hmono (-1) (-1)
+    ⟨fun a a' _ h1 h2 h3 h4 _ _ => by rw [le_antisymm h2 h1, le_antisymm h4 h3]; simp,
+      fun _ b b' _ _ h3 h4 h5 h6 => by rw [le_antisymm h4 h3, le_antisymm h6 h5]; simp⟩ dt hdt fun i => ?_
+  have hθ := hφ.nonneg
+  have h0 : 0 ≤ (1 + 1) / m.width i + θ * (1 / (m.width i + m.width (m.grid.next i)) +
+      1 / (m.width (m.grid.prev i) + m.width i)) := by
+    have := m.width_pos i
+    have := m.width_pos (m.grid.next i)
+    have := m.width_pos (m.grid.prev i)
+    positivity
+  have e : dt * ((-1 + -1) / m.width i + θ * (-1 / (m.width i + m.width (m.grid.next i)) +
+      -1 / (m.width (m.grid.prev i) + m.width i))) = -(dt * ((1 + 1) / m.width i +
+      θ * (1 / (m.width i + m.width (m.grid.next i)) + 1 / (m.width (m.grid.prev i) + m.width i)))) := by
+    ring
+  rw [e]
+  linarith [mul_nonneg hdt h0]
+
+/-- Review focus 1: FVN-M on the one-cell grid needs no extra hypothesis. -/
+example (m : Mesh1D (ZMod 1)) (φ : ℝ → ℝ → ℝ) (θ : ℝ) (hφ : SlopeBounded θ φ) (hr : m.MeshRatio θ)
+    (lo hi : ℝ) (u : ZMod 1 → ℝ) (hu : u ∈ boundedStates lo hi) (nf : NumericalFlux) (hmono : MonotoneFlux nf)
+    (KL KR : ℝ) (hlip : LipschitzOnBounds nf lo hi KL KR) (dt : ℝ) (hdt : 0 ≤ dt)
+    (hcfl : ∀ i, dt * (KR / m.width i + KL / m.width (m.grid.next i) +
+      θ * (KL + KR) / (m.width i + m.width (m.grid.next i))) ≤ 1) :
+    totalVariation m.grid (musclStep m nf.eval φ dt u) ≤ totalVariation m.grid u :=
+  musclStep_totalVariation_le m φ θ hφ hr lo hi u hu nf hmono KL KR hlip dt hdt hcfl
+
+end Stability
 
 end CFDLean.FV1D.Nonuniform.Checks
