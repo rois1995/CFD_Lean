@@ -39,6 +39,7 @@ import CFDLean.Discrete.Periodic.NonuniformMuscl
 import CFDLean.Discrete.Periodic.MusclReconstruction
 import CFDLean.Discrete.Periodic.Weno
 import CFDLean.Discrete.Periodic.GradedWeno
+import CFDLean.Discrete.Periodic.WenoMoments
 import CFDLean.Discrete.Periodic.NonuniformMusclStability
 import CFDLean.Discrete.Periodic.NonuniformChecks
 
@@ -96,7 +97,7 @@ import CFDLean.Exec.NonuniformKernelSmoke
 import CFDLean.Exec.NonuniformRefinement
 import CFDLean.Exec.NonuniformTransfer
 import CFDLean.Exec.WenoRefinement
-import CFDLean.Exec.EulerReconstruction
+import CFDLean.Exec.EulerReconstructionRefinement
 import CFDLean.Exec.NonuniformControls
 
 import CFDLean.Papers.JST1

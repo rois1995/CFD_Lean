@@ -22,11 +22,11 @@ theorem selectEulerPair_valid {α : Type} (valid : EulerState α → Bool) (mean
   · exact ⟨hmean, hmean⟩
 
 /-- Conservative-component reconstruction. WENO uses the smoothness of each component separately. -/
-def eulerCell {α : Type} [Scalar α] [∀ n, OfNat α n] (scheme : EulerReconstruction) (ε : α)
-    (valid : EulerState α → Bool) (widths : Array α) (u : Array (EulerState α))
-    (i : Fin u.size) : EulerState α × EulerState α :=
+def eulerComponent {α : Type} [Scalar α] [∀ n, OfNat α n] (scheme : EulerReconstruction) (ε : α)
+    (widths : Array α) (u : Array (EulerState α))
+    (i : Fin u.size) (k : Fin 3) : α × α :=
   let w (j : Fin u.size) := widthAt widths j.val
-  let component (k : Fin 3) := match scheme with
+  match scheme with
     | .weno => wenoCell ε w (fun j => u[j] k) i
     | .minmod =>
       let l := prevIdx i
@@ -35,6 +35,11 @@ def eulerCell {α : Type} [Scalar α] [∀ n, OfNat α n] (scheme : EulerReconst
       let forward := Scalar.two*w i/(w i+w r)*(u[r] k-u[i] k)
       let halfSlope := Scalar.minmod backward forward / Scalar.two
       (u[i] k-halfSlope, u[i] k+halfSlope)
+
+def eulerCell {α : Type} [Scalar α] [∀ n, OfNat α n] (scheme : EulerReconstruction) (ε : α)
+    (valid : EulerState α → Bool) (widths : Array α) (u : Array (EulerState α))
+    (i : Fin u.size) : EulerState α × EulerState α :=
+  let component := eulerComponent scheme ε widths u i
   let ρ := component 0
   let m := component 1
   let e := component 2

@@ -51,7 +51,8 @@ cell midpoint, uses the smallest width for its fixed timestep and reports width-
 Euler runs the [periodic density wave](../../benchmarks/fv1d/README.md) with four cells by default.
 It initializes each cell with its analytic mean and advances with Rusanov fluxes and Forward Euler.
 The default uses first-order face states.
-Each step uses CFL 0.4, the smallest width and the current maximum endpoint speed. The last step ends at
+Each step uses CFL 0.4, the smallest width and the current maximum endpoint speed. First order uses the cell means. MUSCL and WENO use the
+selected states at the very faces passed to Rusanov, after any paired fallback. The last step ends at
 `t = 1/8`. Output gives initial and final integrals and the width-weighted L1 errors against the translated
 analytic cell means. Each dump row gives density, x-momentum density and total energy density in that order.
 The driver checks density and pressure after each step. These are binary64 measurements.
@@ -66,3 +67,6 @@ WENO uses separate nonlinear weights for density, momentum and total energy. If 
 endpoint has nonfinite components or nonpositive density or pressure, both endpoints of that cell revert
 to its mean. The driver checks the updated means after each Forward Euler step. The runtime check and
 the face fallback establish no general positivity theorem for time stepping.
+
+For fewer than five distinct cells WENO wraps and reuses periodic entries. This defines a repeated-stencil
+update, including the singleton case, without a distinct-stencil fifth-order accuracy claim.
