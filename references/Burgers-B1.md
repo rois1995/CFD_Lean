@@ -1,6 +1,6 @@
 # Burgers B1 implementation: source/result map
 
-Status: **implementation candidate; independent acceptance pending**.
+Status: **accepted** at `4c77f6e` ([acceptance](../reviews/Burgers-B1/Acceptance.md)). Human review of the trusted statements pending.
 
 Frozen contract: `specifications/Burgers-B1.md`. Approval record: `specifications/Burgers-B1-approval.md`.
 Result bindings checked by `scripts/verify.py`: `specifications/Burgers-B1-results.json`. Toolchain: Lean v4.36.0.
@@ -90,7 +90,7 @@ file, bridge types), `KernelAudit.lean`, and
 - `next` may be any permutation of the cells. For one cycle this is the usual periodic grid.
 - The per-interface CFL hypothesis is equivalent to `dt · max_j |u_j| ≤ dx`, because every cell is the left state of
   one interface.
-- CFL 1/2 is sufficient for the bounds, not sharp: the same proof works up to 2/3. No sharper constant is claimed.
+- CFL 1/2 is sufficient for the bounds, not sharp. The Lean proof bounds `C_i <= dt*a_i/dx` and `D_(i-1) <= dt*a_(i-1)/dx`, so it needs 1/2; the coefficient lemma alone holds up to 2/3. No sharper constant is claimed.
 - `StabilityControls.lean` shows that total variation grows (2 to 6) and the bounds fail at `dt · a = 2 dx`.
 
 ## Exclusions

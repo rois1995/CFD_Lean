@@ -216,7 +216,6 @@
     "CFDLean.Discrete.Periodic.Grid",
     "CFDLean.Discrete.Periodic.Limiters",
     "CFDLean.Discrete.Periodic.Muscl",
-    "CFDLean.Discrete.Periodic.Rusanov",
     "CFDLean.Discrete.Periodic.TotalVariation",
     "CFDLean.Entropy.PairFlux",
     "CFDLean.Entropy.Production",
@@ -338,7 +337,7 @@
     "CFDLean.Schemes.Boundary.Controls",
     "CFDLean.Schemes.Boundary.Stationary",
     "CFDLean.Schemes.Burgers.Controls",
-    "CFDLean.Schemes.Burgers.FV1D",
+    "CFDLean.Schemes.Burgers.GridControls",
     "CFDLean.Schemes.Burgers.LimiterControls",
     "CFDLean.Schemes.Burgers.MusclControls",
     "CFDLean.Schemes.Burgers.Rusanov",
@@ -349,8 +348,6 @@
     "CFDLean.Schemes.Burgers.RusanovStability",
     "CFDLean.Schemes.Burgers.SSPControls",
     "CFDLean.Schemes.Burgers.StabilityControls",
-    "CFDLean.Schemes.Euler.FV1D",
-    "CFDLean.Schemes.Euler.FV1DControls",
     "CFDLean.Schemes.Roe.Flux",
     "CFDLean.Schemes.Scalar.Lipschitz",
     "CFDLean.Schemes.Scalar.Monotone",
@@ -386,14 +383,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 4966,
+    "roots": 4921,
     "unsafe_reached": [],
-    "visited": 64283
+    "visited": 64238
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "300581272954391867470f66880cc38d6e54885eb952552696749990f8e145a3"
+      "sha256": "cd6d2330c8b75173f45022305f72d4197749142bdc510b802a7592e5e10ea511"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -430,10 +427,6 @@
     "CFDLean.Discrete.Periodic.Muscl": {
       "path": "CFDLean/Discrete/Periodic/Muscl.lean",
       "sha256": "14a35399a771ac0e95de4bd6c5857314cde59c63cb5498dcbcb2386858e62b9b"
-    },
-    "CFDLean.Discrete.Periodic.Rusanov": {
-      "path": "CFDLean/Discrete/Periodic/Rusanov.lean",
-      "sha256": "9c1081c17498fc2f54bfafa121a7fac2bb03737ded9ec1ccd1cb9b9e7df3843a"
     },
     "CFDLean.Discrete.Periodic.TotalVariation": {
       "path": "CFDLean/Discrete/Periodic/TotalVariation.lean",
@@ -919,9 +912,9 @@
       "path": "CFDLean/Schemes/Burgers/Controls.lean",
       "sha256": "a1b019b561573d94acc2b945629367bd5dc731035615db8bfb377972a0936224"
     },
-    "CFDLean.Schemes.Burgers.FV1D": {
-      "path": "CFDLean/Schemes/Burgers/FV1D.lean",
-      "sha256": "0fd7ee9d427d0a5d317219e48b19076fea26150ed337149b1ef1768199f994fe"
+    "CFDLean.Schemes.Burgers.GridControls": {
+      "path": "CFDLean/Schemes/Burgers/GridControls.lean",
+      "sha256": "fabb4280cac1da5d00a27af392be4693d7a5c7b566f8e9ca3dce0b40259e3aca"
     },
     "CFDLean.Schemes.Burgers.LimiterControls": {
       "path": "CFDLean/Schemes/Burgers/LimiterControls.lean",
@@ -962,14 +955,6 @@
     "CFDLean.Schemes.Burgers.StabilityControls": {
       "path": "CFDLean/Schemes/Burgers/StabilityControls.lean",
       "sha256": "30371266d94f3f04b73546710da051f2aef5969707392c4ce45aa044ed4badc6"
-    },
-    "CFDLean.Schemes.Euler.FV1D": {
-      "path": "CFDLean/Schemes/Euler/FV1D.lean",
-      "sha256": "538a52b9ad9b2b9eb2f697247fb2359fcf3d0679fd53b375a72a52acb575a32a"
-    },
-    "CFDLean.Schemes.Euler.FV1DControls": {
-      "path": "CFDLean/Schemes/Euler/FV1DControls.lean",
-      "sha256": "b05fc829c6c8478ee0a828ebba90d20399cab40cd60e6c68adf6643ba9a40a11"
     },
     "CFDLean.Schemes.Roe.Flux": {
       "path": "CFDLean/Schemes/Roe/Flux.lean",
@@ -8885,6 +8870,106 @@
       "type": "CFDLean.Burgers.EntropyConservativeFlux.numericalFlux = { eval := CFDLean.Burgers.EntropyConservativeFlux.eval }",
       "unsafe": false
     },
+    "CFDLean.Burgers.GridControls.grid_next": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.GridControls.grid_next",
+      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (i : ZMod N),\n  Eq (DFunLike.coe CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i) (HAdd.hAdd i (OfNat.ofNat 1))",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (i : ZMod N), CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.next i = i + 1",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.GridControls.grid_prev": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Periodic.Grid.next"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.GridControls.grid_prev",
+      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (i : ZMod N),\n  Eq (CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.prev i) (HSub.hSub i (OfNat.ofNat 1))",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (i : ZMod N), CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.prev i = i - 1",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.GridControls.pulse": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.GridControls.pulse",
+      "raw_type": null,
+      "root": true,
+      "type": "ZMod 3 \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Burgers.GridControls.pulse._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.GridControls.pulse._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Burgers.GridControls.pulse._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.GridControls.pulse._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Burgers.GridControls.step_apply": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Burgers.GridControls.grid_next",
+        "CFDLean.Scalar.NumericalFlux.eval",
+        "CFDLean.Burgers.Rusanov.numericalFlux",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Burgers.GridControls.grid_prev",
+        "CFDLean.Burgers.Rusanov.eval",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Scalar.FiniteVolume.interfaceFlux"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.GridControls.step_apply",
+      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (dx dt : Real) (u : ZMod N \u2192 Real) (i : ZMod N),\n  Eq (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i)\n    (HAdd.hAdd (u i)\n      (HMul.hMul dt\n        (HDiv.hDiv\n          (Neg.neg\n            (HSub.hSub (CFDLean.Burgers.Rusanov.eval (u i) (u (HAdd.hAdd i (OfNat.ofNat 1))))\n              (CFDLean.Burgers.Rusanov.eval (u (HSub.hSub i (OfNat.ofNat 1))) (u i))))\n          dx)))",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d) (u : ZMod N \u2192 \u211d) (i : ZMod N),\n  CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i =\n    u i + dt * (-(CFDLean.Burgers.Rusanov.eval (u i) (u (i + 1)) - CFDLean.Burgers.Rusanov.eval (u (i - 1)) (u i)) / dx)",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Rusanov.abs_le_max_of_bounds": {
       "axioms": [
         "propext",
@@ -10804,6 +10889,23 @@
       "type": null,
       "unsafe": null
     },
+    "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.congr_simp": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+        "CFDLean.Periodic.Grid"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
+      "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.congr_simp",
+      "raw_type": "\u2200 {N : Nat} [inst : NeZero N],\n  Eq CFDLean.Burgers.Schemes.RusanovForwardEuler.grid CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+      "root": true,
+      "type": "\u2200 {N : \u2115} [inst : NeZero N],\n  CFDLean.Burgers.Schemes.RusanovForwardEuler.grid = CFDLean.Burgers.Schemes.RusanovForwardEuler.grid",
+      "unsafe": false
+    },
     "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.eq_1": {
       "axioms": [
         "propext",
@@ -10815,7 +10917,7 @@
         "CFDLean.Periodic.zmodGrid"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.FV1D",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid.eq_1",
       "raw_type": "\u2200 {N : Nat} [inst : NeZero N], Eq CFDLean.Burgers.Schemes.RusanovForwardEuler.grid (CFDLean.Periodic.zmodGrid N)",
       "root": true,
@@ -10854,7 +10956,7 @@
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.grid"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.FV1D",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete.eq_1",
       "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (dx : Real),\n  Eq (CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete dx)\n    (CFDLean.Scalar.FiniteVolume.rhs CFDLean.Burgers.Schemes.RusanovForwardEuler.grid dx\n      CFDLean.Burgers.Rusanov.numericalFlux)",
       "root": true,
@@ -10933,7 +11035,7 @@
         "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.FV1D",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
       "name": "CFDLean.Burgers.Schemes.RusanovForwardEuler.step.eq_1",
       "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (dx dt : Real) (u : ZMod N \u2192 Real),\n  Eq (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u)\n    (CFDLean.Time.ForwardEuler.step dt (CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete dx) u)",
       "root": true,
@@ -11363,55 +11465,6 @@
       "raw_type": "\u2200 (u : Real), Eq (CFDLean.Burgers.entropyVariable u) u",
       "root": true,
       "type": "\u2200 (u : \u211d), CFDLean.Burgers.entropyVariable u = u",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.fv1d_face_eq": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.face._proof_1",
-        "CFDLean.Burgers.Rusanov.waveSpeed",
-        "CFDLean.Burgers.Rusanov.eval",
-        "CFDLean.Burgers.physicalFlux",
-        "CFDLean.Burgers.Rusanov.eval._proof_1",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.FV1D",
-      "name": "CFDLean.Burgers.fv1d_face_eq",
-      "raw_type": "\u2200 (L R : Real),\n  Eq (CFDLean.FV1D.face CFDLean.Burgers.physicalFlux CFDLean.Burgers.Rusanov.waveSpeed L R)\n    (CFDLean.Burgers.Rusanov.eval L R)",
-      "root": true,
-      "type": "\u2200 (L R : \u211d),\n  CFDLean.FV1D.face CFDLean.Burgers.physicalFlux CFDLean.Burgers.Rusanov.waveSpeed L R =\n    CFDLean.Burgers.Rusanov.eval L R",
-      "unsafe": false
-    },
-    "CFDLean.Burgers.fv1d_step_eq": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.Burgers.fv1d_face_eq",
-        "CFDLean.Burgers.Rusanov.waveSpeed",
-        "CFDLean.Burgers.Schemes.RusanovForwardEuler.step",
-        "CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete",
-        "CFDLean.Burgers.Rusanov.eval",
-        "CFDLean.FV1D.step",
-        "CFDLean.Burgers.physicalFlux",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.face",
-        "CFDLean.Periodic.zmodGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.FV1D",
-      "name": "CFDLean.Burgers.fv1d_step_eq",
-      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (dx dt : Real),\n  LT.lt (OfNat.ofNat 0) dx \u2192\n    LE.le (OfNat.ofNat 0) dt \u2192\n      \u2200 (u : ZMod N \u2192 Real) (i : ZMod N),\n        Eq\n          (CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid N) CFDLean.Burgers.physicalFlux\n            CFDLean.Burgers.Rusanov.waveSpeed dx dt u i)\n          (CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i)",
-      "root": true,
-      "type": "\u2200 {N : \u2115} [inst : NeZero N] (dx dt : \u211d),\n  0 < dx \u2192\n    0 \u2264 dt \u2192\n      \u2200 (u : ZMod N \u2192 \u211d) (i : ZMod N),\n        CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid N) CFDLean.Burgers.physicalFlux CFDLean.Burgers.Rusanov.waveSpeed\n            dx dt u i =\n          CFDLean.Burgers.Schemes.RusanovForwardEuler.step dx dt u i",
       "unsafe": false
     },
     "CFDLean.Burgers.law": {
@@ -12485,669 +12538,6 @@
       "raw_type": "\u2200 (S : CFDLean.Vector (OfNat.ofNat 3)),\n  Ne S (OfNat.ofNat 0) \u2192\n    Eq (CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S)) (OfNat.ofNat 1)",
       "root": true,
       "type": "\u2200 (S : CFDLean.Vector 3), S \u2260 0 \u2192 CFDLean.dot (CFDLean.Coordinates.unitNormal S) (CFDLean.Coordinates.unitNormal S) = 1",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.Controls.mass_fluxes": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Conservative.density",
-        "CFDLean.Euler1D.face",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.Vector",
-        "CFDLean.FV1D.face",
-        "CFDLean.Periodic.zmodGrid",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.fluxes"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "CFDLean.Euler1D.Controls.mass_fluxes",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq\n    (CFDLean.Euler1D.face (OfNat.ofNat 2) (CFDLean.Euler1D.Controls.initial\u271d i)\n        (CFDLean.Euler1D.Controls.initial\u271d (DFunLike.coe (CFDLean.Periodic.zmodGrid (OfNat.ofNat 3)).next i))).density\n    (Matrix.vecCons (Neg.neg (OfNat.ofNat 2))\n      (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (Matrix.vecCons (OfNat.ofNat 17) Matrix.vecEmpty)) i)",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3),\n  (CFDLean.Euler1D.face 2 (CFDLean.Euler1D.Controls.initial\u271d i)\n        (CFDLean.Euler1D.Controls.initial\u271d ((CFDLean.Periodic.zmodGrid 3).next i))).density =\n    ![-2, 3 / 2, 17] i",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.Controls.updated_cells": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.Conservative.energy",
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.decode._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial",
-        "CFDLean.Conservative.mk",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux_prev",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-        "CFDLean.Euler1D.step",
-        "CFDLean.FV1D.step",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_2",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_2",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.FV1D.face",
-        "CFDLean.Periodic.zmodGrid",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.fluxes",
-        "CFDLean.Euler1D.encode._proof_1"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "CFDLean.Euler1D.Controls.updated_cells",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq\n    (CFDLean.Euler1D.step (OfNat.ofNat 2) (OfNat.ofNat 1) (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 16))\n      CFDLean.Euler1D.Controls.initial\u271d i)\n    {\n      density :=\n        Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 35) (OfNat.ofNat 16))\n          (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 121) (OfNat.ofNat 32))\n            (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 257) (OfNat.ofNat 32)) Matrix.vecEmpty))\n          i,\n      momentum := fun x =>\n        Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 35) (OfNat.ofNat 16))\n          (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 121) (OfNat.ofNat 32))\n            (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 257) (OfNat.ofNat 32)) Matrix.vecEmpty))\n          i,\n      energy :=\n        Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 99) (OfNat.ofNat 32))\n          (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 249) (OfNat.ofNat 64))\n            (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 385) (OfNat.ofNat 64)) Matrix.vecEmpty))\n          i }",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3),\n  CFDLean.Euler1D.step 2 1 (1 / 16) CFDLean.Euler1D.Controls.initial\u271d i =\n    { density := ![35 / 16, 121 / 32, 257 / 32] i, momentum := fun x => ![35 / 16, 121 / 32, 257 / 32] i,\n      energy := ![99 / 32, 249 / 64, 385 / 64] i }",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.component_balance": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Conservative.energy",
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Conservative.Admissible",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "CFDLean.Euler1D.step",
-        "CFDLean.FV1D.step",
-        "CFDLean.Vector",
-        "CFDLean.Conservative",
-        "CFDLean.Periodic.zmodGrid",
-        "CFDLean.FV1D.step_sum"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.component_balance",
-      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (\u03b3 dx dt : Real),\n  LT.lt (OfNat.ofNat 1) \u03b3 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        \u2200 (U : ZMod N \u2192 CFDLean.Conservative (OfNat.ofNat 1)),\n          (\u2200 (i : ZMod N), CFDLean.Conservative.Admissible \u03b3 (U i)) \u2192\n            And\n              (Eq (HMul.hMul dx (Finset.univ.sum fun i => (CFDLean.Euler1D.step \u03b3 dx dt U i).density))\n                (HMul.hMul dx (Finset.univ.sum fun i => (U i).density)))\n              (And\n                (Eq\n                  (HMul.hMul dx\n                    (Finset.univ.sum fun i => (CFDLean.Euler1D.step \u03b3 dx dt U i).momentum \u27e80, Fin.instOfNat\u27e9))\n                  (HMul.hMul dx (Finset.univ.sum fun i => (U i).momentum \u27e80, Fin.instOfNat\u27e9)))\n                (Eq (HMul.hMul dx (Finset.univ.sum fun i => (CFDLean.Euler1D.step \u03b3 dx dt U i).energy))\n                  (HMul.hMul dx (Finset.univ.sum fun i => (U i).energy))))",
-      "root": true,
-      "type": "\u2200 {N : \u2115} [inst : NeZero N] (\u03b3 dx dt : \u211d),\n  1 < \u03b3 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        \u2200 (U : ZMod N \u2192 CFDLean.Conservative 1),\n          (\u2200 (i : ZMod N), CFDLean.Conservative.Admissible \u03b3 (U i)) \u2192\n            dx * \u2211 i, (CFDLean.Euler1D.step \u03b3 dx dt U i).density = dx * \u2211 i, (U i).density \u2227\n              dx * \u2211 i, (CFDLean.Euler1D.step \u03b3 dx dt U i).momentum 0 = dx * \u2211 i, (U i).momentum 0 \u2227\n                dx * \u2211 i, (CFDLean.Euler1D.step \u03b3 dx dt U i).energy = dx * \u2211 i, (U i).energy",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.decode": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.decode._proof_1",
-        "CFDLean.Conservative.mk",
-        "CFDLean.Vector",
-        "CFDLean.Conservative"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.decode",
-      "raw_type": null,
-      "root": true,
-      "type": "CFDLean.Vector 3 \u2192 CFDLean.Conservative 1",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.decode._lam_0": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.decode._lam_0",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.decode._lam_0._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.decode._lam_0._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.decode._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.decode._proof_1",
-      "raw_type": "NeZero (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))",
-      "root": true,
-      "type": "NeZero (2 + 1)",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.decode.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.decode._proof_1",
-        "CFDLean.Conservative.mk",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "CFDLean.Euler1D.decode.eq_1",
-      "raw_type": "\u2200 (x : CFDLean.Vector (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.decode x)\n    { density := x \u27e80, Fin.instOfNat\u27e9, momentum := fun x_1 => x \u27e81, Fin.instOfNat\u27e9, energy := x \u27e82, Fin.instOfNat\u27e9 }",
-      "root": true,
-      "type": "\u2200 (x : CFDLean.Vector 3), CFDLean.Euler1D.decode x = { density := x 0, momentum := fun x_1 => x 1, energy := x 2 }",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.decode_encode": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Conservative.mk",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.Conservative.casesOn"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.decode_encode",
-      "raw_type": "\u2200 (U : CFDLean.Conservative (OfNat.ofNat 1)), Eq (CFDLean.Euler1D.decode (CFDLean.Euler1D.encode U)) U",
-      "root": true,
-      "type": "\u2200 (U : CFDLean.Conservative 1), CFDLean.Euler1D.decode (CFDLean.Euler1D.encode U) = U",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.encode": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Conservative.energy",
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "CFDLean.Vector",
-        "CFDLean.Conservative",
-        "CFDLean.Euler1D.encode._proof_1"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode",
-      "raw_type": null,
-      "root": true,
-      "type": "CFDLean.Conservative 1 \u2192 CFDLean.Vector 3",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.encode._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._closed_0": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._closed_0",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._lam_0": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._lam_0",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._lam_0._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._lam_0._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._lam_1": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._lam_1",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._lam_1._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._lam_1._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._lam_2": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._lam_2",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._lam_2._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._lam_2._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.Euler1D.encode._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode._proof_1",
-      "raw_type": "NeZero (HAdd.hAdd (OfNat.ofNat 0) (OfNat.ofNat 1))",
-      "root": true,
-      "type": "NeZero (0 + 1)",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.encode.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Conservative.energy",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "CFDLean.Vector",
-        "CFDLean.Conservative",
-        "CFDLean.Euler1D.encode._proof_1"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "CFDLean.Euler1D.encode.eq_1",
-      "raw_type": "\u2200 (U : CFDLean.Conservative (OfNat.ofNat 1)),\n  Eq (CFDLean.Euler1D.encode U)\n    (Matrix.vecCons U.density\n      (Matrix.vecCons (U.momentum \u27e80, Fin.instOfNat\u27e9) (Matrix.vecCons U.energy Matrix.vecEmpty)))",
-      "root": true,
-      "type": "\u2200 (U : CFDLean.Conservative 1), CFDLean.Euler1D.encode U = ![U.density, U.momentum 0, U.energy]",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.encode_decode": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.encode_decode",
-      "raw_type": "\u2200 (x : CFDLean.Vector (OfNat.ofNat 3)), Eq (CFDLean.Euler1D.encode (CFDLean.Euler1D.decode x)) x",
-      "root": true,
-      "type": "\u2200 (x : CFDLean.Vector 3), CFDLean.Euler1D.encode (CFDLean.Euler1D.decode x) = x",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.endpointSpeed": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.Conservative.pressure",
-        "CFDLean.Euler1D.encode._proof_1"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.endpointSpeed",
-      "raw_type": null,
-      "root": true,
-      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.endpointSpeed.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.endpointSpeed",
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative.pressure",
-        "CFDLean.Euler1D.encode._proof_1"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "CFDLean.Euler1D.endpointSpeed.eq_1",
-      "raw_type": "\u2200 (\u03b3 : Real) (x : CFDLean.Vector (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.endpointSpeed \u03b3 x)\n    (HAdd.hAdd\n      (abs (HDiv.hDiv ((CFDLean.Euler1D.decode x).momentum \u27e80, Fin.instOfNat\u27e9) (CFDLean.Euler1D.decode x).density))\n      (HDiv.hDiv (HMul.hMul \u03b3 (CFDLean.Conservative.pressure \u03b3 (CFDLean.Euler1D.decode x)))\n          (CFDLean.Euler1D.decode x).density).sqrt)",
-      "root": true,
-      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Vector 3),\n  CFDLean.Euler1D.endpointSpeed \u03b3 x =\n    |(CFDLean.Euler1D.decode x).momentum 0 / (CFDLean.Euler1D.decode x).density| +\n      \u221a(\u03b3 * CFDLean.Conservative.pressure \u03b3 (CFDLean.Euler1D.decode x) / (CFDLean.Euler1D.decode x).density)",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.face": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.face",
-      "raw_type": null,
-      "root": true,
-      "type": "\u211d \u2192 CFDLean.Conservative 1 \u2192 CFDLean.Conservative 1 \u2192 CFDLean.Conservative 1",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.face.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Euler1D.face",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.face.eq_1",
-      "raw_type": "\u2200 (\u03b3 : Real) (L R : CFDLean.Conservative (OfNat.ofNat 1)),\n  Eq (CFDLean.Euler1D.face \u03b3 L R)\n    (CFDLean.Euler1D.decode\n      (CFDLean.FV1D.face (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3) (CFDLean.Euler1D.encode L)\n        (CFDLean.Euler1D.encode R)))",
-      "root": true,
-      "type": "\u2200 (\u03b3 : \u211d) (L R : CFDLean.Conservative 1),\n  CFDLean.Euler1D.face \u03b3 L R =\n    CFDLean.Euler1D.decode\n      (CFDLean.FV1D.face (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3) (CFDLean.Euler1D.encode L)\n        (CFDLean.Euler1D.encode R))",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.face_consistent": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Conservative.Admissible",
-        "CFDLean.physicalFlux",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Euler1D.flux_m1",
-        "CFDLean.Euler1D.face.eq_1",
-        "CFDLean.FV1D.face_self",
-        "CFDLean.Euler1D.face",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.face_consistent",
-      "raw_type": "\u2200 (\u03b3 : Real),\n  LT.lt (OfNat.ofNat 1) \u03b3 \u2192\n    \u2200 (C : CFDLean.Conservative (OfNat.ofNat 1)),\n      CFDLean.Conservative.Admissible \u03b3 C \u2192\n        Eq (CFDLean.Euler1D.face \u03b3 C C) (CFDLean.physicalFlux \u03b3 C fun x => OfNat.ofNat 1)",
-      "root": true,
-      "type": "\u2200 (\u03b3 : \u211d),\n  1 < \u03b3 \u2192\n    \u2200 (C : CFDLean.Conservative 1),\n      CFDLean.Conservative.Admissible \u03b3 C \u2192 CFDLean.Euler1D.face \u03b3 C C = CFDLean.physicalFlux \u03b3 C fun x => 1",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.flux": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.physicalFlux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.flux",
-      "raw_type": null,
-      "root": true,
-      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 CFDLean.Vector 3",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.flux.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.physicalFlux",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.flux.eq_1",
-      "raw_type": "\u2200 (\u03b3 : Real) (x : CFDLean.Vector (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.flux \u03b3 x)\n    (CFDLean.Euler1D.encode (CFDLean.physicalFlux \u03b3 (CFDLean.Euler1D.decode x) fun x => OfNat.ofNat 1))",
-      "root": true,
-      "type": "\u2200 (\u03b3 : \u211d) (x : CFDLean.Vector 3),\n  CFDLean.Euler1D.flux \u03b3 x = CFDLean.Euler1D.encode (CFDLean.physicalFlux \u03b3 (CFDLean.Euler1D.decode x) fun x => 1)",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.flux_m1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.physicalFlux",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.Euler1D.decode_encode"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.flux_m1",
-      "raw_type": "\u2200 (\u03b3 : Real) (U : CFDLean.Conservative (OfNat.ofNat 1)),\n  Eq (CFDLean.Euler1D.decode (CFDLean.Euler1D.flux \u03b3 (CFDLean.Euler1D.encode U)))\n    (CFDLean.physicalFlux \u03b3 U fun x => OfNat.ofNat 1)",
-      "root": true,
-      "type": "\u2200 (\u03b3 : \u211d) (U : CFDLean.Conservative 1),\n  CFDLean.Euler1D.decode (CFDLean.Euler1D.flux \u03b3 (CFDLean.Euler1D.encode U)) = CFDLean.physicalFlux \u03b3 U fun x => 1",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.speed": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.endpointSpeed",
-        "CFDLean.Vector"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.speed",
-      "raw_type": null,
-      "root": true,
-      "type": "\u211d \u2192 CFDLean.Vector 3 \u2192 CFDLean.Vector 3 \u2192 \u211d",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.speed.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.endpointSpeed",
-        "CFDLean.Vector"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "CFDLean.Euler1D.speed.eq_1",
-      "raw_type": "\u2200 (\u03b3 : Real) (L R : CFDLean.Vector (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.speed \u03b3 L R) (max (CFDLean.Euler1D.endpointSpeed \u03b3 L) (CFDLean.Euler1D.endpointSpeed \u03b3 R))",
-      "root": true,
-      "type": "\u2200 (\u03b3 : \u211d) (L R : CFDLean.Vector 3),\n  CFDLean.Euler1D.speed \u03b3 L R = max (CFDLean.Euler1D.endpointSpeed \u03b3 L) (CFDLean.Euler1D.endpointSpeed \u03b3 R)",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.step": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.FV1D.step",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.Periodic.zmodGrid"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.step",
-      "raw_type": null,
-      "root": true,
-      "type": "{N : \u2115} \u2192 [NeZero N] \u2192 \u211d \u2192 \u211d \u2192 \u211d \u2192 (ZMod N \u2192 CFDLean.Conservative 1) \u2192 ZMod N \u2192 CFDLean.Conservative 1",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.step.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Euler1D.step",
-        "CFDLean.FV1D.step",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.Periodic.zmodGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.step.eq_1",
-      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (\u03b3 dx dt : Real) (U : ZMod N \u2192 CFDLean.Conservative (OfNat.ofNat 1)) (i : ZMod N),\n  Eq (CFDLean.Euler1D.step \u03b3 dx dt U i)\n    (CFDLean.Euler1D.decode\n      (CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid N) (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3) dx dt\n        (fun j => CFDLean.Euler1D.encode (U j)) i))",
-      "root": true,
-      "type": "\u2200 {N : \u2115} [inst : NeZero N] (\u03b3 dx dt : \u211d) (U : ZMod N \u2192 CFDLean.Conservative 1) (i : ZMod N),\n  CFDLean.Euler1D.step \u03b3 dx dt U i =\n    CFDLean.Euler1D.decode\n      (CFDLean.FV1D.step (CFDLean.Periodic.zmodGrid N) (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3) dx dt\n        (fun j => CFDLean.Euler1D.encode (U j)) i)",
-      "unsafe": false
-    },
-    "CFDLean.Euler1D.step_constant": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Conservative.Admissible",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Euler1D.step",
-        "CFDLean.FV1D.step",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative",
-        "CFDLean.Periodic.zmodGrid",
-        "CFDLean.FV1D.step_constant",
-        "CFDLean.Euler1D.decode_encode"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1D",
-      "name": "CFDLean.Euler1D.step_constant",
-      "raw_type": "\u2200 {N : Nat} [inst : NeZero N] (\u03b3 dx dt : Real),\n  LT.lt (OfNat.ofNat 1) \u03b3 \u2192\n    LT.lt (OfNat.ofNat 0) dx \u2192\n      LE.le (OfNat.ofNat 0) dt \u2192\n        \u2200 (C : CFDLean.Conservative (OfNat.ofNat 1)),\n          CFDLean.Conservative.Admissible \u03b3 C \u2192 Eq (CFDLean.Euler1D.step \u03b3 dx dt fun x => C) fun x => C",
-      "root": true,
-      "type": "\u2200 {N : \u2115} [inst : NeZero N] (\u03b3 dx dt : \u211d),\n  1 < \u03b3 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        \u2200 (C : CFDLean.Conservative 1),\n          CFDLean.Conservative.Admissible \u03b3 C \u2192 (CFDLean.Euler1D.step \u03b3 dx dt fun x => C) = fun x => C",
       "unsafe": false
     },
     "CFDLean.Exec.EntriesBetween": {
@@ -20103,168 +19493,6 @@
       "raw_type": "\u2200 {n : Nat} [inst : NeZero n] {a : Array Real} {u : Fin n \u2192 Real},\n  CFDLean.Exec.Represents a u \u2192\n    Eq (CFDLean.Exec.totalVariationArray a) (CFDLean.Scalar.FiniteVolume.totalVariation (CFDLean.Exec.finGrid n) u)",
       "root": true,
       "type": "\u2200 {n : \u2115} [inst : NeZero n] {a : Array \u211d} {u : Fin n \u2192 \u211d},\n  CFDLean.Exec.Represents a u \u2192\n    CFDLean.Exec.totalVariationArray a = CFDLean.Scalar.FiniteVolume.totalVariation (CFDLean.Exec.finGrid n) u",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.face": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.face._proof_1"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.face",
-      "raw_type": null,
-      "root": true,
-      "type": "{S : Type u_1} \u2192 [inst : AddCommGroup S] \u2192 [_root_.Module \u211d S] \u2192 (S \u2192 S) \u2192 (S \u2192 S \u2192 \u211d) \u2192 S \u2192 S \u2192 S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.face._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.face._proof_1",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(1 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.face.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.face._proof_1",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.face.eq_1",
-      "raw_type": "\u2200 {S : Type u_1} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (F : S \u2192 S) (a : S \u2192 S \u2192 Real) (L R : S),\n  Eq (CFDLean.FV1D.face F a L R)\n    (HSub.hSub (HSMul.hSMul (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) (HAdd.hAdd (F L) (F R)))\n      (HSMul.hSMul (HDiv.hDiv (a L R) (OfNat.ofNat 2)) (HSub.hSub R L)))",
-      "root": true,
-      "type": "\u2200 {S : Type u_1} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (F : S \u2192 S) (a : S \u2192 S \u2192 \u211d) (L R : S),\n  CFDLean.FV1D.face F a L R = (1 / 2) \u2022 (F L + F R) - (a L R / 2) \u2022 (R - L)",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.face_self": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.face._proof_1",
-        "CFDLean.FV1D.face_self._simp_1_2",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.face_self",
-      "raw_type": "\u2200 {S : Type u_1} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (F : S \u2192 S) (a : S \u2192 S \u2192 Real) (C : S),\n  Eq (CFDLean.FV1D.face F a C C) (F C)",
-      "root": true,
-      "type": "\u2200 {S : Type u_1} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (F : S \u2192 S) (a : S \u2192 S \u2192 \u211d) (C : S),\n  CFDLean.FV1D.face F a C C = F C",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.face_self._simp_1_2": {
-      "axioms": [],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.face_self._simp_1_2",
-      "raw_type": "\u2200 {R : Type u_1} {M : Type u_2} [inst : Semiring R] [inst_1 : AddCommMonoid M] [inst_2 : _root_.Module R M] (r s : R)\n  (x : M), Eq (HAdd.hAdd (HSMul.hSMul r x) (HSMul.hSMul s x)) (HSMul.hSMul (HAdd.hAdd r s) x)",
-      "root": true,
-      "type": "\u2200 {R : Type u_1} {M : Type u_2} [inst : Semiring R] [inst_1 : AddCommMonoid M] [inst_2 : _root_.Module R M] (r s : R)\n  (x : M), r \u2022 x + s \u2022 x = (r + s) \u2022 x",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.step": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.step",
-      "raw_type": null,
-      "root": true,
-      "type": "{S : Type u_1} \u2192\n  {I : Type u_2} \u2192\n    [inst : AddCommGroup S] \u2192\n      [_root_.Module \u211d S] \u2192 CFDLean.Periodic.Grid I \u2192 (S \u2192 S) \u2192 (S \u2192 S \u2192 \u211d) \u2192 \u211d \u2192 \u211d \u2192 (I \u2192 S) \u2192 I \u2192 S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.step.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.FV1D.step",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.step.eq_1",
-      "raw_type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (g : CFDLean.Periodic.Grid I)\n  (F : S \u2192 S) (a : S \u2192 S \u2192 Real) (dx dt : Real) (U : I \u2192 S) (i : I),\n  Eq (CFDLean.FV1D.step g F a dx dt U i)\n    (HSub.hSub (U i)\n      (HSMul.hSMul (HDiv.hDiv dt dx)\n        (HSub.hSub ((fun j => CFDLean.FV1D.face F a (U j) (U (DFunLike.coe g.next j))) i)\n          ((fun j => CFDLean.FV1D.face F a (U j) (U (DFunLike.coe g.next j))) (g.prev i)))))",
-      "root": true,
-      "type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (g : CFDLean.Periodic.Grid I)\n  (F : S \u2192 S) (a : S \u2192 S \u2192 \u211d) (dx dt : \u211d) (U : I \u2192 S) (i : I),\n  CFDLean.FV1D.step g F a dx dt U i =\n    U i -\n      (dt / dx) \u2022\n        ((fun j => CFDLean.FV1D.face F a (U j) (U (g.next j))) i -\n          (fun j => CFDLean.FV1D.face F a (U j) (U (g.next j))) (g.prev i))",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.step_constant": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.FV1D.step",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.FV1D.face_self",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.step_constant",
-      "raw_type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (g : CFDLean.Periodic.Grid I)\n  (F : S \u2192 S) (a : S \u2192 S \u2192 Real) (dx dt : Real) (C : S), Eq (CFDLean.FV1D.step g F a dx dt fun x => C) fun x => C",
-      "root": true,
-      "type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (g : CFDLean.Periodic.Grid I)\n  (F : S \u2192 S) (a : S \u2192 S \u2192 \u211d) (dx dt : \u211d) (C : S), (CFDLean.FV1D.step g F a dx dt fun x => C) = fun x => C",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.step_sum": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.FV1D.step",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.face"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Rusanov",
-      "name": "CFDLean.FV1D.step_sum",
-      "raw_type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] [inst_2 : Fintype I]\n  (g : CFDLean.Periodic.Grid I) (F : S \u2192 S) (a : S \u2192 S \u2192 Real) (dx dt : Real) (U : I \u2192 S),\n  Eq (Finset.univ.sum fun i => CFDLean.FV1D.step g F a dx dt U i) (Finset.univ.sum fun i => U i)",
-      "root": true,
-      "type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] [inst_2 : Fintype I]\n  (g : CFDLean.Periodic.Grid I) (F : S \u2192 S) (a : S \u2192 S \u2192 \u211d) (dx dt : \u211d) (U : I \u2192 S),\n  \u2211 i, CFDLean.FV1D.step g F a dx dt U i = \u2211 i, U i",
       "unsafe": false
     },
     "CFDLean.JST1.Admissible": {
@@ -89987,7 +89215,7 @@
         "CFDLean.Periodic.Grid.next"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
       "name": "CFDLean.Periodic.Grid.prev.eq_1",
       "raw_type": "\u2200 {I : Type u_1} (g : CFDLean.Periodic.Grid I), Eq g.prev (DFunLike.coe g.next.symm)",
       "root": true,
@@ -90105,23 +89333,6 @@
       "type": null,
       "unsafe": null
     },
-    "CFDLean.Periodic.zmodGrid.congr_simp": {
-      "axioms": [
-        "propext",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid",
-        "CFDLean.Periodic.zmodGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.FV1D",
-      "name": "CFDLean.Periodic.zmodGrid.congr_simp",
-      "raw_type": "\u2200 (N : Nat) [inst : NeZero N], Eq (CFDLean.Periodic.zmodGrid N) (CFDLean.Periodic.zmodGrid N)",
-      "root": true,
-      "type": "\u2200 (N : \u2115) [inst : NeZero N], CFDLean.Periodic.zmodGrid N = CFDLean.Periodic.zmodGrid N",
-      "unsafe": false
-    },
     "CFDLean.Periodic.zmodGrid.eq_1": {
       "axioms": [
         "propext",
@@ -90133,7 +89344,7 @@
         "CFDLean.Periodic.zmodGrid"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Schemes.Burgers.StabilityControls",
+      "module": "CFDLean.Schemes.Burgers.GridControls",
       "name": "CFDLean.Periodic.zmodGrid.eq_1",
       "raw_type": "\u2200 (N : Nat) [inst : NeZero N], Eq (CFDLean.Periodic.zmodGrid N) { next := Equiv.addRight (OfNat.ofNat 1) }",
       "root": true,
@@ -121237,277 +120448,6 @@
       "type": "\u221a4 = 2",
       "unsafe": false
     },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.fluxes": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial_next",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state",
-        "CFDLean.Conservative.energy",
-        "CFDLean.Euler1D.speed",
-        "CFDLean.Euler1D.endpointSpeed",
-        "CFDLean.FV1D.face._proof_1",
-        "CFDLean.Euler1D.decode._proof_1",
-        "CFDLean.physicalFlux",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_1",
-        "CFDLean.squareSum",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial",
-        "CFDLean.Conservative.mk",
-        "CFDLean.Euler1D.flux",
-        "CFDLean.Euler1D.encode",
-        "CFDLean.Conservative.density",
-        "CFDLean.Conservative.momentum",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-        "CFDLean.dot",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_2",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_2",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.Vector",
-        "CFDLean.Euler1D.decode",
-        "CFDLean.Conservative.pressure._proof_1",
-        "CFDLean.Conservative",
-        "CFDLean.Conservative.pressure",
-        "CFDLean.FV1D.face",
-        "CFDLean.Periodic.zmodGrid",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_1",
-        "CFDLean.Euler1D.encode._proof_1"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.fluxes",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq\n    (CFDLean.FV1D.face (CFDLean.Euler1D.flux (OfNat.ofNat 2)) (CFDLean.Euler1D.speed (OfNat.ofNat 2))\n      (CFDLean.Euler1D.encode (CFDLean.Euler1D.Controls.initial\u271d i))\n      (CFDLean.Euler1D.encode\n        (CFDLean.Euler1D.Controls.initial\u271d (DFunLike.coe (CFDLean.Periodic.zmodGrid (OfNat.ofNat 3)).next i))))\n    (Matrix.vecCons (CFDLean.Euler1D.Controls.massFlux\u271d i)\n      (Matrix.vecCons (HAdd.hAdd (CFDLean.Euler1D.Controls.massFlux\u271d i) (OfNat.ofNat 2))\n        (Matrix.vecCons (HAdd.hAdd (HDiv.hDiv (CFDLean.Euler1D.Controls.massFlux\u271d i) (OfNat.ofNat 2)) (OfNat.ofNat 4))\n          Matrix.vecEmpty)))",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3),\n  CFDLean.FV1D.face (CFDLean.Euler1D.flux 2) (CFDLean.Euler1D.speed 2)\n      (CFDLean.Euler1D.encode (CFDLean.Euler1D.Controls.initial\u271d i))\n      (CFDLean.Euler1D.encode (CFDLean.Euler1D.Controls.initial\u271d ((CFDLean.Periodic.zmodGrid 3).next i))) =\n    ![CFDLean.Euler1D.Controls.massFlux\u271d i, CFDLean.Euler1D.Controls.massFlux\u271d i + 2,\n      CFDLean.Euler1D.Controls.massFlux\u271d i / 2 + 4]",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_2",
-        "CFDLean.Conservative"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial",
-      "raw_type": null,
-      "root": true,
-      "type": "ZMod 3 \u2192 CFDLean.Conservative 1",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_1",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 3) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(3 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_2": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_2",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 8) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(8 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial._proof_2",
-        "CFDLean.Conservative"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial.eq_1",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.Controls.initial\u271d i)\n    (CFDLean.Euler1D.Controls.state\u271d\n      (Matrix.vecCons (OfNat.ofNat 1) (Matrix.vecCons (OfNat.ofNat 4) (Matrix.vecCons (OfNat.ofNat 9) Matrix.vecEmpty))\n        i))",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3), CFDLean.Euler1D.Controls.initial\u271d i = CFDLean.Euler1D.Controls.state\u271d (![1, 4, 9] i)",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial_next": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.Conservative",
-        "CFDLean.Periodic.zmodGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.initial_next",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.Controls.initial\u271d (DFunLike.coe (CFDLean.Periodic.zmodGrid (OfNat.ofNat 3)).next i))\n    (CFDLean.Euler1D.Controls.state\u271d\n      (Matrix.vecCons (OfNat.ofNat 4) (Matrix.vecCons (OfNat.ofNat 9) (Matrix.vecCons (OfNat.ofNat 1) Matrix.vecEmpty))\n        i))",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3),\n  CFDLean.Euler1D.Controls.initial\u271d ((CFDLean.Periodic.zmodGrid 3).next i) =\n    CFDLean.Euler1D.Controls.state\u271d (![4, 9, 1] i)",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_2",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_1"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux",
-      "raw_type": null,
-      "root": true,
-      "type": "ZMod 3 \u2192 \u211d",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_1",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(2 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_2": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_2",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 16) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(16 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_2",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux._proof_1"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux.eq_1",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.Controls.massFlux\u271d i)\n    (Matrix.vecCons (Neg.neg (OfNat.ofNat 2))\n      (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) (Matrix.vecCons (OfNat.ofNat 17) Matrix.vecEmpty)) i)",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3), CFDLean.Euler1D.Controls.massFlux\u271d i = ![-2, 3 / 2, 17] i",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux_prev": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux",
-        "CFDLean.Periodic.zmodGrid"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.massFlux_prev",
-      "raw_type": "\u2200 (i : ZMod (OfNat.ofNat 3)),\n  Eq (CFDLean.Euler1D.Controls.massFlux\u271d ((CFDLean.Periodic.zmodGrid (OfNat.ofNat 3)).prev i))\n    (Matrix.vecCons (OfNat.ofNat 17)\n      (Matrix.vecCons (Neg.neg (OfNat.ofNat 2))\n        (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 3) (OfNat.ofNat 2)) Matrix.vecEmpty))\n      i)",
-      "root": true,
-      "type": "\u2200 (i : ZMod 3), CFDLean.Euler1D.Controls.massFlux\u271d ((CFDLean.Periodic.zmodGrid 3).prev i) = ![17, -2, 3 / 2] i",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Conservative.mk",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-        "CFDLean.Conservative"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state",
-      "raw_type": null,
-      "root": true,
-      "type": "\u211d \u2192 CFDLean.Conservative 1",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(1 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state",
-        "CFDLean.Conservative.mk",
-        "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state._proof_1",
-        "CFDLean.Conservative"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Schemes.Euler.FV1DControls",
-      "name": "_private.CFDLean.Schemes.Euler.FV1DControls.0.CFDLean.Euler1D.Controls.state.eq_1",
-      "raw_type": "\u2200 (\u03c1 : Real),\n  Eq (CFDLean.Euler1D.Controls.state\u271d \u03c1)\n    { density := \u03c1, momentum := fun x => \u03c1, energy := HAdd.hAdd (OfNat.ofNat 2) (HDiv.hDiv \u03c1 (OfNat.ofNat 2)) }",
-      "root": true,
-      "type": "\u2200 (\u03c1 : \u211d), CFDLean.Euler1D.Controls.state\u271d \u03c1 = { density := \u03c1, momentum := fun x => \u03c1, energy := 2 + \u03c1 / 2 }",
-      "unsafe": false
-    },
     "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Ext23.bdF.spec_0.spec_0.spec_1.spec_4.spec_6.spec_8.spec_9": {
       "axioms": [],
       "direct": [],
@@ -122324,13 +121264,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 551,
-  "fv1d_promised_theorems": [
-    "CFDLean.Burgers.fv1d_step_eq",
-    "CFDLean.Euler1D.component_balance",
-    "CFDLean.Euler1D.face_consistent",
-    "CFDLean.Euler1D.step_constant"
-  ],
+  "catalog_entries": 547,
   "burgers": {
     "B0": {
       "results": "specifications/Burgers-B0-results.json",
@@ -122355,7 +121289,8 @@
         "CFDLean.Verification.BurgersB0Verify.periodic_conservation",
         "CFDLean.Verification.BurgersB0Verify.rusanov_consistency"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-B0/Acceptance.md"
     },
     "B1": {
       "results": "specifications/Burgers-B1-results.json",
@@ -122378,7 +121313,8 @@
         "CFDLean.Verification.BurgersB1Verify.rusanov_monotone",
         "CFDLean.Verification.BurgersB1Verify.rusanov_total_variation"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-B1/Acceptance.md"
     },
     "B2": {
       "results": "specifications/Burgers-B2-results.json",
@@ -122417,7 +121353,8 @@
         "CFDLean.Verification.BurgersB2Verify.ssprk3_convex",
         "CFDLean.Verification.BurgersB2Verify.ssprk3_multi_step"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-B2/Acceptance.md"
     },
     "B3": {
       "results": "specifications/Burgers-B3-results.json",
@@ -122458,7 +121395,8 @@
         "CFDLean.Verification.BurgersB3Verify.muscl_ssprk3_multi_step",
         "CFDLean.Verification.BurgersB3Verify.rusanov_lipschitz"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-B3/Acceptance.md"
     },
     "B4": {
       "results": "specifications/Burgers-B4-results.json",
@@ -122486,7 +121424,8 @@
         "CFDLean.Verification.BurgersB4Verify.rusanov_energy_production",
         "CFDLean.Verification.BurgersB4Verify.rusanov_entropy_stable"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-B4/Acceptance.md"
     },
     "E0": {
       "results": "specifications/Burgers-E0-results.json",
@@ -122525,7 +121464,8 @@
         "CFDLean.Verification.BurgersE0Verify.sum_diagnostic",
         "CFDLean.Verification.BurgersE0Verify.total_variation_diagnostic"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-E0/Acceptance.md"
     },
     "E0b": {
       "results": "specifications/Burgers-E0b-results.json",
@@ -122555,7 +121495,8 @@
         "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_run_total_variation",
         "CFDLean.Verification.BurgersE0bVerify.muscl_ssprk3_step_refines"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-E0b/Acceptance.md"
     },
     "B3b": {
       "results": "specifications/Burgers-B3b-results.json",
@@ -122610,7 +121551,8 @@
         "CFDLean.Verification.BurgersB3bVerify.muscl_ssprk3_bounded_multi_step",
         "CFDLean.Verification.BurgersB3bVerify.unlimited_overshoot"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-B3b/Acceptance.md"
     },
     "E0c": {
       "results": "specifications/Burgers-E0c-results.json",
@@ -122646,7 +121588,8 @@
         "CFDLean.Verification.BurgersE0cVerify.limiter_ssprk3_step_refines",
         "CFDLean.Verification.BurgersE0cVerify.real_sign_is_standard"
       ],
-      "independent_acceptance": "pending implementation review"
+      "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0",
+      "acceptance_record": "reviews/Burgers-E0c/Acceptance.md"
     }
   },
   "mr_paths": "specifications/MR-paths.json",
@@ -122833,5 +121776,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 551
+  "raw_types_checked": 547
 }

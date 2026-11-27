@@ -11,7 +11,7 @@ targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every
 121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
-independent review pending. FV1D is pending independent implementation review. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
+independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
 JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 
@@ -41,7 +41,7 @@ AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is 
 - Entropy statements about one pair of states (a pair flux, its production) are `method-free`; sums over the nodes or
   pairs of a mesh, or semi-discrete rates over dual volumes `V_i`, are `FVM`.
 
-**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, `E0c`, status `pending`: implemented, independent review pending). The declarations
+**Burgers** (milestones `B0` .. `B4`, `B3b`, `E0`, `E0b`, `E0c`, status `accepted`: implementation accepted, see `reviews/Burgers-Implementation/Review.md`). The declarations
 bound in `specifications/Burgers-B0-results.json` .. `Burgers-B4-results.json`, `Burgers-B3b-results.json`, `Burgers-E0-results.json`, `Burgers-E0b-results.json` and `Burgers-E0c-results.json`: the scalar two-point-flux finite-volume
 core on a periodic grid, the incremental-form stability lemmas, the convexity of bounded states and of the total
 variation, the MUSCL reconstruction with a limiter certificate (Discrete operators), the flux certificates and the
@@ -83,17 +83,17 @@ that this file equals the generated text. Do not edit by hand.
 | M4 | accepted | 39 |
 | M5 | pending | 43 |
 | MC-N | candidate | 37 |
-| B0 | pending | 12 |
-| B1 | pending | 9 |
-| B2 | pending | 23 |
-| B3 | pending | 24 |
-| B4 | pending | 14 |
-| E0 | pending | 20 |
-| E0b | pending | 14 |
-| B3b | pending | 40 |
-| E0c | pending | 19 |
+| B0 | accepted | 12 |
+| B1 | accepted | 9 |
+| B2 | accepted | 23 |
+| B3 | accepted | 24 |
+| B4 | accepted | 14 |
+| E0 | accepted | 20 |
+| E0b | accepted | 14 |
+| B3b | accepted | 40 |
+| E0c | accepted | 19 |
 | JST1 | candidate | 121 |
-| FV1D | pending | 4 |
+| FV1D | accepted | 4 |
 
 ## Foundations (12)
 
@@ -224,20 +224,20 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.WMesh.closed_mean_galerkin` | MC-N.P2-6.7 | FEM + FVM | candidate | At a closed vertex the mean edge flux through the dual normals equals the Galerkin form Σ_k c_ik F_k. |
 | `CFDLean.Num.ofMeshData_closed` | MC-N.P1-5.0b | FEM + FVM | candidate | In a conforming tetrahedral median-dual mesh a vertex on no boundary face is closed for the induced P1 operator. |
 | `CFDLean.Num.ofMeshData_fv_galerkin` | MC-N.P1-5.7 | FEM + FVM | candidate | On a median-dual tetrahedral mesh the finite-volume residual over the dual facets equals the Galerkin residual. |
-| `CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero` | B0-C | FVM | pending | On a finite periodic grid the interface flux differences of any two-point flux sum to zero. |
-| `CFDLean.Scalar.FiniteVolume.rhs_sum_zero` | B0-C | FVM | pending | For dx ≠ 0 the periodic first-order finite-volume right-hand side of any two-point flux sums to zero. |
-| `CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le` | B1-H | FVM | pending | Harten lemma: an incremental-form update with C, D ≥ 0 and C + D ≤ 1 at every interface does not increase the periodic total variation. |
-| `CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds` | B1-X | FVM | pending | An incremental-form update with C_i, D_{i-1} ≥ 0 and C_i + D_{i-1} ≤ 1 keeps every lower and upper bound of the old state at cell i. |
-| `CFDLean.Scalar.FiniteVolume.boundedStates_convex` | B2-B | FVM | pending | The set of cell functions with m ≤ u_j ≤ M in every cell is convex. |
-| `CFDLean.Scalar.FiniteVolume.totalVariation_convexOn` | B2-B | FVM | pending | The periodic total variation is a convex functional on every convex set of states. |
-| `CFDLean.Scalar.FiniteVolume.minmod_minmodBounded` | B3-L | FVM | pending | The minmod limiter has the sign of both differences and is not larger than either in absolute value. |
-| `CFDLean.Scalar.FiniteVolume.zero_minmodBounded` | B3-L | FVM | pending | The zero limiter (first-order reconstruction) satisfies the limiter certificate. |
-| `CFDLean.Scalar.FiniteVolume.musclRhs_zero` | B3-R | FVM | pending | With the zero limiter the MUSCL right-hand side is the first-order flux-difference right-hand side. |
-| `CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero` | B3-R | FVM | pending | The periodic MUSCL right-hand side sums to zero for every two-point flux and every limiter. |
-| `CFDLean.Scalar.FiniteVolume.musclRhs_constant` | B3-R | FVM | pending | The MUSCL right-hand side is zero on a constant state, for every flux and every limiter. |
-| `CFDLean.Scalar.FiniteVolume.leftState_mem` | B3-R | FVM | pending | With a limiter in the minmod region the reconstructed left state of an interface keeps the bounds m ≤ u ≤ M. |
-| `CFDLean.Scalar.FiniteVolume.rightState_mem` | B3-R | FVM | pending | With a limiter in the minmod region the reconstructed right state of an interface keeps the bounds m ≤ u ≤ M. |
-| `CFDLean.Scalar.FiniteVolume.muscl_incremental` | B3-I | FVM | pending | For a monotone flux that is Lipschitz on bounded states and a limiter in the minmod region, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(3/2)KR and 0 ≤ D ≤ (dt/dx)(3/2)KL. |
+| `CFDLean.Scalar.FiniteVolume.fluxDifference_sum_zero` | B0-C | FVM | accepted | On a finite periodic grid the interface flux differences of any two-point flux sum to zero. |
+| `CFDLean.Scalar.FiniteVolume.rhs_sum_zero` | B0-C | FVM | accepted | For dx ≠ 0 the periodic first-order finite-volume right-hand side of any two-point flux sums to zero. |
+| `CFDLean.Scalar.FiniteVolume.incrementalUpdate_totalVariation_le` | B1-H | FVM | accepted | Harten lemma: an incremental-form update with C, D ≥ 0 and C + D ≤ 1 at every interface does not increase the periodic total variation. |
+| `CFDLean.Scalar.FiniteVolume.incrementalUpdate_bounds` | B1-X | FVM | accepted | An incremental-form update with C_i, D_{i-1} ≥ 0 and C_i + D_{i-1} ≤ 1 keeps every lower and upper bound of the old state at cell i. |
+| `CFDLean.Scalar.FiniteVolume.boundedStates_convex` | B2-B | FVM | accepted | The set of cell functions with m ≤ u_j ≤ M in every cell is convex. |
+| `CFDLean.Scalar.FiniteVolume.totalVariation_convexOn` | B2-B | FVM | accepted | The periodic total variation is a convex functional on every convex set of states. |
+| `CFDLean.Scalar.FiniteVolume.minmod_minmodBounded` | B3-L | FVM | accepted | The minmod limiter has the sign of both differences and is not larger than either in absolute value. |
+| `CFDLean.Scalar.FiniteVolume.zero_minmodBounded` | B3-L | FVM | accepted | The zero limiter (first-order reconstruction) satisfies the limiter certificate. |
+| `CFDLean.Scalar.FiniteVolume.musclRhs_zero` | B3-R | FVM | accepted | With the zero limiter the MUSCL right-hand side is the first-order flux-difference right-hand side. |
+| `CFDLean.Scalar.FiniteVolume.musclRhs_sum_zero` | B3-R | FVM | accepted | The periodic MUSCL right-hand side sums to zero for every two-point flux and every limiter. |
+| `CFDLean.Scalar.FiniteVolume.musclRhs_constant` | B3-R | FVM | accepted | The MUSCL right-hand side is zero on a constant state, for every flux and every limiter. |
+| `CFDLean.Scalar.FiniteVolume.leftState_mem` | B3-R | FVM | accepted | With a limiter in the minmod region the reconstructed left state of an interface keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Scalar.FiniteVolume.rightState_mem` | B3-R | FVM | accepted | With a limiter in the minmod region the reconstructed right state of an interface keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Scalar.FiniteVolume.muscl_incremental` | B3-I | FVM | accepted | For a monotone flux that is Lipschitz on bounded states and a limiter in the minmod region, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(3/2)KR and 0 ≤ D ≤ (dt/dx)(3/2)KL. |
 | `CFDLean.JST1.Proofs.p1_2_3` | P1-2.3 | FEM + FVM | candidate | For any dual of the P1 operator the edge normals at a node sum to −β_i, and β_i = 0 at a closed vertex. |
 | `CFDLean.JST1.Proofs.p1_4_1` | P1-4.1 | FEM | candidate | The w-weighted sum of Galerkin residuals is minus the cell-weighted Frobenius product of the P1 gradient of w and the element fluxes. |
 | `CFDLean.JST1.Proofs.p1_5_0a` | P1-5.0a | FEM | candidate | A facet pairing at a vertex makes it a closed vertex of the P1 operator (zero boundary-matrix row). |
@@ -259,32 +259,32 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_15_6` | P4-15.6 | FVM | candidate | Linear model of the fourth-difference operator with the wall-crossing edges cut: every complex eigenvalue is real and non-negative. |
 | `CFDLean.JST1.Proofs.p4_16_1` | P4-16.1 | FEM + FVM | candidate | The P1 interpolant of nodal fluxes takes the nodal values, has derivative Σ_b g_b F_b, reproduces affine fluxes, and its divergence gives the mean flux at a closed vertex. |
 | `CFDLean.JST1.Proofs.p6_21_3` | P6-21.3 | FEM + FVM | candidate | At a closed vertex the mean flux equals Σ_T ω_T ∫_T φ_i ∇·F_h with F_h the P1 interpolant (the Galerkin form, with a real integral). |
-| `CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter` | B3b-U | FVM | pending | With the factor 1 (no limiter) the limited slope is the unlimited central slope (a + b)/2. |
-| `CFDLean.Scalar.FiniteVolume.minmodBounded_iff_slopeBounded_one` | B3b-C | FVM | pending | The minmod-region certificate of B3 is the θ-bounded certificate with θ = 1. |
-| `CFDLean.Scalar.FiniteVolume.SlopeBounded.mono` | B3b-C | FVM | pending | A θ-bounded slope function is θ'-bounded for every θ' ≥ θ. |
-| `CFDLean.Scalar.FiniteVolume.SlopeBounded.nonneg` | B3b-C | FVM | pending | A θ-bounded slope function exists only for θ ≥ 0. |
-| `CFDLean.Scalar.FiniteVolume.not_slopeBounded_centralSlope` | B3b-C | FVM | pending | The unlimited central slope is not θ-bounded for any θ. |
-| `CFDLean.Scalar.FiniteVolume.limitedSlope_minmodFactor` | B3b-L | FVM | pending | The minmod factor times the central slope is the classical minmod limited slope. |
-| `CFDLean.Scalar.FiniteVolume.limitedSlope_mcFactor` | B3b-L | FVM | pending | The MC factor times the central slope is the classical MC limited slope. |
-| `CFDLean.Scalar.FiniteVolume.limitedSlope_superbeeFactor` | B3b-L | FVM | pending | The superbee factor times the central slope is the classical superbee limited slope. |
-| `CFDLean.Scalar.FiniteVolume.limitedSlope_vanLeerFactor` | B3b-L | FVM | pending | The van Leer factor times the central slope is the classical van Leer limited slope. |
-| `CFDLean.Scalar.FiniteVolume.limitedSlope_vanAlbadaFactor` | B3b-L | FVM | pending | The van Albada factor times the central slope is the classical van Albada limited slope. |
-| `CFDLean.Scalar.FiniteVolume.minmodFactor_mem` | B3b-L | FVM | pending | The minmod limiter factor is between 0 and 1. |
-| `CFDLean.Scalar.FiniteVolume.mcFactor_mem` | B3b-L | FVM | pending | The MC limiter factor is between 0 and 1. |
-| `CFDLean.Scalar.FiniteVolume.superbeeFactor_mem` | B3b-L | FVM | pending | The superbee limiter factor is between 0 and 4/3. |
-| `CFDLean.Scalar.FiniteVolume.vanLeerFactor_mem` | B3b-L | FVM | pending | The van Leer limiter factor is between 0 and 1. |
-| `CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_mem` | B3b-L | FVM | pending | The van Albada limiter factor is between 0 and 1. |
-| `CFDLean.Scalar.FiniteVolume.minmodFactor_comm` | B3b-L | FVM | pending | The minmod limiter factor is symmetric in the two differences. |
-| `CFDLean.Scalar.FiniteVolume.mcFactor_comm` | B3b-L | FVM | pending | The MC limiter factor is symmetric in the two differences. |
-| `CFDLean.Scalar.FiniteVolume.superbeeFactor_comm` | B3b-L | FVM | pending | The superbee limiter factor is symmetric in the two differences. |
-| `CFDLean.Scalar.FiniteVolume.vanLeerFactor_comm` | B3b-L | FVM | pending | The van Leer limiter factor is symmetric in the two differences. |
-| `CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_comm` | B3b-L | FVM | pending | The van Albada limiter factor is symmetric in the two differences. |
-| `CFDLean.Scalar.FiniteVolume.slopeBounded_minmodFactor` | B3b-L | FVM | pending | The minmod limited slope is θ-bounded with θ = 1. |
-| `CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor` | B3b-L | FVM | pending | The MC limited slope is θ-bounded with θ = 2. |
-| `CFDLean.Scalar.FiniteVolume.slopeBounded_superbeeFactor` | B3b-L | FVM | pending | The superbee limited slope is θ-bounded with θ = 2. |
-| `CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor` | B3b-L | FVM | pending | The van Leer limited slope is θ-bounded with θ = 2. |
-| `CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor` | B3b-L | FVM | pending | The van Albada limited slope is θ-bounded with θ = 5/4. |
-| `CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded` | B3b-I | FVM | pending | For a θ-bounded slope with θ ≤ 2 and a monotone flux that is Lipschitz on bounded states, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(1 + θ/2)KR and 0 ≤ D ≤ (dt/dx)(1 + θ/2)KL. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_noLimiter` | B3b-U | FVM | accepted | With the factor 1 (no limiter) the limited slope is the unlimited central slope (a + b)/2. |
+| `CFDLean.Scalar.FiniteVolume.minmodBounded_iff_slopeBounded_one` | B3b-C | FVM | accepted | The minmod-region certificate of B3 is the θ-bounded certificate with θ = 1. |
+| `CFDLean.Scalar.FiniteVolume.SlopeBounded.mono` | B3b-C | FVM | accepted | A θ-bounded slope function is θ'-bounded for every θ' ≥ θ. |
+| `CFDLean.Scalar.FiniteVolume.SlopeBounded.nonneg` | B3b-C | FVM | accepted | A θ-bounded slope function exists only for θ ≥ 0. |
+| `CFDLean.Scalar.FiniteVolume.not_slopeBounded_centralSlope` | B3b-C | FVM | accepted | The unlimited central slope is not θ-bounded for any θ. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_minmodFactor` | B3b-L | FVM | accepted | The minmod factor times the central slope is the classical minmod limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_mcFactor` | B3b-L | FVM | accepted | The MC factor times the central slope is the classical MC limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_superbeeFactor` | B3b-L | FVM | accepted | The superbee factor times the central slope is the classical superbee limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_vanLeerFactor` | B3b-L | FVM | accepted | The van Leer factor times the central slope is the classical van Leer limited slope. |
+| `CFDLean.Scalar.FiniteVolume.limitedSlope_vanAlbadaFactor` | B3b-L | FVM | accepted | The van Albada factor times the central slope is the classical van Albada limited slope. |
+| `CFDLean.Scalar.FiniteVolume.minmodFactor_mem` | B3b-L | FVM | accepted | The minmod limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.mcFactor_mem` | B3b-L | FVM | accepted | The MC limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.superbeeFactor_mem` | B3b-L | FVM | accepted | The superbee limiter factor is between 0 and 4/3. |
+| `CFDLean.Scalar.FiniteVolume.vanLeerFactor_mem` | B3b-L | FVM | accepted | The van Leer limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_mem` | B3b-L | FVM | accepted | The van Albada limiter factor is between 0 and 1. |
+| `CFDLean.Scalar.FiniteVolume.minmodFactor_comm` | B3b-L | FVM | accepted | The minmod limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.mcFactor_comm` | B3b-L | FVM | accepted | The MC limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.superbeeFactor_comm` | B3b-L | FVM | accepted | The superbee limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.vanLeerFactor_comm` | B3b-L | FVM | accepted | The van Leer limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.vanAlbadaFactor_comm` | B3b-L | FVM | accepted | The van Albada limiter factor is symmetric in the two differences. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_minmodFactor` | B3b-L | FVM | accepted | The minmod limited slope is θ-bounded with θ = 1. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_mcFactor` | B3b-L | FVM | accepted | The MC limited slope is θ-bounded with θ = 2. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_superbeeFactor` | B3b-L | FVM | accepted | The superbee limited slope is θ-bounded with θ = 2. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_vanLeerFactor` | B3b-L | FVM | accepted | The van Leer limited slope is θ-bounded with θ = 2. |
+| `CFDLean.Scalar.FiniteVolume.slopeBounded_vanAlbadaFactor` | B3b-L | FVM | accepted | The van Albada limited slope is θ-bounded with θ = 5/4. |
+| `CFDLean.Scalar.FiniteVolume.muscl_incremental_bounded` | B3b-I | FVM | accepted | For a θ-bounded slope with θ ≤ 2 and a monotone flux that is Lipschitz on bounded states, the MUSCL Forward Euler step is an incremental update with 0 ≤ C ≤ (dt/dx)(1 + θ/2)KR and 0 ≤ D ≤ (dt/dx)(1 + θ/2)KL. |
 
 ## Entropy framework (32)
 
@@ -307,20 +307,20 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p3_13_1` | P3-13.1 | method-free | candidate | The pair entropy production is exactly the path integral of the derivative along the straight segment in entropy variables, with no remainder. |
 | `CFDLean.JST1.Proofs.p3_13_2` | P3-13.2 | method-free | candidate | For Euler with \|v·E\| < c\|E\| the pair term production takes both signs for arbitrarily small admissible jumps. |
 | `CFDLean.JST1.Proofs.p3_14_2` | P3-14.2 | FVM | candidate | With slip and no-slip wall points and entropy-stable far-field points the boundary term B is at most the sum of ghost entropy fluxes. |
-| `CFDLean.Scalar.EntropyConservative.entropyStable` | B4-C | method-free | pending | An entropy-conservative two-point flux is entropy stable. |
-| `CFDLean.Scalar.FiniteVolume.entropyFlux_constant` | B4-Q | FVM | pending | On equal states the numerical entropy flux of a consistent flux is v f − ψ. |
-| `CFDLean.Scalar.FiniteVolume.cell_entropy_identity` | B4-I | FVM | pending | Cell entropy identity: v_i L_i + (Q_i − Q_{i−1})/dx is the sum of the two interface entropy defects over 2 dx. |
-| `CFDLean.Scalar.FiniteVolume.cell_entropy_inequality` | B4-I | FVM | pending | For an entropy-stable flux and dx > 0: v_i L_i ≤ −(Q_i − Q_{i−1})/dx in every cell. |
-| `CFDLean.Scalar.FiniteVolume.cell_entropy_equality` | B4-I | FVM | pending | For an entropy-conservative flux: v_i L_i = −(Q_i − Q_{i−1})/dx in every cell. |
-| `CFDLean.Scalar.FiniteVolume.entropy_production_nonpos` | B4-G | FVM | pending | For an entropy-stable flux and dx > 0 the total entropy production Σ v_i L_i on a periodic grid is nonpositive. |
-| `CFDLean.Scalar.FiniteVolume.entropy_production_zero` | B4-G | FVM | pending | For an entropy-conservative flux the total entropy production on a periodic grid is zero. |
-| `CFDLean.Burgers.entropyPotential_eq` | B4-B | method-free | pending | For Burgers and the square entropy the potential u³/6 is v f − q with v = u, f = u²/2, q = u³/3. |
-| `CFDLean.Burgers.EntropyConservativeFlux.consistent` | B4-B | FVM | pending | The flux (a² + ab + b²)/6 is consistent with the Burgers flux. |
-| `CFDLean.Burgers.EntropyConservativeFlux.entropyConservative` | B4-B | FVM | pending | The flux (a² + ab + b²)/6 is entropy conservative for the square entropy of Burgers. |
-| `CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub` | B4-B | FVM | pending | The Burgers Rusanov flux is the entropy-conservative flux minus (α/2 − (b − a)/12)(b − a). |
-| `CFDLean.Burgers.Rusanov.entropyStable` | B4-B | FVM | pending | The Burgers Rusanov flux is entropy stable for the square entropy. |
-| `CFDLean.Burgers.Rusanov.cell_entropy_inequality` | B4-S | FVM | pending | Cell entropy inequality of the Burgers Rusanov operator for the square entropy, dx > 0. |
-| `CFDLean.Burgers.Rusanov.energy_production_nonpos` | B4-S | FVM | pending | The Burgers Rusanov operator does not produce energy: Σ u_i L_i(u) ≤ 0 for dx > 0. |
+| `CFDLean.Scalar.EntropyConservative.entropyStable` | B4-C | method-free | accepted | An entropy-conservative two-point flux is entropy stable. |
+| `CFDLean.Scalar.FiniteVolume.entropyFlux_constant` | B4-Q | FVM | accepted | On equal states the numerical entropy flux of a consistent flux is v f − ψ. |
+| `CFDLean.Scalar.FiniteVolume.cell_entropy_identity` | B4-I | FVM | accepted | Cell entropy identity: v_i L_i + (Q_i − Q_{i−1})/dx is the sum of the two interface entropy defects over 2 dx. |
+| `CFDLean.Scalar.FiniteVolume.cell_entropy_inequality` | B4-I | FVM | accepted | For an entropy-stable flux and dx > 0: v_i L_i ≤ −(Q_i − Q_{i−1})/dx in every cell. |
+| `CFDLean.Scalar.FiniteVolume.cell_entropy_equality` | B4-I | FVM | accepted | For an entropy-conservative flux: v_i L_i = −(Q_i − Q_{i−1})/dx in every cell. |
+| `CFDLean.Scalar.FiniteVolume.entropy_production_nonpos` | B4-G | FVM | accepted | For an entropy-stable flux and dx > 0 the total entropy production Σ v_i L_i on a periodic grid is nonpositive. |
+| `CFDLean.Scalar.FiniteVolume.entropy_production_zero` | B4-G | FVM | accepted | For an entropy-conservative flux the total entropy production on a periodic grid is zero. |
+| `CFDLean.Burgers.entropyPotential_eq` | B4-B | method-free | accepted | For Burgers and the square entropy the potential u³/6 is v f − q with v = u, f = u²/2, q = u³/3. |
+| `CFDLean.Burgers.EntropyConservativeFlux.consistent` | B4-B | FVM | accepted | The flux (a² + ab + b²)/6 is consistent with the Burgers flux. |
+| `CFDLean.Burgers.EntropyConservativeFlux.entropyConservative` | B4-B | FVM | accepted | The flux (a² + ab + b²)/6 is entropy conservative for the square entropy of Burgers. |
+| `CFDLean.Burgers.Rusanov.eval_eq_entropyConservative_sub` | B4-B | FVM | accepted | The Burgers Rusanov flux is the entropy-conservative flux minus (α/2 − (b − a)/12)(b − a). |
+| `CFDLean.Burgers.Rusanov.entropyStable` | B4-B | FVM | accepted | The Burgers Rusanov flux is entropy stable for the square entropy. |
+| `CFDLean.Burgers.Rusanov.cell_entropy_inequality` | B4-S | FVM | accepted | Cell entropy inequality of the Burgers Rusanov operator for the square entropy, dx > 0. |
+| `CFDLean.Burgers.Rusanov.energy_production_nonpos` | B4-S | FVM | accepted | The Burgers Rusanov operator does not produce energy: Σ u_i L_i(u) ≤ 0 for dx > 0. |
 | `CFDLean.JST1.Proofs.p4_15_5` | P4-15.5 | FVM | candidate | Linear wall-normal profile on a geometric mesh: L_k − L_s = (r−1)(ũ_k − ũ_s), and the fourth-difference wall flux produces ε4(r−1)λ[w]·[ũ] ≥ 0. |
 
 ## Physics models (93)
@@ -485,17 +485,17 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Num.WMesh.standardClosure_linear` | MC-N.P2-6.5b | FEM + FVM | candidate | For linear fluxes the standard boundary closure equals ½(B + diag β)F with weights (d+3):1. |
 | `CFDLean.Num.quadratureClosure_freeStream` | MC-N.P2-8.2 | FVM | candidate | With a uniform state, physical boundary fluxes and matching quadrature normals the quadrature closure has zero residual. |
 | `CFDLean.Num.quadratureClosure_linear` | MC-N.P2-8.3 | FVM | candidate | For linear fluxes the quadrature closure is ½(F_i β_i + Σ_k F_k Σ_q φ_qi φ_qk N_q). |
-| `CFDLean.Burgers.Rusanov.consistent` | B0-F | FVM | pending | The Burgers Rusanov (local Lax-Friedrichs) flux with wave speed max(\|uL\|, \|uR\|) equals the physical flux u²/2 on equal states. |
-| `CFDLean.Scalar.FiniteVolume.rhs_constant` | B0-K | FVM | pending | A consistent two-point flux gives a zero periodic finite-volume right-hand side on a constant state. |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant` | B0-S | FVM | pending | The Burgers Rusanov semidiscretization on ZMod N is zero on a constant state (composition of B0-F and B0-K). |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov semidiscretization on ZMod N sums to zero (instance of B0-C). |
-| `CFDLean.Burgers.Rusanov.monotone` | B1-M | FVM | pending | The Burgers Rusanov flux is nondecreasing in the left state and nonincreasing in the right state. |
-| `CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed` | B1-I | FVM | pending | The mean of two states is bounded in absolute value by the Rusanov wave speed max(\|a\|, \|b\|). |
-| `CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate` | B1-I | FVM | pending | The Burgers Rusanov Forward Euler step is in incremental form with C = (dt/dx)(a − ū)/2 and D = (dt/dx)(a + ū)/2. |
-| `CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds` | B2-B | FVM | pending | For states between m and M the Rusanov wave speed is at most max(\|m\|, \|M\|). |
-| `CFDLean.Burgers.Rusanov.eval_lipschitz_left` | B3-K | FVM | pending | For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the left state with constant 2A. |
-| `CFDLean.Burgers.Rusanov.eval_lipschitz_right` | B3-K | FVM | pending | For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the right state with constant 2A. |
-| `CFDLean.Burgers.Rusanov.lipschitzOnBounds` | B3-K | FVM | pending | Lipschitz certificate of the Burgers Rusanov flux on states between m and M with constants 2 max(\|m\|, \|M\|). |
+| `CFDLean.Burgers.Rusanov.consistent` | B0-F | FVM | accepted | The Burgers Rusanov (local Lax-Friedrichs) flux with wave speed max(\|uL\|, \|uR\|) equals the physical flux u²/2 on equal states. |
+| `CFDLean.Scalar.FiniteVolume.rhs_constant` | B0-K | FVM | accepted | A consistent two-point flux gives a zero periodic finite-volume right-hand side on a constant state. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_constant` | B0-S | FVM | accepted | The Burgers Rusanov semidiscretization on ZMod N is zero on a constant state (composition of B0-F and B0-K). |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.semidiscrete_sum_zero` | B0-S | FVM | accepted | For dx ≠ 0 the Burgers Rusanov semidiscretization on ZMod N sums to zero (instance of B0-C). |
+| `CFDLean.Burgers.Rusanov.monotone` | B1-M | FVM | accepted | The Burgers Rusanov flux is nondecreasing in the left state and nonincreasing in the right state. |
+| `CFDLean.Burgers.Rusanov.abs_mean_le_waveSpeed` | B1-I | FVM | accepted | The mean of two states is bounded in absolute value by the Rusanov wave speed max(\|a\|, \|b\|). |
+| `CFDLean.Burgers.Rusanov.step_eq_incrementalUpdate` | B1-I | FVM | accepted | The Burgers Rusanov Forward Euler step is in incremental form with C = (dt/dx)(a − ū)/2 and D = (dt/dx)(a + ū)/2. |
+| `CFDLean.Burgers.Rusanov.waveSpeed_le_of_bounds` | B2-B | FVM | accepted | For states between m and M the Rusanov wave speed is at most max(\|m\|, \|M\|). |
+| `CFDLean.Burgers.Rusanov.eval_lipschitz_left` | B3-K | FVM | accepted | For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the left state with constant 2A. |
+| `CFDLean.Burgers.Rusanov.eval_lipschitz_right` | B3-K | FVM | accepted | For states with absolute value at most A the Burgers Rusanov flux is Lipschitz in the right state with constant 2A. |
+| `CFDLean.Burgers.Rusanov.lipschitzOnBounds` | B3-K | FVM | accepted | Lipschitz certificate of the Burgers Rusanov flux on states between m and M with constants 2 max(\|m\|, \|M\|). |
 | `CFDLean.JST1.Proofs.p1_2_5` | P1-2.5 | method-free | candidate | The Ismail-Roe flux is entropy conservative (Tadmor condition), symmetric, linear in the normal and consistent. |
 | `CFDLean.JST1.Proofs.p1_2_6` | P1-2.6 | FVM | candidate | Central flux plus scalar second/fourth-difference dissipation with symmetric coefficients is antisymmetric and globally conservative. |
 | `CFDLean.JST1.Proofs.p1_2_7` | P1-2.7 | FVM | candidate | A uniform state with matching boundary data has zero residual for the dissipative pair-flux scheme. |
@@ -525,10 +525,10 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p4_16_3` | P4-16.3 | FVM | candidate | ε2 ≤ 6κ2, ε4 ≤ 9κ4, and the weak effect of the scalar dissipation is at most d(6κ2 + 18n_Eκ4) Φmax σmax h \|Ω\| Gφ Gu. |
 | `CFDLean.JST1.Proofs.p5_19_2` | P5-19.2 | method-free | candidate | The admissible Euler states form an open set, and the Ismail-Roe flux is Cⁿ for every n on admissible × admissible, diagonal included. |
 | `CFDLean.JST1.Proofs.p5_19_3` | P5-19.3 | method-free | candidate | At every admissible state the Ismail-Roe flux differs from the mean of the Euler fluxes by at most C\|y\|\|u_k − u_i\|² near the diagonal, one constant for all vectors y. |
-| `CFDLean.Burgers.fv1d_step_eq` | FV1D-B | FVM | pending | The shared periodic Rusanov update agrees with the assembled B0 Forward Euler step in every cell. |
-| `CFDLean.Euler1D.face_consistent` | FV1D-F | FVM | pending | On equal admissible states the Euler numerical flux equals the M1 positive-unit-face flux. |
-| `CFDLean.Euler1D.step_constant` | FV1D-K | FVM | pending | One periodic Euler step preserves each admissible constant state. |
-| `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | pending | One common step conserves the discrete integrals of density, x-momentum and total energy. |
+| `CFDLean.Burgers.fv1d_step_eq` | FV1D-B | FVM | accepted | The shared periodic Rusanov update agrees with the assembled B0 Forward Euler step in every cell. |
+| `CFDLean.Euler1D.face_consistent` | FV1D-F | FVM | accepted | On equal admissible states the Euler numerical flux equals the M1 positive-unit-face flux. |
+| `CFDLean.Euler1D.step_constant` | FV1D-K | FVM | accepted | One periodic Euler step preserves each admissible constant state. |
+| `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
 
 ## Time (93)
 
@@ -570,118 +570,118 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Time.mesh_step_reindex` | M5-O | FVM | pending | The mesh step commutes with relabeling of nodes, edges and boundary records with fully transported residual data. |
 | `CFDLean.Time.Controls.transported_nonconstant` | M5-O | FVM | pending | The relabeled two-cell step with nonconstant transported data equals the original step. |
 | `CFDLean.Time.Controls.transported_fields_nonconstant` | M5-O | FVM | pending | In the relabeling control the volumes, steps, states and exterior data differ between the swapped nodes and faces. |
-| `CFDLean.Time.ForwardEuler.step_zero_rhs` | B0-T | method-free | pending | A Forward Euler step with a zero right-hand side at the state returns the state. |
-| `CFDLean.Time.ForwardEuler.step_constant` | B0-T | method-free | pending | A Forward Euler step keeps a constant state when the right-hand side is zero on it. |
-| `CFDLean.Time.ForwardEuler.step_sum` | B0-T | method-free | pending | A Forward Euler step keeps the total sum when the right-hand side sums to zero. |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant` | B0-S | FVM | pending | The Burgers Rusanov Forward Euler step on ZMod N keeps every constant state, for every dx and dt. |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the total sum of the cell averages. |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral` | B0-S | FVM | pending | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the discrete integral dx · Σ u. |
-| `CFDLean.Burgers.Rusanov.step_totalVariation_le` | B1-S | FVM | pending | For dx > 0, dt ≥ 0 and dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step does not increase the total variation, on any periodic grid. |
-| `CFDLean.Burgers.Rusanov.step_bounds` | B1-S | FVM | pending | For dx > 0, dt ≥ 0 and 2 · dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step keeps every lower and upper bound of the old state. |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le` | B1-S | FVM | pending | Total variation under the per-interface CFL hypothesis for the assembled scheme on ZMod N. |
-| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds` | B1-S | FVM | pending | Bounds under the per-interface CFL 1/2 hypothesis for the assembled scheme on ZMod N. |
-| `CFDLean.Time.SSP.ssprk2_forwardEuler` | B2-R | method-free | pending | SSPRK2 over a Forward Euler map is Heun's method: u + (dt/2)(L(u) + L(u + dt L(u))). |
-| `CFDLean.Time.SSP.ssprk2_mem` | B2-C | method-free | pending | SSPRK2 keeps every convex set that the one-step map keeps. |
-| `CFDLean.Time.SSP.ssprk3_mem` | B2-C | method-free | pending | SSPRK3 keeps every convex set that the one-step map keeps. |
-| `CFDLean.Time.SSP.ssprk2_le` | B2-C | method-free | pending | SSPRK2 does not increase a functional that is convex on an invariant set and not increased by the one-step map. |
-| `CFDLean.Time.SSP.ssprk3_le` | B2-C | method-free | pending | SSPRK3 does not increase a functional that is convex on an invariant set and not increased by the one-step map. |
-| `CFDLean.Time.SSP.iterate_mem` | B2-N | method-free | pending | A one-step map that keeps a set keeps it for every number of steps. |
-| `CFDLean.Time.SSP.iterate_le` | B2-N | method-free | pending | A functional not increased by one step on an invariant set is not increased by n steps. |
-| `CFDLean.Time.SSP.ssprk2_fixed` | B2-L | method-free | pending | A fixed point of the one-step map is a fixed point of SSPRK2. |
-| `CFDLean.Time.SSP.ssprk3_fixed` | B2-L | method-free | pending | A fixed point of the one-step map is a fixed point of SSPRK3. |
-| `CFDLean.Time.SSP.ssprk2_linear` | B2-L | method-free | pending | A linear functional kept by the one-step map is kept by SSPRK2. |
-| `CFDLean.Time.SSP.ssprk3_linear` | B2-L | method-free | pending | A linear functional kept by the one-step map is kept by SSPRK3. |
-| `CFDLean.Burgers.Rusanov.eulerStep_mem` | B2-B | FVM | pending | For dx > 0, dt ≥ 0 and 2 · dt · max(\|m\|, \|M\|) ≤ dx the Burgers Rusanov Forward Euler map keeps the bounds m ≤ u ≤ M. |
-| `CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le` | B2-B | FVM | pending | Under the same hypothesis the Forward Euler map does not increase the total variation of a state with m ≤ u ≤ M. |
-| `CFDLean.Burgers.Rusanov.eulerStep_iterate_stable` | B2-S | FVM | pending | After n Burgers Rusanov Forward Euler steps with one dt from the initial bounds, the bounds hold and the total variation is not larger. |
-| `CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable` | B2-S | FVM | pending | The same multi-step bounds and total-variation result for n SSPRK2 steps. |
-| `CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable` | B2-S | FVM | pending | The same multi-step bounds and total-variation result for n SSPRK3 steps. |
-| `CFDLean.Burgers.Rusanov.ssprk2Step_sum` | B2-S | FVM | pending | For dx ≠ 0 one Burgers Rusanov SSPRK2 step keeps the total sum of the cell values. |
-| `CFDLean.Burgers.Rusanov.ssprk3Step_sum` | B2-S | FVM | pending | For dx ≠ 0 one Burgers Rusanov SSPRK3 step keeps the total sum of the cell values. |
-| `CFDLean.Burgers.Rusanov.ssprk2Step_constant` | B2-S | FVM | pending | One Burgers Rusanov SSPRK2 step keeps every constant state. |
-| `CFDLean.Burgers.Rusanov.ssprk3Step_constant` | B2-S | FVM | pending | One Burgers Rusanov SSPRK3 step keeps every constant state. |
-| `CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le` | B3-T | FVM | pending | Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step does not increase the total variation of a state with m ≤ u ≤ M. |
-| `CFDLean.Scalar.FiniteVolume.muscl_step_mem` | B3-T | FVM | pending | Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step keeps the bounds m ≤ u ≤ M. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_mem` | B3-S | FVM | pending | Under 6 · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step keeps the bounds, for every limiter in the minmod region. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le` | B3-S | FVM | pending | Under 6 · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step does not increase the total variation. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable` | B3-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with one dt from the initial bounds. |
-| `CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable` | B3-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable` | B3-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_sum` | B3-S | FVM | pending | For dx ≠ 0 one MUSCL-Rusanov Forward Euler step keeps the total sum of the cell values. |
-| `CFDLean.Burgers.Rusanov.musclSsprk2Step_sum` | B3-S | FVM | pending | For dx ≠ 0 one MUSCL-Rusanov SSPRK2 step keeps the total sum of the cell values. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_sum` | B3-S | FVM | pending | For dx ≠ 0 one MUSCL-Rusanov SSPRK3 step keeps the total sum of the cell values. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_constant` | B3-S | FVM | pending | One MUSCL-Rusanov Forward Euler step keeps every constant state. |
-| `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | pending | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
-| `CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le_bounded` | B3b-T | FVM | pending | Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation. |
-| `CFDLean.Scalar.FiniteVolume.muscl_step_mem_bounded` | B3b-T | FVM | pending | Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds m ≤ u ≤ M. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_mem_bounded` | B3b-S | FVM | pending | Under (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le_bounded` | B3b-S | FVM | pending | Under (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation. |
-| `CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded` | B3b-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with a θ-bounded slope (θ ≤ 2). |
-| `CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded` | B3b-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps with a θ-bounded slope (θ ≤ 2). |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded` | B3b-S | FVM | pending | Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps with a θ-bounded slope (θ ≤ 2). |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_minmodFactor_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the minmod limiter: bounds and total variation after n steps under 6 · dt · max(\|m\|, \|M\|) ≤ dx. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_mc_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the MC limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_superbee_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the superbee limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanLeer_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the van Leer limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
-| `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable` | B3b-S | FVM | pending | MUSCL-Rusanov SSPRK3 with the van Albada limiter: bounds and total variation after n steps under 13/2 · dt · max(\|m\|, \|M\|) ≤ dx. |
-| `CFDLean.Burgers.Rusanov.stepData_mem` | B3b-N | FVM | pending | The four-cell state (0, 0, 1, 1) is between 0 and 1. |
-| `CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds` | B3b-N | FVM | pending | The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3. |
+| `CFDLean.Time.ForwardEuler.step_zero_rhs` | B0-T | method-free | accepted | A Forward Euler step with a zero right-hand side at the state returns the state. |
+| `CFDLean.Time.ForwardEuler.step_constant` | B0-T | method-free | accepted | A Forward Euler step keeps a constant state when the right-hand side is zero on it. |
+| `CFDLean.Time.ForwardEuler.step_sum` | B0-T | method-free | accepted | A Forward Euler step keeps the total sum when the right-hand side sums to zero. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_constant` | B0-S | FVM | accepted | The Burgers Rusanov Forward Euler step on ZMod N keeps every constant state, for every dx and dt. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_sum` | B0-S | FVM | accepted | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the total sum of the cell averages. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_preserves_integral` | B0-S | FVM | accepted | For dx ≠ 0 the Burgers Rusanov Forward Euler step on ZMod N keeps the discrete integral dx · Σ u. |
+| `CFDLean.Burgers.Rusanov.step_totalVariation_le` | B1-S | FVM | accepted | For dx > 0, dt ≥ 0 and dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step does not increase the total variation, on any periodic grid. |
+| `CFDLean.Burgers.Rusanov.step_bounds` | B1-S | FVM | accepted | For dx > 0, dt ≥ 0 and 2 · dt · a_i ≤ dx at every interface the Burgers Rusanov Forward Euler step keeps every lower and upper bound of the old state. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_totalVariation_le` | B1-S | FVM | accepted | Total variation under the per-interface CFL hypothesis for the assembled scheme on ZMod N. |
+| `CFDLean.Burgers.Schemes.RusanovForwardEuler.step_bounds` | B1-S | FVM | accepted | Bounds under the per-interface CFL 1/2 hypothesis for the assembled scheme on ZMod N. |
+| `CFDLean.Time.SSP.ssprk2_forwardEuler` | B2-R | method-free | accepted | SSPRK2 over a Forward Euler map is Heun's method: u + (dt/2)(L(u) + L(u + dt L(u))). |
+| `CFDLean.Time.SSP.ssprk2_mem` | B2-C | method-free | accepted | SSPRK2 keeps every convex set that the one-step map keeps. |
+| `CFDLean.Time.SSP.ssprk3_mem` | B2-C | method-free | accepted | SSPRK3 keeps every convex set that the one-step map keeps. |
+| `CFDLean.Time.SSP.ssprk2_le` | B2-C | method-free | accepted | SSPRK2 does not increase a functional that is convex on an invariant set and not increased by the one-step map. |
+| `CFDLean.Time.SSP.ssprk3_le` | B2-C | method-free | accepted | SSPRK3 does not increase a functional that is convex on an invariant set and not increased by the one-step map. |
+| `CFDLean.Time.SSP.iterate_mem` | B2-N | method-free | accepted | A one-step map that keeps a set keeps it for every number of steps. |
+| `CFDLean.Time.SSP.iterate_le` | B2-N | method-free | accepted | A functional not increased by one step on an invariant set is not increased by n steps. |
+| `CFDLean.Time.SSP.ssprk2_fixed` | B2-L | method-free | accepted | A fixed point of the one-step map is a fixed point of SSPRK2. |
+| `CFDLean.Time.SSP.ssprk3_fixed` | B2-L | method-free | accepted | A fixed point of the one-step map is a fixed point of SSPRK3. |
+| `CFDLean.Time.SSP.ssprk2_linear` | B2-L | method-free | accepted | A linear functional kept by the one-step map is kept by SSPRK2. |
+| `CFDLean.Time.SSP.ssprk3_linear` | B2-L | method-free | accepted | A linear functional kept by the one-step map is kept by SSPRK3. |
+| `CFDLean.Burgers.Rusanov.eulerStep_mem` | B2-B | FVM | accepted | For dx > 0, dt ≥ 0 and 2 · dt · max(\|m\|, \|M\|) ≤ dx the Burgers Rusanov Forward Euler map keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Rusanov.eulerStep_totalVariation_le` | B2-B | FVM | accepted | Under the same hypothesis the Forward Euler map does not increase the total variation of a state with m ≤ u ≤ M. |
+| `CFDLean.Burgers.Rusanov.eulerStep_iterate_stable` | B2-S | FVM | accepted | After n Burgers Rusanov Forward Euler steps with one dt from the initial bounds, the bounds hold and the total variation is not larger. |
+| `CFDLean.Burgers.Rusanov.ssprk2Step_iterate_stable` | B2-S | FVM | accepted | The same multi-step bounds and total-variation result for n SSPRK2 steps. |
+| `CFDLean.Burgers.Rusanov.ssprk3Step_iterate_stable` | B2-S | FVM | accepted | The same multi-step bounds and total-variation result for n SSPRK3 steps. |
+| `CFDLean.Burgers.Rusanov.ssprk2Step_sum` | B2-S | FVM | accepted | For dx ≠ 0 one Burgers Rusanov SSPRK2 step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.ssprk3Step_sum` | B2-S | FVM | accepted | For dx ≠ 0 one Burgers Rusanov SSPRK3 step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.ssprk2Step_constant` | B2-S | FVM | accepted | One Burgers Rusanov SSPRK2 step keeps every constant state. |
+| `CFDLean.Burgers.Rusanov.ssprk3Step_constant` | B2-S | FVM | accepted | One Burgers Rusanov SSPRK3 step keeps every constant state. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le` | B3-T | FVM | accepted | Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step does not increase the total variation of a state with m ≤ u ≤ M. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_mem` | B3-T | FVM | accepted | Under dt · (3/2)(KL + KR) ≤ dx one MUSCL Forward Euler step keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_mem` | B3-S | FVM | accepted | Under 6 · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step keeps the bounds, for every limiter in the minmod region. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le` | B3-S | FVM | accepted | Under 6 · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step does not increase the total variation. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable` | B3-S | FVM | accepted | Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with one dt from the initial bounds. |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable` | B3-S | FVM | accepted | Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable` | B3-S | FVM | accepted | Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_sum` | B3-S | FVM | accepted | For dx ≠ 0 one MUSCL-Rusanov Forward Euler step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_sum` | B3-S | FVM | accepted | For dx ≠ 0 one MUSCL-Rusanov SSPRK2 step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_sum` | B3-S | FVM | accepted | For dx ≠ 0 one MUSCL-Rusanov SSPRK3 step keeps the total sum of the cell values. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_constant` | B3-S | FVM | accepted | One MUSCL-Rusanov Forward Euler step keeps every constant state. |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_constant` | B3-S | FVM | accepted | One MUSCL-Rusanov SSPRK2 step keeps every constant state. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_constant` | B3-S | FVM | accepted | One MUSCL-Rusanov SSPRK3 step keeps every constant state. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_totalVariation_le_bounded` | B3b-T | FVM | accepted | Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation. |
+| `CFDLean.Scalar.FiniteVolume.muscl_step_mem_bounded` | B3b-T | FVM | accepted | Under dt · (1 + θ/2)(KL + KR) ≤ dx one MUSCL Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds m ≤ u ≤ M. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_mem_bounded` | B3b-S | FVM | accepted | Under (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) keeps the bounds. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_totalVariation_le_bounded` | B3b-S | FVM | accepted | Under (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx the MUSCL-Rusanov Forward Euler step with a θ-bounded slope (θ ≤ 2) does not increase the total variation. |
+| `CFDLean.Burgers.Rusanov.musclEulerStep_iterate_stable_bounded` | B3b-S | FVM | accepted | Bounds and total variation after n MUSCL-Rusanov Forward Euler steps with a θ-bounded slope (θ ≤ 2). |
+| `CFDLean.Burgers.Rusanov.musclSsprk2Step_iterate_stable_bounded` | B3b-S | FVM | accepted | Bounds and total variation after n MUSCL-Rusanov SSPRK2 steps with a θ-bounded slope (θ ≤ 2). |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_iterate_stable_bounded` | B3b-S | FVM | accepted | Bounds and total variation after n MUSCL-Rusanov SSPRK3 steps with a θ-bounded slope (θ ≤ 2). |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_minmodFactor_iterate_stable` | B3b-S | FVM | accepted | MUSCL-Rusanov SSPRK3 with the minmod limiter: bounds and total variation after n steps under 6 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_mc_iterate_stable` | B3b-S | FVM | accepted | MUSCL-Rusanov SSPRK3 with the MC limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_superbee_iterate_stable` | B3b-S | FVM | accepted | MUSCL-Rusanov SSPRK3 with the superbee limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanLeer_iterate_stable` | B3b-S | FVM | accepted | MUSCL-Rusanov SSPRK3 with the van Leer limiter: bounds and total variation after n steps under 8 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.musclSsprk3Step_vanAlbada_iterate_stable` | B3b-S | FVM | accepted | MUSCL-Rusanov SSPRK3 with the van Albada limiter: bounds and total variation after n steps under 13/2 · dt · max(\|m\|, \|M\|) ≤ dx. |
+| `CFDLean.Burgers.Rusanov.stepData_mem` | B3b-N | FVM | accepted | The four-cell state (0, 0, 1, 1) is between 0 and 1. |
+| `CFDLean.Burgers.Rusanov.unlimited_step_leaves_bounds` | B3b-N | FVM | accepted | The unlimited MUSCL-Rusanov scheme is not bound preserving: from (0, 0, 1, 1) with dx = 1, dt = 1/10 one Forward Euler step gives 167/160 in cell 3. |
 
 ## Execution (53)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
-| `CFDLean.Exec.eulerStepArray_size` | E0-K | FVM | pending | The kernel Euler step returns an array of the same size. |
-| `CFDLean.Exec.axpby_size` | E0-K | FVM | pending | The kernel linear combination returns an array of the smaller of the two sizes. |
-| `CFDLean.Exec.ssprk3StepArray_size` | E0-K | FVM | pending | The kernel SSPRK3 step returns an array of the same size. |
-| `CFDLean.Exec.run_size` | E0-K | FVM | pending | Running a size-preserving step k times preserves the size. |
-| `CFDLean.Exec.rusanov_eq` | E0-R | FVM | pending | With real arithmetic the kernel flux is the Burgers Rusanov flux. |
-| `CFDLean.Exec.represents_iff_eq_ofFn` | E0-R | FVM | pending | An array represents a cell function on Fin n exactly when it is Array.ofFn of that function. |
-| `CFDLean.Exec.eulerStepArray_refines` | E0-S | FVM | pending | If an array represents u, the kernel Euler step of the array represents the Rusanov Forward Euler step of u on the periodic grid Fin n. |
-| `CFDLean.Exec.axpby_refines` | E0-S | FVM | pending | The kernel linear combination of two arrays represents the pointwise linear combination of the two cell functions. |
-| `CFDLean.Exec.ssprk2StepArray_refines` | E0-S | FVM | pending | The kernel SSPRK2 step represents the Rusanov SSPRK2 step. |
-| `CFDLean.Exec.ssprk3StepArray_refines` | E0-S | FVM | pending | The kernel SSPRK3 step represents the Rusanov SSPRK3 step. |
-| `CFDLean.Exec.run_refines` | E0-N | FVM | pending | k applications of a kernel step that refines T represent the k-fold iterate of T. |
-| `CFDLean.Exec.sumArray_eq` | E0-D | FVM | pending | The kernel sum diagnostic of an array that represents u is the sum of the cell values of u. |
-| `CFDLean.Exec.totalVariationArray_eq` | E0-D | FVM | pending | The kernel total-variation diagnostic of an array that represents u is the periodic total variation of u. |
-| `CFDLean.Exec.run_eulerStepArray_bounds` | E0-T | FVM | pending | With real arithmetic, dx > 0, dt ≥ 0 and 2 · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel Euler steps. |
-| `CFDLean.Exec.run_ssprk3StepArray_bounds` | E0-T | FVM | pending | The same bounds result after k kernel SSPRK3 steps. |
-| `CFDLean.Exec.run_eulerStepArray_sum` | E0-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel Euler steps keep the sum of the entries. |
-| `CFDLean.Exec.run_ssprk3StepArray_sum` | E0-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel SSPRK3 steps keep the sum of the entries. |
-| `CFDLean.Exec.run_eulerStepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel Euler steps do not increase the total variation of the entries. |
-| `CFDLean.Exec.run_ssprk3StepArray_totalVariation_le` | E0-T | FVM | pending | Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries. |
-| `CFDLean.Exec.instScalarReal_standard` | E0-K | FVM | pending | The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field. |
-| `CFDLean.Exec.musclEulerStepArray_size` | E0b-K | FVM | pending | The kernel MUSCL Euler step returns an array of the same size. |
-| `CFDLean.Exec.musclSsprk2StepArray_size` | E0b-K | FVM | pending | The kernel MUSCL SSPRK2 step returns an array of the same size. |
-| `CFDLean.Exec.musclSsprk3StepArray_size` | E0b-K | FVM | pending | The kernel MUSCL SSPRK3 step returns an array of the same size. |
-| `CFDLean.Exec.min_eq` | E0b-L | FVM | pending | With real arithmetic the kernel min, written −max(−a, −b), is the minimum. |
-| `CFDLean.Exec.minmod_eq` | E0b-L | FVM | pending | With real arithmetic the comparison-free kernel limiter max 0 (min a b) + min 0 (max a b) is the minmod limiter. |
-| `CFDLean.Exec.musclEulerStepArray_refines` | E0b-S | FVM | pending | If an array represents u, the kernel MUSCL Euler step of the array represents the MUSCL-minmod-Rusanov Forward Euler step of u on the periodic grid Fin n. |
-| `CFDLean.Exec.musclSsprk2StepArray_refines` | E0b-S | FVM | pending | The kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step. |
-| `CFDLean.Exec.musclSsprk3StepArray_refines` | E0b-S | FVM | pending | The kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step. |
-| `CFDLean.Exec.run_musclEulerStepArray_bounds` | E0b-T | FVM | pending | With real arithmetic, dx > 0, dt ≥ 0 and 6 · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps. |
-| `CFDLean.Exec.run_musclSsprk3StepArray_bounds` | E0b-T | FVM | pending | The same bounds result after k kernel MUSCL SSPRK3 steps. |
-| `CFDLean.Exec.run_musclEulerStepArray_sum` | E0b-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries. |
-| `CFDLean.Exec.run_musclSsprk3StepArray_sum` | E0b-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries. |
-| `CFDLean.Exec.run_musclEulerStepArray_totalVariation_le` | E0b-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
-| `CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le` | E0b-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
-| `CFDLean.Exec.limiterEulerStepArray_size` | E0c-K | FVM | pending | The kernel MUSCL Euler step with a limiter choice returns an array of the same size. |
-| `CFDLean.Exec.limiterSsprk2StepArray_size` | E0c-K | FVM | pending | The kernel MUSCL SSPRK2 step with a limiter choice returns an array of the same size. |
-| `CFDLean.Exec.limiterSsprk3StepArray_size` | E0c-K | FVM | pending | The kernel MUSCL SSPRK3 step with a limiter choice returns an array of the same size. |
-| `CFDLean.Exec.isPos_eq` | E0c-L | FVM | pending | With real arithmetic the kernel sign test is the decision of 0 < x. |
-| `CFDLean.Exec.limiterSlope_eq` | E0c-L | FVM | pending | With real arithmetic the kernel slope of each limiter (none, minmod, MC, superbee, van Leer, van Albada) is its mathematical slope function. |
-| `CFDLean.Exec.Limiter.slopeBounded` | E0c-L | FVM | pending | The slope function of every kernel limiter except none is θ-bounded with the constant of that limiter. |
-| `CFDLean.Exec.Limiter.theta_le_two` | E0c-L | FVM | pending | The bound constant of every kernel limiter is at most 2. |
-| `CFDLean.Exec.limiterEulerStepArray_refines` | E0c-S | FVM | pending | For every limiter, also none: the kernel MUSCL Euler step of an array that represents u represents the MUSCL-Rusanov Forward Euler step of u with that slope function. |
-| `CFDLean.Exec.limiterSsprk2StepArray_refines` | E0c-S | FVM | pending | For every limiter the kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step. |
-| `CFDLean.Exec.limiterSsprk3StepArray_refines` | E0c-S | FVM | pending | For every limiter the kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step. |
-| `CFDLean.Exec.limiterEulerStepArray_minmod` | E0c-S | FVM | pending | With the minmod choice the limiter kernel Euler step is the E0b MUSCL kernel step, for every arithmetic. |
-| `CFDLean.Exec.limiterSsprk2StepArray_minmod` | E0c-S | FVM | pending | With the minmod choice the limiter kernel SSPRK2 step is the E0b one, for every arithmetic. |
-| `CFDLean.Exec.limiterSsprk3StepArray_minmod` | E0c-S | FVM | pending | With the minmod choice the limiter kernel SSPRK3 step is the E0b one, for every arithmetic. |
-| `CFDLean.Exec.run_limiterEulerStepArray_sum` | E0c-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries, for every limiter and for the unlimited scheme. |
-| `CFDLean.Exec.run_limiterSsprk3StepArray_sum` | E0c-T | FVM | pending | With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries, for every limiter and for the unlimited scheme. |
-| `CFDLean.Exec.run_limiterEulerStepArray_bounds` | E0c-T | FVM | pending | For every limiter except none, with dx > 0, dt ≥ 0 and (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps. |
-| `CFDLean.Exec.run_limiterSsprk3StepArray_bounds` | E0c-T | FVM | pending | The same bounds result after k kernel MUSCL SSPRK3 steps. |
-| `CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le` | E0c-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
-| `CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le` | E0c-T | FVM | pending | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.eulerStepArray_size` | E0-K | FVM | accepted | The kernel Euler step returns an array of the same size. |
+| `CFDLean.Exec.axpby_size` | E0-K | FVM | accepted | The kernel linear combination returns an array of the smaller of the two sizes. |
+| `CFDLean.Exec.ssprk3StepArray_size` | E0-K | FVM | accepted | The kernel SSPRK3 step returns an array of the same size. |
+| `CFDLean.Exec.run_size` | E0-K | FVM | accepted | Running a size-preserving step k times preserves the size. |
+| `CFDLean.Exec.rusanov_eq` | E0-R | FVM | accepted | With real arithmetic the kernel flux is the Burgers Rusanov flux. |
+| `CFDLean.Exec.represents_iff_eq_ofFn` | E0-R | FVM | accepted | An array represents a cell function on Fin n exactly when it is Array.ofFn of that function. |
+| `CFDLean.Exec.eulerStepArray_refines` | E0-S | FVM | accepted | If an array represents u, the kernel Euler step of the array represents the Rusanov Forward Euler step of u on the periodic grid Fin n. |
+| `CFDLean.Exec.axpby_refines` | E0-S | FVM | accepted | The kernel linear combination of two arrays represents the pointwise linear combination of the two cell functions. |
+| `CFDLean.Exec.ssprk2StepArray_refines` | E0-S | FVM | accepted | The kernel SSPRK2 step represents the Rusanov SSPRK2 step. |
+| `CFDLean.Exec.ssprk3StepArray_refines` | E0-S | FVM | accepted | The kernel SSPRK3 step represents the Rusanov SSPRK3 step. |
+| `CFDLean.Exec.run_refines` | E0-N | FVM | accepted | k applications of a kernel step that refines T represent the k-fold iterate of T. |
+| `CFDLean.Exec.sumArray_eq` | E0-D | FVM | accepted | The kernel sum diagnostic of an array that represents u is the sum of the cell values of u. |
+| `CFDLean.Exec.totalVariationArray_eq` | E0-D | FVM | accepted | The kernel total-variation diagnostic of an array that represents u is the periodic total variation of u. |
+| `CFDLean.Exec.run_eulerStepArray_bounds` | E0-T | FVM | accepted | With real arithmetic, dx > 0, dt ≥ 0 and 2 · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel Euler steps. |
+| `CFDLean.Exec.run_ssprk3StepArray_bounds` | E0-T | FVM | accepted | The same bounds result after k kernel SSPRK3 steps. |
+| `CFDLean.Exec.run_eulerStepArray_sum` | E0-T | FVM | accepted | With real arithmetic and dx ≠ 0, k kernel Euler steps keep the sum of the entries. |
+| `CFDLean.Exec.run_ssprk3StepArray_sum` | E0-T | FVM | accepted | With real arithmetic and dx ≠ 0, k kernel SSPRK3 steps keep the sum of the entries. |
+| `CFDLean.Exec.run_eulerStepArray_totalVariation_le` | E0-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel Euler steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.run_ssprk3StepArray_totalVariation_le` | E0-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel SSPRK3 steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.instScalarReal_standard` | E0-K | FVM | accepted | The real instance of the kernel arithmetic is the standard real arithmetic of Mathlib, field by field. |
+| `CFDLean.Exec.musclEulerStepArray_size` | E0b-K | FVM | accepted | The kernel MUSCL Euler step returns an array of the same size. |
+| `CFDLean.Exec.musclSsprk2StepArray_size` | E0b-K | FVM | accepted | The kernel MUSCL SSPRK2 step returns an array of the same size. |
+| `CFDLean.Exec.musclSsprk3StepArray_size` | E0b-K | FVM | accepted | The kernel MUSCL SSPRK3 step returns an array of the same size. |
+| `CFDLean.Exec.min_eq` | E0b-L | FVM | accepted | With real arithmetic the kernel min, written −max(−a, −b), is the minimum. |
+| `CFDLean.Exec.minmod_eq` | E0b-L | FVM | accepted | With real arithmetic the comparison-free kernel limiter max 0 (min a b) + min 0 (max a b) is the minmod limiter. |
+| `CFDLean.Exec.musclEulerStepArray_refines` | E0b-S | FVM | accepted | If an array represents u, the kernel MUSCL Euler step of the array represents the MUSCL-minmod-Rusanov Forward Euler step of u on the periodic grid Fin n. |
+| `CFDLean.Exec.musclSsprk2StepArray_refines` | E0b-S | FVM | accepted | The kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step. |
+| `CFDLean.Exec.musclSsprk3StepArray_refines` | E0b-S | FVM | accepted | The kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step. |
+| `CFDLean.Exec.run_musclEulerStepArray_bounds` | E0b-T | FVM | accepted | With real arithmetic, dx > 0, dt ≥ 0 and 6 · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps. |
+| `CFDLean.Exec.run_musclSsprk3StepArray_bounds` | E0b-T | FVM | accepted | The same bounds result after k kernel MUSCL SSPRK3 steps. |
+| `CFDLean.Exec.run_musclEulerStepArray_sum` | E0b-T | FVM | accepted | With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries. |
+| `CFDLean.Exec.run_musclSsprk3StepArray_sum` | E0b-T | FVM | accepted | With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries. |
+| `CFDLean.Exec.run_musclEulerStepArray_totalVariation_le` | E0b-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.run_musclSsprk3StepArray_totalVariation_le` | E0b-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.limiterEulerStepArray_size` | E0c-K | FVM | accepted | The kernel MUSCL Euler step with a limiter choice returns an array of the same size. |
+| `CFDLean.Exec.limiterSsprk2StepArray_size` | E0c-K | FVM | accepted | The kernel MUSCL SSPRK2 step with a limiter choice returns an array of the same size. |
+| `CFDLean.Exec.limiterSsprk3StepArray_size` | E0c-K | FVM | accepted | The kernel MUSCL SSPRK3 step with a limiter choice returns an array of the same size. |
+| `CFDLean.Exec.isPos_eq` | E0c-L | FVM | accepted | With real arithmetic the kernel sign test is the decision of 0 < x. |
+| `CFDLean.Exec.limiterSlope_eq` | E0c-L | FVM | accepted | With real arithmetic the kernel slope of each limiter (none, minmod, MC, superbee, van Leer, van Albada) is its mathematical slope function. |
+| `CFDLean.Exec.Limiter.slopeBounded` | E0c-L | FVM | accepted | The slope function of every kernel limiter except none is θ-bounded with the constant of that limiter. |
+| `CFDLean.Exec.Limiter.theta_le_two` | E0c-L | FVM | accepted | The bound constant of every kernel limiter is at most 2. |
+| `CFDLean.Exec.limiterEulerStepArray_refines` | E0c-S | FVM | accepted | For every limiter, also none: the kernel MUSCL Euler step of an array that represents u represents the MUSCL-Rusanov Forward Euler step of u with that slope function. |
+| `CFDLean.Exec.limiterSsprk2StepArray_refines` | E0c-S | FVM | accepted | For every limiter the kernel MUSCL SSPRK2 step represents the MUSCL-Rusanov SSPRK2 step. |
+| `CFDLean.Exec.limiterSsprk3StepArray_refines` | E0c-S | FVM | accepted | For every limiter the kernel MUSCL SSPRK3 step represents the MUSCL-Rusanov SSPRK3 step. |
+| `CFDLean.Exec.limiterEulerStepArray_minmod` | E0c-S | FVM | accepted | With the minmod choice the limiter kernel Euler step is the E0b MUSCL kernel step, for every arithmetic. |
+| `CFDLean.Exec.limiterSsprk2StepArray_minmod` | E0c-S | FVM | accepted | With the minmod choice the limiter kernel SSPRK2 step is the E0b one, for every arithmetic. |
+| `CFDLean.Exec.limiterSsprk3StepArray_minmod` | E0c-S | FVM | accepted | With the minmod choice the limiter kernel SSPRK3 step is the E0b one, for every arithmetic. |
+| `CFDLean.Exec.run_limiterEulerStepArray_sum` | E0c-T | FVM | accepted | With real arithmetic and dx ≠ 0, k kernel MUSCL Euler steps keep the sum of the entries, for every limiter and for the unlimited scheme. |
+| `CFDLean.Exec.run_limiterSsprk3StepArray_sum` | E0c-T | FVM | accepted | With real arithmetic and dx ≠ 0, k kernel MUSCL SSPRK3 steps keep the sum of the entries, for every limiter and for the unlimited scheme. |
+| `CFDLean.Exec.run_limiterEulerStepArray_bounds` | E0c-T | FVM | accepted | For every limiter except none, with dx > 0, dt ≥ 0 and (4 + 2θ) · dt · max(\|m\|, \|M\|) ≤ dx, every entry stays in [m, M] after k kernel MUSCL Euler steps. |
+| `CFDLean.Exec.run_limiterSsprk3StepArray_bounds` | E0c-T | FVM | accepted | The same bounds result after k kernel MUSCL SSPRK3 steps. |
+| `CFDLean.Exec.run_limiterEulerStepArray_totalVariation_le` | E0c-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel MUSCL Euler steps do not increase the total variation of the entries. |
+| `CFDLean.Exec.run_limiterSsprk3StepArray_totalVariation_le` | E0c-T | FVM | accepted | Under the hypotheses of the bounds result, k kernel MUSCL SSPRK3 steps do not increase the total variation of the entries. |
