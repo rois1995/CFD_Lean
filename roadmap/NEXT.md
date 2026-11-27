@@ -276,3 +276,23 @@ Keep the generic time-evolution interfaces compatible with future variable-step 
   G1-G8 are fixed in the paper (2026-11-27); two cosmetic P6 notes and one count ("56" for 96 sub-tetrahedra)
   remain for the paper session.
 - Keep the theorem catalog and raw-type evidence synchronized with every milestone.
+
+## Eight-step review queue after PR #50
+
+Read the draft changes bottom-up. Stacking orders their diffs for review. The dependency column gives the
+mathematical order. Each proposed contract needs its own independent decision before its downstream work is
+accepted. [E1 scope](../specifications/E1-burgers-step-proposal.md)
+
+| Step | Reviewable output | Depends on |
+|---|---|---|
+| 1 | E1 proposal for a per-cell binary64 error budget on one uniform Burgers step | Existing kernel and E0 real refinement |
+| 2 | Exact interpretation of a finite binary64 value, including zeros and subnormals | Pinned Lean binary64 model |
+| 3 | Rational execution of the existing stencil and its correspondence with the real kernel | E0 and exact rational arithmetic |
+| 4 | Fail-closed step checker and a per-cell soundness statement | 2 and 3 |
+| 5 | Native replay with exact, rounded, underflow and rejected cases | 4 |
+| 6 | Uniform 1D Euler MUSCL proposal specifying face variables and admissibility | Existing Euler pressure and first-order model |
+| 7 | Candidate admissible face reconstruction and exact controls, including a bad raw trace | 6 |
+| 8 | Fixed-mesh 2D proposal and exact oriented-face balance control | Existing 1D comparison and a concrete mesh |
+
+Steps 6 and 8 can be reviewed independently of E1. Step 7 covers face values. Positive cell averages after a full
+Euler update and a multidimensional gradient reconstruction each require additional hypotheses.
