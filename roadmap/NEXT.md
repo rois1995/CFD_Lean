@@ -165,6 +165,20 @@ Target components (delivered by FVN; see [What FVN showed](../references/FV1D-no
 Success criterion: the extension should require local geometric generalization, not a rewrite of flux, entropy and time
 composition layers.
 
+### Burgers line after FVN: kernels, general driver, retiring `burgers1d`
+
+Burgers stays the line where shared capabilities are built first; Euler follows on merged shared code.
+
+1. **FVNA** — executable array kernels on the non-uniform mesh and their exact-real refinement (first order shared
+   by Burgers and Euler; Burgers MUSCL with every limiter and SSPRK2/SSPRK3), with the FVN guarantees transferred to
+   the arrays. No driver change. [Proposal](../specifications/FV1D-nonuniform-array-proposal.md)
+2. **General driver** — `lake exe fv1d --model burgers|euler` with every current `burgers1d` capability (first
+   order, MUSCL with limiters, SSPRK3, diagnostics, dump) plus a non-uniform mesh option. Include a check that
+   `fv1d --model burgers` reproduces the `burgers1d` output on the same input.
+3. **Retire `burgers1d`** — once step 2 is accepted, amend the E0 and E0b driver claims (and the FVA "preserve
+   `burgers1d`" sentence) so that `fv1d --model burgers` is the Burgers entry point; remove `burgers1d` or keep it as
+   a thin alias. Update the CI smoke test accordingly.
+
 ## Priority 2 - E1 machine arithmetic strategy
 
 The Burgers array kernels already use `Scalar α`, with `ScalarSign α` where a limiter needs a sign test. The current
