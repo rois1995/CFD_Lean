@@ -32,3 +32,9 @@ name = "Driver"
 [[lean_exe]]
 name = "fv1d"
 root = "FVMain"
+
+# Draft proof and benchmark controls are opt-in and do not enter the accepted library.
+[[lean_lib]]
+name = "ReviewCases"
+srcDir = "benchmarks"
+globs = ["ReviewCases.+"]
