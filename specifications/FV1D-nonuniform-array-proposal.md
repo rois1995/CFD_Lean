@@ -1,6 +1,6 @@
 # FVN follow-up proposal — executable kernels on the non-uniform mesh and their exact-real refinement
 
-**Status.** Draft for owner review, then independent scientific review. Base: `develop` at `660fd4c`, the
+**Status.** Revised after the first independent scientific review ([record](../reviews/FVNA/Proposal_Review_1.md)). Base: `develop` at `660fd4c`, the
 [frozen FVN contract](FV1D-nonuniform.md) and its implementation candidate in
 [PR #43](https://github.com/rois1995/CFD_Lean/pull/43). Implementation starts after FVN is merged into `develop`.
 [Milestone workflow](../CONTRIBUTING.md#milestone-workflow) · [Standing authorization](../reviews/Standing_Authorization.md)
@@ -54,10 +54,19 @@ periodic cell `(i.val : ZMod n)`. `mesh widths` is the FVN `Mesh1D` on `zmodGrid
 
 | ID | Statement |
 |---|---|
-| FVNA-F | For every FVA model instance, the first-order array kernel over the reals represents `FV1D.Nonuniform.firstOrderStep (mesh widths) (FV1D.face F a) dt U` in every cell. For Burgers this is `Burgers.Nonuniform.firstOrderStep`; for Euler it is `Euler1D.nonuniformStep γ` for every `γ > 1` and every array representing an initially admissible field, in all three components. |
+| FVNA-F | The first-order array kernel over the reals represents the FVN first-order step for the two concrete real models. Burgers: it represents `Burgers.Nonuniform.firstOrderStep (mesh widths) dt u` in every cell. Euler: for every `γ > 1` and every array representing an initially admissible field, it represents `Euler1D.nonuniformStep γ (mesh widths) dt U` in every cell, in all three components. |
 | FVNA-M | For every limiter `L` (including `none`), the MUSCL Forward Euler, SSPRK2 and SSPRK3 array kernels over the reals represent `Burgers.Nonuniform.musclStep (mesh widths) dt L.slopeFn` and its SSPRK2 and SSPRK3 combinations in every cell. |
 | FVNA-U | If every width equals `dx > 0`, the first-order kernel equals the FVA `stepArray` and the MUSCL kernels equal the E0c `limiterEulerStepArray`, `limiterSsprk2StepArray` and `limiterSsprk3StepArray` with `dx`, entry by entry, over the reals. |
-| FVNA-T | Transferred guarantees over the reals. (a) The width-weighted sum `∑ w[i] * u[i]` is kept by every kernel. (b) First order, Burgers: under the FVN-B local conditions the output stays in `[m, M]` and the total variation does not increase. (c) For a limited `L` with mesh ratio `L.theta`, `0 ≤ dt` and `8 · dt · max(|m|, |M|) ≤ w[i]` for every `i`, `n` steps of the Forward Euler, SSPRK2 and SSPRK3 kernels keep `[m, M]` and do not increase the total variation. |
+| FVNA-T | Transferred guarantees over the reals. (a) Conservation: for Burgers, every kernel (first order, and MUSCL with every `L` for Forward Euler, SSPRK2 and SSPRK3) keeps `∑ i, w[i] * u[i]`; for Euler, the first-order kernel keeps `∑ i, w[i] * q(U[i])` separately for density, x-momentum and total energy. (b) First order, Burgers: if every entry of `u` lies in `[m, M]` and the FVN-B local conditions hold, the output stays in `[m, M]`; under the FVN-B face condition the total variation does not increase. (c) For `L ≠ none` with mesh ratio `L.theta`, `0 ≤ dt`, every entry of `u` in `[m, M]`, and `8 · dt · max(|m|, |M|) ≤ w[i]` for every `i`: `n` steps of the Forward Euler, SSPRK2 and SSPRK3 kernels keep every entry in `[m, M]` and do not increase the total variation. |
+
+Generic statements over an arbitrary state type are not result IDs. The FVA `Model` record carries arbitrary
+operations with no laws, so the shared stencil lemma is stated only for the compatible model
+`⟨(· + ·), (· - ·), (· • ·), F, a⟩` over a real module, as in the FVA refinement, and stays a supporting lemma. The
+Burgers and Euler real models are then shown equal to such compatible models. Make the face and width alignment one
+explicit refinement lemma: the right state at face `i` uses the slope of `i + 1`, whose backward rescaling uses the
+same pair `w[i]`, `w[i+1]` (including the seam). In FVNA-T (a), one-step conservation follows from flux
+cancellation; SSPRK2 and SSPRK3 keep the same linear invariant because their real coefficients sum to one. The bounds
+hypotheses in (b) and (c) are written with the existing `EntriesBetween m M u`.
 
 FVNA-T (c) inherits the FVN finding: minmod works on any mesh, van Albada needs neighbour widths within a factor of 4,
 and MC, superbee and van Leer need equal neighbour widths.
