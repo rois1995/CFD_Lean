@@ -7713,6 +7713,110 @@
       ],
       "summary": "The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK3 kernel steps.",
       "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.E1.value_isSome",
+      "id": "E1-1",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "method-free"
+      ],
+      "summary": "Decoder succeeds exactly on finite binary64 values.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 1"
+    },
+    {
+      "name": "CFDLean.Exec.E1.cast_step",
+      "id": "E1-2",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Casting the rational Burgers update to reals agrees with the entire exact-real array step.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 2"
+    },
+    {
+      "name": "CFDLean.Exec.E1.checkStep_sound",
+      "id": "E1-3",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.Budget",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Acceptance implies finite output and a per-cell bound for the represented inputs.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 3"
+    },
+    {
+      "name": "CFDLean.Exec.E1.real_cell_bound",
+      "id": "E1-3",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.Budget",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Every present real-step output is within the supplied absolute budget of the decoded observed cell.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 3"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.face_admissible",
+      "id": "FVT-A",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Every oriented face receives two admissible selected traces when all means are admissible.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.pair_sum",
+      "id": "FVT-M",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The selected pair sums componentwise to twice its parent mean.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.retain_raw",
+      "id": "FVT-R",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An admissible raw pair is retained exactly.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.face_constant",
+      "id": "FVT-K",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Every face reconstructs the constant pair for a limiter that vanishes at zero.",
+      "source": "specifications/FV1D-euler-traces-results.json"
     }
   ]
 }
