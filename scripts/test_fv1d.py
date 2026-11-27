@@ -1,4 +1,4 @@
-"""Black-box checks of the two native drivers (build burgers1d and fv1d first)."""
+"""Black-box checks of the FV1D driver (build fv1d first)."""
 import json
 import math
 from pathlib import Path
@@ -13,8 +13,8 @@ SCHEMES = [[], ["--muscl"]] + [
 ]
 
 
-def output(exe, *args):
-    return subprocess.check_output([BIN / exe, *args], text=True, timeout=30)
+def output(*args):
+    return subprocess.check_output([BIN / "fv1d", *args], text=True, timeout=30)
 
 
 def four_cell_rusanov():
@@ -39,22 +39,25 @@ def four_cell_rusanov():
 
 
 class DriverTests(unittest.TestCase):
-    def test_uniform_burgers_parity(self):
+    def test_uniform_burgers_output(self):
+        transcript = []
         for args in [[], ["1", "0", ".4", "--dump"]] + [
             ["27", "13", ".12", "--dump", *scheme] for scheme in SCHEMES
         ]:
-            with self.subTest(args=args):
-                self.assertEqual(output("fv1d", "--model", "burgers", *args), output("burgers1d", *args))
+            command = " ".join(["$ fv1d --model burgers", *args])
+            transcript.append(command + "\n" + output("--model", "burgers", *args))
+        expected = (ROOT / "benchmarks/fv1d/burgers-uniform.txt").read_text()
+        self.assertEqual("\n".join(transcript), expected)
 
     def test_burgers_widths(self):
         for scheme in SCHEMES:
             with self.subTest(scheme=scheme):
                 args = ["4", "3", ".12", "--dump", *scheme]
                 def cells(csv):
-                    lines = output("fv1d", "--model", "burgers", *args, "--widths", csv).splitlines()
+                    lines = output("--model", "burgers", *args, "--widths", csv).splitlines()
                     return list(map(float, lines[-4:]))
 
-                uniform = map(float, output("burgers1d", *args).splitlines()[-4:])
+                uniform = map(float, output("--model", "burgers", *args).splitlines()[-4:])
                 for got, ref in zip(cells(".25,.25,.25,.25"), uniform, strict=True):
                     self.assertAlmostEqual(got, ref, places=11)
                 widths = [.1, .2, .3, .4]
@@ -66,7 +69,7 @@ class DriverTests(unittest.TestCase):
 
     def euler_case(self, widths, *mesh_args):
         n = len(widths)
-        lines = output("fv1d", "--model", "euler", str(n), *mesh_args, "--dump").splitlines()
+        lines = output("--model", "euler", str(n), *mesh_args, "--dump").splitlines()
         initial, header, totals, errors, *dump = lines
         final_time = WAVE["snapshots"][1]["time"]
         self.assertEqual(float(header.split("time = ")[1]), final_time)

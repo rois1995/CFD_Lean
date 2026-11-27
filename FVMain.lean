@@ -124,7 +124,7 @@ def main (args : List String) : IO UInt32 := do
     return 1
   let "--model" :: model :: rest := args | return ← bad "select a model"
   if model != "burgers" && model != "euler" then return ← bad s!"unknown model '{model}'"
-  let opts ← match parseArgs true rest {} with
+  let opts ← match parseArgs rest {} with
     | .ok value => pure value
     | .error e => return ← bad e
   let pos := opts.pos

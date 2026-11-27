@@ -7,8 +7,10 @@
   "trusted_statement_review": "reviews/Burgers-E0/TrustedStatements_Review.md",
   "independent_acceptance": "accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0 (reviews/Burgers-E0/Acceptance.md)",
   "executable": {
-    "name": "burgers1d",
-    "root": "Main.lean",
+    "name": "fv1d",
+    "model": "burgers",
+    "driver_amendment": "specifications/FV1D-driver-amendment.md",
+    "root": "FVMain.lean",
     "verified": false
   },
   "results": [

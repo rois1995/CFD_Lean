@@ -1,6 +1,6 @@
 import CFDLean.Exec.LimiterKernel
 
-/-! Shared command-line parsing and formatting for the native 1D drivers. -/
+/-! Command-line parsing and formatting for the native FV1D driver. -/
 open CFDLean.Exec
 
 /-- Parse a decimal `d`, `d.f` or `.f` (no sign, no exponent). -/
@@ -61,22 +61,21 @@ structure Opts where
   widths : Option String := none
   pos : List String := []
 
-def parseArgs (allowWidths : Bool) : List String → Opts → Except String Opts
+def parseArgs : List String → Opts → Except String Opts
   | [], o => .ok { o with pos := o.pos.reverse }
-  | "--dump" :: r, o => parseArgs allowWidths r { o with dump := true }
-  | "--muscl" :: r, o => parseArgs allowWidths r { o with muscl := true }
+  | "--dump" :: r, o => parseArgs r { o with dump := true }
+  | "--muscl" :: r, o => parseArgs r { o with muscl := true }
   | ["--limiter"], _ => .error "--limiter needs a name"
   | "--limiter" :: s :: r, o =>
     match limiterOfName? s with
-    | some L => parseArgs allowWidths r { o with limiter := some L }
+    | some L => parseArgs r { o with limiter := some L }
     | none => .error s!"unknown limiter '{s}'"
   | "--widths" :: r, o =>
-    if !allowWidths then parseArgs allowWidths r { o with pos := "--widths" :: o.pos }
-    else if o.widths.isSome then .error "specify --widths only once"
+    if o.widths.isSome then .error "specify --widths only once"
     else match r with
       | [] => .error "--widths needs a comma-separated list"
-      | csv :: rest => parseArgs allowWidths rest { o with widths := some csv }
-  | s :: r, o => parseArgs allowWidths r { o with pos := s :: o.pos }
+      | csv :: rest => parseArgs rest { o with widths := some csv }
+  | s :: r, o => parseArgs r { o with pos := s :: o.pos }
 
 def schemeName (muscl : Option Limiter) : String :=
   match muscl with
