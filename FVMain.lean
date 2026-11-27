@@ -37,6 +37,13 @@ private def runBurgers (n steps : Nat) (cfl : Float) (opts : Opts) (widths : Opt
   let dt := cfl * minWidth / max (Float.abs (maxArray u0)) (Float.abs (minArray u0))
   let spacing := if widths.isSome then "min width" else "dx"
   IO.println s!"N = {n}  steps = {steps}  cfl = {cfl}  {spacing} = {sci minWidth}  dt = {sci dt}  scheme = {schemeName muscl}"
+  let reportState (label : String) (v : Array Float) := match widths with
+    | none => report label dx v
+    | some w => IO.println s!"{label}: integral = {sci (integral w v)}  min = {sci (minArray v)}  \
+        max = {sci (maxArray v)}  TV = {sci (totalVariationArray v)}"
+  let note := if widths.isSome then "" else " " ++ uniformNote muscl cfl
+  IO.println s!"note: Float arithmetic is not verified.{note}"
+  reportState "initial" u0
   let step := match widths, muscl with
     | none, none => ssprk3StepArray dx dt
     | none, some l => limiterSsprk3StepArray l dx dt
@@ -46,17 +53,10 @@ private def runBurgers (n steps : Nat) (cfl : Float) (opts : Opts) (widths : Opt
       fun u => axpby Scalar.third u Scalar.twoThirds
         (e (axpby Scalar.threeQuarters u Scalar.quarter (e (e u))))
   let u := run step steps u0
+  reportState "final  " u
   match widths with
-  | none =>
-    IO.println s!"note: Float arithmetic is not verified. {uniformNote muscl cfl}"
-    report "initial" dx u0
-    report "final  " dx u
-    IO.println s!"sum drift (final - initial) * dx = {sci ((sumArray u - sumArray u0) * dx)}"
-  | some w =>
-    IO.println "note: Float arithmetic is not verified."
-    for (label, v) in [("initial", u0), ("final  ", u)] do
-      IO.println s!"{label}: integral = {sci (integral w v)}  min = {sci (minArray v)}  max = {sci (maxArray v)}  TV = {sci (totalVariationArray v)}"
-    IO.println s!"integral drift = {sci (integral w u - integral w u0)}"
+  | none => IO.println s!"sum drift (final - initial) * dx = {sci ((sumArray u - sumArray u0) * dx)}"
+  | some w => IO.println s!"integral drift = {sci (integral w u - integral w u0)}"
   if opts.dump then
     for v in u do IO.println (sci v)
   if u.any (fun v => !v.isFinite) then

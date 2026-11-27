@@ -86,6 +86,10 @@ is still open.
 - integral diagnostics;
 - optional final-state dump.
 
+The [model-selecting driver](../CFDLean/Exec/README.md#model-selecting-driver) runs Burgers with the same options
+and runs the first-order Euler density wave to time 1/8. Both models accept explicit cell widths. Driver acceptance
+is pending.
+
 Formal refinement currently connects the executable kernel instantiated over `Real` to the mathematical schemes.
 There is not yet a proof that the machine `Float` run lies within a certified error bound of the exact-real run.
 

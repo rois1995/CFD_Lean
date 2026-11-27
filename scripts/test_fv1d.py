@@ -17,6 +17,27 @@ def output(exe, *args):
     return subprocess.check_output([BIN / exe, *args], text=True, timeout=30)
 
 
+def four_cell_rusanov():
+    """On this contact wave only density varies. Replay its scalar flux from the pinned initial means."""
+    initial, translated = WAVE["snapshots"]
+    rho = [q[0] for q in initial["exact_cell_averages"]]
+    velocity = WAVE["primitive_solution"]["velocity"]
+    gamma_p = WAVE["gamma"] * WAVE["primitive_solution"]["pressure"]
+    dx = 1 / len(rho)
+    t = initial["time"]
+    while t < translated["time"]:
+        speeds = [velocity + math.sqrt(gamma_p / r) for r in rho]
+        dt = min(translated["time"] - t, .4 * dx / max(speeds))
+        flux = []
+        for i, right in enumerate(rho):
+            left = rho[i-1]
+            dissipation = max(speeds[i-1], speeds[i]) * (right-left)
+            flux.append((velocity*(left+right) - dissipation) / 2)
+        rho = [r - dt/dx*(flux[(i+1) % len(rho)] - flux[i]) for i, r in enumerate(rho)]
+        t += dt
+    return rho
+
+
 class DriverTests(unittest.TestCase):
     def test_uniform_burgers_parity(self):
         for args in [[], ["1", "0", ".4", "--dump"]] + [
@@ -53,6 +74,9 @@ class DriverTests(unittest.TestCase):
         self.assertEqual(len(cells), n)
         if n == WAVE["mesh"]["cells"] and not mesh_args:
             exact = WAVE["snapshots"][1]["exact_cell_averages"]
+            for cell, rho in zip(cells, four_cell_rusanov(), strict=True):
+                for got, expected in zip(cell, [rho, 2*rho, 1+2*rho], strict=True):
+                    self.assertAlmostEqual(got, expected, places=11)
         else:
             exact = []
             left = 0
