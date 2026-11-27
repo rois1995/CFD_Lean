@@ -1,5 +1,5 @@
 {
-  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, FV1D, FVP, FVA, FVN, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
+  "description": "Catalog of every promised CFD_Lean theorem (M1-M5, MC-N, Burgers B0-B4, B3b, E0, E0b, E0c, FV1D, FVP, FVA, FVN, FVNA, JST1). Source of catalog/README.md (scripts/catalog.py); checked by scripts/verify.py.",
   "theorems": [
     {
       "name": "CFDLean.squareSum_mul",
@@ -7453,6 +7453,266 @@
       ],
       "summary": "The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps.",
       "source": "references/FV1D-nonuniform.md"
+    },
+    {
+      "name": "CFDLean.Exec.burgers_nonuniform_refines",
+      "id": "FVNA-F",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Over the reals the first-order non-uniform array kernel with the Burgers model stores the FVN first-order Burgers step on the mesh of the width array, in every cell.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.euler_nonuniform_refines",
+      "id": "FVNA-F",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For γ > 1 and an array storing an admissible Euler field, the first-order non-uniform array kernel stores the FVN Euler step on the mesh of the width array, in all three components of every cell.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterEulerStepArray_refines",
+      "id": "FVNA-M",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter, including none, the non-uniform MUSCL Forward Euler array kernel over the reals stores the FVN Burgers MUSCL step with the limiter's slope function.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterSsprk2StepArray_refines",
+      "id": "FVNA-M",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the non-uniform MUSCL SSPRK2 array kernel over the reals stores the FVN Burgers MUSCL SSPRK2 step.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterSsprk3StepArray_refines",
+      "id": "FVNA-M",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the non-uniform MUSCL SSPRK3 array kernel over the reals stores the FVN Burgers MUSCL SSPRK3 step.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.burgers_nonuniformStepArray_uniform",
+      "id": "FVNA-U",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If every width equals dx > 0, the first-order non-uniform kernel with the real Burgers model is the FVA stepArray with dx.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.euler_nonuniformStepArray_uniform",
+      "id": "FVNA-U",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If every width equals dx > 0, the first-order non-uniform kernel with the real Euler model is the FVA stepArray with dx, for every γ.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterEulerStepArray_uniform",
+      "id": "FVNA-U",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If every width equals dx > 0, the non-uniform MUSCL Forward Euler kernel is the E0c limiterEulerStepArray with dx, for every limiter.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterSsprk2StepArray_uniform",
+      "id": "FVNA-U",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If every width equals dx > 0, the non-uniform MUSCL SSPRK2 kernel is the E0c limiterSsprk2StepArray with dx, for every limiter.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterSsprk3StepArray_uniform",
+      "id": "FVNA-U",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If every width equals dx > 0, the non-uniform MUSCL SSPRK3 kernel is the E0c limiterSsprk3StepArray with dx, for every limiter.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.burgers_nonuniformStepArray_weighted_sum",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The first-order Burgers non-uniform array kernel keeps the width-weighted sum ∑ w[i] u[i] for positive widths of the array size.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterEulerStepArray_weighted_sum",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the non-uniform MUSCL Forward Euler array kernel keeps the width-weighted sum ∑ w[i] u[i].",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterSsprk2StepArray_weighted_sum",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the non-uniform MUSCL SSPRK2 array kernel keeps the width-weighted sum ∑ w[i] u[i].",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.nuLimiterSsprk3StepArray_weighted_sum",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every limiter the non-uniform MUSCL SSPRK3 array kernel keeps the width-weighted sum ∑ w[i] u[i].",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.euler_nonuniformStepArray_weighted_sum",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For every γ the first-order Euler non-uniform array kernel keeps the width-weighted sums of density, x-momentum and total energy, each separately.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.burgers_nonuniformStepArray_bounds",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "If every entry lies in [m, M] and the FVN-B cell condition dt (a(i-1) + a i) ≤ w[i] holds, the first-order Burgers non-uniform array kernel keeps every entry in [m, M].",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.burgers_nonuniformStepArray_totalVariation_le",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Under the FVN-B face condition dt · a i ≤ min(w[i], w[i+1]) the first-order Burgers non-uniform array kernel does not increase the total variation of the entries.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_nuLimiterEulerStepArray_stable",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "For a limiter other than none with mesh ratio L.theta, 0 ≤ dt, entries in [m, M] and 8 · dt · max(|m|, |M|) ≤ w[i], any number of non-uniform MUSCL Forward Euler kernel steps keep [m, M] and do not increase the total variation.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_nuLimiterSsprk2StepArray_stable",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK2 kernel steps.",
+      "source": "references/FV1D-nonuniform-array.md"
+    },
+    {
+      "name": "CFDLean.Exec.run_nuLimiterSsprk3StepArray_stable",
+      "id": "FVNA-T",
+      "milestone": "FVNA",
+      "module": "CFDLean.Exec.NonuniformTransfer",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK3 kernel steps.",
+      "source": "references/FV1D-nonuniform-array.md"
     }
   ]
 }

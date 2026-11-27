@@ -48,6 +48,12 @@ rescaled MUSCL differences. It is implemented with eight frozen results, three e
 challenge for the scalar claims. Independent implementation review is pending.
 [Contract](../specifications/FV1D-nonuniform.md) · [Proof map](../references/FV1D-nonuniform.md)
 
+FVNA adds executable array kernels with one width per cell (first order shared by Burgers and Euler; Burgers MUSCL
+with every limiter and SSPRK2/SSPRK3) and proves that over the reals they compute the FVN steps. The four frozen
+results cover the refinement, the uniform-width specialization and the transferred FVN guarantees, with exact controls
+and a trusted challenge for FVNA-M and FVNA-T. It is implemented; independent implementation review is pending.
+[Contract](../specifications/FV1D-nonuniform-array.md) · [Proof map](../references/FV1D-nonuniform-array.md)
+
 ## Burgers line
 
 Merged into `main`:
@@ -117,7 +123,8 @@ vertex 13 has `Σ_k n_13,k = (0, 0, 7/30) ≠ 0` (G8). Paper gaps for the paper 
 ## Current architectural limitation / next stress test
 
 The Burgers line is a periodic, cell-centered FV specialization. The non-uniform fixed 1D mesh with geometry-aware
-MUSCL reconstruction (FVN) is implemented; its independent review is pending.
+MUSCL reconstruction (FVN) and its executable array kernels (FVNA) are implemented; their independent reviews are
+pending.
 
 See:
 

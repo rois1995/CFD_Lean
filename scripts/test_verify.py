@@ -1177,6 +1177,7 @@ class BurgersTests(unittest.TestCase):
         expected = {m: ("accepted at 4c77f6e145f1f5d8cdd812a02dce2e7324d179c0", f"reviews/Burgers-{m}/Acceptance.md")
                     for m in ("B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c")}
         expected["FVN"] = ("pending", None)
+        expected["FVNA"] = ("pending", None)
         self.assertEqual({m: verify.burgers_acceptance(m) for m in verify.BURGERS}, expected)
         fvn = {key: value for key, value in verify.BURGERS["FVN"].items() if key != "pending"}
         with mock.patch.dict(verify.BURGERS, {"FVN": fvn}):
@@ -1227,7 +1228,8 @@ class BurgersTests(unittest.TestCase):
     def test_bridge_modules_are_pinned(self):
         bridges = {m: verify.burgers_bridge(m) for m in verify.BURGERS}
         self.assertEqual(bridges, dict({m: f"CFDLean.Verification.Burgers{m}Verify" for m in verify.BURGERS_SERIES},
-                                       FVN="CFDLean.Verification.FV1DNonuniformVerify"))
+                                       FVN="CFDLean.Verification.FV1DNonuniformVerify",
+                                       FVNA="CFDLean.Verification.FV1DNonuniformArrayVerify"))
 
 
 if __name__ == "__main__":

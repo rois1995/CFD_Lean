@@ -13,7 +13,8 @@ CATALOG = "catalog/theorems.json"
 README = "catalog/README.md"
 LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes", "Time",
           "Execution")
-MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c", "JST1", "FV1D", "FVP", "FVA", "FVN")
+MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c", "JST1", "FV1D", "FVP", "FVA", "FVN",
+              "FVNA")
 STATUSES = ("accepted", "pending", "candidate")
 METHOD_SETS = (("FEM",), ("FVM",), ("FEM", "FVM"), ("method-free",))
 
@@ -23,13 +24,14 @@ RULES = """\
 Each entry of `theorems.json` is one promised theorem: the 15 accepted M1 theorems (M1 has no result map; its
 accepted list is the `#print axioms` list of the hash-pinned `Integrity.lean`, with IDs `M1-1`..`M1-6` for the
 targets of `specifications/M1.md` and `M1-aux` for the finite-sum lemmas), every declaration bound in
-`specifications/M2-results.json` .. `M5-results.json`, the FV1D, FVP, FVA and FVN result maps, every theorem of `specifications/MC-N-results.json`, and the
+`specifications/M2-results.json` .. `M5-results.json`, the FV1D, FVP, FVA, FVN and FVNA result maps, every theorem of `specifications/MC-N-results.json`, and the
 121 paper-1 proofs bound in `specifications/JST1/P1-results.json` .. `P8-results.json` (IDs `P1-x.y` .. `P8-x.y`).
 
 **Status.** `accepted`: M1-M4, independently accepted (`reviews/*/Acceptance.md`). `pending`: M5, implemented,
 independent review pending. FV1D is independently accepted (`reviews/FV1D/Acceptance.md`). FVN (FV1D on a
 non-uniform periodic 1D mesh, `specifications/FV1D-nonuniform-results.json`) is `pending`: implemented, independent
-review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
+review pending. FVNA (executable array kernels on that mesh, `specifications/FV1D-nonuniform-array-results.json`) is
+`pending`: implemented, independent review pending. `candidate`: MC-N, moved from JST_Paper_Lean on branch `mc-n`, not yet merged to `main`;
 JST1, the paper-1 statements folded from JST_Paper_Lean by MR-2 and the P4-P8 statements written here (self-checked,
 AI-reviewed, not independently accepted). The 37 JST1 proofs whose statement is an MC-N theorem delegate to it and carry its layer, tags and summary.
 

@@ -1,0 +1,230 @@
+{
+  "contract": "specifications/FV1D-nonuniform-array.md",
+  "contract_sha256": "5ee74f93f2da38558779a1779cf30f46ccc51a33395609fd9dd285dc4264eff8",
+  "approval_record": "specifications/FV1D-nonuniform-array-approval.md",
+  "approved_revision": "077a916beaa9b6b8ffbebdb0a3bc1571ff51537a",
+  "source_map": "references/FV1D-nonuniform-array.md",
+  "trusted_statement_review": "reviews/FVNA/TrustedStatements_Review.md",
+  "independent_acceptance": "pending",
+  "results": [
+    {
+      "id": "FVNA-F",
+      "definitions": [
+        "CFDLean.Exec.FV1D.nonuniformStepArray",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.meshOf"
+      ],
+      "supporting": [
+        "CFDLean.Exec.nonuniformStepArray_compatible"
+      ],
+      "declarations": [
+        "CFDLean.Exec.burgers_nonuniform_refines",
+        "CFDLean.Exec.euler_nonuniform_refines"
+      ]
+    },
+    {
+      "id": "FVNA-M",
+      "definitions": [
+        "CFDLean.Exec.nuBackDiff",
+        "CFDLean.Exec.nuFwdDiff",
+        "CFDLean.Exec.nuSlopeAt",
+        "CFDLean.Exec.nuLeftState",
+        "CFDLean.Exec.nuRightState",
+        "CFDLean.Exec.nuFaceFlux",
+        "CFDLean.Exec.nuLimiterEulerStepArray",
+        "CFDLean.Exec.nuLimiterSsprk2StepArray",
+        "CFDLean.Exec.nuLimiterSsprk3StepArray"
+      ],
+      "supporting": [
+        "CFDLean.Exec.nuFace_alignment"
+      ],
+      "declarations": [
+        "CFDLean.Exec.nuLimiterEulerStepArray_refines",
+        "CFDLean.Exec.nuLimiterSsprk2StepArray_refines",
+        "CFDLean.Exec.nuLimiterSsprk3StepArray_refines"
+      ]
+    },
+    {
+      "id": "FVNA-U",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Exec.nonuniformStepArray_uniform"
+      ],
+      "declarations": [
+        "CFDLean.Exec.burgers_nonuniformStepArray_uniform",
+        "CFDLean.Exec.euler_nonuniformStepArray_uniform",
+        "CFDLean.Exec.nuLimiterEulerStepArray_uniform",
+        "CFDLean.Exec.nuLimiterSsprk2StepArray_uniform",
+        "CFDLean.Exec.nuLimiterSsprk3StepArray_uniform"
+      ]
+    },
+    {
+      "id": "FVNA-T",
+      "definitions": [],
+      "supporting": [
+        "CFDLean.Exec.represents_samples",
+        "CFDLean.Exec.entriesBetween_samples_iff",
+        "CFDLean.Exec.totalVariationArray_samples",
+        "CFDLean.Exec.weightedSumArray_samples",
+        "CFDLean.Exec.meshOf_meshRatio_iff"
+      ],
+      "declarations": [
+        "CFDLean.Exec.burgers_nonuniformStepArray_weighted_sum",
+        "CFDLean.Exec.nuLimiterEulerStepArray_weighted_sum",
+        "CFDLean.Exec.nuLimiterSsprk2StepArray_weighted_sum",
+        "CFDLean.Exec.nuLimiterSsprk3StepArray_weighted_sum",
+        "CFDLean.Exec.euler_nonuniformStepArray_weighted_sum",
+        "CFDLean.Exec.burgers_nonuniformStepArray_bounds",
+        "CFDLean.Exec.burgers_nonuniformStepArray_totalVariation_le",
+        "CFDLean.Exec.run_nuLimiterEulerStepArray_stable",
+        "CFDLean.Exec.run_nuLimiterSsprk2StepArray_stable",
+        "CFDLean.Exec.run_nuLimiterSsprk3StepArray_stable"
+      ]
+    }
+  ],
+  "modules": {
+    "CFDLean.Exec.FV1D.nonuniformStepArray": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.widthAt": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.meshOf": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nonuniformStepArray_compatible": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.burgers_nonuniform_refines": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.euler_nonuniform_refines": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuBackDiff": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuFwdDiff": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuSlopeAt": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuLeftState": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuRightState": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuFaceFlux": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuLimiterEulerStepArray": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuLimiterSsprk2StepArray": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuLimiterSsprk3StepArray": "CFDLean.Exec.NonuniformKernel",
+    "CFDLean.Exec.nuFace_alignment": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuLimiterEulerStepArray_refines": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuLimiterSsprk2StepArray_refines": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuLimiterSsprk3StepArray_refines": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nonuniformStepArray_uniform": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.burgers_nonuniformStepArray_uniform": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.euler_nonuniformStepArray_uniform": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuLimiterEulerStepArray_uniform": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuLimiterSsprk2StepArray_uniform": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.nuLimiterSsprk3StepArray_uniform": "CFDLean.Exec.NonuniformRefinement",
+    "CFDLean.Exec.represents_samples": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.entriesBetween_samples_iff": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.totalVariationArray_samples": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.weightedSumArray_samples": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.meshOf_meshRatio_iff": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.burgers_nonuniformStepArray_weighted_sum": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.nuLimiterEulerStepArray_weighted_sum": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.nuLimiterSsprk2StepArray_weighted_sum": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.nuLimiterSsprk3StepArray_weighted_sum": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.euler_nonuniformStepArray_weighted_sum": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.burgers_nonuniformStepArray_bounds": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.burgers_nonuniformStepArray_totalVariation_le": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.run_nuLimiterEulerStepArray_stable": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.run_nuLimiterSsprk2StepArray_stable": "CFDLean.Exec.NonuniformTransfer",
+    "CFDLean.Exec.run_nuLimiterSsprk3StepArray_stable": "CFDLean.Exec.NonuniformTransfer"
+  },
+  "trusted": {
+    "statements": "CFDLean/Verification/FV1DNonuniformArrayChallenge.lean",
+    "statements_module": "CFDLean.Verification.FV1DNonuniformArrayChallenge",
+    "statements_sha256": "309726e83eafae4da3d60603009cd7cbfd1b1fcd6908e340e6a6e83388be7181",
+    "bridge_module": "CFDLean.Verification.FV1DNonuniformArrayVerify",
+    "comparator_challenge": "Challenges/FV1DNonuniformArray.lean",
+    "comparator_challenge_module": "Challenges.FV1DNonuniformArray",
+    "comparator_challenge_sha256": "3824441f5eb77e469bee99a16e17aa135a5e910aed543e383b6366df7ac73ebb",
+    "comparator_config": "Challenges/FV1DNonuniformArray.comparator.json",
+    "bindings": [
+      {
+        "id": "FVNA-M",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclEulerStepRefines",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_euler_step_refines",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclEulerStepRefines",
+        "uses": "CFDLean.Exec.nuLimiterEulerStepArray_refines"
+      },
+      {
+        "id": "FVNA-M",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK2StepRefines",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk2_step_refines",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK2StepRefines",
+        "uses": "CFDLean.Exec.nuLimiterSsprk2StepArray_refines"
+      },
+      {
+        "id": "FVNA-M",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK3StepRefines",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_step_refines",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK3StepRefines",
+        "uses": "CFDLean.Exec.nuLimiterSsprk3StepArray_refines"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.FirstOrderWeightedSum",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.first_order_weighted_sum",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.FirstOrderWeightedSum",
+        "uses": "CFDLean.Exec.burgers_nonuniformStepArray_weighted_sum"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclEulerWeightedSum",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_euler_weighted_sum",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclEulerWeightedSum",
+        "uses": "CFDLean.Exec.nuLimiterEulerStepArray_weighted_sum"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK2WeightedSum",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk2_weighted_sum",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK2WeightedSum",
+        "uses": "CFDLean.Exec.nuLimiterSsprk2StepArray_weighted_sum"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK3WeightedSum",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_weighted_sum",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK3WeightedSum",
+        "uses": "CFDLean.Exec.nuLimiterSsprk3StepArray_weighted_sum"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.EulerFirstOrderWeightedSum",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.euler_first_order_weighted_sum",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.EulerFirstOrderWeightedSum",
+        "uses": "CFDLean.Exec.euler_nonuniformStepArray_weighted_sum"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.FirstOrderBounds",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.first_order_bounds",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.FirstOrderBounds",
+        "uses": "CFDLean.Exec.burgers_nonuniformStepArray_bounds"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.FirstOrderTotalVariation",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.first_order_total_variation",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.FirstOrderTotalVariation",
+        "uses": "CFDLean.Exec.burgers_nonuniformStepArray_totalVariation_le"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclEulerRunStable",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_euler_run_stable",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclEulerRunStable",
+        "uses": "CFDLean.Exec.run_nuLimiterEulerStepArray_stable"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK2RunStable",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk2_run_stable",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK2RunStable",
+        "uses": "CFDLean.Exec.run_nuLimiterSsprk2StepArray_stable"
+      },
+      {
+        "id": "FVNA-T",
+        "statement": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK3RunStable",
+        "theorem": "CFDLean.Verification.FV1DNonuniformArrayVerify.muscl_ssprk3_run_stable",
+        "type": "CFDLean.Verification.FV1DNonuniformArrayChallenge.MusclSSPRK3RunStable",
+        "uses": "CFDLean.Exec.run_nuLimiterSsprk3StepArray_stable"
+      }
+    ]
+  }
+}
