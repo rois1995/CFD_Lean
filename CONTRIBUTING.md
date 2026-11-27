@@ -38,7 +38,7 @@ Both branches still require pull requests and resolved review conversations, and
 ### Release tags
 
 Tag a verified release with an annotated `vMAJOR.MINOR.PATCH` tag on its exact `main` merge commit. Record that commit,
-the passing release PR and the catalog, specification and evidence paths in the release notes. Build `burgers1d` from
+the passing release PR and the catalog, specification and evidence paths in the release notes. Build `fv1d` from
 the tagged revision for the release executable. Scientific acceptance remains recorded in the milestone review records.
 
 ## Milestone workflow
@@ -124,6 +124,6 @@ Use this command for B0.
 lake comparator --paranoid --config Challenges/BurgersB0.comparator.json
 ```
 
-For a driver or kernel change, also build `burgers1d` and exercise the affected options. For a frozen Euler checkpoint,
+For a driver or kernel change, also build `fv1d` and exercise the affected options. For a frozen Euler checkpoint,
 follow its [replay instructions](references/Euler-Milestones.md). Whole-build `lake check --paranoid` is reserved for an
 explicit request, as the external checkers can require substantial RAM and time.

@@ -127,7 +127,7 @@ median-dual M1–M6 milestones retain their own geometry and scope.
 3. [x] **Implement the four frozen claims and three-cell control.** [Independent review](../reviews/FV1D/Acceptance.md) accepted all four claims. [Contract](../specifications/FV1D.md) · [Proof map](../references/FV1D.md)
 4. [x] **Select one physical model per run.** The [native driver](../CFDLean/Exec/README.md#model-selecting-driver)
    runs Burgers with SSPRK3 or Euler with first-order Forward Euler. CI compares Burgers diagnostics and dumps with
-   `burgers1d` and checks Euler against the density-wave benchmark. The [external review](../reviews/FV1D/Driver_Acceptance.md) accepted the driver.
+   [recorded legacy output](../benchmarks/fv1d/burgers-uniform.txt) and checks Euler against the density-wave benchmark. The [external review](../reviews/FV1D/Driver_Acceptance.md) accepted the driver.
    Non-uniform Euler positivity, Euler MUSCL and native arithmetic certification have separate scope.
 5. **Extend dimension after the 1D comparison.** A periodic Euler density wave with constant pressure and velocity
    gives a first system benchmark with a known translated profile. Then exercise oriented face fluxes on a fixed 2D
@@ -168,12 +168,12 @@ Burgers stays the line where shared capabilities are built first; Euler follows 
    by Burgers and Euler; Burgers MUSCL with every limiter and SSPRK2/SSPRK3), with the FVN guarantees transferred to
    the arrays. The [independent implementation review](../reviews/FVNA/Acceptance.md) accepted FVNA.
    [Contract](../specifications/FV1D-nonuniform-array.md) · [Proof map](../references/FV1D-nonuniform-array.md)
-2. [x] **General driver** — `lake exe fv1d --model burgers|euler` with every current `burgers1d` capability (first
+2. [x] **General driver** — `lake exe fv1d --model burgers|euler` with every former `burgers1d` capability (first
    order, MUSCL with limiters, SSPRK3, diagnostics, dump) plus a non-uniform mesh option. CI checks that
    `fv1d --model burgers` reproduces the `burgers1d` output on the same input. [Driver acceptance](../reviews/FV1D/Driver_Acceptance.md)
-3. **Retire `burgers1d`** — in a separate amendment, update the E0 and E0b driver claims (and the FVA "preserve
-   `burgers1d`" sentence) so that `fv1d --model burgers` is the Burgers entry point; remove `burgers1d` or keep it as
-   a thin alias. Update the CI smoke test accordingly.
+3. [x] **Retire `burgers1d`** — the [driver amendment](../specifications/FV1D-driver-amendment.md) removes the
+   standalone target. CI runs `fv1d --model burgers` against the recorded legacy output. The external reviewer accepted
+   the amendment at `6fbbd2a`. [Retirement acceptance](../reviews/FV1D/Driver_Retirement_Acceptance.md)
 
 ## Priority 2 - E1 machine arithmetic strategy
 
@@ -181,7 +181,7 @@ The Burgers array kernels already use `Scalar α`, with `ScalarSign α` where a 
 refinement theorems cover the kernel interpreted over `ℝ`. The native driver selects Lean `Float` (binary64). E1 starts
 with a design proposal defining an arithmetic backend and its refinement contract. Backend implementations follow
 when the contract or a concrete use case justifies them. [Kernel](../CFDLean/Exec/Kernel.lean) ·
-[Limiter kernel](../CFDLean/Exec/LimiterKernel.lean) · [Driver](../Main.lean)
+[Limiter kernel](../CFDLean/Exec/LimiterKernel.lean) · [Driver](../FVMain.lean)
 
 | Capability | Scope for E1 |
 |---|---|

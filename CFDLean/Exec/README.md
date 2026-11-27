@@ -11,7 +11,7 @@
 The refinement proofs connect arrays using those instances to the periodic schemes and transfer the stated guarantees.
 The kernel is arithmetic-polymorphic through `Scalar α`. The native driver selects `Float` (binary64) and handles
 initialization, parsing and diagnostics. Its arithmetic and output are outside the exact-real proof boundary.
-[Driver](../../Main.lean) · [E1 backend contract](../../roadmap/NEXT.md#priority-2---e1-machine-arithmetic-strategy)
+[Driver](../../FVMain.lean) · [E1 backend contract](../../roadmap/NEXT.md#priority-2---e1-machine-arithmetic-strategy)
 
 FVNA reuses the first-order FVA kernel [FV1D](FV1D.lean) for Burgers and Euler. Its exact real controls are in
 [NonuniformControls](NonuniformControls.lean). [NonuniformKernelSmoke](NonuniformKernelSmoke.lean) runs the non-uniform
@@ -21,8 +21,8 @@ belong to E1).
 From the repository root, run the first-order scheme or select a MUSCL limiter.
 
 ```bash
-lake exe burgers1d 200 200 0.4
-lake exe burgers1d 200 600 0.12 --limiter vanleer
+lake exe fv1d --model burgers 200 200 0.4
+lake exe fv1d --model burgers 200 600 0.12 --limiter vanleer
 ```
 
 The positional arguments select cell count, steps and CFL number. Limiter names are `none`, `minmod`, `mc`, `superbee`,
@@ -38,9 +38,8 @@ lake exe fv1d --model euler 4 --dump
 lake exe fv1d --model euler 4 --widths .1,.2,.3,.4 --dump
 ```
 
-Burgers takes the same cell count, steps, CFL, reconstruction and dump options as `burgers1d`.
-The defaults are 200 cells, 200 SSPRK3 steps and CFL 0.4. Uniform runs reproduce its output,
-including the midpoint sinusoid, integral drift, extrema and periodic total variation.
+Burgers defaults to 200 cells, 200 SSPRK3 steps and CFL 0.4. Uniform runs sample the midpoint sinusoid
+and report integral drift, extrema and periodic total variation.
 
 Both models default to uniform spacing on the periodic unit interval. To supply a mesh, give
 `--widths` followed by a comma-separated list in increasing cell order from the left boundary.

@@ -81,10 +81,10 @@ jobs:
           path: .lake/build
           key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ github.sha }}
           restore-keys: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
-      - name: Check native FV1D drivers and periodic density wave
+      - name: Check the native FV1D driver and periodic density wave
         if: steps.docs.outputs.only != 'true'
         run: |
-          ~/.elan/bin/lake build --wfail burgers1d fv1d
+          ~/.elan/bin/lake build --wfail fv1d
           python3 scripts/test_fv1d.py -v
       - name: Build Burgers modules
         if: steps.docs.outputs.only != 'true'
@@ -112,14 +112,14 @@ jobs:
         with:
           path: .lake/build
           key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ github.sha }}
-      - name: Build and run the native Burgers executable (Float kernel, not verified arithmetic)
+      - name: Run the Burgers and shared-kernel smoke cases
         if: steps.docs.outputs.only != 'true'
         run: |
-          ./.lake/build/bin/burgers1d 200 200 0.4
+          ./.lake/build/bin/fv1d --model burgers 200 200 0.4
           ~/.elan/bin/lake env lean --run scripts/FV1DSmoke.lean
-          ./.lake/build/bin/burgers1d 200 200 0.12 --muscl
-          ./.lake/build/bin/burgers1d 200 200 0.12 --limiter vanleer
-          ./.lake/build/bin/burgers1d 200 200 0.15 --limiter minmod
+          ./.lake/build/bin/fv1d --model burgers 200 200 0.12 --muscl
+          ./.lake/build/bin/fv1d --model burgers 200 200 0.12 --limiter vanleer
+          ./.lake/build/bin/fv1d --model burgers 200 200 0.15 --limiter minmod
       - name: Audit axioms and unsafe dependency closure
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake env lean -DwarningAsError=true KernelAudit.lean

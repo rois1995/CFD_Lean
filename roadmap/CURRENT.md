@@ -77,7 +77,7 @@ is still open.
 
 ## Executable status
 
-`lake exe burgers1d` currently supports:
+`lake exe fv1d --model burgers` supports:
 
 - first-order Rusanov;
 - MUSCL + Rusanov, unlimited with `--muscl`, or with `--limiter none|minmod|mc|superbee|vanleer|vanalbada`;
@@ -86,8 +86,8 @@ is still open.
 - integral diagnostics;
 - optional final-state dump.
 
-The [model-selecting driver](../CFDLean/Exec/README.md#model-selecting-driver) runs Burgers with the same options
-and runs the first-order Euler density wave to time 1/8. Both models accept explicit cell widths. The external reviewer
+The [model-selecting driver](../CFDLean/Exec/README.md#model-selecting-driver) also runs the first-order Euler density wave
+to time 1/8. Both models accept explicit cell widths. The external reviewer
 accepted the implementation at `f297eea`. [Driver acceptance](../reviews/FV1D/Driver_Acceptance.md)
 
 Formal refinement currently connects the executable kernel instantiated over `Real` to the mathematical schemes.

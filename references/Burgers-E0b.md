@@ -11,9 +11,11 @@ instance and every B0--B4, E0, Euler M1--M5 source are unchanged.
 
 ## Run it
 
+The [driver amendment](../specifications/FV1D-driver-amendment.md) gives the current executable mapping.
+
 ```bash
-lake exe burgers1d 200 200 0.15 --limiter minmod     # MUSCL-minmod with SSPRK3
-lake exe burgers1d 200 200 0.4              # first order, as in E0
+lake exe fv1d --model burgers 200 200 0.15 --limiter minmod     # MUSCL-minmod with SSPRK3
+lake exe fv1d --model burgers 200 200 0.4              # first order, as in E0
 ```
 
 Since E0c the limiter is chosen with `--limiter NAME`, and `--muscl` alone is the unlimited scheme; at the time of E0b
@@ -27,7 +29,7 @@ for the first-order scheme, `cfl <= 1/6` for MUSCL. Exit codes: 0 normal, 1 bad 
 | --- | --- |
 | `CFDLean/Exec/MusclKernel.lean` | Comparison-free `min` and `minmod`, the MUSCL array kernel. Imports only the E0 kernel. |
 | `CFDLean/Exec/MusclRefinement.lean` | The kernel limiter is minmod; refinement theorems; transfer of the B3 results |
-| `Main.lean` | Driver: flag `--muscl` |
+| `FVMain.lean` | Burgers driver: `--limiter minmod` |
 | `CFDLean/Verification/BurgersE0bChallenge.lean` | Trusted E0b statements; imports Mathlib, the two kernels and the `ℝ` instance |
 | `CFDLean/Verification/BurgersE0bVerify.lean` | Bridge |
 | `Challenges/BurgersE0b.lean` | `lake comparator` challenge |

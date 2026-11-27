@@ -32,7 +32,7 @@ For inherited theorem types, see the [v4.36 port notes](evidence/port-types.md) 
   [median-dual Roe aggregation](CFDLean/Geometry/MedianDual/RoeAggregation.lean) consumes the selected Roe flux.
 - Keep execution dependencies out of the mathematical layers. The array kernels use `Scalar α` and run without
   Mathlib. The refinement modules relate the kernel interpreted over `ℝ` to the exact-real scheme. The native driver
-  selects `Float` and handles initialization and I/O. [Main.lean](Main.lean) ·
+  selects `Float` and handles initialization and I/O. [FVMain.lean](FVMain.lean) ·
   [Arithmetic backend boundary](roadmap/PRINCIPLES.md#18-arithmetic-precision-belongs-to-the-execution-backend)
 - Keep trusted statements separate from their bridge proofs. Burgers theorem-only challenges use Mathlib. Execution
   challenges also use the hash-pinned kernel and arithmetic inputs named in [the verifier](scripts/verify.py).

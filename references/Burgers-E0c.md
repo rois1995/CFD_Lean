@@ -11,10 +11,12 @@ and every mathematical source are unchanged.
 
 ## Run it
 
+The [driver amendment](../specifications/FV1D-driver-amendment.md) gives the current executable mapping.
+
 ```bash
-lake exe burgers1d 200 600 0.12 --muscl                 # MUSCL, no limiter (unlimited central slope)
-lake exe burgers1d 200 600 0.12 --limiter vanleer       # MUSCL with a limiter
-lake exe burgers1d 200 200 0.4                          # first-order scheme
+lake exe fv1d --model burgers 200 600 0.12 --muscl                 # MUSCL, no limiter (unlimited central slope)
+lake exe fv1d --model burgers 200 600 0.12 --limiter vanleer       # MUSCL with a limiter
+lake exe fv1d --model burgers 200 200 0.4                          # first-order scheme
 ```
 
 Limiter names: `none`, `minmod`, `mc`, `superbee`, `vanleer`, `vanalbada`. `--limiter NAME` implies MUSCL. `--muscl`
@@ -44,7 +46,7 @@ The sum is kept to rounding in every run. These are tests with `Float`, not proo
 | `CFDLean/Exec/LimiterKernel.lean` | Sign-test class `ScalarSign`, limiter type, kernel slopes, MUSCL array kernel with a limiter choice. Imports only the E0b kernel. |
 | `CFDLean/Exec/RealScalarSign.lean` | The `ℝ` instance of the sign test |
 | `CFDLean/Exec/LimiterRefinement.lean` | Kernel slopes are the B3b slope functions; refinement; transfer of the B3b results |
-| `Main.lean` | Driver: `--muscl` (unlimited), `--limiter NAME` |
+| `FVMain.lean` | Burgers driver: `--muscl` (unlimited), `--limiter NAME` |
 | `CFDLean/Verification/BurgersE0cChallenge.lean` | Trusted E0c statements; imports Mathlib and five trusted inputs |
 | `CFDLean/Verification/BurgersE0cVerify.lean` | Bridge |
 | `Challenges/BurgersE0c.lean` | `lake comparator` challenge |

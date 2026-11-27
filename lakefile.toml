@@ -29,11 +29,6 @@ name = "Challenges"
 [[lean_lib]]
 name = "Driver"
 
-# Burgers E0: native executable of the array kernel with the Float instance.
-[[lean_exe]]
-name = "burgers1d"
-root = "Main"
-
 [[lean_exe]]
 name = "fv1d"
 root = "FVMain"
