@@ -7,18 +7,19 @@ Status date: 2026-11-27.
 
 ## Next decision after the unified 1D driver
 
-**Recommended next task: draft the E1 binary64 contract for one uniform, first-order Burgers Forward Euler step.**
-The accepted 1D work gives us both the [array kernel](../CFDLean/Exec/Kernel.lean) and its
-[exact-real reference](../CFDLean/Exec/Refinement.lean). The driver already runs in binary64. Using one existing
-step lets us state exactly where rounding enters while keeping the flux, mesh and time update fixed.
+**Next implementation task after the uniform WENO draft is scalar WENO on a fixed non-uniform periodic mesh.**
+Then connect reconstruction to Burgers and Euler through the single `fv1d` executable. The
+[four implementation steps](#reconstruction-and-executable-work-after-pr-60) specify the dependencies and tests.
+The E1 binary64 proposal already has a [review candidate](https://github.com/rois1995/CFD_Lean/pull/51)
+for the existing first-order Burgers step. Its review can proceed independently.
 
 | Work | What must come first | Scheduling decision |
 |---|---|---|
-| E1 contract proposal | Identify the executable operation and its exact-real reference. Both are available. | Draft next. Specify how finite binary64 inputs represent real values, the hypotheses on the state, cell width and timestep, and a per-cell error bound or enclosure to prove. |
+| E1 contract proposal | Identify the executable operation and its exact-real reference. Both are available. | Review the proposed one-step per-cell budget and its finite-input assumptions. |
 | Binary64 certificate for that step | Review and freeze the contract, then prove the proposed bound under its hypotheses. | Implementation follows contract review. A certificate for a full SSPRK3 run would also need bounds for the stages and repeated steps. |
-| Exact-real oriented face fluxes on a fixed 2D mesh | The planned 1D density-wave comparison is complete. Choose a concrete mesh and face orientations for the 2D control. | This geometry task can run before, alongside or after E1. With one workstream, take the E1 proposal first. |
+| Exact-real oriented face fluxes on a fixed 2D mesh | The planned 1D density-wave comparison is complete. Choose a concrete mesh and face orientations for the 2D control. | The [two-triangle draft](https://github.com/rois1995/CFD_Lean/pull/58) can be reviewed independently of E1 and the 1D reconstruction work. |
 | 1D Euler MUSCL | Choose the system reconstruction and state the conditions that give admissible left and right face states. The current Euler driver uses first order. | A separate numerical milestone. E1 can cover the first-order kernel before this work. |
-| Shared 1D reconstruction interface | Choose a second family with a concrete stencil and reference face values. | The choice can be reviewed now. Extract the interface when adding that family alongside MUSCL. See [step 9](#step-9--a-second-1d-reconstruction-family). |
+| Shared 1D reconstruction interface | Two different families with concrete reference face values. | Review the MUSCL adapter and uniform WENO-JS5 implementation in [PR #60](https://github.com/rois1995/CFD_Lean/pull/60). |
 | Multidimensional reconstruction | Select a concrete mesh, its geometry, and a method that needs gradients or higher-order face values. | Schedule for higher-order fixed-mesh FV or viscous fluxes. A first-order oriented-face control can use cell values directly. |
 | Certified binary64 output on a 2D mesh | Establish the 2D numerical step and a machine-error result that covers its operations. | This claim needs both tracks. A 1D certificate alone covers only its stated step. |
 
@@ -300,10 +301,9 @@ Euler update and a multidimensional gradient reconstruction each require additio
 
 ## Step 9 — a second 1D reconstruction family
 
-**Next reconstruction decision.** Choose one scalar method on a uniform periodic mesh and specify how it obtains
-left and right face values from cell averages. Higher-order polynomial reconstruction and WENO are existing
-candidates. The choice can proceed alongside first-order E1, the Euler MUSCL face-admissibility work and the
-first-order 2D control. [Higher-order methods](FUTURE.md#9-higher-order-spatial-methods) ·
+**Decision for the uniform-grid draft.** WENO-JS5 supplies the second scalar reconstruction family and defines
+left and right face values from cell averages. This work can proceed alongside first-order E1, the Euler MUSCL
+face-admissibility work and the first-order 2D control. [Higher-order methods](FUTURE.md#9-higher-order-spatial-methods) ·
 [FVN layering decision](../references/FV1D-nonuniform.md#layering)
 
 For the selected method, supply a constant case and a nonconstant periodic case with independently computed face
@@ -319,3 +319,35 @@ admissibility and machine-error estimates belong to the methods and arithmetic f
 The implementation draft selects scalar Jiang–Shu WENO5 on a uniform periodic mesh. It uses a caller-supplied
 positive regularization parameter and tests both face owners against exact rational values.
 [WENO module](../CFDLean/Discrete/Periodic/Weno.lean) · [Shared interface](../CFDLean/Discrete/Periodic/Reconstruction.lean)
+
+## Reconstruction and executable work after PR #60
+
+The driver already accepts `--widths` for first-order Burgers, Burgers MUSCL and first-order Euler. PR #60
+supplies a uniform scalar WENO reference. The following steps extend coverage from that baseline.
+[Driver acceptance](../reviews/FV1D/Driver_Acceptance.md) · [Executable regressions](../scripts/test_fv1d.py)
+
+1. **Extend scalar WENO to non-uniform grids.** Reconstruct from cell averages over the actual cell intervals.
+   Derive the three candidate polynomials, ideal weights and smoothness indicators for each oriented face stencil.
+   State the width and regularization hypotheses needed for well-defined weights. Show reduction to the uniform
+   WENO-JS5 reference at equal widths, constant preservation and local quadratic exactness. Check both
+   traces against independently computed values at a periodic seam with unequal widths.
+2. **Route WENO through Burgers and `fv1d --model burgers`.** Feed reconstructed states to the existing Rusanov
+   flux at every SSPRK3 stage. The uniform route can start from #60. The explicit-width route depends on step 1.
+   Connect the arithmetic-polymorphic array kernel to the exact-real step, then compare native dumps and
+   width-weighted mass. Retain the frozen first-order and MUSCL transcript, limiter behavior and diagnostics.
+3. **Route MUSCL and WENO through Euler and `fv1d --model euler`.** Specify which Euler variables each method
+   reconstructs and how it supplies positive density and pressure at both sides of each Rusanov face. Start
+   MUSCL from the [Euler trace proposal](../specifications/FV1D-euler-traces-proposal.md). For WENO, specify
+   the system weights and admissibility fallback. Uniform Euler can proceed alongside step 2. Graded-grid
+   MUSCL needs its width-aware slopes and admissibility checks, and graded-grid WENO also needs step 1.
+   Replay the periodic density wave from [PR #32](https://github.com/rois1995/CFD_Lean/pull/32) and check
+   mass, momentum and energy. A positivity theorem for updated cell means remains a separate milestone.
+4. **Verify the executable on both mesh paths in GitHub CI.** For each model and each of first order, MUSCL
+   and WENO, invoke the public executable on an implicit uniform mesh, the same mesh supplied via `--widths`,
+   and a genuinely graded periodic mesh. Check uniform parity, face orientation at the seam, dumps and
+   width-weighted conservation against independent references. Exercise invalid widths at the driver boundary.
+   Add cases as each route lands. Completing the full matrix requires both model integrations.
+
+This is the requested scheduling order. Neither floating-point certification nor the fixed-mesh 2D control
+is a prerequisite for these four steps. Numerical regression tolerances and backend-specific error theorems
+are separate review claims.
