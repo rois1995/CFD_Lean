@@ -39,6 +39,7 @@ import CFDLean.Discrete.Periodic.NonuniformMuscl
 import CFDLean.Discrete.Periodic.MusclReconstruction
 import CFDLean.Discrete.Periodic.Weno
 import CFDLean.Discrete.Periodic.GradedWeno
+import CFDLean.Discrete.Periodic.WenoMoments
 import CFDLean.Discrete.Periodic.NonuniformMusclStability
 import CFDLean.Discrete.Periodic.NonuniformChecks
 
