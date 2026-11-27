@@ -81,6 +81,11 @@ jobs:
           path: .lake/build
           key: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ github.sha }}
           restore-keys: cfdlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
+      - name: Check native FV1D drivers and periodic density wave
+        if: steps.docs.outputs.only != 'true'
+        run: |
+          ~/.elan/bin/lake build --wfail burgers1d fv1d
+          python3 scripts/test_fv1d.py -v
       - name: Build Burgers modules
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.GridControls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls CFDLean.Schemes.Burgers.LimiterControls CFDLean.Entropy.Scalar.Controls CFDLean.Discrete.Periodic.NonuniformChecks CFDLean.Schemes.Burgers.NonuniformChecks CFDLean.Schemes.Burgers.NonuniformControls CFDLean.Schemes.Euler.NonuniformControls CFDLean.Exec.NonuniformControls CFDLean.Exec.NonuniformKernelSmoke
@@ -110,7 +115,6 @@ jobs:
       - name: Build and run the native Burgers executable (Float kernel, not verified arithmetic)
         if: steps.docs.outputs.only != 'true'
         run: |
-          ~/.elan/bin/lake build burgers1d
           ./.lake/build/bin/burgers1d 200 200 0.4
           ~/.elan/bin/lake env lean --run scripts/FV1DSmoke.lean
           ./.lake/build/bin/burgers1d 200 200 0.12 --muscl

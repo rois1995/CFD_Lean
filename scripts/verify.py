@@ -1137,7 +1137,7 @@ def main(record_raw_types=False):
             raise ValueError(f"Dependency revision or tracked source mismatch: {package['name']}")
     files = [ROOT / name for name in [".gitignore", "README.md", "lean-toolchain", "lakefile.toml",
                                      "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean",
-                                     "StatementChecks.lean", "Main.lean", RAW_TYPES]]
+                                     "StatementChecks.lean", "Main.lean", "Driver.lean", "FVMain.lean", RAW_TYPES]]
     for directory in ["CFDLean", "Challenges", "references", "specifications", "scripts"]:
         files.extend(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)
