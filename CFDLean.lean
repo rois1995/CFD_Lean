@@ -95,6 +95,7 @@ import CFDLean.Exec.NonuniformKernel
 import CFDLean.Exec.NonuniformKernelSmoke
 import CFDLean.Exec.NonuniformRefinement
 import CFDLean.Exec.NonuniformTransfer
+import CFDLean.Exec.WenoRefinement
 import CFDLean.Exec.NonuniformControls
 
 import CFDLean.Papers.JST1
