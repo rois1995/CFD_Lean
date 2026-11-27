@@ -17,7 +17,8 @@ the FVA refinement (`CFDLean.Exec.FV1D.samples`, `samples_entries`). `meshOf wid
 - FVNA-F: `burgers_nonuniform_refines`, `euler_nonuniform_refines`.
 - Alignment (face and width, seam included): `nuFace_alignment`, from `nextIdx_prevIdx` and `prevIdx_nextIdx`.
 - FVNA-M: `nuLimiterEulerStepArray_refines`, `nuLimiterSsprk2StepArray_refines`, `nuLimiterSsprk3StepArray_refines`.
-- FVNA-U: `nonuniformStepArray_uniform`, `nuLimiterEulerStepArray_uniform`, `nuLimiterSsprk2StepArray_uniform`,
+- FVNA-U: `nonuniformStepArray_uniform` (generic, supporting) with the concrete `burgers_nonuniformStepArray_uniform`
+  and `euler_nonuniformStepArray_uniform`, and `nuLimiterEulerStepArray_uniform`, `nuLimiterSsprk2StepArray_uniform`,
   `nuLimiterSsprk3StepArray_uniform`. On uniform widths both rescaling factors are `2 * dx / (dx + dx) = 1`; the
   proofs rewrite the slope arguments and never split on the limiter. -/
 noncomputable section
@@ -96,6 +97,8 @@ end Mesh
 
 /-! ### Stored fields -/
 
+namespace FV1D
+
 section Samples
 
 variable {S : Type}
@@ -116,6 +119,10 @@ theorem axpby_samples (a b : ℝ) (u v : ZMod n → ℝ) : axpby a (samples u) b
   simp only [axpby, Array.getElem_zipWith, samples_getElem, Pi.add_apply, Pi.smul_apply, smul_eq_mul]
 
 end Samples
+
+end FV1D
+
+open _root_.CFDLean.Exec.FV1D (samples_size samples_getElem axpby_samples)
 
 /-! ### First order (FVNA-F) -/
 
@@ -242,7 +249,10 @@ cell is `0`, and `n = 1`, where every neighbour is the cell itself):
    with the FVN spacing of face `j` (from `prevIdx_nextIdx`);
 2. the right state at face `j` is the FVN right state at face `j`;
 3. the right state at face `j - 1`, which the kernel reads at `nextIdx (prevIdx j)`, is the FVN right state at face
-   `prev j` (from `nextIdx_prevIdx`). -/
+   `prev j` (from `nextIdx_prevIdx`).
+
+The lemma states the alignment on its own, for review: the FVNA-M proofs use the per-face lemmas
+(`nuRightState_samples` with `natCast_prevIdx`) and do not cite it. -/
 theorem nuFace_alignment (j : Fin (samples u).size) :
     nuBackDiff widths (samples u) (nextIdx j) =
         ((meshOf widths hw hpos).width ((zmodGrid n).next (j.val : ZMod n)) /
@@ -321,6 +331,21 @@ theorem nonuniformStepArray_uniform {S : Type} (M : FV1D.Model ℝ S) (half : �
   have hjw : j < widths.size := by rw [hs]; simpa using hj
   simp only [FV1D.nonuniformStepArray, FV1D.stepArray, Array.getElem_ofFn]
   rw [widthAt_of_lt widths hjw, hw j hjw]
+
+/-- FVNA-U (first order, Burgers). If every width equals `dx > 0`, the first-order non-uniform kernel with the real
+Burgers model is the FVA `stepArray` with `dx`. -/
+theorem burgers_nonuniformStepArray_uniform (hdx : 0 < dx) (old : Array ℝ) (hs : widths.size = old.size)
+    (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    FV1D.nonuniformStepArray FV1D.burgers (1/2) dt widths old = FV1D.stepArray FV1D.burgers (1/2) dx dt old :=
+  nonuniformStepArray_uniform dx dt widths FV1D.burgers (1/2) hdx old hs hw
+
+/-- FVNA-U (first order, Euler). If every width equals `dx > 0`, the first-order non-uniform kernel with the real
+Euler model of `euler_nonuniform_refines` is the FVA `stepArray` with `dx`, for every `γ`. -/
+theorem euler_nonuniformStepArray_uniform (γ : ℝ) (hdx : 0 < dx) (old : Array (FV1D.EulerState ℝ))
+    (hs : widths.size = old.size) (hw : ∀ (i : ℕ) (hi : i < widths.size), widths[i] = dx) :
+    FV1D.nonuniformStepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dt widths old =
+      FV1D.stepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dx dt old :=
+  nonuniformStepArray_uniform dx dt widths _ (1/2) hdx old hs hw
 
 /-- FVNA-U (MUSCL, Forward Euler). If every width equals `dx > 0`, the non-uniform MUSCL kernel is the E0c
 `limiterEulerStepArray` with `dx`, for every limiter. -/
@@ -401,7 +426,7 @@ example (w : ℝ) (hw : 0 < w) (j : ZMod 1) :
 example (a b : ℝ) (u v : ZMod 1 → ℝ) :
     (samples u).size = 1 ∧ (samples u)[0]'(by simp) = u 0 ∧
       axpby a (samples u) b (samples v) = samples (a • u + b • v) :=
-  ⟨samples_size u, samples_getElem u 0 (by simp), axpby_samples a b u v⟩
+  ⟨FV1D.samples_size u, FV1D.samples_getElem u 0 (by simp), FV1D.axpby_samples a b u v⟩
 
 example (F : ℝ → ℝ) (a : ℝ → ℝ → ℝ) (dt w : ℝ) (hw : 0 < w) (u : ZMod 1 → ℝ) :
     FV1D.nonuniformStepArray ⟨(·+·), (·-·), (· • ·), F, a⟩ (1/2) dt #[w] (samples u) =
@@ -441,6 +466,13 @@ example (L : Limiter) (dt w : ℝ) (hw : 0 < w) (u : ZMod 1 → ℝ) :
 example {S : Type} (M : FV1D.Model ℝ S) (half dx dt : ℝ) (hdx : 0 < dx) (s : S) :
     FV1D.nonuniformStepArray M half dt #[dx] #[s] = FV1D.stepArray M half dx dt #[s] :=
   nonuniformStepArray_uniform dx dt #[dx] M half hdx #[s] rfl (one_cell_eq dx)
+
+example (dx dt a γ : ℝ) (hdx : 0 < dx) (s : FV1D.EulerState ℝ) :
+    FV1D.nonuniformStepArray FV1D.burgers (1/2) dt #[dx] #[a] = FV1D.stepArray FV1D.burgers (1/2) dx dt #[a] ∧
+      FV1D.nonuniformStepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dt #[dx] #[s] =
+        FV1D.stepArray (FV1D.euler 1 2 γ abs Real.sqrt max) (1/2) dx dt #[s] :=
+  ⟨burgers_nonuniformStepArray_uniform dx dt #[dx] hdx #[a] rfl (one_cell_eq dx),
+    euler_nonuniformStepArray_uniform dx dt #[dx] γ hdx #[s] rfl (one_cell_eq dx)⟩
 
 example (L : Limiter) (dx dt a : ℝ) (hdx : 0 < dx) :
     nuLimiterEulerStepArray L dt #[dx] #[a] = limiterEulerStepArray L dx dt #[a] ∧
