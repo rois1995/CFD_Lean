@@ -33,6 +33,9 @@ import CFDLean.Discrete.Periodic.TotalVariation
 import CFDLean.Discrete.Periodic.Convexity
 import CFDLean.Discrete.Periodic.Muscl
 import CFDLean.Discrete.Periodic.Limiters
+import CFDLean.Discrete.Periodic.Mesh1D
+import CFDLean.Discrete.Periodic.Nonuniform
+import CFDLean.Discrete.Periodic.NonuniformChecks
 
 import CFDLean.Entropy.PairFlux
 import CFDLean.Entropy.Production
