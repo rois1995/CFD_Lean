@@ -1,0 +1,21 @@
+{
+  "challenge_module": "Challenges.FV1DNonuniform",
+  "solution_module": "CFDLean.Verification.FV1DNonuniformVerify",
+  "theorem_names": [
+    "CFDLean.Verification.FV1DNonuniformVerify.first_order_bounds",
+    "CFDLean.Verification.FV1DNonuniformVerify.first_order_total_variation",
+    "CFDLean.Verification.FV1DNonuniformVerify.reconstruction_bounds",
+    "CFDLean.Verification.FV1DNonuniformVerify.muscl_bounds",
+    "CFDLean.Verification.FV1DNonuniformVerify.muscl_total_variation",
+    "CFDLean.Verification.FV1DNonuniformVerify.muscl_euler_multi_step",
+    "CFDLean.Verification.FV1DNonuniformVerify.muscl_ssprk2_multi_step",
+    "CFDLean.Verification.FV1DNonuniformVerify.muscl_ssprk3_multi_step",
+    "CFDLean.Verification.FV1DNonuniformVerify.mesh_ratio_overshoot"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

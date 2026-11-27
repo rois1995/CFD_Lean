@@ -8,6 +8,7 @@ import CFDLean.Verification.BurgersB4Verify
 import CFDLean.Verification.BurgersE0Verify
 import CFDLean.Verification.BurgersE0bVerify
 import CFDLean.Verification.BurgersE0cVerify
+import CFDLean.Verification.FV1DNonuniformVerify
 import CFDLean.Verification.JST1Verify
 import Lean
 
