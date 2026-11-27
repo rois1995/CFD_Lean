@@ -1,0 +1,10 @@
+{
+  "contract": "specifications/FV1D-positivity.md",
+  "approval_record": "specifications/FV1D-positivity-approval.md",
+  "results": [
+    {
+      "id": "FVP-P",
+      "theorem": "CFDLean.Euler1D.step_admissible"
+    }
+  ]
+}
