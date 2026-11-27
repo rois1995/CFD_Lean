@@ -59,24 +59,29 @@ CATALOG_LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy fram
                   "Time", "Execution")
 CATALOG_METHODS = (["FEM"], ["FVM"], ["FEM", "FVM"], ["method-free"])
 # Burgers B0-B4, B3b, E0, E0b and E0c: implementation accepted at this revision (reviews/Burgers-Implementation).
+# Only these milestones take it (and reviews/Burgers-<m>/Acceptance.md) by default; see BURGERS.
 BURGERS_ACCEPTED_REVISION = "4c77f6e145f1f5d8cdd812a02dce2e7324d179c0"
+BURGERS_SERIES = ("B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c")
 CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "accepted", "M5": "pending",
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
-                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted"}
+                  "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
     ("FVA", "specifications/FV1D-array", "0485406650f1edd00d8757f43b156e7b659a4110"),
 ]
 
-# Burgers milestones (scalar finite-volume core). For each milestone, specifications/Burgers-<m>-results.json binds every
-# frozen result ID of specifications/Burgers-<m>.md (frozen at the commit `approved`, an ancestor of the implementation)
-# to its definitions and theorems,
-# each in its module. The trusted statement file imports only Mathlib and is hash-pinned here, as is the
-# `lake comparator` challenge that restates the bridge theorems; each bridge theorem has the recorded type, which is
-# its trusted statement, and uses a promised implementation theorem of its result ID. `count` is the number of promised
-# theorems, `bridges` the number of trusted bindings.
+# Burgers milestones (scalar finite-volume core). For each milestone, its results file `results` (for the Burgers series
+# specifications/Burgers-<m>-results.json) binds every frozen result ID of its contract (frozen at the commit
+# `approved`, an ancestor of the implementation) to its definitions and theorems, each in its module. The trusted
+# statement file imports only Mathlib and is hash-pinned here, as is the `lake comparator` challenge that restates the
+# bridge theorems; each bridge theorem has the recorded type, which is its trusted statement, and uses a promised
+# implementation theorem of its result ID. `count` is the number of promised theorems, `bridges` the number of trusted
+# bindings. `bridge` names the bridge module when it is not CFDLean.Verification.Burgers<m>Verify (the results file
+# must name the same module); `pending` marks a milestone whose independent acceptance is pending (its results file then
+# records "pending", and only then). An accepted milestone outside BURGERS_SERIES names its own `accepted_revision` and
+# `acceptance_record`; it never falls back to the Burgers-series acceptance.
 BURGERS = {
     "B0": {"results": "specifications/Burgers-B0-results.json",
            "approved": "9e4418d25b1a20d5df7e6c9b96b39ab367c58536",
@@ -178,6 +183,17 @@ BURGERS = {
                     "path": "CFDLean/Exec/RealScalarSign.lean",
                     "sha256": "d0959ddb8e4b4cda2b31b5cc1947ae3bbea5cfb7450ad8f0d12334497d43a6e2"}},
             "count": 19, "bridges": 8},
+    # FVN: FV1D on a non-uniform periodic 1D mesh. Its scalar claims have trusted statements, bridges and a comparator
+    # challenge, so it is checked as a Burgers milestone, with its own result map and bridge module (`bridge`).
+    # Independent implementation acceptance is pending (`pending`).
+    "FVN": {"results": "specifications/FV1D-nonuniform-results.json",
+            "approved": "3eb7cae92331f3107caa942aec4b797577e47d67",
+            "statements": "CFDLean/Verification/FV1DNonuniformChallenge.lean",
+            "statements_sha256": "15919e1b025ba49faba2f897d78f68ea903d062b8c97755209d467bf6f5f4057",
+            "challenge": "Challenges/FV1DNonuniform.lean",
+            "challenge_sha256": "280830599586c4c9dc69980375cd793fbc45f6b4d2715ae2f93c5e5d6ccf7a21",
+            "bridge": "CFDLean.Verification.FV1DNonuniformVerify", "pending": True,
+            "count": 17, "bridges": 9},
 }
 # MR-2: paper 1 (JST) folded from JST_Paper_Lean into CFDLean/Papers/JST1 (namespace CFDLean.JST1). The frozen statement
 # and definition files are hash-listed in specifications/JST1/frozen.sha256 (the list itself is pinned here); each of
@@ -198,7 +214,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "bcb8cfedd2d046a7a9f4480745f3e2eb8429f72bc37f148dae22b31a4bf9f787"
+RAW_TYPES_SHA256 = "531f8fb167690b1a2350dbf3fd396a0350b5dcae9f02ab344dee1a638b58f53b"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
@@ -537,14 +553,36 @@ def imported_modules(data):
     return re.findall(r"^[ \t]*(?:public[ \t]+)?import[ \t]+(\S+)", data.decode(), re.MULTILINE)
 
 
+def burgers_bridge(milestone, pins=None):
+    """The bridge module of a milestone of BURGERS (or of the given pins)."""
+    pins = BURGERS[milestone] if pins is None else pins
+    return pins.get("bridge", f"CFDLean.Verification.Burgers{milestone}Verify")
+
+
+def burgers_acceptance(milestone):
+    """(independent acceptance, acceptance record) of a milestone of BURGERS, for the evidence record. A milestone
+    with its own `accepted_revision` and `acceptance_record` uses them; only BURGERS_SERIES has the series default."""
+    pins = BURGERS[milestone]
+    if pins.get("pending"):
+        return "pending", None
+    if "accepted_revision" in pins or "acceptance_record" in pins:
+        return "accepted at " + pins["accepted_revision"], pins["acceptance_record"]
+    if milestone not in BURGERS_SERIES:
+        raise ValueError(f"{milestone} is neither pending nor has its own acceptance record")
+    return "accepted at " + BURGERS_ACCEPTED_REVISION, f"reviews/Burgers-{milestone}/Acceptance.md"
+
+
 def check_burgers(milestone, rows, record, contract_text, read=read_source, pins=None):
     """One Burgers milestone: the result map covers exactly the frozen IDs; each bound definition and theorem is in its
-    module, each theorem is a root theorem with standard axioms; the trusted statements and the comparator challenge
-    are the pinned files and import only Mathlib and the hash-pinned `trusted_inputs` of the milestone (the code under
-    verification, if any); each bridge theorem states its trusted statement and uses a promised theorem of its
-    result ID."""
+    module, each theorem is a root theorem with standard axioms; the results file records "pending" acceptance exactly
+    when the pins say `pending`; the trusted statements and the comparator challenge are the pinned files and import
+    only Mathlib and the hash-pinned `trusted_inputs` of the milestone (the code under verification, if any); the
+    bridge module is the pinned one, and each bridge theorem states its trusted statement and uses a promised theorem
+    of its result ID."""
     pins = BURGERS[milestone] if pins is None else pins
     check_result_ids(record, contract_text, milestone)
+    if (record["independent_acceptance"] == "pending") != bool(pins.get("pending")):
+        raise ValueError(f"{milestone} results file and pins disagree on pending acceptance")
     modules = record["modules"]
 
     def theorem(name, module):
@@ -576,6 +614,8 @@ def check_burgers(milestone, rows, record, contract_text, read=read_source, pins
     if len(promised) != pins["count"]:
         raise ValueError(f"{milestone} promised theorems differ from the frozen scope")
     trusted = record["trusted"]
+    if trusted["bridge_module"] != burgers_bridge(milestone, pins):
+        raise ValueError(f"{milestone} bridge module differs from the pinned bridge")
     if (trusted["statements"] != pins["statements"] or trusted["statements_sha256"] != pins["statements_sha256"]
             or trusted["comparator_challenge"] != pins["challenge"]
             or trusted["comparator_challenge_sha256"] != pins["challenge_sha256"]):
@@ -942,7 +982,7 @@ def main(record_raw_types=False):
     with (evidence / "build.log").open("w") as log:
         subprocess.run(["lake", "build"], env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
         # The trusted-statement bridges are not in the `CFDLean` umbrella; KernelAudit.lean imports them.
-        bridges = [f"CFDLean.Verification.Burgers{m}Verify" for m in BURGERS] + [JST1_SOLUTION]
+        bridges = [burgers_bridge(m) for m in BURGERS] + [JST1_SOLUTION]
         subprocess.run(["lake", "build"] + bridges, env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
     result = subprocess.run(["lake", "env", "lean", "-DwarningAsError=true", "KernelAudit.lean"],
                             env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -1107,8 +1147,8 @@ def main(record_raw_types=False):
         "burgers": {milestone: {
             "results": BURGERS[milestone]["results"], "approved_revision": BURGERS[milestone]["approved"],
             "promised_theorems": burgers_promised[milestone], "trusted_bridge_theorems": burgers_bridges[milestone],
-            "independent_acceptance": "accepted at " + BURGERS_ACCEPTED_REVISION,
-            "acceptance_record": f"reviews/Burgers-{milestone}/Acceptance.md"} for milestone in BURGERS},
+            "independent_acceptance": burgers_acceptance(milestone)[0],
+            "acceptance_record": burgers_acceptance(milestone)[1]} for milestone in BURGERS},
         "mr_paths": MR_PATHS, "mr_base_revision": MR_BASE_REVISION, "mr_mapped_files": mr_files,
         "jst1_results": [path for path, _ in JST1_RESULTS], "jst1_promised_theorems": jst1_promised,
         "jst1_delegated_to_core": jst1_delegated, "jst1_frozen": JST1_FROZEN, "jst1_frozen_files": jst1_frozen,
