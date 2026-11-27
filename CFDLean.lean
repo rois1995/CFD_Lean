@@ -82,6 +82,7 @@ import CFDLean.Time.SSP
 import CFDLean.Exec.E1.Binary64
 import CFDLean.Exec.E1.ExactStep
 import CFDLean.Exec.E1.Budget
+import CFDLean.Exec.EulerTraces
 import CFDLean.Exec.Kernel
 import CFDLean.Exec.RealScalar
 import CFDLean.Exec.Refinement

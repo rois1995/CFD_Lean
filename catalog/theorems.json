@@ -7765,6 +7765,58 @@
       ],
       "summary": "Every present real-step output is within the supplied absolute budget of the decoded observed cell.",
       "source": "specifications/E1-results.json; frozen E1 obligation 3"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.face_admissible",
+      "id": "FVT-A",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Every oriented face receives two admissible selected traces when all means are admissible.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.pair_sum",
+      "id": "FVT-M",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The selected pair sums componentwise to twice its parent mean.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.retain_raw",
+      "id": "FVT-R",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "An admissible raw pair is retained exactly.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.EulerTraces.face_constant",
+      "id": "FVT-K",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Every face reconstructs the constant pair for a limiter that vanishes at zero.",
+      "source": "specifications/FV1D-euler-traces-results.json"
     }
   ]
 }
