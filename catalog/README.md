@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-591 promised theorems, grouped by layer.
+593 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -68,14 +68,14 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
-| Execution | 75 | 0 | 75 | 0 | 0 |
-| **Total** | 591 | 17 | 374 | 30 | 170 |
+| Execution | 77 | 0 | 76 | 0 | 1 |
+| **Total** | 593 | 17 | 375 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 404 |
-| method-free | 170 |
+| FVM | 405 |
+| method-free | 171 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -100,6 +100,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVA | accepted | 2 |
 | FVN | pending | 17 |
 | FVNA | accepted | 20 |
+| E1 | pending | 2 |
 
 ## Foundations (12)
 
@@ -652,7 +653,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 
-## Execution (75)
+## Execution (77)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -731,3 +732,5 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.run_nuLimiterEulerStepArray_stable` | FVNA-T | FVM | accepted | For a limiter other than none with mesh ratio L.theta, 0 ≤ dt, entries in [m, M] and 8 · dt · max(\|m\|, \|M\|) ≤ w[i], any number of non-uniform MUSCL Forward Euler kernel steps keep [m, M] and do not increase the total variation. |
 | `CFDLean.Exec.run_nuLimiterSsprk2StepArray_stable` | FVNA-T | FVM | accepted | The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK2 kernel steps. |
 | `CFDLean.Exec.run_nuLimiterSsprk3StepArray_stable` | FVNA-T | FVM | accepted | The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK3 kernel steps. |
+| `CFDLean.Exec.E1.value_isSome` | E1-1 | method-free | pending | Decoder succeeds exactly on finite binary64 values. |
+| `CFDLean.Exec.E1.cast_step` | E1-2 | FVM | pending | Casting the rational Burgers update to reals agrees with the entire exact-real array step. |
