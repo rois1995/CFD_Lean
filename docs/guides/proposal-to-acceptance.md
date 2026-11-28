@@ -1,0 +1,7 @@
+# Take a proposal to acceptance
+
+1. Choose the layer and reuse the interfaces in the [building-block guide](../concepts/overview.md). Write a bounded scientific proposal with equations, representation assumptions, expected results and failure cases. Obtain the independent scientific decision and record the frozen specification as described in the [milestone workflow](../../CONTRIBUTING.md#milestone-workflow).
+2. Implement the promised exact-real statements and proofs. Bind each claim in the result map, record proof and comparator links and preserve previously accepted statements. Add executable representation and exact-real refinement only within the frozen scope.
+3. Add exact controls, counterexamples and independent replay for the scope. Keep native assumptions and benchmarks legible in the evidence. Compare the [FVNA contract](../../specifications/FV1D-nonuniform-array.md), [proof map](../../references/FV1D-nonuniform-array.md), [result map](../../specifications/FV1D-nonuniform-array-results.json) and [acceptance](../../reviews/FVNA/Acceptance.md).
+4. Update the theorem catalog and capability evidence. Use proposal or implemented status while applicable review is pending, then cite the checked-in acceptance record when the required evidence is accepted.
+5. Run the [local validation commands](../getting-started.md), record exact SHAs and outputs, and request independent implementation review on the actual candidate.

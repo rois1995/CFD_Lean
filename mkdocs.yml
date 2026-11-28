@@ -1,0 +1,57 @@
+site_name: CFD_Lean
+site_description: Finite-volume methods, formal verification and executable refinement in Lean.
+extra:
+  repository_url: https://github.com/rois1995/CFD_Lean
+theme:
+  name: material
+  font: false
+  palette:
+    scheme: default
+    primary: teal
+  features:
+    - navigation.sections
+    - content.code.copy
+plugins:
+  - search
+hooks:
+  - scripts/docs_site.py
+exclude_docs: |
+  /superpowers/
+extra_css:
+  - assets/graph-viewer/viewer.css
+extra_javascript:
+  - assets/graph-viewer/viewer.js
+  - assets/mermaid.js
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: cfd-mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Capabilities: CAPABILITIES.md
+  - Architecture graph: ARCHITECTURE-GRAPH.md
+  - Interactive graphs: graphs.md
+  - Concepts:
+      - Building blocks: concepts/overview.md
+      - Trust chain: concepts/trust-chain.md
+      - Concept-to-code map: CONCEPTS.md
+  - Contributor guides:
+      - Physics model: guides/physics-model.md
+      - Numerical flux: guides/numerical-flux.md
+      - Reconstruction: guides/reconstruction.md
+      - Geometry: guides/geometry.md
+      - Time integrator: guides/time-integrator.md
+      - Executable kernel: guides/executable-kernel.md
+      - Proof certificate: guides/proof-certificate.md
+      - Proposal to acceptance: guides/proposal-to-acceptance.md
+      - Lean performance: LEAN_PERFORMANCE.md
