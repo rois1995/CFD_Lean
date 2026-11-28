@@ -9,6 +9,7 @@ Full-update positivity needs a separate numerical result.
 | Result | Declaration | Claim |
 |---|---|---|
 | FVT-A | `face_admissible` | Every oriented face receives two admissible selected traces when all means are admissible. |
+| FVT-A | `face_admissible_m1` | Both real face states satisfy M1 conservative-state admissibility. |
 | FVT-M | `pair_sum` | The selected pair sums componentwise to twice its parent mean. |
 | FVT-R | `retain_raw` | An admissible raw pair is retained exactly. |
 | FVT-K | `face_constant` | Every face reconstructs the constant pair for a limiter that vanishes at zero. |
