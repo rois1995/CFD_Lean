@@ -232,6 +232,7 @@
     "CFDLean.Exec.E1.Binary64",
     "CFDLean.Exec.E1.Budget",
     "CFDLean.Exec.E1.ExactStep",
+    "CFDLean.Exec.EulerTraces",
     "CFDLean.Exec.FV1D",
     "CFDLean.Exec.FV1DControls",
     "CFDLean.Exec.FV1DRefinement",
@@ -414,14 +415,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 5858,
+    "roots": 5886,
     "unsafe_reached": [],
-    "visited": 65502
+    "visited": 65531
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "6358981ed508852f58013ae43600280157b1229a17408d74d805e2f548da29d8"
+      "sha256": "b2a2ba5972738647fbc5957df6b61d09d358e115728195993f9ee0810db2bbb5"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -522,6 +523,10 @@
     "CFDLean.Exec.E1.ExactStep": {
       "path": "CFDLean/Exec/E1/ExactStep.lean",
       "sha256": "6ed302bb09ef4d901bef77466ae82d53c8fd68cb931e4b2cb4a0c1d9ee673567"
+    },
+    "CFDLean.Exec.EulerTraces": {
+      "path": "CFDLean/Exec/EulerTraces.lean",
+      "sha256": "e60440dee83736eb68cdddc1ad37c976134be49a8c856208fd87b384c0acee87"
     },
     "CFDLean.Exec.FV1D": {
       "path": "CFDLean/Exec/FV1D.lean",
@@ -15904,6 +15909,702 @@
       "type": "\u211d \u2192 \u211d \u2192 Array \u211d \u2192 Prop",
       "unsafe": false
     },
+    "CFDLean.Exec.EulerTraces.admissible": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.admissible._proof_1",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Exec.FV1D.pressure"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.admissible",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [Field \u03b1] \u2192 [LinearOrder \u03b1] \u2192 \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 Prop",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.admissible._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.admissible._proof_1",
+      "raw_type": "NeZero (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))",
+      "root": true,
+      "type": "NeZero (2 + 1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.admissible._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.admissible._proof_2",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.admissible.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.admissible._proof_1",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Exec.FV1D.pressure"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.admissible.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (CFDLean.Exec.EulerTraces.admissible \u03b3 u)\n    (And (LT.lt (OfNat.ofNat 0) (u \u27e80, Fin.instOfNat\u27e9))\n      (LT.lt (OfNat.ofNat 0) (CFDLean.Exec.FV1D.pressure (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 u)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  CFDLean.Exec.EulerTraces.admissible \u03b3 u = (0 < u 0 \u2227 0 < CFDLean.Exec.FV1D.pressure 1 2 \u03b3 u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.admissible_iff_m1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Conservative.energy",
+        "CFDLean.Exec.EulerTraces.admissible._proof_1",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Exec.FV1D.pressure._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.admissible_iff_m1",
+      "raw_type": "\u2200 (\u03b3 : Real) (u : CFDLean.Exec.FV1D.EulerState Real),\n  Iff (CFDLean.Exec.EulerTraces.admissible \u03b3 u)\n    (CFDLean.Conservative.Admissible \u03b3\n      { density := u \u27e80, Fin.instOfNat\u27e9, momentum := fun x => u \u27e81, Fin.instOfNat\u27e9, energy := u \u27e82, Fin.instOfNat\u27e9 })",
+      "root": true,
+      "type": "\u2200 (\u03b3 : \u211d) (u : CFDLean.Exec.FV1D.EulerState \u211d),\n  CFDLean.Exec.EulerTraces.admissible \u03b3 u \u2194\n    CFDLean.Conservative.Admissible \u03b3 { density := u 0, momentum := fun x => u 1, energy := u 2 }",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.admissible_pair": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.admissible_pair",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] {\u03b3 : \u03b1} {u : CFDLean.Exec.FV1D.EulerState \u03b1},\n  CFDLean.Exec.EulerTraces.admissible \u03b3 u \u2192\n    \u2200 (s : CFDLean.Exec.FV1D.EulerState \u03b1),\n      And (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.select \u03b3 u s).1)\n        (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.select \u03b3 u s).2)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] {\u03b3 : \u03b1} {u : CFDLean.Exec.FV1D.EulerState \u03b1},\n  CFDLean.Exec.EulerTraces.admissible \u03b3 u \u2192\n    \u2200 (s : CFDLean.Exec.FV1D.EulerState \u03b1),\n      CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.select \u03b3 u s).1 \u2227\n        CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.select \u03b3 u s).2",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_5",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_4",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.slope",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_6",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [Field \u03b1] \u2192\n    [LinearOrder \u03b1] \u2192\n      (\u03b1 \u2192 \u03b1 \u2192 \u03b1) \u2192\n        \u03b1 \u2192\n          (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) \u2192\n            Fin u.size \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u00d7 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._proof_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._proof_1",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), Not (LT.lt j.val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u00ac\u2191j < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._proof_2": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._proof_2",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size),\n  Not (LT.lt (CFDLean.Exec.prevIdx j).val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u00ac\u2191(CFDLean.Exec.prevIdx j) < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._proof_3": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._proof_3",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size),\n  Not (LT.lt (CFDLean.Exec.nextIdx j).val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u00ac\u2191(CFDLean.Exec.nextIdx j) < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._proof_4": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.faceStates._proof_1",
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._proof_4",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), LT.lt j.val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u2191j < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._proof_5": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.faceStates._proof_2",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._proof_5",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), LT.lt (CFDLean.Exec.prevIdx j).val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u2191(CFDLean.Exec.prevIdx j) < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._proof_6": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._proof_6",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), LT.lt (CFDLean.Exec.nextIdx j).val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u2191(CFDLean.Exec.nextIdx j) < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.faceStates._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.faceStates.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_5",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_4",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.slope",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_6",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.EulerTraces.faceStates"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.faceStates.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) (\u03b3 : \u03b1)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size),\n  Eq (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i)\n    (Prod.mk\n      ((fun j =>\n            CFDLean.Exec.EulerTraces.select \u03b3 (getElem u j \u22ef)\n              (CFDLean.Exec.EulerTraces.slope lim (getElem u (CFDLean.Exec.prevIdx j) \u22ef) (getElem u j \u22ef)\n                (getElem u (CFDLean.Exec.nextIdx j) \u22ef)))\n          i).2\n      ((fun j =>\n            CFDLean.Exec.EulerTraces.select \u03b3 (getElem u j \u22ef)\n              (CFDLean.Exec.EulerTraces.slope lim (getElem u (CFDLean.Exec.prevIdx j) \u22ef) (getElem u j \u22ef)\n                (getElem u (CFDLean.Exec.nextIdx j) \u22ef)))\n          (CFDLean.Exec.nextIdx i)).1)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) (\u03b3 : \u03b1)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size),\n  CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i =\n    (((fun j =>\n            CFDLean.Exec.EulerTraces.select \u03b3 u[j]\n              (CFDLean.Exec.EulerTraces.slope lim u[CFDLean.Exec.prevIdx j] u[j] u[CFDLean.Exec.nextIdx j]))\n          i).2,\n      ((fun j =>\n            CFDLean.Exec.EulerTraces.select \u03b3 u[j]\n              (CFDLean.Exec.EulerTraces.slope lim u[CFDLean.Exec.prevIdx j] u[j] u[CFDLean.Exec.nextIdx j]))\n          (CFDLean.Exec.nextIdx i)).1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.face_admissible": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_1",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_5",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_4",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.slope",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_6",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.EulerTraces.faceStates",
+        "CFDLean.Exec.EulerTraces.admissible_pair"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.face_admissible",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) {\u03b3 : \u03b1}\n  {u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)},\n  (\u2200 (i : Fin u.size), CFDLean.Exec.EulerTraces.admissible \u03b3 (getElem u i \u22ef)) \u2192\n    \u2200 (i : Fin u.size),\n      And (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).1)\n        (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).2)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) {\u03b3 : \u03b1}\n  {u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)},\n  (\u2200 (i : Fin u.size), CFDLean.Exec.EulerTraces.admissible \u03b3 u[i]) \u2192\n    \u2200 (i : Fin u.size),\n      CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).1 \u2227\n        CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).2",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.face_admissible_m1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.faceStates._proof_1",
+        "CFDLean.Exec.EulerTraces.face_admissible",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Exec.EulerTraces.admissible_iff_m1",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Euler1D.decode",
+        "CFDLean.Exec.EulerTraces.faceStates",
+        "CFDLean.Exec.EulerTraces.face_admissible_m1._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.face_admissible_m1",
+      "raw_type": "\u2200 (lim : Real \u2192 Real \u2192 Real) {\u03b3 : Real} {u : Array (CFDLean.Exec.FV1D.EulerState Real)},\n  (\u2200 (j : Fin u.size), CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode (getElem u j \u22ef))) \u2192\n    \u2200 (i : Fin u.size),\n      And (CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).1))\n        (CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).2))",
+      "root": true,
+      "type": "\u2200 (lim : \u211d \u2192 \u211d \u2192 \u211d) {\u03b3 : \u211d} {u : Array (CFDLean.Exec.FV1D.EulerState \u211d)},\n  (\u2200 (j : Fin u.size), CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode u[j])) \u2192\n    \u2200 (i : Fin u.size),\n      CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).1) \u2227\n        CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i).2)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.face_admissible_m1._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.face_admissible_m1._proof_1",
+      "raw_type": "\u2200 {u : Array (CFDLean.Exec.FV1D.EulerState Real)} (j : Fin u.size), Not (LT.lt j.val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {u : Array (CFDLean.Exec.FV1D.EulerState \u211d)} (j : Fin u.size), \u00ac\u2191j < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.face_constant": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_1",
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_5",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_4",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.slope",
+        "CFDLean.Exec.EulerTraces.faceStates._proof_6",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Exec.EulerTraces.faceStates",
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.face_constant",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1),\n  Eq (lim (OfNat.ofNat 0) (OfNat.ofNat 0)) (OfNat.ofNat 0) \u2192\n    \u2200 (\u03b3 : \u03b1) (c : CFDLean.Exec.FV1D.EulerState \u03b1) (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)),\n      (\u2200 (j : Fin u.size), Eq (getElem u j \u22ef) c) \u2192\n        \u2200 (i : Fin u.size), Eq (CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i) (Prod.mk c c)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1),\n  lim 0 0 = 0 \u2192\n    \u2200 (\u03b3 : \u03b1) (c : CFDLean.Exec.FV1D.EulerState \u03b1) (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)),\n      (\u2200 (j : Fin u.size), u[j] = c) \u2192 \u2200 (i : Fin u.size), CFDLean.Exec.EulerTraces.faceStates lim \u03b3 u i = (c, c)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.instDecidableAdmissible": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible._proof_1",
+        "CFDLean.Exec.EulerTraces.admissible._proof_1",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Exec.FV1D.pressure"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.instDecidableAdmissible",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [inst : Field \u03b1] \u2192\n    [inst_1 : LinearOrder \u03b1] \u2192\n      (\u03b3 : \u03b1) \u2192 (u : CFDLean.Exec.FV1D.EulerState \u03b1) \u2192 Decidable (CFDLean.Exec.EulerTraces.admissible \u03b3 u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.instDecidableAdmissible._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.instDecidableAdmissible._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.instDecidableAdmissible._proof_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.admissible._proof_1",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Exec.FV1D.pressure"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.instDecidableAdmissible._proof_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  ((decide (LT.lt (OfNat.ofNat 0) (u \u27e80, Fin.instOfNat\u27e9))).and\n        (decide (LT.lt (OfNat.ofNat 0) (CFDLean.Exec.FV1D.pressure (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 u)))).Reflects\n    (CFDLean.Exec.EulerTraces.admissible \u03b3 u)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  (decide (0 < u 0) && decide (0 < CFDLean.Exec.FV1D.pressure 1 2 \u03b3 u)).Reflects\n    (CFDLean.Exec.EulerTraces.admissible \u03b3 u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.instDecidableAdmissible._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.instDecidableAdmissible._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.instDecidableAdmissible._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.instDecidableAdmissible._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.pair_sum": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2",
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.pair_sum",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u s : CFDLean.Exec.FV1D.EulerState \u03b1)\n  (k : Fin (OfNat.ofNat 3)),\n  Eq (HAdd.hAdd ((CFDLean.Exec.EulerTraces.select \u03b3 u s).1 k) ((CFDLean.Exec.EulerTraces.select \u03b3 u s).2 k))\n    (HMul.hMul (OfNat.ofNat 2) (u k))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u s : CFDLean.Exec.FV1D.EulerState \u03b1) (k : Fin 3),\n  (CFDLean.Exec.EulerTraces.select \u03b3 u s).1 k + (CFDLean.Exec.EulerTraces.select \u03b3 u s).2 k = 2 * u k",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.raw": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.raw",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [Field \u03b1] \u2192\n    CFDLean.Exec.FV1D.EulerState \u03b1 \u2192\n      CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u00d7 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.raw._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.raw._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.raw._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.raw._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.raw._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.raw._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.raw.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.raw.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] (u s : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (CFDLean.Exec.EulerTraces.raw u s)\n    (Prod.mk (fun k => HSub.hSub (u k) (HDiv.hDiv (s k) (OfNat.ofNat 2))) fun k =>\n      HAdd.hAdd (u k) (HDiv.hDiv (s k) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] (u s : CFDLean.Exec.FV1D.EulerState \u03b1),\n  CFDLean.Exec.EulerTraces.raw u s = (fun k => u k - s k / 2, fun k => u k + s k / 2)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.retain_raw": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.retain_raw",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] {\u03b3 : \u03b1} {u s : CFDLean.Exec.FV1D.EulerState \u03b1},\n  And (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).1)\n      (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).2) \u2192\n    Eq (CFDLean.Exec.EulerTraces.select \u03b3 u s) (CFDLean.Exec.EulerTraces.raw u s)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] {\u03b3 : \u03b1} {u s : CFDLean.Exec.FV1D.EulerState \u03b1},\n  CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).1 \u2227\n      CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).2 \u2192\n    CFDLean.Exec.EulerTraces.select \u03b3 u s = CFDLean.Exec.EulerTraces.raw u s",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.select": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.select",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [Field \u03b1] \u2192\n    [LinearOrder \u03b1] \u2192\n      \u03b1 \u2192\n        CFDLean.Exec.FV1D.EulerState \u03b1 \u2192\n          CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u00d7 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.select._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.select._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.select.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.EulerTraces.raw",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.admissible",
+        "CFDLean.Exec.EulerTraces.select",
+        "CFDLean.Exec.EulerTraces.instDecidableAdmissible"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.select.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u s : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (CFDLean.Exec.EulerTraces.select \u03b3 u s)\n    (ite\n      (And (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).1)\n        (CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).2))\n      (CFDLean.Exec.EulerTraces.raw u s) (Prod.mk u u))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] [inst_1 : LinearOrder \u03b1] (\u03b3 : \u03b1) (u s : CFDLean.Exec.FV1D.EulerState \u03b1),\n  CFDLean.Exec.EulerTraces.select \u03b3 u s =\n    if\n        CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).1 \u2227\n          CFDLean.Exec.EulerTraces.admissible \u03b3 (CFDLean.Exec.EulerTraces.raw u s).2 then\n      CFDLean.Exec.EulerTraces.raw u s\n    else (u, u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.slope": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.slope",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [Field \u03b1] \u2192\n    (\u03b1 \u2192 \u03b1 \u2192 \u03b1) \u2192\n      CFDLean.Exec.FV1D.EulerState \u03b1 \u2192\n        CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.EulerTraces.slope._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.slope._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.EulerTraces.slope.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.EulerTraces.slope"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerTraces",
+      "name": "CFDLean.Exec.EulerTraces.slope.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) (a u b : CFDLean.Exec.FV1D.EulerState \u03b1) (k : Fin (OfNat.ofNat 3)),\n  Eq (CFDLean.Exec.EulerTraces.slope lim a u b k) (lim (HSub.hSub (u k) (a k)) (HSub.hSub (b k) (u k)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) (a u b : CFDLean.Exec.FV1D.EulerState \u03b1) (k : Fin 3),\n  CFDLean.Exec.EulerTraces.slope lim a u b k = lim (u k - a k) (b k - u k)",
+      "unsafe": false
+    },
     "CFDLean.Exec.FV1D.EulerState": {
       "axioms": [],
       "direct": [],
@@ -16961,7 +17662,7 @@
         "CFDLean.Exec.FV1D.pressure._proof_1"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Exec.FV1DRefinement",
+      "module": "CFDLean.Exec.EulerTraces",
       "name": "CFDLean.Exec.FV1D.pressure.eq_1",
       "raw_type": "\u2200 {\u03b1 : Type} [inst : Sub \u03b1] [inst_1 : Mul \u03b1] [inst_2 : Div \u03b1] (one two \u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (CFDLean.Exec.FV1D.pressure one two \u03b3 u)\n    (HMul.hMul (HSub.hSub \u03b3 one)\n      (HSub.hSub (u \u27e82, Fin.instOfNat\u27e9)\n        (HDiv.hDiv (HMul.hMul (u \u27e81, Fin.instOfNat\u27e9) (u \u27e81, Fin.instOfNat\u27e9)) (HMul.hMul two (u \u27e80, Fin.instOfNat\u27e9)))))",
       "root": true,
@@ -151780,7 +152481,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 595,
+  "catalog_entries": 600,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -152384,5 +153085,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 595
+  "raw_types_checked": 600
 }
