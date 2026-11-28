@@ -31,13 +31,14 @@ flowchart TD
     n_29["✅ Median-dual Euler/Roe residual and boundaries"]
     n_30["🟡 Median-dual Euler explicit update"]
     n_31["🟡 Oriented-face two-triangle control"]
-    n_32["⬜ Generic fixed-mesh multidimensional FV"]
-    n_33["Future refinement and backends"]
-    n_34["⬜ ALE"]
-    n_35["⬜ AMR"]
-    n_36["⬜ MPI"]
-    n_37["⬜ GPU"]
-    n_38["🧪 JST paper 1 formalization"]
+    n_32["✅ Fixed-mesh conservative assembly and update"]
+    n_33["⬜ Generic fixed-mesh multidimensional FV schemes"]
+    n_34["Future refinement and backends"]
+    n_35["⬜ ALE"]
+    n_36["⬜ AMR"]
+    n_37["⬜ MPI"]
+    n_38["⬜ GPU"]
+    n_39["🧪 JST paper 1 formalization"]
     n_0 --> n_1
     n_1 --> n_2
     n_1 --> n_3
@@ -70,9 +71,10 @@ flowchart TD
     n_28 --> n_30
     n_28 --> n_31
     n_28 --> n_32
-    n_0 --> n_33
-    n_33 --> n_34
-    n_33 --> n_35
-    n_33 --> n_36
-    n_33 --> n_37
-    n_23 --> n_38
+    n_28 --> n_33
+    n_0 --> n_34
+    n_34 --> n_35
+    n_34 --> n_36
+    n_34 --> n_37
+    n_34 --> n_38
+    n_23 --> n_39

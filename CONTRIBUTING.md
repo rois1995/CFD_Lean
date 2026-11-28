@@ -41,6 +41,24 @@ Tag a verified release with an annotated `vMAJOR.MINOR.PATCH` tag on its exact `
 the passing release PR and the catalog, specification and evidence paths in the release notes. Build `fv1d` from
 the tagged revision for the release executable. Scientific acceptance remains recorded in the milestone review records.
 
+### Release documentation
+
+Select GitHub Actions as the Pages publishing source. The [release documentation workflow](.github/workflows/documentation-release.yml)
+runs when a stable GitHub Release is published. It verifies the annotated tag against a merge on the first-parent
+history of `main`, checks generated files, and builds the exact revision in strict mode. When the repository is
+public, the workflow publishes that build to Pages. The site header shows the release tag and links to repository
+artifacts use the release commit SHA.
+
+To reproduce the tagged site from its checkout, install [the documentation dependencies](requirements-docs.txt),
+run both graph checks, then build with the release label and commit SHA.
+
+```bash
+CFDLEAN_DOCS_RELEASE="$(git describe --exact-match HEAD)" CFDLEAN_DOCS_REVISION="$(git rev-parse HEAD)" python3 -m mkdocs build --strict
+```
+
+The curated site includes contributor documentation and graph exports. Its relative links support retaining older
+release builds under versioned paths. Artifact links can require repository access.
+
 ## Milestone workflow
 
 1. Read the current contract, result map, traceability and review record. For a new milestone or a change in scientific
