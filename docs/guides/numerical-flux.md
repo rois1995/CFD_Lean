@@ -1,0 +1,7 @@
+# Add a numerical flux
+
+1. Place the selected flux in Schemes. Reuse the [two-point flux interface](../../CFDLean/Schemes/Scalar/NumericalFlux.lean) where it fits. Read [Rusanov](../../CFDLean/Schemes/Burgers/Rusanov.lean) for a scalar example and [Roe](../../CFDLean/Schemes/Roe/Flux.lean) for integrated Euler fluxes. Define the ordering of traces and the meaning of orientation and face measure.
+2. Freeze a proposal for new scientific claims. State consistency on equal traces and the reversal identity appropriate to the transfer. Choose monotonicity, Lipschitz, entropy or positivity certificates only where model and domain assumptions justify them. Specify the relevant signal-speed and CFL conditions.
+3. Prove the exact-real identities with the existing [entropy certificate interfaces](../../CFDLean/Entropy/Scalar/Certificates.lean) where applicable. Pass the flux to conservative assembly so face traversal, volumes and sign accounting stay in the existing operator.
+4. For an executable flux, adapt the arithmetic-polymorphic kernel and prove its real instantiation returns the specified transfer. Add equal-state, swapped-orientation, boundary/admissibility and independent reference cases. Tie any native guarantee to a backend certificate.
+5. Bind the proofs in a result map, update the theorem catalog and capability evidence, and run the [local validation commands](../getting-started.md).

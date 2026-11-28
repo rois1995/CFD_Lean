@@ -1,0 +1,7 @@
+# Add a proof certificate
+
+1. Put the implementation theorem with the mathematical object it constrains. Reuse existing [entropy](../../CFDLean/Entropy/Scalar/Certificates.lean), [assembly](../../CFDLean/Discrete/Assembly.lean) or [time](../../CFDLean/Time/SSP.lean) lemmas where their assumptions fit.
+2. Freeze new claims through the [milestone workflow](proposal-to-acceptance.md). State inputs, quantifiers and hypotheses at the level a reviewer can inspect. Put the independent statement and proof bridge in Verification when the contract calls for a comparator boundary. [B0 statement](../../CFDLean/Verification/BurgersB0Challenge.lean) · [B0 bridge](../../CFDLean/Verification/BurgersB0Verify.lean)
+3. Prove the exact-real statement and bind the implementation theorem in the [result map](../../specifications/Burgers-B0-results.json). Add a [proof map](../../references/Burgers-B0.md) for evidence and reuse the existing audit and comparator. Leave the trusted statement usable without the implementation proof.
+4. Include exact positive controls and counterexamples that catch overly strong hypotheses or conclusions. An executable consequence requires representation and exact-real refinement; a runtime claim additionally needs machine evidence.
+5. Update the theorem catalog and add the certificate to capability evidence where it changes repository coverage. Run the [local validation commands](../getting-started.md) and the applicable comparator from the [contributor workflow](../../CONTRIBUTING.md#validation).
