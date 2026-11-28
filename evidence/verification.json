@@ -254,7 +254,9 @@
     "CFDLean.Exec.NonuniformTransfer",
     "CFDLean.Exec.RealScalar",
     "CFDLean.Exec.RealScalarSign",
+    "CFDLean.Exec.ReconstructedKernel",
     "CFDLean.Exec.Refinement",
+    "CFDLean.Exec.WenoRefinement",
     "CFDLean.Foundations.Basic",
     "CFDLean.Foundations.Coordinates",
     "CFDLean.Foundations.LogMean",
@@ -421,14 +423,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 5987,
+    "roots": 6009,
     "unsafe_reached": [],
-    "visited": 65636
+    "visited": 65671
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "e861d8b0a0f89bb5bfa3e63a7ab662b3b02ee1a2a84b2617614fd8d689685d55"
+      "sha256": "bf45dd8b8c8b3c3c763032617d563a86e0d850d7e03f06482c953657e5282d1c"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -618,9 +620,17 @@
       "path": "CFDLean/Exec/RealScalarSign.lean",
       "sha256": "d0959ddb8e4b4cda2b31b5cc1947ae3bbea5cfb7450ad8f0d12334497d43a6e2"
     },
+    "CFDLean.Exec.ReconstructedKernel": {
+      "path": "CFDLean/Exec/ReconstructedKernel.lean",
+      "sha256": "9a7770c68bc88f3a20b9375399b37f2b7d205e9f42dae6f454c74e54a5d6ab03"
+    },
     "CFDLean.Exec.Refinement": {
       "path": "CFDLean/Exec/Refinement.lean",
       "sha256": "11c3750b4cbc3df0d4f950980cf06d31890800a5da721c3a6d47afd247ff3e60"
+    },
+    "CFDLean.Exec.WenoRefinement": {
+      "path": "CFDLean/Exec/WenoRefinement.lean",
+      "sha256": "c16e44992dfff2361677d65ec49dbfdb1c7963d429849523ae9d5e983ad5c87d"
     },
     "CFDLean.Foundations.Basic": {
       "path": "CFDLean/Foundations/Basic.lean",
@@ -20910,6 +20920,49 @@
       "type": "{\u03b1 : Type} \u2192\n  [inst : CFDLean.Exec.Scalar \u03b1] \u2192\n    {motive : CFDLean.Exec.ScalarSign \u03b1 \u2192 Sort u} \u2192\n      (t : CFDLean.Exec.ScalarSign \u03b1) \u2192 ((isPos : \u03b1 \u2192 Bool) \u2192 motive { isPos := isPos }) \u2192 motive t",
       "unsafe": false
     },
+    "CFDLean.Exec.arrayGrid": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.nextIdx_prevIdx",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.prevIdx_nextIdx"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.arrayGrid",
+      "raw_type": null,
+      "root": true,
+      "type": "(n : \u2115) \u2192 CFDLean.Periodic.Grid (Fin n)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.arrayGrid.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.nextIdx_prevIdx",
+        "CFDLean.Exec.arrayGrid",
+        "CFDLean.Periodic.Grid",
+        "CFDLean.Periodic.Grid.mk",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.prevIdx_nextIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.arrayGrid.eq_1",
+      "raw_type": "\u2200 (n : Nat),\n  Eq (CFDLean.Exec.arrayGrid n)\n    { next := { toFun := CFDLean.Exec.nextIdx, invFun := CFDLean.Exec.prevIdx, left_inv := \u22ef, right_inv := \u22ef } }",
+      "root": true,
+      "type": "\u2200 (n : \u2115),\n  CFDLean.Exec.arrayGrid n =\n    { next := { toFun := CFDLean.Exec.nextIdx, invFun := CFDLean.Exec.prevIdx, left_inv := \u22ef, right_inv := \u22ef } }",
+      "unsafe": false
+    },
     "CFDLean.Exec.axpby": {
       "axioms": [
         "propext"
@@ -21128,6 +21181,266 @@
       "raw_type": "\u2200 (a b : Real) (x y : Array Real), Eq (CFDLean.Exec.axpby a x b y).size (min x.size y.size)",
       "root": true,
       "type": "\u2200 (a b : \u211d) (x y : Array \u211d), (CFDLean.Exec.axpby a x b y).size = min x.size y.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoSsprk3": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.third",
+        "CFDLean.Exec.Scalar.twoThirds",
+        "CFDLean.Exec.Scalar.quarter",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.Scalar.threeQuarters",
+        "CFDLean.Exec.burgersWenoStep"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoSsprk3",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 [(n : \u2115) \u2192 OfNat \u03b1 n] \u2192 \u03b1 \u2192 \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoSsprk3._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoSsprk3._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.burgersWenoSsprk3_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.third",
+        "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents",
+        "CFDLean.Periodic.Mesh1D.mk",
+        "CFDLean.Time.SSP.ssprk3",
+        "CFDLean.Exec.Scalar.twoThirds",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Time.SSP.ssprk3._proof_1",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Exec.Scalar.quarter",
+        "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents._proof_1",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.arrayGrid",
+        "CFDLean.Exec.axpby",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.threeQuarters",
+        "CFDLean.Exec.burgersWenoStep",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.Exec.burgersWenoSsprk3",
+        "CFDLean.FV1D.Reconstruction.step",
+        "CFDLean.Exec.widthAt_of_lt",
+        "CFDLean.Time.SSP.ssprk3._proof_2",
+        "CFDLean.Exec.axpby_refines"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.burgersWenoSsprk3_refines",
+      "raw_type": "\u2200 {n : Nat} (widths : Array Real) (hw : Eq widths.size n)\n  (hp : \u2200 (i : Fin widths.size), LT.lt (OfNat.ofNat 0) (getElem widths i \u22ef))\n  (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x) (dt : Real) {u : Array Real} {v : Fin n \u2192 Real},\n  CFDLean.Exec.Represents u v \u2192\n    have mesh :=\n      { grid := CFDLean.Exec.arrayGrid n, width := fun j => CFDLean.Exec.widthAt widths j.val, width_pos := \u22ef };\n    CFDLean.Exec.Represents (CFDLean.Exec.burgersWenoSsprk3 \u03b5.val dt widths u)\n      (CFDLean.Time.SSP.ssprk3\n        ((CFDLean.FV1D.Reconstruction.gradedWeno mesh \u03b5).step\n          (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half) dt)\n        v)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (widths : Array \u211d) (hw : widths.size = n) (hp : \u2200 (i : Fin widths.size), 0 < widths[i]) (\u03b5 : { x // 0 < x })\n  (dt : \u211d) {u : Array \u211d} {v : Fin n \u2192 \u211d},\n  CFDLean.Exec.Represents u v \u2192\n    have mesh := { grid := CFDLean.Exec.arrayGrid n, width := fun j => CFDLean.Exec.widthAt widths \u2191j, width_pos := \u22ef };\n    CFDLean.Exec.Represents (CFDLean.Exec.burgersWenoSsprk3 (\u2191\u03b5) dt widths u)\n      (CFDLean.Time.SSP.ssprk3\n        ((CFDLean.FV1D.Reconstruction.gradedWeno mesh \u03b5).step\n          (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half) dt)\n        v)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoStep": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.reconstructedStep",
+        "CFDLean.Exec.wenoCell"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoStep",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192 [CFDLean.Exec.Scalar \u03b1] \u2192 [(n : \u2115) \u2192 OfNat \u03b1 n] \u2192 \u03b1 \u2192 \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1 \u2192 Array \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoStep._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoStep._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.burgersWenoStep._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoStep._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.burgersWenoStep._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoStep._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.burgersWenoStep._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoStep._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.burgersWenoStep._redArg._lam_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.burgersWenoStep._redArg._lam_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.burgersWenoStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.reconstructedStep",
+        "CFDLean.Exec.burgersWenoStep",
+        "CFDLean.Exec.wenoCell"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.burgersWenoStep.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] [inst_1 : (n : Nat) \u2192 OfNat \u03b1 n] (\u03b5 dt : \u03b1) (w u : Array \u03b1),\n  Eq (CFDLean.Exec.burgersWenoStep \u03b5 dt w u)\n    (CFDLean.Exec.reconstructedStep CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half dt w u\n      (CFDLean.Exec.wenoCell \u03b5 (fun i => CFDLean.Exec.widthAt w i.val) fun i => getElem u i \u22ef))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] [inst_1 : (n : \u2115) \u2192 OfNat \u03b1 n] (\u03b5 dt : \u03b1) (w u : Array \u03b1),\n  CFDLean.Exec.burgersWenoStep \u03b5 dt w u =\n    CFDLean.Exec.reconstructedStep CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half dt w u\n      (CFDLean.Exec.wenoCell \u03b5 (fun i => CFDLean.Exec.widthAt w \u2191i) fun i => u[i])",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoStep_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.GradedWeno.gather",
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Periodic.Mesh1D.mk",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.reconstructedStep._proof_6",
+        "CFDLean.Exec.burgersWenoStep_refines._proof_1",
+        "CFDLean.Exec.arrayGrid",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.burgersWenoStep",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.Exec.Scalar.max",
+        "CFDLean.FV1D.Reconstruction.step",
+        "CFDLean.Exec.widthAt_of_lt",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.wenoCell",
+        "CFDLean.GradedWeno.edge",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Exec.burgersWenoStep_refines._proof_2",
+        "CFDLean.Exec.Scalar.burgersFlux",
+        "CFDLean.Exec.reconstructedStep._proof_5",
+        "CFDLean.Exec.Scalar.abs"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.burgersWenoStep_refines",
+      "raw_type": "\u2200 (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x) (dt : Real) (w u : Array Real) (hw : Eq w.size u.size)\n  (hp : \u2200 (i : Fin w.size), LT.lt (OfNat.ofNat 0) (getElem w i \u22ef)) (i : Fin u.size),\n  have m := { grid := CFDLean.Exec.arrayGrid u.size, width := fun j => CFDLean.Exec.widthAt w j.val, width_pos := \u22ef };\n  Eq ((getElem? (CFDLean.Exec.burgersWenoStep \u03b5.val dt w u) i.val).getD (OfNat.ofNat 0))\n    ((CFDLean.FV1D.Reconstruction.gradedWeno m \u03b5).step\n      (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half) dt (fun j => getElem u j \u22ef) i)",
+      "root": true,
+      "type": "\u2200 (\u03b5 : { x // 0 < x }) (dt : \u211d) (w u : Array \u211d) (hw : w.size = u.size) (hp : \u2200 (i : Fin w.size), 0 < w[i])\n  (i : Fin u.size),\n  have m := { grid := CFDLean.Exec.arrayGrid u.size, width := fun j => CFDLean.Exec.widthAt w \u2191j, width_pos := \u22ef };\n  (CFDLean.Exec.burgersWenoStep (\u2191\u03b5) dt w u)[\u2191i]?.getD 0 =\n    (CFDLean.FV1D.Reconstruction.gradedWeno m \u03b5).step\n      (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half) dt (fun j => u[j]) i",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoStep_refines._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.burgersWenoStep_refines._proof_1",
+      "raw_type": "\u2200 (w u : Array Real), Eq w.size u.size \u2192 \u2200 (i : Fin w.size), Not (LT.lt i.val w.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 (w u : Array \u211d), w.size = u.size \u2192 \u2200 (i : Fin w.size), \u00ac\u2191i < w.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.burgersWenoStep_refines._proof_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.burgersWenoStep_refines._proof_2",
+      "raw_type": "\u2200 (w u : Array Real) (j : Fin u.size), Not (LT.lt j.val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 (w u : Array \u211d) (j : Fin u.size), \u00ac\u2191j < u.size \u2192 False",
       "unsafe": false
     },
     "CFDLean.Exec.burgers_nonuniformStepArray_bounds": {
@@ -26501,6 +26814,208 @@
       "type": "\u2200 {m : \u2115} (i : Fin m), \u2191i < m \u2192 \u00ac\u2191i + 1 + (m - 1) = \u2191i + m \u2192 False",
       "unsafe": false
     },
+    "CFDLean.Exec.reconstructedStep": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.reconstructedStep._proof_6",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.reconstructedStep._proof_5"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 S : Type} \u2192\n  [Mul \u03b1] \u2192\n    [Div \u03b1] \u2192\n      [Zero \u03b1] \u2192 CFDLean.Exec.FV1D.Model \u03b1 S \u2192 \u03b1 \u2192 \u03b1 \u2192 Array \u03b1 \u2192 (old : Array S) \u2192 (Fin old.size \u2192 S \u00d7 S) \u2192 Array S",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._proof_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._proof_1",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), Not (LT.lt i.val old.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u00ac\u2191i < old.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._proof_2": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._proof_2",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), Not (LT.lt (CFDLean.Exec.nextIdx i).val old.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u00ac\u2191(CFDLean.Exec.nextIdx i) < old.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._proof_3": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._proof_3",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), Not (LT.lt (CFDLean.Exec.prevIdx i).val old.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u00ac\u2191(CFDLean.Exec.prevIdx i) < old.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._proof_4": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.reconstructedStep._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._proof_4",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), LT.lt i.val old.size",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u2191i < old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._proof_5": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.reconstructedStep._proof_2"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._proof_5",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), LT.lt (CFDLean.Exec.nextIdx i).val old.size",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u2191(CFDLean.Exec.nextIdx i) < old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._proof_6": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.reconstructedStep._proof_3",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._proof_6",
+      "raw_type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), LT.lt (CFDLean.Exec.prevIdx i).val old.size",
+      "root": true,
+      "type": "\u2200 {S : Type} (old : Array S) (i : Fin old.size), \u2191(CFDLean.Exec.prevIdx i) < old.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.reconstructedStep._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.reconstructedStep._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.reconstructedStep._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.reconstructedStep._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.reconstructedStep._redArg._lam_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.reconstructedStep._redArg._lam_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.reconstructedStep.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.reconstructedStep._proof_6",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.reconstructedStep",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.reconstructedStep._proof_5"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.reconstructedStep.eq_1",
+      "raw_type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] [inst_2 : Zero \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dt : \u03b1)\n  (widths : Array \u03b1) (old : Array S) (cell : Fin old.size \u2192 Prod S S),\n  Eq (CFDLean.Exec.reconstructedStep M half dt widths old cell)\n    (Array.ofFn fun i =>\n      M.sub (getElem old i \u22ef)\n        (M.scale (HDiv.hDiv dt (CFDLean.Exec.widthAt widths i.val))\n          (M.sub\n            (getElem\n              (Vector.ofFn fun i =>\n                CFDLean.Exec.FV1D.face M half (getElem (Vector.ofFn cell) i \u22ef).2\n                  (getElem (Vector.ofFn cell) (CFDLean.Exec.nextIdx i) \u22ef).1)\n              i \u22ef)\n            (getElem\n              (Vector.ofFn fun i =>\n                CFDLean.Exec.FV1D.face M half (getElem (Vector.ofFn cell) i \u22ef).2\n                  (getElem (Vector.ofFn cell) (CFDLean.Exec.nextIdx i) \u22ef).1)\n              (CFDLean.Exec.prevIdx i) \u22ef))))",
+      "root": true,
+      "type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] [inst_2 : Zero \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dt : \u03b1)\n  (widths : Array \u03b1) (old : Array S) (cell : Fin old.size \u2192 S \u00d7 S),\n  CFDLean.Exec.reconstructedStep M half dt widths old cell =\n    Array.ofFn fun i =>\n      M.sub old[i]\n        (M.scale (dt / CFDLean.Exec.widthAt widths \u2191i)\n          (M.sub\n            (Vector.ofFn fun i =>\n                CFDLean.Exec.FV1D.face M half (Vector.ofFn cell)[i].2 (Vector.ofFn cell)[CFDLean.Exec.nextIdx i].1)[i]\n            (Vector.ofFn fun i =>\n                CFDLean.Exec.FV1D.face M half (Vector.ofFn cell)[i].2\n                  (Vector.ofFn cell)[CFDLean.Exec.nextIdx i].1)[CFDLean.Exec.prevIdx i]))",
+      "unsafe": false
+    },
     "CFDLean.Exec.represents_iff_eq_ofFn": {
       "axioms": [
         "propext",
@@ -28305,6 +28820,61 @@
       "type": "\u2200 {n : \u2115} (widths : Array \u211d), widths.size = n \u2192 \u2200 (i : Fin n), \u00ac\u2191i < widths.size \u2192 False",
       "unsafe": false
     },
+    "CFDLean.Exec.wenoCell": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.GradedWeno.gather",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.GradedWeno.edge"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.wenoCell",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [Add \u03b1] \u2192\n    [Sub \u03b1] \u2192 [Mul \u03b1] \u2192 [Div \u03b1] \u2192 [(n : \u2115) \u2192 OfNat \u03b1 n] \u2192 {n : \u2115} \u2192 \u03b1 \u2192 (Fin n \u2192 \u03b1) \u2192 (Fin n \u2192 \u03b1) \u2192 Fin n \u2192 \u03b1 \u00d7 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.wenoCell._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.wenoCell._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.wenoCell._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.ReconstructedKernel",
+      "name": "CFDLean.Exec.wenoCell._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.wenoCell.eq_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.GradedWeno.gather",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.wenoCell",
+        "CFDLean.GradedWeno.edge"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.Exec.wenoCell.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : Add \u03b1] [inst_1 : Sub \u03b1] [inst_2 : Mul \u03b1] [inst_3 : Div \u03b1] [inst_4 : (n : Nat) \u2192 OfNat \u03b1 n]\n  {n : Nat} (\u03b5 : \u03b1) (w u : Fin n \u2192 \u03b1) (i : Fin n),\n  Eq (CFDLean.Exec.wenoCell \u03b5 w u i)\n    (Prod.mk\n      ((fun back ahead =>\n          CFDLean.GradedWeno.edge \u03b5 (CFDLean.GradedWeno.gather back ahead w i)\n            (CFDLean.GradedWeno.gather back ahead u i))\n        CFDLean.Exec.nextIdx CFDLean.Exec.prevIdx)\n      ((fun back ahead =>\n          CFDLean.GradedWeno.edge \u03b5 (CFDLean.GradedWeno.gather back ahead w i)\n            (CFDLean.GradedWeno.gather back ahead u i))\n        CFDLean.Exec.prevIdx CFDLean.Exec.nextIdx))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : Add \u03b1] [inst_1 : Sub \u03b1] [inst_2 : Mul \u03b1] [inst_3 : Div \u03b1] [inst_4 : (n : \u2115) \u2192 OfNat \u03b1 n] {n : \u2115}\n  (\u03b5 : \u03b1) (w u : Fin n \u2192 \u03b1) (i : Fin n),\n  CFDLean.Exec.wenoCell \u03b5 w u i =\n    ((fun back ahead =>\n          CFDLean.GradedWeno.edge \u03b5 (CFDLean.GradedWeno.gather back ahead w i)\n            (CFDLean.GradedWeno.gather back ahead u i))\n        CFDLean.Exec.nextIdx CFDLean.Exec.prevIdx,\n      (fun back ahead =>\n          CFDLean.GradedWeno.edge \u03b5 (CFDLean.GradedWeno.gather back ahead w i)\n            (CFDLean.GradedWeno.gather back ahead u i))\n        CFDLean.Exec.prevIdx CFDLean.Exec.nextIdx)",
+      "unsafe": false
+    },
     "CFDLean.Exec.widthAt": {
       "axioms": [],
       "direct": [],
@@ -29750,6 +30320,32 @@
       "raw_type": null,
       "root": true,
       "type": "{I : Type} \u2192 (m : CFDLean.Periodic.Mesh1D I) \u2192 { e // 0 < e } \u2192 CFDLean.FV1D.Reconstruction m \u211d",
+      "unsafe": false
+    },
+    "CFDLean.FV1D.Reconstruction.gradedWeno.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Mesh1D.width",
+        "CFDLean.GradedWeno.gather",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction.mk",
+        "CFDLean.FV1D.Reconstruction",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.GradedWeno.edge"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "CFDLean.FV1D.Reconstruction.gradedWeno.eq_1",
+      "raw_type": "\u2200 {I : Type} (m : CFDLean.Periodic.Mesh1D I) (\u03b5 : Subtype fun e => LT.lt (OfNat.ofNat 0) e),\n  Eq (CFDLean.FV1D.Reconstruction.gradedWeno m \u03b5)\n    {\n      traces := fun u i =>\n        have atFace := fun prev next j =>\n          CFDLean.GradedWeno.edge \u03b5.val (CFDLean.GradedWeno.gather prev next m.width j)\n            (CFDLean.GradedWeno.gather prev next u j);\n        Prod.mk (atFace m.grid.prev (DFunLike.coe m.grid.next) i)\n          (atFace (DFunLike.coe m.grid.next) m.grid.prev (DFunLike.coe m.grid.next i)) }",
+      "root": true,
+      "type": "\u2200 {I : Type} (m : CFDLean.Periodic.Mesh1D I) (\u03b5 : { e // 0 < e }),\n  CFDLean.FV1D.Reconstruction.gradedWeno m \u03b5 =\n    {\n      traces := fun u i =>\n        have atFace := fun prev next j =>\n          CFDLean.GradedWeno.edge (\u2191\u03b5) (CFDLean.GradedWeno.gather prev next m.width j)\n            (CFDLean.GradedWeno.gather prev next u j);\n        (atFace m.grid.prev (\u21d1m.grid.next) i, atFace (\u21d1m.grid.next) m.grid.prev (m.grid.next i)) }",
       "unsafe": false
     },
     "CFDLean.FV1D.Reconstruction.gradedWeno_constants": {
@@ -148738,6 +149334,66 @@
       "type": "\u2200 {n : \u2115} [inst : NeZero n] (widths : Array \u211d) (hw : widths.size = n)\n  (hpos : \u2200 (i : \u2115) (hi : i < widths.size), 0 < widths[i]) (dt m M : \u211d),\n  (\u2200 (i : \u2115) (hi : i < widths.size), 8 * dt * max |m| |M| \u2264 widths[i]) \u2192\n    \u2200 (j : ZMod n), 8 * dt * max |m| |M| \u2264 (CFDLean.Exec.meshOf widths hw hpos).width j",
       "unsafe": false
     },
+    "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Periodic.Mesh1D.mk",
+        "CFDLean.Exec.Scalar.half",
+        "CFDLean.Exec.FV1D.burgers",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Periodic.Mesh1D",
+        "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents._proof_1",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.Represents",
+        "CFDLean.Exec.reconstructedStep._proof_6",
+        "CFDLean.Exec.arrayGrid",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.burgersWenoStep",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.Exec.Represents._proof_1",
+        "CFDLean.FV1D.Reconstruction.step",
+        "CFDLean.Exec.widthAt_of_lt",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.wenoCell",
+        "CFDLean.Exec.burgersWenoStep_refines",
+        "CFDLean.Exec.burgersWenoStep_refines._proof_2",
+        "CFDLean.Exec.reconstructedStep._proof_5"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents",
+      "raw_type": "\u2200 {n : Nat} (widths : Array Real) (hw : Eq widths.size n)\n  (hp : \u2200 (i : Fin widths.size), LT.lt (OfNat.ofNat 0) (getElem widths i \u22ef))\n  (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x) (dt : Real) {u : Array Real} {v : Fin n \u2192 Real},\n  CFDLean.Exec.Represents u v \u2192\n    have mesh :=\n      { grid := CFDLean.Exec.arrayGrid n, width := fun j => CFDLean.Exec.widthAt widths j.val, width_pos := \u22ef };\n    CFDLean.Exec.Represents (CFDLean.Exec.burgersWenoStep \u03b5.val dt widths u)\n      ((CFDLean.FV1D.Reconstruction.gradedWeno mesh \u03b5).step\n        (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half) dt v)",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (widths : Array \u211d) (hw : widths.size = n) (hp : \u2200 (i : Fin widths.size), 0 < widths[i]) (\u03b5 : { x // 0 < x })\n  (dt : \u211d) {u : Array \u211d} {v : Fin n \u2192 \u211d},\n  CFDLean.Exec.Represents u v \u2192\n    have mesh := { grid := CFDLean.Exec.arrayGrid n, width := fun j => CFDLean.Exec.widthAt widths \u2191j, width_pos := \u22ef };\n    CFDLean.Exec.Represents (CFDLean.Exec.burgersWenoStep (\u2191\u03b5) dt widths u)\n      ((CFDLean.FV1D.Reconstruction.gradedWeno mesh \u03b5).step\n        (CFDLean.Exec.FV1D.face CFDLean.Exec.FV1D.burgers CFDLean.Exec.Scalar.half) dt v)",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "name": "_private.CFDLean.Exec.WenoRefinement.0.CFDLean.Exec.wenoStage_represents._proof_1",
+      "raw_type": "\u2200 {n : Nat} (widths : Array Real), Eq widths.size n \u2192 \u2200 (i : Fin widths.size), Not (LT.lt i.val widths.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {n : \u2115} (widths : Array \u211d), widths.size = n \u2192 \u2200 (i : Fin widths.size), \u00ac\u2191i < widths.size \u2192 False",
+      "unsafe": false
+    },
     "_private.CFDLean.Geometry.MedianDual.Local.0.CFDLean.MedianDual.fin4_val_three": {
       "axioms": [
         "propext"
@@ -154488,7 +155144,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 611,
+  "catalog_entries": 613,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -155092,5 +155748,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 611
+  "raw_types_checked": 613
 }
