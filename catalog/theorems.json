@@ -7726,6 +7726,19 @@
       ],
       "summary": "Decoder succeeds exactly on finite binary64 values.",
       "source": "specifications/E1-results.json; frozen E1 obligation 1"
+    },
+    {
+      "name": "CFDLean.Exec.E1.cast_step",
+      "id": "E1-2",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Casting the rational Burgers update to reals agrees with the entire exact-real array step.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 2"
     }
   ]
 }

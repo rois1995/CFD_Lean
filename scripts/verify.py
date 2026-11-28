@@ -250,7 +250,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "6dcdb92c456d32776c030095ed78a09a9c1fb8bad371279f64e2b91595ab7b5a"
+RAW_TYPES_SHA256 = "38d5932275396bf80ff298965c4b1ad8e44eaac7a7909736f75893e9de38254e"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
@@ -1092,7 +1092,7 @@ def main(record_raw_types=False):
     e1 = json.loads(read_source("specifications/E1-results.json"))
     if read_source(e1["scope"]) != git_blob("4b914b5bb3ea39ded55b958f5b29d72b7bd20c80", "specifications/E1-burgers-step-proposal.md"):
         raise ValueError("E1 scope differs from its independently reviewed proposal")
-    if [r["id"] for r in e1["results"]] != ["E1-1"]:
+    if [r["id"] for r in e1["results"]] != ["E1-1", "E1-2"]:
         raise ValueError("Unexpected E1 result bindings")
     fv_indices["E1"] = catalog_index("E1", e1)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
