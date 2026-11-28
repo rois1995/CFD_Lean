@@ -1,10 +1,10 @@
 import Driver
-import CFDLean.Exec.NonuniformKernel
+import CFDLean.Exec.ReconstructedKernel
 
 open CFDLean.Exec
 
 private def usageFV : String :=
-  "usage: fv1d --model burgers [N] [steps] [cfl] [--muscl] [--limiter NAME] [--widths CSV] [--dump]\n\
+  "usage: fv1d --model burgers [N] [steps] [cfl] [--weno | --muscl | --limiter NAME] [--widths CSV] [--dump]\n\
    or:    fv1d --model euler [N] [--widths CSV] [--dump]"
 
 private def parseWidths (n : Nat) (csv : String) : Except String (Array Float) := do
@@ -36,15 +36,16 @@ private def runBurgers (n steps : Nat) (cfl : Float) (opts : Opts) (widths : Opt
   let minWidth := widths.elim dx minArray
   let dt := cfl * minWidth / max (Float.abs (maxArray u0)) (Float.abs (minArray u0))
   let spacing := if widths.isSome then "min width" else "dx"
-  IO.println s!"N = {n}  steps = {steps}  cfl = {cfl}  {spacing} = {sci minWidth}  dt = {sci dt}  scheme = {schemeName muscl}"
+  let scheme := if opts.weno then "WENO-JS5" else schemeName muscl
+  IO.println s!"N = {n}  steps = {steps}  cfl = {cfl}  {spacing} = {sci minWidth}  dt = {sci dt}  scheme = {scheme}"
   let reportState (label : String) (v : Array Float) := match widths with
     | none => report label dx v
     | some w => IO.println s!"{label}: integral = {sci (integral w v)}  min = {sci (minArray v)}  \
         max = {sci (maxArray v)}  TV = {sci (totalVariationArray v)}"
-  let note := if widths.isSome then "" else " " ++ uniformNote muscl cfl
+  let note := if opts.weno || widths.isSome then "" else " " ++ uniformNote muscl cfl
   IO.println s!"note: Float arithmetic is not verified.{note}"
   reportState "initial" u0
-  let step := match widths, muscl with
+  let step := if opts.weno then burgersWenoSsprk3 1e-6 dt (widths.getD (Array.replicate n dx)) else match widths, muscl with
     | none, none => ssprk3StepArray dx dt
     | none, some l => limiterSsprk3StepArray l dx dt
     | some w, some l => nuLimiterSsprk3StepArray l dt w
@@ -134,8 +135,9 @@ def main (args : List String) : IO UInt32 := do
   let widths ← match opts.widths.mapM (parseWidths n) with
     | .ok value => pure value
     | .error e => return ← bad e
+  if opts.weno && (opts.muscl || opts.limiter.isSome) then return ← bad "choose WENO or MUSCL with a limiter"
   if model == "euler" then
-    if opts.muscl || opts.limiter.isSome then return ← bad "Euler supports only first-order stepping"
+    if opts.weno || opts.muscl || opts.limiter.isSome then return ← bad "Euler supports only first-order stepping"
     if pos.length > 1 then return ← bad "Euler takes only the cell count"
     return ← runEuler n widths opts.dump
   if pos.length > 3 then return ← bad "too many Burgers arguments"

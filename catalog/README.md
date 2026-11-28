@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-611 promised theorems, grouped by layer.
+613 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -68,13 +68,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
-| Execution | 84 | 0 | 83 | 0 | 1 |
-| **Total** | 611 | 17 | 393 | 30 | 171 |
+| Execution | 86 | 0 | 85 | 0 | 1 |
+| **Total** | 613 | 17 | 395 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 423 |
+| FVM | 425 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -102,7 +102,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVNA | accepted | 20 |
 | E1 | pending | 4 |
 | FVT | pending | 5 |
-| WENO | pending | 11 |
+| WENO | pending | 13 |
 
 ## Foundations (12)
 
@@ -666,7 +666,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 
-## Execution (84)
+## Execution (86)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -754,3 +754,5 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.EulerTraces.retain_raw` | FVT-R | FVM | pending | An admissible raw pair is retained exactly. |
 | `CFDLean.Exec.EulerTraces.face_constant` | FVT-K | FVM | pending | Every face reconstructs the constant pair for a limiter that vanishes at zero. |
 | `CFDLean.Exec.EulerTraces.face_admissible_m1` | FVT-A | FVM | pending | Both selected real traces satisfy M1 admissibility whenever every parent mean satisfies M1 admissibility. |
+| `CFDLean.Exec.burgersWenoStep_refines` | B-F | FVM | pending | A Burgers WENO forward stage agrees with the exact-real graded finite-volume step. |
+| `CFDLean.Exec.burgersWenoSsprk3_refines` | B-3 | FVM | pending | The three native stages over the reals agree with SSPRK3 on the same periodic mesh. |

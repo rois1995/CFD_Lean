@@ -56,6 +56,7 @@ def limiterCfl : Limiter → Float × String
 /-- Parsed options: `--dump`, `--muscl`, the last `--limiter NAME`, the positional arguments. -/
 structure Opts where
   dump : Bool := false
+  weno : Bool := false
   muscl : Bool := false
   limiter : Option Limiter := none
   widths : Option String := none
@@ -64,6 +65,7 @@ structure Opts where
 def parseArgs : List String → Opts → Except String Opts
   | [], o => .ok { o with pos := o.pos.reverse }
   | "--dump" :: r, o => parseArgs r { o with dump := true }
+  | "--weno" :: r, o => parseArgs r { o with weno := true }
   | "--muscl" :: r, o => parseArgs r { o with muscl := true }
   | ["--limiter"], _ => .error "--limiter needs a name"
   | "--limiter" :: s :: r, o =>

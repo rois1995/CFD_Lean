@@ -7973,6 +7973,32 @@
       ],
       "summary": "The linear ideal weights reproduce cubic and quartic moments on positive widths.",
       "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.burgersWenoStep_refines",
+      "id": "B-F",
+      "milestone": "WENO",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A Burgers WENO forward stage agrees with the exact-real graded finite-volume step.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.burgersWenoSsprk3_refines",
+      "id": "B-3",
+      "milestone": "WENO",
+      "module": "CFDLean.Exec.WenoRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The three native stages over the reals agree with SSPRK3 on the same periodic mesh.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
     }
   ]
 }

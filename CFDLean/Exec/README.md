@@ -33,6 +33,7 @@ Use `--limiter minmod` to run the E0b scheme. Add `--dump` to print the final ce
 
 ```bash
 lake exe fv1d --model burgers 200 600 0.12 --limiter vanleer
+lake exe fv1d --model burgers 48 12 .12 --weno --dump
 lake exe fv1d --model burgers 4 3 .12 --widths .1,.2,.3,.4 --muscl --dump
 lake exe fv1d --model euler 4 --dump
 lake exe fv1d --model euler 4 --widths .1,.2,.3,.4 --dump
@@ -53,3 +54,6 @@ Each step uses CFL 0.4, the smallest width and the current maximum endpoint spee
 `t = 1/8`. Output gives initial and final integrals and the width-weighted L1 errors against the translated
 analytic cell means. Each dump row gives density, x-momentum density and total energy density in that order.
 The driver checks density and pressure after each step. These are binary64 measurements.
+
+Burgers accepts `--weno` on either mesh. Each SSPRK3 stage reconstructs both periodic traces from
+the cell widths using scalar WENO-JS5 with regularization `1e-6`, then evaluates one Rusanov flux per face.
