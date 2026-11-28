@@ -1092,8 +1092,15 @@ def main(record_raw_types=False):
     e1 = json.loads(read_source("specifications/E1-results.json"))
     if read_source(e1["scope"]) != git_blob("4b914b5bb3ea39ded55b958f5b29d72b7bd20c80", "specifications/E1-burgers-step-proposal.md"):
         raise ValueError("E1 scope differs from its independently reviewed proposal")
-    if [r["id"] for r in e1["results"]] != ["E1-1", "E1-2", "E1-3"]:
+    if [r["id"] for r in e1["results"]] != ["E1-1", "E1-2", "E1-3", "E1-4"]:
         raise ValueError("Unexpected E1 result bindings")
+    native = e1["results"][-1]
+    replay = json.loads(read_source(native["provenance"]))
+    if (native["proposal_obligation"] != 4 or native["declarations"] or not native["native_assumption"]
+            or replay["control"] != native["control"] or not (ROOT / native["control"]).is_file()
+            or replay["exit_status"] != 0 or not re.fullmatch(r"[0-9a-f]{64}", replay["executable_sha256"])
+            or replay["output_bits_hex"] != ["3feaaaaaaaaaaaab", "3ff1555555555556", "3ff1555555555555"]):
+        raise ValueError("Incomplete E1 native execution record")
     fv_indices["E1"] = catalog_index("E1", e1)
     traces = json.loads(read_source("specifications/FV1D-euler-traces-results.json"))
     if read_source(traces["scope"]) != git_blob("5d76e8bea0390161aa388c92ec34f18d57bcbe50", traces["scope"]):
@@ -1103,8 +1110,8 @@ def main(record_raw_types=False):
     fv_indices["FVT"] = catalog_index("FVT", traces)
     weno = json.loads(read_source("specifications/FV1D-WENO-reconstruction-results.json"))
     scope = "specifications/FV1D-WENO-reconstruction-proposal.md"
-    if weno["scope"] != scope or read_source(scope) != git_blob("c16c5a20dffcc08a426073ad0e7d53304386bcf8", scope):
-        raise ValueError("WENO proposal differs from the pinned scope")
+    if weno["scope"] != scope or read_source(scope) != git_blob("ba97f56d70d1a20622d4df1e7a6b96655b6426bc", scope):
+        raise ValueError("WENO contract differs from the reviewed and amended scope")
     if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W"]:
         raise ValueError("Unexpected WENO reconstruction result bindings")
     for r in weno["results"]:
@@ -1161,6 +1168,7 @@ def main(record_raw_types=False):
     files = [ROOT / name for name in [".gitignore", "README.md", "lean-toolchain", "lakefile.toml",
                                      "lake-manifest.json", "CFDLean.lean", "Integrity.lean", "KernelAudit.lean",
                                      "StatementChecks.lean", "Driver.lean", "FVMain.lean", RAW_TYPES]]
+    files.append(ROOT / native["provenance"])
     for directory in ["CFDLean", "Challenges", "references", "specifications", "scripts"]:
         files.extend(path for path in (ROOT / directory).rglob("*")
                      if path.is_file() and "__pycache__" not in path.parts)
