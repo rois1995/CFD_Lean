@@ -8051,6 +8051,58 @@
       ],
       "summary": "The exact-real endpoint test agrees with M1 conservative-state admissibility.",
       "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FixedMesh.global_balance",
+      "id": "MD-C",
+      "milestone": "MD",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The sum of cell residuals equals the realized outward boundary transfer in an additive commutative group.",
+      "source": "specifications/MD-fixed-mesh-assembly-results.json"
+    },
+    {
+      "name": "CFDLean.FixedMesh.constant_defect",
+      "id": "MD-K",
+      "milestone": "MD",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Compatible interior and boundary transfers at a constant state map the cell area-vector defect to the cell residual.",
+      "source": "specifications/MD-fixed-mesh-assembly-results.json"
+    },
+    {
+      "name": "CFDLean.FixedMesh.constant_residual",
+      "id": "MD-K",
+      "milestone": "MD",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "status": "accepted",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Geometric closure and compatible constant-state transfers give a zero cell residual.",
+      "source": "specifications/MD-fixed-mesh-assembly-results.json"
+    },
+    {
+      "name": "CFDLean.FixedMesh.step_balance",
+      "id": "MD-U",
+      "milestone": "MD",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "status": "accepted",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A common Forward Euler step changes total amount by the outward boundary exchange times minus the timestep.",
+      "source": "specifications/MD-fixed-mesh-assembly-results.json"
     }
   ]
 }
