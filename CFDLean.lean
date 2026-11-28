@@ -26,6 +26,7 @@ import CFDLean.Geometry.MedianDualBridge
 import CFDLean.Discrete.Mesh
 import CFDLean.Discrete.Galerkin
 import CFDLean.Discrete.Assembly
+import CFDLean.Discrete.FixedMesh
 import CFDLean.Discrete.Periodic.Grid
 import CFDLean.Discrete.Periodic.FiniteVolume
 import CFDLean.Discrete.Periodic.Conservation

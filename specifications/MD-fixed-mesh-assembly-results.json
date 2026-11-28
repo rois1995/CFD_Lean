@@ -1,0 +1,24 @@
+{
+  "scope": "specifications/MD-fixed-mesh-assembly-proposal.md",
+  "results": [
+    {
+      "id": "MD-C",
+      "declarations": [
+        "CFDLean.FixedMesh.global_balance"
+      ]
+    },
+    {
+      "id": "MD-K",
+      "declarations": [
+        "CFDLean.FixedMesh.constant_defect",
+        "CFDLean.FixedMesh.constant_residual"
+      ]
+    },
+    {
+      "id": "MD-U",
+      "declarations": [
+        "CFDLean.FixedMesh.step_balance"
+      ]
+    }
+  ]
+}
