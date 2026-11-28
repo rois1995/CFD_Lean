@@ -1,0 +1,7 @@
+# Add a geometry
+
+1. Identify topology (neighbors, incidence and orientations), geometry (coordinates, widths, measures and normals), the field (values indexed by cells or nodes) and the reconstruction (how those values give traces). Use [Mesh1D](../../CFDLean/Discrete/Periodic/Mesh1D.lean), the [nonuniform contract](../../specifications/FV1D-nonuniform.md) and the [median-dual guide](../../CFDLean/Geometry/MedianDual/README.md) to choose the layer.
+2. Keep mesh data in the discretization and its representation, with physics consuming states and physical arguments. For a new mesh contract, freeze positivity, indexing, orientation, incidence and boundary assumptions before proving results.
+3. Prove exact-real orientation and volume positivity where needed, interior cancellation, and uniform or previously accepted specialization. Use volume-weighted conserved quantities. State when boundary transfers remain in the balance.
+4. If arrays encode the mesh, prove constructor validation and correspondence between array indices and mathematical measures. Add unequal-volume, periodic seam or shared-face cases and orientation reversal or malformed geometry controls. The [two-triangle control](../../benchmarks/ReviewCases/OrientedTriangles.lean) illustrates a scoped exact check.
+5. Update geometry bindings, catalog and the relevant capability evidence. Run the [local validation commands](../getting-started.md).
