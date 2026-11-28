@@ -250,7 +250,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "f675c21a4db4d2c7cd655d26b91338f99a31882d0d4116220f86429f50d1217e"
+RAW_TYPES_SHA256 = "8c526fb9d21a0c4fc653096765be2f4e420ac91dcc8da5f73da3fae621aa4db8"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"

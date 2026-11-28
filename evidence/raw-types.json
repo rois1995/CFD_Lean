@@ -889,6 +889,30 @@
       "type": "∀ {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module ℝ S] [inst_2 : Fintype I]\n  (m : CFDLean.Periodic.Mesh1D I) (dt : ℝ) (h U : I → S),\n  ∑ i, m.width i • CFDLean.FV1D.Nonuniform.update m dt h U i = ∑ i, m.width i • U i",
       "raw_type": "∀ {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] [inst_2 : Fintype I]\n  (m : CFDLean.Periodic.Mesh1D I) (dt : Real) (h U : I → S),\n  Eq (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (CFDLean.FV1D.Nonuniform.update m dt h U i))\n    (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (U i))"
     },
+    "CFDLean.FV1D.Reconstruction.Weno.edge_quadratic": {
+      "type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] (ε : { e // 0 < e }) (a b c : K),\n  have mean := fun j => a * (j ^ 2 + 1 / 12) + b * j + c;\n  CFDLean.FV1D.Reconstruction.Weno.edge ε (mean (-2)) (mean (-1)) (mean 0) (mean 1) (mean 2) = a / 4 + b / 2 + c",
+      "raw_type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K]\n  (ε : Subtype fun e => LT.lt (OfNat.ofNat 0) e) (a b c : K),\n  have mean := fun j =>\n    HAdd.hAdd\n      (HAdd.hAdd (HMul.hMul a (HAdd.hAdd (HPow.hPow j (OfNat.ofNat 2)) (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 12))))\n        (HMul.hMul b j))\n      c;\n  Eq\n    (CFDLean.FV1D.Reconstruction.Weno.edge ε (mean (Neg.neg (OfNat.ofNat 2))) (mean (Neg.neg (OfNat.ofNat 1)))\n      (mean (OfNat.ofNat 0)) (mean (OfNat.ofNat 1)) (mean (OfNat.ofNat 2)))\n    (HAdd.hAdd (HAdd.hAdd (HDiv.hDiv a (OfNat.ofNat 4)) (HDiv.hDiv b (OfNat.ofNat 2))) c)"
+    },
+    "CFDLean.FV1D.Reconstruction.Weno.weight_pos": {
+      "type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {ε d : K},\n  0 < ε → 0 < d → ∀ (k g : K), 0 < CFDLean.FV1D.Reconstruction.Weno.weight ε d k g",
+      "raw_type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {ε d : K},\n  LT.lt (OfNat.ofNat 0) ε →\n    LT.lt (OfNat.ofNat 0) d → ∀ (k g : K), LT.lt (OfNat.ofNat 0) (CFDLean.FV1D.Reconstruction.Weno.weight ε d k g)"
+    },
+    "CFDLean.FV1D.Reconstruction.muscl_step": {
+      "type": "∀ {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module ℝ S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim H : S → S → S) (dt : ℝ) (U : I → S),\n  (CFDLean.FV1D.Reconstruction.muscl m lim).step H dt U = CFDLean.FV1D.Nonuniform.musclStep m H lim dt U",
+      "raw_type": "∀ {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim H : S → S → S) (dt : Real) (U : I → S),\n  Eq ((CFDLean.FV1D.Reconstruction.muscl m lim).step H dt U) (CFDLean.FV1D.Nonuniform.musclStep m H lim dt U)"
+    },
+    "CFDLean.FV1D.Reconstruction.step_constant": {
+      "type": "∀ {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module ℝ S]\n  (R : CFDLean.FV1D.Reconstruction m S),\n  R.PreservesConstants → ∀ (H : S → S → S) (dt : ℝ) (c : S), (R.step H dt fun x => c) = fun x => c",
+      "raw_type": "∀ {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S]\n  (R : CFDLean.FV1D.Reconstruction m S),\n  R.PreservesConstants → ∀ (H : S → S → S) (dt : Real) (c : S), Eq (R.step H dt fun x => c) fun x => c"
+    },
+    "CFDLean.FV1D.Reconstruction.step_weighted_sum": {
+      "type": "∀ {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module ℝ S]\n  [inst_2 : Fintype I] (R : CFDLean.FV1D.Reconstruction m S) (H : S → S → S) (dt : ℝ) (U : I → S),\n  ∑ i, m.width i • R.step H dt U i = ∑ i, m.width i • U i",
+      "raw_type": "∀ {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S]\n  [inst_2 : Fintype I] (R : CFDLean.FV1D.Reconstruction m S) (H : S → S → S) (dt : Real) (U : I → S),\n  Eq (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (R.step H dt U i))\n    (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (U i))"
+    },
+    "CFDLean.FV1D.Reconstruction.wenoJS5_constants": {
+      "type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {I : Type u_2}\n  (g : CFDLean.Periodic.Grid I) (dx : ℝ) (hdx : 0 < dx) (ε : { e // 0 < e }),\n  (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx ε).PreservesConstants",
+      "raw_type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {I : Type u_2}\n  (g : CFDLean.Periodic.Grid I) (dx : Real) (hdx : LT.lt (OfNat.ofNat 0) dx)\n  (ε : Subtype fun e => LT.lt (OfNat.ofNat 0) e), (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx ε).PreservesConstants"
+    },
     "CFDLean.JST1.Proofs.p1_1_0": {
       "type": "CFDLean.JST1.Spec.P1_1_0",
       "raw_type": "CFDLean.JST1.Spec.P1_1_0"
