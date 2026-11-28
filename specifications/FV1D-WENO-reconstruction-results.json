@@ -82,6 +82,20 @@
       ]
     },
     {
+      "id": "E-P",
+      "declarations": [],
+      "controls": [
+        "scripts/test_fv1d.py"
+      ]
+    },
+    {
+      "id": "E-D",
+      "declarations": [],
+      "controls": [
+        "benchmarks/ReviewCases/EulerReconstructedStep.lean"
+      ]
+    },
+    {
       "id": "E-R",
       "declarations": [],
       "controls": [

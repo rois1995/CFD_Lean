@@ -1,0 +1,15 @@
+{
+  "control": "benchmarks/E1NativeReplay.lean",
+  "source_revision": "493d0c9d0bf2b79222c262ff1f2f9c5adb77bc23",
+  "lean": "Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)",
+  "platform": "Linux x86_64",
+  "build_command": "lake build --wfail e1NativeReplay",
+  "run_command": ".lake/build/bin/e1NativeReplay",
+  "executable_sha256": "67c38d742b8d8ab98e1dd06a730784a72334b0f2ed749283cb63a2228c7ed3d4",
+  "exit_status": 0,
+  "output_bits_hex": [
+    "3feaaaaaaaaaaaab",
+    "3ff1555555555556",
+    "3ff1555555555555"
+  ]
+}

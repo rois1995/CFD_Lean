@@ -5,7 +5,8 @@
     {
       "id": "FVT-A",
       "declarations": [
-        "CFDLean.Exec.EulerTraces.face_admissible"
+        "CFDLean.Exec.EulerTraces.face_admissible",
+        "CFDLean.Exec.EulerTraces.face_admissible_m1"
       ]
     },
     {

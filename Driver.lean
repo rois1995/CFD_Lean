@@ -85,6 +85,12 @@ def schemeName (muscl : Option Limiter) : String :=
   | some .none => "MUSCL, limiter = none (unlimited)"
   | some L => s!"MUSCL, limiter = {limiterName L}"
 
+/-- CFL step from the selected Rusanov face speeds on a validated, nonempty mesh. -/
+def reconstructedEulerDt? (remaining minWidth : Float) (faceSpeeds : Array Float) : Option Float := do
+  let fastest ← faceSpeeds.foldlM (m := Option) (init := 0.0) fun a v =>
+    if v.isFinite && v >= 0 then some (max a v) else none
+  return if fastest == 0 then remaining else min remaining (0.4 * minWidth / fastest)
+
 def uniformNote (muscl : Option Limiter) (cfl : Float) : String :=
   let range (c : Float) (s : String) : String :=
     s!"With real arithmetic bounds and total variation are proved for cfl <= {s}; this run is \

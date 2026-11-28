@@ -1,3 +1,4 @@
+import Driver
 import CFDLean.Exec.EulerReconstruction
 import ReviewCases.E1.ExactStep
 
@@ -16,5 +17,10 @@ private def pairedFallback (method : EulerReconstruction) (i : Fin u.size) : Boo
 #guard u.all valid
 #guard pairedFallback .minmod ⟨1, by decide⟩
 #guard pairedFallback .weno ⟨0, by decide⟩
+
+#guard reconstructedEulerDt? 0.125 0.25 #[0, 0] == some 0.125
+#guard reconstructedEulerDt? 1 0.25 #[1, 4, 2] == some 0.025
+#guard (reconstructedEulerDt? 1 0.25 #[1, Float.ofBits 0x7ff8000000000000, 4]).isNone
+#guard (reconstructedEulerDt? 1 0.25 #[Float.ofBits 0x7ff0000000000000]).isNone
 
 end ReviewCases.EulerReconstructedStep

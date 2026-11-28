@@ -1,8 +1,8 @@
 # Reconstruction and execution proof map
 
-The [scientific proposal](../specifications/FV1D-WENO-reconstruction-proposal.md) records the
+The [reviewed scientific scope](../specifications/FV1D-WENO-reconstruction-proposal.md) records the
 formulas, indexing and hypotheses. The [result map](../specifications/FV1D-WENO-reconstruction-results.json)
-binds each claim to its declaration or executable control. Catalog status tracks implementation review.
+binds each claim to its declaration or executable control. The [scope decision](../reviews/FV1D/2026-11-28/Scope_Decision.md) pins the amendments. Catalog status tracks implementation review.
 Periodic stencils repeat indices on meshes with fewer than five cells. The exact-real results and
 binary64 regressions describe different arithmetic backends.
 
@@ -28,4 +28,6 @@ binary64 regressions describe different arithmetic backends.
 | E-A | [`selectEulerPair_valid`](../CFDLean/Exec/EulerReconstruction.lean) | Both selected endpoints pass the validity test when their mean passes. |
 | E-A | [`positiveState_iff_m1`](../CFDLean/Exec/EulerReconstructionRefinement.lean) | The exact-real endpoint test agrees with M1 conservative-state admissibility. |
 | E-A | [EulerReconstructedStep.lean](../benchmarks/ReviewCases/EulerReconstructedStep.lean) | Raw and fallback branches at reconstructed Euler faces. |
+| E-P | [First-order density-wave replay](../scripts/test_fv1d.py) | Preserve the accepted first-order route. |
+| E-D | [Reconstructed speed controls](../benchmarks/ReviewCases/EulerReconstructedStep.lean) | CFL cap, zero speed and non-finite face speeds. |
 | E-R | [test_fv1d.py](../scripts/test_fv1d.py), [fv1d_reference.py](../scripts/fv1d_reference.py) | Independent binary64 reference and the executable dump matrix. |

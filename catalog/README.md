@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-616 promised theorems, grouped by layer.
+617 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -68,13 +68,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
-| Execution | 89 | 0 | 88 | 0 | 1 |
-| **Total** | 616 | 17 | 398 | 30 | 171 |
+| Execution | 90 | 0 | 89 | 0 | 1 |
+| **Total** | 617 | 17 | 399 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 428 |
+| FVM | 429 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -101,7 +101,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVN | pending | 17 |
 | FVNA | accepted | 20 |
 | E1 | pending | 4 |
-| FVT | pending | 4 |
+| FVT | pending | 5 |
 | WENO | pending | 17 |
 
 ## Foundations (12)
@@ -666,7 +666,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 
-## Execution (89)
+## Execution (90)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -753,6 +753,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.EulerTraces.pair_sum` | FVT-M | FVM | pending | The selected pair sums componentwise to twice its parent mean. |
 | `CFDLean.Exec.EulerTraces.retain_raw` | FVT-R | FVM | pending | An admissible raw pair is retained exactly. |
 | `CFDLean.Exec.EulerTraces.face_constant` | FVT-K | FVM | pending | Every face reconstructs the constant pair for a limiter that vanishes at zero. |
+| `CFDLean.Exec.EulerTraces.face_admissible_m1` | FVT-A | FVM | pending | Both selected real traces satisfy M1 admissibility whenever every parent mean satisfies M1 admissibility. |
 | `CFDLean.Exec.burgersWenoStep_refines` | B-F | FVM | pending | A Burgers WENO forward stage agrees with the exact-real graded finite-volume step. |
 | `CFDLean.Exec.burgersWenoSsprk3_refines` | B-3 | FVM | pending | The three native stages over the reals agree with SSPRK3 on the same periodic mesh. |
 | `CFDLean.Exec.FV1D.eulerCell_refines` | E-T | FVM | pending | Native reconstructed pairs over the reals agree with the mathematical Euler cell traces. |
