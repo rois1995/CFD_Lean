@@ -1,4 +1,4 @@
-import CFDLean.Physics.Euler.State
+import CFDLean.Schemes.Euler.FV1D
 import CFDLean.Exec.FV1D
 import CFDLean.Exec.MusclKernel
 import Mathlib.Tactic.Ring
@@ -55,6 +55,14 @@ theorem admissible_iff_m1 (γ : ℝ) (u : EulerState ℝ) :
     admissible γ u ↔ (⟨u 0, fun _ => u 1, u 2⟩ : CFDLean.Conservative 1).Admissible γ := by
   simp [admissible, pressure, CFDLean.Conservative.Admissible, CFDLean.Conservative.pressure,
     CFDLean.squareSum, pow_two]
+
+/-- Each oriented trace satisfies M1's density and pressure conditions at the parent gas parameter. -/
+theorem face_admissible_m1 (lim : ℝ → ℝ → ℝ) {γ : ℝ} {u : Array (EulerState ℝ)}
+    (hu : ∀ j : Fin u.size, (Euler1D.decode u[j]).Admissible γ) (i : Fin u.size) :
+    (Euler1D.decode (faceStates lim γ u i).1).Admissible γ ∧
+      (Euler1D.decode (faceStates lim γ u i).2).Admissible γ := by
+  obtain ⟨hl, hr⟩ := face_admissible lim (fun j => (admissible_iff_m1 γ _).mpr (hu j)) i
+  exact ⟨(admissible_iff_m1 γ _).mp hl, (admissible_iff_m1 γ _).mp hr⟩
 
 theorem face_constant (lim : α → α → α) (h0 : lim 0 0 = 0) (γ : α) (c : EulerState α)
     (u : Array (EulerState α)) (hu : ∀ j : Fin u.size, u[j] = c) (i : Fin u.size) :
