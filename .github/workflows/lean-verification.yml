@@ -86,6 +86,13 @@ jobs:
         run: |
           ~/.elan/bin/lake build --wfail fv1d
           python3 scripts/test_fv1d.py -v
+      - name: Check proposed arithmetic and finite-volume controls
+        if: steps.docs.outputs.only != 'true'
+        run: |
+          ~/.elan/bin/lake build --wfail ReviewCases e1NativeReplay
+          ~/.elan/bin/lean --version
+          sha256sum .lake/build/bin/e1NativeReplay
+          .lake/build/bin/e1NativeReplay
       - name: Build Burgers modules
         if: steps.docs.outputs.only != 'true'
         run: ~/.elan/bin/lake build --wfail CFDLean.Schemes.Burgers.Controls CFDLean.Schemes.Burgers.GridControls CFDLean.Schemes.Burgers.StabilityControls CFDLean.Schemes.Burgers.SSPControls CFDLean.Schemes.Burgers.MusclControls CFDLean.Schemes.Burgers.LimiterControls CFDLean.Entropy.Scalar.Controls CFDLean.Discrete.Periodic.NonuniformChecks CFDLean.Schemes.Burgers.NonuniformChecks CFDLean.Schemes.Burgers.NonuniformControls CFDLean.Schemes.Euler.NonuniformControls CFDLean.Exec.NonuniformControls CFDLean.Exec.NonuniformKernelSmoke
