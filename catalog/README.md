@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-612 promised theorems, grouped by layer.
+616 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -68,13 +68,13 @@ that this file equals the generated text. Do not edit by hand.
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
-| Execution | 85 | 0 | 84 | 0 | 1 |
-| **Total** | 612 | 17 | 394 | 30 | 171 |
+| Execution | 89 | 0 | 88 | 0 | 1 |
+| **Total** | 616 | 17 | 398 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 424 |
+| FVM | 428 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -102,7 +102,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVNA | accepted | 20 |
 | E1 | pending | 4 |
 | FVT | pending | 4 |
-| WENO | pending | 13 |
+| WENO | pending | 17 |
 
 ## Foundations (12)
 
@@ -666,7 +666,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 
-## Execution (85)
+## Execution (89)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -755,3 +755,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.EulerTraces.face_constant` | FVT-K | FVM | pending | Every face reconstructs the constant pair for a limiter that vanishes at zero. |
 | `CFDLean.Exec.burgersWenoStep_refines` | B-F | FVM | pending | A Burgers WENO forward stage agrees with the exact-real graded finite-volume step. |
 | `CFDLean.Exec.burgersWenoSsprk3_refines` | B-3 | FVM | pending | The three native stages over the reals agree with SSPRK3 on the same periodic mesh. |
+| `CFDLean.Exec.FV1D.eulerCell_refines` | E-T | FVM | pending | Native reconstructed pairs over the reals agree with the mathematical Euler cell traces. |
+| `CFDLean.Exec.FV1D.eulerReconstructedStep_refines` | E-F | FVM | pending | The reconstructed native step over the reals agrees with the oriented M1 Euler flux update. |
+| `CFDLean.Exec.FV1D.selectEulerPair_valid` | E-A | FVM | pending | Both selected endpoints pass the validity test when their mean passes. |
+| `CFDLean.Exec.FV1D.positiveState_iff_m1` | E-A | FVM | pending | The exact-real endpoint test agrees with M1 conservative-state admissibility. |

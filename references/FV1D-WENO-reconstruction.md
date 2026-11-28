@@ -23,3 +23,8 @@ binary64 regressions describe different arithmetic backends.
 | G-S | [GradedWeno.lean](../benchmarks/ReviewCases/GradedWeno.lean) | Exact rational graded seam in both directions. |
 | B-F | [`burgersWenoStep_refines`](../CFDLean/Exec/WenoRefinement.lean) | A Burgers WENO forward stage agrees with the exact-real graded finite-volume step. |
 | B-3 | [`burgersWenoSsprk3_refines`](../CFDLean/Exec/WenoRefinement.lean) | The three native stages over the reals agree with SSPRK3 on the same periodic mesh. |
+| E-T | [`eulerCell_refines`](../CFDLean/Exec/EulerReconstructionRefinement.lean) | Native reconstructed pairs over the reals agree with the mathematical Euler cell traces. |
+| E-F | [`eulerReconstructedStep_refines`](../CFDLean/Exec/EulerReconstructionRefinement.lean) | The reconstructed native step over the reals agrees with the oriented M1 Euler flux update. |
+| E-A | [`selectEulerPair_valid`](../CFDLean/Exec/EulerReconstruction.lean) | Both selected endpoints pass the validity test when their mean passes. |
+| E-A | [`positiveState_iff_m1`](../CFDLean/Exec/EulerReconstructionRefinement.lean) | The exact-real endpoint test agrees with M1 conservative-state admissibility. |
+| E-A | [EulerReconstructedStep.lean](../benchmarks/ReviewCases/EulerReconstructedStep.lean) | Raw and fallback branches at reconstructed Euler faces. |

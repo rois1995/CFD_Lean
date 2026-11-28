@@ -7986,6 +7986,58 @@
       ],
       "summary": "The three native stages over the reals agree with SSPRK3 on the same periodic mesh.",
       "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.FV1D.eulerCell_refines",
+      "id": "E-T",
+      "milestone": "WENO",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Native reconstructed pairs over the reals agree with the mathematical Euler cell traces.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.FV1D.eulerReconstructedStep_refines",
+      "id": "E-F",
+      "milestone": "WENO",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The reconstructed native step over the reals agrees with the oriented M1 Euler flux update.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.FV1D.selectEulerPair_valid",
+      "id": "E-A",
+      "milestone": "WENO",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Both selected endpoints pass the validity test when their mean passes.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.Exec.FV1D.positiveState_iff_m1",
+      "id": "E-A",
+      "milestone": "WENO",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The exact-real endpoint test agrees with M1 conservative-state admissibility.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
     }
   ]
 }
