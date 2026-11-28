@@ -94,6 +94,14 @@
       "controls": [
         "benchmarks/ReviewCases/EulerReconstructedStep.lean"
       ]
+    },
+    {
+      "id": "E-R",
+      "declarations": [],
+      "controls": [
+        "scripts/test_fv1d.py",
+        "scripts/fv1d_reference.py"
+      ]
     }
   ]
 }

@@ -357,3 +357,8 @@ choices. [Scientific scope proposal](https://github.com/rois1995/CFD_Lean/pull/6
 This is the requested scheduling order. Neither floating-point certification nor the fixed-mesh 2D control
 is a prerequisite for these four steps. Numerical regression tolerances and backend-specific error theorems
 are separate review claims.
+
+The four implementation drafts now exercise these routes. The next reconstruction task is independent review
+of the graded face formula before integrating the dependent executable changes. The
+[reviewer guide](../reviews/FV1D/Overnight/Reviewer_Prompt.md#four-implementations-after-the-reconstruction-roadmap)
+gives the checks for each layer.

@@ -5,6 +5,8 @@ from pathlib import Path
 import subprocess
 import unittest
 
+from fv1d_reference import replay
+
 ROOT = Path(__file__).resolve().parents[1]
 BIN = ROOT / ".lake/build/bin"
 WAVE = json.loads((ROOT / "benchmarks/fv1d/euler-density-wave.json").read_text())
@@ -107,6 +109,53 @@ class DriverTests(unittest.TestCase):
         self.assertTrue(all(0 < f < c/3 for f, c in zip(fine, errors)))
         graded = self.euler_case([.1, .2, .3, .4], "--widths", ".1,.2,.3,.4")
         self.assertTrue(0 < graded[0] < .2)
+
+    def test_reconstruction_matrix(self):
+        uniform = [.125]*8
+        graded = [w/16 for w in (1, 3, 2, 4, 1, 1, 2, 2)]
+        for model in ("burgers", "euler"):
+            time_args = ["2", ".12"] if model == "burgers" else []
+            for method, flags in [("first", []), ("muscl", ["--limiter", "minmod"]), ("weno", ["--weno"])]:
+                uniform_dump = None
+                for mesh, widths in [("implicit", uniform), ("explicit", uniform), ("graded", graded)]:
+                    with self.subTest(model=model, method=method, mesh=mesh):
+                        mesh_args = [] if mesh == "implicit" else ["--widths", ",".join(map(str, widths))]
+                        lines = output("--model", model, "8", *time_args, *flags, *mesh_args, "--dump").splitlines()
+                        if model == "euler":
+                            steps = {"first": 19, "muscl": 19, "weno": 20}[method] if mesh == "graded" else 10
+                            summary = next(line for line in lines if line.startswith("Euler Rusanov"))
+                            self.assertIn(f"steps = {steps}  time = ", summary)
+                            self.assertEqual(float(summary.split("time = ")[1]), .125)
+                        cells = [list(map(float, row.split())) for row in lines[-8:]]
+                        initial, expected = replay(model, widths, method)
+                        for q, ref in zip(cells, expected, strict=True):
+                            for v, r in zip(q, ref, strict=True):
+                                self.assertAlmostEqual(v, r, delta=2e-10)
+                        for k in range(len(expected[0])):
+                            drift = sum(w*(q[k]-u[k]) for w,q,u in zip(widths, cells, initial, strict=True))
+                            self.assertAlmostEqual(drift, 0, delta=2e-11)
+                        if mesh == "implicit":
+                            uniform_dump = cells
+                        elif mesh == "explicit":
+                            for q, ref in zip(cells, uniform_dump, strict=True):
+                                for v, r in zip(q, ref, strict=True):
+                                    self.assertAlmostEqual(v, r, delta=2e-11)
+
+    def test_reconstruction_options_and_short_periods(self):
+        for model in ("burgers", "euler"):
+            for n in (1, 2):
+                with self.subTest(model=model, cells=n):
+                    time_args = ["2", ".12"] if model == "burgers" else []
+                    cells = output("--model", model, str(n), *time_args, "--weno", "--dump").splitlines()[-n:]
+                    _, ref = replay(model, [1/n]*n, "weno")
+                    for row, q in zip(cells, ref, strict=True):
+                        for got, expected in zip(map(float, row.split()), q, strict=True):
+                            self.assertAlmostEqual(got, expected, delta=2e-10)
+            for bad in (["--muscl", "--weno"], ["--limiter", "minmod", "--weno"], ["--widths", ".5,0", "--weno"]):
+                with self.subTest(model=model, flags=bad):
+                    result = subprocess.run([BIN/"fv1d", "--model", model, "2", *bad], capture_output=True)
+                    self.assertEqual(result.returncode, 1)
+                    self.assertFalse(result.stdout)
 
     def test_cli_rejects_invalid_input(self):
         for model in ("burgers", "euler"):

@@ -30,3 +30,4 @@ binary64 regressions describe different arithmetic backends.
 | E-A | [EulerReconstructedStep.lean](../benchmarks/ReviewCases/EulerReconstructedStep.lean) | Raw and fallback branches at reconstructed Euler faces. |
 | E-P | [First-order density-wave replay](../scripts/test_fv1d.py) | Preserve the accepted first-order route. |
 | E-D | [Reconstructed speed controls](../benchmarks/ReviewCases/EulerReconstructedStep.lean) | CFL cap, zero speed and non-finite face speeds. |
+| E-R | [test_fv1d.py](../scripts/test_fv1d.py), [fv1d_reference.py](../scripts/fv1d_reference.py) | Independent binary64 reference and the executable dump matrix. |
