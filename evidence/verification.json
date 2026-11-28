@@ -217,21 +217,19 @@
     "CFDLean.Discrete.Periodic.Limiters",
     "CFDLean.Discrete.Periodic.Mesh1D",
     "CFDLean.Discrete.Periodic.Muscl",
-    "CFDLean.Discrete.Periodic.MusclReconstruction",
     "CFDLean.Discrete.Periodic.Nonuniform",
     "CFDLean.Discrete.Periodic.NonuniformChecks",
     "CFDLean.Discrete.Periodic.NonuniformMuscl",
     "CFDLean.Discrete.Periodic.NonuniformMusclStability",
-    "CFDLean.Discrete.Periodic.Reconstruction",
     "CFDLean.Discrete.Periodic.Rusanov",
     "CFDLean.Discrete.Periodic.TotalVariation",
-    "CFDLean.Discrete.Periodic.Weno",
     "CFDLean.Entropy.PairFlux",
     "CFDLean.Entropy.Production",
     "CFDLean.Entropy.Scalar.Burgers",
     "CFDLean.Entropy.Scalar.Certificates",
     "CFDLean.Entropy.Scalar.Controls",
     "CFDLean.Entropy.Scalar.Periodic",
+    "CFDLean.Exec.E1.Binary64",
     "CFDLean.Exec.FV1D",
     "CFDLean.Exec.FV1DControls",
     "CFDLean.Exec.FV1DRefinement",
@@ -414,14 +412,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 5882,
+    "roots": 5842,
     "unsafe_reached": [],
-    "visited": 65512
+    "visited": 65476
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "fb9d35d8f18a048c4088cddb09d4630161d71780208fdad50970839f44876026"
+      "sha256": "3a250b3813e52cdbb2e1c96203012a8b73ea2746653834ccddb6f96314e59032"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -463,10 +461,6 @@
       "path": "CFDLean/Discrete/Periodic/Muscl.lean",
       "sha256": "14a35399a771ac0e95de4bd6c5857314cde59c63cb5498dcbcb2386858e62b9b"
     },
-    "CFDLean.Discrete.Periodic.MusclReconstruction": {
-      "path": "CFDLean/Discrete/Periodic/MusclReconstruction.lean",
-      "sha256": "af484b3c545e015fbe2ba2041401c19b53a19e436e5b7f93779192e8d853ef34"
-    },
     "CFDLean.Discrete.Periodic.Nonuniform": {
       "path": "CFDLean/Discrete/Periodic/Nonuniform.lean",
       "sha256": "d8091ef1c519dbdd42657daeb87e25791078b5dfe92c8cfecacf53dd0843c5a4"
@@ -483,10 +477,6 @@
       "path": "CFDLean/Discrete/Periodic/NonuniformMusclStability.lean",
       "sha256": "f5a053c44cf5505cda7dd31957b35ff4ee7e5c0a67e48350d92e8b5e3e37158e"
     },
-    "CFDLean.Discrete.Periodic.Reconstruction": {
-      "path": "CFDLean/Discrete/Periodic/Reconstruction.lean",
-      "sha256": "21e836d04f1227ea99103976652a657406f3c866afbd731e6f24b3f284b8fdea"
-    },
     "CFDLean.Discrete.Periodic.Rusanov": {
       "path": "CFDLean/Discrete/Periodic/Rusanov.lean",
       "sha256": "9c1081c17498fc2f54bfafa121a7fac2bb03737ded9ec1ccd1cb9b9e7df3843a"
@@ -494,10 +484,6 @@
     "CFDLean.Discrete.Periodic.TotalVariation": {
       "path": "CFDLean/Discrete/Periodic/TotalVariation.lean",
       "sha256": "29170c6df9c9d892f6ec3338e60e6799f85088f9f43c4cf0edfb96e9921b1a69"
-    },
-    "CFDLean.Discrete.Periodic.Weno": {
-      "path": "CFDLean/Discrete/Periodic/Weno.lean",
-      "sha256": "0e290ae017a5f51991aafe02c9741a65f341aa942a7de138e388e97c76fc0fb3"
     },
     "CFDLean.Entropy.PairFlux": {
       "path": "CFDLean/Entropy/PairFlux.lean",
@@ -522,6 +508,10 @@
     "CFDLean.Entropy.Scalar.Periodic": {
       "path": "CFDLean/Entropy/Scalar/Periodic.lean",
       "sha256": "215f3423b0ef0f7b3b5931321c2522b3282376cccd4faec49719c03e01c2156b"
+    },
+    "CFDLean.Exec.E1.Binary64": {
+      "path": "CFDLean/Exec/E1/Binary64.lean",
+      "sha256": "5741ec6216b01a748df80820180e7e2b058bba02666457a0d8dba84f294d5cbf"
     },
     "CFDLean.Exec.FV1D": {
       "path": "CFDLean/Exec/FV1D.lean",
@@ -15434,6 +15424,52 @@
       "type": "\u2200 {N : \u2115} [inst : NeZero N] (\u03b3 dx dt : \u211d),\n  1 < \u03b3 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        \u2200 (C : CFDLean.Conservative 1),\n          CFDLean.Conservative.Admissible \u03b3 C \u2192 (CFDLean.Euler1D.step \u03b3 dx dt fun x => C) = fun x => C",
       "unsafe": false
     },
+    "CFDLean.Exec.E1.value": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "CFDLean.Exec.E1.value",
+      "raw_type": null,
+      "root": true,
+      "type": "Float \u2192 Option \u211a",
+      "unsafe": false
+    },
+    "CFDLean.Exec.E1.value._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "CFDLean.Exec.E1.value._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.value_isSome": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue",
+        "CFDLean.Exec.E1.value"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "CFDLean.Exec.E1.value_isSome",
+      "raw_type": "\u2200 (x : Float), Eq (CFDLean.Exec.E1.value x).isSome x.isFinite",
+      "root": true,
+      "type": "\u2200 (x : Float), (CFDLean.Exec.E1.value x).isSome = x.isFinite",
+      "unsafe": false
+    },
     "CFDLean.Exec.EntriesBetween": {
       "axioms": [
         "propext",
@@ -27858,907 +27894,6 @@
       "raw_type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] [inst_2 : Fintype I]\n  (m : CFDLean.Periodic.Mesh1D I) (dt : Real) (h U : I \u2192 S),\n  Eq (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (CFDLean.FV1D.Nonuniform.update m dt h U i))\n    (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (U i))",
       "root": true,
       "type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] [inst_2 : Fintype I]\n  (m : CFDLean.Periodic.Mesh1D I) (dt : \u211d) (h U : I \u2192 S),\n  \u2211 i, m.width i \u2022 CFDLean.FV1D.Nonuniform.update m dt h U i = \u2211 i, m.width i \u2022 U i",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk"
-      ],
-      "kind": "inductive",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192 CFDLean.Periodic.Mesh1D I \u2192 Type u_2 \u2192 Type (max u_1 u_2)",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.PreservesConstants": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.PreservesConstants",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192 {S : Type u_2} \u2192 {m : CFDLean.Periodic.Mesh1D I} \u2192 CFDLean.FV1D.Reconstruction m S \u2192 Prop",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge": {
-      "axioms": [
-        "propext",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_2",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_6",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_4",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_1",
-        "CFDLean.FV1D.Reconstruction.Weno.weight",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_5"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge",
-      "raw_type": null,
-      "root": true,
-      "type": "{K : Type u_1} \u2192 [inst : Field K] \u2192 [inst_1 : LinearOrder K] \u2192 { e // 0 < e } \u2192 K \u2192 K \u2192 K \u2192 K \u2192 K \u2192 K",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._proof_1",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(1 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._proof_2": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._proof_2",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(2 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._proof_3": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._proof_3",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 5) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(5 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._proof_4": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._proof_4",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 6) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(6 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._proof_5": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._proof_5",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 10) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(10 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._proof_6": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._proof_6",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 4) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(4 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge._redArg",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge.eq_1": {
-      "axioms": [
-        "propext",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_2",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_6",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_4",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_1",
-        "CFDLean.FV1D.Reconstruction.Weno.weight",
-        "CFDLean.FV1D.Reconstruction.Weno.edge",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_5"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge.eq_1",
-      "raw_type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] (\u03b5 : Subtype fun e => LT.lt (OfNat.ofNat 0) e)\n  (a b c d e : K),\n  Eq (CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 a b c d e)\n    (HDiv.hDiv\n      (HAdd.hAdd\n        (HAdd.hAdd\n          (HMul.hMul\n            (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5.val (OfNat.ofNat 1)\n              (HAdd.hAdd (HSub.hSub a (HMul.hMul (OfNat.ofNat 2) b)) c)\n              (HAdd.hAdd (HSub.hSub a (HMul.hMul (OfNat.ofNat 4) b)) (HMul.hMul (OfNat.ofNat 3) c)))\n            (HDiv.hDiv\n              (HAdd.hAdd (HSub.hSub (HMul.hMul (OfNat.ofNat 2) a) (HMul.hMul (OfNat.ofNat 7) b))\n                (HMul.hMul (OfNat.ofNat 11) c))\n              (OfNat.ofNat 6)))\n          (HMul.hMul\n            (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5.val (OfNat.ofNat 6)\n              (HAdd.hAdd (HSub.hSub b (HMul.hMul (OfNat.ofNat 2) c)) d) (HSub.hSub b d))\n            (HDiv.hDiv (HAdd.hAdd (HAdd.hAdd (Neg.neg b) (HMul.hMul (OfNat.ofNat 5) c)) (HMul.hMul (OfNat.ofNat 2) d))\n              (OfNat.ofNat 6))))\n        (HMul.hMul\n          (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5.val (OfNat.ofNat 3)\n            (HAdd.hAdd (HSub.hSub c (HMul.hMul (OfNat.ofNat 2) d)) e)\n            (HAdd.hAdd (HSub.hSub (HMul.hMul (OfNat.ofNat 3) c) (HMul.hMul (OfNat.ofNat 4) d)) e))\n          (HDiv.hDiv (HSub.hSub (HAdd.hAdd (HMul.hMul (OfNat.ofNat 2) c) (HMul.hMul (OfNat.ofNat 5) d)) e)\n            (OfNat.ofNat 6))))\n      (HAdd.hAdd\n        (HAdd.hAdd\n          (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5.val (OfNat.ofNat 1)\n            (HAdd.hAdd (HSub.hSub a (HMul.hMul (OfNat.ofNat 2) b)) c)\n            (HAdd.hAdd (HSub.hSub a (HMul.hMul (OfNat.ofNat 4) b)) (HMul.hMul (OfNat.ofNat 3) c)))\n          (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5.val (OfNat.ofNat 6)\n            (HAdd.hAdd (HSub.hSub b (HMul.hMul (OfNat.ofNat 2) c)) d) (HSub.hSub b d)))\n        (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5.val (OfNat.ofNat 3)\n          (HAdd.hAdd (HSub.hSub c (HMul.hMul (OfNat.ofNat 2) d)) e)\n          (HAdd.hAdd (HSub.hSub (HMul.hMul (OfNat.ofNat 3) c) (HMul.hMul (OfNat.ofNat 4) d)) e))))",
-      "root": true,
-      "type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] (\u03b5 : { e // 0 < e }) (a b c d e : K),\n  CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 a b c d e =\n    (CFDLean.FV1D.Reconstruction.Weno.weight (\u2191\u03b5) 1 (a - 2 * b + c) (a - 4 * b + 3 * c) *\n            ((2 * a - 7 * b + 11 * c) / 6) +\n          CFDLean.FV1D.Reconstruction.Weno.weight (\u2191\u03b5) 6 (b - 2 * c + d) (b - d) * ((-b + 5 * c + 2 * d) / 6) +\n        CFDLean.FV1D.Reconstruction.Weno.weight (\u2191\u03b5) 3 (c - 2 * d + e) (3 * c - 4 * d + e) *\n          ((2 * c + 5 * d - e) / 6)) /\n      (CFDLean.FV1D.Reconstruction.Weno.weight (\u2191\u03b5) 1 (a - 2 * b + c) (a - 4 * b + 3 * c) +\n          CFDLean.FV1D.Reconstruction.Weno.weight (\u2191\u03b5) 6 (b - 2 * c + d) (b - d) +\n        CFDLean.FV1D.Reconstruction.Weno.weight (\u2191\u03b5) 3 (c - 2 * d + e) (3 * c - 4 * d + e))",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.edge_quadratic": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "_private.CFDLean.Discrete.Periodic.Weno.0.CFDLean.FV1D.Reconstruction.Weno.edge_of_agree",
-        "CFDLean.FV1D.Reconstruction.Weno.edge"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.edge_quadratic",
-      "raw_type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K]\n  (\u03b5 : Subtype fun e => LT.lt (OfNat.ofNat 0) e) (a b c : K),\n  have mean := fun j =>\n    HAdd.hAdd\n      (HAdd.hAdd (HMul.hMul a (HAdd.hAdd (HPow.hPow j (OfNat.ofNat 2)) (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 12))))\n        (HMul.hMul b j))\n      c;\n  Eq\n    (CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 (mean (Neg.neg (OfNat.ofNat 2))) (mean (Neg.neg (OfNat.ofNat 1)))\n      (mean (OfNat.ofNat 0)) (mean (OfNat.ofNat 1)) (mean (OfNat.ofNat 2)))\n    (HAdd.hAdd (HAdd.hAdd (HDiv.hDiv a (OfNat.ofNat 4)) (HDiv.hDiv b (OfNat.ofNat 2))) c)",
-      "root": true,
-      "type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] (\u03b5 : { e // 0 < e }) (a b c : K),\n  have mean := fun j => a * (j ^ 2 + 1 / 12) + b * j + c;\n  CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 (mean (-2)) (mean (-1)) (mean 0) (mean 1) (mean 2) = a / 4 + b / 2 + c",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.weight": {
-      "axioms": [
-        "propext",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_2",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_1"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.weight",
-      "raw_type": null,
-      "root": true,
-      "type": "{K : Type u_1} \u2192 [Field K] \u2192 K \u2192 K \u2192 K \u2192 K \u2192 K",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.weight._proof_1": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.weight._proof_1",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 12) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(12 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.weight._proof_2": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.weight._proof_2",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 11) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(11 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3": {
-      "axioms": [
-        "propext"
-      ],
-      "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3",
-      "raw_type": "(HAdd.hAdd (OfNat.ofNat 3) (OfNat.ofNat 1)).AtLeastTwo",
-      "root": true,
-      "type": "(3 + 1).AtLeastTwo",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.weight._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.weight._redArg",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.Weno.weight_pos": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.weight",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_2",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_1"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.Weno.weight_pos",
-      "raw_type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {\u03b5 d : K},\n  LT.lt (OfNat.ofNat 0) \u03b5 \u2192\n    LT.lt (OfNat.ofNat 0) d \u2192 \u2200 (k g : K), LT.lt (OfNat.ofNat 0) (CFDLean.FV1D.Reconstruction.Weno.weight \u03b5 d k g)",
-      "root": true,
-      "type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {\u03b5 d : K},\n  0 < \u03b5 \u2192 0 < d \u2192 \u2200 (k g : K), 0 < CFDLean.FV1D.Reconstruction.Weno.weight \u03b5 d k g",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction._sizeOf_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.rec"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction._sizeOf_1",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192 {S : Type u_2} \u2192 [SizeOf I] \u2192 [SizeOf S] \u2192 CFDLean.FV1D.Reconstruction m S \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction._sizeOf_inst": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction._sizeOf_1"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction._sizeOf_inst",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  (m : CFDLean.Periodic.Mesh1D I) \u2192 (S : Type u_2) \u2192 [SizeOf I] \u2192 [SizeOf S] \u2192 SizeOf (CFDLean.FV1D.Reconstruction m S)",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.casesOn": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.rec"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.casesOn",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192\n    {S : Type u_2} \u2192\n      {motive : CFDLean.FV1D.Reconstruction m S \u2192 Sort u} \u2192\n        (t : CFDLean.FV1D.Reconstruction m S) \u2192\n          ((traces : (I \u2192 S) \u2192 I \u2192 S \u00d7 S) \u2192 motive { traces := traces }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.ctorIdx": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.ctorIdx",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192 {m : CFDLean.Periodic.Mesh1D I} \u2192 {S : Type u_2} \u2192 CFDLean.FV1D.Reconstruction m S \u2192 \u2115",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.mk": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction"
-      ],
-      "kind": "constructor",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.mk",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192 {S : Type u_2} \u2192 ((I \u2192 S) \u2192 I \u2192 S \u00d7 S) \u2192 CFDLean.FV1D.Reconstruction m S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.mk._flat_ctor": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.mk._flat_ctor",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192 {S : Type u_2} \u2192 ((I \u2192 S) \u2192 I \u2192 S \u00d7 S) \u2192 CFDLean.FV1D.Reconstruction m S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.mk.inj": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.mk.noConfusion",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.mk.inj",
-      "raw_type": "\u2200 {I : Type u_1} {m : CFDLean.Periodic.Mesh1D I} {S : Type u_2} {traces traces_1 : (I \u2192 S) \u2192 I \u2192 Prod S S},\n  Eq { traces := traces } { traces := traces_1 } \u2192 Eq traces traces_1",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {m : CFDLean.Periodic.Mesh1D I} {S : Type u_2} {traces traces_1 : (I \u2192 S) \u2192 I \u2192 S \u00d7 S},\n  { traces := traces } = { traces := traces_1 } \u2192 traces = traces_1",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.mk.injEq": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.mk.inj"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.mk.injEq",
-      "raw_type": "\u2200 {I : Type u_1} {m : CFDLean.Periodic.Mesh1D I} {S : Type u_2} (traces traces_1 : (I \u2192 S) \u2192 I \u2192 Prod S S),\n  Eq (Eq { traces := traces } { traces := traces_1 }) (Eq traces traces_1)",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {m : CFDLean.Periodic.Mesh1D I} {S : Type u_2} (traces traces_1 : (I \u2192 S) \u2192 I \u2192 S \u00d7 S),\n  ({ traces := traces } = { traces := traces_1 }) = (traces = traces_1)",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.mk.noConfusion": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.noConfusion"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.mk.noConfusion",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192\n    {S : Type u_2} \u2192\n      {P : Sort u} \u2192\n        {traces traces' : (I \u2192 S) \u2192 I \u2192 S \u00d7 S} \u2192\n          { traces := traces } = { traces := traces' } \u2192 (traces \u224d traces' \u2192 P) \u2192 P",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.mk.sizeOf_spec": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction._sizeOf_inst"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.mk.sizeOf_spec",
-      "raw_type": "\u2200 {I : Type u_1} {m : CFDLean.Periodic.Mesh1D I} {S : Type u_2} [inst : SizeOf I] [inst_1 : SizeOf S]\n  (traces : (I \u2192 S) \u2192 I \u2192 Prod S S), Eq (sizeOf { traces := traces }) (OfNat.ofNat 1)",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {m : CFDLean.Periodic.Mesh1D I} {S : Type u_2} [inst : SizeOf I] [inst_1 : SizeOf S]\n  (traces : (I \u2192 S) \u2192 I \u2192 S \u00d7 S), sizeOf { traces := traces } = 1",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.muscl": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Nonuniform.rightState",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Nonuniform.leftState"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.MusclReconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.muscl",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {S : Type u_2} \u2192\n    [inst : AddCommGroup S] \u2192\n      [_root_.Module \u211d S] \u2192 (m : CFDLean.Periodic.Mesh1D I) \u2192 (S \u2192 S \u2192 S) \u2192 CFDLean.FV1D.Reconstruction m S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.muscl.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.muscl",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Nonuniform.rightState",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Nonuniform.leftState"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.MusclReconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.muscl.eq_1",
-      "raw_type": "\u2200 {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim : S \u2192 S \u2192 S),\n  Eq (CFDLean.FV1D.Reconstruction.muscl m lim)\n    {\n      traces := fun U i =>\n        Prod.mk (CFDLean.FV1D.Nonuniform.leftState m lim U i) (CFDLean.FV1D.Nonuniform.rightState m lim U i) }",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim : S \u2192 S \u2192 S),\n  CFDLean.FV1D.Reconstruction.muscl m lim =\n    { traces := fun U i => (CFDLean.FV1D.Nonuniform.leftState m lim U i, CFDLean.FV1D.Nonuniform.rightState m lim U i) }",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.muscl_constants": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.muscl",
-        "CFDLean.Periodic.Mesh1D.width",
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.Periodic.Mesh1D.spacing",
-        "CFDLean.FV1D.Nonuniform.rightState",
-        "CFDLean.FV1D.Nonuniform.slope",
-        "CFDLean.Periodic.Mesh1D.grid",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Nonuniform.leftState._proof_1",
-        "CFDLean.FV1D.Reconstruction.PreservesConstants",
-        "CFDLean.FV1D.Nonuniform.leftState",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.MusclReconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.muscl_constants",
-      "raw_type": "\u2200 {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim : S \u2192 S \u2192 S),\n  Eq (lim (OfNat.ofNat 0) (OfNat.ofNat 0)) (OfNat.ofNat 0) \u2192\n    (CFDLean.FV1D.Reconstruction.muscl m lim).PreservesConstants",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim : S \u2192 S \u2192 S), lim 0 0 = 0 \u2192 (CFDLean.FV1D.Reconstruction.muscl m lim).PreservesConstants",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.muscl_step": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.muscl",
-        "CFDLean.FV1D.Nonuniform.musclStep",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.step"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.MusclReconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.muscl_step",
-      "raw_type": "\u2200 {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim H : S \u2192 S \u2192 S) (dt : Real) (U : I \u2192 S),\n  Eq ((CFDLean.FV1D.Reconstruction.muscl m lim).step H dt U) (CFDLean.FV1D.Nonuniform.musclStep m H lim dt U)",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim H : S \u2192 S \u2192 S) (dt : \u211d) (U : I \u2192 S),\n  (CFDLean.FV1D.Reconstruction.muscl m lim).step H dt U = CFDLean.FV1D.Nonuniform.musclStep m H lim dt U",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.noConfusion": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.noConfusionType",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.casesOn"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.noConfusion",
-      "raw_type": null,
-      "root": true,
-      "type": "{P : Sort u} \u2192\n  {I : Type u_1} \u2192\n    {m : CFDLean.Periodic.Mesh1D I} \u2192\n      {S : Type u_2} \u2192\n        {t : CFDLean.FV1D.Reconstruction m S} \u2192\n          {I' : Type u_1} \u2192\n            {m' : CFDLean.Periodic.Mesh1D I'} \u2192\n              {S' : Type u_2} \u2192\n                {t' : CFDLean.FV1D.Reconstruction m' S'} \u2192\n                  I = I' \u2192 m \u224d m' \u2192 S = S' \u2192 t \u224d t' \u2192 CFDLean.FV1D.Reconstruction.noConfusionType P t t'",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.noConfusionType": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.casesOn"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.noConfusionType",
-      "raw_type": null,
-      "root": true,
-      "type": "Sort u \u2192\n  {I : Type u_1} \u2192\n    {m : CFDLean.Periodic.Mesh1D I} \u2192\n      {S : Type u_2} \u2192\n        CFDLean.FV1D.Reconstruction m S \u2192\n          {I' : Type u_1} \u2192\n            {m' : CFDLean.Periodic.Mesh1D I'} \u2192 {S' : Type u_2} \u2192 CFDLean.FV1D.Reconstruction m' S' \u2192 Sort u",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.rec": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction"
-      ],
-      "kind": "recursor",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.rec",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192\n    {S : Type u_2} \u2192\n      {motive : CFDLean.FV1D.Reconstruction m S \u2192 Sort u} \u2192\n        ((traces : (I \u2192 S) \u2192 I \u2192 S \u00d7 S) \u2192 motive { traces := traces }) \u2192\n          (t : CFDLean.FV1D.Reconstruction m S) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.recOn": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.rec"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.recOn",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192\n    {S : Type u_2} \u2192\n      {motive : CFDLean.FV1D.Reconstruction m S \u2192 Sort u} \u2192\n        (t : CFDLean.FV1D.Reconstruction m S) \u2192\n          ((traces : (I \u2192 S) \u2192 I \u2192 S \u00d7 S) \u2192 motive { traces := traces }) \u2192 motive t",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.step": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.step.match_1",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Nonuniform.update",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.step",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {S : Type u_2} \u2192\n    {m : CFDLean.Periodic.Mesh1D I} \u2192\n      [inst : AddCommGroup S] \u2192\n        [_root_.Module \u211d S] \u2192 CFDLean.FV1D.Reconstruction m S \u2192 (S \u2192 S \u2192 S) \u2192 \u211d \u2192 (I \u2192 S) \u2192 I \u2192 S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.step.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.step.match_1",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Nonuniform.update",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.step",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.step.eq_1",
-      "raw_type": "\u2200 {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S]\n  (R : CFDLean.FV1D.Reconstruction m S) (H : S \u2192 S \u2192 S) (dt : Real) (U : I \u2192 S),\n  Eq (R.step H dt U)\n    (CFDLean.FV1D.Nonuniform.update m dt\n      (fun i => CFDLean.FV1D.Reconstruction.step.match_1 (fun x => S) (R.traces U i) fun l r => H l r) U)",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S]\n  (R : CFDLean.FV1D.Reconstruction m S) (H : S \u2192 S \u2192 S) (dt : \u211d) (U : I \u2192 S),\n  R.step H dt U =\n    CFDLean.FV1D.Nonuniform.update m dt\n      (fun i =>\n        match R.traces U i with\n        | (l, r) => H l r)\n      U",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.step.match_1": {
-      "axioms": [],
-      "direct": [],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.step.match_1",
-      "raw_type": null,
-      "root": true,
-      "type": "{S : Type u_1} \u2192 (motive : S \u00d7 S \u2192 Sort u_2) \u2192 (x : S \u00d7 S) \u2192 ((l r : S) \u2192 motive (l, r)) \u2192 motive x",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.step_constant": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D.width",
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.FV1D.Reconstruction.step.match_1",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.Periodic.Mesh1D.grid",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.PreservesConstants",
-        "CFDLean.FV1D.Reconstruction.step",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.step_constant",
-      "raw_type": "\u2200 {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S]\n  (R : CFDLean.FV1D.Reconstruction m S),\n  R.PreservesConstants \u2192 \u2200 (H : S \u2192 S \u2192 S) (dt : Real) (c : S), Eq (R.step H dt fun x => c) fun x => c",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S]\n  (R : CFDLean.FV1D.Reconstruction m S),\n  R.PreservesConstants \u2192 \u2200 (H : S \u2192 S \u2192 S) (dt : \u211d) (c : S), (R.step H dt fun x => c) = fun x => c",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.step_weighted_sum": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D.width",
-        "CFDLean.FV1D.Reconstruction.step.match_1",
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.FV1D.Reconstruction.step",
-        "CFDLean.FV1D.Nonuniform.update_weighted_sum",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.step_weighted_sum",
-      "raw_type": "\u2200 {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S]\n  [inst_2 : Fintype I] (R : CFDLean.FV1D.Reconstruction m S) (H : S \u2192 S \u2192 S) (dt : Real) (U : I \u2192 S),\n  Eq (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (R.step H dt U i))\n    (Finset.univ.sum fun i => HSMul.hSMul (m.width i) (U i))",
-      "root": true,
-      "type": "\u2200 {I : Type u_1} {S : Type u_2} {m : CFDLean.Periodic.Mesh1D I} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S]\n  [inst_2 : Fintype I] (R : CFDLean.FV1D.Reconstruction m S) (H : S \u2192 S \u2192 S) (dt : \u211d) (U : I \u2192 S),\n  \u2211 i, m.width i \u2022 R.step H dt U i = \u2211 i, m.width i \u2022 U i",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.traces": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Mesh1D",
-        "CFDLean.FV1D.Reconstruction"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Reconstruction",
-      "name": "CFDLean.FV1D.Reconstruction.traces",
-      "raw_type": null,
-      "root": true,
-      "type": "{I : Type u_1} \u2192\n  {m : CFDLean.Periodic.Mesh1D I} \u2192 {S : Type u_2} \u2192 CFDLean.FV1D.Reconstruction m S \u2192 (I \u2192 S) \u2192 I \u2192 S \u00d7 S",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.Periodic.Mesh1D.uniform",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.Reconstruction.Weno.edge"
-      ],
-      "kind": "definition",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5",
-      "raw_type": null,
-      "root": true,
-      "type": "{K : Type u_1} \u2192\n  [inst : Field K] \u2192\n    [inst_1 : LinearOrder K] \u2192\n      {I : Type u_2} \u2192\n        (g : CFDLean.Periodic.Grid I) \u2192\n          (dx : \u211d) \u2192\n            (hdx : 0 < dx) \u2192 { e // 0 < e } \u2192 CFDLean.FV1D.Reconstruction (CFDLean.Periodic.Mesh1D.uniform g dx hdx) K",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5._boxed": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5._boxed",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5._redArg": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5._redArg",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5._redArg._closed_0": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5._redArg._closed_0",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5._redArg._lam_0": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5._redArg._lam_0",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5._redArg._lam_1": {
-      "axioms": [],
-      "direct": [],
-      "kind": "compiler_metadata_only",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5._redArg._lam_1",
-      "raw_type": null,
-      "root": false,
-      "type": null,
-      "unsafe": null
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5.eq_1": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.Periodic.Grid.prev",
-        "CFDLean.FV1D.Reconstruction.mk",
-        "CFDLean.Periodic.Mesh1D.uniform",
-        "CFDLean.FV1D.Reconstruction",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.Periodic.Grid.next",
-        "CFDLean.FV1D.Reconstruction.Weno.edge",
-        "CFDLean.FV1D.Reconstruction.wenoJS5"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5.eq_1",
-      "raw_type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : Real)\n  (hdx : LT.lt (OfNat.ofNat 0) dx) (\u03b5 : Subtype fun e => LT.lt (OfNat.ofNat 0) e),\n  Eq (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx \u03b5)\n    {\n      traces := fun U i =>\n        have j := DFunLike.coe g.next i;\n        have l := g.prev i;\n        have r := DFunLike.coe g.next j;\n        Prod.mk (CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 (U (g.prev l)) (U l) (U i) (U j) (U r))\n          (CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 (U (DFunLike.coe g.next r)) (U r) (U j) (U i) (U l)) }",
-      "root": true,
-      "type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] {I : Type u_2} (g : CFDLean.Periodic.Grid I) (dx : \u211d)\n  (hdx : 0 < dx) (\u03b5 : { e // 0 < e }),\n  CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx \u03b5 =\n    {\n      traces := fun U i =>\n        have j := g.next i;\n        have l := g.prev i;\n        have r := g.next j;\n        (CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 (U (g.prev l)) (U l) (U i) (U j) (U r),\n          CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 (U (g.next r)) (U r) (U j) (U i) (U l)) }",
-      "unsafe": false
-    },
-    "CFDLean.FV1D.Reconstruction.wenoJS5_constants": {
-      "axioms": [
-        "propext",
-        "Classical.choice",
-        "Quot.sound"
-      ],
-      "direct": [
-        "CFDLean.FV1D.Reconstruction.Weno.edge_quadratic",
-        "CFDLean.Periodic.Mesh1D.uniform",
-        "CFDLean.Periodic.Grid",
-        "CFDLean.FV1D.Reconstruction.PreservesConstants",
-        "CFDLean.FV1D.Reconstruction.Weno.edge",
-        "CFDLean.FV1D.Reconstruction.wenoJS5",
-        "CFDLean.FV1D.Reconstruction.traces"
-      ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "CFDLean.FV1D.Reconstruction.wenoJS5_constants",
-      "raw_type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {I : Type u_2}\n  (g : CFDLean.Periodic.Grid I) (dx : Real) (hdx : LT.lt (OfNat.ofNat 0) dx)\n  (\u03b5 : Subtype fun e => LT.lt (OfNat.ofNat 0) e), (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx \u03b5).PreservesConstants",
-      "root": true,
-      "type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {I : Type u_2}\n  (g : CFDLean.Periodic.Grid I) (dx : \u211d) (hdx : 0 < dx) (\u03b5 : { e // 0 < e }),\n  (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx \u03b5).PreservesConstants",
       "unsafe": false
     },
     "CFDLean.FV1D.face": {
@@ -144941,42 +144076,77 @@
       "type": "\u2200 (w a : \u211d), w / (a / 2) = 2 * (w / a)",
       "unsafe": false
     },
-    "_private.CFDLean.Discrete.Periodic.Weno.0.CFDLean.FV1D.Reconstruction.Weno.edge_of_agree": {
+    "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue": {
       "axioms": [
         "propext",
         "Classical.choice",
         "Quot.sound"
       ],
       "direct": [
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.weight_pos",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_2",
-        "_private.CFDLean.Discrete.Periodic.Weno.0.CFDLean.FV1D.Reconstruction.Weno.edge_of_agree._simp_1_2",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_6",
-        "CFDLean.FV1D.Reconstruction.Weno.weight._proof_3",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_4",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_1",
-        "CFDLean.FV1D.Reconstruction.Weno.weight",
-        "CFDLean.FV1D.Reconstruction.Weno.edge",
-        "CFDLean.FV1D.Reconstruction.Weno.edge._proof_5"
+        "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue.match_3",
+        "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue.match_1"
       ],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "_private.CFDLean.Discrete.Periodic.Weno.0.CFDLean.FV1D.Reconstruction.Weno.edge_of_agree",
-      "raw_type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K]\n  (\u03b5 : Subtype fun e => LT.lt (OfNat.ofNat 0) e) (a b c d e v : K),\n  Eq\n      (HDiv.hDiv\n        (HAdd.hAdd (HSub.hSub (HMul.hMul (OfNat.ofNat 2) a) (HMul.hMul (OfNat.ofNat 7) b))\n          (HMul.hMul (OfNat.ofNat 11) c))\n        (OfNat.ofNat 6))\n      v \u2192\n    Eq\n        (HDiv.hDiv (HAdd.hAdd (HAdd.hAdd (Neg.neg b) (HMul.hMul (OfNat.ofNat 5) c)) (HMul.hMul (OfNat.ofNat 2) d))\n          (OfNat.ofNat 6))\n        v \u2192\n      Eq\n          (HDiv.hDiv (HSub.hSub (HAdd.hAdd (HMul.hMul (OfNat.ofNat 2) c) (HMul.hMul (OfNat.ofNat 5) d)) e)\n            (OfNat.ofNat 6))\n          v \u2192\n        Eq (CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 a b c d e) v",
+      "kind": "definition",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue",
+      "raw_type": null,
       "root": true,
-      "type": "\u2200 {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] (\u03b5 : { e // 0 < e })\n  (a b c d e v : K),\n  (2 * a - 7 * b + 11 * c) / 6 = v \u2192\n    (-b + 5 * c + 2 * d) / 6 = v \u2192 (2 * c + 5 * d - e) / 6 = v \u2192 CFDLean.FV1D.Reconstruction.Weno.edge \u03b5 a b c d e = v",
+      "type": "Float.Model.UnpackedFloat \u2192 Option \u211a",
       "unsafe": false
     },
-    "_private.CFDLean.Discrete.Periodic.Weno.0.CFDLean.FV1D.Reconstruction.Weno.edge_of_agree._simp_1_2": {
+    "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue._closed_0": {
       "axioms": [],
       "direct": [],
-      "kind": "theorem",
-      "module": "CFDLean.Discrete.Periodic.Weno",
-      "name": "_private.CFDLean.Discrete.Periodic.Weno.0.CFDLean.FV1D.Reconstruction.Weno.edge_of_agree._simp_1_2",
-      "raw_type": "\u2200 {R : Type v} [inst : Mul R] [inst_1 : Add R] [RightDistribClass R] (a b c : R),\n  Eq (HAdd.hAdd (HMul.hMul a c) (HMul.hMul b c)) (HMul.hMul (HAdd.hAdd a b) c)",
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue._closed_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue._closed_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue._closed_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue._closed_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue.match_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue.match_1",
+      "raw_type": null,
       "root": true,
-      "type": "\u2200 {R : Type v} [inst : Mul R] [inst_1 : Add R] [RightDistribClass R] (a b c : R), a * c + b * c = (a + b) * c",
+      "type": "(motive : Float.Model.UnpackedFloat.Sign \u2192 Sort u_1) \u2192\n  (sign : Float.Model.UnpackedFloat.Sign) \u2192\n    (Unit \u2192 motive Float.Model.UnpackedFloat.Sign.positive) \u2192\n      (Unit \u2192 motive Float.Model.UnpackedFloat.Sign.negative) \u2192 motive sign",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue.match_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Exec.E1.Binary64",
+      "name": "_private.CFDLean.Exec.E1.Binary64.0.CFDLean.Exec.E1.unpackedValue.match_3",
+      "raw_type": null,
+      "root": true,
+      "type": "(motive : Float.Model.UnpackedFloat \u2192 Sort u_1) \u2192\n  (x : Float.Model.UnpackedFloat) \u2192\n    ((sign : Float.Model.UnpackedFloat.Sign) \u2192 motive (Float.Model.UnpackedFloat.zero sign)) \u2192\n      ((sign : Float.Model.UnpackedFloat.Sign) \u2192\n          (mantissa : \u2115) \u2192\n            (exponent : \u2124) \u2192\n              (mantissa_pos : 0 < mantissa) \u2192\n                motive (Float.Model.UnpackedFloat.finite sign mantissa exponent mantissa_pos)) \u2192\n        ((sign : Float.Model.UnpackedFloat.Sign) \u2192 motive (Float.Model.UnpackedFloat.infinity sign)) \u2192\n          (Unit \u2192 motive Float.Model.UnpackedFloat.notANumber) \u2192 motive x",
       "unsafe": false
     },
     "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.entry": {
@@ -151817,7 +150987,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 591,
+  "catalog_entries": 592,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -152421,5 +151591,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 591
+  "raw_types_checked": 592
 }

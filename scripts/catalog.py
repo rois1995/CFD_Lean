@@ -14,7 +14,7 @@ README = "catalog/README.md"
 LAYERS = ("Foundations", "Geometry", "Discrete operators", "Entropy framework", "Physics models", "Schemes", "Time",
           "Execution")
 MILESTONES = ("M1", "M2", "M3", "M4", "M5", "MC-N", "B0", "B1", "B2", "B3", "B4", "E0", "E0b", "B3b", "E0c", "JST1", "FV1D", "FVP", "FVA", "FVN",
-              "FVNA")
+              "FVNA", "E1", "FVT", "WENO")
 STATUSES = ("accepted", "pending", "candidate")
 METHOD_SETS = (("FEM",), ("FVM",), ("FEM", "FVM"), ("method-free",))
 
