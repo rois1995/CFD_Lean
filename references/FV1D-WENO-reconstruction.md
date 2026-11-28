@@ -1,8 +1,8 @@
 # Reconstruction and execution proof map
 
-The [scientific proposal](../specifications/FV1D-WENO-reconstruction-proposal.md) records the
+The [reviewed scientific scope](../specifications/FV1D-WENO-reconstruction-proposal.md) records the
 formulas, indexing and hypotheses. The [result map](../specifications/FV1D-WENO-reconstruction-results.json)
-binds each claim to its declaration or executable control. Catalog status tracks implementation review.
+binds each claim to its declaration or executable control. The [scope decision](../reviews/FV1D/2026-11-28/Scope_Decision.md) pins the amendments. Catalog status tracks implementation review.
 Periodic stencils repeat indices on meshes with fewer than five cells. The exact-real results and
 binary64 regressions describe different arithmetic backends.
 

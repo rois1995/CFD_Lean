@@ -23,6 +23,14 @@
         "CFDLean.Exec.E1.checkStep_sound",
         "CFDLean.Exec.E1.real_cell_bound"
       ]
+    },
+    {
+      "id": "E1-4",
+      "proposal_obligation": 4,
+      "declarations": [],
+      "control": "benchmarks/E1NativeReplay.lean",
+      "provenance": "evidence/E1/native-replay.json",
+      "native_assumption": "Faithful execution of the compiled kernel and faithful recovery of its binary64 output words."
     }
   ]
 }
