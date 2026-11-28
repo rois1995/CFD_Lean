@@ -121,6 +121,11 @@ class DriverTests(unittest.TestCase):
                     with self.subTest(model=model, method=method, mesh=mesh):
                         mesh_args = [] if mesh == "implicit" else ["--widths", ",".join(map(str, widths))]
                         lines = output("--model", model, "8", *time_args, *flags, *mesh_args, "--dump").splitlines()
+                        if model == "euler":
+                            steps = {"first": 19, "muscl": 19, "weno": 20}[method] if mesh == "graded" else 10
+                            summary = next(line for line in lines if line.startswith("Euler Rusanov"))
+                            self.assertIn(f"steps = {steps}  time = ", summary)
+                            self.assertEqual(float(summary.split("time = ")[1]), .125)
                         cells = [list(map(float, row.split())) for row in lines[-8:]]
                         initial, expected = replay(model, widths, method)
                         for q, ref in zip(cells, expected, strict=True):
