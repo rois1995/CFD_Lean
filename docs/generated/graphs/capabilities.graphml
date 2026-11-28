@@ -253,11 +253,19 @@
       <data key="node_parent">multidimensional</data>
       <data key="node_status">implemented</data>
     </node>
+    <node id="fixed_mesh_assembly">
+      <data key="node_docs">["references/MD-fixed-mesh-assembly.md", "reviews/MD/Acceptance.md"]</data>
+      <data key="node_evidence">[{"id": "MD", "paths": ["specifications/MD-fixed-mesh-assembly-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Fixed-mesh conservative assembly and update</data>
+      <data key="node_parent">multidimensional</data>
+      <data key="node_status">accepted</data>
+    </node>
     <node id="fixed_mesh_fv2d">
       <data key="node_docs">["roadmap/NEXT.md"]</data>
       <data key="node_evidence">[]</data>
       <data key="node_kind">architecture</data>
-      <data key="node_label">Generic fixed-mesh multidimensional FV</data>
+      <data key="node_label">Generic fixed-mesh multidimensional FV schemes</data>
       <data key="node_parent">multidimensional</data>
       <data key="node_status">planned</data>
     </node>
@@ -399,6 +407,9 @@
       <data key="edge_kind">contains</data>
     </edge>
     <edge source="multidimensional" target="two_triangles">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="multidimensional" target="fixed_mesh_assembly">
       <data key="edge_kind">contains</data>
     </edge>
     <edge source="multidimensional" target="fixed_mesh_fv2d">

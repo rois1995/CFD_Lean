@@ -59,7 +59,8 @@ flowchart TD
 | Median-dual Euler/Roe residual and boundaries | ✅ Accepted | [M2](../specifications/M2-results.json), [M3](../specifications/M3-results.json), [M4](../specifications/M4-results.json), [Euler-Milestones.md](../references/Euler-Milestones.md) |
 | Median-dual Euler explicit update | 🟡 Implemented / awaiting acceptance | [M5](../specifications/M5-results.json), [M5.md](../references/M5.md) |
 | Oriented-face two-triangle control | 🟡 Implemented / awaiting acceptance | [Two_Triangle_Freeze.md](../reviews/FV2D/Two_Triangle_Freeze.md), [OrientedTriangles.lean](../benchmarks/ReviewCases/OrientedTriangles.lean) |
-| Generic fixed-mesh multidimensional FV | ⬜ Planned | [NEXT.md](../roadmap/NEXT.md) |
+| Fixed-mesh conservative assembly and update | ✅ Accepted | [MD](../specifications/MD-fixed-mesh-assembly-results.json), [MD-fixed-mesh-assembly.md](../references/MD-fixed-mesh-assembly.md), [Acceptance.md](../reviews/MD/Acceptance.md) |
+| Generic fixed-mesh multidimensional FV schemes | ⬜ Planned | [NEXT.md](../roadmap/NEXT.md) |
 | ALE | ⬜ Planned | [FUTURE.md](../roadmap/FUTURE.md) |
 | AMR | ⬜ Planned | [FUTURE.md](../roadmap/FUTURE.md) |
 | MPI | ⬜ Planned | [FUTURE.md](../roadmap/FUTURE.md) |
@@ -68,7 +69,7 @@ flowchart TD
 
 ## Next architectural steps
 
-- Generic fixed-mesh multidimensional FV
+- Generic fixed-mesh multidimensional FV schemes
 - ALE
 - AMR
 - MPI
