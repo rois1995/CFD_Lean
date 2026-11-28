@@ -1105,7 +1105,7 @@ def main(record_raw_types=False):
     scope = "specifications/FV1D-WENO-reconstruction-proposal.md"
     if weno["scope"] != scope or read_source(scope) != git_blob("c16c5a20dffcc08a426073ad0e7d53304386bcf8", scope):
         raise ValueError("WENO proposal differs from the pinned scope")
-    if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W"]:
+    if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W", "G-P", "G-I", "G-S"]:
         raise ValueError("Unexpected WENO reconstruction result bindings")
     for r in weno["results"]:
         for control in r.get("controls", []):

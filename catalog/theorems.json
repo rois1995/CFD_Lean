@@ -7895,6 +7895,71 @@
       ],
       "summary": "Both oriented uniform WENO traces preserve constants.",
       "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.ideal_positive",
+      "id": "G-P",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.GradedWeno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The three ideal weights are positive on positive cell widths.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.gradedWeno_constants",
+      "id": "G-P",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.GradedWeno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Graded WENO preserves constant face traces in both orientations.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.edge_quadratic_graded",
+      "id": "G-P",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.GradedWeno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Graded WENO exactly reconstructs a quadratic from its interval averages.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.edge_uniform",
+      "id": "G-P",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.GradedWeno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Equal widths recover the uniform WENO reconstruction.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.GradedWeno.ideal_cubic_quartic",
+      "id": "G-I",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.WenoMoments",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The linear ideal weights reproduce cubic and quartic moments on positive widths.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
     }
   ]
 }
