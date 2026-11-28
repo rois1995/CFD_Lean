@@ -1,5 +1,8 @@
 # Architecture
 
+See the [generated architecture graph](docs/ARCHITECTURE-GRAPH.md) for direct Lean imports and the
+[capability map](docs/CAPABILITIES.md) for the evidence behind each supported scope.
+
 [CFDLean.lean](CFDLean.lean) is the public library umbrella. Use the smallest relevant import when adding a module.
 The folder describes the module's primary concern. Declaration namespaces can span folders. For example,
 `CFDLean.Num` covers several numerical-core layers and `CFDLean.Burgers` covers both physics and schemes.

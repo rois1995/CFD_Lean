@@ -66,7 +66,7 @@ CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "a
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
-                  "FVNA": "accepted", "E1": "pending", "FVT": "pending", "WENO": "pending", "MD": "pending"}
+                  "FVNA": "accepted", "E1": "pending", "FVT": "pending", "WENO": "pending", "MD": "accepted"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),

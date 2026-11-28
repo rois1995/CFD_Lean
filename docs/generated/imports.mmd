@@ -1,0 +1,60 @@
+flowchart TD
+    n_0["Foundations"]
+    n_1["Physics"]
+    n_2["Geometry"]
+    n_3["Discrete"]
+    n_4["Entropy"]
+    n_5["Schemes"]
+    n_6["Time"]
+    n_7["Exec"]
+    n_8["Papers"]
+    n_9["Verification"]
+    n_10["Benchmarks"]
+    n_11["Entry points"]
+    n_12["Library"]
+    n_13["Tooling"]
+    n_10 --> n_3
+    n_10 --> n_11
+    n_10 --> n_7
+    n_3 --> n_2
+    n_3 --> n_5
+    n_3 --> n_6
+    n_4 --> n_3
+    n_4 --> n_0
+    n_4 --> n_2
+    n_4 --> n_5
+    n_11 --> n_7
+    n_7 --> n_3
+    n_7 --> n_5
+    n_0 --> n_1
+    n_2 --> n_3
+    n_2 --> n_0
+    n_2 --> n_5
+    n_12 --> n_3
+    n_12 --> n_4
+    n_12 --> n_7
+    n_12 --> n_0
+    n_12 --> n_2
+    n_12 --> n_8
+    n_12 --> n_1
+    n_12 --> n_5
+    n_12 --> n_6
+    n_8 --> n_3
+    n_8 --> n_4
+    n_8 --> n_0
+    n_8 --> n_2
+    n_8 --> n_1
+    n_1 --> n_0
+    n_5 --> n_3
+    n_5 --> n_2
+    n_5 --> n_1
+    n_5 --> n_6
+    n_6 --> n_5
+    n_13 --> n_7
+    n_13 --> n_12
+    n_13 --> n_9
+    n_9 --> n_4
+    n_9 --> n_7
+    n_9 --> n_12
+    n_9 --> n_8
+    n_9 --> n_5

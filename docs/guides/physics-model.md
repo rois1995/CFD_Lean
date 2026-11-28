@@ -1,0 +1,7 @@
+# Add a physics model
+
+1. Start in [Physics](../../CFDLean/Physics/Euler/State.lean). Define the conserved state, its admissible domain and the physical flux. Use the Euler state/flux split and the scalar [Burgers flux](../../CFDLean/Physics/Burgers/Flux.lean) as examples. Add wave-speed, spectral, entropy, source or diffusion operations only when a specified scheme consumes them.
+2. Freeze the scientific model and intended claims through the [milestone workflow](proposal-to-acceptance.md). State units, domain hypotheses and the scope of admissibility. Separate physical flux identities from numerical positivity or entropy claims with CFL conditions.
+3. Prove relevant exact-real state and flux identities. Plug the model into the [shared FV1D step](../../specifications/FV1D.md) and reuse generic flux, assembly and time composition. Keep solver traversal in those shared components.
+4. If execution is in scope, implement the narrow executable model adapter and prove refinement using the [FV1D array contract](../../specifications/FV1D-array.md). Add constant-state and interface controls, a domain-boundary case, and an independent physical benchmark with stated tolerances such as the [Euler density wave](../../benchmarks/fv1d/README.md).
+5. Record results in the result map and theorem catalog. Add or update the model capability and cite the accepted or pending evidence for its exact scope. Run the [local validation commands](../getting-started.md).

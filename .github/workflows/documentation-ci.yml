@@ -1,0 +1,27 @@
+name: Documentation CI
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Check generated documentation
+        run: |
+          python3 scripts/generate_capabilities.py --check
+          python3 scripts/generate_import_graph.py --check
+      - name: Graph and documentation tests
+        run: PYTHONPATH=scripts python3 -m unittest test_capabilities test_graph_docs test_import_graph test_docs_site
+      - name: Build documentation strictly
+        run: |
+          python3 -m pip install -r requirements-docs.txt
+          python3 -m mkdocs build --strict

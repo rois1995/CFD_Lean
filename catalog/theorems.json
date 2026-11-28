@@ -8057,7 +8057,7 @@
       "id": "MD-C",
       "milestone": "MD",
       "module": "CFDLean.Discrete.FixedMesh",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
         "FVM"
@@ -8070,7 +8070,7 @@
       "id": "MD-K",
       "milestone": "MD",
       "module": "CFDLean.Discrete.FixedMesh",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
         "FVM"
@@ -8083,7 +8083,7 @@
       "id": "MD-K",
       "milestone": "MD",
       "module": "CFDLean.Discrete.FixedMesh",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Discrete operators",
       "methods": [
         "FVM"
@@ -8096,7 +8096,7 @@
       "id": "MD-U",
       "milestone": "MD",
       "module": "CFDLean.Discrete.FixedMesh",
-      "status": "pending",
+      "status": "accepted",
       "layer": "Time",
       "methods": [
         "FVM"

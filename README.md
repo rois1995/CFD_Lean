@@ -3,11 +3,13 @@
 CFD_Lean is a Lean 4 library of exact-real contracts and proofs for computational fluid dynamics. It
 formalizes numerical methods and connects the periodic 1D Burgers schemes to an executable array kernel.
 
-| Area | Current coverage |
-|---|---|
-| Euler and Roe | Ideal-gas Euler states and fluxes, Roe linearization and flux, median-dual assembly and boundary transfers. M1–M4 are independently accepted. The M5 lumped explicit Euler update awaits independent acceptance. |
-| Burgers | Periodic uniform-grid Rusanov, Forward Euler and SSP Runge–Kutta, MUSCL limiters, semidiscrete entropy stability, and exact-real array refinement. B0–B4, B3b and E0–E0c await independent acceptance. |
-| JST paper | Formal statements and proofs for paper 1, with shared simplex, mesh and pair-flux results in the numerical core. |
+## Repository capabilities
+
+CFD_Lean includes periodic Burgers and Euler finite-volume infrastructure, nonuniform 1D geometry,
+reconstruction and executable refinement, and the median-dual Euler/Roe line. The
+[capability map](docs/CAPABILITIES.md) records evidence and status for each scope. The
+[architecture graph](docs/ARCHITECTURE-GRAPH.md) follows actual Lean imports. Start with the
+[documentation home](docs/index.md) for the building blocks and contributor guides.
 
 ## Build and run
 

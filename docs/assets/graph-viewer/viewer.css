@@ -1,0 +1,68 @@
+.graph-controls,
+.graph-controls form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: .55rem;
+  margin: 0;
+}
+
+.graph-controls label {
+  display: grid;
+  gap: .15rem;
+}
+
+.graph-controls :is(button, select, input) {
+  min-height: 1.8rem;
+  padding: .15rem .4rem;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: .2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+}
+
+.graph-controls :is(input, select, button):focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.graph-controls button {
+  cursor: pointer;
+}
+
+.graph-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(10rem, 1fr);
+  gap: .8rem;
+}
+
+.graph-canvas {
+  height: clamp(22rem, 62vh, 40rem);
+  border: 1px solid #c8d5df;
+  border-radius: .4rem;
+  background: #f4f8fb;
+}
+
+.graph-details {
+  max-height: 40rem;
+  overflow: auto;
+  overflow-wrap: anywhere;
+}
+
+.graph-details h2 {
+  margin-top: 0;
+}
+
+.graph-details button {
+  cursor: pointer;
+  text-align: left;
+  color: var(--md-typeset-a-color);
+  text-decoration: underline;
+}
+
+@media (max-width: 740px) {
+  .graph-layout {
+    grid-template-columns: 1fr;
+  }
+}

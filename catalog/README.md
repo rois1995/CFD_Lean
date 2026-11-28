@@ -103,7 +103,7 @@ that this file equals the generated text. Do not edit by hand.
 | E1 | pending | 4 |
 | FVT | pending | 5 |
 | WENO | pending | 17 |
-| MD | pending | 4 |
+| MD | accepted | 4 |
 
 ## Foundations (12)
 
@@ -311,9 +311,9 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.FV1D.Reconstruction.edge_quadratic_graded` | G-P | FVM | pending | Graded WENO exactly reconstructs a quadratic from its interval averages. |
 | `CFDLean.FV1D.Reconstruction.edge_uniform` | G-P | FVM | pending | Equal widths recover the uniform WENO reconstruction. |
 | `CFDLean.GradedWeno.ideal_cubic_quartic` | G-I | FVM | pending | The linear ideal weights reproduce cubic and quartic moments on positive widths. |
-| `CFDLean.FixedMesh.global_balance` | MD-C | FVM | pending | The sum of cell residuals equals the realized outward boundary transfer in an additive commutative group. |
-| `CFDLean.FixedMesh.constant_defect` | MD-K | FVM | pending | Compatible interior and boundary transfers at a constant state map the cell area-vector defect to the cell residual. |
-| `CFDLean.FixedMesh.constant_residual` | MD-K | FVM | pending | Geometric closure and compatible constant-state transfers give a zero cell residual. |
+| `CFDLean.FixedMesh.global_balance` | MD-C | FVM | accepted | The sum of cell residuals equals the realized outward boundary transfer in an additive commutative group. |
+| `CFDLean.FixedMesh.constant_defect` | MD-K | FVM | accepted | Compatible interior and boundary transfers at a constant state map the cell area-vector defect to the cell residual. |
+| `CFDLean.FixedMesh.constant_residual` | MD-K | FVM | accepted | Geometric closure and compatible constant-state transfers give a zero cell residual. |
 
 ## Entropy framework (32)
 
@@ -669,7 +669,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclStep_iterate_stable` | FVN-MB | FVM | pending | Under 8 · dt · max(\|m\|, \|M\|) ≤ w i, a θ-bounded slope and mesh ratio θ, n Burgers MUSCL Forward Euler steps keep the bounds and do not increase the total variation. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
-| `CFDLean.FixedMesh.step_balance` | MD-U | FVM | pending | A common Forward Euler step changes total amount by the outward boundary exchange times minus the timestep. |
+| `CFDLean.FixedMesh.step_balance` | MD-U | FVM | accepted | A common Forward Euler step changes total amount by the outward boundary exchange times minus the timestep. |
 
 ## Execution (90)
 
