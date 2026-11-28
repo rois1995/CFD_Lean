@@ -1,0 +1,426 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+  <key for="node" attr.name="docs" attr.type="string" id="node_docs" />
+  <key for="node" attr.name="evidence" attr.type="string" id="node_evidence" />
+  <key for="node" attr.name="kind" attr.type="string" id="node_kind" />
+  <key for="node" attr.name="label" attr.type="string" id="node_label" />
+  <key for="node" attr.name="parent" attr.type="string" id="node_parent" />
+  <key for="node" attr.name="status" attr.type="string" id="node_status" />
+  <key for="edge" attr.name="kind" attr.type="string" id="edge_kind" />
+  <graph id="graph" edgedefault="directed">
+    <node id="cfd_lean">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">CFD_Lean</data>
+    </node>
+    <node id="physics">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Physics</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="burgers">
+      <data key="node_docs">["references/Burgers-B0.md"]</data>
+      <data key="node_evidence">[{"id": "B0-F", "paths": ["specifications/Burgers-B0-results.json"], "status": "accepted", "type": "result_ids"}]</data>
+      <data key="node_kind">physics</data>
+      <data key="node_label">Scalar Burgers flux and Rusanov consistency</data>
+      <data key="node_parent">physics</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="euler">
+      <data key="node_docs">["references/M1.md"]</data>
+      <data key="node_evidence">[{"id": "M1", "paths": ["specifications/M1.md"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">physics</data>
+      <data key="node_label">Ideal-gas Euler state, admissibility and physical flux</data>
+      <data key="node_parent">physics</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="finite_volume">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Finite volume</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="fv1d">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Periodic finite volume in 1D</data>
+      <data key="node_parent">finite_volume</data>
+    </node>
+    <node id="uniform">
+      <data key="node_docs">["reviews/FV1D/Acceptance.md"]</data>
+      <data key="node_evidence">[{"id": "FV1D", "paths": ["specifications/FV1D-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Uniform Burgers and Euler Rusanov step</data>
+      <data key="node_parent">fv1d</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="nonuniform">
+      <data key="node_docs">["references/FV1D-nonuniform.md"]</data>
+      <data key="node_evidence">[{"id": "FVN", "paths": ["specifications/FV1D-nonuniform-results.json"], "status": "pending", "type": "milestones"}]</data>
+      <data key="node_kind">geometry</data>
+      <data key="node_label">Nonuniform geometry and exact-real updates</data>
+      <data key="node_parent">fv1d</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="positivity">
+      <data key="node_docs">["reviews/FVP/Acceptance.md"]</data>
+      <data key="node_evidence">[{"id": "FVP", "paths": ["specifications/FV1D-positivity-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">certificate</data>
+      <data key="node_label">First-order Euler positivity under CFL hypotheses</data>
+      <data key="node_parent">fv1d</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="reconstruction">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Reconstruction</data>
+      <data key="node_parent">finite_volume</data>
+    </node>
+    <node id="piecewise_constant">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[{"id": "FV1D", "paths": ["specifications/FV1D-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Piecewise-constant traces (first order)</data>
+      <data key="node_parent">reconstruction</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="muscl">
+      <data key="node_docs">["references/Burgers-B3b.md"]</data>
+      <data key="node_evidence">[{"id": "B3", "paths": ["specifications/Burgers-B3-results.json"], "status": "accepted", "type": "milestones"}, {"id": "B3b", "paths": ["specifications/Burgers-B3b-results.json"], "status": "accepted", "type": "milestones"}, {"id": "E0c", "paths": ["specifications/Burgers-E0c-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Uniform Burgers MUSCL and limiter certificates</data>
+      <data key="node_parent">reconstruction</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="traces">
+      <data key="node_docs">["references/FV1D-WENO-reconstruction.md"]</data>
+      <data key="node_evidence">[{"id": "U-C", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "U-M", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Shared oriented-trace interface</data>
+      <data key="node_parent">reconstruction</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="weno">
+      <data key="node_docs">["references/FV1D-WENO-reconstruction.md"]</data>
+      <data key="node_evidence">[{"id": "U-W", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "G-P", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "G-I", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "B-F", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "B-3", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Burgers WENO and graded reconstruction</data>
+      <data key="node_parent">reconstruction</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="euler_reconstructed">
+      <data key="node_docs">["references/FV1D-euler-traces.md"]</data>
+      <data key="node_evidence">[{"id": "FVT", "paths": ["specifications/FV1D-euler-traces-results.json"], "status": "pending", "type": "milestones"}, {"id": "E-T", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "E-F", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "E-A", "paths": ["specifications/FV1D-WENO-reconstruction-results.json"], "status": "pending", "type": "result_ids"}, {"id": "E-P", "paths": ["specifications/FV1D-WENO-reconstruction-results.json", "scripts/test_fv1d.py"], "status": "control", "type": "result_ids"}, {"id": "E-D", "paths": ["specifications/FV1D-WENO-reconstruction-results.json", "benchmarks/ReviewCases/EulerReconstructedStep.lean"], "status": "control", "type": "result_ids"}, {"id": "E-R", "paths": ["specifications/FV1D-WENO-reconstruction-results.json", "scripts/test_fv1d.py", "scripts/fv1d_reference.py"], "status": "control", "type": "result_ids"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Reconstructed Euler traces and executable steps</data>
+      <data key="node_parent">reconstruction</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="time">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Time integration</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="forward_euler">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[{"id": "FV1D", "paths": ["specifications/FV1D-results.json"], "status": "accepted", "type": "milestones"}, {"id": "B1", "paths": ["specifications/Burgers-B1-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Forward Euler (periodic exact-real step)</data>
+      <data key="node_parent">time</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="ssprk2">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[{"id": "B2", "paths": ["specifications/Burgers-B2-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">SSPRK2 (scalar exact-real composition)</data>
+      <data key="node_parent">time</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="ssprk3">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[{"id": "B2", "paths": ["specifications/Burgers-B2-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">SSPRK3 (scalar exact-real composition)</data>
+      <data key="node_parent">time</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="execution">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Execution</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="exact_real">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[{"id": "E0", "paths": ["specifications/Burgers-E0-results.json"], "status": "accepted", "type": "milestones"}, {"id": "E0b", "paths": ["specifications/Burgers-E0b-results.json"], "status": "accepted", "type": "milestones"}, {"id": "E0c", "paths": ["specifications/Burgers-E0c-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">execution</data>
+      <data key="node_label">Burgers array kernels and exact-real refinement</data>
+      <data key="node_parent">execution</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="fv1d_arrays">
+      <data key="node_docs">["reviews/FVNA/Acceptance.md"]</data>
+      <data key="node_evidence">[{"id": "FVA", "paths": ["specifications/FV1D-array-results.json"], "status": "accepted", "type": "milestones"}, {"id": "FVNA", "paths": ["specifications/FV1D-nonuniform-array-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">execution</data>
+      <data key="node_label">Uniform and nonuniform FV1D array refinement</data>
+      <data key="node_parent">execution</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="native_float">
+      <data key="node_docs">["CFDLean/Exec/README.md", "FVMain.lean"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">execution</data>
+      <data key="node_label">Native Float / binary64 execution</data>
+      <data key="node_parent">execution</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="verification">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Verification</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="trusted_statements">
+      <data key="node_docs">["CFDLean/Verification/BurgersB0Challenge.lean", "CFDLean/Verification/BurgersB0Verify.lean"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">verification</data>
+      <data key="node_label">Trusted statements and proof bridges</data>
+      <data key="node_parent">verification</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="comparator">
+      <data key="node_docs">["Challenges/BurgersB0.comparator.json", "scripts/verify.py", "catalog/README.md"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">verification</data>
+      <data key="node_label">Comparator, catalog and evidence</data>
+      <data key="node_parent">verification</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="machine_arithmetic">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Machine arithmetic</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="e1">
+      <data key="node_docs">["references/E1.md"]</data>
+      <data key="node_evidence">[{"id": "E1", "paths": ["specifications/E1-results.json"], "status": "pending", "type": "milestones"}]</data>
+      <data key="node_kind">certificate</data>
+      <data key="node_label">E1 one-step binary64 certificate and native replay</data>
+      <data key="node_parent">machine_arithmetic</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="multidimensional">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Multidimensional</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="median_dual">
+      <data key="node_docs">["references/Euler-Milestones.md"]</data>
+      <data key="node_evidence">[{"id": "M2", "paths": ["specifications/M2-results.json"], "status": "accepted", "type": "milestones"}, {"id": "M3", "paths": ["specifications/M3-results.json"], "status": "accepted", "type": "milestones"}, {"id": "M4", "paths": ["specifications/M4-results.json"], "status": "accepted", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Median-dual Euler/Roe residual and boundaries</data>
+      <data key="node_parent">multidimensional</data>
+      <data key="node_status">accepted</data>
+    </node>
+    <node id="median_dual_step">
+      <data key="node_docs">["references/M5.md"]</data>
+      <data key="node_evidence">[{"id": "M5", "paths": ["specifications/M5-results.json"], "status": "pending", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Median-dual Euler explicit update</data>
+      <data key="node_parent">multidimensional</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="two_triangles">
+      <data key="node_docs">["reviews/FV2D/Two_Triangle_Freeze.md", "benchmarks/ReviewCases/OrientedTriangles.lean"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">geometry</data>
+      <data key="node_label">Oriented-face two-triangle control</data>
+      <data key="node_parent">multidimensional</data>
+      <data key="node_status">implemented</data>
+    </node>
+    <node id="fixed_mesh_fv2d">
+      <data key="node_docs">["roadmap/NEXT.md"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">architecture</data>
+      <data key="node_label">Generic fixed-mesh multidimensional FV</data>
+      <data key="node_parent">multidimensional</data>
+      <data key="node_status">planned</data>
+    </node>
+    <node id="future">
+      <data key="node_docs">[]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">group</data>
+      <data key="node_label">Future refinement and backends</data>
+      <data key="node_parent">cfd_lean</data>
+    </node>
+    <node id="ale">
+      <data key="node_docs">["roadmap/FUTURE.md"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">architecture</data>
+      <data key="node_label">ALE</data>
+      <data key="node_parent">future</data>
+      <data key="node_status">planned</data>
+    </node>
+    <node id="amr">
+      <data key="node_docs">["roadmap/FUTURE.md"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">architecture</data>
+      <data key="node_label">AMR</data>
+      <data key="node_parent">future</data>
+      <data key="node_status">planned</data>
+    </node>
+    <node id="mpi">
+      <data key="node_docs">["roadmap/FUTURE.md"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">architecture</data>
+      <data key="node_label">MPI</data>
+      <data key="node_parent">future</data>
+      <data key="node_status">planned</data>
+    </node>
+    <node id="gpu">
+      <data key="node_docs">["roadmap/FUTURE.md"]</data>
+      <data key="node_evidence">[]</data>
+      <data key="node_kind">architecture</data>
+      <data key="node_label">GPU</data>
+      <data key="node_parent">future</data>
+      <data key="node_status">planned</data>
+    </node>
+    <node id="jst1">
+      <data key="node_docs">["specifications/JST1/README.md"]</data>
+      <data key="node_evidence">[{"id": "JST1", "paths": ["specifications/JST1/P1-results.json", "specifications/JST1/P2-results.json", "specifications/JST1/P3-results.json", "specifications/JST1/P4-results.json", "specifications/JST1/P5-results.json", "specifications/JST1/P6-results.json", "specifications/JST1/P7-results.json", "specifications/JST1/P8-results.json"], "status": "candidate", "type": "milestones"}]</data>
+      <data key="node_kind">certificate</data>
+      <data key="node_label">JST paper 1 formalization</data>
+      <data key="node_parent">verification</data>
+      <data key="node_status">review</data>
+    </node>
+    <edge source="cfd_lean" target="physics">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="physics" target="burgers">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="physics" target="euler">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="finite_volume">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="finite_volume" target="fv1d">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="fv1d" target="uniform">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="fv1d" target="nonuniform">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="fv1d" target="positivity">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="finite_volume" target="reconstruction">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="reconstruction" target="piecewise_constant">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="reconstruction" target="muscl">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="reconstruction" target="traces">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="reconstruction" target="weno">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="reconstruction" target="euler_reconstructed">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="time">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="time" target="forward_euler">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="time" target="ssprk2">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="time" target="ssprk3">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="execution">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="execution" target="exact_real">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="execution" target="fv1d_arrays">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="execution" target="native_float">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="verification">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="verification" target="trusted_statements">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="verification" target="comparator">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="machine_arithmetic">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="machine_arithmetic" target="e1">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="multidimensional">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="multidimensional" target="median_dual">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="multidimensional" target="median_dual_step">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="multidimensional" target="two_triangles">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="multidimensional" target="fixed_mesh_fv2d">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="cfd_lean" target="future">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="future" target="ale">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="future" target="amr">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="future" target="mpi">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="future" target="gpu">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="verification" target="jst1">
+      <data key="edge_kind">contains</data>
+    </edge>
+  </graph>
+</graphml>
