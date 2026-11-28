@@ -7819,6 +7819,19 @@
       "source": "specifications/FV1D-euler-traces-results.json"
     },
     {
+      "name": "CFDLean.Exec.EulerTraces.face_admissible_m1",
+      "id": "FVT-A",
+      "milestone": "FVT",
+      "module": "CFDLean.Exec.EulerTraces",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Both selected real traces satisfy M1 admissibility whenever every parent mean satisfies M1 admissibility.",
+      "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
       "name": "CFDLean.FV1D.Reconstruction.step_weighted_sum",
       "id": "U-C",
       "milestone": "WENO",

@@ -1,7 +1,7 @@
 # Proposed contracts for 1D WENO and reconstructed Euler
 
-Independent scope decisions are requested separately for U, G, B and E. Each row identifies a promised result
-and the declaration or control proposed to discharge it. Production binding and pinning follow approval.
+The [independent review](../reviews/FV1D/2026-11-28/Independent_Review.md) recommends freezing U and B
+and approves G and E subject to the amendments below. Each row identifies a result and its declaration or control.
 The model is exact-real, cell-centered, periodic finite volume. Each numerical face uses its owner's right trace
 and its successor's left trace. Both adjacent cells consume the same flux. Strictly positive cell widths and
 strictly positive WENO regularization ε are required. Periodic indexing repeats cells when fewer than five
@@ -39,6 +39,12 @@ quadratics and constants. A general fifth-order convergence result is a separate
 | G-I | Linear weights reproduce the cubic and quartic moments at the target face for all positive widths | New cubic and quartic moment lemmas required |
 | G-S | Both traces at a graded seam match an independent cell-moment solve | ReviewCases.GradedWeno rational controls |
 
+**G-S fixture.** Number the six periodic cells 0 through 5. Set their widths to (1,2,3,4,5,6),
+their means to (1,2,4,3,1,0), and ε to 1. On the oriented face from cell 5 to cell 0, the owner-right
+trace is 18404544825410991576178677 / 30404425815732402608015224 and the successor-left trace is
+289716345724523430316611 / 401443434426759937064444. Both are exact rational equalities.
+[Immutable seam control](https://github.com/rois1995/CFD_Lean/blob/77a4ff4e7b53a522f07176486293da64acd60584/benchmarks/ReviewCases/GradedWeno.lean)
+
 ## B — Burgers execution
 
 Use the existing Rusanov model and SSPRK3 coefficients. For each stage recompute the WENO face pairs from
@@ -57,17 +63,32 @@ minmod on the two neighboring differences scaled by 2wᵢ/(w_neighbor+wᵢ). The
 the frozen [Euler MUSCL scope](FV1D-euler-traces-proposal.md). WENO uses G separately on each conservative
 component, with its own indicators and weights. If either of the two raw endpoints of a cell is inadmissible,
 replace both by that cell's mean. WENO endpoint averages need not equal their parent mean.
-The flux is Rusanov with the maximum ideal-gas endpoint speed. For reconstructed runs choose the step from
-the maximum speed of the selected face states, the minimum width, the factor 0.4 and the remaining time.
-Preserve the first-order timestep policy. The native driver also checks finiteness and rejects inadmissible updates.
+At oriented face i let Lᵢ be the selected right trace of cell i and Rᵢ the selected left trace
+of its successor. With s(q) = |m/ρ| + √(γ p/ρ), the Rusanov face speed is aᵢ = max(s(Lᵢ),s(Rᵢ)).
+For 0 ≤ t < T and a = maxᵢ aᵢ > 0 the reconstructed Forward Euler step uses
+`dt = min(T − t, 0.4 · minᵢ wᵢ / a)`. For a = 0 use T − t. The driver rejects a negative or
+non-finite computed face speed and stops before an update if dt is non-finite or t + dt ≤ t.
+It rejects non-finite or inadmissible updated means. The first-order driver retains its cell-mean speed policy.
 
 | ID | Promised claim | Proposed binding |
 |---|---|---|
 | E-T | Real executable MUSCL and WENO traces equal their respective mathematical cell-owned traces, including fallback | New trace correspondences required |
 | E-F | Real reconstructed Forward Euler update agrees with the conservative periodic Euler face-flux update | New assembled-step refinement required |
-| E-A | Admissible means imply admissible selected endpoints; unchanged accepted first-order behavior and correct reconstructed-face timestep | selectEulerPair_valid plus real admissibility correspondence and executable controls |
+| E-A | Admissible means imply admissible selected endpoints | selectEulerPair_valid and the M1 admissibility correspondence |
+| E-P | Preserve the accepted first-order density-wave driver behavior | First-order density-wave and explicit-width parity controls |
+| E-D | Select dt from the chosen face states with the rule above | Driver timestep controls and the E-R independent adaptive replay |
 | E-R | All three conserved components agree with an independent reference on implicit uniform, explicit uniform and graded meshes | FV1D executable regression matrix |
 
+**E-R fixture.** On the unit periodic interval take N = 8, γ = 2, pressure 1, velocity 2 and
+ρ(x,0) = 1 + (π/8) sin(2πx). Initialize exact cell averages, m = 2ρ and E = 1 + 2ρ.
+Advance to T = 1/8 with Forward Euler, CFL 0.4 and WENO ε = 10⁻⁶. Use implicit uniform widths,
+explicit widths (1,…,1)/8 and graded widths (1,3,2,4,1,1,2,2)/16 in that order. First order,
+minmod and WENO each take 10 steps on both uniform inputs. On the graded input they take 19, 19
+and 20 steps respectively. Compare every dumped density, momentum and energy to the independent
+adaptive reference with absolute tolerance 2·10⁻¹⁰. Each component's width-weighted drift must be
+at most 2·10⁻¹¹; implicit and explicit uniform dumps must agree to 2·10⁻¹¹.
+[Immutable regression](https://github.com/rois1995/CFD_Lean/blob/17673f957f52093cadd3983c1b472456ac7b6ad2/scripts/test_fv1d.py) ·
+[Independent moment solve and flux replay](https://github.com/rois1995/CFD_Lean/blob/17673f957f52093cadd3983c1b472456ac7b6ad2/scripts/fv1d_reference.py)
+
 Full-update positivity, binary64 certification, general convergence order, primitive-variable and characteristic
-WENO are outside this proposal. Independent reviewers should freeze, amend or reject each scope and identify
-mandatory findings separately from suggestions before production acceptance.
+WENO are outside this scope.
