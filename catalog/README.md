@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-591 promised theorems, grouped by layer.
+616 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -63,19 +63,19 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
 | Geometry | 75 | 0 | 43 | 4 | 28 |
-| Discrete operators | 94 | 10 | 65 | 19 | 0 |
+| Discrete operators | 105 | 10 | 76 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
-| Execution | 75 | 0 | 75 | 0 | 0 |
-| **Total** | 591 | 17 | 374 | 30 | 170 |
+| Execution | 89 | 0 | 88 | 0 | 1 |
+| **Total** | 616 | 17 | 398 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 404 |
-| method-free | 170 |
+| FVM | 428 |
+| method-free | 171 |
 
 | Milestone | Status | Theorems |
 |---|---|---:|
@@ -100,6 +100,9 @@ that this file equals the generated text. Do not edit by hand.
 | FVA | accepted | 2 |
 | FVN | pending | 17 |
 | FVNA | accepted | 20 |
+| E1 | pending | 4 |
+| FVT | pending | 4 |
+| WENO | pending | 17 |
 
 ## Foundations (12)
 
@@ -198,7 +201,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p8_23_1` | P8-23.1 | method-free | candidate | A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell. |
 | `CFDLean.JST1.Proofs.p8_23_2` | P8-23.2 | FVM | candidate | A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero. |
 
-## Discrete operators (94)
+## Discrete operators (105)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -296,6 +299,17 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.FV1D.Nonuniform.leftState_mem` | FVN-R | FVM | pending | For a θ-bounded slope and mesh ratio θ the rescaled MUSCL left state of every face keeps the bounds m ≤ u ≤ M. |
 | `CFDLean.FV1D.Nonuniform.rightState_mem` | FVN-R | FVM | pending | For a θ-bounded slope and mesh ratio θ the rescaled MUSCL right state of every face keeps the bounds m ≤ u ≤ M. |
 | `CFDLean.Burgers.Nonuniform.meshRatio_needed` | FVN-R | FVM | pending | Exact example on widths (1, 3, 1, 1): the mesh ratio holds for θ = 5/4, fails for θ = 2, and the van Leer, MC, superbee and unlimited left states leave [0, 6/5]. |
+| `CFDLean.FV1D.Reconstruction.step_weighted_sum` | U-C | FVM | pending | The width-weighted update sum is conserved for any oriented reconstruction. |
+| `CFDLean.FV1D.Reconstruction.step_constant` | U-C | FVM | pending | Constant-preserving traces give a constant-preserving update. |
+| `CFDLean.FV1D.Reconstruction.muscl_step` | U-M | FVM | pending | The MUSCL reconstruction adapter gives the existing graded MUSCL step. |
+| `CFDLean.FV1D.Reconstruction.Weno.weight_pos` | U-W | FVM | pending | Positive regularization and ideal weight give a positive nonlinear weight. |
+| `CFDLean.FV1D.Reconstruction.Weno.edge_quadratic` | U-W | FVM | pending | Uniform WENO reproduces a quadratic from its cell averages. |
+| `CFDLean.FV1D.Reconstruction.wenoJS5_constants` | U-W | FVM | pending | Both oriented uniform WENO traces preserve constants. |
+| `CFDLean.FV1D.Reconstruction.ideal_positive` | G-P | FVM | pending | The three ideal weights are positive on positive cell widths. |
+| `CFDLean.FV1D.Reconstruction.gradedWeno_constants` | G-P | FVM | pending | Graded WENO preserves constant face traces in both orientations. |
+| `CFDLean.FV1D.Reconstruction.edge_quadratic_graded` | G-P | FVM | pending | Graded WENO exactly reconstructs a quadratic from its interval averages. |
+| `CFDLean.FV1D.Reconstruction.edge_uniform` | G-P | FVM | pending | Equal widths recover the uniform WENO reconstruction. |
+| `CFDLean.GradedWeno.ideal_cubic_quartic` | G-I | FVM | pending | The linear ideal weights reproduce cubic and quartic moments on positive widths. |
 
 ## Entropy framework (32)
 
@@ -652,7 +666,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 
-## Execution (75)
+## Execution (89)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -731,3 +745,17 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Exec.run_nuLimiterEulerStepArray_stable` | FVNA-T | FVM | accepted | For a limiter other than none with mesh ratio L.theta, 0 ≤ dt, entries in [m, M] and 8 · dt · max(\|m\|, \|M\|) ≤ w[i], any number of non-uniform MUSCL Forward Euler kernel steps keep [m, M] and do not increase the total variation. |
 | `CFDLean.Exec.run_nuLimiterSsprk2StepArray_stable` | FVNA-T | FVM | accepted | The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK2 kernel steps. |
 | `CFDLean.Exec.run_nuLimiterSsprk3StepArray_stable` | FVNA-T | FVM | accepted | The same bounds and total-variation result for any number of non-uniform MUSCL SSPRK3 kernel steps. |
+| `CFDLean.Exec.E1.value_isSome` | E1-1 | method-free | pending | Decoder succeeds exactly on finite binary64 values. |
+| `CFDLean.Exec.E1.cast_step` | E1-2 | FVM | pending | Casting the rational Burgers update to reals agrees with the entire exact-real array step. |
+| `CFDLean.Exec.E1.checkStep_sound` | E1-3 | FVM | pending | Acceptance implies finite output and a per-cell bound for the represented inputs. |
+| `CFDLean.Exec.E1.real_cell_bound` | E1-3 | FVM | pending | Every present real-step output is within the supplied absolute budget of the decoded observed cell. |
+| `CFDLean.Exec.EulerTraces.face_admissible` | FVT-A | FVM | pending | Every oriented face receives two admissible selected traces when all means are admissible. |
+| `CFDLean.Exec.EulerTraces.pair_sum` | FVT-M | FVM | pending | The selected pair sums componentwise to twice its parent mean. |
+| `CFDLean.Exec.EulerTraces.retain_raw` | FVT-R | FVM | pending | An admissible raw pair is retained exactly. |
+| `CFDLean.Exec.EulerTraces.face_constant` | FVT-K | FVM | pending | Every face reconstructs the constant pair for a limiter that vanishes at zero. |
+| `CFDLean.Exec.burgersWenoStep_refines` | B-F | FVM | pending | A Burgers WENO forward stage agrees with the exact-real graded finite-volume step. |
+| `CFDLean.Exec.burgersWenoSsprk3_refines` | B-3 | FVM | pending | The three native stages over the reals agree with SSPRK3 on the same periodic mesh. |
+| `CFDLean.Exec.FV1D.eulerCell_refines` | E-T | FVM | pending | Native reconstructed pairs over the reals agree with the mathematical Euler cell traces. |
+| `CFDLean.Exec.FV1D.eulerReconstructedStep_refines` | E-F | FVM | pending | The reconstructed native step over the reals agrees with the oriented M1 Euler flux update. |
+| `CFDLean.Exec.FV1D.selectEulerPair_valid` | E-A | FVM | pending | Both selected endpoints pass the validity test when their mean passes. |
+| `CFDLean.Exec.FV1D.positiveState_iff_m1` | E-A | FVM | pending | The exact-real endpoint test agrees with M1 conservative-state admissibility. |

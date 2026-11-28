@@ -1,0 +1,85 @@
+{
+  "scope": "specifications/FV1D-WENO-reconstruction-proposal.md",
+  "results": [
+    {
+      "id": "U-C",
+      "declarations": [
+        "CFDLean.FV1D.Reconstruction.step_weighted_sum",
+        "CFDLean.FV1D.Reconstruction.step_constant"
+      ]
+    },
+    {
+      "id": "U-M",
+      "declarations": [
+        "CFDLean.FV1D.Reconstruction.muscl_step"
+      ]
+    },
+    {
+      "id": "U-W",
+      "declarations": [
+        "CFDLean.FV1D.Reconstruction.Weno.weight_pos",
+        "CFDLean.FV1D.Reconstruction.Weno.edge_quadratic",
+        "CFDLean.FV1D.Reconstruction.wenoJS5_constants"
+      ],
+      "controls": [
+        "benchmarks/ReviewCases/Reconstruction.lean"
+      ]
+    },
+    {
+      "id": "G-P",
+      "declarations": [
+        "CFDLean.FV1D.Reconstruction.ideal_positive",
+        "CFDLean.FV1D.Reconstruction.gradedWeno_constants",
+        "CFDLean.FV1D.Reconstruction.edge_quadratic_graded",
+        "CFDLean.FV1D.Reconstruction.edge_uniform"
+      ]
+    },
+    {
+      "id": "G-I",
+      "declarations": [
+        "CFDLean.GradedWeno.ideal_cubic_quartic"
+      ]
+    },
+    {
+      "id": "G-S",
+      "declarations": [],
+      "controls": [
+        "benchmarks/ReviewCases/GradedWeno.lean"
+      ]
+    },
+    {
+      "id": "B-F",
+      "declarations": [
+        "CFDLean.Exec.burgersWenoStep_refines"
+      ]
+    },
+    {
+      "id": "B-3",
+      "declarations": [
+        "CFDLean.Exec.burgersWenoSsprk3_refines"
+      ]
+    },
+    {
+      "id": "E-T",
+      "declarations": [
+        "CFDLean.Exec.FV1D.eulerCell_refines"
+      ]
+    },
+    {
+      "id": "E-F",
+      "declarations": [
+        "CFDLean.Exec.FV1D.eulerReconstructedStep_refines"
+      ]
+    },
+    {
+      "id": "E-A",
+      "declarations": [
+        "CFDLean.Exec.FV1D.selectEulerPair_valid",
+        "CFDLean.Exec.FV1D.positiveState_iff_m1"
+      ],
+      "controls": [
+        "benchmarks/ReviewCases/EulerReconstructedStep.lean"
+      ]
+    }
+  ]
+}

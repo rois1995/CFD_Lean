@@ -1,0 +1,30 @@
+{
+  "scope": "specifications/FV1D-euler-traces-proposal.md",
+  "review": "reviews/FV1D/Uniform_Euler_Trace_Freeze.md",
+  "results": [
+    {
+      "id": "FVT-A",
+      "declarations": [
+        "CFDLean.Exec.EulerTraces.face_admissible"
+      ]
+    },
+    {
+      "id": "FVT-M",
+      "declarations": [
+        "CFDLean.Exec.EulerTraces.pair_sum"
+      ]
+    },
+    {
+      "id": "FVT-R",
+      "declarations": [
+        "CFDLean.Exec.EulerTraces.retain_raw"
+      ]
+    },
+    {
+      "id": "FVT-K",
+      "declarations": [
+        "CFDLean.Exec.EulerTraces.face_constant"
+      ]
+    }
+  ]
+}
