@@ -1,5 +1,8 @@
 # Concept-to-code map
 
+Start with the [building-block tutorial](concepts/overview.md), then use the
+[architecture graph](ARCHITECTURE-GRAPH.md) and [capability map](CAPABILITIES.md) to navigate the current repository.
+
 For a specific theorem or result ID, start with the [theorem catalog](../catalog/README.md). For the claim's hypotheses
 and proof chain, follow the milestone's [specification](../specifications/) and [reference note](../references/).
 
