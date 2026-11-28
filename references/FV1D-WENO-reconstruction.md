@@ -21,3 +21,5 @@ binary64 regressions describe different arithmetic backends.
 | G-P | [`edge_uniform`](../CFDLean/Discrete/Periodic/GradedWeno.lean) | Equal widths recover the uniform WENO reconstruction. |
 | G-I | [`ideal_cubic_quartic`](../CFDLean/Discrete/Periodic/WenoMoments.lean) | The linear ideal weights reproduce cubic and quartic moments on positive widths. |
 | G-S | [GradedWeno.lean](../benchmarks/ReviewCases/GradedWeno.lean) | Exact rational graded seam in both directions. |
+| B-F | [`burgersWenoStep_refines`](../CFDLean/Exec/WenoRefinement.lean) | A Burgers WENO forward stage agrees with the exact-real graded finite-volume step. |
+| B-3 | [`burgersWenoSsprk3_refines`](../CFDLean/Exec/WenoRefinement.lean) | The three native stages over the reals agree with SSPRK3 on the same periodic mesh. |

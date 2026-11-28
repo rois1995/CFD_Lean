@@ -46,6 +46,18 @@
       "controls": [
         "benchmarks/ReviewCases/GradedWeno.lean"
       ]
+    },
+    {
+      "id": "B-F",
+      "declarations": [
+        "CFDLean.Exec.burgersWenoStep_refines"
+      ]
+    },
+    {
+      "id": "B-3",
+      "declarations": [
+        "CFDLean.Exec.burgersWenoSsprk3_refines"
+      ]
     }
   ]
 }
