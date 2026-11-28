@@ -897,6 +897,22 @@
       "type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {ε d : K},\n  0 < ε → 0 < d → ∀ (k g : K), 0 < CFDLean.FV1D.Reconstruction.Weno.weight ε d k g",
       "raw_type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {ε d : K},\n  LT.lt (OfNat.ofNat 0) ε →\n    LT.lt (OfNat.ofNat 0) d → ∀ (k g : K), LT.lt (OfNat.ofNat 0) (CFDLean.FV1D.Reconstruction.Weno.weight ε d k g)"
     },
+    "CFDLean.FV1D.Reconstruction.edge_quadratic_graded": {
+      "type": "∀ {ε a b d e : ℝ},\n  0 < ε →\n    0 < a →\n      0 < b →\n        0 < d →\n          0 < e →\n            ∀ (A B C : ℝ),\n              have f := CFDLean.FV1D.Reconstruction.mean A B C;\n              CFDLean.GradedWeno.edge ε { farLeft := a, left := b, center := 1, right := d, farRight := e }\n                  { farLeft := f a (-(1 + b) / 2 - (a + b) / 2), left := f b (-(1 + b) / 2), center := f 1 0,\n                    right := f d ((1 + d) / 2), farRight := f e ((1 + d) / 2 + (d + e) / 2) } =\n                A / 4 + B / 2 + C",
+      "raw_type": "∀ {ε a b d e : Real},\n  LT.lt (OfNat.ofNat 0) ε →\n    LT.lt (OfNat.ofNat 0) a →\n      LT.lt (OfNat.ofNat 0) b →\n        LT.lt (OfNat.ofNat 0) d →\n          LT.lt (OfNat.ofNat 0) e →\n            ∀ (A B C : Real),\n              have f := CFDLean.FV1D.Reconstruction.mean A B C;\n              Eq\n                (CFDLean.GradedWeno.edge ε\n                  { farLeft := a, left := b, center := OfNat.ofNat 1, right := d, farRight := e }\n                  {\n                    farLeft :=\n                      f a\n                        (HSub.hSub (HDiv.hDiv (Neg.neg (HAdd.hAdd (OfNat.ofNat 1) b)) (OfNat.ofNat 2))\n                          (HDiv.hDiv (HAdd.hAdd a b) (OfNat.ofNat 2))),\n                    left := f b (HDiv.hDiv (Neg.neg (HAdd.hAdd (OfNat.ofNat 1) b)) (OfNat.ofNat 2)),\n                    center := f (OfNat.ofNat 1) (OfNat.ofNat 0),\n                    right := f d (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) d) (OfNat.ofNat 2)),\n                    farRight :=\n                      f e\n                        (HAdd.hAdd (HDiv.hDiv (HAdd.hAdd (OfNat.ofNat 1) d) (OfNat.ofNat 2))\n                          (HDiv.hDiv (HAdd.hAdd d e) (OfNat.ofNat 2))) })\n                (HAdd.hAdd (HAdd.hAdd (HDiv.hDiv A (OfNat.ofNat 4)) (HDiv.hDiv B (OfNat.ofNat 2))) C)"
+    },
+    "CFDLean.FV1D.Reconstruction.edge_uniform": {
+      "type": "∀ (ε : { e // 0 < e }) {h : ℝ},\n  0 < h →\n    ∀ (u : CFDLean.GradedWeno.Stencil ℝ),\n      CFDLean.GradedWeno.edge ↑ε { farLeft := h, left := h, center := h, right := h, farRight := h } u =\n        CFDLean.FV1D.Reconstruction.Weno.edge ε u.farLeft u.left u.center u.right u.farRight",
+      "raw_type": "∀ (ε : Subtype fun e => LT.lt (OfNat.ofNat 0) e) {h : Real},\n  LT.lt (OfNat.ofNat 0) h →\n    ∀ (u : CFDLean.GradedWeno.Stencil Real),\n      Eq (CFDLean.GradedWeno.edge ε.val { farLeft := h, left := h, center := h, right := h, farRight := h } u)\n        (CFDLean.FV1D.Reconstruction.Weno.edge ε u.farLeft u.left u.center u.right u.farRight)"
+    },
+    "CFDLean.FV1D.Reconstruction.gradedWeno_constants": {
+      "type": "∀ {I : Type} (m : CFDLean.Periodic.Mesh1D I) (ε : { e // 0 < e }),\n  (CFDLean.FV1D.Reconstruction.gradedWeno m ε).PreservesConstants",
+      "raw_type": "∀ {I : Type} (m : CFDLean.Periodic.Mesh1D I) (ε : Subtype fun e => LT.lt (OfNat.ofNat 0) e),\n  (CFDLean.FV1D.Reconstruction.gradedWeno m ε).PreservesConstants"
+    },
+    "CFDLean.FV1D.Reconstruction.ideal_positive": {
+      "type": "∀ {a b d e : ℝ},\n  0 < a →\n    0 < b →\n      0 < d →\n        0 < e →\n          have weights := CFDLean.GradedWeno.ideal a b d e;\n          0 < weights.1 ∧ 0 < weights.2.1 ∧ 0 < weights.2.2",
+      "raw_type": "∀ {a b d e : Real},\n  LT.lt (OfNat.ofNat 0) a →\n    LT.lt (OfNat.ofNat 0) b →\n      LT.lt (OfNat.ofNat 0) d →\n        LT.lt (OfNat.ofNat 0) e →\n          have weights := CFDLean.GradedWeno.ideal a b d e;\n          And (LT.lt (OfNat.ofNat 0) weights.1)\n            (And (LT.lt (OfNat.ofNat 0) weights.2.1) (LT.lt (OfNat.ofNat 0) weights.2.2))"
+    },
     "CFDLean.FV1D.Reconstruction.muscl_step": {
       "type": "∀ {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module ℝ S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim H : S → S → S) (dt : ℝ) (U : I → S),\n  (CFDLean.FV1D.Reconstruction.muscl m lim).step H dt U = CFDLean.FV1D.Nonuniform.musclStep m H lim dt U",
       "raw_type": "∀ {I : Type u_1} {S : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (m : CFDLean.Periodic.Mesh1D I)\n  (lim H : S → S → S) (dt : Real) (U : I → S),\n  Eq ((CFDLean.FV1D.Reconstruction.muscl m lim).step H dt U) (CFDLean.FV1D.Nonuniform.musclStep m H lim dt U)"
@@ -912,6 +928,10 @@
     "CFDLean.FV1D.Reconstruction.wenoJS5_constants": {
       "type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {I : Type u_2}\n  (g : CFDLean.Periodic.Grid I) (dx : ℝ) (hdx : 0 < dx) (ε : { e // 0 < e }),\n  (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx ε).PreservesConstants",
       "raw_type": "∀ {K : Type u_1} [inst : Field K] [inst_1 : LinearOrder K] [IsStrictOrderedRing K] {I : Type u_2}\n  (g : CFDLean.Periodic.Grid I) (dx : Real) (hdx : LT.lt (OfNat.ofNat 0) dx)\n  (ε : Subtype fun e => LT.lt (OfNat.ofNat 0) e), (CFDLean.FV1D.Reconstruction.wenoJS5 g dx hdx ε).PreservesConstants"
+    },
+    "CFDLean.GradedWeno.ideal_cubic_quartic": {
+      "type": "∀ {a b d e : ℝ},\n  0 < a →\n    0 < b →\n      0 < d →\n        0 < e →\n          CFDLean.GradedWeno.linearEdge a b d e (CFDLean.GradedWeno.faceMeans CFDLean.GradedWeno.cubicMean a b d e) =\n              0 ∧\n            CFDLean.GradedWeno.linearEdge a b d e\n                (CFDLean.GradedWeno.faceMeans CFDLean.GradedWeno.quarticMean a b d e) =\n              0",
+      "raw_type": "∀ {a b d e : Real},\n  LT.lt (OfNat.ofNat 0) a →\n    LT.lt (OfNat.ofNat 0) b →\n      LT.lt (OfNat.ofNat 0) d →\n        LT.lt (OfNat.ofNat 0) e →\n          And\n            (Eq\n              (CFDLean.GradedWeno.linearEdge a b d e\n                (CFDLean.GradedWeno.faceMeans CFDLean.GradedWeno.cubicMean a b d e))\n              (OfNat.ofNat 0))\n            (Eq\n              (CFDLean.GradedWeno.linearEdge a b d e\n                (CFDLean.GradedWeno.faceMeans CFDLean.GradedWeno.quarticMean a b d e))\n              (OfNat.ofNat 0))"
     },
     "CFDLean.JST1.Proofs.p1_1_0": {
       "type": "CFDLean.JST1.Spec.P1_1_0",
