@@ -7,8 +7,9 @@ Status date: 2026-11-28.
 
 ## Next decision after the unified 1D driver
 
-**Review the [generic fixed-mesh assembly implementation](../references/MD-fixed-mesh-assembly.md) against its
-[independently frozen contract](../reviews/MD/Assembly_Contract_Freeze.md).**
+**Review the [scalar upwind proposal](https://github.com/rois1995/CFD_Lean/pull/76) for independent freeze.**
+The [generic fixed-mesh assembly implementation](../references/MD-fixed-mesh-assembly.md) has received
+[independent acceptance](../reviews/MD/Acceptance.md) for MD-C, MD-K and MD-U.
 Burgers and Euler now use first order, MUSCL and WENO through `fv1d` on implicit uniform, explicit uniform and graded
 meshes. The [independent review and scope decision](../reviews/FV1D/2026-11-28/Scope_Decision.md) and the final
 [executable regression matrix](https://github.com/rois1995/CFD_Lean/pull/65) record the 1D baseline.
