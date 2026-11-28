@@ -66,7 +66,7 @@ CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "a
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
-                  "FVNA": "accepted", "E1": "pending", "FVT": "pending", "WENO": "pending", "MD": "accepted"}
+                  "FVNA": "accepted", "E1": "pending", "FVT": "pending", "WENO": "pending", "MD": "accepted", "SA": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -250,7 +250,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "dc81a8e64de3e6786901ba33ebe35ec0daaa930b3cf17ad4922f60ea2cc1ab02"
+RAW_TYPES_SHA256 = "fcbf8163ad17e784621e81604d95fba6aba7107906136108d12b7a61e0c98b1c"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
@@ -1119,13 +1119,17 @@ def main(record_raw_types=False):
             if not (ROOT / control).is_file():
                 raise ValueError(f"Missing {r['id']} control: {control}")
     fv_indices["WENO"] = catalog_index("WENO", weno)
-    md = json.loads(read_source("specifications/MD-fixed-mesh-assembly-results.json"))
-    scope = "specifications/MD-fixed-mesh-assembly-proposal.md"
-    if md["scope"] != scope or read_source(scope) != git_blob("0e1f9fbb9602a89daf6f9ce371f085ef3e8cb3a1", scope):
-        raise ValueError("MD assembly scope differs from its independently frozen proposal")
-    if [r["id"] for r in md["results"]] != ["MD-C", "MD-K", "MD-U"] or not all(r["declarations"] for r in md["results"]):
-        raise ValueError("Incomplete MD assembly result bindings")
-    fv_indices["MD"] = catalog_index("MD", md)
+    for milestone, stem, revision, ids in [
+        ("MD", "MD-fixed-mesh-assembly", "0e1f9fbb9602a89daf6f9ce371f085ef3e8cb3a1", ["MD-C", "MD-K", "MD-U"]),
+        ("SA", "MD-scalar-advection", "f32c86233f92f5c4de6b2749a5ff82cb0915e140", ["SA-F", "SA-K", "SA-C"]),
+    ]:
+        record = json.loads(read_source(f"specifications/{stem}-results.json"))
+        scope = f"specifications/{stem}-proposal.md"
+        if record["scope"] != scope or read_source(scope) != git_blob(revision, scope):
+            raise ValueError(f"{milestone} scope differs from its independently frozen proposal")
+        if [r["id"] for r in record["results"]] != ids or not all(r["declarations"] for r in record["results"]):
+            raise ValueError(f"Incomplete {milestone} result bindings")
+        fv_indices[milestone] = catalog_index(milestone, record)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
     for milestone, index in [(m, catalog_index(m, r)) for m, r in
                              [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)] + list(

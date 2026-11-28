@@ -2197,6 +2197,38 @@
       "type": "CFDLean.Scalar.FiniteVolume.MinmodBounded fun x x_1 => 0",
       "raw_type": "CFDLean.Scalar.FiniteVolume.MinmodBounded fun x x_1 => OfNat.ofNat 0"
     },
+    "CFDLean.ScalarAdvection.constant_residual": {
+      "type": "∀ {d : ℕ} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k : ℝ) (i : C),\n  CFDLean.FixedMesh.residual m A T i = 0 → CFDLean.ScalarAdvection.residual v m A T (fun x => k) (fun x => k) i = 0",
+      "raw_type": "∀ {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k : Real) (i : C),\n  Eq (CFDLean.FixedMesh.residual m A T i) (OfNat.ofNat 0) →\n    Eq (CFDLean.ScalarAdvection.residual v m A T (fun x => k) (fun x => k) i) (OfNat.ofNat 0)"
+    },
+    "CFDLean.ScalarAdvection.constant_step": {
+      "type": "∀ {d : ℕ} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k dt : ℝ) (V : C → ℝ) (i : C),\n  CFDLean.FixedMesh.residual m A T i = 0 →\n    CFDLean.FixedMesh.step V dt (fun x => k) (CFDLean.ScalarAdvection.residual v m A T (fun x => k) fun x => k) i = k",
+      "raw_type": "∀ {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k dt : Real) (V : C → Real) (i : C),\n  Eq (CFDLean.FixedMesh.residual m A T i) (OfNat.ofNat 0) →\n    Eq (CFDLean.FixedMesh.step V dt (fun x => k) (CFDLean.ScalarAdvection.residual v m A T (fun x => k) fun x => k) i) k"
+    },
+    "CFDLean.ScalarAdvection.flux_consistent": {
+      "type": "∀ {d : ℕ} (v A : CFDLean.Vector d) (k : ℝ), CFDLean.ScalarAdvection.flux v A k k = v ⬝ᵥ A * k",
+      "raw_type": "∀ {d : Nat} (v A : CFDLean.Vector d) (k : Real),\n  Eq (CFDLean.ScalarAdvection.flux v A k k) (HMul.hMul (dotProduct v A) k)"
+    },
+    "CFDLean.ScalarAdvection.flux_reverse": {
+      "type": "∀ {d : ℕ} (v A : CFDLean.Vector d) (left right : ℝ),\n  CFDLean.ScalarAdvection.flux v (-A) right left = -CFDLean.ScalarAdvection.flux v A left right",
+      "raw_type": "∀ {d : Nat} (v A : CFDLean.Vector d) (left right : Real),\n  Eq (CFDLean.ScalarAdvection.flux v (Neg.neg A) right left) (Neg.neg (CFDLean.ScalarAdvection.flux v A left right))"
+    },
+    "CFDLean.ScalarAdvection.flux_zero_speed": {
+      "type": "∀ {d : ℕ} (v A : CFDLean.Vector d) (left right : ℝ), v ⬝ᵥ A = 0 → CFDLean.ScalarAdvection.flux v A left right = 0",
+      "raw_type": "∀ {d : Nat} (v A : CFDLean.Vector d) (left right : Real),\n  Eq (dotProduct v A) (OfNat.ofNat 0) → Eq (CFDLean.ScalarAdvection.flux v A left right) (OfNat.ofNat 0)"
+    },
+    "CFDLean.ScalarAdvection.global_balance": {
+      "type": "∀ {d : ℕ} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C → ℝ) (g : B → ℝ),\n  ∑ i, CFDLean.ScalarAdvection.residual v m A T U g i = ∑ b, CFDLean.ScalarAdvection.boundaryFlux v m T U g b",
+      "raw_type": "∀ {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C → Real) (g : B → Real),\n  Eq (Finset.univ.sum fun i => CFDLean.ScalarAdvection.residual v m A T U g i)\n    (Finset.univ.sum fun b => CFDLean.ScalarAdvection.boundaryFlux v m T U g b)"
+    },
+    "CFDLean.ScalarAdvection.step_balance": {
+      "type": "∀ {d : ℕ} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C → ℝ) (g : B → ℝ) (V : C → ℝ),\n  (∀ (i : C), 0 < V i) →\n    ∀ (dt : ℝ),\n      ∑ i, V i * CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i =\n        ∑ i, V i * U i - dt * ∑ b, CFDLean.ScalarAdvection.boundaryFlux v m T U g b",
+      "raw_type": "∀ {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C → Real) (g : B → Real) (V : C → Real),\n  (∀ (i : C), LT.lt (OfNat.ofNat 0) (V i)) →\n    ∀ (dt : Real),\n      Eq\n        (Finset.univ.sum fun i =>\n          HMul.hMul (V i) (CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i))\n        (HSub.hSub (Finset.univ.sum fun i => HMul.hMul (V i) (U i))\n          (HMul.hMul dt (Finset.univ.sum fun b => CFDLean.ScalarAdvection.boundaryFlux v m T U g b)))"
+    },
+    "CFDLean.ScalarAdvection.step_closed": {
+      "type": "∀ {d : ℕ} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C → ℝ) (g : B → ℝ) [IsEmpty B] (V : C → ℝ),\n  (∀ (i : C), 0 < V i) →\n    ∀ (dt : ℝ),\n      ∑ i, V i * CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i = ∑ i, V i * U i",
+      "raw_type": "∀ {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I → CFDLean.Vector d) (T : B → CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C → Real) (g : B → Real) [IsEmpty B] (V : C → Real),\n  (∀ (i : C), LT.lt (OfNat.ofNat 0) (V i)) →\n    ∀ (dt : Real),\n      Eq\n        (Finset.univ.sum fun i =>\n          HMul.hMul (V i) (CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i))\n        (Finset.univ.sum fun i => HMul.hMul (V i) (U i))"
+    },
     "CFDLean.Time.Controls.hot_cold_residual": {
       "type": "CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard 2 CFDLean.Boundary.Controls.mixedKinds\n    CFDLean.Time.Controls.coldFace (fun x => CFDLean.Time.Controls.moving 0 3) 0 =\n  ![1 / 12, 1 / 6, 0, 0, 1 / 3]",
       "raw_type": "Eq\n  (CFDLean.Boundary.meshResidual CFDLean.Time.Controls.standard (OfNat.ofNat 2) CFDLean.Boundary.Controls.mixedKinds\n    CFDLean.Time.Controls.coldFace (fun x => CFDLean.Time.Controls.moving (OfNat.ofNat 0) (OfNat.ofNat 3))\n    ⟨0, Fin.instOfNat⟩)\n  (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 12))\n    (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 6))\n      (Matrix.vecCons (OfNat.ofNat 0)\n        (Matrix.vecCons (OfNat.ofNat 0) (Matrix.vecCons (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 3)) Matrix.vecEmpty)))))"

@@ -1112,6 +1112,12 @@
       <data key="node_module">CFDLean.Schemes.Scalar.NumericalFlux</data>
       <data key="node_path">CFDLean/Schemes/Scalar/NumericalFlux.lean</data>
     </node>
+    <node id="CFDLean.Schemes.ScalarAdvection">
+      <data key="node_label">CFDLean.Schemes.ScalarAdvection</data>
+      <data key="node_layer">Schemes</data>
+      <data key="node_module">CFDLean.Schemes.ScalarAdvection</data>
+      <data key="node_path">CFDLean/Schemes/ScalarAdvection.lean</data>
+    </node>
     <node id="CFDLean.Time.Controls">
       <data key="node_label">CFDLean.Time.Controls</data>
       <data key="node_layer">Time</data>
@@ -1447,6 +1453,12 @@
       <data key="node_layer">Benchmarks</data>
       <data key="node_module">benchmarks.ReviewCases.Reconstruction</data>
       <data key="node_path">benchmarks/ReviewCases/Reconstruction.lean</data>
+    </node>
+    <node id="benchmarks.ReviewCases.ScalarAdvection">
+      <data key="node_label">benchmarks.ReviewCases.ScalarAdvection</data>
+      <data key="node_layer">Benchmarks</data>
+      <data key="node_module">benchmarks.ReviewCases.ScalarAdvection</data>
+      <data key="node_path">benchmarks/ReviewCases/ScalarAdvection.lean</data>
     </node>
     <node id="scripts.FV1DSmoke">
       <data key="node_label">scripts.FV1DSmoke</data>
@@ -3462,6 +3474,11 @@
       <data key="edge_source_layer">Schemes</data>
       <data key="edge_target_layer">Physics</data>
     </edge>
+    <edge source="CFDLean.Schemes.ScalarAdvection" target="CFDLean.Discrete.FixedMesh">
+      <data key="edge_kind">import</data>
+      <data key="edge_source_layer">Schemes</data>
+      <data key="edge_target_layer">Discrete</data>
+    </edge>
     <edge source="CFDLean.Time.Controls" target="CFDLean.Schemes.Boundary.AssemblyControls">
       <data key="edge_kind">import</data>
       <data key="edge_source_layer">Time</data>
@@ -4457,6 +4474,11 @@
       <data key="edge_source_layer">Library</data>
       <data key="edge_target_layer">Schemes</data>
     </edge>
+    <edge source="CFDLean" target="CFDLean.Schemes.ScalarAdvection">
+      <data key="edge_kind">import</data>
+      <data key="edge_source_layer">Library</data>
+      <data key="edge_target_layer">Schemes</data>
+    </edge>
     <edge source="CFDLean" target="CFDLean.Time.Controls">
       <data key="edge_kind">import</data>
       <data key="edge_source_layer">Library</data>
@@ -4811,6 +4833,11 @@
       <data key="edge_kind">import</data>
       <data key="edge_source_layer">Benchmarks</data>
       <data key="edge_target_layer">Discrete</data>
+    </edge>
+    <edge source="benchmarks.ReviewCases.ScalarAdvection" target="CFDLean.Schemes.ScalarAdvection">
+      <data key="edge_kind">import</data>
+      <data key="edge_source_layer">Benchmarks</data>
+      <data key="edge_target_layer">Schemes</data>
     </edge>
     <edge source="scripts.FV1DSmoke" target="CFDLean.Exec.FV1D">
       <data key="edge_kind">import</data>

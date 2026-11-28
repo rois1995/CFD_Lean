@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-621 promised theorems, grouped by layer.
+629 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -66,15 +66,15 @@ that this file equals the generated text. Do not edit by hand.
 | Discrete operators | 108 | 10 | 79 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
-| Schemes | 105 | 7 | 80 | 7 | 11 |
-| Time | 106 | 0 | 86 | 0 | 20 |
+| Schemes | 110 | 7 | 85 | 7 | 11 |
+| Time | 109 | 0 | 89 | 0 | 20 |
 | Execution | 90 | 0 | 89 | 0 | 1 |
-| **Total** | 621 | 17 | 403 | 30 | 171 |
+| **Total** | 629 | 17 | 411 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 433 |
+| FVM | 441 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -104,6 +104,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVT | pending | 5 |
 | WENO | pending | 17 |
 | MD | accepted | 4 |
+| SA | pending | 8 |
 
 ## Foundations (12)
 
@@ -450,7 +451,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p5_20_3` | P5-20.3 | method-free | candidate | The paper's Euler flux on a vector y equals M1's integrated physical flux on the area vector y, for every state. |
 | `CFDLean.JST1.Proofs.p5_20_4` | P5-20.4 | method-free | candidate | The paper's entropy −ρs/(γ−1) and its entropy variables written in M1's primitive variables (ρ, v, p). |
 
-## Schemes (105)
+## Schemes (110)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -559,8 +560,13 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Euler1D.step_constant` | FV1D-K | FVM | accepted | One periodic Euler step preserves each admissible constant state. |
 | `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
 | `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | accepted | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
+| `CFDLean.ScalarAdvection.flux_consistent` | SA-F | FVM | pending | At equal states the upwind transfer equals the physical integrated face flux. |
+| `CFDLean.ScalarAdvection.flux_reverse` | SA-F | FVM | pending | Swapping the traces and reversing the area vector negates the transfer. |
+| `CFDLean.ScalarAdvection.flux_zero_speed` | SA-F | FVM | pending | A zero normal transport speed gives zero integrated transfer for every pair of states. |
+| `CFDLean.ScalarAdvection.constant_residual` | SA-K | FVM | pending | A closed cell with constant interior and exterior means has zero residual. |
+| `CFDLean.ScalarAdvection.global_balance` | SA-C | FVM | pending | The scalar residual sum equals the realized prescribed-boundary exchange. |
 
-## Time (106)
+## Time (109)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -670,6 +676,9 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
 | `CFDLean.FixedMesh.step_balance` | MD-U | FVM | accepted | A common Forward Euler step changes total amount by the outward boundary exchange times minus the timestep. |
+| `CFDLean.ScalarAdvection.constant_step` | SA-K | FVM | pending | Compatible constant means remain constant at every common timestep on a closed cell. |
+| `CFDLean.ScalarAdvection.step_balance` | SA-C | FVM | pending | The weighted amount changes by minus the timestep times the outward boundary rate. |
+| `CFDLean.ScalarAdvection.step_closed` | SA-C | FVM | pending | A Forward Euler step on a mesh with empty boundary conserves scalar amount. |
 
 ## Execution (90)
 

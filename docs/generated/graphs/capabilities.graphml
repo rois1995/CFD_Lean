@@ -261,6 +261,14 @@
       <data key="node_parent">multidimensional</data>
       <data key="node_status">accepted</data>
     </node>
+    <node id="scalar_upwind">
+      <data key="node_docs">["references/MD-scalar-advection.md"]</data>
+      <data key="node_evidence">[{"id": "SA", "paths": ["specifications/MD-scalar-advection-results.json"], "status": "pending", "type": "milestones"}]</data>
+      <data key="node_kind">numerical_method</data>
+      <data key="node_label">Fixed-mesh scalar upwind advection</data>
+      <data key="node_parent">multidimensional</data>
+      <data key="node_status">implemented</data>
+    </node>
     <node id="fixed_mesh_fv2d">
       <data key="node_docs">["roadmap/NEXT.md"]</data>
       <data key="node_evidence">[]</data>
@@ -410,6 +418,9 @@
       <data key="edge_kind">contains</data>
     </edge>
     <edge source="multidimensional" target="fixed_mesh_assembly">
+      <data key="edge_kind">contains</data>
+    </edge>
+    <edge source="multidimensional" target="scalar_upwind">
       <data key="edge_kind">contains</data>
     </edge>
     <edge source="multidimensional" target="fixed_mesh_fv2d">
