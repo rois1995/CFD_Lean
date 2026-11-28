@@ -8,6 +8,13 @@
       "path": "CFDLean/Discrete/Assembly.lean"
     },
     {
+      "id": "CFDLean.Discrete.FixedMesh",
+      "label": "CFDLean.Discrete.FixedMesh",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "layer": "Discrete",
+      "path": "CFDLean/Discrete/FixedMesh.lean"
+    },
+    {
       "id": "CFDLean.Discrete.Galerkin",
       "label": "CFDLean.Discrete.Galerkin",
       "module": "CFDLean.Discrete.Galerkin",
@@ -1646,6 +1653,13 @@
       "path": "benchmarks/ReviewCases/EulerTraces.lean"
     },
     {
+      "id": "benchmarks.ReviewCases.FixedMeshAssembly",
+      "label": "benchmarks.ReviewCases.FixedMeshAssembly",
+      "module": "benchmarks.ReviewCases.FixedMeshAssembly",
+      "layer": "Benchmarks",
+      "path": "benchmarks/ReviewCases/FixedMeshAssembly.lean"
+    },
+    {
       "id": "benchmarks.ReviewCases.GradedWeno",
       "label": "benchmarks.ReviewCases.GradedWeno",
       "module": "benchmarks.ReviewCases.GradedWeno",
@@ -1702,6 +1716,13 @@
       "kind": "import",
       "source_layer": "Discrete",
       "target_layer": "Schemes"
+    },
+    {
+      "source": "CFDLean.Discrete.FixedMesh",
+      "target": "CFDLean.Discrete.Assembly",
+      "kind": "import",
+      "source_layer": "Discrete",
+      "target_layer": "Discrete"
     },
     {
       "source": "CFDLean.Discrete.Galerkin",
@@ -5205,6 +5226,13 @@
     },
     {
       "source": "CFDLean",
+      "target": "CFDLean.Discrete.FixedMesh",
+      "kind": "import",
+      "source_layer": "Library",
+      "target_layer": "Discrete"
+    },
+    {
+      "source": "CFDLean",
       "target": "CFDLean.Discrete.Galerkin",
       "kind": "import",
       "source_layer": "Library",
@@ -6322,6 +6350,13 @@
       "kind": "import",
       "source_layer": "Benchmarks",
       "target_layer": "Exec"
+    },
+    {
+      "source": "benchmarks.ReviewCases.FixedMeshAssembly",
+      "target": "CFDLean.Discrete.FixedMesh",
+      "kind": "import",
+      "source_layer": "Benchmarks",
+      "target_layer": "Discrete"
     },
     {
       "source": "benchmarks.ReviewCases.GradedWeno",

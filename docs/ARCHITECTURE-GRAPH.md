@@ -3,7 +3,7 @@
 
 An arrow points from the importing layer to the layer it depends on. Layer edges summarize direct imports between distinct layers.
 
-The module graph contains 242 modules and 669 direct imports from the library, entry points, verification, benchmarks and tooling. The generator checks that the mathematical layers have no direct imports from Exec.
+The module graph contains 244 modules and 672 direct imports from the library, entry points, verification, benchmarks and tooling. The generator checks that the mathematical layers have no direct imports from Exec.
 
 [Architecture guide](../ARCHITECTURE.md) · [GRAPHML](generated/graphs/imports.graphml) · [DOT](generated/graphs/imports.dot) · [JSON](generated/graphs/imports.json) · [Layer data](generated/imports.json) · [Mermaid source](generated/imports.mmd)
 
@@ -74,7 +74,7 @@ flowchart TD
 
 | Importing layer | Imported layer | Direct module imports |
 | --- | --- | ---: |
-| Benchmarks | Discrete | 4 |
+| Benchmarks | Discrete | 5 |
 | Benchmarks | Entry points | 1 |
 | Benchmarks | Exec | 6 |
 | Discrete | Geometry | 1 |
@@ -91,7 +91,7 @@ flowchart TD
 | Geometry | Discrete | 2 |
 | Geometry | Foundations | 1 |
 | Geometry | Schemes | 1 |
-| Library | Discrete | 19 |
+| Library | Discrete | 20 |
 | Library | Entropy | 6 |
 | Library | Exec | 20 |
 | Library | Foundations | 3 |
