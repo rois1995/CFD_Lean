@@ -1,0 +1,925 @@
+{
+  "generated_from": {
+    "capability_registry": "catalog/capabilities.json",
+    "theorem_catalog": "catalog/theorems.json"
+  },
+  "nodes": [
+    {
+      "id": "cfd_lean",
+      "label": "CFD_Lean",
+      "parent": null,
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "physics",
+      "label": "Physics",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "burgers",
+      "label": "Scalar Burgers flux and Rusanov consistency",
+      "parent": "physics",
+      "kind": "physics",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "B0-F",
+          "type": "result_ids",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-B0-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/Burgers-B0.md"
+      ]
+    },
+    {
+      "id": "euler",
+      "label": "Ideal-gas Euler state, admissibility and physical flux",
+      "parent": "physics",
+      "kind": "physics",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "M1",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/M1.md"
+          ]
+        }
+      ],
+      "docs": [
+        "references/M1.md"
+      ]
+    },
+    {
+      "id": "finite_volume",
+      "label": "Finite volume",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "fv1d",
+      "label": "Periodic finite volume in 1D",
+      "parent": "finite_volume",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "uniform",
+      "label": "Uniform Burgers and Euler Rusanov step",
+      "parent": "fv1d",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "FV1D",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/FV1D-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "reviews/FV1D/Acceptance.md"
+      ]
+    },
+    {
+      "id": "nonuniform",
+      "label": "Nonuniform geometry and exact-real updates",
+      "parent": "fv1d",
+      "kind": "geometry",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "FVN",
+          "type": "milestones",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-nonuniform-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/FV1D-nonuniform.md"
+      ]
+    },
+    {
+      "id": "positivity",
+      "label": "First-order Euler positivity under CFL hypotheses",
+      "parent": "fv1d",
+      "kind": "certificate",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "FVP",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/FV1D-positivity-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "reviews/FVP/Acceptance.md"
+      ]
+    },
+    {
+      "id": "reconstruction",
+      "label": "Reconstruction",
+      "parent": "finite_volume",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "piecewise_constant",
+      "label": "Piecewise-constant traces (first order)",
+      "parent": "reconstruction",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "FV1D",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/FV1D-results.json"
+          ]
+        }
+      ],
+      "docs": []
+    },
+    {
+      "id": "muscl",
+      "label": "Uniform Burgers MUSCL and limiter certificates",
+      "parent": "reconstruction",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "B3",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-B3-results.json"
+          ]
+        },
+        {
+          "id": "B3b",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-B3b-results.json"
+          ]
+        },
+        {
+          "id": "E0c",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-E0c-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/Burgers-B3b.md"
+      ]
+    },
+    {
+      "id": "traces",
+      "label": "Shared oriented-trace interface",
+      "parent": "reconstruction",
+      "kind": "numerical_method",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "U-C",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "U-M",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/FV1D-WENO-reconstruction.md"
+      ]
+    },
+    {
+      "id": "weno",
+      "label": "Burgers WENO and graded reconstruction",
+      "parent": "reconstruction",
+      "kind": "numerical_method",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "U-W",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "G-P",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "G-I",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "B-F",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "B-3",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/FV1D-WENO-reconstruction.md"
+      ]
+    },
+    {
+      "id": "euler_reconstructed",
+      "label": "Reconstructed Euler traces and executable steps",
+      "parent": "reconstruction",
+      "kind": "numerical_method",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "FVT",
+          "type": "milestones",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-euler-traces-results.json"
+          ]
+        },
+        {
+          "id": "E-T",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "E-F",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "E-A",
+          "type": "result_ids",
+          "status": "pending",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json"
+          ]
+        },
+        {
+          "id": "E-P",
+          "type": "result_ids",
+          "status": "control",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json",
+            "scripts/test_fv1d.py"
+          ]
+        },
+        {
+          "id": "E-D",
+          "type": "result_ids",
+          "status": "control",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json",
+            "benchmarks/ReviewCases/EulerReconstructedStep.lean"
+          ]
+        },
+        {
+          "id": "E-R",
+          "type": "result_ids",
+          "status": "control",
+          "paths": [
+            "specifications/FV1D-WENO-reconstruction-results.json",
+            "scripts/test_fv1d.py",
+            "scripts/fv1d_reference.py"
+          ]
+        }
+      ],
+      "docs": [
+        "references/FV1D-euler-traces.md"
+      ]
+    },
+    {
+      "id": "time",
+      "label": "Time integration",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "forward_euler",
+      "label": "Forward Euler (periodic exact-real step)",
+      "parent": "time",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "FV1D",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/FV1D-results.json"
+          ]
+        },
+        {
+          "id": "B1",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-B1-results.json"
+          ]
+        }
+      ],
+      "docs": []
+    },
+    {
+      "id": "ssprk2",
+      "label": "SSPRK2 (scalar exact-real composition)",
+      "parent": "time",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "B2",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-B2-results.json"
+          ]
+        }
+      ],
+      "docs": []
+    },
+    {
+      "id": "ssprk3",
+      "label": "SSPRK3 (scalar exact-real composition)",
+      "parent": "time",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "B2",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-B2-results.json"
+          ]
+        }
+      ],
+      "docs": []
+    },
+    {
+      "id": "execution",
+      "label": "Execution",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "exact_real",
+      "label": "Burgers array kernels and exact-real refinement",
+      "parent": "execution",
+      "kind": "execution",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "E0",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-E0-results.json"
+          ]
+        },
+        {
+          "id": "E0b",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-E0b-results.json"
+          ]
+        },
+        {
+          "id": "E0c",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/Burgers-E0c-results.json"
+          ]
+        }
+      ],
+      "docs": []
+    },
+    {
+      "id": "fv1d_arrays",
+      "label": "Uniform and nonuniform FV1D array refinement",
+      "parent": "execution",
+      "kind": "execution",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "FVA",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/FV1D-array-results.json"
+          ]
+        },
+        {
+          "id": "FVNA",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/FV1D-nonuniform-array-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "reviews/FVNA/Acceptance.md"
+      ]
+    },
+    {
+      "id": "native_float",
+      "label": "Native Float / binary64 execution",
+      "parent": "execution",
+      "kind": "execution",
+      "status": "implemented",
+      "docs": [
+        "CFDLean/Exec/README.md",
+        "FVMain.lean"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "verification",
+      "label": "Verification",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "trusted_statements",
+      "label": "Trusted statements and proof bridges",
+      "parent": "verification",
+      "kind": "verification",
+      "status": "implemented",
+      "docs": [
+        "CFDLean/Verification/BurgersB0Challenge.lean",
+        "CFDLean/Verification/BurgersB0Verify.lean"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "comparator",
+      "label": "Comparator, catalog and evidence",
+      "parent": "verification",
+      "kind": "verification",
+      "status": "implemented",
+      "docs": [
+        "Challenges/BurgersB0.comparator.json",
+        "scripts/verify.py",
+        "catalog/README.md"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "machine_arithmetic",
+      "label": "Machine arithmetic",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "e1",
+      "label": "E1 one-step binary64 certificate and native replay",
+      "parent": "machine_arithmetic",
+      "kind": "certificate",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "E1",
+          "type": "milestones",
+          "status": "pending",
+          "paths": [
+            "specifications/E1-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/E1.md"
+      ]
+    },
+    {
+      "id": "multidimensional",
+      "label": "Multidimensional",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "median_dual",
+      "label": "Median-dual Euler/Roe residual and boundaries",
+      "parent": "multidimensional",
+      "kind": "numerical_method",
+      "status": "accepted",
+      "evidence": [
+        {
+          "id": "M2",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/M2-results.json"
+          ]
+        },
+        {
+          "id": "M3",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/M3-results.json"
+          ]
+        },
+        {
+          "id": "M4",
+          "type": "milestones",
+          "status": "accepted",
+          "paths": [
+            "specifications/M4-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/Euler-Milestones.md"
+      ]
+    },
+    {
+      "id": "median_dual_step",
+      "label": "Median-dual Euler explicit update",
+      "parent": "multidimensional",
+      "kind": "numerical_method",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "M5",
+          "type": "milestones",
+          "status": "pending",
+          "paths": [
+            "specifications/M5-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/M5.md"
+      ]
+    },
+    {
+      "id": "two_triangles",
+      "label": "Oriented-face two-triangle control",
+      "parent": "multidimensional",
+      "kind": "geometry",
+      "status": "implemented",
+      "docs": [
+        "reviews/FV2D/Two_Triangle_Freeze.md",
+        "benchmarks/ReviewCases/OrientedTriangles.lean"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "fixed_mesh_fv2d",
+      "label": "Generic fixed-mesh multidimensional FV",
+      "parent": "multidimensional",
+      "kind": "architecture",
+      "status": "planned",
+      "docs": [
+        "roadmap/NEXT.md"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "future",
+      "label": "Future refinement and backends",
+      "parent": "cfd_lean",
+      "kind": "group",
+      "docs": [],
+      "evidence": []
+    },
+    {
+      "id": "ale",
+      "label": "ALE",
+      "parent": "future",
+      "kind": "architecture",
+      "status": "planned",
+      "docs": [
+        "roadmap/FUTURE.md"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "amr",
+      "label": "AMR",
+      "parent": "future",
+      "kind": "architecture",
+      "status": "planned",
+      "docs": [
+        "roadmap/FUTURE.md"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "mpi",
+      "label": "MPI",
+      "parent": "future",
+      "kind": "architecture",
+      "status": "planned",
+      "docs": [
+        "roadmap/FUTURE.md"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "gpu",
+      "label": "GPU",
+      "parent": "future",
+      "kind": "architecture",
+      "status": "planned",
+      "docs": [
+        "roadmap/FUTURE.md"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "jst1",
+      "label": "JST paper 1 formalization",
+      "parent": "verification",
+      "kind": "certificate",
+      "status": "review",
+      "evidence": [
+        {
+          "id": "JST1",
+          "type": "milestones",
+          "status": "candidate",
+          "paths": [
+            "specifications/JST1/P1-results.json",
+            "specifications/JST1/P2-results.json",
+            "specifications/JST1/P3-results.json",
+            "specifications/JST1/P4-results.json",
+            "specifications/JST1/P5-results.json",
+            "specifications/JST1/P6-results.json",
+            "specifications/JST1/P7-results.json",
+            "specifications/JST1/P8-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "specifications/JST1/README.md"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "cfd_lean",
+      "target": "physics",
+      "kind": "contains"
+    },
+    {
+      "source": "physics",
+      "target": "burgers",
+      "kind": "contains"
+    },
+    {
+      "source": "physics",
+      "target": "euler",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "finite_volume",
+      "kind": "contains"
+    },
+    {
+      "source": "finite_volume",
+      "target": "fv1d",
+      "kind": "contains"
+    },
+    {
+      "source": "fv1d",
+      "target": "uniform",
+      "kind": "contains"
+    },
+    {
+      "source": "fv1d",
+      "target": "nonuniform",
+      "kind": "contains"
+    },
+    {
+      "source": "fv1d",
+      "target": "positivity",
+      "kind": "contains"
+    },
+    {
+      "source": "finite_volume",
+      "target": "reconstruction",
+      "kind": "contains"
+    },
+    {
+      "source": "reconstruction",
+      "target": "piecewise_constant",
+      "kind": "contains"
+    },
+    {
+      "source": "reconstruction",
+      "target": "muscl",
+      "kind": "contains"
+    },
+    {
+      "source": "reconstruction",
+      "target": "traces",
+      "kind": "contains"
+    },
+    {
+      "source": "reconstruction",
+      "target": "weno",
+      "kind": "contains"
+    },
+    {
+      "source": "reconstruction",
+      "target": "euler_reconstructed",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "time",
+      "kind": "contains"
+    },
+    {
+      "source": "time",
+      "target": "forward_euler",
+      "kind": "contains"
+    },
+    {
+      "source": "time",
+      "target": "ssprk2",
+      "kind": "contains"
+    },
+    {
+      "source": "time",
+      "target": "ssprk3",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "execution",
+      "kind": "contains"
+    },
+    {
+      "source": "execution",
+      "target": "exact_real",
+      "kind": "contains"
+    },
+    {
+      "source": "execution",
+      "target": "fv1d_arrays",
+      "kind": "contains"
+    },
+    {
+      "source": "execution",
+      "target": "native_float",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "verification",
+      "kind": "contains"
+    },
+    {
+      "source": "verification",
+      "target": "trusted_statements",
+      "kind": "contains"
+    },
+    {
+      "source": "verification",
+      "target": "comparator",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "machine_arithmetic",
+      "kind": "contains"
+    },
+    {
+      "source": "machine_arithmetic",
+      "target": "e1",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "multidimensional",
+      "kind": "contains"
+    },
+    {
+      "source": "multidimensional",
+      "target": "median_dual",
+      "kind": "contains"
+    },
+    {
+      "source": "multidimensional",
+      "target": "median_dual_step",
+      "kind": "contains"
+    },
+    {
+      "source": "multidimensional",
+      "target": "two_triangles",
+      "kind": "contains"
+    },
+    {
+      "source": "multidimensional",
+      "target": "fixed_mesh_fv2d",
+      "kind": "contains"
+    },
+    {
+      "source": "cfd_lean",
+      "target": "future",
+      "kind": "contains"
+    },
+    {
+      "source": "future",
+      "target": "ale",
+      "kind": "contains"
+    },
+    {
+      "source": "future",
+      "target": "amr",
+      "kind": "contains"
+    },
+    {
+      "source": "future",
+      "target": "mpi",
+      "kind": "contains"
+    },
+    {
+      "source": "future",
+      "target": "gpu",
+      "kind": "contains"
+    },
+    {
+      "source": "verification",
+      "target": "jst1",
+      "kind": "contains"
+    }
+  ]
+}

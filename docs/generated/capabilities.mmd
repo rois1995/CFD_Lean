@@ -1,0 +1,78 @@
+flowchart TD
+    n_0["CFD_Lean"]
+    n_1["Physics"]
+    n_2["✅ Scalar Burgers flux and Rusanov consistency"]
+    n_3["✅ Ideal-gas Euler state, admissibility and physical flux"]
+    n_4["Finite volume"]
+    n_5["Periodic finite volume in 1D"]
+    n_6["✅ Uniform Burgers and Euler Rusanov step"]
+    n_7["🟡 Nonuniform geometry and exact-real updates"]
+    n_8["✅ First-order Euler positivity under CFL hypotheses"]
+    n_9["Reconstruction"]
+    n_10["✅ Piecewise-constant traces (first order)"]
+    n_11["✅ Uniform Burgers MUSCL and limiter certificates"]
+    n_12["🟡 Shared oriented-trace interface"]
+    n_13["🟡 Burgers WENO and graded reconstruction"]
+    n_14["🟡 Reconstructed Euler traces and executable steps"]
+    n_15["Time integration"]
+    n_16["✅ Forward Euler (periodic exact-real step)"]
+    n_17["✅ SSPRK2 (scalar exact-real composition)"]
+    n_18["✅ SSPRK3 (scalar exact-real composition)"]
+    n_19["Execution"]
+    n_20["✅ Burgers array kernels and exact-real refinement"]
+    n_21["✅ Uniform and nonuniform FV1D array refinement"]
+    n_22["🟡 Native Float / binary64 execution"]
+    n_23["Verification"]
+    n_24["🟡 Trusted statements and proof bridges"]
+    n_25["🟡 Comparator, catalog and evidence"]
+    n_26["Machine arithmetic"]
+    n_27["🟡 E1 one-step binary64 certificate and native replay"]
+    n_28["Multidimensional"]
+    n_29["✅ Median-dual Euler/Roe residual and boundaries"]
+    n_30["🟡 Median-dual Euler explicit update"]
+    n_31["🟡 Oriented-face two-triangle control"]
+    n_32["⬜ Generic fixed-mesh multidimensional FV"]
+    n_33["Future refinement and backends"]
+    n_34["⬜ ALE"]
+    n_35["⬜ AMR"]
+    n_36["⬜ MPI"]
+    n_37["⬜ GPU"]
+    n_38["🧪 JST paper 1 formalization"]
+    n_0 --> n_1
+    n_1 --> n_2
+    n_1 --> n_3
+    n_0 --> n_4
+    n_4 --> n_5
+    n_5 --> n_6
+    n_5 --> n_7
+    n_5 --> n_8
+    n_4 --> n_9
+    n_9 --> n_10
+    n_9 --> n_11
+    n_9 --> n_12
+    n_9 --> n_13
+    n_9 --> n_14
+    n_0 --> n_15
+    n_15 --> n_16
+    n_15 --> n_17
+    n_15 --> n_18
+    n_0 --> n_19
+    n_19 --> n_20
+    n_19 --> n_21
+    n_19 --> n_22
+    n_0 --> n_23
+    n_23 --> n_24
+    n_23 --> n_25
+    n_0 --> n_26
+    n_26 --> n_27
+    n_0 --> n_28
+    n_28 --> n_29
+    n_28 --> n_30
+    n_28 --> n_31
+    n_28 --> n_32
+    n_0 --> n_33
+    n_33 --> n_34
+    n_33 --> n_35
+    n_33 --> n_36
+    n_33 --> n_37
+    n_23 --> n_38
