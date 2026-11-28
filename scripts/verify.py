@@ -66,7 +66,7 @@ CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "a
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
-                  "FVNA": "accepted"}
+                  "FVNA": "accepted", "E1": "pending", "FVT": "pending", "WENO": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -250,7 +250,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "8e334eab38e087133756d18386143846aa8c3caf80c24518e219486794cd9aa9"
+RAW_TYPES_SHA256 = "6dcdb92c456d32776c030095ed78a09a9c1fb8bad371279f64e2b91595ab7b5a"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
@@ -1089,6 +1089,29 @@ def main(record_raw_types=False):
         record = json.loads(read_source(stem + "-results.json"))
         check_result_ids(record, read_source(stem + ".md").decode(), milestone)
         fv_indices[milestone] = catalog_index(milestone, record)
+    e1 = json.loads(read_source("specifications/E1-results.json"))
+    if read_source(e1["scope"]) != git_blob("4b914b5bb3ea39ded55b958f5b29d72b7bd20c80", "specifications/E1-burgers-step-proposal.md"):
+        raise ValueError("E1 scope differs from its independently reviewed proposal")
+    if [r["id"] for r in e1["results"]] != ["E1-1", "E1-2", "E1-3"]:
+        raise ValueError("Unexpected E1 result bindings")
+    fv_indices["E1"] = catalog_index("E1", e1)
+    traces = json.loads(read_source("specifications/FV1D-euler-traces-results.json"))
+    if read_source(traces["scope"]) != git_blob("5d76e8bea0390161aa388c92ec34f18d57bcbe50", traces["scope"]):
+        raise ValueError("Uniform Euler MUSCL scope differs from its reviewed revision")
+    if [r["id"] for r in traces["results"]] != ["FVT-A", "FVT-M", "FVT-R", "FVT-K"]:
+        raise ValueError("Unexpected uniform Euler trace result bindings")
+    fv_indices["FVT"] = catalog_index("FVT", traces)
+    weno = json.loads(read_source("specifications/FV1D-WENO-reconstruction-results.json"))
+    scope = "specifications/FV1D-WENO-reconstruction-proposal.md"
+    if weno["scope"] != scope or read_source(scope) != git_blob("c16c5a20dffcc08a426073ad0e7d53304386bcf8", scope):
+        raise ValueError("WENO proposal differs from the pinned scope")
+    if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W"]:
+        raise ValueError("Unexpected WENO reconstruction result bindings")
+    for r in weno["results"]:
+        for control in r.get("controls", []):
+            if not (ROOT / control).is_file():
+                raise ValueError(f"Missing {r['id']} control: {control}")
+    fv_indices["WENO"] = catalog_index("WENO", weno)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
     for milestone, index in [(m, catalog_index(m, r)) for m, r in
                              [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)] + list(
