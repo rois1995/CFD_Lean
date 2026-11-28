@@ -43,9 +43,11 @@ the tagged revision for the release executable. Scientific acceptance remains re
 
 ### Release documentation
 
-The [release documentation workflow](.github/workflows/documentation-release.yml) verifies the annotated release tag
-against a merge on the first-parent history of `main`, checks generated files, and builds the exact revision in strict
-mode. The site header shows the release tag and links to repository artifacts use the release commit SHA.
+Select GitHub Actions as the Pages publishing source. The [release documentation workflow](.github/workflows/documentation-release.yml)
+runs when a stable GitHub Release is published. It verifies the annotated tag against a merge on the first-parent
+history of `main`, checks generated files, and builds the exact revision in strict mode. When the repository is
+public, the workflow publishes that build to Pages. The site header shows the release tag and links to repository
+artifacts use the release commit SHA.
 
 To reproduce the tagged site from its checkout, install [the documentation dependencies](requirements-docs.txt),
 run both graph checks, then build with the release label and commit SHA.
