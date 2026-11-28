@@ -3,32 +3,19 @@
 This file contains work that is actionable or close enough to guide near-term implementation. Long-horizon ideas
 belong in `FUTURE.md`; persistent architectural rules belong in `PRINCIPLES.md`.
 
-Status date: 2026-11-27.
+Status date: 2026-11-28.
 
 ## Next decision after the unified 1D driver
 
-**Next implementation task after the uniform WENO draft is scalar WENO on a fixed non-uniform periodic mesh.**
-Then connect reconstruction to Burgers and Euler through the single `fv1d` executable. The
-[four implementation steps](#reconstruction-and-executable-work-after-pr-60) specify the dependencies and tests.
-The E1 binary64 proposal already has a [review candidate](https://github.com/rois1995/CFD_Lean/pull/51)
-for the existing first-order Burgers step. Its review can proceed independently.
+**Review and freeze the [fixed-mesh multidimensional assembly contract](../specifications/MD-fixed-mesh-assembly-proposal.md).**
+Burgers and Euler now use first order, MUSCL and WENO through `fv1d` on implicit uniform, explicit uniform and graded
+meshes. The [independent review and scope decision](../reviews/FV1D/2026-11-28/Scope_Decision.md) and the final
+[executable regression matrix](https://github.com/rois1995/CFD_Lean/pull/65) record the 1D baseline.
 
-| Work | What must come first | Scheduling decision |
-|---|---|---|
-| E1 contract proposal | Identify the executable operation and its exact-real reference. Both are available. | Review the proposed one-step per-cell budget and its finite-input assumptions. |
-| Binary64 certificate for that step | Review and freeze the contract, then prove the proposed bound under its hypotheses. | Implementation follows contract review. A certificate for a full SSPRK3 run would also need bounds for the stages and repeated steps. |
-| Exact-real oriented face fluxes on a fixed 2D mesh | The planned 1D density-wave comparison is complete. Choose a concrete mesh and face orientations for the 2D control. | The [two-triangle draft](https://github.com/rois1995/CFD_Lean/pull/58) can be reviewed independently of E1 and the 1D reconstruction work. |
-| 1D Euler MUSCL | Choose the system reconstruction and state the conditions that give admissible left and right face states. The current Euler driver uses first order. | A separate numerical milestone. E1 can cover the first-order kernel before this work. |
-| Shared 1D reconstruction interface | Two different families with concrete reference face values. | Review the MUSCL adapter and uniform WENO-JS5 implementation in [PR #60](https://github.com/rois1995/CFD_Lean/pull/60). |
-| Multidimensional reconstruction | Select a concrete mesh, its geometry, and a method that needs gradients or higher-order face values. | Schedule for higher-order fixed-mesh FV or viscous fluxes. A first-order oriented-face control can use cell values directly. |
-| Certified binary64 output on a 2D mesh | Establish the 2D numerical step and a machine-error result that covers its operations. | This claim needs both tracks. A 1D certificate alone covers only its stated step. |
-
-**Reconstruction already delivered and deferred.** The non-uniform 1D update accepts face fluxes independently of
-how the face states were built. Burgers already has geometry-aware MUSCL on that mesh. The recorded trigger for a
-shared interface for left and right face states is a second, structurally different reconstruction family. The six
-limiter choices all belong to MUSCL. The proposed first-order E1 step uses adjacent cell values directly. A future
-machine-error claim for MUSCL must also account for reconstruction and limiter arithmetic.
-[FVN design decision](../references/FV1D-nonuniform.md#layering) · [Multidimensional reconstruction](SEQUENCING.md#8-geometry-aware-multidimensional-gradients-and-reconstruction)
+The [two-triangle control](../reviews/FV2D/Two_Triangle_Freeze.md) is accepted. PR B depends on independent freeze
+of MD-C, MD-K and MD-U. A second scalar mesh then exercises the assembly before the common geometry API is extracted.
+The scalar array refinement precedes the Euler array refinement. The `fv2d` driver needs both. Multidimensional
+reconstruction follows stable first-order 2D execution. Binary64 work on the existing 1D step can proceed independently.
 
 Human review of the trusted Burgers statements and independent M5 review remain open on their respective tracks.
 For future entries, name the prerequisite for the specific claim and state which work can proceed independently.
@@ -322,8 +309,8 @@ positive regularization parameter and tests both face owners against exact ratio
 
 ## Reconstruction and executable work after PR #60
 
-The driver already accepts `--widths` for first-order Burgers, Burgers MUSCL and first-order Euler. PR #60
-supplies a uniform scalar WENO reference. The following steps extend coverage from that baseline.
+At the start of this completed sequence, the driver accepted `--widths` for first-order Burgers, Burgers MUSCL
+and first-order Euler. PR #60 supplied the uniform WENO reference. The original dependencies are recorded below.
 [Driver acceptance](../reviews/FV1D/Driver_Acceptance.md) · [Executable regressions](../scripts/test_fv1d.py)
 
 The independent review accepted this sequence at `4a44b61833344832a433daa8852558390dee2df0`.
@@ -358,7 +345,5 @@ This is the requested scheduling order. Neither floating-point certification nor
 is a prerequisite for these four steps. Numerical regression tolerances and backend-specific error theorems
 are separate review claims.
 
-The four implementation drafts now exercise these routes. The next reconstruction task is independent review
-of the graded face formula before integrating the dependent executable changes. The
-[reviewer guide](../reviews/FV1D/Overnight/Reviewer_Prompt.md#four-implementations-after-the-reconstruction-roadmap)
-gives the checks for each layer.
+The four steps above landed in PRs #62–#65. The [reviewer guide](../reviews/FV1D/Overnight/Reviewer_Prompt.md#four-implementations-after-the-reconstruction-roadmap)
+records how each layer was checked.
