@@ -36,6 +36,8 @@ import CFDLean.Discrete.Periodic.Limiters
 import CFDLean.Discrete.Periodic.Mesh1D
 import CFDLean.Discrete.Periodic.Nonuniform
 import CFDLean.Discrete.Periodic.NonuniformMuscl
+import CFDLean.Discrete.Periodic.MusclReconstruction
+import CFDLean.Discrete.Periodic.Weno
 import CFDLean.Discrete.Periodic.NonuniformMusclStability
 import CFDLean.Discrete.Periodic.NonuniformChecks
 

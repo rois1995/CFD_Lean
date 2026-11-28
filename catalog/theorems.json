@@ -7830,6 +7830,84 @@
       ],
       "summary": "Both selected real traces satisfy M1 admissibility whenever every parent mean satisfies M1 admissibility.",
       "source": "specifications/FV1D-euler-traces-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.step_weighted_sum",
+      "id": "U-C",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.Reconstruction",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The width-weighted update sum is conserved for any oriented reconstruction.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.step_constant",
+      "id": "U-C",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.Reconstruction",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Constant-preserving traces give a constant-preserving update.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.muscl_step",
+      "id": "U-M",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.MusclReconstruction",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The MUSCL reconstruction adapter gives the existing graded MUSCL step.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.Weno.weight_pos",
+      "id": "U-W",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.Weno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Positive regularization and ideal weight give a positive nonlinear weight.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.Weno.edge_quadratic",
+      "id": "U-W",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.Weno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Uniform WENO reproduces a quadratic from its cell averages.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
+    },
+    {
+      "name": "CFDLean.FV1D.Reconstruction.wenoJS5_constants",
+      "id": "U-W",
+      "milestone": "WENO",
+      "module": "CFDLean.Discrete.Periodic.Weno",
+      "status": "pending",
+      "layer": "Discrete operators",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Both oriented uniform WENO traces preserve constants.",
+      "source": "specifications/FV1D-WENO-reconstruction-results.json"
     }
   ]
 }
