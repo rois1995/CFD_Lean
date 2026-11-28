@@ -208,6 +208,7 @@
   "modules": [
     "CFDLean",
     "CFDLean.Discrete.Assembly",
+    "CFDLean.Discrete.FixedMesh",
     "CFDLean.Discrete.Galerkin",
     "CFDLean.Discrete.Mesh",
     "CFDLean.Discrete.Periodic.Conservation",
@@ -425,18 +426,22 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 6062,
+    "roots": 6090,
     "unsafe_reached": [],
-    "visited": 65724
+    "visited": 65752
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "e117bde1d8610ab4d8908a81ca119e6c9b4b4d1c8fc16ebc93b5febad4cd19b0"
+      "sha256": "758a2eb4bf40965a0d67efe1378012e7d7ea8cc7959ae46c1d6ccbbf9f000705"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
       "sha256": "03df5c208c38fcb294e2fc500b72125ebb3ca5013b72fe16d3bebbb52d1ed1f7"
+    },
+    "CFDLean.Discrete.FixedMesh": {
+      "path": "CFDLean/Discrete/FixedMesh.lean",
+      "sha256": "35ea950a11d85dbabb2e30f580f239a09d23a76444798a0f15c4dc331ccbda63"
     },
     "CFDLean.Discrete.Galerkin": {
       "path": "CFDLean/Discrete/Galerkin.lean",
@@ -32367,6 +32372,557 @@
       "raw_type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] [inst_2 : Fintype I]\n  (g : CFDLean.Periodic.Grid I) (F : S \u2192 S) (a : S \u2192 S \u2192 Real) (dx dt : Real) (U : I \u2192 S),\n  Eq (Finset.univ.sum fun i => CFDLean.FV1D.step g F a dx dt U i) (Finset.univ.sum fun i => U i)",
       "root": true,
       "type": "\u2200 {S : Type u_1} {I : Type u_2} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] [inst_2 : Fintype I]\n  (g : CFDLean.Periodic.Grid I) (F : S \u2192 S) (a : S \u2192 S \u2192 \u211d) (dx dt : \u211d) (U : I \u2192 S),\n  \u2211 i, CFDLean.FV1D.step g F a dx dt U i = \u2211 i, U i",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.closed_balance": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.FixedMesh.global_balance",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.closed_balance",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : Fintype C] [IsEmpty B] (F : I \u2192 S) (G : B \u2192 S),\n  Eq (Finset.univ.sum fun i => CFDLean.FixedMesh.residual m F G i) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : Fintype C] [IsEmpty B] (F : I \u2192 S) (G : B \u2192 S), \u2211 i, CFDLean.FixedMesh.residual m F G i = 0",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.constant_defect": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.constant_defect",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module Real S] {d : Nat} (L : LinearMap (RingHom.id Real) (CFDLean.Vector d) S)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) (F : I \u2192 S) (G : B \u2192 S),\n  (\u2200 (f : I), Eq (F f) (DFunLike.coe L (A f))) \u2192\n    (\u2200 (b : B), Eq (G b) (DFunLike.coe L (T b))) \u2192\n      \u2200 (i : C), Eq (CFDLean.FixedMesh.residual m F G i) (DFunLike.coe L (CFDLean.FixedMesh.residual m A T i))",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module \u211d S] {d : \u2115} (L : CFDLean.Vector d \u2192\u2097[\u211d] S) (A : I \u2192 CFDLean.Vector d)\n  (T : B \u2192 CFDLean.Vector d) (F : I \u2192 S) (G : B \u2192 S),\n  (\u2200 (f : I), F f = L (A f)) \u2192\n    (\u2200 (b : B), G b = L (T b)) \u2192 \u2200 (i : C), CFDLean.FixedMesh.residual m F G i = L (CFDLean.FixedMesh.residual m A T i)",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.constant_residual": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.constant_defect",
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.constant_residual",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module Real S] {d : Nat} (L : LinearMap (RingHom.id Real) (CFDLean.Vector d) S)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) (F : I \u2192 S) (G : B \u2192 S),\n  (\u2200 (f : I), Eq (F f) (DFunLike.coe L (A f))) \u2192\n    (\u2200 (b : B), Eq (G b) (DFunLike.coe L (T b))) \u2192\n      \u2200 (i : C),\n        Eq (CFDLean.FixedMesh.residual m A T i) (OfNat.ofNat 0) \u2192\n          Eq (CFDLean.FixedMesh.residual m F G i) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module \u211d S] {d : \u2115} (L : CFDLean.Vector d \u2192\u2097[\u211d] S) (A : I \u2192 CFDLean.Vector d)\n  (T : B \u2192 CFDLean.Vector d) (F : I \u2192 S) (G : B \u2192 S),\n  (\u2200 (f : I), F f = L (A f)) \u2192\n    (\u2200 (b : B), G b = L (T b)) \u2192\n      \u2200 (i : C), CFDLean.FixedMesh.residual m A T i = 0 \u2192 CFDLean.FixedMesh.residual m F G i = 0",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.coordinates_agree": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.incidence_smul",
+        "CFDLean.Assembly.incidence",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.residual"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.coordinates_agree",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} [inst : DecidableEq C] (m : CFDLean.Assembly.Interfaces C I B)\n  [inst_1 : Fintype I] [inst_2 : Fintype B] {n : Nat} (F : I \u2192 CFDLean.Vector n) (G : B \u2192 CFDLean.Vector n) (i : C),\n  Eq (CFDLean.FixedMesh.residual m F G i) (CFDLean.Assembly.residual m F G i)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} [inst : DecidableEq C] (m : CFDLean.Assembly.Interfaces C I B)\n  [inst_1 : Fintype I] [inst_2 : Fintype B] {n : \u2115} (F : I \u2192 CFDLean.Vector n) (G : B \u2192 CFDLean.Vector n) (i : C),\n  CFDLean.FixedMesh.residual m F G i = CFDLean.Assembly.residual m F G i",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.global_balance": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.global_balance",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : Fintype C] (F : I \u2192 S) (G : B \u2192 S),\n  Eq (Finset.univ.sum fun i => CFDLean.FixedMesh.residual m F G i) (Finset.univ.sum fun b => G b)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : Fintype C] (F : I \u2192 S) (G : B \u2192 S), \u2211 i, CFDLean.FixedMesh.residual m F G i = \u2211 b, G b",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.interior": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior",
+      "raw_type": null,
+      "root": true,
+      "type": "{C : Type u_1} \u2192\n  {I : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {S : Type u_4} \u2192 [DecidableEq C] \u2192 CFDLean.Assembly.Interfaces C I B \u2192 [AddCommGroup S] \u2192 I \u2192 S \u2192 C \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.interior._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.FixedMesh.interior.congr_simp": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior.congr_simp",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} {inst : DecidableEq C} [inst_1 : DecidableEq C]\n  (m m_1 : CFDLean.Assembly.Interfaces C I B),\n  Eq m m_1 \u2192\n    \u2200 [inst_2 : AddCommGroup S] (f f_1 : I),\n      Eq f f_1 \u2192\n        \u2200 (q q_1 : S),\n          Eq q q_1 \u2192\n            \u2200 (i i_1 : C),\n              Eq i i_1 \u2192 Eq (CFDLean.FixedMesh.interior m f q i) (CFDLean.FixedMesh.interior m_1 f_1 q_1 i_1)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} {inst : DecidableEq C} [inst_1 : DecidableEq C]\n  (m m_1 : CFDLean.Assembly.Interfaces C I B),\n  m = m_1 \u2192\n    \u2200 [inst_2 : AddCommGroup S] (f f_1 : I),\n      f = f_1 \u2192\n        \u2200 (q q_1 : S),\n          q = q_1 \u2192\n            \u2200 (i i_1 : C), i = i_1 \u2192 CFDLean.FixedMesh.interior m f q i = CFDLean.FixedMesh.interior m_1 f_1 q_1 i_1",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.interior.eq_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior.eq_1",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S) (i : C),\n  Eq (CFDLean.FixedMesh.interior m f q i)\n    (HSub.hSub (ite (Eq (m.tail f) i) q (OfNat.ofNat 0)) (ite (Eq (m.head f) i) q (OfNat.ofNat 0)))",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S) (i : C),\n  CFDLean.FixedMesh.interior m f q i = (if m.tail f = i then q else 0) - if m.head f = i then q else 0",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.interior_neighbor": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.distinct"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior_neighbor",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S),\n  Eq (CFDLean.FixedMesh.interior m f q (m.head f)) (Neg.neg q)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S),\n  CFDLean.FixedMesh.interior m f q (m.head f) = -q",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.interior_other": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior_other",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S) (i : C),\n  Ne (m.tail f) i \u2192 Ne (m.head f) i \u2192 Eq (CFDLean.FixedMesh.interior m f q i) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S) (i : C),\n  m.tail f \u2260 i \u2192 m.head f \u2260 i \u2192 CFDLean.FixedMesh.interior m f q i = 0",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.interior_owner": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.distinct"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.interior_owner",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S),\n  Eq (CFDLean.FixedMesh.interior m f q (m.tail f)) q",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] (f : I) (q : S),\n  CFDLean.FixedMesh.interior m f q (m.tail f) = q",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.residual": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual",
+      "raw_type": null,
+      "root": true,
+      "type": "{C : Type u_1} \u2192\n  {I : Type u_2} \u2192\n    {B : Type u_3} \u2192\n      {S : Type u_4} \u2192\n        [DecidableEq C] \u2192\n          CFDLean.Assembly.Interfaces C I B \u2192 [AddCommGroup S] \u2192 [Fintype I] \u2192 [Fintype B] \u2192 (I \u2192 S) \u2192 (B \u2192 S) \u2192 C \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.residual._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.FixedMesh.residual._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.FixedMesh.residual._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.FixedMesh.residual._redArg._lam_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual._redArg._lam_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.FixedMesh.residual.congr_simp": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual.congr_simp",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} {inst : DecidableEq C} [inst_1 : DecidableEq C]\n  (m m_1 : CFDLean.Assembly.Interfaces C I B),\n  Eq m m_1 \u2192\n    \u2200 [inst_2 : AddCommGroup S] [inst_3 : Fintype I] [inst_4 : Fintype B] (F F_1 : I \u2192 S),\n      Eq F F_1 \u2192\n        \u2200 (G G_1 : B \u2192 S),\n          Eq G G_1 \u2192\n            \u2200 (i i_1 : C),\n              Eq i i_1 \u2192 Eq (CFDLean.FixedMesh.residual m F G i) (CFDLean.FixedMesh.residual m_1 F_1 G_1 i_1)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} {inst : DecidableEq C} [inst_1 : DecidableEq C]\n  (m m_1 : CFDLean.Assembly.Interfaces C I B),\n  m = m_1 \u2192\n    \u2200 [inst_2 : AddCommGroup S] [inst_3 : Fintype I] [inst_4 : Fintype B] (F F_1 : I \u2192 S),\n      F = F_1 \u2192\n        \u2200 (G G_1 : B \u2192 S),\n          G = G_1 \u2192\n            \u2200 (i i_1 : C), i = i_1 \u2192 CFDLean.FixedMesh.residual m F G i = CFDLean.FixedMesh.residual m_1 F_1 G_1 i_1",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.residual.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual.eq_1",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  (F : I \u2192 S) (G : B \u2192 S) (i : C),\n  Eq (CFDLean.FixedMesh.residual m F G i)\n    (HAdd.hAdd (Finset.univ.sum fun f => CFDLean.FixedMesh.interior m f (F f) i)\n      (Finset.univ.sum fun b => ite (Eq (m.owner b) i) (G b) (OfNat.ofNat 0)))",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  (F : I \u2192 S) (G : B \u2192 S) (i : C),\n  CFDLean.FixedMesh.residual m F G i =\n    \u2211 f, CFDLean.FixedMesh.interior m f (F f) i + \u2211 b, if m.owner b = i then G b else 0",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.residual_reverse": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.FixedMesh.interior",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Assembly.Interfaces.tail",
+        "CFDLean.Assembly.Interfaces.reverse"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.residual_reverse",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  (rev : I \u2192 Prop) [inst_4 : DecidablePred rev] (F : I \u2192 S) (G : B \u2192 S) (i : C),\n  Eq (CFDLean.FixedMesh.residual (m.reverse rev) (fun f => ite (rev f) (Neg.neg (F f)) (F f)) G i)\n    (CFDLean.FixedMesh.residual m F G i)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  (rev : I \u2192 Prop) [inst_4 : DecidablePred rev] (F : I \u2192 S) (G : B \u2192 S) (i : C),\n  CFDLean.FixedMesh.residual (m.reverse rev) (fun f => if rev f then -F f else F f) G i =\n    CFDLean.FixedMesh.residual m F G i",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "definition",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step",
+      "raw_type": null,
+      "root": true,
+      "type": "{C : Type u_1} \u2192\n  {S : Type u_4} \u2192 [inst : AddCommGroup S] \u2192 [_root_.Module \u211d S] \u2192 (C \u2192 \u211d) \u2192 \u211d \u2192 (C \u2192 S) \u2192 (C \u2192 S) \u2192 C \u2192 S",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.step"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step.eq_1",
+      "raw_type": "\u2200 {C : Type u_1} {S : Type u_4} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (V : C \u2192 Real) (dt : Real)\n  (U R : C \u2192 S) (i : C),\n  Eq (CFDLean.FixedMesh.step V dt U R i) (HSub.hSub (U i) (HSMul.hSMul (HDiv.hDiv dt (V i)) (R i)))",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {S : Type u_4} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (V : C \u2192 \u211d) (dt : \u211d) (U R : C \u2192 S)\n  (i : C), CFDLean.FixedMesh.step V dt U R i = U i - (dt / V i) \u2022 R i",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.FixedMesh.global_balance",
+        "CFDLean.FixedMesh.step",
+        "CFDLean.Assembly.Interfaces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module Real S] [inst_5 : Fintype C] (V : C \u2192 Real),\n  (\u2200 (i : C), LT.lt (OfNat.ofNat 0) (V i)) \u2192\n    \u2200 (dt : Real) (U : C \u2192 S) (F : I \u2192 S) (G : B \u2192 S),\n      Eq\n        (Finset.univ.sum fun i =>\n          HSMul.hSMul (V i) (CFDLean.FixedMesh.step V dt U (CFDLean.FixedMesh.residual m F G) i))\n        (HSub.hSub (Finset.univ.sum fun i => HSMul.hSMul (V i) (U i)) (HSMul.hSMul dt (Finset.univ.sum fun b => G b)))",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module \u211d S] [inst_5 : Fintype C] (V : C \u2192 \u211d),\n  (\u2200 (i : C), 0 < V i) \u2192\n    \u2200 (dt : \u211d) (U : C \u2192 S) (F : I \u2192 S) (G : B \u2192 S),\n      \u2211 i, V i \u2022 CFDLean.FixedMesh.step V dt U (CFDLean.FixedMesh.residual m F G) i = \u2211 i, V i \u2022 U i - dt \u2022 \u2211 b, G b",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_1",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 2)] [NeZero (OfNat.ofNat 2)],\n  Eq (Eq (OfNat.ofNat 2) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 2] [NeZero 2], (2 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_2",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 3)] [NeZero (OfNat.ofNat 3)],\n  Eq (Eq (OfNat.ofNat 3) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 3] [NeZero 3], (3 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_3": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_3",
+      "raw_type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 (OfNat.ofNat 4)] [NeZero (OfNat.ofNat 4)],\n  Eq (Eq (OfNat.ofNat 4) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type u_2} [inst : Zero \u03b1] [inst_1 : OfNat \u03b1 4] [NeZero 4], (4 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_4": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_4",
+      "raw_type": "\u2200 {M\u2080 : Type u_1} [inst : Mul M\u2080] [inst_1 : Zero M\u2080] [NoZeroDivisors M\u2080] {a b : M\u2080},\n  Ne a (OfNat.ofNat 0) \u2192 Ne b (OfNat.ofNat 0) \u2192 Eq (Eq (HMul.hMul a b) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {M\u2080 : Type u_1} [inst : Mul M\u2080] [inst_1 : Zero M\u2080] [NoZeroDivisors M\u2080] {a b : M\u2080}, a \u2260 0 \u2192 b \u2260 0 \u2192 (a * b = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_5": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_5",
+      "raw_type": "\u2200 {M\u2080 : Type u_1} [inst : MonoidWithZero M\u2080] {a : M\u2080} [IsReduced M\u2080] (n : Nat),\n  Ne a (OfNat.ofNat 0) \u2192 Eq (Eq (HPow.hPow a n) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {M\u2080 : Type u_1} [inst : MonoidWithZero M\u2080] {a : M\u2080} [IsReduced M\u2080] (n : \u2115), a \u2260 0 \u2192 (a ^ n = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_6": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_6",
+      "raw_type": "\u2200 {G\u2080 : Type u_3} [inst : GroupWithZero G\u2080] {a : G\u2080} (n : Int),\n  Ne a (OfNat.ofNat 0) \u2192 Eq (Eq (HPow.hPow a n) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {G\u2080 : Type u_3} [inst : GroupWithZero G\u2080] {a : G\u2080} (n : \u2124), a \u2260 0 \u2192 (a ^ n = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_balance._simp_1_7": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_balance._simp_1_7",
+      "raw_type": "\u2200 {R : Type u_1} [inst : AddMonoidWithOne R] [CharZero R] (n : Nat),\n  Eq (Eq (HAdd.hAdd n.cast (OfNat.ofNat 1)) (OfNat.ofNat 0)) False",
+      "root": true,
+      "type": "\u2200 {R : Type u_1} [inst : AddMonoidWithOne R] [CharZero R] (n : \u2115), (\u2191n + 1 = 0) = False",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_closed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.FixedMesh.step",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.FixedMesh.step_balance"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_closed",
+      "raw_type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module Real S] [inst_5 : Fintype C] [IsEmpty B] (V : C \u2192 Real),\n  (\u2200 (i : C), LT.lt (OfNat.ofNat 0) (V i)) \u2192\n    \u2200 (dt : Real) (U : C \u2192 S) (F : I \u2192 S) (G : B \u2192 S),\n      Eq\n        (Finset.univ.sum fun i =>\n          HSMul.hSMul (V i) (CFDLean.FixedMesh.step V dt U (CFDLean.FixedMesh.residual m F G) i))\n        (Finset.univ.sum fun i => HSMul.hSMul (V i) (U i))",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {I : Type u_2} {B : Type u_3} {S : Type u_4} [inst : DecidableEq C]\n  (m : CFDLean.Assembly.Interfaces C I B) [inst_1 : AddCommGroup S] [inst_2 : Fintype I] [inst_3 : Fintype B]\n  [inst_4 : _root_.Module \u211d S] [inst_5 : Fintype C] [IsEmpty B] (V : C \u2192 \u211d),\n  (\u2200 (i : C), 0 < V i) \u2192\n    \u2200 (dt : \u211d) (U : C \u2192 S) (F : I \u2192 S) (G : B \u2192 S),\n      \u2211 i, V i \u2022 CFDLean.FixedMesh.step V dt U (CFDLean.FixedMesh.residual m F G) i = \u2211 i, V i \u2022 U i",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_zero": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.step"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_zero",
+      "raw_type": "\u2200 {C : Type u_1} {S : Type u_4} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (V : C \u2192 Real) (U R : C \u2192 S),\n  Eq (CFDLean.FixedMesh.step V (OfNat.ofNat 0) U R) U",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {S : Type u_4} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (V : C \u2192 \u211d) (U R : C \u2192 S),\n  CFDLean.FixedMesh.step V 0 U R = U",
+      "unsafe": false
+    },
+    "CFDLean.FixedMesh.step_zero_residual": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.step"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Discrete.FixedMesh",
+      "name": "CFDLean.FixedMesh.step_zero_residual",
+      "raw_type": "\u2200 {C : Type u_1} {S : Type u_4} [inst : AddCommGroup S] [inst_1 : _root_.Module Real S] (V : C \u2192 Real) (dt : Real)\n  (U R : C \u2192 S) (i : C), Eq (R i) (OfNat.ofNat 0) \u2192 Eq (CFDLean.FixedMesh.step V dt U R i) (U i)",
+      "root": true,
+      "type": "\u2200 {C : Type u_1} {S : Type u_4} [inst : AddCommGroup S] [inst_1 : _root_.Module \u211d S] (V : C \u2192 \u211d) (dt : \u211d) (U R : C \u2192 S)\n  (i : C), R i = 0 \u2192 CFDLean.FixedMesh.step V dt U R i = U i",
       "unsafe": false
     },
     "CFDLean.GradedWeno.Stencil": {
@@ -156499,7 +157055,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 617,
+  "catalog_entries": 621,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -157103,5 +157659,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 617
+  "raw_types_checked": 621
 }

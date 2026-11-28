@@ -14,6 +14,12 @@
       <data key="node_module">CFDLean.Discrete.Assembly</data>
       <data key="node_path">CFDLean/Discrete/Assembly.lean</data>
     </node>
+    <node id="CFDLean.Discrete.FixedMesh">
+      <data key="node_label">CFDLean.Discrete.FixedMesh</data>
+      <data key="node_layer">Discrete</data>
+      <data key="node_module">CFDLean.Discrete.FixedMesh</data>
+      <data key="node_path">CFDLean/Discrete/FixedMesh.lean</data>
+    </node>
     <node id="CFDLean.Discrete.Galerkin">
       <data key="node_label">CFDLean.Discrete.Galerkin</data>
       <data key="node_layer">Discrete</data>
@@ -1418,6 +1424,12 @@
       <data key="node_module">benchmarks.ReviewCases.EulerTraces</data>
       <data key="node_path">benchmarks/ReviewCases/EulerTraces.lean</data>
     </node>
+    <node id="benchmarks.ReviewCases.FixedMeshAssembly">
+      <data key="node_label">benchmarks.ReviewCases.FixedMeshAssembly</data>
+      <data key="node_layer">Benchmarks</data>
+      <data key="node_module">benchmarks.ReviewCases.FixedMeshAssembly</data>
+      <data key="node_path">benchmarks/ReviewCases/FixedMeshAssembly.lean</data>
+    </node>
     <node id="benchmarks.ReviewCases.GradedWeno">
       <data key="node_label">benchmarks.ReviewCases.GradedWeno</data>
       <data key="node_layer">Benchmarks</data>
@@ -1464,6 +1476,11 @@
       <data key="edge_kind">import</data>
       <data key="edge_source_layer">Discrete</data>
       <data key="edge_target_layer">Schemes</data>
+    </edge>
+    <edge source="CFDLean.Discrete.FixedMesh" target="CFDLean.Discrete.Assembly">
+      <data key="edge_kind">import</data>
+      <data key="edge_source_layer">Discrete</data>
+      <data key="edge_target_layer">Discrete</data>
     </edge>
     <edge source="CFDLean.Discrete.Galerkin" target="CFDLean.Discrete.Mesh">
       <data key="edge_kind">import</data>
@@ -3965,6 +3982,11 @@
       <data key="edge_source_layer">Library</data>
       <data key="edge_target_layer">Discrete</data>
     </edge>
+    <edge source="CFDLean" target="CFDLean.Discrete.FixedMesh">
+      <data key="edge_kind">import</data>
+      <data key="edge_source_layer">Library</data>
+      <data key="edge_target_layer">Discrete</data>
+    </edge>
     <edge source="CFDLean" target="CFDLean.Discrete.Galerkin">
       <data key="edge_kind">import</data>
       <data key="edge_source_layer">Library</data>
@@ -4764,6 +4786,11 @@
       <data key="edge_kind">import</data>
       <data key="edge_source_layer">Benchmarks</data>
       <data key="edge_target_layer">Exec</data>
+    </edge>
+    <edge source="benchmarks.ReviewCases.FixedMeshAssembly" target="CFDLean.Discrete.FixedMesh">
+      <data key="edge_kind">import</data>
+      <data key="edge_source_layer">Benchmarks</data>
+      <data key="edge_target_layer">Discrete</data>
     </edge>
     <edge source="benchmarks.ReviewCases.GradedWeno" target="CFDLean.Discrete.Periodic.GradedWeno">
       <data key="edge_kind">import</data>

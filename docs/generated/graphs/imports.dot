@@ -1,5 +1,6 @@
 digraph {
   "CFDLean.Discrete.Assembly" [label="CFDLean.Discrete.Assembly", layer="Discrete", module="CFDLean.Discrete.Assembly", path="CFDLean/Discrete/Assembly.lean"];
+  "CFDLean.Discrete.FixedMesh" [label="CFDLean.Discrete.FixedMesh", layer="Discrete", module="CFDLean.Discrete.FixedMesh", path="CFDLean/Discrete/FixedMesh.lean"];
   "CFDLean.Discrete.Galerkin" [label="CFDLean.Discrete.Galerkin", layer="Discrete", module="CFDLean.Discrete.Galerkin", path="CFDLean/Discrete/Galerkin.lean"];
   "CFDLean.Discrete.Mesh" [label="CFDLean.Discrete.Mesh", layer="Discrete", module="CFDLean.Discrete.Mesh", path="CFDLean/Discrete/Mesh.lean"];
   "CFDLean.Discrete.Periodic.Conservation" [label="CFDLean.Discrete.Periodic.Conservation", layer="Discrete", module="CFDLean.Discrete.Periodic.Conservation", path="CFDLean/Discrete/Periodic/Conservation.lean"];
@@ -234,6 +235,7 @@ digraph {
   "benchmarks.ReviewCases.E1.ExactStep" [label="benchmarks.ReviewCases.E1.ExactStep", layer="Benchmarks", module="benchmarks.ReviewCases.E1.ExactStep", path="benchmarks/ReviewCases/E1/ExactStep.lean"];
   "benchmarks.ReviewCases.EulerReconstructedStep" [label="benchmarks.ReviewCases.EulerReconstructedStep", layer="Benchmarks", module="benchmarks.ReviewCases.EulerReconstructedStep", path="benchmarks/ReviewCases/EulerReconstructedStep.lean"];
   "benchmarks.ReviewCases.EulerTraces" [label="benchmarks.ReviewCases.EulerTraces", layer="Benchmarks", module="benchmarks.ReviewCases.EulerTraces", path="benchmarks/ReviewCases/EulerTraces.lean"];
+  "benchmarks.ReviewCases.FixedMeshAssembly" [label="benchmarks.ReviewCases.FixedMeshAssembly", layer="Benchmarks", module="benchmarks.ReviewCases.FixedMeshAssembly", path="benchmarks/ReviewCases/FixedMeshAssembly.lean"];
   "benchmarks.ReviewCases.GradedWeno" [label="benchmarks.ReviewCases.GradedWeno", layer="Benchmarks", module="benchmarks.ReviewCases.GradedWeno", path="benchmarks/ReviewCases/GradedWeno.lean"];
   "benchmarks.ReviewCases.OrientedTriangles" [label="benchmarks.ReviewCases.OrientedTriangles", layer="Benchmarks", module="benchmarks.ReviewCases.OrientedTriangles", path="benchmarks/ReviewCases/OrientedTriangles.lean"];
   "benchmarks.ReviewCases.Reconstruction" [label="benchmarks.ReviewCases.Reconstruction", layer="Benchmarks", module="benchmarks.ReviewCases.Reconstruction", path="benchmarks/ReviewCases/Reconstruction.lean"];
@@ -242,6 +244,7 @@ digraph {
   "scripts.MCNStatementDump" [label="scripts.MCNStatementDump", layer="Tooling", module="scripts.MCNStatementDump", path="scripts/MCNStatementDump.lean"];
   "scripts.PortTypesRawDump" [label="scripts.PortTypesRawDump", layer="Tooling", module="scripts.PortTypesRawDump", path="scripts/PortTypesRawDump.lean"];
   "CFDLean.Discrete.Assembly" -> "CFDLean.Schemes.Roe.Flux" [kind="import", source_layer="Discrete", target_layer="Schemes"];
+  "CFDLean.Discrete.FixedMesh" -> "CFDLean.Discrete.Assembly" [kind="import", source_layer="Discrete", target_layer="Discrete"];
   "CFDLean.Discrete.Galerkin" -> "CFDLean.Discrete.Mesh" [kind="import", source_layer="Discrete", target_layer="Discrete"];
   "CFDLean.Discrete.Mesh" -> "CFDLean.Geometry.Simplex" [kind="import", source_layer="Discrete", target_layer="Geometry"];
   "CFDLean.Discrete.Periodic.Conservation" -> "CFDLean.Discrete.Periodic.FiniteVolume" [kind="import", source_layer="Discrete", target_layer="Discrete"];
@@ -742,6 +745,7 @@ digraph {
   "CFDLean.Verification.JST1Verify" -> "CFDLean.Papers.JST1.Spec.Item8" [kind="import", source_layer="Verification", target_layer="Papers"];
   "CFDLean.Verification.JST1Verify" -> "CFDLean.Papers.JST1.Spec.Item9" [kind="import", source_layer="Verification", target_layer="Papers"];
   "CFDLean" -> "CFDLean.Discrete.Assembly" [kind="import", source_layer="Library", target_layer="Discrete"];
+  "CFDLean" -> "CFDLean.Discrete.FixedMesh" [kind="import", source_layer="Library", target_layer="Discrete"];
   "CFDLean" -> "CFDLean.Discrete.Galerkin" [kind="import", source_layer="Library", target_layer="Discrete"];
   "CFDLean" -> "CFDLean.Discrete.Mesh" [kind="import", source_layer="Library", target_layer="Discrete"];
   "CFDLean" -> "CFDLean.Discrete.Periodic.Conservation" [kind="import", source_layer="Library", target_layer="Discrete"];
@@ -902,6 +906,7 @@ digraph {
   "benchmarks.ReviewCases.EulerReconstructedStep" -> "CFDLean.Exec.EulerReconstruction" [kind="import", source_layer="Benchmarks", target_layer="Exec"];
   "benchmarks.ReviewCases.EulerReconstructedStep" -> "Driver" [kind="import", source_layer="Benchmarks", target_layer="Entry points"];
   "benchmarks.ReviewCases.EulerTraces" -> "CFDLean.Exec.EulerTraces" [kind="import", source_layer="Benchmarks", target_layer="Exec"];
+  "benchmarks.ReviewCases.FixedMeshAssembly" -> "CFDLean.Discrete.FixedMesh" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];
   "benchmarks.ReviewCases.GradedWeno" -> "CFDLean.Discrete.Periodic.GradedWeno" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];
   "benchmarks.ReviewCases.Reconstruction" -> "CFDLean.Discrete.Periodic.Muscl" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];
   "benchmarks.ReviewCases.Reconstruction" -> "CFDLean.Discrete.Periodic.MusclReconstruction" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];

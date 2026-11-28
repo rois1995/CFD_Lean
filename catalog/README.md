@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-617 promised theorems, grouped by layer.
+621 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -63,18 +63,18 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
 | Geometry | 75 | 0 | 43 | 4 | 28 |
-| Discrete operators | 105 | 10 | 76 | 19 | 0 |
+| Discrete operators | 108 | 10 | 79 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
-| Time | 105 | 0 | 85 | 0 | 20 |
+| Time | 106 | 0 | 86 | 0 | 20 |
 | Execution | 90 | 0 | 89 | 0 | 1 |
-| **Total** | 617 | 17 | 399 | 30 | 171 |
+| **Total** | 621 | 17 | 403 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 429 |
+| FVM | 433 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -103,6 +103,7 @@ that this file equals the generated text. Do not edit by hand.
 | E1 | pending | 4 |
 | FVT | pending | 5 |
 | WENO | pending | 17 |
+| MD | accepted | 4 |
 
 ## Foundations (12)
 
@@ -201,7 +202,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p8_23_1` | P8-23.1 | method-free | candidate | A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell. |
 | `CFDLean.JST1.Proofs.p8_23_2` | P8-23.2 | FVM | candidate | A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero. |
 
-## Discrete operators (105)
+## Discrete operators (108)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -310,6 +311,9 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.FV1D.Reconstruction.edge_quadratic_graded` | G-P | FVM | pending | Graded WENO exactly reconstructs a quadratic from its interval averages. |
 | `CFDLean.FV1D.Reconstruction.edge_uniform` | G-P | FVM | pending | Equal widths recover the uniform WENO reconstruction. |
 | `CFDLean.GradedWeno.ideal_cubic_quartic` | G-I | FVM | pending | The linear ideal weights reproduce cubic and quartic moments on positive widths. |
+| `CFDLean.FixedMesh.global_balance` | MD-C | FVM | accepted | The sum of cell residuals equals the realized outward boundary transfer in an additive commutative group. |
+| `CFDLean.FixedMesh.constant_defect` | MD-K | FVM | accepted | Compatible interior and boundary transfers at a constant state map the cell area-vector defect to the cell residual. |
+| `CFDLean.FixedMesh.constant_residual` | MD-K | FVM | accepted | Geometric closure and compatible constant-state transfers give a zero cell residual. |
 
 ## Entropy framework (32)
 
@@ -556,7 +560,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Euler1D.component_balance` | FV1D-C | FVM | accepted | One common step conserves the discrete integrals of density, x-momentum and total energy. |
 | `CFDLean.Euler1D.step_admissible` | FVP-P | FVM | accepted | The local old-state CFL bound preserves strict M1 admissibility for one periodic Euler update. |
 
-## Time (105)
+## Time (106)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -665,6 +669,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.Burgers.Nonuniform.musclStep_iterate_stable` | FVN-MB | FVM | pending | Under 8 · dt · max(\|m\|, \|M\|) ≤ w i, a θ-bounded slope and mesh ratio θ, n Burgers MUSCL Forward Euler steps keep the bounds and do not increase the total variation. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk2Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK2 steps. |
 | `CFDLean.Burgers.Nonuniform.musclSsprk3Step_iterate_stable` | FVN-MB | FVM | pending | The same non-uniform-mesh bounds and total-variation result for n Burgers MUSCL SSPRK3 steps. |
+| `CFDLean.FixedMesh.step_balance` | MD-U | FVM | accepted | A common Forward Euler step changes total amount by the outward boundary exchange times minus the timestep. |
 
 ## Execution (90)
 
