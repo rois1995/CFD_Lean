@@ -1,0 +1,41 @@
+name: Validate official release documentation
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify the official release tag
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          ref="refs/tags/$RELEASE_TAG"
+          test "$(git cat-file -t "$ref")" = tag
+          test "$(git rev-parse "$ref^{commit}")" = "$GITHUB_SHA"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git rev-list --first-parent --merges origin/main | grep -Fx "$GITHUB_SHA"
+      - name: Check generated documentation
+        run: |
+          python3 scripts/generate_capabilities.py --check
+          python3 scripts/generate_import_graph.py --check
+      - name: Build the tagged documentation
+        env:
+          CFDLEAN_DOCS_RELEASE: ${{ github.event.release.tag_name }}
+          CFDLEAN_DOCS_REVISION: ${{ github.sha }}
+        run: |
+          python3 -m pip install -r requirements-docs.txt
+          python3 -m mkdocs build --strict
