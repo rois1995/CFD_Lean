@@ -32,6 +32,7 @@
   {"id": "median_dual_step", "label": "Median-dual Euler explicit update", "parent": "multidimensional", "kind": "numerical_method", "status": "implemented", "evidence": {"milestones": ["M5"]}, "docs": ["references/M5.md"]},
   {"id": "two_triangles", "label": "Oriented-face two-triangle control", "parent": "multidimensional", "kind": "geometry", "status": "implemented", "docs": ["reviews/FV2D/Two_Triangle_Freeze.md", "benchmarks/ReviewCases/OrientedTriangles.lean"]},
   {"id": "fixed_mesh_assembly", "label": "Fixed-mesh conservative assembly and update", "parent": "multidimensional", "kind": "numerical_method", "status": "accepted", "evidence": {"milestones": ["MD"]}, "docs": ["references/MD-fixed-mesh-assembly.md", "reviews/MD/Acceptance.md"]},
+  {"id": "scalar_upwind", "label": "Fixed-mesh scalar upwind advection", "parent": "multidimensional", "kind": "numerical_method", "status": "implemented", "evidence": {"milestones": ["SA"]}, "docs": ["references/MD-scalar-advection.md"]},
   {"id": "fixed_mesh_fv2d", "label": "Generic fixed-mesh multidimensional FV schemes", "parent": "multidimensional", "kind": "architecture", "status": "planned", "docs": ["roadmap/NEXT.md"]},
   {"id": "future", "label": "Future refinement and backends", "parent": "cfd_lean", "kind": "group"},
   {"id": "ale", "label": "ALE", "parent": "future", "kind": "architecture", "status": "planned", "docs": ["roadmap/FUTURE.md"]},

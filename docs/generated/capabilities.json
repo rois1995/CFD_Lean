@@ -661,6 +661,26 @@
       ]
     },
     {
+      "id": "scalar_upwind",
+      "label": "Fixed-mesh scalar upwind advection",
+      "parent": "multidimensional",
+      "kind": "numerical_method",
+      "status": "implemented",
+      "evidence": [
+        {
+          "id": "SA",
+          "type": "milestones",
+          "status": "pending",
+          "paths": [
+            "specifications/MD-scalar-advection-results.json"
+          ]
+        }
+      ],
+      "docs": [
+        "references/MD-scalar-advection.md"
+      ]
+    },
+    {
       "id": "fixed_mesh_fv2d",
       "label": "Generic fixed-mesh multidimensional FV schemes",
       "parent": "multidimensional",
@@ -910,6 +930,11 @@
     {
       "source": "multidimensional",
       "target": "fixed_mesh_assembly",
+      "kind": "contains"
+    },
+    {
+      "source": "multidimensional",
+      "target": "scalar_upwind",
       "kind": "contains"
     },
     {

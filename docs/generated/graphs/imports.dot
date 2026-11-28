@@ -183,6 +183,7 @@ digraph {
   "CFDLean.Schemes.Scalar.Lipschitz" [label="CFDLean.Schemes.Scalar.Lipschitz", layer="Schemes", module="CFDLean.Schemes.Scalar.Lipschitz", path="CFDLean/Schemes/Scalar/Lipschitz.lean"];
   "CFDLean.Schemes.Scalar.Monotone" [label="CFDLean.Schemes.Scalar.Monotone", layer="Schemes", module="CFDLean.Schemes.Scalar.Monotone", path="CFDLean/Schemes/Scalar/Monotone.lean"];
   "CFDLean.Schemes.Scalar.NumericalFlux" [label="CFDLean.Schemes.Scalar.NumericalFlux", layer="Schemes", module="CFDLean.Schemes.Scalar.NumericalFlux", path="CFDLean/Schemes/Scalar/NumericalFlux.lean"];
+  "CFDLean.Schemes.ScalarAdvection" [label="CFDLean.Schemes.ScalarAdvection", layer="Schemes", module="CFDLean.Schemes.ScalarAdvection", path="CFDLean/Schemes/ScalarAdvection.lean"];
   "CFDLean.Time.Controls" [label="CFDLean.Time.Controls", layer="Time", module="CFDLean.Time.Controls", path="CFDLean/Time/Controls.lean"];
   "CFDLean.Time.ExplicitEuler" [label="CFDLean.Time.ExplicitEuler", layer="Time", module="CFDLean.Time.ExplicitEuler", path="CFDLean/Time/ExplicitEuler.lean"];
   "CFDLean.Time.ForwardEuler" [label="CFDLean.Time.ForwardEuler", layer="Time", module="CFDLean.Time.ForwardEuler", path="CFDLean/Time/ForwardEuler.lean"];
@@ -239,6 +240,7 @@ digraph {
   "benchmarks.ReviewCases.GradedWeno" [label="benchmarks.ReviewCases.GradedWeno", layer="Benchmarks", module="benchmarks.ReviewCases.GradedWeno", path="benchmarks/ReviewCases/GradedWeno.lean"];
   "benchmarks.ReviewCases.OrientedTriangles" [label="benchmarks.ReviewCases.OrientedTriangles", layer="Benchmarks", module="benchmarks.ReviewCases.OrientedTriangles", path="benchmarks/ReviewCases/OrientedTriangles.lean"];
   "benchmarks.ReviewCases.Reconstruction" [label="benchmarks.ReviewCases.Reconstruction", layer="Benchmarks", module="benchmarks.ReviewCases.Reconstruction", path="benchmarks/ReviewCases/Reconstruction.lean"];
+  "benchmarks.ReviewCases.ScalarAdvection" [label="benchmarks.ReviewCases.ScalarAdvection", layer="Benchmarks", module="benchmarks.ReviewCases.ScalarAdvection", path="benchmarks/ReviewCases/ScalarAdvection.lean"];
   "scripts.FV1DSmoke" [label="scripts.FV1DSmoke", layer="Tooling", module="scripts.FV1DSmoke", path="scripts/FV1DSmoke.lean"];
   "scripts.JST1Dump" [label="scripts.JST1Dump", layer="Tooling", module="scripts.JST1Dump", path="scripts/JST1Dump.lean"];
   "scripts.MCNStatementDump" [label="scripts.MCNStatementDump", layer="Tooling", module="scripts.MCNStatementDump", path="scripts/MCNStatementDump.lean"];
@@ -641,6 +643,7 @@ digraph {
   "CFDLean.Schemes.Scalar.Lipschitz" -> "CFDLean.Schemes.Scalar.NumericalFlux" [kind="import", source_layer="Schemes", target_layer="Schemes"];
   "CFDLean.Schemes.Scalar.Monotone" -> "CFDLean.Schemes.Scalar.NumericalFlux" [kind="import", source_layer="Schemes", target_layer="Schemes"];
   "CFDLean.Schemes.Scalar.NumericalFlux" -> "CFDLean.Physics.Scalar.ConservationLaw" [kind="import", source_layer="Schemes", target_layer="Physics"];
+  "CFDLean.Schemes.ScalarAdvection" -> "CFDLean.Discrete.FixedMesh" [kind="import", source_layer="Schemes", target_layer="Discrete"];
   "CFDLean.Time.Controls" -> "CFDLean.Schemes.Boundary.AssemblyControls" [kind="import", source_layer="Time", target_layer="Schemes"];
   "CFDLean.Time.Controls" -> "CFDLean.Time.ExplicitEuler" [kind="import", source_layer="Time", target_layer="Time"];
   "CFDLean.Time.ExplicitEuler" -> "CFDLean.Schemes.Boundary.Assembly" [kind="import", source_layer="Time", target_layer="Schemes"];
@@ -840,6 +843,7 @@ digraph {
   "CFDLean" -> "CFDLean.Schemes.Scalar.Lipschitz" [kind="import", source_layer="Library", target_layer="Schemes"];
   "CFDLean" -> "CFDLean.Schemes.Scalar.Monotone" [kind="import", source_layer="Library", target_layer="Schemes"];
   "CFDLean" -> "CFDLean.Schemes.Scalar.NumericalFlux" [kind="import", source_layer="Library", target_layer="Schemes"];
+  "CFDLean" -> "CFDLean.Schemes.ScalarAdvection" [kind="import", source_layer="Library", target_layer="Schemes"];
   "CFDLean" -> "CFDLean.Time.Controls" [kind="import", source_layer="Library", target_layer="Time"];
   "CFDLean" -> "CFDLean.Time.ExplicitEuler" [kind="import", source_layer="Library", target_layer="Time"];
   "CFDLean" -> "CFDLean.Time.ForwardEuler" [kind="import", source_layer="Library", target_layer="Time"];
@@ -911,6 +915,7 @@ digraph {
   "benchmarks.ReviewCases.Reconstruction" -> "CFDLean.Discrete.Periodic.Muscl" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];
   "benchmarks.ReviewCases.Reconstruction" -> "CFDLean.Discrete.Periodic.MusclReconstruction" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];
   "benchmarks.ReviewCases.Reconstruction" -> "CFDLean.Discrete.Periodic.Weno" [kind="import", source_layer="Benchmarks", target_layer="Discrete"];
+  "benchmarks.ReviewCases.ScalarAdvection" -> "CFDLean.Schemes.ScalarAdvection" [kind="import", source_layer="Benchmarks", target_layer="Schemes"];
   "scripts.FV1DSmoke" -> "CFDLean.Exec.FV1D" [kind="import", source_layer="Tooling", target_layer="Exec"];
   "scripts.JST1Dump" -> "CFDLean" [kind="import", source_layer="Tooling", target_layer="Library"];
   "scripts.MCNStatementDump" -> "CFDLean" [kind="import", source_layer="Tooling", target_layer="Library"];

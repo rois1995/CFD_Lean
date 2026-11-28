@@ -1289,6 +1289,13 @@
       "path": "CFDLean/Schemes/Scalar/NumericalFlux.lean"
     },
     {
+      "id": "CFDLean.Schemes.ScalarAdvection",
+      "label": "CFDLean.Schemes.ScalarAdvection",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "layer": "Schemes",
+      "path": "CFDLean/Schemes/ScalarAdvection.lean"
+    },
+    {
       "id": "CFDLean.Time.Controls",
       "label": "CFDLean.Time.Controls",
       "module": "CFDLean.Time.Controls",
@@ -1679,6 +1686,13 @@
       "module": "benchmarks.ReviewCases.Reconstruction",
       "layer": "Benchmarks",
       "path": "benchmarks/ReviewCases/Reconstruction.lean"
+    },
+    {
+      "id": "benchmarks.ReviewCases.ScalarAdvection",
+      "label": "benchmarks.ReviewCases.ScalarAdvection",
+      "module": "benchmarks.ReviewCases.ScalarAdvection",
+      "layer": "Benchmarks",
+      "path": "benchmarks/ReviewCases/ScalarAdvection.lean"
     },
     {
       "id": "scripts.FV1DSmoke",
@@ -4497,6 +4511,13 @@
       "target_layer": "Physics"
     },
     {
+      "source": "CFDLean.Schemes.ScalarAdvection",
+      "target": "CFDLean.Discrete.FixedMesh",
+      "kind": "import",
+      "source_layer": "Schemes",
+      "target_layer": "Discrete"
+    },
+    {
       "source": "CFDLean.Time.Controls",
       "target": "CFDLean.Schemes.Boundary.AssemblyControls",
       "kind": "import",
@@ -5891,6 +5912,13 @@
     },
     {
       "source": "CFDLean",
+      "target": "CFDLean.Schemes.ScalarAdvection",
+      "kind": "import",
+      "source_layer": "Library",
+      "target_layer": "Schemes"
+    },
+    {
+      "source": "CFDLean",
       "target": "CFDLean.Time.Controls",
       "kind": "import",
       "source_layer": "Library",
@@ -6385,6 +6413,13 @@
       "kind": "import",
       "source_layer": "Benchmarks",
       "target_layer": "Discrete"
+    },
+    {
+      "source": "benchmarks.ReviewCases.ScalarAdvection",
+      "target": "CFDLean.Schemes.ScalarAdvection",
+      "kind": "import",
+      "source_layer": "Benchmarks",
+      "target_layer": "Schemes"
     },
     {
       "source": "scripts.FV1DSmoke",

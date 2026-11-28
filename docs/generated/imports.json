@@ -91,6 +91,12 @@
       "count": 6
     },
     {
+      "source": "Benchmarks",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 1
+    },
+    {
       "source": "Discrete",
       "target": "Geometry",
       "kind": "import",
@@ -220,7 +226,7 @@
       "source": "Library",
       "target": "Schemes",
       "kind": "import",
-      "count": 27
+      "count": 28
     },
     {
       "source": "Library",
@@ -268,7 +274,7 @@
       "source": "Schemes",
       "target": "Discrete",
       "kind": "import",
-      "count": 10
+      "count": 11
     },
     {
       "source": "Schemes",

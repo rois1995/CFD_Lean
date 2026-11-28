@@ -8103,6 +8103,110 @@
       ],
       "summary": "A common Forward Euler step changes total amount by the outward boundary exchange times minus the timestep.",
       "source": "specifications/MD-fixed-mesh-assembly-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.flux_consistent",
+      "id": "SA-F",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "At equal states the upwind transfer equals the physical integrated face flux.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.flux_reverse",
+      "id": "SA-F",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Swapping the traces and reversing the area vector negates the transfer.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.flux_zero_speed",
+      "id": "SA-F",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A zero normal transport speed gives zero integrated transfer for every pair of states.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.constant_residual",
+      "id": "SA-K",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A closed cell with constant interior and exterior means has zero residual.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.constant_step",
+      "id": "SA-K",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Compatible constant means remain constant at every common timestep on a closed cell.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.global_balance",
+      "id": "SA-C",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Schemes",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The scalar residual sum equals the realized prescribed-boundary exchange.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.step_balance",
+      "id": "SA-C",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "The weighted amount changes by minus the timestep times the outward boundary rate.",
+      "source": "specifications/MD-scalar-advection-results.json"
+    },
+    {
+      "name": "CFDLean.ScalarAdvection.step_closed",
+      "id": "SA-C",
+      "milestone": "SA",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "status": "pending",
+      "layer": "Time",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "A Forward Euler step on a mesh with empty boundary conserves scalar amount.",
+      "source": "specifications/MD-scalar-advection-results.json"
     }
   ]
 }

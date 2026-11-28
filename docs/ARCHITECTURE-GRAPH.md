@@ -3,7 +3,7 @@
 
 An arrow points from the importing layer to the layer it depends on. Layer edges summarize direct imports between distinct layers.
 
-The module graph contains 244 modules and 672 direct imports from the library, entry points, verification, benchmarks and tooling. The generator checks that the mathematical layers have no direct imports from Exec.
+The module graph contains 246 modules and 675 direct imports from the library, entry points, verification, benchmarks and tooling. The generator checks that the mathematical layers have no direct imports from Exec.
 
 [Architecture guide](../ARCHITECTURE.md) · [GRAPHML](generated/graphs/imports.graphml) · [DOT](generated/graphs/imports.dot) · [JSON](generated/graphs/imports.json) · [Layer data](generated/imports.json) · [Mermaid source](generated/imports.mmd)
 
@@ -26,6 +26,7 @@ flowchart TD
     n_10 --> n_3
     n_10 --> n_11
     n_10 --> n_7
+    n_10 --> n_5
     n_3 --> n_2
     n_3 --> n_5
     n_3 --> n_6
@@ -77,6 +78,7 @@ flowchart TD
 | Benchmarks | Discrete | 5 |
 | Benchmarks | Entry points | 1 |
 | Benchmarks | Exec | 6 |
+| Benchmarks | Schemes | 1 |
 | Discrete | Geometry | 1 |
 | Discrete | Schemes | 4 |
 | Discrete | Time | 1 |
@@ -98,7 +100,7 @@ flowchart TD
 | Library | Geometry | 11 |
 | Library | Papers | 1 |
 | Library | Physics | 8 |
-| Library | Schemes | 27 |
+| Library | Schemes | 28 |
 | Library | Time | 4 |
 | Papers | Discrete | 9 |
 | Papers | Entropy | 5 |
@@ -106,7 +108,7 @@ flowchart TD
 | Papers | Geometry | 18 |
 | Papers | Physics | 1 |
 | Physics | Foundations | 1 |
-| Schemes | Discrete | 10 |
+| Schemes | Discrete | 11 |
 | Schemes | Geometry | 3 |
 | Schemes | Physics | 4 |
 | Schemes | Time | 2 |

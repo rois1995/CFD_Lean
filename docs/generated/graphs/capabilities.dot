@@ -32,6 +32,7 @@ digraph {
   "median_dual_step" [docs="[\"references/M5.md\"]", evidence="[{\"id\": \"M5\", \"paths\": [\"specifications/M5-results.json\"], \"status\": \"pending\", \"type\": \"milestones\"}]", kind="numerical_method", label="Median-dual Euler explicit update", parent="multidimensional", status="implemented"];
   "two_triangles" [docs="[\"reviews/FV2D/Two_Triangle_Freeze.md\", \"benchmarks/ReviewCases/OrientedTriangles.lean\"]", evidence="[]", kind="geometry", label="Oriented-face two-triangle control", parent="multidimensional", status="implemented"];
   "fixed_mesh_assembly" [docs="[\"references/MD-fixed-mesh-assembly.md\", \"reviews/MD/Acceptance.md\"]", evidence="[{\"id\": \"MD\", \"paths\": [\"specifications/MD-fixed-mesh-assembly-results.json\"], \"status\": \"accepted\", \"type\": \"milestones\"}]", kind="numerical_method", label="Fixed-mesh conservative assembly and update", parent="multidimensional", status="accepted"];
+  "scalar_upwind" [docs="[\"references/MD-scalar-advection.md\"]", evidence="[{\"id\": \"SA\", \"paths\": [\"specifications/MD-scalar-advection-results.json\"], \"status\": \"pending\", \"type\": \"milestones\"}]", kind="numerical_method", label="Fixed-mesh scalar upwind advection", parent="multidimensional", status="implemented"];
   "fixed_mesh_fv2d" [docs="[\"roadmap/NEXT.md\"]", evidence="[]", kind="architecture", label="Generic fixed-mesh multidimensional FV schemes", parent="multidimensional", status="planned"];
   "future" [docs="[]", evidence="[]", kind="group", label="Future refinement and backends", parent="cfd_lean"];
   "ale" [docs="[\"roadmap/FUTURE.md\"]", evidence="[]", kind="architecture", label="ALE", parent="future", status="planned"];
@@ -71,6 +72,7 @@ digraph {
   "multidimensional" -> "median_dual_step" [kind="contains"];
   "multidimensional" -> "two_triangles" [kind="contains"];
   "multidimensional" -> "fixed_mesh_assembly" [kind="contains"];
+  "multidimensional" -> "scalar_upwind" [kind="contains"];
   "multidimensional" -> "fixed_mesh_fv2d" [kind="contains"];
   "cfd_lean" -> "future" [kind="contains"];
   "future" -> "ale" [kind="contains"];

@@ -7,7 +7,8 @@ Status date: 2026-11-28.
 
 ## Next decision after the unified 1D driver
 
-**Review the [scalar upwind proposal](https://github.com/rois1995/CFD_Lean/pull/76) for independent freeze.**
+**Review the [scalar upwind implementation](../references/MD-scalar-advection.md) against its
+[independently frozen contract](../reviews/SA/Contract_Freeze.md).**
 The [generic fixed-mesh assembly implementation](../references/MD-fixed-mesh-assembly.md) has received
 [independent acceptance](../reviews/MD/Acceptance.md) for MD-C, MD-K and MD-U.
 Burgers and Euler now use first order, MUSCL and WENO through `fv1d` on implicit uniform, explicit uniform and graded
@@ -15,8 +16,8 @@ meshes. The [independent review and scope decision](../reviews/FV1D/2026-11-28/S
 [executable regression matrix](https://github.com/rois1995/CFD_Lean/pull/65) record the 1D baseline.
 
 The [two-triangle control](../reviews/FV2D/Two_Triangle_Freeze.md) is accepted. PR B implements MD-C, MD-K and MD-U.
-The next scientific freeze is for fixed-velocity upwind scalar advection on this mesh and a second patch with multiple
-interior faces. Those examples precede extraction of the common geometry API.
+The scalar upwind adapter now uses this mesh and a second patch with four interior faces. These are the two concrete
+inputs for the next layer, common fixed geometry and relabeling invariance.
 The scalar array refinement precedes the Euler array refinement. The `fv2d` driver needs both. Multidimensional
 reconstruction follows stable first-order 2D execution. Binary64 work on the existing 1D step can proceed independently.
 

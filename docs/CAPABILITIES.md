@@ -60,6 +60,7 @@ flowchart TD
 | Median-dual Euler explicit update | 🟡 Implemented / awaiting acceptance | [M5](../specifications/M5-results.json), [M5.md](../references/M5.md) |
 | Oriented-face two-triangle control | 🟡 Implemented / awaiting acceptance | [Two_Triangle_Freeze.md](../reviews/FV2D/Two_Triangle_Freeze.md), [OrientedTriangles.lean](../benchmarks/ReviewCases/OrientedTriangles.lean) |
 | Fixed-mesh conservative assembly and update | ✅ Accepted | [MD](../specifications/MD-fixed-mesh-assembly-results.json), [MD-fixed-mesh-assembly.md](../references/MD-fixed-mesh-assembly.md), [Acceptance.md](../reviews/MD/Acceptance.md) |
+| Fixed-mesh scalar upwind advection | 🟡 Implemented / awaiting acceptance | [SA](../specifications/MD-scalar-advection-results.json), [MD-scalar-advection.md](../references/MD-scalar-advection.md) |
 | Generic fixed-mesh multidimensional FV schemes | ⬜ Planned | [NEXT.md](../roadmap/NEXT.md) |
 | ALE | ⬜ Planned | [FUTURE.md](../roadmap/FUTURE.md) |
 | AMR | ⬜ Planned | [FUTURE.md](../roadmap/FUTURE.md) |

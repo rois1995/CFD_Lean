@@ -1,0 +1,28 @@
+{
+  "scope": "specifications/MD-scalar-advection-proposal.md",
+  "results": [
+    {
+      "id": "SA-F",
+      "declarations": [
+        "CFDLean.ScalarAdvection.flux_consistent",
+        "CFDLean.ScalarAdvection.flux_reverse",
+        "CFDLean.ScalarAdvection.flux_zero_speed"
+      ]
+    },
+    {
+      "id": "SA-K",
+      "declarations": [
+        "CFDLean.ScalarAdvection.constant_residual",
+        "CFDLean.ScalarAdvection.constant_step"
+      ]
+    },
+    {
+      "id": "SA-C",
+      "declarations": [
+        "CFDLean.ScalarAdvection.global_balance",
+        "CFDLean.ScalarAdvection.step_balance",
+        "CFDLean.ScalarAdvection.step_closed"
+      ]
+    }
+  ]
+}
