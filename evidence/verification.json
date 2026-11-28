@@ -230,6 +230,7 @@
     "CFDLean.Entropy.Scalar.Controls",
     "CFDLean.Entropy.Scalar.Periodic",
     "CFDLean.Exec.E1.Binary64",
+    "CFDLean.Exec.E1.ExactStep",
     "CFDLean.Exec.FV1D",
     "CFDLean.Exec.FV1DControls",
     "CFDLean.Exec.FV1DRefinement",
@@ -412,14 +413,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 5842,
+    "roots": 5845,
     "unsafe_reached": [],
-    "visited": 65476
+    "visited": 65484
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "3a250b3813e52cdbb2e1c96203012a8b73ea2746653834ccddb6f96314e59032"
+      "sha256": "43ccd3f5c1297861a4b050367dc8fba83f62ac28f4acfd64ec98b4ff92ac23a7"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -512,6 +513,10 @@
     "CFDLean.Exec.E1.Binary64": {
       "path": "CFDLean/Exec/E1/Binary64.lean",
       "sha256": "5741ec6216b01a748df80820180e7e2b058bba02666457a0d8dba84f294d5cbf"
+    },
+    "CFDLean.Exec.E1.ExactStep": {
+      "path": "CFDLean/Exec/E1/ExactStep.lean",
+      "sha256": "6ed302bb09ef4d901bef77466ae82d53c8fd68cb931e4b2cb4a0c1d9ee673567"
     },
     "CFDLean.Exec.FV1D": {
       "path": "CFDLean/Exec/FV1D.lean",
@@ -15424,6 +15429,251 @@
       "type": "\u2200 {N : \u2115} [inst : NeZero N] (\u03b3 dx dt : \u211d),\n  1 < \u03b3 \u2192\n    0 < dx \u2192\n      0 \u2264 dt \u2192\n        \u2200 (C : CFDLean.Conservative 1),\n          CFDLean.Conservative.Admissible \u03b3 C \u2192 (CFDLean.Euler1D.step \u03b3 dx dt fun x => C) = fun x => C",
       "unsafe": false
     },
+    "CFDLean.Exec.E1.cast_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.eulerStepArray._proof_3",
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.eulerStepArray._proof_2",
+        "CFDLean.Exec.eulerStepArray",
+        "CFDLean.Exec.Scalar.toNeg",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.eulerStepArray._proof_4",
+        "_private.CFDLean.Exec.E1.ExactStep.0.CFDLean.Exec.E1.cast_face",
+        "CFDLean.Exec.E1.ratScalar"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.cast_step",
+      "raw_type": "\u2200 (dx dt : Rat) (u : Array Rat),\n  Eq (Array.map (fun q => q.cast) (CFDLean.Exec.eulerStepArray dx dt u))\n    (CFDLean.Exec.eulerStepArray dx.cast dt.cast (Array.map (fun q => q.cast) u))",
+      "root": true,
+      "type": "\u2200 (dx dt : \u211a) (u : Array \u211a),\n  Array.map (fun q => \u2191q) (CFDLean.Exec.eulerStepArray dx dt u) =\n    CFDLean.Exec.eulerStepArray (\u2191dx) (\u2191dt) (Array.map (fun q => \u2191q) u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.E1.ratScalar": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.mk"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Exec.Scalar \u211a",
+      "unsafe": false
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_10": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_10",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_11": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_11",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_12": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_12",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_13": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_13",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_14": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_14",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_15": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_15",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_16": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_16",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_2": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_2",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_3": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_3",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_4": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_4",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_5": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_5",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_6": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_6",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_7": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_7",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_8": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_8",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._closed_9": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._closed_9",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.E1.ratScalar._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "CFDLean.Exec.E1.ratScalar._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "CFDLean.Exec.E1.value": {
       "axioms": [
         "propext",
@@ -20269,7 +20519,7 @@
         "CFDLean.Exec.eulerStepArray._proof_4"
       ],
       "kind": "theorem",
-      "module": "CFDLean.Exec.Refinement",
+      "module": "CFDLean.Exec.E1.ExactStep",
       "name": "CFDLean.Exec.eulerStepArray.eq_1",
       "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] (dx dt : \u03b1) (u : Array \u03b1),\n  Eq (CFDLean.Exec.eulerStepArray dx dt u)\n    (Array.ofFn fun i =>\n      HAdd.hAdd (getElem u i \u22ef)\n        (HMul.hMul dt\n          (HDiv.hDiv\n            (Neg.neg\n              (HSub.hSub\n                (CFDLean.Exec.Scalar.rusanov (getElem u i \u22ef)\n                  (getElem u (HMod.hMod (HAdd.hAdd i.val (OfNat.ofNat 1)) u.size) \u22ef))\n                (CFDLean.Exec.Scalar.rusanov\n                  (getElem u (HMod.hMod (HSub.hSub (HAdd.hAdd i.val u.size) (OfNat.ofNat 1)) u.size) \u22ef)\n                  (getElem u i \u22ef))))\n            dx)))",
       "root": true,
@@ -144149,6 +144399,25 @@
       "type": "(motive : Float.Model.UnpackedFloat \u2192 Sort u_1) \u2192\n  (x : Float.Model.UnpackedFloat) \u2192\n    ((sign : Float.Model.UnpackedFloat.Sign) \u2192 motive (Float.Model.UnpackedFloat.zero sign)) \u2192\n      ((sign : Float.Model.UnpackedFloat.Sign) \u2192\n          (mantissa : \u2115) \u2192\n            (exponent : \u2124) \u2192\n              (mantissa_pos : 0 < mantissa) \u2192\n                motive (Float.Model.UnpackedFloat.finite sign mantissa exponent mantissa_pos)) \u2192\n        ((sign : Float.Model.UnpackedFloat.Sign) \u2192 motive (Float.Model.UnpackedFloat.infinity sign)) \u2192\n          (Unit \u2192 motive Float.Model.UnpackedFloat.notANumber) \u2192 motive x",
       "unsafe": false
     },
+    "_private.CFDLean.Exec.E1.ExactStep.0.CFDLean.Exec.E1.cast_face": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar.rusanov",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.E1.ratScalar"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.E1.ExactStep",
+      "name": "_private.CFDLean.Exec.E1.ExactStep.0.CFDLean.Exec.E1.cast_face",
+      "raw_type": "\u2200 (x y : Rat), Eq (CFDLean.Exec.Scalar.rusanov x y).cast (CFDLean.Exec.Scalar.rusanov x.cast y.cast)",
+      "root": true,
+      "type": "\u2200 (x y : \u211a), \u2191(CFDLean.Exec.Scalar.rusanov x y) = CFDLean.Exec.Scalar.rusanov \u2191x \u2191y",
+      "unsafe": false
+    },
     "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.entry": {
       "axioms": [
         "propext",
@@ -150987,7 +151256,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 592,
+  "catalog_entries": 593,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -151591,5 +151860,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 592
+  "raw_types_checked": 593
 }
