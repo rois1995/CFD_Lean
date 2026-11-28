@@ -391,6 +391,7 @@
     "CFDLean.Schemes.Scalar.Lipschitz",
     "CFDLean.Schemes.Scalar.Monotone",
     "CFDLean.Schemes.Scalar.NumericalFlux",
+    "CFDLean.Schemes.ScalarAdvection",
     "CFDLean.Time.Controls",
     "CFDLean.Time.ExplicitEuler",
     "CFDLean.Time.ForwardEuler",
@@ -426,14 +427,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 6090,
+    "roots": 6106,
     "unsafe_reached": [],
-    "visited": 65752
+    "visited": 65768
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "758a2eb4bf40965a0d67efe1378012e7d7ea8cc7959ae46c1d6ccbbf9f000705"
+      "sha256": "f304d5b9c742fe9d4201918c6c0aaf606c2a5dfb6b2df4014990786b23a31944"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -1170,6 +1171,10 @@
     "CFDLean.Schemes.Scalar.NumericalFlux": {
       "path": "CFDLean/Schemes/Scalar/NumericalFlux.lean",
       "sha256": "18be4c02d87b6ca6bbdaf5ecb1bf72f6d55339b8dd44002aa1a173878563d100"
+    },
+    "CFDLean.Schemes.ScalarAdvection": {
+      "path": "CFDLean/Schemes/ScalarAdvection.lean",
+      "sha256": "c25efbe1908ed6d383fdbccfc63f3417fa30a1b02a24240b7c54daa0871e25d5"
     },
     "CFDLean.Time.Controls": {
       "path": "CFDLean/Time/Controls.lean",
@@ -127761,6 +127766,272 @@
       "type": "{motive : CFDLean.Scalar.NumericalFlux \u2192 Sort u} \u2192\n  (t : CFDLean.Scalar.NumericalFlux) \u2192 ((eval : \u211d \u2192 \u211d \u2192 \u211d) \u2192 motive { eval := eval }) \u2192 motive t",
       "unsafe": false
     },
+    "CFDLean.ScalarAdvection.boundaryFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.flux",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Assembly.Interfaces.owner",
+        "CFDLean.Vector"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.boundaryFlux",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192\n  CFDLean.Vector d \u2192\n    {C : Type u_1} \u2192\n      {I : Type u_2} \u2192\n        {B : Type u_3} \u2192 CFDLean.Assembly.Interfaces C I B \u2192 (B \u2192 CFDLean.Vector d) \u2192 (C \u2192 \u211d) \u2192 (B \u2192 \u211d) \u2192 B \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.constant_residual": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.ScalarAdvection.flux",
+        "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer",
+        "CFDLean.ScalarAdvection.residual",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.ScalarAdvection.flux_consistent",
+        "CFDLean.FixedMesh.constant_residual"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.constant_residual",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k : Real) (i : C),\n  Eq (CFDLean.FixedMesh.residual m A T i) (OfNat.ofNat 0) \u2192\n    Eq (CFDLean.ScalarAdvection.residual v m A T (fun x => k) (fun x => k) i) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k : \u211d) (i : C),\n  CFDLean.FixedMesh.residual m A T i = 0 \u2192 CFDLean.ScalarAdvection.residual v m A T (fun x => k) (fun x => k) i = 0",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.constant_step": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.ScalarAdvection.residual",
+        "CFDLean.FixedMesh.step",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.ScalarAdvection.constant_residual",
+        "CFDLean.FixedMesh.step_zero_residual"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.constant_step",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k dt : Real) (V : C \u2192 Real) (i : C),\n  Eq (CFDLean.FixedMesh.residual m A T i) (OfNat.ofNat 0) \u2192\n    Eq (CFDLean.FixedMesh.step V dt (fun x => k) (CFDLean.ScalarAdvection.residual v m A T (fun x => k) fun x => k) i) k",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  (k dt : \u211d) (V : C \u2192 \u211d) (i : C),\n  CFDLean.FixedMesh.residual m A T i = 0 \u2192\n    CFDLean.FixedMesh.step V dt (fun x => k) (CFDLean.ScalarAdvection.residual v m A T (fun x => k) fun x => k) i = k",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.flux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.flux",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Vector d \u2192 CFDLean.Vector d \u2192 \u211d \u2192 \u211d \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.flux.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.flux",
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.flux.eq_1",
+      "raw_type": "\u2200 {d : Nat} (v A : CFDLean.Vector d) (left right : Real),\n  Eq (CFDLean.ScalarAdvection.flux v A left right)\n    (HMul.hMul (dotProduct v A) (ite (LE.le (OfNat.ofNat 0) (dotProduct v A)) left right))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v A : CFDLean.Vector d) (left right : \u211d),\n  CFDLean.ScalarAdvection.flux v A left right = v \u2b1d\u1d65 A * if 0 \u2264 v \u2b1d\u1d65 A then left else right",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.flux_consistent": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.flux",
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.flux_consistent",
+      "raw_type": "\u2200 {d : Nat} (v A : CFDLean.Vector d) (k : Real),\n  Eq (CFDLean.ScalarAdvection.flux v A k k) (HMul.hMul (dotProduct v A) k)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v A : CFDLean.Vector d) (k : \u211d), CFDLean.ScalarAdvection.flux v A k k = v \u2b1d\u1d65 A * k",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.flux_reverse": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.flux",
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.flux_reverse",
+      "raw_type": "\u2200 {d : Nat} (v A : CFDLean.Vector d) (left right : Real),\n  Eq (CFDLean.ScalarAdvection.flux v (Neg.neg A) right left) (Neg.neg (CFDLean.ScalarAdvection.flux v A left right))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v A : CFDLean.Vector d) (left right : \u211d),\n  CFDLean.ScalarAdvection.flux v (-A) right left = -CFDLean.ScalarAdvection.flux v A left right",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.flux_zero_speed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.flux",
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.flux_zero_speed",
+      "raw_type": "\u2200 {d : Nat} (v A : CFDLean.Vector d) (left right : Real),\n  Eq (dotProduct v A) (OfNat.ofNat 0) \u2192 Eq (CFDLean.ScalarAdvection.flux v A left right) (OfNat.ofNat 0)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v A : CFDLean.Vector d) (left right : \u211d), v \u2b1d\u1d65 A = 0 \u2192 CFDLean.ScalarAdvection.flux v A left right = 0",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.global_balance": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.boundaryFlux",
+        "CFDLean.FixedMesh.global_balance",
+        "CFDLean.ScalarAdvection.residual",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.ScalarAdvection.interiorFlux",
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.global_balance",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C \u2192 Real) (g : B \u2192 Real),\n  Eq (Finset.univ.sum fun i => CFDLean.ScalarAdvection.residual v m A T U g i)\n    (Finset.univ.sum fun b => CFDLean.ScalarAdvection.boundaryFlux v m T U g b)",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C \u2192 \u211d) (g : B \u2192 \u211d),\n  \u2211 i, CFDLean.ScalarAdvection.residual v m A T U g i = \u2211 b, CFDLean.ScalarAdvection.boundaryFlux v m T U g b",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.interiorFlux": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Assembly.Interfaces.head",
+        "CFDLean.ScalarAdvection.flux",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.Vector",
+        "CFDLean.Assembly.Interfaces.tail"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.interiorFlux",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192\n  CFDLean.Vector d \u2192\n    {C : Type u_1} \u2192\n      {I : Type u_2} \u2192 {B : Type u_3} \u2192 CFDLean.Assembly.Interfaces C I B \u2192 (I \u2192 CFDLean.Vector d) \u2192 (C \u2192 \u211d) \u2192 I \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.residual": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.boundaryFlux",
+        "CFDLean.FixedMesh.residual",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.ScalarAdvection.interiorFlux",
+        "CFDLean.Vector"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.residual",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192\n  CFDLean.Vector d \u2192\n    {C : Type u_1} \u2192\n      {I : Type u_2} \u2192\n        {B : Type u_3} \u2192\n          CFDLean.Assembly.Interfaces C I B \u2192\n            (I \u2192 CFDLean.Vector d) \u2192\n              (B \u2192 CFDLean.Vector d) \u2192 [DecidableEq C] \u2192 [Fintype I] \u2192 [Fintype B] \u2192 (C \u2192 \u211d) \u2192 (B \u2192 \u211d) \u2192 C \u2192 \u211d",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.step_balance": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.boundaryFlux",
+        "CFDLean.ScalarAdvection.residual",
+        "CFDLean.FixedMesh.step",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.ScalarAdvection.interiorFlux",
+        "CFDLean.Vector",
+        "CFDLean.FixedMesh.step_balance"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.step_balance",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C \u2192 Real) (g : B \u2192 Real) (V : C \u2192 Real),\n  (\u2200 (i : C), LT.lt (OfNat.ofNat 0) (V i)) \u2192\n    \u2200 (dt : Real),\n      Eq\n        (Finset.univ.sum fun i =>\n          HMul.hMul (V i) (CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i))\n        (HSub.hSub (Finset.univ.sum fun i => HMul.hMul (V i) (U i))\n          (HMul.hMul dt (Finset.univ.sum fun b => CFDLean.ScalarAdvection.boundaryFlux v m T U g b)))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C \u2192 \u211d) (g : B \u2192 \u211d) (V : C \u2192 \u211d),\n  (\u2200 (i : C), 0 < V i) \u2192\n    \u2200 (dt : \u211d),\n      \u2211 i, V i * CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i =\n        \u2211 i, V i * U i - dt * \u2211 b, CFDLean.ScalarAdvection.boundaryFlux v m T U g b",
+      "unsafe": false
+    },
+    "CFDLean.ScalarAdvection.step_closed": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.ScalarAdvection.boundaryFlux",
+        "CFDLean.ScalarAdvection.residual",
+        "CFDLean.FixedMesh.step",
+        "CFDLean.Assembly.Interfaces",
+        "CFDLean.ScalarAdvection.interiorFlux",
+        "CFDLean.Vector",
+        "CFDLean.FixedMesh.step_closed"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "CFDLean.ScalarAdvection.step_closed",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C \u2192 Real) (g : B \u2192 Real) [IsEmpty B] (V : C \u2192 Real),\n  (\u2200 (i : C), LT.lt (OfNat.ofNat 0) (V i)) \u2192\n    \u2200 (dt : Real),\n      Eq\n        (Finset.univ.sum fun i =>\n          HMul.hMul (V i) (CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i))\n        (Finset.univ.sum fun i => HMul.hMul (V i) (U i))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) {C : Type u_1} {I : Type u_2} {B : Type u_3} (m : CFDLean.Assembly.Interfaces C I B)\n  (A : I \u2192 CFDLean.Vector d) (T : B \u2192 CFDLean.Vector d) [inst : DecidableEq C] [inst_1 : Fintype I] [inst_2 : Fintype B]\n  [inst_3 : Fintype C] (U : C \u2192 \u211d) (g : B \u2192 \u211d) [IsEmpty B] (V : C \u2192 \u211d),\n  (\u2200 (i : C), 0 < V i) \u2192\n    \u2200 (dt : \u211d),\n      \u2211 i, V i * CFDLean.FixedMesh.step V dt U (CFDLean.ScalarAdvection.residual v m A T U g) i = \u2211 i, V i * U i",
+      "unsafe": false
+    },
     "CFDLean.Time.Controls.all_wall_boundary_zero": {
       "axioms": [
         "propext",
@@ -156162,6 +156433,70 @@
       "type": "CFDLean.Euler1D.NonuniformControls.m3.width 2 = 1",
       "unsafe": false
     },
+    "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._proof_1",
+        "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._proof_2",
+        "CFDLean.Vector"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer",
+      "raw_type": null,
+      "root": true,
+      "type": "{d : \u2115} \u2192 CFDLean.Vector d \u2192 \u211d \u2192 CFDLean.Vector d \u2192\u2097[\u211d] \u211d",
+      "unsafe": false
+    },
+    "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._proof_1",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) (k : Real) (a b : CFDLean.Vector d),\n  Eq (HMul.hMul (dotProduct v (HAdd.hAdd a b)) k)\n    (HAdd.hAdd (HMul.hMul (dotProduct v a) k) (HMul.hMul (dotProduct v b) k))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) (k : \u211d) (a b : CFDLean.Vector d), v \u2b1d\u1d65 (a + b) * k = v \u2b1d\u1d65 a * k + v \u2b1d\u1d65 b * k",
+      "unsafe": false
+    },
+    "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._proof_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Vector"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "_private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer._proof_2",
+      "raw_type": "\u2200 {d : Nat} (v : CFDLean.Vector d) (k r : Real) (a : CFDLean.Vector d),\n  Eq (HMul.hMul (dotProduct v (HSMul.hSMul r a)) k) (HMul.hMul r (HMul.hMul (dotProduct v a) k))",
+      "root": true,
+      "type": "\u2200 {d : \u2115} (v : CFDLean.Vector d) (k r : \u211d) (a : CFDLean.Vector d), v \u2b1d\u1d65 r \u2022 a * k = r * (v \u2b1d\u1d65 a * k)",
+      "unsafe": false
+    },
     "_private.Init.Data.Array.Basic.0.Array.foldrMUnsafe.fold._at_.List.foldrTR._at_.List.pwFilter._at_.List.dedup._at_.Multiset.dedup._at_.Multiset.toFinset._at_.List.toFinset._at_.CFDLean.JST1.Proofs.Ext23.bdF.spec_0.spec_0.spec_1.spec_4.spec_6.spec_8.spec_9": {
       "axioms": [],
       "direct": [],
@@ -156921,6 +157256,28 @@
       "type": null,
       "unsafe": null
     },
+    "dotProduct._at_._private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer.spec_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "dotProduct._at_._private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer.spec_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "dotProduct._at_._private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer.spec_0._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Schemes.ScalarAdvection",
+      "name": "dotProduct._at_._private.CFDLean.Schemes.ScalarAdvection.0.CFDLean.ScalarAdvection.physicalTransfer.spec_0._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
     "iInf._at_.ClosureOperator.ofCompletePred._at_.convexHull._at_.CFDLean.JST1.Spec.hullT.spec_0.spec_0.spec_1": {
       "axioms": [],
       "direct": [],
@@ -157055,7 +157412,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 621,
+  "catalog_entries": 629,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -157659,5 +158016,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 621
+  "raw_types_checked": 629
 }
