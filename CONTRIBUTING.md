@@ -99,6 +99,24 @@ Check the diff before committing: the evidence must change only where the PR cha
 changed, it must contain only additions (or reviewed changes) for the PR's theorems; then set `RAW_TYPES_SHA256` in
 `scripts/verify.py` to the value in the artifact's `RAW_TYPES_SHA256.txt`. Push again; the next run must be green.
 
+### Generated documentation
+
+Edit the [capability registry](catalog/capabilities.json), its cited evidence, or the Lean imports.
+Run both generators and commit the updated pages and graph exports.
+
+```bash
+python3 scripts/generate_capabilities.py
+python3 scripts/generate_import_graph.py
+```
+
+[Documentation CI](.github/workflows/documentation-ci.yml) checks committed outputs and builds the site
+in strict mode. The [local documentation commands](docs/getting-started.md) use the same checks.
+When hosted CI is unavailable, run the generators in `--check` mode, `python3 scripts/verify.py`,
+`lake build` and `python3 -m mkdocs build --strict` on each applicable stack head. Apply the
+[Lean memory cap](docs/LEAN_PERFORMANCE.md#6-run-lean-under-a-memory-cap).
+Record the exact parent and candidate SHAs, pinned toolchain, command exit statuses and SHA-256 hashes
+of the generated pages, exports and relevant registry or theorem evidence in the PR description or reviewer handoff.
+
 ### Local checks
 
 For Lean, contracts or verification tooling, use the pinned [Lean toolchain](lean-toolchain) and [Lake manifest](lake-manifest.json).
