@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-606 promised theorems, grouped by layer.
+611 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -63,18 +63,18 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
 | Geometry | 75 | 0 | 43 | 4 | 28 |
-| Discrete operators | 100 | 10 | 71 | 19 | 0 |
+| Discrete operators | 105 | 10 | 76 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
 | Execution | 84 | 0 | 83 | 0 | 1 |
-| **Total** | 606 | 17 | 388 | 30 | 171 |
+| **Total** | 611 | 17 | 393 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 418 |
+| FVM | 423 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -102,7 +102,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVNA | accepted | 20 |
 | E1 | pending | 4 |
 | FVT | pending | 5 |
-| WENO | pending | 6 |
+| WENO | pending | 11 |
 
 ## Foundations (12)
 
@@ -201,7 +201,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p8_23_1` | P8-23.1 | method-free | candidate | A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell. |
 | `CFDLean.JST1.Proofs.p8_23_2` | P8-23.2 | FVM | candidate | A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero. |
 
-## Discrete operators (100)
+## Discrete operators (105)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -305,6 +305,11 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.FV1D.Reconstruction.Weno.weight_pos` | U-W | FVM | pending | Positive regularization and ideal weight give a positive nonlinear weight. |
 | `CFDLean.FV1D.Reconstruction.Weno.edge_quadratic` | U-W | FVM | pending | Uniform WENO reproduces a quadratic from its cell averages. |
 | `CFDLean.FV1D.Reconstruction.wenoJS5_constants` | U-W | FVM | pending | Both oriented uniform WENO traces preserve constants. |
+| `CFDLean.FV1D.Reconstruction.ideal_positive` | G-P | FVM | pending | The three ideal weights are positive on positive cell widths. |
+| `CFDLean.FV1D.Reconstruction.gradedWeno_constants` | G-P | FVM | pending | Graded WENO preserves constant face traces in both orientations. |
+| `CFDLean.FV1D.Reconstruction.edge_quadratic_graded` | G-P | FVM | pending | Graded WENO exactly reconstructs a quadratic from its interval averages. |
+| `CFDLean.FV1D.Reconstruction.edge_uniform` | G-P | FVM | pending | Equal widths recover the uniform WENO reconstruction. |
+| `CFDLean.GradedWeno.ideal_cubic_quartic` | G-I | FVM | pending | The linear ideal weights reproduce cubic and quartic moments on positive widths. |
 
 ## Entropy framework (32)
 

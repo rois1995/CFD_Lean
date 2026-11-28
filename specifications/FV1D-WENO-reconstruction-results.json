@@ -24,6 +24,28 @@
       "controls": [
         "benchmarks/ReviewCases/Reconstruction.lean"
       ]
+    },
+    {
+      "id": "G-P",
+      "declarations": [
+        "CFDLean.FV1D.Reconstruction.ideal_positive",
+        "CFDLean.FV1D.Reconstruction.gradedWeno_constants",
+        "CFDLean.FV1D.Reconstruction.edge_quadratic_graded",
+        "CFDLean.FV1D.Reconstruction.edge_uniform"
+      ]
+    },
+    {
+      "id": "G-I",
+      "declarations": [
+        "CFDLean.GradedWeno.ideal_cubic_quartic"
+      ]
+    },
+    {
+      "id": "G-S",
+      "declarations": [],
+      "controls": [
+        "benchmarks/ReviewCases/GradedWeno.lean"
+      ]
     }
   ]
 }

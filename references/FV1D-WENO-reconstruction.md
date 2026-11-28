@@ -15,3 +15,9 @@ binary64 regressions describe different arithmetic backends.
 | U-W | [`edge_quadratic`](../CFDLean/Discrete/Periodic/Weno.lean) | Uniform WENO reproduces a quadratic from its cell averages. |
 | U-W | [`wenoJS5_constants`](../CFDLean/Discrete/Periodic/Weno.lean) | Both oriented uniform WENO traces preserve constants. |
 | U-W | [Reconstruction.lean](../benchmarks/ReviewCases/Reconstruction.lean) | Six-cell uniform seam comparison. |
+| G-P | [`ideal_positive`](../CFDLean/Discrete/Periodic/GradedWeno.lean) | The three ideal weights are positive on positive cell widths. |
+| G-P | [`gradedWeno_constants`](../CFDLean/Discrete/Periodic/GradedWeno.lean) | Graded WENO preserves constant face traces in both orientations. |
+| G-P | [`edge_quadratic_graded`](../CFDLean/Discrete/Periodic/GradedWeno.lean) | Graded WENO exactly reconstructs a quadratic from its interval averages. |
+| G-P | [`edge_uniform`](../CFDLean/Discrete/Periodic/GradedWeno.lean) | Equal widths recover the uniform WENO reconstruction. |
+| G-I | [`ideal_cubic_quartic`](../CFDLean/Discrete/Periodic/WenoMoments.lean) | The linear ideal weights reproduce cubic and quartic moments on positive widths. |
+| G-S | [GradedWeno.lean](../benchmarks/ReviewCases/GradedWeno.lean) | Exact rational graded seam in both directions. |
