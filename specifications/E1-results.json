@@ -1,0 +1,13 @@
+{
+  "scope": "specifications/E1-burgers-step-proposal.md",
+  "review": "reviews/E1/Scope_Freeze.md",
+  "results": [
+    {
+      "id": "E1-1",
+      "proposal_obligation": 1,
+      "declarations": [
+        "CFDLean.Exec.E1.value_isSome"
+      ]
+    }
+  ]
+}
