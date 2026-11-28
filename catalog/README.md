@@ -1,6 +1,6 @@
 # CFD_Lean theorem catalog (MC-C)
 
-599 promised theorems, grouped by layer.
+605 promised theorems, grouped by layer.
 
 ## Rules
 
@@ -63,18 +63,18 @@ that this file equals the generated text. Do not edit by hand.
 |---|---:|---:|---:|---:|---:|
 | Foundations | 12 | 0 | 0 | 0 | 12 |
 | Geometry | 75 | 0 | 43 | 4 | 28 |
-| Discrete operators | 94 | 10 | 65 | 19 | 0 |
+| Discrete operators | 100 | 10 | 71 | 19 | 0 |
 | Entropy framework | 32 | 0 | 26 | 0 | 6 |
 | Physics models | 93 | 0 | 0 | 0 | 93 |
 | Schemes | 105 | 7 | 80 | 7 | 11 |
 | Time | 105 | 0 | 85 | 0 | 20 |
 | Execution | 83 | 0 | 82 | 0 | 1 |
-| **Total** | 599 | 17 | 381 | 30 | 171 |
+| **Total** | 605 | 17 | 387 | 30 | 171 |
 
 | Method tag | Theorems carrying it |
 |---|---:|
 | FEM | 47 |
-| FVM | 411 |
+| FVM | 417 |
 | method-free | 171 |
 
 | Milestone | Status | Theorems |
@@ -102,6 +102,7 @@ that this file equals the generated text. Do not edit by hand.
 | FVNA | accepted | 20 |
 | E1 | pending | 4 |
 | FVT | pending | 4 |
+| WENO | pending | 6 |
 
 ## Foundations (12)
 
@@ -200,7 +201,7 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.JST1.Proofs.p8_23_1` | P8-23.1 | method-free | candidate | A valid trilinear hexahedron with its top face turned by about 106 degrees has a neighbour-fan (Kuhn) split that is not a triangulation of the cell. |
 | `CFDLean.JST1.Proofs.p8_23_2` | P8-23.2 | FVM | candidate | A conforming 8-cell mesh of valid hexahedra has an interior vertex (13) whose averaged vertex normals sum to (0, 0, 7/30), not zero. |
 
-## Discrete operators (94)
+## Discrete operators (100)
 
 | Theorem | ID | Methods | Status | Summary |
 |---|---|---|---|---|
@@ -298,6 +299,12 @@ that this file equals the generated text. Do not edit by hand.
 | `CFDLean.FV1D.Nonuniform.leftState_mem` | FVN-R | FVM | pending | For a θ-bounded slope and mesh ratio θ the rescaled MUSCL left state of every face keeps the bounds m ≤ u ≤ M. |
 | `CFDLean.FV1D.Nonuniform.rightState_mem` | FVN-R | FVM | pending | For a θ-bounded slope and mesh ratio θ the rescaled MUSCL right state of every face keeps the bounds m ≤ u ≤ M. |
 | `CFDLean.Burgers.Nonuniform.meshRatio_needed` | FVN-R | FVM | pending | Exact example on widths (1, 3, 1, 1): the mesh ratio holds for θ = 5/4, fails for θ = 2, and the van Leer, MC, superbee and unlimited left states leave [0, 6/5]. |
+| `CFDLean.FV1D.Reconstruction.step_weighted_sum` | U-C | FVM | pending | The width-weighted update sum is conserved for any oriented reconstruction. |
+| `CFDLean.FV1D.Reconstruction.step_constant` | U-C | FVM | pending | Constant-preserving traces give a constant-preserving update. |
+| `CFDLean.FV1D.Reconstruction.muscl_step` | U-M | FVM | pending | The MUSCL reconstruction adapter gives the existing graded MUSCL step. |
+| `CFDLean.FV1D.Reconstruction.Weno.weight_pos` | U-W | FVM | pending | Positive regularization and ideal weight give a positive nonlinear weight. |
+| `CFDLean.FV1D.Reconstruction.Weno.edge_quadratic` | U-W | FVM | pending | Uniform WENO reproduces a quadratic from its cell averages. |
+| `CFDLean.FV1D.Reconstruction.wenoJS5_constants` | U-W | FVM | pending | Both oriented uniform WENO traces preserve constants. |
 
 ## Entropy framework (32)
 

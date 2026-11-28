@@ -66,7 +66,7 @@ CATALOG_STATUS = {"M1": "accepted", "M2": "accepted", "M3": "accepted", "M4": "a
                   "MC-N": "candidate", "B0": "accepted", "B1": "accepted", "B2": "accepted", "B3": "accepted",
                   "B4": "accepted", "E0": "accepted", "E0b": "accepted", "B3b": "accepted", "E0c": "accepted",
                   "JST1": "candidate", "FV1D": "accepted", "FVP": "accepted", "FVA": "accepted", "FVN": "pending",
-                  "FVNA": "accepted", "E1": "pending", "FVT": "pending"}
+                  "FVNA": "accepted", "E1": "pending", "FVT": "pending", "WENO": "pending"}
 FV_CONTRACTS = [
     ("FV1D", "specifications/FV1D", "e0dcc57abe9c253a3f0b34ce9400b888a0f9a16b"),
     ("FVP", "specifications/FV1D-positivity", "bb7fcc79eb4ccea8f321090a01fa30f3999b0f01"),
@@ -1101,6 +1101,17 @@ def main(record_raw_types=False):
     if [r["id"] for r in traces["results"]] != ["FVT-A", "FVT-M", "FVT-R", "FVT-K"]:
         raise ValueError("Unexpected uniform Euler trace result bindings")
     fv_indices["FVT"] = catalog_index("FVT", traces)
+    weno = json.loads(read_source("specifications/FV1D-WENO-reconstruction-results.json"))
+    scope = "specifications/FV1D-WENO-reconstruction-proposal.md"
+    if weno["scope"] != scope or read_source(scope) != git_blob("c16c5a20dffcc08a426073ad0e7d53304386bcf8", scope):
+        raise ValueError("WENO proposal differs from the pinned scope")
+    if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W"]:
+        raise ValueError("Unexpected WENO reconstruction result bindings")
+    for r in weno["results"]:
+        for control in r.get("controls", []):
+            if not (ROOT / control).is_file():
+                raise ValueError(f"Missing {r['id']} control: {control}")
+    fv_indices["WENO"] = catalog_index("WENO", weno)
     catalog_expected = m1_accepted_theorems((ROOT / "Integrity.lean").read_text())
     for milestone, index in [(m, catalog_index(m, r)) for m, r in
                              [("M2", contract), ("M3", m3), ("M4", m4), ("M5", m5), ("MC-N", mcn)] + list(
