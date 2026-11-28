@@ -1,0 +1,346 @@
+{
+  "nodes": [
+    {
+      "id": "Foundations",
+      "label": "Foundations",
+      "layer": "Foundations"
+    },
+    {
+      "id": "Physics",
+      "label": "Physics",
+      "layer": "Physics"
+    },
+    {
+      "id": "Geometry",
+      "label": "Geometry",
+      "layer": "Geometry"
+    },
+    {
+      "id": "Discrete",
+      "label": "Discrete",
+      "layer": "Discrete"
+    },
+    {
+      "id": "Entropy",
+      "label": "Entropy",
+      "layer": "Entropy"
+    },
+    {
+      "id": "Schemes",
+      "label": "Schemes",
+      "layer": "Schemes"
+    },
+    {
+      "id": "Time",
+      "label": "Time",
+      "layer": "Time"
+    },
+    {
+      "id": "Exec",
+      "label": "Exec",
+      "layer": "Exec"
+    },
+    {
+      "id": "Papers",
+      "label": "Papers",
+      "layer": "Papers"
+    },
+    {
+      "id": "Verification",
+      "label": "Verification",
+      "layer": "Verification"
+    },
+    {
+      "id": "Benchmarks",
+      "label": "Benchmarks",
+      "layer": "Benchmarks"
+    },
+    {
+      "id": "Entry points",
+      "label": "Entry points",
+      "layer": "Entry points"
+    },
+    {
+      "id": "Library",
+      "label": "Library",
+      "layer": "Library"
+    },
+    {
+      "id": "Tooling",
+      "label": "Tooling",
+      "layer": "Tooling"
+    }
+  ],
+  "edges": [
+    {
+      "source": "Benchmarks",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 4
+    },
+    {
+      "source": "Benchmarks",
+      "target": "Entry points",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Benchmarks",
+      "target": "Exec",
+      "kind": "import",
+      "count": 6
+    },
+    {
+      "source": "Discrete",
+      "target": "Geometry",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Discrete",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 4
+    },
+    {
+      "source": "Discrete",
+      "target": "Time",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Entropy",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Entropy",
+      "target": "Foundations",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Entropy",
+      "target": "Geometry",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Entropy",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Entry points",
+      "target": "Exec",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Exec",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 3
+    },
+    {
+      "source": "Exec",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 10
+    },
+    {
+      "source": "Foundations",
+      "target": "Physics",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Geometry",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Geometry",
+      "target": "Foundations",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Geometry",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Library",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 19
+    },
+    {
+      "source": "Library",
+      "target": "Entropy",
+      "kind": "import",
+      "count": 6
+    },
+    {
+      "source": "Library",
+      "target": "Exec",
+      "kind": "import",
+      "count": 20
+    },
+    {
+      "source": "Library",
+      "target": "Foundations",
+      "kind": "import",
+      "count": 3
+    },
+    {
+      "source": "Library",
+      "target": "Geometry",
+      "kind": "import",
+      "count": 11
+    },
+    {
+      "source": "Library",
+      "target": "Papers",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Library",
+      "target": "Physics",
+      "kind": "import",
+      "count": 8
+    },
+    {
+      "source": "Library",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 27
+    },
+    {
+      "source": "Library",
+      "target": "Time",
+      "kind": "import",
+      "count": 4
+    },
+    {
+      "source": "Papers",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 9
+    },
+    {
+      "source": "Papers",
+      "target": "Entropy",
+      "kind": "import",
+      "count": 5
+    },
+    {
+      "source": "Papers",
+      "target": "Foundations",
+      "kind": "import",
+      "count": 3
+    },
+    {
+      "source": "Papers",
+      "target": "Geometry",
+      "kind": "import",
+      "count": 18
+    },
+    {
+      "source": "Papers",
+      "target": "Physics",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Physics",
+      "target": "Foundations",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Schemes",
+      "target": "Discrete",
+      "kind": "import",
+      "count": 10
+    },
+    {
+      "source": "Schemes",
+      "target": "Geometry",
+      "kind": "import",
+      "count": 3
+    },
+    {
+      "source": "Schemes",
+      "target": "Physics",
+      "kind": "import",
+      "count": 4
+    },
+    {
+      "source": "Schemes",
+      "target": "Time",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Time",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Tooling",
+      "target": "Exec",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Tooling",
+      "target": "Library",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Tooling",
+      "target": "Verification",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Verification",
+      "target": "Entropy",
+      "kind": "import",
+      "count": 1
+    },
+    {
+      "source": "Verification",
+      "target": "Exec",
+      "kind": "import",
+      "count": 21
+    },
+    {
+      "source": "Verification",
+      "target": "Library",
+      "kind": "import",
+      "count": 2
+    },
+    {
+      "source": "Verification",
+      "target": "Papers",
+      "kind": "import",
+      "count": 86
+    },
+    {
+      "source": "Verification",
+      "target": "Schemes",
+      "kind": "import",
+      "count": 6
+    }
+  ]
+}
