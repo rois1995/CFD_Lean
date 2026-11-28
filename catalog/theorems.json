@@ -7739,6 +7739,32 @@
       ],
       "summary": "Casting the rational Burgers update to reals agrees with the entire exact-real array step.",
       "source": "specifications/E1-results.json; frozen E1 obligation 2"
+    },
+    {
+      "name": "CFDLean.Exec.E1.checkStep_sound",
+      "id": "E1-3",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.Budget",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Acceptance implies finite output and a per-cell bound for the represented inputs.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 3"
+    },
+    {
+      "name": "CFDLean.Exec.E1.real_cell_bound",
+      "id": "E1-3",
+      "milestone": "E1",
+      "module": "CFDLean.Exec.E1.Budget",
+      "status": "pending",
+      "layer": "Execution",
+      "methods": [
+        "FVM"
+      ],
+      "summary": "Every present real-step output is within the supplied absolute budget of the decoded observed cell.",
+      "source": "specifications/E1-results.json; frozen E1 obligation 3"
     }
   ]
 }
