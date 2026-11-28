@@ -250,7 +250,7 @@ JST1_COUNT = 121
 # so the pin is the v4.36 state at MR-3. `python3 scripts/verify.py --record-raw-types` rewrites the file from the
 # current run (for a deliberate, reviewed re-pin) and prints its hash.
 RAW_TYPES = "evidence/raw-types.json"
-RAW_TYPES_SHA256 = "5998210334b346a46119bc55da943506015c077b6e8b780bbd60e7185b6e83ad"
+RAW_TYPES_SHA256 = "b1326c1eb7969099aaec318839020cbe4803de01a5b052636c380da850d1c73f"
 JST1_ROOT = "CFDLean/Papers/JST1/"
 JST1_FROZEN = "specifications/JST1/frozen.sha256"
 JST1_FROZEN_SHA256 = "aca9e5e5b35684f53cb078156165fd62ba376ee5eba3c8a898dd4629aeca1405"
@@ -1112,7 +1112,7 @@ def main(record_raw_types=False):
     scope = "specifications/FV1D-WENO-reconstruction-proposal.md"
     if weno["scope"] != scope or read_source(scope) != git_blob("ba97f56d70d1a20622d4df1e7a6b96655b6426bc", scope):
         raise ValueError("WENO contract differs from the reviewed and amended scope")
-    if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W", "G-P", "G-I", "G-S", "B-F", "B-3"]:
+    if [r["id"] for r in weno["results"]] != ["U-C", "U-M", "U-W", "G-P", "G-I", "G-S", "B-F", "B-3", "E-T", "E-F", "E-A", "E-P", "E-D"]:
         raise ValueError("Unexpected WENO reconstruction result bindings")
     for r in weno["results"]:
         for control in r.get("controls", []):

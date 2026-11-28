@@ -58,6 +58,42 @@
       "declarations": [
         "CFDLean.Exec.burgersWenoSsprk3_refines"
       ]
+    },
+    {
+      "id": "E-T",
+      "declarations": [
+        "CFDLean.Exec.FV1D.eulerCell_refines"
+      ]
+    },
+    {
+      "id": "E-F",
+      "declarations": [
+        "CFDLean.Exec.FV1D.eulerReconstructedStep_refines"
+      ]
+    },
+    {
+      "id": "E-A",
+      "declarations": [
+        "CFDLean.Exec.FV1D.selectEulerPair_valid",
+        "CFDLean.Exec.FV1D.positiveState_iff_m1"
+      ],
+      "controls": [
+        "benchmarks/ReviewCases/EulerReconstructedStep.lean"
+      ]
+    },
+    {
+      "id": "E-P",
+      "declarations": [],
+      "controls": [
+        "scripts/test_fv1d.py"
+      ]
+    },
+    {
+      "id": "E-D",
+      "declarations": [],
+      "controls": [
+        "benchmarks/ReviewCases/EulerReconstructedStep.lean"
+      ]
     }
   ]
 }

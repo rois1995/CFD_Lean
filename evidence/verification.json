@@ -238,6 +238,8 @@
     "CFDLean.Exec.E1.Binary64",
     "CFDLean.Exec.E1.Budget",
     "CFDLean.Exec.E1.ExactStep",
+    "CFDLean.Exec.EulerReconstruction",
+    "CFDLean.Exec.EulerReconstructionRefinement",
     "CFDLean.Exec.EulerTraces",
     "CFDLean.Exec.FV1D",
     "CFDLean.Exec.FV1DControls",
@@ -423,14 +425,14 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "roots": 6009,
+    "roots": 6062,
     "unsafe_reached": [],
-    "visited": 65671
+    "visited": 65724
   },
   "source_modules": {
     "CFDLean": {
       "path": "CFDLean.lean",
-      "sha256": "bf45dd8b8c8b3c3c763032617d563a86e0d850d7e03f06482c953657e5282d1c"
+      "sha256": "e117bde1d8610ab4d8908a81ca119e6c9b4b4d1c8fc16ebc93b5febad4cd19b0"
     },
     "CFDLean.Discrete.Assembly": {
       "path": "CFDLean/Discrete/Assembly.lean",
@@ -555,6 +557,14 @@
     "CFDLean.Exec.E1.ExactStep": {
       "path": "CFDLean/Exec/E1/ExactStep.lean",
       "sha256": "6ed302bb09ef4d901bef77466ae82d53c8fd68cb931e4b2cb4a0c1d9ee673567"
+    },
+    "CFDLean.Exec.EulerReconstruction": {
+      "path": "CFDLean/Exec/EulerReconstruction.lean",
+      "sha256": "e920c259180dd228e6e90e89e48173d89952edffc8833c26696a7780d91101a3"
+    },
+    "CFDLean.Exec.EulerReconstructionRefinement": {
+      "path": "CFDLean/Exec/EulerReconstructionRefinement.lean",
+      "sha256": "9a1cd60f66ecee57de40e550861c320889a775da91609b42eed3a7a7baaf0ea8"
     },
     "CFDLean.Exec.EulerTraces": {
       "path": "CFDLean/Exec/EulerTraces.lean",
@@ -16645,6 +16655,428 @@
       "type": "\u2200 {\u03b1 : Type} [inst : Field \u03b1] (lim : \u03b1 \u2192 \u03b1 \u2192 \u03b1) (a u b : CFDLean.Exec.FV1D.EulerState \u03b1) (k : Fin 3),\n  CFDLean.Exec.EulerTraces.slope lim a u b k = lim (u k - a k) (b k - u k)",
       "unsafe": false
     },
+    "CFDLean.Exec.FV1D.EulerReconstruction": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "inductive",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction",
+      "raw_type": null,
+      "root": true,
+      "type": "Type",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.rec"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_1",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Exec.FV1D.EulerReconstruction \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_inst": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_1",
+        "CFDLean.Exec.FV1D.EulerReconstruction"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_inst",
+      "raw_type": null,
+      "root": true,
+      "type": "SizeOf CFDLean.Exec.FV1D.EulerReconstruction",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.casesOn": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.rec",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.casesOn",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192\n  (t : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n    motive CFDLean.Exec.FV1D.EulerReconstruction.minmod \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.weno \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorElimType",
+        "CFDLean.Exec.FV1D.EulerReconstruction.casesOn",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192\n  (ctorIdx : \u2115) \u2192\n    (t : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n      ctorIdx = t.ctorIdx \u2192 CFDLean.Exec.FV1D.EulerReconstruction.ctorElimType ctorIdx \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorElimType": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorElimType",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192 \u2115 \u2192 Sort (max 1 u)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.casesOn"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Exec.FV1D.EulerReconstruction \u2192 \u2115",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx._impl": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx._impl",
+      "raw_type": null,
+      "root": false,
+      "type": "CFDLean.Exec.FV1D.EulerReconstruction \u2192 \u2115",
+      "unsafe": true
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx._impl._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx._impl._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.minmod": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "constructor",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.minmod",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Exec.FV1D.EulerReconstruction",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192\n  (t : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n    t.ctorIdx = 0 \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.minmod \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.minmod.elim._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.minmod.sizeOf_spec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_inst",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.minmod.sizeOf_spec",
+      "raw_type": "Eq (sizeOf CFDLean.Exec.FV1D.EulerReconstruction.minmod) (OfNat.ofNat 1)",
+      "root": true,
+      "type": "sizeOf CFDLean.Exec.FV1D.EulerReconstruction.minmod = 1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.noConfusion": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.noConfusionType"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.noConfusion",
+      "raw_type": null,
+      "root": true,
+      "type": "{P : Sort v\u271d} \u2192\n  {x y : CFDLean.Exec.FV1D.EulerReconstruction} \u2192 x = y \u2192 CFDLean.Exec.FV1D.EulerReconstruction.noConfusionType P x y",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.noConfusionType": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.noConfusionType",
+      "raw_type": null,
+      "root": true,
+      "type": "Sort v\u271d \u2192 CFDLean.Exec.FV1D.EulerReconstruction \u2192 CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort v\u271d",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ofNat": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ofNat",
+      "raw_type": null,
+      "root": true,
+      "type": "\u2115 \u2192 CFDLean.Exec.FV1D.EulerReconstruction",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ofNat._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ofNat._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.ofNat_ctorIdx": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ofNat",
+        "CFDLean.Exec.FV1D.EulerReconstruction.casesOn",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.ofNat_ctorIdx",
+      "raw_type": "\u2200 (x : CFDLean.Exec.FV1D.EulerReconstruction), Eq (CFDLean.Exec.FV1D.EulerReconstruction.ofNat x.ctorIdx) x",
+      "root": true,
+      "type": "\u2200 (x : CFDLean.Exec.FV1D.EulerReconstruction), CFDLean.Exec.FV1D.EulerReconstruction.ofNat x.ctorIdx = x",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.rec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "recursor",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.rec",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192\n  motive CFDLean.Exec.FV1D.EulerReconstruction.minmod \u2192\n    motive CFDLean.Exec.FV1D.EulerReconstruction.weno \u2192 (t : CFDLean.Exec.FV1D.EulerReconstruction) \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.recOn": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.rec",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.recOn",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192\n  (t : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n    motive CFDLean.Exec.FV1D.EulerReconstruction.minmod \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.weno \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.weno": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno"
+      ],
+      "kind": "constructor",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+      "raw_type": null,
+      "root": true,
+      "type": "CFDLean.Exec.FV1D.EulerReconstruction",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorElim",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim",
+      "raw_type": null,
+      "root": true,
+      "type": "{motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u} \u2192\n  (t : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n    t.ctorIdx = 1 \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.weno \u2192 motive t",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.weno.elim._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.EulerReconstruction.weno.sizeOf_spec": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction._sizeOf_inst"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.EulerReconstruction.weno.sizeOf_spec",
+      "raw_type": "Eq (sizeOf CFDLean.Exec.FV1D.EulerReconstruction.weno) (OfNat.ofNat 1)",
+      "root": true,
+      "type": "sizeOf CFDLean.Exec.FV1D.EulerReconstruction.weno = 1",
+      "unsafe": false
+    },
     "CFDLean.Exec.FV1D.EulerState": {
       "axioms": [],
       "direct": [],
@@ -17411,6 +17843,516 @@
       "type": "\u2200 {\u03b1 : Type} [inst : Add \u03b1] [inst_1 : Sub \u03b1] [inst_2 : Mul \u03b1] [inst_3 : Div \u03b1] (one two \u03b3 : \u03b1) (abs sqrt : \u03b1 \u2192 \u03b1)\n  (max : \u03b1 \u2192 \u03b1 \u2192 \u03b1),\n  CFDLean.Exec.FV1D.euler one two \u03b3 abs sqrt max =\n    { add := fun x y k => x k + y k, sub := fun x y k => x k - y k, scale := fun a x k => a * x k,\n      flux := fun x =>\n        have p := CFDLean.Exec.FV1D.pressure one two \u03b3 x;\n        have v := x 1 / x 0;\n        CFDLean.Exec.FV1D.triple (x 1) (x 1 * v + p) ((x 2 + p) * v),\n      speed := fun x y =>\n        have endpoint := fun u => abs (u 1 / u 0) + sqrt (\u03b3 * CFDLean.Exec.FV1D.pressure one two \u03b3 u / u 0);\n        max (endpoint x) (endpoint y) }",
       "unsafe": false
     },
+    "CFDLean.Exec.FV1D.eulerCell": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerCell._proof_1",
+        "CFDLean.Exec.FV1D.triple",
+        "CFDLean.Exec.FV1D.eulerComponent",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_1",
+        "CFDLean.Exec.FV1D.selectEulerPair"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerCell",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [CFDLean.Exec.Scalar \u03b1] \u2192\n    [(n : \u2115) \u2192 OfNat \u03b1 n] \u2192\n      CFDLean.Exec.FV1D.EulerReconstruction \u2192\n        \u03b1 \u2192\n          (CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 Bool) \u2192\n            Array \u03b1 \u2192\n              (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) \u2192\n                Fin u.size \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u00d7 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerCell._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerCell._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerCell._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerCell._proof_1",
+      "raw_type": "NeZero (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))",
+      "root": true,
+      "type": "NeZero (2 + 1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerCell._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerCell._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerCell._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerCell._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerCell_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FV1D.Reconstruction.muscl",
+        "CFDLean.Periodic.Mesh1D.width",
+        "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.left_weno",
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.GradedWeno.gather",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Periodic.Mesh1D.mk",
+        "CFDLean.Periodic.Mesh1D.spacing._proof_1",
+        "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.triple_eta",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerCell._proof_1",
+        "CFDLean.Exec.FV1D.eulerCell",
+        "CFDLean.Exec.FV1D.triple",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_6",
+        "CFDLean.Exec.FV1D.eulerComponent",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.minmod_eq",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_1",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.eulerCell_refines._proof_2",
+        "CFDLean.Periodic.Mesh1D.spacing",
+        "CFDLean.Exec.FV1D.selectEulerPair",
+        "CFDLean.Exec.FV1D.positiveState",
+        "CFDLean.FV1D.Nonuniform.rightState",
+        "CFDLean.FV1D.Nonuniform.slope",
+        "CFDLean.Exec.arrayGrid",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction.mk",
+        "CFDLean.FV1D.Reconstruction",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.FV1D.Nonuniform.leftState._proof_1",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.FV1D.Nonuniform.leftState",
+        "CFDLean.Exec.FV1D.realEulerPair.match_1",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_2",
+        "CFDLean.Exec.widthAt_of_lt",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.GradedWeno.edge",
+        "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.left_muscl",
+        "CFDLean.Exec.FV1D.EulerReconstruction.casesOn",
+        "CFDLean.FV1D.Nonuniform.backDiff",
+        "CFDLean.Exec.FV1D.eulerCell_refines._proof_1",
+        "CFDLean.Exec.FV1D.realEulerPair",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod",
+        "CFDLean.FV1D.Reconstruction.traces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.eulerCell_refines",
+      "raw_type": "\u2200 (method : CFDLean.Exec.FV1D.EulerReconstruction) (\u03b3 : Real) (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x)\n  (w : Array Real) (u : Array (CFDLean.Exec.FV1D.EulerState Real)) (hw : Eq w.size u.size)\n  (hp : \u2200 (i : Fin w.size), LT.lt (OfNat.ofNat 0) (getElem w i \u22ef)) (i : Fin u.size),\n  have m := { grid := CFDLean.Exec.arrayGrid u.size, width := fun j => CFDLean.Exec.widthAt w j.val, width_pos := \u22ef };\n  Eq (CFDLean.Exec.FV1D.eulerCell method \u03b5.val (CFDLean.Exec.FV1D.positiveState \u03b3) w u i)\n    (CFDLean.Exec.FV1D.realEulerPair method m \u03b5 \u03b3 (fun j => getElem u j \u22ef) i)",
+      "root": true,
+      "type": "\u2200 (method : CFDLean.Exec.FV1D.EulerReconstruction) (\u03b3 : \u211d) (\u03b5 : { x // 0 < x }) (w : Array \u211d)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u211d)) (hw : w.size = u.size) (hp : \u2200 (i : Fin w.size), 0 < w[i])\n  (i : Fin u.size),\n  have m := { grid := CFDLean.Exec.arrayGrid u.size, width := fun j => CFDLean.Exec.widthAt w \u2191j, width_pos := \u22ef };\n  CFDLean.Exec.FV1D.eulerCell method (\u2191\u03b5) (CFDLean.Exec.FV1D.positiveState \u03b3) w u i =\n    CFDLean.Exec.FV1D.realEulerPair method m \u03b5 \u03b3 (fun j => u[j]) i",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerCell_refines._proof_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.eulerCell_refines._proof_1",
+      "raw_type": "\u2200 (w : Array Real) (u : Array (CFDLean.Exec.FV1D.EulerState Real)),\n  Eq w.size u.size \u2192 \u2200 (i : Fin w.size), Not (LT.lt i.val w.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 (w : Array \u211d) (u : Array (CFDLean.Exec.FV1D.EulerState \u211d)), w.size = u.size \u2192 \u2200 (i : Fin w.size), \u00ac\u2191i < w.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerCell_refines._proof_2": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.eulerCell_refines._proof_2",
+      "raw_type": "\u2200 (w : Array Real) (u : Array (CFDLean.Exec.FV1D.EulerState Real)) (j : Fin u.size), Not (LT.lt j.val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 (w : Array \u211d) (u : Array (CFDLean.Exec.FV1D.EulerState \u211d)) (j : Fin u.size), \u00ac\u2191j < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_6",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_1",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_2",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.wenoCell",
+        "CFDLean.Exec.FV1D.eulerComponent.match_1"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  [CFDLean.Exec.Scalar \u03b1] \u2192\n    [(n : \u2115) \u2192 OfNat \u03b1 n] \u2192\n      CFDLean.Exec.FV1D.EulerReconstruction \u2192\n        \u03b1 \u2192 Array \u03b1 \u2192 (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) \u2192 Fin u.size \u2192 Fin 3 \u2192 \u03b1 \u00d7 \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._proof_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_3"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._proof_1",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), LT.lt j.val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u2191j < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._proof_2": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_4",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._proof_2",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size), LT.lt (CFDLean.Exec.prevIdx i).val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size), \u2191(CFDLean.Exec.prevIdx i) < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._proof_3": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._proof_3",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), Not (LT.lt j.val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (j : Fin u.size), \u00ac\u2191j < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._proof_4": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.prevIdx"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._proof_4",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size),\n  Not (LT.lt (CFDLean.Exec.prevIdx i).val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size), \u00ac\u2191(CFDLean.Exec.prevIdx i) < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._proof_5": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._proof_5",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size),\n  Not (LT.lt (CFDLean.Exec.nextIdx i).val u.size) \u2192 False",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size), \u00ac\u2191(CFDLean.Exec.nextIdx i) < u.size \u2192 False",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._proof_6": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_5",
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._proof_6",
+      "raw_type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size), LT.lt (CFDLean.Exec.nextIdx i).val u.size",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size), \u2191(CFDLean.Exec.nextIdx i) < u.size",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._redArg._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._redArg._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_0": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_0",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_0._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_0._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_1": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_1",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_1._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent._redArg._lam_1._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.eulerComponent.eq_1": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerComponent",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_1",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.wenoCell"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.eulerComponent.eq_1",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] [inst_1 : (n : Nat) \u2192 OfNat \u03b1 n] (\u03b5 : \u03b1) (widths : Array \u03b1)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size) (k : Fin (OfNat.ofNat 3)),\n  Eq (CFDLean.Exec.FV1D.eulerComponent CFDLean.Exec.FV1D.EulerReconstruction.weno \u03b5 widths u i k)\n    (CFDLean.Exec.wenoCell \u03b5 (fun j => CFDLean.Exec.widthAt widths j.val) (fun j => getElem u j \u22ef k) i)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] [inst_1 : (n : \u2115) \u2192 OfNat \u03b1 n] (\u03b5 : \u03b1) (widths : Array \u03b1)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size) (k : Fin 3),\n  CFDLean.Exec.FV1D.eulerComponent CFDLean.Exec.FV1D.EulerReconstruction.weno \u03b5 widths u i k =\n    CFDLean.Exec.wenoCell \u03b5 (fun j => CFDLean.Exec.widthAt widths \u2191j) (fun j => u[j] k) i",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent.eq_2": {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.Scalar",
+        "CFDLean.Exec.Scalar.toAdd",
+        "CFDLean.Exec.Scalar.toMul",
+        "CFDLean.Exec.Scalar.two",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_6",
+        "CFDLean.Exec.FV1D.eulerComponent",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_1",
+        "CFDLean.Exec.Scalar.minmod",
+        "CFDLean.Exec.Scalar.toDiv",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.Scalar.toSub",
+        "CFDLean.Exec.FV1D.eulerComponent._proof_2",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.eulerComponent.eq_2",
+      "raw_type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] [inst_1 : (n : Nat) \u2192 OfNat \u03b1 n] (\u03b5 : \u03b1) (widths : Array \u03b1)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size) (k : Fin (OfNat.ofNat 3)),\n  Eq (CFDLean.Exec.FV1D.eulerComponent CFDLean.Exec.FV1D.EulerReconstruction.minmod \u03b5 widths u i k)\n    (Prod.mk\n      (HSub.hSub (getElem u i \u22ef k)\n        (HDiv.hDiv\n          (CFDLean.Exec.Scalar.minmod\n            (HMul.hMul\n              (HDiv.hDiv (HMul.hMul CFDLean.Exec.Scalar.two ((fun j => CFDLean.Exec.widthAt widths j.val) i))\n                (HAdd.hAdd ((fun j => CFDLean.Exec.widthAt widths j.val) (CFDLean.Exec.prevIdx i))\n                  ((fun j => CFDLean.Exec.widthAt widths j.val) i)))\n              (HSub.hSub (getElem u i \u22ef k) (getElem u (CFDLean.Exec.prevIdx i) \u22ef k)))\n            (HMul.hMul\n              (HDiv.hDiv (HMul.hMul CFDLean.Exec.Scalar.two ((fun j => CFDLean.Exec.widthAt widths j.val) i))\n                (HAdd.hAdd ((fun j => CFDLean.Exec.widthAt widths j.val) i)\n                  ((fun j => CFDLean.Exec.widthAt widths j.val) (CFDLean.Exec.nextIdx i))))\n              (HSub.hSub (getElem u (CFDLean.Exec.nextIdx i) \u22ef k) (getElem u i \u22ef k))))\n          CFDLean.Exec.Scalar.two))\n      (HAdd.hAdd (getElem u i \u22ef k)\n        (HDiv.hDiv\n          (CFDLean.Exec.Scalar.minmod\n            (HMul.hMul\n              (HDiv.hDiv (HMul.hMul CFDLean.Exec.Scalar.two ((fun j => CFDLean.Exec.widthAt widths j.val) i))\n                (HAdd.hAdd ((fun j => CFDLean.Exec.widthAt widths j.val) (CFDLean.Exec.prevIdx i))\n                  ((fun j => CFDLean.Exec.widthAt widths j.val) i)))\n              (HSub.hSub (getElem u i \u22ef k) (getElem u (CFDLean.Exec.prevIdx i) \u22ef k)))\n            (HMul.hMul\n              (HDiv.hDiv (HMul.hMul CFDLean.Exec.Scalar.two ((fun j => CFDLean.Exec.widthAt widths j.val) i))\n                (HAdd.hAdd ((fun j => CFDLean.Exec.widthAt widths j.val) i)\n                  ((fun j => CFDLean.Exec.widthAt widths j.val) (CFDLean.Exec.nextIdx i))))\n              (HSub.hSub (getElem u (CFDLean.Exec.nextIdx i) \u22ef k) (getElem u i \u22ef k))))\n          CFDLean.Exec.Scalar.two)))",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} [inst : CFDLean.Exec.Scalar \u03b1] [inst_1 : (n : \u2115) \u2192 OfNat \u03b1 n] (\u03b5 : \u03b1) (widths : Array \u03b1)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u03b1)) (i : Fin u.size) (k : Fin 3),\n  CFDLean.Exec.FV1D.eulerComponent CFDLean.Exec.FV1D.EulerReconstruction.minmod \u03b5 widths u i k =\n    (u[i] k -\n        CFDLean.Exec.Scalar.minmod\n            (CFDLean.Exec.Scalar.two * (fun j => CFDLean.Exec.widthAt widths \u2191j) i /\n                ((fun j => CFDLean.Exec.widthAt widths \u2191j) (CFDLean.Exec.prevIdx i) +\n                  (fun j => CFDLean.Exec.widthAt widths \u2191j) i) *\n              (u[i] k - u[CFDLean.Exec.prevIdx i] k))\n            (CFDLean.Exec.Scalar.two * (fun j => CFDLean.Exec.widthAt widths \u2191j) i /\n                ((fun j => CFDLean.Exec.widthAt widths \u2191j) i +\n                  (fun j => CFDLean.Exec.widthAt widths \u2191j) (CFDLean.Exec.nextIdx i)) *\n              (u[CFDLean.Exec.nextIdx i] k - u[i] k)) /\n          CFDLean.Exec.Scalar.two,\n      u[i] k +\n        CFDLean.Exec.Scalar.minmod\n            (CFDLean.Exec.Scalar.two * (fun j => CFDLean.Exec.widthAt widths \u2191j) i /\n                ((fun j => CFDLean.Exec.widthAt widths \u2191j) (CFDLean.Exec.prevIdx i) +\n                  (fun j => CFDLean.Exec.widthAt widths \u2191j) i) *\n              (u[i] k - u[CFDLean.Exec.prevIdx i] k))\n            (CFDLean.Exec.Scalar.two * (fun j => CFDLean.Exec.widthAt widths \u2191j) i /\n                ((fun j => CFDLean.Exec.widthAt widths \u2191j) i +\n                  (fun j => CFDLean.Exec.widthAt widths \u2191j) (CFDLean.Exec.nextIdx i)) *\n              (u[CFDLean.Exec.nextIdx i] k - u[i] k)) /\n          CFDLean.Exec.Scalar.two)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerComponent.match_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.casesOn",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.eulerComponent.match_1",
+      "raw_type": null,
+      "root": true,
+      "type": "(motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u_1) \u2192\n  (scheme : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n    (Unit \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.weno) \u2192\n      (Unit \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.minmod) \u2192 motive scheme",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.eulerReconstructedStep_refines": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.nextIdx",
+        "CFDLean.Exec.reconstructedStep._proof_4",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Euler1D.speed",
+        "CFDLean.Periodic.Mesh1D.mk",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.eulerCell",
+        "CFDLean.Exec.FV1D.eulerCell_refines",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Periodic.Mesh1D",
+        "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.face_real_euler",
+        "CFDLean.Exec.instScalarReal",
+        "CFDLean.Exec.FV1D.eulerCell_refines._proof_2",
+        "CFDLean.Exec.FV1D.positiveState",
+        "CFDLean.Exec.reconstructedStep._proof_6",
+        "CFDLean.Euler1D.flux",
+        "CFDLean.Exec.FV1D.realEulerReconstruction",
+        "CFDLean.Exec.arrayGrid",
+        "CFDLean.Exec.widthAt",
+        "CFDLean.Exec.reconstructedStep",
+        "CFDLean.FV1D.Reconstruction.step",
+        "CFDLean.Exec.widthAt_of_lt",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.prevIdx",
+        "CFDLean.Exec.FV1D.euler",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Vector",
+        "CFDLean.FV1D.face",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.eulerCell_refines._proof_1",
+        "CFDLean.Exec.reconstructedStep._proof_5",
+        "CFDLean.Exec.FV1D.realEulerPair"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.eulerReconstructedStep_refines",
+      "raw_type": "\u2200 (method : CFDLean.Exec.FV1D.EulerReconstruction) (\u03b3 : Real) (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x) (dt : Real)\n  (w : Array Real) (u : Array (CFDLean.Exec.FV1D.EulerState Real)) (hw : Eq w.size u.size)\n  (hp : \u2200 (i : Fin w.size), LT.lt (OfNat.ofNat 0) (getElem w i \u22ef)) (i : Fin u.size),\n  have m := { grid := CFDLean.Exec.arrayGrid u.size, width := fun j => CFDLean.Exec.widthAt w j.val, width_pos := \u22ef };\n  have model := CFDLean.Exec.FV1D.euler (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 abs Real.sqrt max;\n  Eq\n    ((getElem?\n          (CFDLean.Exec.reconstructedStep model (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)) dt w u\n            (CFDLean.Exec.FV1D.eulerCell method \u03b5.val (CFDLean.Exec.FV1D.positiveState \u03b3) w u))\n          i.val).getD\n      (OfNat.ofNat 0))\n    ((CFDLean.Exec.FV1D.realEulerReconstruction method m \u03b5 \u03b3).step\n      (CFDLean.FV1D.face (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3)) dt (fun j => getElem u j \u22ef) i)",
+      "root": true,
+      "type": "\u2200 (method : CFDLean.Exec.FV1D.EulerReconstruction) (\u03b3 : \u211d) (\u03b5 : { x // 0 < x }) (dt : \u211d) (w : Array \u211d)\n  (u : Array (CFDLean.Exec.FV1D.EulerState \u211d)) (hw : w.size = u.size) (hp : \u2200 (i : Fin w.size), 0 < w[i])\n  (i : Fin u.size),\n  have m := { grid := CFDLean.Exec.arrayGrid u.size, width := fun j => CFDLean.Exec.widthAt w \u2191j, width_pos := \u22ef };\n  have model := CFDLean.Exec.FV1D.euler 1 2 \u03b3 abs Real.sqrt max;\n  (CFDLean.Exec.reconstructedStep model (1 / 2) dt w u\n            (CFDLean.Exec.FV1D.eulerCell method (\u2191\u03b5) (CFDLean.Exec.FV1D.positiveState \u03b3) w u))[\u2191i]?.getD\n      0 =\n    (CFDLean.Exec.FV1D.realEulerReconstruction method m \u03b5 \u03b3).step\n      (CFDLean.FV1D.face (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3)) dt (fun j => u[j]) i",
+      "unsafe": false
+    },
     "CFDLean.Exec.FV1D.euler_refines": {
       "axioms": [
         "propext",
@@ -17492,6 +18434,63 @@
       "raw_type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half : \u03b1) (L R : S),\n  Eq (CFDLean.Exec.FV1D.face M half L R)\n    (M.sub (M.scale half (M.add (M.flux L) (M.flux R))) (M.scale (HMul.hMul (M.speed L R) half) (M.sub R L)))",
       "root": true,
       "type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half : \u03b1) (L R : S),\n  CFDLean.Exec.FV1D.face M half L R =\n    M.sub (M.scale half (M.add (M.flux L) (M.flux R))) (M.scale (M.speed L R * half) (M.sub R L))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._proof_1",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._proof_2"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction",
+      "raw_type": null,
+      "root": true,
+      "type": "DecidableEq CFDLean.Exec.FV1D.EulerReconstruction",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._boxed": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._boxed",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._proof_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ofNat_ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction.ofNat"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._proof_1",
+      "raw_type": "\u2200 (x y : CFDLean.Exec.FV1D.EulerReconstruction), Eq x.ctorIdx y.ctorIdx \u2192 Eq x y",
+      "root": true,
+      "type": "\u2200 (x y : CFDLean.Exec.FV1D.EulerReconstruction), x.ctorIdx = y.ctorIdx \u2192 x = y",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._proof_2": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction.ctorIdx",
+        "CFDLean.Exec.FV1D.EulerReconstruction"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.instDecidableEqEulerReconstruction._proof_2",
+      "raw_type": "\u2200 (x y : CFDLean.Exec.FV1D.EulerReconstruction), Not (Eq x.ctorIdx y.ctorIdx) \u2192 Eq x y \u2192 False",
+      "root": true,
+      "type": "\u2200 (x y : CFDLean.Exec.FV1D.EulerReconstruction), \u00acx.ctorIdx = y.ctorIdx \u2192 x = y \u2192 False",
       "unsafe": false
     },
     "CFDLean.Exec.FV1D.nonuniformStepArray": {
@@ -17630,6 +18629,105 @@
       "type": "\u2200 {\u03b1 S : Type} [inst : Mul \u03b1] [inst_1 : Div \u03b1] [inst_2 : Zero \u03b1] (M : CFDLean.Exec.FV1D.Model \u03b1 S) (half dt : \u03b1)\n  (widths : Array \u03b1) (old : Array S),\n  CFDLean.Exec.FV1D.nonuniformStepArray M half dt widths old =\n    Array.ofFn fun i =>\n      have L := old[(\u2191i + old.size - 1) % old.size];\n      have R := old[(\u2191i + 1) % old.size];\n      M.sub old[i]\n        (M.scale (dt / CFDLean.Exec.widthAt widths \u2191i)\n          (M.sub (CFDLean.Exec.FV1D.face M half old[i] R) (CFDLean.Exec.FV1D.face M half L old[i])))",
       "unsafe": false
     },
+    "CFDLean.Exec.FV1D.positiveState": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.positiveState._proof_2",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.positiveState._proof_1",
+        "CFDLean.Exec.FV1D.pressure"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.positiveState",
+      "raw_type": null,
+      "root": true,
+      "type": "\u211d \u2192 CFDLean.Exec.FV1D.EulerState \u211d \u2192 Bool",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.positiveState._proof_1": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.positiveState._proof_1",
+      "raw_type": "NeZero (HAdd.hAdd (OfNat.ofNat 2) (OfNat.ofNat 1))",
+      "root": true,
+      "type": "NeZero (2 + 1)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.positiveState._proof_2": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.positiveState._proof_2",
+      "raw_type": "(HAdd.hAdd (OfNat.ofNat 1) (OfNat.ofNat 1)).AtLeastTwo",
+      "root": true,
+      "type": "(1 + 1).AtLeastTwo",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.positiveState.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.positiveState._proof_2",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.positiveState",
+        "CFDLean.Exec.FV1D.positiveState._proof_1",
+        "CFDLean.Exec.FV1D.pressure"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.positiveState.eq_1",
+      "raw_type": "\u2200 (\u03b3 : Real) (q : CFDLean.Exec.FV1D.EulerState Real),\n  Eq (CFDLean.Exec.FV1D.positiveState \u03b3 q)\n    (decide\n      (And (LT.lt (OfNat.ofNat 0) (q \u27e80, Fin.instOfNat\u27e9))\n        (LT.lt (OfNat.ofNat 0) (CFDLean.Exec.FV1D.pressure (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 q))))",
+      "root": true,
+      "type": "\u2200 (\u03b3 : \u211d) (q : CFDLean.Exec.FV1D.EulerState \u211d),\n  CFDLean.Exec.FV1D.positiveState \u03b3 q = decide (0 < q 0 \u2227 0 < CFDLean.Exec.FV1D.pressure 1 2 \u03b3 q)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.positiveState_iff_m1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.positiveState._proof_2",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Exec.FV1D.positiveState.eq_1",
+        "CFDLean.Euler1D.decode._proof_1",
+        "CFDLean.Conservative.Admissible",
+        "CFDLean.squareSum",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.positiveState",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.Euler1D.decode",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.Exec.FV1D.positiveState._proof_1",
+        "CFDLean.Exec.FV1D.pressure",
+        "CFDLean.Exec.FV1D.pressure._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.positiveState_iff_m1",
+      "raw_type": "\u2200 (\u03b3 : Real) (q : CFDLean.Exec.FV1D.EulerState Real),\n  Iff (Eq (CFDLean.Exec.FV1D.positiveState \u03b3 q) true) (CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode q))",
+      "root": true,
+      "type": "\u2200 (\u03b3 : \u211d) (q : CFDLean.Exec.FV1D.EulerState \u211d),\n  CFDLean.Exec.FV1D.positiveState \u03b3 q = true \u2194 CFDLean.Conservative.Admissible \u03b3 (CFDLean.Euler1D.decode q)",
+      "unsafe": false
+    },
     "CFDLean.Exec.FV1D.pressure": {
       "axioms": [
         "propext"
@@ -17707,6 +18805,100 @@
       "raw_type": "\u2200 {\u03b1 : Type} [inst : Sub \u03b1] [inst_1 : Mul \u03b1] [inst_2 : Div \u03b1] (one two \u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (CFDLean.Exec.FV1D.pressure one two \u03b3 u)\n    (HMul.hMul (HSub.hSub \u03b3 one)\n      (HSub.hSub (u \u27e82, Fin.instOfNat\u27e9)\n        (HDiv.hDiv (HMul.hMul (u \u27e81, Fin.instOfNat\u27e9) (u \u27e81, Fin.instOfNat\u27e9)) (HMul.hMul two (u \u27e80, Fin.instOfNat\u27e9)))))",
       "root": true,
       "type": "\u2200 {\u03b1 : Type} [inst : Sub \u03b1] [inst_1 : Mul \u03b1] [inst_2 : Div \u03b1] (one two \u03b3 : \u03b1) (u : CFDLean.Exec.FV1D.EulerState \u03b1),\n  CFDLean.Exec.FV1D.pressure one two \u03b3 u = (\u03b3 - one) * (u 2 - u 1 * u 1 / (two * u 0))",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.realEulerPair": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FV1D.Reconstruction.muscl",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.Exec.FV1D.selectEulerPair",
+        "CFDLean.Exec.FV1D.positiveState",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.Exec.FV1D.realEulerPair.match_1",
+        "CFDLean.FV1D.Reconstruction.traces"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.realEulerPair",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type} \u2192\n  CFDLean.Exec.FV1D.EulerReconstruction \u2192\n    CFDLean.Periodic.Mesh1D I \u2192\n      { x // 0 < x } \u2192\n        \u211d \u2192 (I \u2192 CFDLean.Exec.FV1D.EulerState \u211d) \u2192 I \u2192 CFDLean.Exec.FV1D.EulerState \u211d \u00d7 CFDLean.Exec.FV1D.EulerState \u211d",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.realEulerPair.match_1": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerReconstruction.weno",
+        "CFDLean.Exec.FV1D.EulerReconstruction.casesOn",
+        "CFDLean.Exec.FV1D.EulerReconstruction.minmod"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.realEulerPair.match_1",
+      "raw_type": null,
+      "root": true,
+      "type": "(motive : CFDLean.Exec.FV1D.EulerReconstruction \u2192 Sort u_1) \u2192\n  (method : CFDLean.Exec.FV1D.EulerReconstruction) \u2192\n    (Unit \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.minmod) \u2192\n      (Unit \u2192 motive CFDLean.Exec.FV1D.EulerReconstruction.weno) \u2192 motive method",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.realEulerReconstruction": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction.mk",
+        "CFDLean.FV1D.Reconstruction",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Exec.FV1D.realEulerPair"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.realEulerReconstruction",
+      "raw_type": null,
+      "root": true,
+      "type": "{I : Type} \u2192\n  CFDLean.Exec.FV1D.EulerReconstruction \u2192\n    (m : CFDLean.Periodic.Mesh1D I) \u2192\n      { x // 0 < x } \u2192 \u211d \u2192 CFDLean.FV1D.Reconstruction m (CFDLean.Exec.FV1D.EulerState \u211d)",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.realEulerReconstruction.eq_1": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerReconstruction",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Exec.FV1D.realEulerReconstruction",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction.mk",
+        "CFDLean.FV1D.Reconstruction",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.Exec.FV1D.realEulerPair"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "CFDLean.Exec.FV1D.realEulerReconstruction.eq_1",
+      "raw_type": "\u2200 {I : Type} (method : CFDLean.Exec.FV1D.EulerReconstruction) (m : CFDLean.Periodic.Mesh1D I)\n  (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x) (\u03b3 : Real),\n  Eq (CFDLean.Exec.FV1D.realEulerReconstruction method m \u03b5 \u03b3)\n    {\n      traces := fun u i =>\n        Prod.mk (CFDLean.Exec.FV1D.realEulerPair method m \u03b5 \u03b3 u i).2\n          (CFDLean.Exec.FV1D.realEulerPair method m \u03b5 \u03b3 u (DFunLike.coe m.grid.next i)).1 }",
+      "root": true,
+      "type": "\u2200 {I : Type} (method : CFDLean.Exec.FV1D.EulerReconstruction) (m : CFDLean.Periodic.Mesh1D I) (\u03b5 : { x // 0 < x })\n  (\u03b3 : \u211d),\n  CFDLean.Exec.FV1D.realEulerReconstruction method m \u03b5 \u03b3 =\n    {\n      traces := fun u i =>\n        ((CFDLean.Exec.FV1D.realEulerPair method m \u03b5 \u03b3 u i).2,\n          (CFDLean.Exec.FV1D.realEulerPair method m \u03b5 \u03b3 u (m.grid.next i)).1) }",
       "unsafe": false
     },
     "CFDLean.Exec.FV1D.samples": {
@@ -17809,6 +19001,46 @@
       "raw_type": "\u2200 {n : Nat} {S : Type} (u : ZMod n \u2192 S), Eq (CFDLean.Exec.FV1D.samples u).size n",
       "root": true,
       "type": "\u2200 {n : \u2115} {S : Type} (u : ZMod n \u2192 S), (CFDLean.Exec.FV1D.samples u).size = n",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.selectEulerPair": {
+      "axioms": [],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState"
+      ],
+      "kind": "definition",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.selectEulerPair",
+      "raw_type": null,
+      "root": true,
+      "type": "{\u03b1 : Type} \u2192\n  (CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 Bool) \u2192\n    CFDLean.Exec.FV1D.EulerState \u03b1 \u2192\n      CFDLean.Exec.FV1D.EulerState \u03b1 \u2192\n        CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 CFDLean.Exec.FV1D.EulerState \u03b1 \u00d7 CFDLean.Exec.FV1D.EulerState \u03b1",
+      "unsafe": false
+    },
+    "CFDLean.Exec.FV1D.selectEulerPair._redArg": {
+      "axioms": [],
+      "direct": [],
+      "kind": "compiler_metadata_only",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.selectEulerPair._redArg",
+      "raw_type": null,
+      "root": false,
+      "type": null,
+      "unsafe": null
+    },
+    "CFDLean.Exec.FV1D.selectEulerPair_valid": {
+      "axioms": [
+        "propext"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.selectEulerPair"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstruction",
+      "name": "CFDLean.Exec.FV1D.selectEulerPair_valid",
+      "raw_type": "\u2200 {\u03b1 : Type} (valid : CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 Bool) (mean left right : CFDLean.Exec.FV1D.EulerState \u03b1),\n  Eq (valid mean) true \u2192\n    And (Eq (valid (CFDLean.Exec.FV1D.selectEulerPair valid mean left right).1) true)\n      (Eq (valid (CFDLean.Exec.FV1D.selectEulerPair valid mean left right).2) true)",
+      "root": true,
+      "type": "\u2200 {\u03b1 : Type} (valid : CFDLean.Exec.FV1D.EulerState \u03b1 \u2192 Bool) (mean left right : CFDLean.Exec.FV1D.EulerState \u03b1),\n  valid mean = true \u2192\n    valid (CFDLean.Exec.FV1D.selectEulerPair valid mean left right).1 = true \u2227\n      valid (CFDLean.Exec.FV1D.selectEulerPair valid mean left right).2 = true",
       "unsafe": false
     },
     "CFDLean.Exec.FV1D.size_nonuniformStepArray": {
@@ -148180,6 +149412,129 @@
       "type": "\u2200 (x y : \u211a), \u2191(CFDLean.Exec.Scalar.rusanov x y) = CFDLean.Exec.Scalar.rusanov \u2191x \u2191y",
       "unsafe": false
     },
+    "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.face_real_euler": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.Model.scale",
+        "CFDLean.Conservative.energy",
+        "CFDLean.Euler1D.speed",
+        "CFDLean.Euler1D.endpointSpeed",
+        "CFDLean.FV1D.face._proof_1",
+        "CFDLean.Euler1D.decode._proof_1",
+        "CFDLean.Exec.FV1D.Model.flux",
+        "CFDLean.physicalFlux",
+        "CFDLean.squareSum",
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.face",
+        "CFDLean.Exec.FV1D.triple",
+        "CFDLean.Conservative.mk",
+        "CFDLean.Exec.FV1D.Model.add",
+        "CFDLean.Euler1D.flux",
+        "CFDLean.Conservative.density",
+        "CFDLean.Conservative.momentum",
+        "CFDLean.dot",
+        "CFDLean.Exec.FV1D.Model.speed",
+        "CFDLean.Exec.FV1D.Model.sub",
+        "CFDLean.Exec.FV1D.euler",
+        "CFDLean.Vector",
+        "CFDLean.Euler1D.decode",
+        "CFDLean.Exec.FV1D.Model.mk",
+        "CFDLean.Conservative.pressure._proof_1",
+        "CFDLean.Conservative",
+        "CFDLean.Conservative.pressure",
+        "CFDLean.FV1D.face",
+        "CFDLean.Exec.FV1D.Model",
+        "CFDLean.Exec.FV1D.pressure",
+        "CFDLean.Exec.FV1D.pressure._proof_1",
+        "CFDLean.Euler1D.encode._proof_1"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.face_real_euler",
+      "raw_type": "\u2200 (\u03b3 : Real),\n  Eq\n    (CFDLean.Exec.FV1D.face (CFDLean.Exec.FV1D.euler (OfNat.ofNat 1) (OfNat.ofNat 2) \u03b3 abs Real.sqrt max)\n      (HDiv.hDiv (OfNat.ofNat 1) (OfNat.ofNat 2)))\n    (CFDLean.FV1D.face (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3))",
+      "root": true,
+      "type": "\u2200 (\u03b3 : \u211d),\n  CFDLean.Exec.FV1D.face (CFDLean.Exec.FV1D.euler 1 2 \u03b3 abs Real.sqrt max) (1 / 2) =\n    CFDLean.FV1D.face (CFDLean.Euler1D.flux \u03b3) (CFDLean.Euler1D.speed \u03b3)",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.left_muscl": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.FV1D.Reconstruction.muscl",
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Scalar.FiniteVolume.minmod",
+        "CFDLean.FV1D.Nonuniform.rightState",
+        "CFDLean.FV1D.Nonuniform.slope",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction.mk",
+        "CFDLean.FV1D.Reconstruction",
+        "CFDLean.FV1D.Nonuniform.leftState._proof_1",
+        "CFDLean.FV1D.Nonuniform.leftState",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.FV1D.Reconstruction.traces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.left_muscl",
+      "raw_type": "\u2200 {I : Type} (m : CFDLean.Periodic.Mesh1D I) (v : I \u2192 Real) (i : I),\n  Eq ((CFDLean.FV1D.Reconstruction.muscl m CFDLean.Scalar.FiniteVolume.minmod).traces v (m.grid.prev i)).2\n    (HSub.hSub (v i)\n      (HDiv.hDiv (CFDLean.FV1D.Nonuniform.slope m CFDLean.Scalar.FiniteVolume.minmod v i) (OfNat.ofNat 2)))",
+      "root": true,
+      "type": "\u2200 {I : Type} (m : CFDLean.Periodic.Mesh1D I) (v : I \u2192 \u211d) (i : I),\n  ((CFDLean.FV1D.Reconstruction.muscl m CFDLean.Scalar.FiniteVolume.minmod).traces v (m.grid.prev i)).2 =\n    v i - CFDLean.FV1D.Nonuniform.slope m CFDLean.Scalar.FiniteVolume.minmod v i / 2",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.left_weno": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Periodic.Mesh1D.width",
+        "CFDLean.Periodic.Grid.next_prev",
+        "CFDLean.GradedWeno.gather",
+        "CFDLean.Periodic.Grid.prev",
+        "CFDLean.GradedWeno.Stencil",
+        "CFDLean.Periodic.Mesh1D",
+        "CFDLean.Periodic.Mesh1D.grid",
+        "CFDLean.FV1D.Reconstruction.gradedWeno",
+        "CFDLean.Periodic.Grid.next",
+        "CFDLean.GradedWeno.edge",
+        "CFDLean.FV1D.Reconstruction.traces"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.left_weno",
+      "raw_type": "\u2200 {I : Type} (m : CFDLean.Periodic.Mesh1D I) (v : I \u2192 Real) (\u03b5 : Subtype fun x => LT.lt (OfNat.ofNat 0) x) (i : I),\n  Eq ((CFDLean.FV1D.Reconstruction.gradedWeno m \u03b5).traces v (m.grid.prev i)).2\n    (CFDLean.GradedWeno.edge \u03b5.val (CFDLean.GradedWeno.gather (DFunLike.coe m.grid.next) m.grid.prev m.width i)\n      (CFDLean.GradedWeno.gather (DFunLike.coe m.grid.next) m.grid.prev v i))",
+      "root": true,
+      "type": "\u2200 {I : Type} (m : CFDLean.Periodic.Mesh1D I) (v : I \u2192 \u211d) (\u03b5 : { x // 0 < x }) (i : I),\n  ((CFDLean.FV1D.Reconstruction.gradedWeno m \u03b5).traces v (m.grid.prev i)).2 =\n    CFDLean.GradedWeno.edge (\u2191\u03b5) (CFDLean.GradedWeno.gather (\u21d1m.grid.next) m.grid.prev m.width i)\n      (CFDLean.GradedWeno.gather (\u21d1m.grid.next) m.grid.prev v i)",
+      "unsafe": false
+    },
+    "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.triple_eta": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct": [
+        "CFDLean.Exec.FV1D.EulerState",
+        "CFDLean.Exec.FV1D.triple"
+      ],
+      "kind": "theorem",
+      "module": "CFDLean.Exec.EulerReconstructionRefinement",
+      "name": "_private.CFDLean.Exec.EulerReconstructionRefinement.0.CFDLean.Exec.FV1D.triple_eta",
+      "raw_type": "\u2200 (f : CFDLean.Exec.FV1D.EulerState Real),\n  Eq (CFDLean.Exec.FV1D.triple (f \u27e80, Fin.instOfNat\u27e9) (f \u27e81, Fin.instOfNat\u27e9) (f \u27e82, Fin.instOfNat\u27e9)) f",
+      "root": true,
+      "type": "\u2200 (f : CFDLean.Exec.FV1D.EulerState \u211d), CFDLean.Exec.FV1D.triple (f 0) (f 1) (f 2) = f",
+      "unsafe": false
+    },
     "_private.CFDLean.Exec.FV1DControls.0.CFDLean.Exec.FV1D.entry": {
       "axioms": [
         "propext",
@@ -155144,7 +156499,7 @@
   "mc_n_base_revision": "497b356610429c0760597724551b746605e038ba",
   "mc_n_unchanged_sources": 23,
   "catalog": "catalog/theorems.json",
-  "catalog_entries": 613,
+  "catalog_entries": 617,
   "fva_promised_theorems": [
     "CFDLean.Exec.FV1D.burgers_refines",
     "CFDLean.Exec.FV1D.euler_refines"
@@ -155748,5 +157103,5 @@
   "jst1_comparator": "Challenges/JST1.comparator.json",
   "jst1_comparator_theorems": 121,
   "raw_types": "evidence/raw-types.json",
-  "raw_types_checked": 613
+  "raw_types_checked": 617
 }
